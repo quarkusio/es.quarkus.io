@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+<head>
+  <title>Creando su primera aplicación - Quarkus</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src https://dpm.demdex.net; script-src 'self' 'unsafe-eval' 'sha256-ANpuoVzuSex6VhqpYgsG25OHWVA1I+F6aGU04LoI+5s=' 'sha256-ipy9P/3rZZW06mTLAR0EnXvxSNcnfSDPLDuh3kzbB1w=' js.bizographics.com https://www.redhat.com https://static.redhat.com assets.adobedtm.com jsonip.com https://ajax.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://use.fontawesome.com https://app.mailjet.com http://www.youtube.com http://www.googleadservices.com https://googleads.g.doubleclick.net https://dpm.demdex.net https://giscus.app; style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; img-src 'self' *; media-src 'self'; frame-src https://www.googletagmanager.com https://www.youtube.com https://embed.restream.io https://app.mailjet.com https://giscus.app; base-uri 'none'; object-src 'none'; form-action 'none'; font-src 'self' https://use.fontawesome.com https://fonts.gstatic.com;" />
+  <script id="adobe_dtm" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+  <script src="/assets/javascript/highlight.pack.js" type="text/javascript"></script>
+  <META HTTP-EQUIV='X-XSS-Protection' CONTENT="1; mode=block">
+  <META HTTP-EQUIV='X-Content-Type-Options' CONTENT="nosniff">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quarkus: Supersonic Subatomic Java">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@QuarkusIO"> 
+  <meta name="twitter:creator" content="@QuarkusIO">
+  <meta property="og:url" content="https://quarkus.io/guides/getting-started" />
+  <meta property="og:title" content="Creando su primera aplicación" />
+  <meta property="og:description" content="Quarkus: Supersonic Subatomic Java" />
+  <meta property="og:image" content="https://quarkus.io/assets/images/quarkus_card.png" />
+  
+  <link rel="canonical" href="https://quarkus.io/guides/getting-started">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" >
+  <link rel="stylesheet" href="/guides/stylesheet/config.css" />
+  <link rel="stylesheet" href="/assets/css/main.css?2021-07-29" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml"  href="/feed.xml" title="Quarkus">
+  <script src="/assets/javascript/goan.js" type="text/javascript"></script>
+  <script src="/assets/javascript/hl.js" type="text/javascript"></script>
+</head>
+
+<body class="guides">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJWS5L"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  
+
+<div class="grid-wrapper communitysite">
+  <div class="grid__item width-12-12">The <a href="https://quarkus.io">English version of quarkus.io</a> is the official project site. Translated sites are community supported on a best-effort basis.</div>
+</div>
+
+
+  <div class="nav-wrapper">
+  <div class="grid-wrapper">
+    <div class="width-12-12">
+      <input type="checkbox" id="checkbox" />
+      <nav id="main-nav" class="main-nav">
+  <div class="container">
+    <div class="logo-wrapper">
+        <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_600px_reverse.png" class="project-logo" title="Quarkus"></a>
+    </div>
+    <label class="nav-toggle" for="checkbox"> <i class="fa fa-bars"></i>
+</label>
+    <ul id="menu" class="menu">
+      <li class="dropdown">
+        <span href="/about/">Acerca de <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/about" class="">¿QUE ES QUARKUS?</a></li>
+          <li><a href="/container-first" class="">CONTENEDOR PRIMERO</a></li>
+          <li><a href="/continuum" class="">REACTIVO</a></li>
+          <li><a href="/developer-joy" class="">SATISFACCION DEL DESARROLLADOR</a></li>
+          <li><a href="/kubernetes-native" class="">KUBERNETES NATIVE</a></li>
+          <li><a href="/standards" class="">ESTANDARES</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="/learn/">Aprende <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/get-started" class="">EMPEZAR</a></li>
+          <li><a href="/guides" class="active">GUIAS</a></li>
+          <li><a href="/qtips" class="">"Q" TIP VIDEOS</a></li>          
+          <li><a href="/books" class="">LIBROS</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+        <span href="/community/">Community <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/support/" class="">SOPORTE</a></li>
+          <li><a href="/blog" class="">BLOG</a></li>
+          <li><a href="/discussion" class="">DISCUSIONES</a></li>
+          <li><a href="/insights" class="">PODCAST</a></li>
+          <li><a href="/events" class="">EVENTOS</a></li>
+          <li><a href="/newsletter" class="">NEWSLETTER</a></li>
+          <li><a href="/publications" class="">PUBLICACIONES</a></li>
+          <li><a href="/awards" class="">PREMIOS</a></li>
+          </ul>
+      </li>
+      <li>
+        <a href="https://code.quarkus.io" class="button-cta secondary white">Empezar
+a codificar</a>
+      </li>
+      <li class="dropdown">
+        <span href="/language/"><div class="fas fa-globe langicon"></div><i class="fas fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="https://quarkus.io/" >OFFICIAL (ENGLISH)</a></li>
+          <li><a href="https://ja.quarkus.io/">日本語 - JAPANESE</a></li>
+          <li><a href="https://cn.quarkus.io/">简体中文 - CHINESE</a></li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    
+
+
+
+<div class="full-width-version-bg grey align-self">
+  <div class="grid-wrapper">
+    <div class="grid__item width-6-12">
+      <p class="returnlink"><i class="fas fa-angle-left"></i><a href="/guides/"> Back to Guides</a></p>
+    </div>
+    <div class="grid__item width-6-12 align-self-center text-right hide-mobile">
+      <label id="guide-version-label">Select Guide Version</label>
+      <select id="guide-version-dropdown">
+        
+      
+        
+        
+        
+        
+          
+        <option value="main" >Main - SNAPSHOT</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="latest" selected>2.10 - Latest</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="2.7" >2.7</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="2.2" >2.2</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="1.11" >1.11</option>
+        
+        
+      
+    
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrapper guide">
+  <div class="grid__item width-12-12 width-12-12-mobile">
+    <h1 class="text-caps">Creando su primera aplicación </h1>
+  </div>
+  <div class="width-12-12">
+    <div class="hide-mobile toc"><ul class="sectlevel1">
+<li><a href="#requisitos-previos">1. Requisitos previos</a></li>
+<li><a href="#arquitectura">2. Arquitectura</a></li>
+<li><a href="#solución">3. Solución</a></li>
+<li><a href="#puesta-en-marcha-del-proyecto">4. Puesta en marcha del proyecto</a>
+<ul class="sectlevel2">
+<li><a href="#los-recursos-jax-rs">4.1. Los recursos JAX-RS</a></li>
+</ul>
+</li>
+<li><a href="#ejecución-de-la-aplicación">5. Ejecución de la aplicación</a></li>
+<li><a href="#uso-de-la-inyección">6. Uso de la inyección</a></li>
+<li><a href="#modo-de-desarrollo">7. Modo de desarrollo</a></li>
+<li><a href="#probando">8. Probando</a></li>
+<li><a href="#trabajar-con-un-proyecto-multimodal-o-con-módulos-externos">9. Trabajar con un proyecto multimodal o con módulos externos</a></li>
+<li><a href="#empaquetar-y-ejecutar-la-aplicación">10. Empaquetar y ejecutar la aplicación</a></li>
+<li><a href="#banner">11. Configuración del banner</a></li>
+<li><a href="#qué-es-lo-que-sigue">12. ¿Qué es lo que sigue?</a></li>
+</ul></div>
+    <div>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Aprende como crear una aplicación Hello World de Quarkus. Esta guía cubre:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Puesta en marcha de una aplicación</p>
+</li>
+<li>
+<p>Creación de un endpoint JAX-RS</p>
+</li>
+<li>
+<p>Inyección de beans</p>
+</li>
+<li>
+<p>Pruebas funcionales</p>
+</li>
+<li>
+<p>Packaging de la aplicación</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requisitos-previos"><a class="anchor" href="#requisitos-previos"></a>1. Requisitos previos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To complete this guide, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Roughly 15 minutes</p>
+</li>
+<li>
+<p>An IDE</p>
+</li>
+<li>
+<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+</li>
+<li>
+<p>Apache Maven 3.8.1+</p>
+</li>
+<li>
+<p>Optionally the <a href="cli-tooling">Quarkus CLI</a> if you want to use it</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Verifique que Maven está usando el Java que espera</div>
+<div class="paragraph">
+<p>If you have multiple JDK&#8217;s installed, it is not certain Maven will pick up the expected java and you could end up with unexpected results. You can verify which JDK Maven uses by running <code>mvn --version</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquitectura"><a class="anchor" href="#arquitectura"></a>2. Arquitectura</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En esta guía, creamos una aplicación sencilla que sirve un endpoint de <code>hello</code>. Para demostrar la inyección de dependencias, este endpoint utiliza un bean <code>greeting</code>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="/guides/images/getting-started-architecture.png" alt="Arquitectura,">
+</div>
+</div>
+<div class="paragraph">
+<p>Esta guía también cubre las pruebas del endpoint.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solución"><a class="anchor" href="#solución"></a>3. Solución</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le recomendamos que siga las instrucciones desde el <a href="#bootstrapping-the-project">Proyecto de Bootstrapping</a> y en adelante para crear la aplicación paso a paso.</p>
+</div>
+<div class="paragraph">
+<p>Sin embargo, puede ir directamente al ejemplo completo.</p>
+</div>
+<div class="paragraph">
+<p>Descarga un <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">archive</a> o clona el repositorio git:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/quarkusio/quarkus-quickstarts.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La solución se encuentra en <code>getting-started</code> <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/main/getting-started">directorio</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="puesta-en-marcha-del-proyecto"><a class="anchor" href="#puesta-en-marcha-del-proyecto"></a>4. Puesta en marcha del proyecto</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La forma más fácil de crear un nuevo proyecto de Quarkus es abrir un terminal y ejecutar el siguiente comando:</p>
+</div>
+<div class="paragraph">
+<p>Para usuarios de Linux y MacOS</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus create app org.acme:getting-started \
+    --extension=resteasy-reactive
+cd getting-started</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>--gradle</code> or <code>--gradle-kotlin-dsl</code> option.</p>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:2.10.3.Final:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=getting-started \
+    -Dextensions="resteasy-reactive"
+cd getting-started</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>-DbuildTool=gradle</code> or <code>-DbuildTool=gradle-kotlin-dsl</code> option.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para los usuarios de Windows</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Si utiliza cmd , (no utilice la barra invertida <code>\</code> y ponga todo en la misma línea)</p>
+</li>
+<li>
+<p>Si utiliza Powershell, envuelva los parámetros de <code>-D</code> entre comillas dobles, por ejemplo <code>"-DprojectArtifactId=getting-started"</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Genera lo siguiente en <code>./getting-started</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>la estructura de Maven</p>
+</li>
+<li>
+<p>un recurso de <code>org.acme.GreetingResource</code> expuesto en <code>/hello</code></p>
+</li>
+<li>
+<p>una prueba unitaria asociada</p>
+</li>
+<li>
+<p>una página inicial que es accesible en <code>&lt;a href="http://localhost:8080" class="bare"&gt;<a href="http://localhost:8080&lt;/a&gt" class="bare">http://localhost:8080&lt;/a&gt</a>;</code> después de iniciar la aplicación</p>
+</li>
+<li>
+<p>ejemplo <code>Dockerfile</code> archivos para los modos <code>native</code> y <code>jvm</code> en <code>src/main/docker</code></p>
+</li>
+<li>
+<p>el archivo de configuración de la aplicación</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Una vez generado, mira el <code>pom.xml</code>. Encontrarás la importación Quarkus BOM, permitiendo omitir la versión de las diferentes dependencias de Quarkus. Además, se puede ver el <code>quarkus-maven-plugin</code> responsable del empaquetado de la aplicación y también proporcionar el modo de desarrollo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+            &lt;artifactId&gt;quarkus-bom&lt;/artifactId&gt;
+            &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;${quarkus.platform.group-id}&lt;/groupId&gt;
+            &lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${quarkus.platform.version}&lt;/version&gt;
+            &lt;extensions&gt;true&lt;/extensions&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;build&lt;/goal&gt;
+                        &lt;goal&gt;generate-code&lt;/goal&gt;
+                        &lt;goal&gt;generate-code-tests&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En un proyecto Gradle, se encontraría una configuración similar:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>el plugin Quarkus Gradle</p>
+</li>
+<li>
+<p>una directiva <code>enforcedPlatform</code> para Quarkus BOM</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Si nos centramos en la sección de dependencias, se puede ver la extensión que permite el desarrollo de aplicaciones REST:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-resteasy-reactive&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">implementation("io.quarkus:quarkus-resteasy-reactive")</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="los-recursos-jax-rs"><a class="anchor" href="#los-recursos-jax-rs"></a>4.1. Los recursos JAX-RS</h3>
+<div class="paragraph">
+<p>Durante la creación del proyecto, se ha creado el archivo <code>src/main/java/org/acme/GreetingResource.java</code> con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/hello")
+public class GreetingResource {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello from RESTEasy Reactive";
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Se trata de un endpoint REST muy sencillo, que devuelve "Hello from RESTEasy Reactive" a las peticiones en "/hello".</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Diferencias con el vanilla JAX-RS</div>
+<div class="paragraph">
+<p>Con Quarkus, no es necesario crear una clase <code>Application</code>. Se admite, pero no se requiere. Además, solo se crea una instancia del recurso y no una por solicitud. Esto se puede configurar utilizando las diferentes anotaciones de <code>*Scoped</code> ( <code>ApplicationScoped</code>, <code>RequestScoped</code>, etc).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ejecución-de-la-aplicación"><a class="anchor" href="#ejecución-de-la-aplicación"></a>5. Ejecución de la aplicación</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ahora estamos listos para ejecutar nuestra aplicación:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew --console=plain quarkusDev</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">[INFO] --------------------&lt; org.acme:getting-started &gt;---------------------
+[INFO] Building getting-started 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ getting-started ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory &lt;path&gt;/getting-started/src/main/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ getting-started ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to &lt;path&gt;/getting-started/target/classes
+[INFO]
+[INFO] --- quarkus-maven-plugin:&lt;version&gt;:dev (default-cli) @ getting-started ---
+Listening for transport dt_socket at address: 5005
+2019-02-28 17:05:22,347 INFO  [io.qua.dep.QuarkusAugmentor] (main) Beginning quarkus augmentation
+2019-02-28 17:05:22,635 INFO  [io.qua.dep.QuarkusAugmentor] (main) Quarkus augmentation completed in 288ms
+2019-02-28 17:05:22,770 INFO  [io.quarkus] (main) Quarkus started in 0.668s. Listening on: http://localhost:8080
+2019-02-28 17:05:22,771 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy-reactive]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Una vez iniciado, puede usar el endpoint proporcionado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ curl -w "\n" http://localhost:8080/hello
+Hello from RESTEasy Reactive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pulsa <code>CTRL+C</code> para detener la aplicación, o mantenla en funcionamiento y disfruta de la rapidísima recarga en caliente.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Añadir automáticamente una nueva línea con <code>curl -w "\n"</code></div>
+<div class="paragraph">
+<p>En este ejemplo utilizamos <code>curl -w "\n"</code> para evitar que su terminal imprima un '%' o ponga el resultado y el siguiente comando en la misma línea.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="uso-de-la-inyección"><a class="anchor" href="#uso-de-la-inyección"></a>6. Uso de la inyección</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La inyección de dependencias en Quarkus se basa en ArC, que es una solución de inyección de dependencias basada en CDI y adaptada a la arquitectura de Quarkus. Si eres nuevo en CDI, te recomendamos que leas la guía de <a href="cdi">Introducción a CDI</a>.</p>
+</div>
+<div class="paragraph">
+<p>Quarkus sólo implementa un subconjunto de las características de CDI y viene con características no estándar y APIS específicas, puedes aprender más sobre esto en la <a href="cdi-reference">Guía de contextos e inyección de dependencias</a>.</p>
+</div>
+<div class="paragraph">
+<p>ArC viene como una dependencia de <code>quarkus-resteasy-reactive</code> por lo que ya lo tienes a mano.</p>
+</div>
+<div class="paragraph">
+<p>Vamos a modificar la aplicación y a añadir un bean de acompañamiento. Crea el archivo <code>src/main/java/org/acme/GreetingService.java</code> con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme;
+
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class GreetingService {
+
+    public String greeting(String name) {
+        return "hello " + name;
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edite la clase <code>GreetingResource</code> para inyectar el <code>GreetingService</code> y cree un nuevo punto final utilizándolo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/hello")
+public class GreetingResource {
+
+    @Inject
+    GreetingService service;
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/greeting/{name}")
+    public String greeting(String name) {
+        return service.greeting(name);
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "hello";
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si has detenido la aplicación (ten en cuenta que no tienes que hacerlo, los cambios se desplegarán automáticamente por nuestra función de recarga en vivo), reinicia la aplicación con:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw quarkus:dev</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew --console=plain quarkusDev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, compruebe que el endpoint devuelve <code>hello quarkus</code> como se esperaba:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ curl -w "\n" http://localhost:8080/hello/greeting/quarkus
+hello quarkus</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modo-de-desarrollo"><a class="anchor" href="#modo-de-desarrollo"></a>7. Modo de desarrollo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>quarkus:dev</code> ejecuta Quarkus en modo de desarrollo. Esto permite la recarga en vivo con compilación en segundo plano, lo que significa que cuando se modifican los archivos Java y/o los archivos de recursos y se actualiza el navegador, estos cambios tendrán efecto automáticamente. Esto funciona también para los archivos de recursos como el archivo de propiedades de configuración. Al actualizar el navegador, se realiza un análisis del área de trabajo y, si se detecta algún cambio, se recopilaran los archivos Java y se vuelve a desplegar la aplicación; la solicitud se atiende entonces con la aplicación re-desplegada. Si hay algún problema con la compilación o el despliegue, una página de error le informará.</p>
+</div>
+<div class="paragraph">
+<p>Esto también c un depurador en el puerto <code>5005</code>. Si quieres esperar a que el depurador se conecte antes de ejecutarlo puedes pasar <code>-Dsuspend</code> en la línea de comandos. Si no quieres el depurador en absoluto puedes usar <code>-Ddebug=false</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="probando"><a class="anchor" href="#probando"></a>8. Probando</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>De acuerdo, hasta aquí todo bien, pero no sería mejor con unas cuantas pruebas, por si acaso.</p>
+</div>
+<div class="paragraph">
+<p>En el archivo de construcción generado, puede ver 2 dependencias de prueba:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-junit5&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.rest-assured&lt;/groupId&gt;
+    &lt;artifactId&gt;rest-assured&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">testImplementation("io.quarkus:quarkus-junit5")
+testImplementation("io.rest-assured:rest-assured")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Quarkus es compatible con las pruebas de <a href="https://junit.org/junit5/">JUnit 5</a>.</p>
+</div>
+<div class="paragraph">
+<p>Debido a esto, en el caso de Maven, se debe establecer la versión del <a href="https://maven.apache.org/surefire/maven-surefire-plugin/">Surefire Maven Plugin</a>, ya que la versión por defecto no soporta JUnit 5:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;plugin&gt;
+    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${surefire-plugin.version}&lt;/version&gt;
+    &lt;configuration&gt;
+       &lt;systemPropertyVariables&gt;
+          &lt;java.util.logging.manager&gt;org.jboss.logmanager.LogManager&lt;/java.util.logging.manager&gt;
+          &lt;maven.home&gt;${maven.home}&lt;/maven.home&gt;
+       &lt;/systemPropertyVariables&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También establecemos la propiedad del sistema <code>java.util.logging</code> para asegurarnos de que las pruebas utilizarán el gestor de registros correcto y <code>maven.home</code> para asegurarnos de que se aplica la configuración personalizada de <code>${maven.home}/conf/settings.xml</code> (si la hay).</p>
+</div>
+<div class="paragraph">
+<p>El proyecto generado contiene una prueba sencilla. Edite el <code>src/test/java/org/acme/GreetingResourceTest.java</code> para que coincida con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
+@QuarkusTest
+public class GreetingResourceTest {
+
+    @Test    <i class="conum" data-value="1"></i><b>(1)</b>
+    public void testHelloEndpoint() {
+        given()
+          .when().get("/hello")
+          .then()
+             .statusCode(200)    <i class="conum" data-value="2"></i><b>(2)</b>
+             .body(is("hello"));
+    }
+
+    @Test
+    public void testGreetingEndpoint() {
+        String uuid = UUID.randomUUID().toString();
+        given()
+          .pathParam("name", uuid)
+          .when().get("/hello/greeting/{name}")
+          .then()
+            .statusCode(200)
+            .body(is("hello " + uuid));
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Utilizando el runner <code>QuarkusTest</code>, se indica a JUnit que inicie la aplicación antes que las pruebas.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Compruebe el código de estado de la respuesta HTTP y el contenido</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Estas pruebas utilizan <a href="http://rest-assured.io/">RestAssured</a>, pero siéntase libre de utilizar su biblioteca favorita.</p>
+</div>
+<div class="paragraph">
+<p>Puedes ejecutarlas con Maven:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw test</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También puede ejecutar la prueba desde su IDE directamente (asegúrese de detener la aplicación primero).</p>
+</div>
+<div class="paragraph">
+<p>Por defecto, las pruebas se ejecutarán en el puerto <code>8081</code> para no entrar en conflicto con la aplicación en ejecución. Configuramos automáticamente RestAssured para utilizar este puerto. Si desea utilizar un cliente diferente, deberá utilizar la anotación <code>@TestHTTPResource</code> para inyectar directamente la URL de la aplicación probada en un campo de la clase de prueba. Este campo puede ser del tipo <code>String</code>, <code>URL</code> o <code>URI</code>. A esta anotación también se le puede dar un valor para la ruta de prueba. Por ejemplo, si quiero probar un Servlet mapeado en <code>/myservlet</code> sólo tendría que añadir lo siguiente a mi prueba:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@TestHTTPResource("/myservlet")
+URL testUrl;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El puerto de prueba puede ser controlado a través de la propiedad de configuración <code>quarkus.http.test-port</code>. Quarkus también crea una propiedad del sistema llamada <code>test.url</code> que se establece en la URL de prueba base para situaciones en las que no se puede utilizar la inyección.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="trabajar-con-un-proyecto-multimodal-o-con-módulos-externos"><a class="anchor" href="#trabajar-con-un-proyecto-multimodal-o-con-módulos-externos"></a>9. Trabajar con un proyecto multimodal o con módulos externos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quarkus utiliza en gran medida <a href="https://github.com/wildfly/jandex">Jandex</a> en tiempo de construcción, para descubrir varias clases o anotaciones. Una aplicación inmediatamente reconocible de esto, es el descubrimiento de bean CDI. Como resultado, la mayoría de las extensiones de Quarkus no funcionarán correctamente si este descubrimiento en tiempo de construcción no está configurado correctamente.</p>
+</div>
+<div class="paragraph">
+<p>Este índice se crea por defecto en el proyecto en el que se configura Quarkus, gracias a nuestros plugins de Maven y Gradle.</p>
+</div>
+<div class="paragraph">
+<p>Sin embargo, cuando trabajes con un proyecto multimódulo, asegúrate de leer la sección <code>Working with multi-module projects</code> de las guías de <a href="maven-tooling#multi-module-maven">Maven</a> o <a href="gradle-tooling#multi-module-maven">Gradle</a>.</p>
+</div>
+<div class="paragraph">
+<p>Si tiene previsto utilizar módulos externos (por ejemplo, una biblioteca externa para todos sus objetos de dominio), tendrá que dar a conocer estos módulos al proceso de indexación, ya sea añadiendo el plugin de Jandex (si puede modificarlos) o a través de la propiedad <code>quarkus.index-dependency</code> dentro de su <code>application.properties</code> (útil en los casos en que no pueda modificar el módulo).</p>
+</div>
+<div class="paragraph">
+<p>Asegúrese de leer la sección de <a href="cdi-reference#bean_discovery">Bean Discovery</a> de la guía CDI para obtener más información.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="empaquetar-y-ejecutar-la-aplicación"><a class="anchor" href="#empaquetar-y-ejecutar-la-aplicación"></a>10. Empaquetar y ejecutar la aplicación</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La aplicación se empaqueta con:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Produce varias salidas en <code>/target</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>getting-started-1.0.0-SNAPSHOT.jar</code> - que contiene sólo las clases y recursos de los proyectos, es el artefacto regular producido por la construcción de Maven - <strong>no</strong> es el jar ejecutable;</p>
+</li>
+<li>
+<p>el directorio <code>quarkus-app</code> que contiene el archivo jar <code>quarkus-run.jar</code> - siendo un <em>jar</em> ejecutable. Tenga en cuenta que no es un <em>über-jar</em> ya que las dependencias se copian en subdirectorios de <code>quarkus-app/lib/</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Puedes ejecutar la aplicación con: <code>java -jar target/quarkus-app/quarkus-run.jar</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Si quieres desplegar tu aplicación en algún lugar (normalmente en un contenedor), necesitas desplegar todo el directorio <code>quarkus-app</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Antes de ejecutar la aplicación, no olvides detener el modo de recarga en caliente (pulsa <code>CTRL+C</code>), o tendrás un conflicto de puertos.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="banner"><a class="anchor" href="#banner"></a>11. Configuración del banner</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, when a Quarkus application starts (in regular or dev mode), it will display an ASCII art banner. The banner can be disabled by setting <code>quarkus.banner.enabled=false</code> in <code>application.properties</code>, by setting the <code>-Dquarkus.banner.enabled=false</code> Java System Property, or by setting the <code>QUARKUS_BANNER_ENABLED</code> environment variable to <code>false</code>. Furthermore, users can supply a custom banner by placing the banner file in <code>src/main/resources</code> and configuring <code>quarkus.banner.path=name-of-file</code> in <code>application.properties</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="qué-es-lo-que-sigue"><a class="anchor" href="#qué-es-lo-que-sigue"></a>12. ¿Qué es lo que sigue?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Esta guía cubre la creación de una aplicación utilizando Quarkus. Sin embargo, hay mucho más. Recomendamos continuar el viaje con la guía de <a href="building-native-image">Guía para construir un ejecutable nativo</a>, donde se aprende a crear un ejecutable nativo y empaquetarlo en un contenedor. Si te interesa lo reactivo, te recomendamos la guía <a href="getting-started-reactive">Primeros pasos con la guía reactiva</a>, donde podrás ver cómo implementar aplicaciones reactivas con Quarkus.</p>
+</div>
+<div class="paragraph">
+<p>Además, el documento <a href="tooling">Guía de herramientas</a> explica cómo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>armar un proyecto en una sola línea de comandos</p>
+</li>
+<li>
+<p>activar el <em>modo de desarrollo</em> (recarga en caliente)</p>
+</li>
+<li>
+<p>importar el proyecto en su IDE favorito</p>
+</li>
+<li>
+<p>y más</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="content project-footer">
+  <div class="footer-section">
+    <div class="logo-wrapper">
+      <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_reverse.svg" class="project-logo" title="Quarkus"></a>
+    </div>
+  </div>
+  <div class="grid-wrapper">
+    <p class="grid__item width-3-12">Quarkus is open. Todas las dependencias de este proyecto están disponible bajo la <a href='https://www.apache.org/licenses/LICENSE-2.0' target='_blank'>Licencia Apache Software 2.0</a> o una licencia compatible.<br /><br />Este sitio web fue construido con <a href='https://jekyllrb.com/' target='_blank'>Jekyll</a>, está alojado en <a href='https://pages.github.com/' target='_blank'>GitHub Pages</a> y es completamente de código abierto. Si quieres mejorarlo, <a href='https://github.com/quarkusio/quarkusio.github.io' target='_blank'>crea un fork de la página web</a> y muéstranos lo que tienes.</p>
+
+    
+      <div class="width-1-12 project-links">
+        <span>Navigation</span>
+        <ul class="footer-links">
+          
+            <li><a href="/">Home</a></li>
+          
+            <li><a href="/about">Acerca&nbsp;de</a></li>
+          
+            <li><a href="/blog">Blog</a></li>
+          
+            <li><a href="/insights">Podcast</a></li>
+          
+            <li><a href="/events">Eventos</a></li>
+          
+            <li><a href="/newsletter">Newsletter</a></li>
+          
+            <li><a href="/publications">Publicaciones</a></li>
+          
+            <li><a href="/awards">Premios</a></li>
+          
+            <li><a href="/security">Política&nbsp;de&nbsp;seguridad</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Síguenos</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://twitter.com/quarkusio">Twitter</a></li>
+          
+            <li><a href="https://www.facebook.com/quarkusio">Facebook</a></li>
+          
+            <li><a href="https://www.linkedin.com/company/quarkusio/">Linkedin</a></li>
+          
+            <li><a href="https://www.youtube.com/channel/UCaW8QG_QoIk_FnjLgr5eOqg">Youtube</a></li>
+          
+            <li><a href="https://github.com/quarkusio">GitHub</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-2-12 project-links">
+        <span>Obtener ayuda</span>
+        <ul class="footer-links">
+          
+            <li><a href="/support">Soporte</a></li>
+          
+            <li><a href="/guides">Guías</a></li>
+          
+            <li><a href="/faq">FAQ</a></li>
+          
+            <li><a href="/get-started">Introducción</a></li>
+          
+            <li><a href="https://stackoverflow.com/questions/tagged/quarkus">Stack Overflow</a></li>
+          
+            <li><a href="https://github.com/quarkusio/quarkus/discussions">Discusiones</a></li>
+          
+            <li><a href="https://groups.google.com/forum/#!forum/quarkus-dev">Lista de correo de desarrollo</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Languages</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://quarkus.io/">English</a></li>
+          
+            <li><a href="https://ja.quarkus.io/">日本語</a></li>
+          
+            <li><a href="https://cn.quarkus.io/">简体中文</a></li>
+          
+        </ul>
+      </div>
+    
+
+    
+      <div class="width-4-12 more-links">
+        <span>Quarkus está hecho a base de proyectos comunitarios</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://vertx.io/" target="_blank">Eclipse Vert.x</a></li>
+          
+            <li><a href="https://smallrye.io" target="_blank">SmallRye</a></li>
+          
+            <li><a href="https://hibernate.org" target="_blank">Hibernate</a></li>
+          
+            <li><a href="https://netty.io" target="_blank">Netty</a></li>
+          
+            <li><a href="https://resteasy.github.io" target="_blank">RESTEasy</a></li>
+          
+            <li><a href="https://camel.apache.org" target="_blank">Apache Camel</a></li>
+          
+            <li><a href="https://microprofile.io" target="_blank">Eclipse MicroProfile</a></li>
+          
+            <li><a href="https://code.quarkus.io/" target="_blank">Y muchos más...</a></li>
+          
+        </ul>
+      </div>
+    
+  </div>
+</div>
+
+  <div class="content redhat-footer">
+  <div class="grid-wrapper">
+    <span class="licence">
+      <i class="fab fa-creative-commons"></i><i class="fab fa-creative-commons-by"></i> <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC by 3.0</a> | <a href="https://www.redhat.com/en/about/privacy-policy">Privacy Policy</a>
+    </span>
+    <span class="redhat">
+      Sponsored by
+    </span>
+    <span class="redhat-logo">
+      <a href="https://www.redhat.com/" target="_blank"><img src="/assets/images/redhat_reversed.svg"></a>
+    </span>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/assets/javascript/mobile-nav.js"></script>
+  <script type="text/javascript" src="/assets/javascript/scroll-down.js"></script>
+  <script src="/assets/javascript/satellite.js" type="text/javascript"></script>
+  <script src="/guides/javascript/config.js" type="text/javascript"></script>
+  <script src="/assets/javascript/search-filter.js" type="text/javascript"></script>
+  <script src="/assets/javascript/guides-version-dropdown.js" type="text/javascript"></script>
+  <script src="/assets/javascript/back-to-top.js" type="text/javascript"></script>
+  <script src="/assets/javascript/clipboard.min.js" type="text/javascript"></script>
+  <script src="/assets/javascript/copy.js" type="text/javascript"></script>
+  <script src="/assets/javascript/asciidoc-tabs.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+<head>
+  <title>Building a Native Executable - main - Quarkus</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src https://dpm.demdex.net; script-src 'self' 'unsafe-eval' 'sha256-ANpuoVzuSex6VhqpYgsG25OHWVA1I+F6aGU04LoI+5s=' 'sha256-ipy9P/3rZZW06mTLAR0EnXvxSNcnfSDPLDuh3kzbB1w=' js.bizographics.com https://www.redhat.com https://static.redhat.com assets.adobedtm.com jsonip.com https://ajax.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://use.fontawesome.com https://app.mailjet.com http://www.youtube.com http://www.googleadservices.com https://googleads.g.doubleclick.net https://dpm.demdex.net https://giscus.app; style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; img-src 'self' *; media-src 'self'; frame-src https://www.googletagmanager.com https://www.youtube.com https://embed.restream.io https://app.mailjet.com https://giscus.app; base-uri 'none'; object-src 'none'; form-action 'none'; font-src 'self' https://use.fontawesome.com https://fonts.gstatic.com;" />
+  <script id="adobe_dtm" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+  <script src="/assets/javascript/highlight.pack.js" type="text/javascript"></script>
+  <META HTTP-EQUIV='X-XSS-Protection' CONTENT="1; mode=block">
+  <META HTTP-EQUIV='X-Content-Type-Options' CONTENT="nosniff">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quarkus: Supersonic Subatomic Java">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@QuarkusIO"> 
+  <meta name="twitter:creator" content="@QuarkusIO">
+  <meta property="og:url" content="https://quarkus.io/version/main/guides/building-native-image" />
+  <meta property="og:title" content="Building a Native Executable - main" />
+  <meta property="og:description" content="Quarkus: Supersonic Subatomic Java" />
+  <meta property="og:image" content="https://quarkus.io/assets/images/quarkus_card.png" />
+  
+  <link rel="canonical" href="https://quarkus.io/guides/building-native-image">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" >
+  <link rel="stylesheet" href="/guides/stylesheet/config.css" />
+  <link rel="stylesheet" href="/assets/css/main.css?2021-07-29" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml"  href="/feed.xml" title="Quarkus">
+  <script src="/assets/javascript/goan.js" type="text/javascript"></script>
+  <script src="/assets/javascript/hl.js" type="text/javascript"></script>
+</head>
+
+<body class="guides">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJWS5L"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  
+
+<div class="grid-wrapper communitysite">
+  <div class="grid__item width-12-12">The <a href="https://quarkus.io">English version of quarkus.io</a> is the official project site. Translated sites are community supported on a best-effort basis.</div>
+</div>
+
+
+  <div class="nav-wrapper">
+  <div class="grid-wrapper">
+    <div class="width-12-12">
+      <input type="checkbox" id="checkbox" />
+      <nav id="main-nav" class="main-nav">
+  <div class="container">
+    <div class="logo-wrapper">
+        <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_600px_reverse.png" class="project-logo" title="Quarkus"></a>
+    </div>
+    <label class="nav-toggle" for="checkbox"> <i class="fa fa-bars"></i>
+</label>
+    <ul id="menu" class="menu">
+      <li class="dropdown">
+        <span href="/about/">Acerca de <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/about" class="">¿QUE ES QUARKUS?</a></li>
+          <li><a href="/container-first" class="">CONTENEDOR PRIMERO</a></li>
+          <li><a href="/continuum" class="">REACTIVO</a></li>
+          <li><a href="/developer-joy" class="">SATISFACCION DEL DESARROLLADOR</a></li>
+          <li><a href="/kubernetes-native" class="">KUBERNETES NATIVE</a></li>
+          <li><a href="/standards" class="">ESTANDARES</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="/learn/">Aprende <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/get-started" class="">EMPEZAR</a></li>
+          <li><a href="/guides" class="active">GUIAS</a></li>
+          <li><a href="/qtips" class="">"Q" TIP VIDEOS</a></li>          
+          <li><a href="/books" class="">LIBROS</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+        <span href="/community/">Community <i class="fas
+fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="/support/" class="">SOPORTE</a></li>
+          <li><a href="/blog" class="">BLOG</a></li>
+          <li><a href="/discussion" class="">DISCUSIONES</a></li>
+          <li><a href="/insights" class="">PODCAST</a></li>
+          <li><a href="/events" class="">EVENTOS</a></li>
+          <li><a href="/newsletter" class="">NEWSLETTER</a></li>
+          <li><a href="/publications" class="">PUBLICACIONES</a></li>
+          <li><a href="/awards" class="">PREMIOS</a></li>
+          </ul>
+      </li>
+      <li>
+        <a href="https://code.quarkus.io" class="button-cta secondary white">Empezar
+a codificar</a>
+      </li>
+      <li class="dropdown">
+        <span href="/language/"><div class="fas fa-globe langicon"></div><i class="fas fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="https://quarkus.io/" >OFFICIAL (ENGLISH)</a></li>
+          <li><a href="https://ja.quarkus.io/">日本語 - JAPANESE</a></li>
+          <li><a href="https://cn.quarkus.io/">简体中文 - CHINESE</a></li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    
+
+
+
+<div class="full-width-version-bg grey align-self">
+  <div class="grid-wrapper">
+    <div class="grid__item width-6-12">
+      <p class="returnlink"><i class="fas fa-angle-left"></i><a href="/version/main/guides/"> Back to Guides</a></p>
+    </div>
+    <div class="grid__item width-6-12 align-self-center text-right hide-mobile">
+      <label id="guide-version-label">Select Guide Version</label>
+      <select id="guide-version-dropdown">
+        
+      
+        
+        
+        
+        
+          
+        <option value="main" selected>Main - SNAPSHOT</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="latest" >2.10 - Latest</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="2.7" >2.7</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="2.2" >2.2</option>
+        
+        
+      
+        
+        
+        
+        
+          
+        <option value="1.11" >1.11</option>
+        
+        
+      
+    
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="grid-wrapper guide">
+  <div class="grid__item width-12-12 width-12-12-mobile">
+    <h1 class="text-caps">Building a Native Executable </h1>
+  </div>
+  <div class="width-12-12">
+    <div class="hide-mobile toc"><ul class="sectlevel1">
+<li><a href="#graalvm">GraalVM</a></li>
+<li><a href="#prerequisites">Prerequisites</a>
+<ul class="sectlevel2">
+<li><a href="#configuring-graalvm">Configuring GraalVM</a></li>
+</ul>
+</li>
+<li><a href="#solution">Solution</a></li>
+<li><a href="#producing-a-native-executable">Producing a native executable</a>
+<ul class="sectlevel2">
+<li><a href="#build-fully-static-native-executables">Build fully static native executables</a></li>
+</ul>
+</li>
+<li><a href="#testing-the-native-executable">Testing the native executable</a>
+<ul class="sectlevel2">
+<li><a href="#profiles">Profiles</a></li>
+</ul>
+</li>
+</ul></div>
+    <div>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide covers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Compiling the application to a native executable</p>
+</li>
+<li>
+<p>Packaging the native executable in a container</p>
+</li>
+<li>
+<p>Debugging native executable</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This guide takes as input the application developed in the <a href="getting-started">Getting Started Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graalvm"><a class="anchor" href="#graalvm"></a>GraalVM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Building a native executable requires using a distribution of GraalVM. There are three distributions: Oracle GraalVM Community Edition (CE), Oracle GraalVM Enterprise Edition (EE) and Mandrel. The differences between the Oracle and Mandrel distributions are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mandrel is a downstream distribution of the Oracle GraalVM CE. Mandrel&#8217;s main goal is to provide a way to build native executables specifically designed to support Quarkus.</p>
+</li>
+<li>
+<p>Mandrel releases are built from a code base derived from the upstream Oracle GraalVM CE code base, with only minor changes but some significant exclusions that are not necessary for Quarkus native apps. They support the same capabilities to build native executables as Oracle GraalVM CE, with no significant changes to functionality. Notably, they do not include support for polyglot programming. The reason for these exclusions is to provide a better level of support for the majority of Quarkus users. These exclusions also mean Mandrel offers a considerable reduction in its distribution size when compared with Oracle GraalVM CE/EE.</p>
+</li>
+<li>
+<p>Mandrel is built slightly differently to Oracle GraalVM CE, using the standard OpenJDK project. This means that it does not profit from a few small enhancements that Oracle have added to the version of OpenJDK used to build their own GraalVM downloads. These enhancements are omitted because upstream OpenJDK does not manage them, and cannot vouch for. This is particularly important when it comes to conformance and security.</p>
+</li>
+<li>
+<p>Mandrel is recommended for building native executables that target Linux containerized environments. This means that Mandrel users are encouraged to use containers to build their native executables. If you are building native executables for macOS, you should consider using Oracle GraalVM instead, because Mandrel does not currently target this platform. Building native executables directly on bare metal Linux or Windows is possible, with details available in the <a href="https://github.com/graalvm/mandrel/blob/default/README.md">Mandrel README</a> and <a href="https://github.com/graalvm/mandrel/releases">Mandrel releases</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To complete this guide, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Roughly 15 minutes</p>
+</li>
+<li>
+<p>An IDE</p>
+</li>
+<li>
+<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+</li>
+<li>
+<p>Apache Maven 3.8.1+</p>
+</li>
+<li>
+<p>A working container runtime (Docker or <a href="podman">Podman</a>)</p>
+</li>
+<li>
+<p>Optionally the <a href="cli-tooling">Quarkus CLI</a> if you want to use it</p>
+</li>
+<li>
+<p>Mandrel or GraalVM installed and <a href="#configuring-graalvm">configured appropriately</a></p>
+</li>
+<li>
+<p>A <a href="#configuring-c-development">working C development environment</a></p>
+</li>
+<li>
+<p>The code of the application developed in the <a href="getting-started">Getting Started Guide</a>.</p>
+</li>
+</ul>
+</div>
+<div id="configuring-c-development" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Supporting native compilation in C</div>
+<div class="paragraph">
+<p>What does having a working C developer environment mean?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Linux, you will need GCC, and the glibc and zlib headers. Examples for common distributions:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># dnf (rpm-based)
+sudo dnf install gcc glibc-devel zlib-devel libstdc++-static
+# Debian-based distributions:
+sudo apt-get install build-essential libz-dev zlib1g-dev</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>XCode provides the required dependencies on macOS:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">xcode-select --install</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>On Windows, you will need to install the <a href="https://aka.ms/vs/15/release/vs_buildtools.exe">Visual Studio 2017 Visual C++ Build Tools</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="configuring-graalvm"><a class="anchor" href="#configuring-graalvm"></a>Configuring GraalVM</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you cannot install GraalVM, you can use a multi-stage Docker build to run Maven inside a Docker container that embeds GraalVM. There is an explanation of how to do this at the end of this guide.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Version 22.0.0 is required. Using the community edition is enough.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install GraalVM if you haven&#8217;t already. You have a few options for this:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Download the appropriate archive from <a href="https://github.com/graalvm/mandrel/releases" class="bare">https://github.com/graalvm/mandrel/releases</a> or <a href="https://github.com/graalvm/graalvm-ce-builds/releases" class="bare">https://github.com/graalvm/graalvm-ce-builds/releases</a>, and unpack it like you would any other JDK.</p>
+</li>
+<li>
+<p>Use platform-specific install tools like <a href="https://sdkman.io/jdks#Oracle">sdkman</a>, <a href="https://github.com/graalvm/homebrew-tap">homebrew</a>, or <a href="https://github.com/ScoopInstaller/Java">scoop</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Configure the runtime environment. Set <code>GRAALVM_HOME</code> environment variable to the GraalVM installation directory, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GRAALVM_HOME=$HOME/Development/graalvm/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On macOS (not supported by Mandrel), point the variable to the <code>Home</code> sub-directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export GRAALVM_HOME=$HOME/Development/graalvm/Contents/Home/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On Windows, you will have to go through the Control Panel to set your environment variables.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Installing via scoop will do this for you.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>(Only for Oracle GraalVM CE/EE) Install the <code>native-image</code> tool using <code>gu install</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">${GRAALVM_HOME}/bin/gu install native-image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Some previous releases of GraalVM included the <code>native-image</code> tool by default. This is no longer the case; it must be installed as a second step after GraalVM itself is installed. Note: there is an outstanding issue <a href="#graal-and-catalina">using GraalVM with macOS Catalina</a>.</p>
+</div>
+</li>
+<li>
+<p>(Optional) Set the <code>JAVA_HOME</code> environment variable to the GraalVM installation directory.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export JAVA_HOME=${GRAALVM_HOME}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>(Optional) Add the GraalVM <code>bin</code> directory to the path</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH=${GRAALVM_HOME}/bin:$PATH</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="graal-and-catalina" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Issues using GraalVM with macOS Catalina</div>
+<div class="paragraph">
+<p>GraalVM binaries are not (yet) notarized for macOS Catalina as reported in this <a href="https://github.com/oracle/graal/issues/1724">GraalVM issue</a>. This means that you may see the following error when using <code>gu</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">“gu” cannot be opened because the developer cannot be verified</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use the following command to recursively delete the <code>com.apple.quarantine</code> extended attribute on the GraalVM install directory as a workaround:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">xattr -r -d com.apple.quarantine ${GRAALVM_HOME}/../..</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solution"><a class="anchor" href="#solution"></a>Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We recommend that you follow the instructions in the next sections and package the application step by step. However, you can go right to the completed example.</p>
+</div>
+<div class="paragraph">
+<p>Clone el repositorio Git: <code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code> o descargue un <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/main.zip">archivo</a>.</p>
+</div>
+<div class="paragraph">
+<p>The solution is located in the <code>getting-started</code> directory.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="producing-a-native-executable"><a class="anchor" href="#producing-a-native-executable"></a>Producing a native executable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The native executable for our application will contain the application code, required libraries, Java APIs, and a reduced version of a VM. The smaller VM base improves the startup time of the application and produces a minimal disk footprint.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/native-executable-process.png" alt="Creating a native executable"></span></p>
+</div>
+<div class="paragraph">
+<p>If you have generated the application from the previous tutorial, you can find in the <code>pom.xml</code> the following <em>profile</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;native&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;quarkus.package.type&gt;native&lt;/quarkus.package.type&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can provide custom options for the <code>native-image</code> command using the <code>&lt;quarkus.native.additional-build-args&gt;</code> property. Multiple options may be separated by a comma.</p>
+</div>
+<div class="paragraph">
+<p>Another possibility is to include the <code>quarkus.native.additional-build-args</code> configuration property in your <code>application.properties</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can find more information about how to configure the native image building process in the <a href="#configuration-reference">[configuration-reference]</a> section below.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We use a profile because, you will see very soon, packaging the native executable takes a <em>few</em> minutes. You could just pass -Dquarkus.package.type=native as a property on the command line, however it is better to use a profile as this allows native image tests to also be run.</p>
+</div>
+<div class="paragraph">
+<p>Create a native executable using:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build --native</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw package -Dnative</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew build -Dquarkus.package.type=native</code></pre>
+</div>
+</div>
+<div id="graal-and-windows" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Issues with packaging on Windows</div>
+<div class="paragraph">
+<p>The Microsoft Native Tools for Visual Studio must first be initialized before packaging. You can do this by starting the <code>x64 Native Tools Command Prompt</code> that was installed with the Visual Studio Build Tools. At <code>x64 Native Tools Command Prompt</code> you can navigate to your project folder and run <code>mvnw package -Pnative</code>.</p>
+</div>
+<div class="paragraph">
+<p>Another solution is to write a script to do this for you:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cmd /c 'call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat" &amp;&amp; mvn package -Pnative'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In addition to the regular files, the build also produces <code>target/getting-started-1.0.0-SNAPSHOT-runner</code>. You can run it using: <code>./target/getting-started-1.0.0-SNAPSHOT-runner</code>.</p>
+</div>
+<div id="graal-package-preview" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Java preview features</div>
+<div class="paragraph">
+<p>Java code that relies on preview features requires special attention. To produce a native executable, this means that the <code>--enable-preview</code> flag needs to be passed to the underlying native image invocation. You can do so by prepending the flag with <code>-J</code> and passing it as additional native build argument: <code>-Dquarkus.native.additional-build-args=-J&#8212;&#8203;enable-preview</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="build-fully-static-native-executables"><a class="anchor" href="#build-fully-static-native-executables"></a>Build fully static native executables</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Fully static native executables support is experimental.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>On Linux it&#8217;s possible to package a native executable that doesn&#8217;t depend on any system shared library. There are <a href="https://www.graalvm.org/22.1/reference-manual/native-image/StaticImages/#preparation">some system requirements</a> to be fulfilled and additional build arguments to be used along with the <code>native-image</code> invocation, a minimum is <code>-Dquarkus.native.additional-build-args="--static","--libc=musl"</code>.</p>
+</div>
+<div class="paragraph">
+<p>Compiling fully static binaries is done by statically linking <a href="https://musl.libc.org/">musl</a> instead of <code>glibc</code> and should not be used in production without rigorous testing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing-the-native-executable"><a class="anchor" href="#testing-the-native-executable"></a>Testing the native executable</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Producing a native executable can lead to a few issues, and so it&#8217;s also a good idea to run some tests against the application running in the native file. The reasoning is explained in the <a href="getting-started-testing#quarkus-integration-test">Testing Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>To see the <code>GreetingResourceIT</code> run against the native executable, use <code>./mvnw verify -Pnative</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ ./mvnw verify -Pnative
+...
+[getting-started-1.0.0-SNAPSHOT-runner:18820]     universe:     587.26 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]      (parse):   2,247.59 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]     (inline):   1,985.70 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]    (compile):  14,922.77 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]      compile:  20,361.28 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]        image:   2,228.30 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]        write:     364.35 ms
+[getting-started-1.0.0-SNAPSHOT-runner:18820]      [total]:  52,777.76 ms
+[INFO]
+[INFO] --- maven-failsafe-plugin:2.22.1:integration-test (default) @ getting-started ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.acme.quickstart.GreetingResourceIT
+Executing [/data/home/gsmet/git/quarkus-quickstarts/getting-started/target/getting-started-1.0.0-SNAPSHOT-runner, -Dquarkus.http.port=8081, -Dtest.url=http://localhost:8081, -Dquarkus.log.file.path=build/quarkus.log]
+2019-04-15 11:33:20,348 INFO  [io.quarkus] (main) Quarkus 999-SNAPSHOT started in 0.002s. Listening on: http://[::]:8081
+2019-04-15 11:33:20,348 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy-reactive]
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.387 s - in org.acme.quickstart.GreetingResourceIT
+...</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By default, Quarkus waits for 60 seconds for the native image to start before automatically failing the native tests. This duration can be changed using the <code>quarkus.test.wait-time</code> system property. For example, to increase the duration to 300 seconds, use: <code>./mvnw verify -Pnative -Dquarkus.test.wait-time=300</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This procedure was formerly accomplished using the <code>@NativeImageTest</code> annotation. <code>@NativeImageTest</code> is considered deprecated in favor of <code>@QuarkusIntegrationTest</code> which provides a superset of the testing capabilities of <code>@NativeImageTest</code>. More information about <code>@QuarkusIntegrationTest</code> can be found in the <a href="getting-started-testing#quarkus-integration-test">Testing Guide</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="profiles"><a class="anchor" href="#profiles"></a>Profiles</h3>
+<div class="paragraph">
+<p>By default, integration tests both <strong>build</strong> and <strong>run</strong> the native executable using the <code>prod</code> profile.</p>
+</div>
+<div class="paragraph">
+<p>You can override the profile the executable <strong>runs</strong> with during the test using the <code>quarkus.test.native-image-profile</code> property. Either by adding it to <code>application.properties</code> or by appending it to the command line: <code>./mvnw verify -Pnative -Dquarkus.test.native-image-profile=test</code>. Your <code>%test.</code> prefixed properties will be used at the test runtime.</p>
+</div>
+<div class="paragraph">
+<p>You can override the profile the executable is <strong>built</strong> with and <strong>runs</strong> with using the <code>quarkus-profile=test</code> property, e.g. <code>./mvnw clean verify -Pnative -Dquarkus-profile=test</code>. This might come handy if there are test specific resources to be processed, such as importing test data into the database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-quarkus.native.resources.includes=version.txt %test.quarkus.native.resources.includes=version.txt hljs" data-lang="quarkus.native.resources.includes=version.txt %test.quarkus.native.resources.includes=version.txt">With the aforementioned example in your `application.properties`, your Hibernate ORM managed database will be populated with test data both during the JVM mode test run and during the native mode test run. The production executable will contain only the `version.txt` resource, no superfluous test data.
+
+[WARNING]
+====
+The executable built with `-Dquarkus-profile=test` is not suitable for production deployment. It contains your test resources files and settings. Once the testing is done, the executable would have to be built again, using the default, `prod` profile.
+====
+
+=== Java preview features
+
+[[graal-test-preview]]
+[NOTE]
+.Java preview features
+====
+Java code that relies on preview features requires special attention. To test a native executable, this means that the `--enable-preview` flag needs to be passed to the Surefire plugin. Adding `&lt;argLine&gt;--enable-preview&lt;/argLine&gt;` to its `configuration` section is one way to do so.
+====
+
+=== Excluding tests when running as a native executable
+
+When running tests this way, the only things that actually run natively are you application endpoints, which you can only test via HTTP calls. Your test code does not actually run natively, so if you are testing code that does not call your HTTP endpoints, it's probably not a good idea to run them as part of native tests.
+
+If you share your test class between JVM and native executions like we advise above, you can mark certain tests with the `@DisabledOnIntegrationTest` annotation in order to skip them when testing against a native image.
+
+[NOTE]
+====
+Using `@DisabledOnIntegrationTest` will also disable the test in all integration test instances, including testing the application in JVM mode, in a container image, and native image.
+====
+
+=== Testing an existing native executable
+
+It is also possible to re-run the tests against a native executable that has already been built. To do this run `./mvnw test-compile failsafe:integration-test -Pnative`. This will discover the existing native image and run the tests against it using failsafe.
+
+If the process cannot find the native image for some reason, or you want to test a native image that is no longer in the target directory you can specify the executable with the `-Dnative.image.path=` system property.
+
+[#container-runtime]
+== Creating a Linux executable without GraalVM installed
+
+IMPORTANT: Before going further, be sure to have a working container runtime (Docker, podman) environment. If you use Docker on Windows you should share your project's drive at Docker Desktop file share settings and restart Docker Desktop.
+
+Quite often one only needs to create a native Linux executable for their Quarkus application (for example in order to run in a containerized environment) and would like to avoid the trouble of installing the proper GraalVM version in order to accomplish this task (for example, in CI environments it's common practice to install as little software as possible).
+
+To this end, Quarkus provides a very convenient way of creating a native Linux executable by leveraging a container runtime such as Docker or podman. The easiest way of accomplishing this task is to execute:
+
+[source, bash, subs=attributes+,,  role="primary asciidoc-tabs-sync-cli"]
+.CLI
+----
+quarkus build --native --no-tests -Dquarkus.native.container-build=true
+# The --no-tests flag is required only on Windows and macOS.
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-maven"]
+.Maven
+----
+./mvnw package -Dnative -Dquarkus.native.container-build=true
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-gradle"]
+.Gradle
+----
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+----
+
+[TIP]
+====
+By default, Quarkus automatically detects the container runtime. If you want to explicitly select the container runtime, you can do it with:
+
+For Docker:
+
+:build-additional-parameters: -Dquarkus.native.container-runtime=docker
+[source, bash, subs=attributes+,,  role="primary asciidoc-tabs-sync-cli"]
+.CLI
+----
+quarkus build --native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-maven"]
+.Maven
+----
+./mvnw package -Dnative -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-gradle"]
+.Gradle
+----
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+:!build-additional-parameters:
+
+For podman:
+
+:build-additional-parameters: -Dquarkus.native.container-runtime=podman
+[source, bash, subs=attributes+,,  role="primary asciidoc-tabs-sync-cli"]
+.CLI
+----
+quarkus build --native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-maven"]
+.Maven
+----
+./mvnw package -Dnative -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-gradle"]
+.Gradle
+----
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+:!build-additional-parameters:
+
+These are normal Quarkus config properties, so if you always want to build in a container it is recommended you add these to your `application.properties` in order to avoid specifying them every time.
+====
+
+[TIP]
+====
+If you see the following invalid path error for your application JAR when trying to create a native executable using a container build, even though your JAR was built successfully, you're most likely using a remote daemon for your container runtime.
+----
+Error: Invalid Path entry getting-started-1.0.0-SNAPSHOT-runner.jar
+Caused by: java.nio.file.NoSuchFileException: /project/getting-started-1.0.0-SNAPSHOT-runner.jar
+----
+In this case, use the parameter `-Dquarkus.native.remote-container-build=true` instead of `-Dquarkus.native.container-build=true`.
+
+The reason for this is that the local build driver invoked through `-Dquarkus.native.container-build=true` uses volume mounts to make the JAR available in the build container, but volume mounts do not work with remote daemons. The remote container build driver copies the necessary files instead of mounting them. Note that even though the remote driver also works with local daemons, the local driver should be preferred in the local case because mounting is usually more performant than copying.
+====
+
+[TIP]
+====
+Building with Mandrel requires a custom builder image parameter to be passed additionally:
+
+:build-additional-parameters: -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel:{mandrel-flavor}
+[source, bash, subs=attributes+,,  role="primary asciidoc-tabs-sync-cli"]
+.CLI
+----
+quarkus build --native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-maven"]
+.Maven
+----
+./mvnw package -Dnative -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+[source, bash, subs=attributes+,,  role="secondary asciidoc-tabs-sync-gradle"]
+.Gradle
+----
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true {build-additional-parameters}
+----
+:!build-additional-parameters:
+
+Please note that the above command points to a floating tag. It is highly recommended to use the floating tag, so that your builder image remains up-to-date and secure. If you absolutely must, you may hard-code to a specific tag (see https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags[here] for available tags), but be aware that you won't get security updates that way and it's unsupported.
+====
+
+== Creating a container
+
+=== Using the container-image extensions
+
+By far the easiest way to create a container-image from your Quarkus application is to leverage one of the container-image extensions.
+
+If one of those extensions is present, then creating a container image for the native executable is essentially a matter of executing a single command:
+
+[source, bash]
+----
+./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+----
+
+* `quarkus.native.container-build=true` allows for creating a Linux executable without GraalVM being installed (and is only necessary if you don't have GraalVM installed locally or your local operating system is not Linux)
+* `quarkus.container-image.build=true` instructs Quarkus to create a container-image using the final application artifact (which is the native executable in this case)
+
+See the xref:container-image.adoc[Container Image guide] for more details.
+
+=== Manually using the micro base image
+
+You can run the application in a container using the JAR produced by the Quarkus Maven Plugin. However, in this section we focus on creating a container image using the produced native executable.
+
+image:containerization-process.png[Containerization Process]
+
+When using a local GraalVM installation, the native executable targets your local operating system (Linux, macOS, Windows etc). However, as a container may not use the same _executable_ format as the one produced by your operating system, we will instruct the Maven build to produce an executable by leveraging a container runtime (as described in &lt;&lt;#container-runtime,this section&gt;&gt;):
+
+The produced executable will be a 64-bit Linux executable, so depending on your operating system it may no longer be runnable. However, it's not an issue as we are going to copy it to a container. The project generation has provided a `Dockerfile.native-micro` in the `src/main/docker` directory with the following content:
+
+[source, dockerfile]
+----
+FROM quay.io/quarkus/quarkus-micro-image:1.0
+WORKDIR /work/
+COPY target/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+----
+
+[NOTE]
+.Quarkus Micro Image?
+====
+The Quarkus Micro Image is a small container image providing the right set of dependencies to run your native application. It is based on https://catalog.redhat.com/software/containers/ubi8-micro/601a84aadd19c7786c47c8ea?container-tabs=overview[UBI Micro]. This base image has been tailored to work perfectly in containers.
+
+You can read more about UBI images on:
+
+* https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Introduction to Universal Base Image]
+* https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56[Red Hat Universal Base Image 8]
+
+UBI images can be used without any limitations.
+
+xref:quarkus-runtime-base-image.adoc[This page] explains how to extend the `quarkus-micro` image when your application has specific requirements.
+====
+
+Then, if you didn't delete the generated native executable, you can build the docker image with:
+
+[source, bash]
+----
+docker build -f src/main/docker/Dockerfile.native -t quarkus-quickstart/getting-started .
+----
+
+And finally, run it with:
+
+[source, bash]
+----
+docker run -i --rm -p 8080:8080 quarkus-quickstart/getting-started
+----
+
+=== Manually using the minimal base image
+
+The project generation has also provided a `Dockerfile.native` in the `src/main/docker` directory with the following content:
+
+[source, dockerfile]
+----
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.5
+WORKDIR /work/
+COPY target/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+----
+
+The UBI minimal image is bigger than the micro one mentioned above. It contains more utilities such as the `microdnf` package manager.
+
+[#multistage-docker]
+=== Using a multi-stage Docker build
+
+The previous section showed you how to build a native executable using Maven or Gradle, but it requires you to have created the native executable first. In addition, this native executable must be a Linux 64 bits executable.
+
+You may want to build the native executable directly in a container without having a final container containing the build tools. That approach is possible with a multi-stage Docker build:
+
+1. The first stage builds the native executable using Maven or Gradle
+2. The second stage is a minimal image copying the produced native executable
+
+Such a multi-stage build can be achieved as follows:
+
+Sample Dockerfile for building with Maven:
+[source, dockerfile, subs=attributes+]
+----
+## Stage 1 : build with maven builder image with native capabilities
+FROM quay.io/quarkus/ubi-quarkus-native-image:{graalvm-flavor} AS build
+COPY --chown=quarkus:quarkus mvnw /code/mvnw
+COPY --chown=quarkus:quarkus .mvn /code/.mvn
+COPY --chown=quarkus:quarkus pom.xml /code/
+USER quarkus
+WORKDIR /code
+RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
+COPY src /code/src
+RUN ./mvnw package -Pnative
+
+## Stage 2 : create the docker final image
+FROM quay.io/quarkus/quarkus-micro-image:1.0
+WORKDIR /work/
+COPY --from=build /code/target/*-runner /work/application
+
+# set up permissions for user `1001`
+RUN chmod 775 /work /work/application \
+  &amp;&amp; chown -R 1001 /work \
+  &amp;&amp; chmod -R "g+rwX" /work \
+  &amp;&amp; chown -R 1001:root /work
+
+EXPOSE 8080
+USER 1001
+
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+----
+
+NOTE: This multi-stage Docker build copies the Maven wrapper from the host machine. The Maven wrapper (or the Gradle wrapper) is a convenient way to provide a specific version of Maven/Gradle. It avoids having to create a base image with Maven and Gradle. To provision the Maven Wrapper in your project, use: `mvn -N org.apache.maven.plugins:maven-wrapper-plugin:3.1.0:wrapper`.
+
+Save this file in `src/main/docker/Dockerfile.multistage` as it is not included in the getting started quickstart.
+
+Sample Dockerfile for building with Gradle:
+[source, dockerfile, subs=attributes+]
+----
+## Stage 1 : build with maven builder image with native capabilities
+FROM quay.io/quarkus/ubi-quarkus-native-image:{graalvm-flavor} AS build
+USER root
+RUN microdnf install findutils
+COPY --chown=quarkus:quarkus gradlew /code/gradlew
+COPY --chown=quarkus:quarkus gradle /code/gradle
+COPY --chown=quarkus:quarkus build.gradle /code/
+COPY --chown=quarkus:quarkus settings.gradle /code/
+COPY --chown=quarkus:quarkus gradle.properties /code/
+USER quarkus
+WORKDIR /code
+COPY src /code/src
+RUN ./gradlew build -Dquarkus.package.type=native
+
+## Stage 2 : create the docker final image
+FROM quay.io/quarkus/quarkus-micro-image:1.0
+WORKDIR /work/
+COPY --from=build /code/build/*-runner /work/application
+RUN chmod 775 /work
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+----
+
+If you are using Gradle in your project, you can use this sample Dockerfile. Save it in `src/main/docker/Dockerfile.multistage`.
+
+[WARNING]
+====
+Before launching our Docker build, we need to update the default `.dockerignore` file as it filters everything except the `target` directory. As we plan to build inside a container, we need to copy the `src` directory. Thus, edit your `.dockerignore` and update the content.
+====
+
+[source, bash]
+----
+docker build -f src/main/docker/Dockerfile.multistage -t quarkus-quickstart/getting-started .
+----
+
+And, finally, run it with:
+
+[source, bash]
+----
+docker run -i --rm -p 8080:8080 quarkus-quickstart/getting-started
+----
+
+[TIP]
+====
+If you need SSL support in your native executable, you can easily include the necessary libraries in your Docker image.
+
+Please see xref:native-and-ssl.adoc#working-with-containers[our Using SSL With Native Executables guide] for more information.
+====
+
+NOTE: To use Mandrel instead of GraalVM CE, update the `FROM` clause to: `FROM quay.io/quarkus/ubi-quarkus-mandrel:$TAG AS build`. `$TAG` can be found on the https://quay.io/repository/quarkus/ubi-quarkus-mandrel?tab=tags[Quarkus Mandrel Images Tags page].
+
+=== Using a Distroless base image
+
+IMPORTANT: Distroless image support is experimental.
+
+If you are looking for small container images, the https://github.com/GoogleContainerTools/distroless[distroless] approach reduces the size of the base layer. The idea behind _distroless_ is the usage of a single and minimal base image containing all the requirements, and sometimes even the application itself.
+
+Quarkus provides a distroless base image that you can use in your `Dockerfile`. You only need to copy your application, and you are done:
+
+[source, dockerfile]
+----
+FROM quay.io/quarkus/quarkus-distroless-image:1.0
+COPY target/*-runner /application
+
+EXPOSE 8080
+USER nonroot
+
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+----
+
+Quarkus provides the `quay.io/quarkus/quarkus-distroless-image:1.0` image. It contains the required packages to run a native executable and is only **9Mb**. Just add your application on top of this image, and you will get a tiny container image.
+
+Distroless images should not be used in production without rigorous testing.
+
+=== Using a scratch base image
+
+IMPORTANT: Scratch image support is experimental.
+
+Building fully statically linked binaries enables the usage of a https://hub.docker.com/_/scratch[scratch image] containing solely the resulting native executable.
+
+Sample multistage Dockerfile for building an image from `scratch`:
+
+[source, dockerfile]
+----
+## Stage 1 : build with maven builder image with native capabilities
+FROM quay.io/quarkus/ubi-quarkus-native-image:22.0-java11 AS build
+USER root
+RUN microdnf install make gcc
+COPY --chown=quarkus:quarkus mvnw /code/mvnw
+COPY --chown=quarkus:quarkus .mvn /code/.mvn
+COPY --chown=quarkus:quarkus pom.xml /code/
+RUN mkdir /musl &amp;&amp; \
+    curl -L -o musl.tar.gz https://more.musl.cc/10.2.1/x86_64-linux-musl/x86_64-linux-musl-native.tgz &amp;&amp; \
+    tar -xvzf musl.tar.gz -C /musl --strip-components 1 &amp;&amp; \
+    curl -L -o zlib.tar.gz https://zlib.net/zlib-1.2.12.tar.gz &amp;&amp; \
+    mkdir zlib &amp;&amp; tar -xvzf zlib.tar.gz -C zlib --strip-components 1 &amp;&amp; \
+    cd zlib &amp;&amp; ./configure --static --prefix=/musl &amp;&amp; \
+    make &amp;&amp; make install &amp;&amp; \
+    cd .. &amp;&amp; rm -rf zlib &amp;&amp; rm -f zlib.tar.gz &amp;&amp; rm -f musl.tar.gz
+ENV PATH="/musl/bin:${PATH}"
+USER quarkus
+WORKDIR /code
+RUN ./mvnw -B org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline
+COPY src /code/src
+RUN ./mvnw package -Pnative -Dquarkus.native.additional-build-args="--static","--libc=musl"
+
+## Stage 2 : create the docker final image
+FROM scratch
+COPY --from=build /code/target/*-runner /application
+ENTRYPOINT [ "/application" ]
+----
+
+Scratch images should not be used in production without rigorous testing.
+
+=== Native executable compression
+
+Quarkus can compress the produced native executable using UPX. More details on xref:./upx.adoc[UPX Compression documentation].
+
+=== Separating Java and native image compilation
+
+In certain circumstances, you may want to build the native image in a separate step. For example, in a CI/CD pipeline, you may want to have one step to generate the source that will be used for the native image generation and another step to use these sources to actually build the native executable. For this use case, you can set the `quarkus.package.type=native-sources`. This will execute the java compilation as if you had started native compilation (`-Pnative`), but stops before triggering the actual call to GraalVM's `native-image`.
+
+[source, bash]
+----
+$ ./mvnw clean package -Dquarkus.package.type=native-sources
+----
+
+After compilation has finished, you find the build artifact in `target/native-sources`:
+
+[source, bash]
+----
+$ cd target/native-sources
+$ ls
+native-image.args  getting-started-1.0.0-SNAPSHOT-runner.jar lib
+----
+
+From the output above one can see that, in addition to the produced jar file and the associated lib directory, a text file named `native-image.args` was created. This file holds all parameters (including the name of the JAR to compile) to pass along to GraalVM's `native-image` command. If you have GraalVM installed, you can start the native compilation by executing:
+
+[source, bash]
+----
+$ cd target/native-source
+$ native-image $(cat native-image.args)
+...
+$ ls
+native-image.args
+getting-started-1.0.0-SNAPSHOT-runner
+getting-started-1.0.0-SNAPSHOT-runner.build_artifacts.txt
+getting-started-1.0.0-SNAPSHOT-runner.jar
+----
+
+The process for Gradle is analogous.
+
+Running the build process in a container is also possible:
+
+[source, bash, subs=attributes+]
+----
+cd target/native-image
+docker run \
+  -it \
+  --rm \
+  --v $(pwd):/work <i class="conum" data-value="1"></i><b>(1)</b>
+  -w /work <i class="conum" data-value="2"></i><b>(2)</b>
+  --entrypoint bin/sh \
+  quay.io/quarkus/ubi-quarkus-native-image:{graalvm-flavor} \ <i class="conum" data-value="3"></i><b>(3)</b>
+  -c "native-image $(cat native-image.args) -J-Xmx4g" <i class="conum" data-value="4"></i><b>(4)</b>
+----
+
+&lt;1&gt; Mount the host's directory `target/native-image` to the container's `/work`. Thus, the generated binary will also be written to this directory.
+&lt;2&gt; Switch the working directory to `/work`, which we have mounted in &lt;1&gt;.
+&lt;3&gt; Use the `quay.io/quarkus/ubi-quarkus-native-image:{graalvm-flavor}` docker image introduced in &lt;&lt;#multistage-docker,Using a multi-stage Docker build&gt;&gt; to build the native image.
+&lt;4&gt; Call `native-image` with the content of file `native-image.args` as arguments. We also supply an additional argument to limit the process's maximum memory to 4 Gigabytes (this may vary depending on the project being built and the machine building it).
+
+[WARNING]
+====
+If you are running on a Windows machine, please keep in mind that the binary was created within a Linux docker container. Hence, the binary will not be executable on the host Windows machine.
+====
+
+A high level overview of what the various steps of a CI/CD pipeline would look is the following:
+
+1. Register the output of the step executing `./mvnw ...` command (i.e. directory `target/native-image`) as a build artifact,
+2. Require this artifact in the step executing the `native-image ...` command, and
+3. Register the output of the step executing the `native-image ...` command (i.e. files matching `target/*runner`) as build artifact.
+
+The environment executing step `1` only needs Java and Maven (or Gradle) installed, while the environment executing step `3` only needs a GraalVM installation (including the `native-image` feature).
+
+Depending on what the final desired output of the CI/CD pipeline is, the generated binary might then be used to create a container image.
+
+== Debugging native executable
+
+Starting with Oracle GraalVM 20.2 or Mandrel 20.1, debug symbols for native executables can be generated for Linux environments (Windows support is still under development, macOS is not supported). These symbols can be used to debug native executables with tools such as `gdb`.
+
+To generate debug symbols, add `-Dquarkus.native.debug.enabled=true` flag when generating the native executable. You will find the debug symbols for the native executable in a `.debug` file next to the native executable.
+
+[NOTE]
+====
+The generation of the `.debug` file depends on `objcopy`. On common Linux distributions you will need to install the `binutils` package:
+
+[source, bash]
+----
+# dnf (rpm-based)
+sudo dnf install binutils
+# Debian-based distributions
+sudo apt-get install binutils
+----
+
+When `objcopy` is not available debug symbols are embedded in the executable.
+====
+
+Aside from debug symbols, setting `-Dquarkus.native.debug.enabled=true` flag generates a cache of source files for any JDK runtime classes, GraalVM classes and application classes resolved during native executable generation. This source cache is useful for native debugging tools, to establish the link between the symbols and matching source code. It provides a convenient way of making just the necessary sources available to the debugger/IDE when debugging a native executable.
+
+Sources for third party jar dependencies, including Quarkus source code, are not added to the source cache by default. To include those, make sure you invoke `mvn dependency:sources` first. This step is required in order to pull the sources for these dependencies, and get them included in the source cache.
+
+The source cache is located in the `target/sources` folder.
+
+[TIP]
+====
+If running `gdb` from a different directory than `target`, then the sources can be loaded by running:
+
+[source, bash]
+----
+directory path/to/target
+----
+
+in the `gdb` prompt.
+
+Or start `gdb` with:
+
+[source, bash]
+----
+gdb -ex 'directory path/to/target' path/to/target/{project.name}-{project.version}-runner
+----
+
+e.g.,
+[source, bash]
+----
+gdb -ex 'directory ./target' ./target/getting-started-1.0.0-SNAPSHOT-runner
+----
+====
+
+For a more detailed guide about debugging native images please refer to the xref:native-reference.adoc[Native Reference Guide].
+
+[[configuration-reference]]
+== Configuring the Native Executable
+
+There are a lot of different configuration options that can affect how the native executable is generated. These are provided in `application.properties` the same as any other config property.
+
+The properties are shown below:
+
+
+:summaryTableId: quarkus-native-pkg-native-config
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime
+[.configuration-reference, cols="80,.^10,.^10"]
+|===
+
+h|[[quarkus-native-pkg-native-config_configuration]]link:#quarkus-native-pkg-native-config_configuration[Configuration property]
+
+h|Type
+h|Default
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.additional-build-args]]`link:#quarkus-native-pkg-native-config_quarkus.native.additional-build-args[quarkus.native.additional-build-args]`
+
+[.description]
+--
+Comma-separated, additional arguments to pass to the build process. If an argument includes the `,` symbol, it needs to be escaped, e.g. `++\\++,`
+
+Environment variable: `+++QUARKUS_NATIVE_ADDITIONAL_BUILD_ARGS+++`
+--|list of string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-http-url-handler]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-http-url-handler[quarkus.native.enable-http-url-handler]`
+
+[.description]
+--
+If the HTTP url handler should be enabled, allowing you to do URL.openConnection() for HTTP URLs
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_HTTP_URL_HANDLER+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-https-url-handler]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-https-url-handler[quarkus.native.enable-https-url-handler]`
+
+[.description]
+--
+If the HTTPS url handler should be enabled, allowing you to do URL.openConnection() for HTTPS URLs
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_HTTPS_URL_HANDLER+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.inline-before-analysis]]`link:#quarkus-native-pkg-native-config_quarkus.native.inline-before-analysis[quarkus.native.inline-before-analysis]`
+
+[.description]
+--
+If `-H:{plus}InlineBeforeAnalysis` flag will be added to the native-image run
+
+Environment variable: `+++QUARKUS_NATIVE_INLINE_BEFORE_ANALYSIS+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.headless]]`link:#quarkus-native-pkg-native-config_quarkus.native.headless[quarkus.native.headless]`
+
+[.description]
+--
+The default value for java.awt.headless JVM option. Switching this option affects linking of awt libraries.
+
+Environment variable: `+++QUARKUS_NATIVE_HEADLESS+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.file-encoding]]`link:#quarkus-native-pkg-native-config_quarkus.native.file-encoding[quarkus.native.file-encoding]`
+
+[.description]
+--
+Defines the file encoding as in `-Dfile.encoding=...`. Native image runtime uses the host's (i.e. build time) value of `file.encoding` system property. We intentionally default this to UTF-8 to avoid platform specific defaults to be picked up which can then result in inconsistent behavior in the generated native executable.
+
+Environment variable: `+++QUARKUS_NATIVE_FILE_ENCODING+++`
+--|string
+|`UTF-8`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.add-all-charsets]]`link:#quarkus-native-pkg-native-config_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets]`
+
+[.description]
+--
+If all character sets should be added to the native image. This increases image size
+
+Environment variable: `+++QUARKUS_NATIVE_ADD_ALL_CHARSETS+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.graalvm-home]]`link:#quarkus-native-pkg-native-config_quarkus.native.graalvm-home[quarkus.native.graalvm-home]`
+
+[.description]
+--
+The location of the Graal distribution
+
+Environment variable: `+++QUARKUS_NATIVE_GRAALVM_HOME+++`
+--|string
+|`${GRAALVM_HOME:}`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.java-home]]`link:#quarkus-native-pkg-native-config_quarkus.native.java-home[quarkus.native.java-home]`
+
+[.description]
+--
+The location of the JDK
+
+Environment variable: `+++QUARKUS_NATIVE_JAVA_HOME+++`
+--|link:https://docs.oracle.com/javase/8/docs/api/java/io/File.html[File]
+
+|`${java.home}`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.native-image-xmx]]`link:#quarkus-native-pkg-native-config_quarkus.native.native-image-xmx[quarkus.native.native-image-xmx]`
+
+[.description]
+--
+The maximum Java heap to be used during the native image generation
+
+Environment variable: `+++QUARKUS_NATIVE_NATIVE_IMAGE_XMX+++`
+--|string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.debug-build-process]]`link:#quarkus-native-pkg-native-config_quarkus.native.debug-build-process[quarkus.native.debug-build-process]`
+
+[.description]
+--
+If the native image build should wait for a debugger to be attached before running. This is an advanced option and is generally only intended for those familiar with GraalVM internals
+
+Environment variable: `+++QUARKUS_NATIVE_DEBUG_BUILD_PROCESS+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.publish-debug-build-process-port]]`link:#quarkus-native-pkg-native-config_quarkus.native.publish-debug-build-process-port[quarkus.native.publish-debug-build-process-port]`
+
+[.description]
+--
+If the debug port should be published when building with docker and debug-build-process is true
+
+Environment variable: `+++QUARKUS_NATIVE_PUBLISH_DEBUG_BUILD_PROCESS_PORT+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-isolates]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-isolates[quarkus.native.enable-isolates]`
+
+[.description]
+--
+If isolates should be enabled
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_ISOLATES+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-fallback-images]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-fallback-images[quarkus.native.enable-fallback-images]`
+
+[.description]
+--
+If a JVM based 'fallback image' should be created if native image fails. This is not recommended, as this is functionally the same as just running the application in a JVM
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_FALLBACK_IMAGES+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.auto-service-loader-registration]]`link:#quarkus-native-pkg-native-config_quarkus.native.auto-service-loader-registration[quarkus.native.auto-service-loader-registration]`
+
+[.description]
+--
+If all META-INF/services entries should be automatically registered
+
+Environment variable: `+++QUARKUS_NATIVE_AUTO_SERVICE_LOADER_REGISTRATION+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.dump-proxies]]`link:#quarkus-native-pkg-native-config_quarkus.native.dump-proxies[quarkus.native.dump-proxies]`
+
+[.description]
+--
+If the bytecode of all proxies should be dumped for inspection
+
+Environment variable: `+++QUARKUS_NATIVE_DUMP_PROXIES+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.container-build]]`link:#quarkus-native-pkg-native-config_quarkus.native.container-build[quarkus.native.container-build]`
+
+[.description]
+--
+If this build should be done using a container runtime. Unless container-runtime is also set, docker will be used by default. If docker is not available or is an alias to podman, podman will be used instead as the default.
+
+Environment variable: `+++QUARKUS_NATIVE_CONTAINER_BUILD+++`
+--|boolean
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.remote-container-build]]`link:#quarkus-native-pkg-native-config_quarkus.native.remote-container-build[quarkus.native.remote-container-build]`
+
+[.description]
+--
+If this build is done using a remote docker daemon.
+
+Environment variable: `+++QUARKUS_NATIVE_REMOTE_CONTAINER_BUILD+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.builder-image]]`link:#quarkus-native-pkg-native-config_quarkus.native.builder-image[quarkus.native.builder-image]`
+
+[.description]
+--
+The docker image to use to do the image build. It can be one of `graalvm`, `mandrel`, or the full image path, e.g. `quay.io/quarkus/ubi-quarkus-mandrel:21.3-java17`.
+
+Environment variable: `+++QUARKUS_NATIVE_BUILDER_IMAGE+++`
+--|string
+|`${platform.quarkus.native.builder-image}`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.container-runtime]]`link:#quarkus-native-pkg-native-config_quarkus.native.container-runtime[quarkus.native.container-runtime]`
+
+[.description]
+--
+The container runtime (e.g. docker) that is used to do an image based build. If this is set then a container build is always done.
+
+Environment variable: `+++QUARKUS_NATIVE_CONTAINER_RUNTIME+++`
+-- a|
+`docker`, `podman`
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.container-runtime-options]]`link:#quarkus-native-pkg-native-config_quarkus.native.container-runtime-options[quarkus.native.container-runtime-options]`
+
+[.description]
+--
+Options to pass to the container runtime
+
+Environment variable: `+++QUARKUS_NATIVE_CONTAINER_RUNTIME_OPTIONS+++`
+--|list of string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-vm-inspection]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-vm-inspection[quarkus.native.enable-vm-inspection]`
+
+[.description]
+--
+If the resulting image should allow VM introspection
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_VM_INSPECTION+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.full-stack-traces]]`link:#quarkus-native-pkg-native-config_quarkus.native.full-stack-traces[quarkus.native.full-stack-traces]`
+
+[.description]
+--
+If full stack traces are enabled in the resulting image
+
+Environment variable: `+++QUARKUS_NATIVE_FULL_STACK_TRACES+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-reports]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-reports[quarkus.native.enable-reports]`
+
+[.description]
+--
+If the reports on call paths and included packages/classes/methods should be generated
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_REPORTS+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.report-exception-stack-traces]]`link:#quarkus-native-pkg-native-config_quarkus.native.report-exception-stack-traces[quarkus.native.report-exception-stack-traces]`
+
+[.description]
+--
+If exceptions should be reported with a full stack trace
+
+Environment variable: `+++QUARKUS_NATIVE_REPORT_EXCEPTION_STACK_TRACES+++`
+--|boolean
+|`true`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.report-errors-at-runtime]]`link:#quarkus-native-pkg-native-config_quarkus.native.report-errors-at-runtime[quarkus.native.report-errors-at-runtime]`
+
+[.description]
+--
+If errors should be reported at runtime. This is a more relaxed setting, however it is not recommended as it means your application may fail at runtime if an unsupported feature is used by accident.
+
+Environment variable: `+++QUARKUS_NATIVE_REPORT_ERRORS_AT_RUNTIME+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.reuse-existing]]`link:#quarkus-native-pkg-native-config_quarkus.native.reuse-existing[quarkus.native.reuse-existing]`
+
+[.description]
+--
+Don't build a native image if it already exists. This is useful if you have already built an image and you want to use Quarkus to deploy it somewhere. Note that this is not able to detect if the existing image is outdated, if you have modified source or config and want a new image you must not use this flag.
+
+Environment variable: `+++QUARKUS_NATIVE_REUSE_EXISTING+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.resources.includes]]`link:#quarkus-native-pkg-native-config_quarkus.native.resources.includes[quarkus.native.resources.includes]`
+
+[.description]
+--
+A comma separated list of globs to match resource paths that should be added to the native image.
+ Use slash (`/`) as a path separator on all platforms. Globs must not start with slash.
+ By default, no resources are included.
+ Example: Given that you have `src/main/resources/ignored.png` and `src/main/resources/foo/selected.png` in your source tree and one of your dependency JARs contains `bar/some.txt` file, with the following configuration quarkus.native.resources.includes = foo/++**++,bar/++**++/++*++.txt  the files `src/main/resources/foo/selected.png` and `bar/some.txt` will be included in the native image, while `src/main/resources/ignored.png` will not be included.
+ Supported glob features   Feature Description   `++*++` Matches a (possibly empty) sequence of characters that does not contain slash (`/`)   `++**++` Matches a (possibly empty) sequence of characters that may contain slash (`/`)   `?` Matches one character, but not slash   `++[++abc++]++` Matches one character given in the bracket, but not slash   `++[++a-z++]++` Matches one character from the range given in the bracket, but not slash   `++[++!abc++]++` Matches one character not named in the bracket; does not match slash   `++[++a-z++]++` Matches one character outside the range given in the bracket; does not match slash   `++{++one,two,three++}++` Matches any of the alternating tokens separated by comma; the tokens may contain wildcards, nested alternations and ranges   `++\++` The escape character
+ Note that there are three levels of escaping when passing this option via `application.properties`:
+ . `application.properties` parser
+ - MicroProfile Config list converter that splits the comma separated list
+ - Glob parser  All three levels use backslash (`++\++`) as the escaping character. So you need to use an appropriate number of backslashes depending on which level you want to escape.
+ Note that Quarkus extensions typically include the resources they require by themselves. This option is useful in situations when the built-in functionality is not sufficient.
+
+Environment variable: `+++QUARKUS_NATIVE_RESOURCES_INCLUDES+++`
+--|list of string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.resources.excludes]]`link:#quarkus-native-pkg-native-config_quarkus.native.resources.excludes[quarkus.native.resources.excludes]`
+
+[.description]
+--
+A comma separated list of globs to match resource paths that should *not* be added to the native image.
+ Use slash (`/`) as a path separator on all platforms. Globs must not start with slash.
+ Please refer to `includes` for details about the glob syntax.
+ By default, no resources are excluded.
+ Example: Given that you have `src/main/resources/red.png` and `src/main/resources/foo/green.png` in your source tree and one of your dependency JARs contains `bar/blue.png` file, with the following configuration quarkus.native.resources.includes = ++**++/++*++.png quarkus.native.resources.excludes = foo/++**++,++**++/green.png  the resource `red.png` will be available in the native image while the resources `foo/green.png` and `bar/blue.png` will not be available in the native image.
+
+Environment variable: `+++QUARKUS_NATIVE_RESOURCES_EXCLUDES+++`
+--|list of string
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.debug.enabled]]`link:#quarkus-native-pkg-native-config_quarkus.native.debug.enabled[quarkus.native.debug.enabled]`
+
+[.description]
+--
+If debug is enabled and debug symbols are generated. The symbols will be generated in a separate .debug file.
+
+Environment variable: `+++QUARKUS_NATIVE_DEBUG_ENABLED+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.enable-dashboard-dump]]`link:#quarkus-native-pkg-native-config_quarkus.native.enable-dashboard-dump[quarkus.native.enable-dashboard-dump]`
+
+[.description]
+--
+Generate the report files for GraalVM Dashboard.
+
+Environment variable: `+++QUARKUS_NATIVE_ENABLE_DASHBOARD_DUMP+++`
+--|boolean
+|`false`
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.compression.level]]`link:#quarkus-native-pkg-native-config_quarkus.native.compression.level[quarkus.native.compression.level]`
+
+[.description]
+--
+The compression level in ++[++1, 10++]++. 10 means *best* Higher compression level requires more time to compress the executable.
+
+Environment variable: `+++QUARKUS_NATIVE_COMPRESSION_LEVEL+++`
+--|int
+|
+
+
+a|icon:lock[title=Fixed at build time] [[quarkus-native-pkg-native-config_quarkus.native.compression.additional-args]]`link:#quarkus-native-pkg-native-config_quarkus.native.compression.additional-args[quarkus.native.compression.additional-args]`
+
+[.description]
+--
+Allows passing extra arguments to the UPX command line (like --brute). The arguments are comma-separated. The exhaustive list of parameters can be found in link:https://github.com/upx/upx/blob/devel/doc/upx.pod[https://github.com/upx/upx/blob/devel/doc/upx.pod].
+
+Environment variable: `+++QUARKUS_NATIVE_COMPRESSION_ADDITIONAL_ARGS+++`
+--|list of string
+|
+
+|===
+
+== ¿Qué es lo que sigue?
+
+This guide covered the creation of a native (binary) executable for your application. It provides an application exhibiting a swift startup time and consuming less memory. However, there is much more.
+
+We recommend continuing the journey with the xref:deploying-to-kubernetes.adoc[deployment to Kubernetes and OpenShift].</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="content project-footer">
+  <div class="footer-section">
+    <div class="logo-wrapper">
+      <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_reverse.svg" class="project-logo" title="Quarkus"></a>
+    </div>
+  </div>
+  <div class="grid-wrapper">
+    <p class="grid__item width-3-12">Quarkus is open. Todas las dependencias de este proyecto están disponible bajo la <a href='https://www.apache.org/licenses/LICENSE-2.0' target='_blank'>Licencia Apache Software 2.0</a> o una licencia compatible.<br /><br />Este sitio web fue construido con <a href='https://jekyllrb.com/' target='_blank'>Jekyll</a>, está alojado en <a href='https://pages.github.com/' target='_blank'>GitHub Pages</a> y es completamente de código abierto. Si quieres mejorarlo, <a href='https://github.com/quarkusio/quarkusio.github.io' target='_blank'>crea un fork de la página web</a> y muéstranos lo que tienes.</p>
+
+    
+      <div class="width-1-12 project-links">
+        <span>Navigation</span>
+        <ul class="footer-links">
+          
+            <li><a href="/">Home</a></li>
+          
+            <li><a href="/about">Acerca&nbsp;de</a></li>
+          
+            <li><a href="/blog">Blog</a></li>
+          
+            <li><a href="/insights">Podcast</a></li>
+          
+            <li><a href="/events">Eventos</a></li>
+          
+            <li><a href="/newsletter">Newsletter</a></li>
+          
+            <li><a href="/publications">Publicaciones</a></li>
+          
+            <li><a href="/awards">Premios</a></li>
+          
+            <li><a href="/security">Política&nbsp;de&nbsp;seguridad</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Síguenos</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://twitter.com/quarkusio">Twitter</a></li>
+          
+            <li><a href="https://www.facebook.com/quarkusio">Facebook</a></li>
+          
+            <li><a href="https://www.linkedin.com/company/quarkusio/">Linkedin</a></li>
+          
+            <li><a href="https://www.youtube.com/channel/UCaW8QG_QoIk_FnjLgr5eOqg">Youtube</a></li>
+          
+            <li><a href="https://github.com/quarkusio">GitHub</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-2-12 project-links">
+        <span>Obtener ayuda</span>
+        <ul class="footer-links">
+          
+            <li><a href="/support">Soporte</a></li>
+          
+            <li><a href="/guides">Guías</a></li>
+          
+            <li><a href="/faq">FAQ</a></li>
+          
+            <li><a href="/get-started">Introducción</a></li>
+          
+            <li><a href="https://stackoverflow.com/questions/tagged/quarkus">Stack Overflow</a></li>
+          
+            <li><a href="https://github.com/quarkusio/quarkus/discussions">Discusiones</a></li>
+          
+            <li><a href="https://groups.google.com/forum/#!forum/quarkus-dev">Lista de correo de desarrollo</a></li>
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Languages</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://quarkus.io/">English</a></li>
+          
+            <li><a href="https://ja.quarkus.io/">日本語</a></li>
+          
+            <li><a href="https://cn.quarkus.io/">简体中文</a></li>
+          
+        </ul>
+      </div>
+    
+
+    
+      <div class="width-4-12 more-links">
+        <span>Quarkus está hecho a base de proyectos comunitarios</span>
+        <ul class="footer-links">
+          
+            <li><a href="https://vertx.io/" target="_blank">Eclipse Vert.x</a></li>
+          
+            <li><a href="https://smallrye.io" target="_blank">SmallRye</a></li>
+          
+            <li><a href="https://hibernate.org" target="_blank">Hibernate</a></li>
+          
+            <li><a href="https://netty.io" target="_blank">Netty</a></li>
+          
+            <li><a href="https://resteasy.github.io" target="_blank">RESTEasy</a></li>
+          
+            <li><a href="https://camel.apache.org" target="_blank">Apache Camel</a></li>
+          
+            <li><a href="https://microprofile.io" target="_blank">Eclipse MicroProfile</a></li>
+          
+            <li><a href="https://code.quarkus.io/" target="_blank">Y muchos más...</a></li>
+          
+        </ul>
+      </div>
+    
+  </div>
+</div>
+
+  <div class="content redhat-footer">
+  <div class="grid-wrapper">
+    <span class="licence">
+      <i class="fab fa-creative-commons"></i><i class="fab fa-creative-commons-by"></i> <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC by 3.0</a> | <a href="https://www.redhat.com/en/about/privacy-policy">Privacy Policy</a>
+    </span>
+    <span class="redhat">
+      Sponsored by
+    </span>
+    <span class="redhat-logo">
+      <a href="https://www.redhat.com/" target="_blank"><img src="/assets/images/redhat_reversed.svg"></a>
+    </span>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/assets/javascript/mobile-nav.js"></script>
+  <script type="text/javascript" src="/assets/javascript/scroll-down.js"></script>
+  <script src="/assets/javascript/satellite.js" type="text/javascript"></script>
+  <script src="/guides/javascript/config.js" type="text/javascript"></script>
+  <script src="/assets/javascript/search-filter.js" type="text/javascript"></script>
+  <script src="/assets/javascript/guides-version-dropdown.js" type="text/javascript"></script>
+  <script src="/assets/javascript/back-to-top.js" type="text/javascript"></script>
+  <script src="/assets/javascript/clipboard.min.js" type="text/javascript"></script>
+  <script src="/assets/javascript/copy.js" type="text/javascript"></script>
+  <script src="/assets/javascript/asciidoc-tabs.js" type="text/javascript"></script>
+</body>
+
+</html>
