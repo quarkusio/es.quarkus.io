@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-08-13 08:19+0000\n"
+"POT-Creation-Date: 2023-10-08 08:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,31 +224,31 @@ msgid "Add the correct reactive extension for the database of your choice."
 msgstr "Añada la extensión reactiva correcta para la base de datos de su elección."
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:95 upstream/_guides/datasource.adoc:696
+#: upstream/_guides/datasource.adoc:95 upstream/_guides/datasource.adoc:712
 #, fuzzy, no-wrap
 msgid "`reactive-db2-client`"
 msgstr "DB2: `quarkus-reactive-db2-client`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:96 upstream/_guides/datasource.adoc:688
+#: upstream/_guides/datasource.adoc:96 upstream/_guides/datasource.adoc:704
 #, fuzzy, no-wrap
 msgid "`reactive-mssql-client`"
 msgstr "MariaDB/MySQL: `quarkus-reactive-mysql-client`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:97 upstream/_guides/datasource.adoc:684
+#: upstream/_guides/datasource.adoc:97 upstream/_guides/datasource.adoc:700
 #, fuzzy, no-wrap
 msgid "`reactive-mysql-client`"
 msgstr "MariaDB/MySQL: `quarkus-reactive-mysql-client`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:98 upstream/_guides/datasource.adoc:680
+#: upstream/_guides/datasource.adoc:98 upstream/_guides/datasource.adoc:696
 #, fuzzy, no-wrap
 msgid "`reactive-oracle-client`"
 msgstr "Oráculo: `quarkus-reactive-oracle-client`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:99 upstream/_guides/datasource.adoc:692
+#: upstream/_guides/datasource.adoc:99 upstream/_guides/datasource.adoc:708
 #, fuzzy, no-wrap
 msgid "`reactive-pg-client`"
 msgstr "PostgreSQL: `quarkus-reactive-pg-client`"
@@ -260,7 +260,7 @@ msgid "Configure your reactive datasource:"
 msgstr "A continuación, configure su fuente de datos reactiva:"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:110 upstream/_guides/datasource.adoc:303
+#: upstream/_guides/datasource.adoc:110 upstream/_guides/datasource.adoc:319
 #, no-wrap
 msgid ""
 "quarkus.datasource.reactive.url=postgresql:///your_database\n"
@@ -641,7 +641,7 @@ msgid "For the in-code access to the datasource, obtain it as any other bean as 
 msgstr "Si por alguna razón se necesita acceder al datasource en el código, se puede obtener como cualquier otro bean de la siguiente manera:"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:276 upstream/_guides/datasource.adoc:380
+#: upstream/_guides/datasource.adoc:276 upstream/_guides/datasource.adoc:396
 #, no-wrap
 msgid ""
 "@Inject\n"
@@ -708,104 +708,139 @@ msgstr "PostgreSQL: `quarkus-reactive-pg-client`"
 msgid "The installed extension must be consistent with the `quarkus.datasource.db-kind` you define in your datasource configuration."
 msgstr "La extensión instalada debe ser coherente con la `quarkus.datasource.db-kind` que defina en la configuración de su fuente de datos."
 
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:300
+msgid "The Reactive Oracle datasource depends on the https://docs.oracle.com/en/database/oracle/oracle-database/23/jjdbc/jdbc-reactive-extensions.html[Reactive Extensions] provided by Oracle in its JDBC driver."
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:302
+msgid "There is a bug in versions 23.2 and 21.11 of the Oracle JDBC driver that prevents from getting any response if:"
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:304
+msgid "Reactive Extensions are used to execute an update/insert query that ends with an error (e.g. constraint violation), and"
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:305
+msgid "https://vertx.io/docs/vertx-oracle-client/java/#_retrieving_generated_key_values[generated keys retrieval] is enabled."
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:308
+msgid "It is not known yet when the bug will be fixed.  In the meantime, you can either:"
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:310
+msgid "change the version of the driver in your project to `com.oracle.database.jdbc:ojdbc11:21.10.0.0`, or"
+msgstr ""
+
+#. type: delimited block =
+#: upstream/_guides/datasource.adoc:311
+msgid "avoid executing queries with generated keys retrieval (e.g. load sequence value before inserting)"
+msgstr ""
+
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:298
+#: upstream/_guides/datasource.adoc:314
 #, fuzzy
 msgid "After adding the driver, configure the connection URL and define a proper size for your connection pool."
 msgstr "Opcionalmente, pero muy recomendable, debe definir un tamaño adecuado para su pool de conexiones."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:305
+#: upstream/_guides/datasource.adoc:321
 #, fuzzy, no-wrap
 msgid "JDBC and reactive datasources simultaneously"
 msgstr "JDBC y fuentes de datos reactivas simultáneamente"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:308
+#: upstream/_guides/datasource.adoc:324
 #, fuzzy
 msgid "When a JDBC extension - along with Agroal - and a reactive datasource extension handling the given database kind are included, they will both be created by default."
 msgstr "Por defecto, si incluyes tanto una extensión JDBC (+ Agroal) como una extensión datasource reactiva que maneje el tipo de base de datos dado, se crearán ambas."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:310
+#: upstream/_guides/datasource.adoc:326
 #, fuzzy
 msgid "To disable the JDBC datasource explicitly:"
 msgstr "Si desea desactivar la fuente de datos JDBC explícitamente, utilice"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:314
+#: upstream/_guides/datasource.adoc:330
 #, no-wrap
 msgid "quarkus.datasource.jdbc=false\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:317
+#: upstream/_guides/datasource.adoc:333
 #, fuzzy
 msgid "To disable the reactive datasource explicitly:"
 msgstr "Si desea desactivar la fuente de datos reactiva explícitamente, utilice"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:321
+#: upstream/_guides/datasource.adoc:337
 #, no-wrap
 msgid "quarkus.datasource.reactive=false\n"
 msgstr ""
 
 #. type: delimited block =
-#: upstream/_guides/datasource.adoc:326
+#: upstream/_guides/datasource.adoc:342
 #, fuzzy
 msgid "In most cases, the configuration above will be optional as either a JDBC driver or a reactive datasource extension will be present, not both."
 msgstr "La mayoría de las veces, la configuración anterior no será necesaria, ya que habrá un controlador JDBC o una extensión de fuente de datos reactiva y no ambos."
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:328
+#: upstream/_guides/datasource.adoc:344
 #, fuzzy, no-wrap
 msgid "Configure multiple datasources"
 msgstr "Configuración de múltiples fuentes de datos"
 
 #. type: delimited block =
-#: upstream/_guides/datasource.adoc:334
+#: upstream/_guides/datasource.adoc:350
 #, fuzzy
 msgid "The Hibernate ORM extension supports defining xref:hibernate-orm.adoc#multiple-persistence-units[persistence units] by using configuration properties.  For each persistence unit, point to the datasource of your choice."
 msgstr "La extensión ORM de Hibernate  link:hibernate-orm.html#multiple-persistence-units[permite definir varias unidades de persistencia mediante propiedades de configuración]. Para cada unidad de persistencia, puede apuntar a la fuente de datos de su elección."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:337
+#: upstream/_guides/datasource.adoc:353
 #, fuzzy
 msgid "Defining multiple datasources works like defining a single datasource, with one important change - you have to specify a name (configuration key) for each datasource."
 msgstr "La definición de múltiples fuentes de datos funciona exactamente igual que la definición de una sola fuente de datos, con un cambio importante: se define un nombre."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:339
+#: upstream/_guides/datasource.adoc:355
 #, fuzzy
 msgid "The following example provides three different datasources:"
 msgstr "En el siguiente ejemplo, tiene 3 fuentes de datos diferentes:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:341
+#: upstream/_guides/datasource.adoc:357
 #, fuzzy
 msgid "the default one"
 msgstr "El predeterminado,"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:342
+#: upstream/_guides/datasource.adoc:358
 #, fuzzy
 msgid "a datasource named `users`"
 msgstr "Una fuente de datos llamada `users`,"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:343
+#: upstream/_guides/datasource.adoc:359
 #, fuzzy
 msgid "a datasource named `inventory`"
 msgstr "Una fuente de datos llamada `inventory`,"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:345
+#: upstream/_guides/datasource.adoc:361
 #, fuzzy
 msgid "Each with its configuration:"
 msgstr "cada uno con su propia configuración."
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:352
+#: upstream/_guides/datasource.adoc:368
 #, no-wrap
 msgid ""
 "quarkus.datasource.db-kind=h2\n"
@@ -815,7 +850,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:357
+#: upstream/_guides/datasource.adoc:373
 #, no-wrap
 msgid ""
 "quarkus.datasource.users.db-kind=h2\n"
@@ -825,7 +860,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:362
+#: upstream/_guides/datasource.adoc:378
 #, no-wrap
 msgid ""
 "quarkus.datasource.inventory.db-kind=h2\n"
@@ -835,37 +870,37 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:366
+#: upstream/_guides/datasource.adoc:382
 #, fuzzy
 msgid "Notice there is an extra section in the configuration key.  The syntax is as follows: `quarkus.datasource.[optional name.][datasource property]`."
 msgstr "Observe que hay un bit extra en la clave. La sintaxis es la siguiente: `quarkus.datasource.[optional name.][datasource property]`."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:369
+#: upstream/_guides/datasource.adoc:385
 #, fuzzy
 msgid "Even when only one database extension is installed, named databases need to specify at least one build-time property so that Quarkus can detect them.  Generally, this is the `db-kind` property, but you can also specify Dev Services properties to create named datasources according to the xref:databases-dev-services.adoc[Dev Services for Databases] guide."
 msgstr "Incluso cuando sólo se instala una extensión de base de datos, las bases de datos con nombre deben especificar al menos una propiedad de tiempo de compilación para que Quarkus sepa que existen. Por lo general, ésta será la propiedad `db-kind`, aunque también se pueden especificar las propiedades de Dev Services para crear fuentes de datos con nombre (cubiertas más adelante en esta guía)."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:370
+#: upstream/_guides/datasource.adoc:386
 #, fuzzy, no-wrap
 msgid "Named datasource injection"
 msgstr "Inyección de fuentes de datos con nombre"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:373
+#: upstream/_guides/datasource.adoc:389
 #, fuzzy
 msgid "When using multiple datasources, each `DataSource` also has the `io.quarkus.agroal.DataSource` qualifier with the name of the datasource as the value."
 msgstr "Cuando se utilizan múltiples fuentes de datos, cada `DataSource` también tiene el calificador `io.quarkus.agroal.DataSource` con el nombre de la fuente de datos como valor. Utilizando las propiedades anteriores para configurar tres fuentes de datos diferentes, también puede inyectar cada una de ellas de la siguiente manera:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:375
+#: upstream/_guides/datasource.adoc:391
 #, fuzzy
 msgid "By using the properties mentioned in the previous section to configure three different datasources, inject each one of them as follows:"
 msgstr "Utilizando las propiedades mencionadas en la sección anterior para configurar tres fuentes de datos diferentes, inyecte cada una de ellas como se indica a continuación:"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:384
+#: upstream/_guides/datasource.adoc:400
 #, no-wrap
 msgid ""
 "@Inject\n"
@@ -874,7 +909,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:388
+#: upstream/_guides/datasource.adoc:404
 #, no-wrap
 msgid ""
 "@Inject\n"
@@ -883,259 +918,259 @@ msgid ""
 msgstr ""
 
 #. type: Title ==
-#: upstream/_guides/datasource.adoc:390
+#: upstream/_guides/datasource.adoc:406
 #, fuzzy, no-wrap
 msgid "Datasource integrations"
 msgstr "Métricas de las fuentes de datos"
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:392
+#: upstream/_guides/datasource.adoc:408
 #, fuzzy, no-wrap
 msgid "Datasource health check"
 msgstr "Comprobación de la salud de la fuente de datos"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:395
+#: upstream/_guides/datasource.adoc:411
 #, fuzzy
 msgid "If you use the link:https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-health[`quarkus-smallrye-health`] extension, the `quarkus-agroal` and reactive client extensions automatically add a readiness health check to validate the datasource."
 msgstr "Si utiliza la extensión `quarkus-smallrye-health`, las extensiones de cliente `quarkus-agroal` y reactiva añadirán automáticamente una comprobación de estado de preparación para validar la fuente de datos."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:398
+#: upstream/_guides/datasource.adoc:414
 #, fuzzy
 msgid "When you access your application’s health readiness endpoint, `/q/health/ready` by default, you receive information about the datasource validation status.  If you have multiple datasources, all datasources are checked, and if a single datasource validation failure occurs, the status changes to`DOWN`."
 msgstr "Cuando acceda al endpoint `/q/health/ready` de su aplicación, tendrá información sobre el estado de validación de la fuente de datos. Si tiene varias fuentes de datos, se comprobarán todas las fuentes de datos y el estado será `DOWN` en cuanto haya un fallo de validación de la fuente de datos."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:400
+#: upstream/_guides/datasource.adoc:416
 #, fuzzy
 msgid "This behavior can be disabled by using the `quarkus.datasource.health.enabled` property."
 msgstr "Este comportamiento puede desactivarse mediante la propiedad `quarkus.datasource.health.enabled`."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:402
+#: upstream/_guides/datasource.adoc:418
 #, fuzzy
 msgid "To exclude only a particular datasource from the health check, use:"
 msgstr "Para excluir sólo una fuente de datos concreta del chequeo, utilice:"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:406
+#: upstream/_guides/datasource.adoc:422
 #, no-wrap
 msgid " `quarkus.datasource.\"datasource-name\".health-exclude=true`\n"
 msgstr ""
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:408
+#: upstream/_guides/datasource.adoc:424
 #, fuzzy, no-wrap
 msgid "Datasource metrics"
 msgstr "Métricas de las fuentes de datos"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:412
+#: upstream/_guides/datasource.adoc:428
 #, fuzzy
 msgid "If you are using the xref:micrometer.adoc[`quarkus-micrometer`] or xref:smallrye-metrics.adoc[`quarkus-smallrye-metrics`] extension, `quarkus-agroal` can contribute some datasource-related metrics to the metric registry.  This can be activated by setting the `quarkus.datasource.metrics.enabled` property to `true`."
 msgstr "Si está utilizando la extensión `quarkus-micrometer` o `quarkus-smallrye-metrics`, `quarkus-agroal` puede exponer algunas métricas de la fuente de datos en el punto final `/q/metrics`. Esto se puede activar estableciendo la propiedad `quarkus.datasource.metrics.enabled` a true."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:415
+#: upstream/_guides/datasource.adoc:431
 #, fuzzy
 msgid "For the exposed metrics to contain any actual values, a metric collection must be enabled internally by the Agroal mechanisms.  By default, this metric collection mechanism is enabled for all datasources when a metrics extension is present, and metrics for the Agroal extension are enabled."
 msgstr "Para que las métricas expuestas contengan valores reales, los mecanismos de Agroal deben habilitar internamente una colección de métricas. Por defecto, este mecanismo de recopilación de métricas está habilitado para todos los orígenes de datos cuando hay una extensión de métricas presente y las métricas de la extensión Agroal están habilitadas."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:419
+#: upstream/_guides/datasource.adoc:435
 #, fuzzy
 msgid "To disable metrics for a particular data source, set `quarkus.datasource.jdbc.enable-metrics` to `false`, or apply `quarkus.datasource.<datasource name>.jdbc.enable-metrics` for a named datasource.  This disables collecting the metrics and exposing them in the `/q/metrics` endpoint if the mechanism to collect them is disabled."
 msgstr "Para que las métricas expuestas contengan valores reales, es necesario que la recogida de métricas esté habilitada internamente por los mecanismos de Agroal. Por defecto, este mecanismo de recogida de métricas se activa para todas las fuentes de datos si está presente una extensión de métricas y las métricas para la extensión de Agroal están habilitadas. Si desea desactivar las métricas para una fuente de datos en particular, puede hacerlo estableciendo `quarkus.datasource.jdbc.enable-metrics` en `false` (o `quarkus.datasource.&amp;lt;datasource name&amp;gt;.jdbc.enable-metrics` para una fuente de datos con nombre). Esto deshabilita la recolección de las métricas así como su exposición en el endpoint `/q/metrics`, porque no tiene sentido exponer las métricas si el mecanismo para recolectarlas está deshabilitado."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:423
+#: upstream/_guides/datasource.adoc:439
 #, fuzzy
 msgid "Conversely, setting `quarkus.datasource.jdbc.enable-metrics` to `true`, or `quarkus.datasource.<datasource name>.jdbc.enable-metrics` for a named datasource explicitly enables metrics collection even if a metrics extension is not in use.  This can be useful if you need to access the collected metrics programmatically.  They are available after calling `dataSource.getMetrics()` on an injected `AgroalDataSource` instance."
 msgstr "Por el contrario, si se establece `quarkus.datasource.jdbc.enable-metrics` como `true` (o `quarkus.datasource.&amp;lt;datasource name&amp;gt;.jdbc.enable-metrics` para una fuente de datos con nombre) explícitamente, se puede habilitar la recopilación de métricas incluso si no se está utilizando una extensión de métricas. Esto puede ser útil si necesita acceder a las métricas recogidas mediante programación. Están disponibles después de llamar a `dataSource.getMetrics()` en una instancia inyectada de `AgroalDataSource`. Si la recopilación de métricas está deshabilitada para esta fuente de datos, todos los valores serán cero."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:425
+#: upstream/_guides/datasource.adoc:441
 #, fuzzy
 msgid "If the metrics collection for this datasource is disabled, all values result to zero."
 msgstr "Si la recopilación de métricas para esta fuente de datos está desactivada, todos los valores resultan cero."
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:426
+#: upstream/_guides/datasource.adoc:442
 #, fuzzy, no-wrap
 msgid "Narayana transaction manager integration"
 msgstr "Integración de Narayana Transaction Manager"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:429
+#: upstream/_guides/datasource.adoc:445
 #, fuzzy
 msgid "Integration is automatic if the Narayana JTA extension is also available."
 msgstr "Si la extensión Narayana JTA también está disponible, la integración es automática."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:431
+#: upstream/_guides/datasource.adoc:447
 #, fuzzy
 msgid "You can override this by setting the `transactions` configuration property:"
 msgstr "Puede anular esto estableciendo la propiedad de configuración `transactions` - véase la  link:#configuration-reference[Referencia de Configuración] más abajo."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:433
+#: upstream/_guides/datasource.adoc:449
 #, fuzzy
 msgid "`quarkus.datasource.jdbc.transactions` for default unnamend datasource"
 msgstr "`quarkus.datasource.jdbc.transactions` para fuente de datos sin nombre por defecto"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:434
+#: upstream/_guides/datasource.adoc:450
 #, fuzzy
 msgid "`quarkus.datasource._<datasource-name>_.jdbc.transactions` for named datasource"
 msgstr "`quarkus.datasource. _&amp;amp;lt;datasource-name&amp;amp;gt;_.jdbc.transactions` para fuente de datos con nombre"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:436
+#: upstream/_guides/datasource.adoc:452
 #, fuzzy
 msgid "For more information, see the xref:configuration-reference[Configuration reference] section below."
 msgstr "Puede anular esto estableciendo la propiedad de configuración `transactions` - véase la  link:#configuration-reference[Referencia de Configuración] más abajo."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:438
+#: upstream/_guides/datasource.adoc:454
 #, fuzzy
 msgid "To facilitate the storage of transaction logs in a database by using JDBC, see xref:transaction.adoc#jdbcstore[Configuring transaction logs to be stored in a datasource] section of the xref:transaction.adoc[Using transactions in Quarkus] guide."
 msgstr "Para facilitar el almacenamiento de registros de transacciones en una base de datos utilizando JDBC, véase la sección  link:transaction.html#jdbcstore[Configuración de registros de transacciones para almacenarlos en una fuente de datos] de la guía  link:transaction.html[Utilización de transacciones en Quarkus]."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:439
+#: upstream/_guides/datasource.adoc:455
 #, fuzzy, no-wrap
 msgid "Named datasources"
 msgstr "Fuentes de datos con nombre"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:442
+#: upstream/_guides/datasource.adoc:458
 #, fuzzy
 msgid "When using Dev Services, the default datasource will always be created, but to specify a named datasource, you need to have at least one build time property so Quarkus can detect how to create the datasource."
 msgstr "Cuando se utilizan los servicios de desarrollo, siempre se crea la fuente de datos por defecto, pero para especificar una fuente de datos con nombre es necesario tener al menos una propiedad de tiempo de compilación para que Quarkus sepa que debe crear la fuente de datos. En general, se suele especificar la propiedad `db-kind`, o se habilita explícitamente DevDb: `quarkus.datasource.\"name\".devservices.enabled=true`."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:444
+#: upstream/_guides/datasource.adoc:460
 #, fuzzy
 msgid "You will usually specify the `db-kind` property or explicitly enable Dev Services by setting `quarkus.datasource.\"name\".devservices.enabled=true`."
 msgstr "Normalmente se especifica la propiedad `db-kind` o se habilitan explícitamente los servicios de desarrollo (Dev Services) configurando `quarkus.datasource.\"name\".devservices.enabled=true`."
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:446
+#: upstream/_guides/datasource.adoc:462
 #, fuzzy, no-wrap
 msgid "Testing with in-memory databases"
 msgstr "Pruebas con bases de datos en memoria"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:449
+#: upstream/_guides/datasource.adoc:465
 #, fuzzy
 msgid "Some databases like H2 and Derby are commonly used in the _embedded mode_ as a facility to run integration tests quickly."
 msgstr "Algunas bases de datos, como H2 y Derby, se utilizan habitualmente en \"modo incrustado\" para realizar pruebas de integración rápidas."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:452
+#: upstream/_guides/datasource.adoc:468
 #, fuzzy
 msgid "The recommended approach is to use the real database you intend to use in production, especially when xref:databases-dev-services.adoc[Dev Services provide a zero-config database for testing], and running tests against a container is relatively quick and produces expected results on an actual environment.  However, it is also possible to use JVM-powered databases for scenarios when the ability to run simple integration tests is required."
 msgstr "El enfoque recomendado es utilizar la base de datos real que se pretende utilizar en producción, especialmente cuando  link:databases-dev-services.html[los Servicios Dev proporcionan una base de datos de configuración cero para pruebas], y ejecutar pruebas contra un contenedor es relativamente rápido y produce resultados esperados en un entorno real. Sin embargo, también es posible utilizar bases de datos alimentadas por JVM para escenarios en los que se requiere la capacidad de ejecutar pruebas de integración sencillas."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:454
+#: upstream/_guides/datasource.adoc:470
 #, fuzzy
 msgid "While configuring Derby to use the embedded engine works as usual in JVM mode, such an application will not compile into a native executable. It is because Quarkus Derby extensions do not support embedding the entire database engine into a native executable, and it only covers making the JDBC client code compatible with the native compilation step."
 msgstr "Es importante recordar que cuando se configura H2 (o Derby) para utilizar el motor incrustado, éste funcionará como de costumbre en el modo JVM, pero tal aplicación no compilará en un ejecutable nativo, ya que las extensiones de Quarkus sólo cubren para hacer el código del cliente JDBC compatible con el paso de compilación nativo: incrustar todo el motor de la base de datos en un ejecutable nativo no está actualmente implementado."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:455
+#: upstream/_guides/datasource.adoc:471
 #, fuzzy, no-wrap
 msgid "Support and limitations"
 msgstr "Limitaciones de MySQL"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:459
+#: upstream/_guides/datasource.adoc:475
 #, fuzzy
 msgid "Embedded databases (H2 and Derby) work in JVM mode.  For native mode, the following limitations apply:"
 msgstr "Las bases de datos integradas (H2 y Derby) funcionan en modo JVM. Para el modo nativo, se aplican las siguientes limitaciones:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:461
+#: upstream/_guides/datasource.adoc:477
 #, fuzzy
 msgid "Derby cannot be embedded into the application in native mode, and only remote connection is supported."
 msgstr "Derby no se puede incrustar en la aplicación en modo nativo, y sólo se admite la conexión remota."
 
 #. type: delimited block =
-#: upstream/_guides/datasource.adoc:465
+#: upstream/_guides/datasource.adoc:481
 #, fuzzy
 msgid "Embedding H2 within your native image is not recommended.  Consider using an alternative approach, for example, using a remote connection to a separate database instead."
 msgstr "No se recomienda incrustar H2 dentro de su imagen nativa. Considere la posibilidad de utilizar un enfoque alternativo, por ejemplo, mediante una conexión remota a una base de datos independiente."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:467
+#: upstream/_guides/datasource.adoc:483
 #, fuzzy, no-wrap
 msgid "Run an integration test"
 msgstr "Ejecutar una prueba de integración"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:470
+#: upstream/_guides/datasource.adoc:486
 #, fuzzy
 msgid "Add a dependency on the artifacts providing the additional tools that are under the following Maven coordinates:"
 msgstr "Añadir una dependencia en los artefactos que proporcionan las herramientas adicionales que están bajo las siguientes coordenadas de Maven:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:472
+#: upstream/_guides/datasource.adoc:488
 #, fuzzy
 msgid "`io.quarkus:quarkus-test-h2` for H2"
 msgstr "`io.quarkus:quarkus-test-h2` para H2"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:473
+#: upstream/_guides/datasource.adoc:489
 #, fuzzy
 msgid "`io.quarkus:quarkus-test-derby` for Derby"
 msgstr "`io.quarkus:quarkus-test-derby` para Derby"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:475
+#: upstream/_guides/datasource.adoc:491
 #, fuzzy
 msgid "This will allow you to test your application even when it is compiled into a native executable while the database will run as a JVM process."
 msgstr "Esto le permitirá probar su aplicación incluso cuando se compila en un ejecutable nativo, mientras que la base de datos se ejecutará en la JVM como de costumbre."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:477
+#: upstream/_guides/datasource.adoc:493
 #, fuzzy
 msgid "Add the following specific annotation on any class in your integration tests for running integration tests in both JVM or native executables:"
 msgstr "Añada la siguiente anotación específica en cualquier clase de sus pruebas de integración para ejecutar pruebas de integración tanto en JVM como en ejecutables nativos:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:479
+#: upstream/_guides/datasource.adoc:495
 #, fuzzy
 msgid "`@QuarkusTestResource(H2DatabaseTestResource.class)`"
 msgstr "`@QuarkusTestResource(H2DatabaseTestResource.class)`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:480
+#: upstream/_guides/datasource.adoc:496
 #, fuzzy
 msgid "`@QuarkusTestResource(DerbyDatabaseTestResource.class)`"
 msgstr "`@QuarkusTestResource(DerbyDatabaseTestResource.class)`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:482
+#: upstream/_guides/datasource.adoc:498
 #, fuzzy
 msgid "This ensures that the test suite starts and terminates the managed database in a separate process as required for test execution."
 msgstr "Esto garantiza que el conjunto de pruebas inicie y finalice la base de datos gestionada en un proceso independiente, según sea necesario para la ejecución de las pruebas."
 
 #. type: Block title
-#: upstream/_guides/datasource.adoc:483
+#: upstream/_guides/datasource.adoc:499
 #, fuzzy, no-wrap
 msgid "H2 example"
 msgstr "Ejemplo"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:487
+#: upstream/_guides/datasource.adoc:503
 #, no-wrap
 msgid "package my.app.integrationtests.db;\n"
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:490
+#: upstream/_guides/datasource.adoc:506
 #, no-wrap
 msgid ""
 "import io.quarkus.test.common.QuarkusTestResource;\n"
@@ -1143,7 +1178,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:494
+#: upstream/_guides/datasource.adoc:510
 #, no-wrap
 msgid ""
 "@QuarkusTestResource(H2DatabaseTestResource.class)\n"
@@ -1152,13 +1187,13 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:497
+#: upstream/_guides/datasource.adoc:513
 #, fuzzy
 msgid "Configure the connection to the managed database:"
 msgstr "Configurar la fuente de datos reactiva"
 
 #. type: delimited block -
-#: upstream/_guides/datasource.adoc:502
+#: upstream/_guides/datasource.adoc:518
 #, no-wrap
 msgid ""
 "quarkus.datasource.db-kind=h2\n"
@@ -1166,396 +1201,396 @@ msgid ""
 msgstr ""
 
 #. type: Title ==
-#: upstream/_guides/datasource.adoc:505
+#: upstream/_guides/datasource.adoc:521
 #, fuzzy, no-wrap
 msgid "References"
 msgstr "Referencia de la URL JDBC"
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:508
+#: upstream/_guides/datasource.adoc:524
 #, fuzzy, no-wrap
 msgid "Common datasource configuration reference"
 msgstr "Referencia de configuración de fuentes de datos comunes"
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:513
+#: upstream/_guides/datasource.adoc:529
 #, fuzzy, no-wrap
 msgid "JDBC configuration reference"
 msgstr "Referencia a la configuración de JDBC"
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:518
+#: upstream/_guides/datasource.adoc:534
 #, fuzzy, no-wrap
 msgid "JDBC URL reference"
 msgstr "Referencia de la URL JDBC"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:522
+#: upstream/_guides/datasource.adoc:538
 #, fuzzy
 msgid "Each of the supported databases contains different JDBC URL configuration options.  The following section gives an overview of each database URL and a link to the official documentation."
 msgstr "Cada una de las bases de datos soportadas contiene diferentes opciones de configuración de la URL JDBC. Entrar en cada una de esas opciones está más allá del alcance de este documento, pero la siguiente sección ofrece una visión general de cada URL de base de datos y un enlace a la documentación oficial."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:523 upstream/_guides/datasource.adoc:734
+#: upstream/_guides/datasource.adoc:539 upstream/_guides/datasource.adoc:750
 #, fuzzy, no-wrap
 msgid "DB2"
 msgstr "DB2"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:526
+#: upstream/_guides/datasource.adoc:542
 #, fuzzy
 msgid "`jdbc:db2://<serverName>[:<portNumber>]/<databaseName>[:<key1>=<value>;[<key2>=<value2>;]]`"
 msgstr "`jdbc:db2://&amp;lt;serverName&amp;gt;[:&amp;lt;portNumber&amp;gt;]/&amp;lt;databaseName&amp;gt;[:&amp;lt;key1&amp;gt;=&amp;lt;value&amp;gt;;[&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;;]]`"
 
 #. type: Labeled list
-#: upstream/_guides/datasource.adoc:527 upstream/_guides/datasource.adoc:535
-#: upstream/_guides/datasource.adoc:546 upstream/_guides/datasource.adoc:558
-#: upstream/_guides/datasource.adoc:566 upstream/_guides/datasource.adoc:577
-#: upstream/_guides/datasource.adoc:592 upstream/_guides/datasource.adoc:600
-#: upstream/_guides/datasource.adoc:738 upstream/_guides/datasource.adoc:754
-#: upstream/_guides/datasource.adoc:770 upstream/_guides/datasource.adoc:790
-#: upstream/_guides/datasource.adoc:796 upstream/_guides/datasource.adoc:802
+#: upstream/_guides/datasource.adoc:543 upstream/_guides/datasource.adoc:551
+#: upstream/_guides/datasource.adoc:562 upstream/_guides/datasource.adoc:574
+#: upstream/_guides/datasource.adoc:582 upstream/_guides/datasource.adoc:593
+#: upstream/_guides/datasource.adoc:608 upstream/_guides/datasource.adoc:616
+#: upstream/_guides/datasource.adoc:754 upstream/_guides/datasource.adoc:770
+#: upstream/_guides/datasource.adoc:786 upstream/_guides/datasource.adoc:806
+#: upstream/_guides/datasource.adoc:812 upstream/_guides/datasource.adoc:818
 #, fuzzy, no-wrap
 msgid "Example"
 msgstr "Ejemplo"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:528
+#: upstream/_guides/datasource.adoc:544
 #, fuzzy
 msgid "`jdbc:db2://localhost:50000/MYDB:user=dbadm;password=dbadm;`"
 msgstr "`jdbc:db2://localhost:50000/MYDB:user=dbadm;password=dbadm;`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:530
+#: upstream/_guides/datasource.adoc:546
 #, fuzzy
 msgid "For more information on URL syntax and additional supported options, see the link:https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052342.html[official documentation]."
 msgstr "Consulte la  link:https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_r0052342.html[documentación] oficial para obtener más detalles sobre la sintaxis de la URL y las opciones adicionales admitidas."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:531
+#: upstream/_guides/datasource.adoc:547
 #, fuzzy, no-wrap
 msgid "Derby"
 msgstr "Derby"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:534
+#: upstream/_guides/datasource.adoc:550
 #, fuzzy
 msgid "`jdbc:derby:[//serverName[:portNumber]/][memory:]databaseName[;property=value[;property=value]]`"
 msgstr "`jdbc:derby:[//serverName[:portNumber]/][memory:]databaseName[;property=value[;property=value]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:536
+#: upstream/_guides/datasource.adoc:552
 #, fuzzy
 msgid "`jdbc:derby://localhost:1527/myDB`, `jdbc:derby:memory:myDB;create=true`"
 msgstr "`jdbc:derby://localhost:1527/myDB`, `jdbc:derby:memory:myDB;create=true`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:539
+#: upstream/_guides/datasource.adoc:555
 #, fuzzy
 msgid "Derby is an embedded database that can run as a server, based on a file, or can run completely in memory.  All of these options are available as listed above."
 msgstr "Derby es una base de datos integrada. Puede funcionar como un servidor, basado en un archivo, o vivir completamente en la memoria. Todas estas opciones están disponibles como se indica más arriba. Puede encontrar más información en la  link:https://db.apache.org/derby/docs/10.8/devguide/cdevdvlp17453.html#cdevdvlp17453[documentación oficial]."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:541
+#: upstream/_guides/datasource.adoc:557
 #, fuzzy
 msgid "For more information, see the link:https://db.apache.org/derby/docs/10.8/devguide/cdevdvlp17453.html#cdevdvlp17453[official documentation]."
 msgstr "Para más información, consulte la  link:https://db.apache.org/derby/docs/10.8/devguide/cdevdvlp17453.html#cdevdvlp17453[documentación] oficial."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:542
+#: upstream/_guides/datasource.adoc:558
 #, fuzzy, no-wrap
 msgid "H2"
 msgstr "H2"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:545
+#: upstream/_guides/datasource.adoc:561
 #, fuzzy
 msgid "`jdbc:h2:{ {.|mem:}[name] | [file:]fileName | {tcp|ssl}:[//]server[:port][,server2[:port]]/name }[;key=value...]`"
 msgstr "`jdbc:h2:{ {.|mem:}[name] | [file:]fileName | {tcp|ssl}:[//]server[:port][,server2[:port]]/name }[;key=value…​]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:547
+#: upstream/_guides/datasource.adoc:563
 #, fuzzy
 msgid "`jdbc:h2:tcp://localhost/~/test`, `jdbc:h2:mem:myDB`"
 msgstr "`jdbc:h2:tcp://localhost/~/test`, `jdbc:h2:mem:myDB`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:550
+#: upstream/_guides/datasource.adoc:566
 #, fuzzy
 msgid "H2 is an embedded database that can run as a server, based on a file, or run completely in memory.  All of these options are available as listed above."
 msgstr "H2 es una base de datos integrada. Puede funcionar como un servidor, basado en un archivo, o vivir completamente en la memoria. Todas estas opciones están disponibles como se indica más arriba. Puedes encontrar más información en la  link:https://h2database.com/html/features.html?highlight=url&amp;search=url#database_url[documentación oficial]."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:552
+#: upstream/_guides/datasource.adoc:568
 #, fuzzy
 msgid "For more information, see the link:https://h2database.com/html/features.html?highlight=url&search=url#database_url[official documentation]."
 msgstr "Para más información, consulte la  link:https://h2database.com/html/features.html?highlight=url&amp;search=url#database_url[documentación] oficial."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:553
+#: upstream/_guides/datasource.adoc:569
 #, fuzzy, no-wrap
 msgid "MariaDB"
 msgstr "MariaDB"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:556
+#: upstream/_guides/datasource.adoc:572
 #, fuzzy
 msgid "`jdbc:mariadb:[replication:|failover:|sequential:|aurora:]//<hostDescription>[,<hostDescription>...]/[database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:mariadb:[replication:|failover:|sequential:|aurora:]//&amp;lt;hostDescription&amp;gt;[,&amp;lt;hostDescription&amp;gt;…​]/[database][?&amp;lt;key1&amp;gt;=&amp;lt;value1&amp;gt;[&amp;amp;&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;]]`"
 
 #. type: Labeled list
-#: upstream/_guides/datasource.adoc:556 upstream/_guides/datasource.adoc:575
+#: upstream/_guides/datasource.adoc:572 upstream/_guides/datasource.adoc:591
 #, fuzzy, no-wrap
 msgid "hostDescription"
 msgstr "hostDescription"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:557 upstream/_guides/datasource.adoc:576
+#: upstream/_guides/datasource.adoc:573 upstream/_guides/datasource.adoc:592
 #, fuzzy
 msgid "`<host>[:<portnumber>] or address=(host=<host>)[(port=<portnumber>)][(type=(master|slave))]`"
 msgstr "`&amp;lt;host&amp;gt;[:&amp;lt;portnumber&amp;gt;] or address=(host=&amp;lt;host&amp;gt;)[(port=&amp;lt;portnumber&amp;gt;)][(type=(master|slave))]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:559
+#: upstream/_guides/datasource.adoc:575
 #, fuzzy
 msgid "`jdbc:mariadb://localhost:3306/test`"
 msgstr "`jdbc:mariadb://localhost:3306/test`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:561
+#: upstream/_guides/datasource.adoc:577
 #, fuzzy
 msgid "For more information, see the link:https://mariadb.com/kb/en/library/about-mariadb-connector-j/[official documentation]."
 msgstr "Puede encontrar más información sobre esta función y otras detalladas en la  link:https://mariadb.com/kb/en/library/about-mariadb-connector-j/[documentación oficial]."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:562 upstream/_guides/datasource.adoc:750
+#: upstream/_guides/datasource.adoc:578 upstream/_guides/datasource.adoc:766
 #, fuzzy, no-wrap
 msgid "Microsoft SQL server"
 msgstr "Microsoft SQL Server"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:565
+#: upstream/_guides/datasource.adoc:581
 #, fuzzy
 msgid "`jdbc:sqlserver://[serverName[\\instanceName][:portNumber]][;property=value[;property=value]]`"
 msgstr "`jdbc:sqlserver://[serverName[\\instanceName][:portNumber]][;property=value[;property=value]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:567
+#: upstream/_guides/datasource.adoc:583
 #, fuzzy
 msgid "`jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks`"
 msgstr "`jdbc:sqlserver://localhost:1433;databaseName=AdventureWorks`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:569
+#: upstream/_guides/datasource.adoc:585
 #, fuzzy
 msgid "The Microsoft SQL Server JDBC driver works essentially the same as the others."
 msgstr "El controlador JDBC de Microsoft SQL Server funciona básicamente igual que los demás."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:571
+#: upstream/_guides/datasource.adoc:587
 #, fuzzy
 msgid "For more information, see the link:https://docs.microsoft.com/en-us/sql/connect/jdbc/connecting-to-sql-server-with-the-jdbc-driver?view=sql-server-2017[official documentation]."
 msgstr "El controlador JDBC de Microsoft SQL Server funciona esencialmente igual que los demás. Puede encontrar más detalles en la  link:https://docs.microsoft.com/en-us/sql/connect/jdbc/connecting-to-sql-server-with-the-jdbc-driver?view=sql-server-2017[documentación oficial]."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:572
+#: upstream/_guides/datasource.adoc:588
 #, fuzzy, no-wrap
 msgid "MySQL"
 msgstr "MySQL"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:575
+#: upstream/_guides/datasource.adoc:591
 #, fuzzy
 msgid "`jdbc:mysql:[replication:|failover:|sequential:|aurora:]//<hostDescription>[,<hostDescription>...]/[database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:mysql:[replication:|failover:|sequential:|aurora:]//&amp;lt;hostDescription&amp;gt;[,&amp;lt;hostDescription&amp;gt;…​]/[database][?&amp;lt;key1&amp;gt;=&amp;lt;value1&amp;gt;[&amp;amp;&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:578
+#: upstream/_guides/datasource.adoc:594
 #, fuzzy
 msgid "`jdbc:mysql://localhost:3306/test`"
 msgstr "`jdbc:mysql://localhost:3306/test`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:580
+#: upstream/_guides/datasource.adoc:596
 #, fuzzy
 msgid "For more information, see the link:https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference.html[official documentation]."
 msgstr "Puede encontrar más información sobre esta función y otras detalladas en la  link:https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference.html[documentación oficial]."
 
 #. type: Title =====
-#: upstream/_guides/datasource.adoc:581
+#: upstream/_guides/datasource.adoc:597
 #, fuzzy, no-wrap
 msgid "MySQL limitations"
 msgstr "Limitaciones de MySQL"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:584
+#: upstream/_guides/datasource.adoc:600
 #, fuzzy
 msgid "When compiling a Quarkus application to a native image, the MySQL support for JMX and Oracle Cloud Infrastructure (OCI) integrations are disabled as they are incompatible with GraalVM native images."
 msgstr "Cuando se compila una aplicación Quarkus a imagen nativa, el soporte de MySQL para JMX y las integraciones de Oracle Cloud Infrastructure (OCI) están deshabilitadas ya que no son compatibles con las imágenes nativas de GraalVM. La falta de soporte de JMX es una consecuencia natural de la ejecución en nativo y es poco probable que se resuelva. La integración con OCI podría resolverse, si lo necesitas te sugerimos abrir una solicitud de soporte con los mantenedores de MySQL Connector/J."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:586
+#: upstream/_guides/datasource.adoc:602
 #, fuzzy
 msgid "The lack of JMX support is a natural consequence of running in native mode and is unlikely to be resolved."
 msgstr "La falta de compatibilidad con JMX es una consecuencia natural de la ejecución en modo nativo y es poco probable que se resuelva."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:587
+#: upstream/_guides/datasource.adoc:603
 #, fuzzy
 msgid "The integration with OCI is not supported."
 msgstr "No se admite la integración con OCI."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:588 upstream/_guides/datasource.adoc:784
+#: upstream/_guides/datasource.adoc:604 upstream/_guides/datasource.adoc:800
 #, fuzzy, no-wrap
 msgid "Oracle"
 msgstr "Oracle"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:591
+#: upstream/_guides/datasource.adoc:607
 #, fuzzy
 msgid "`jdbc:oracle:driver_type:@database_specifier`"
 msgstr "`jdbc:oracle:driver_type:@database_specifier`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:593
+#: upstream/_guides/datasource.adoc:609
 #, fuzzy
 msgid "`jdbc:oracle:thin:@localhost:1521/ORCL_SVC`"
 msgstr "`jdbc:oracle:thin:@localhost:1521/ORCL_SVC`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:595
+#: upstream/_guides/datasource.adoc:611
 #, fuzzy
 msgid "For more information, see the link:https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/data-sources-and-URLs.html#GUID-AEA8E228-1B21-4111-AF4C-B1F33744CA08[official documentation]."
 msgstr "Puede encontrar más detalles en la  link:https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/data-sources-and-URLs.html#GUID-AEA8E228-1B21-4111-AF4C-B1F33744CA08[documentación oficial]."
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:596 upstream/_guides/datasource.adoc:798
+#: upstream/_guides/datasource.adoc:612 upstream/_guides/datasource.adoc:814
 #, fuzzy, no-wrap
 msgid "PostgreSQL"
 msgstr "PostgreSQL"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:599
+#: upstream/_guides/datasource.adoc:615
 #, fuzzy
 msgid "`jdbc:postgresql:[//][host][:port][/database][?key=value...]`"
 msgstr "`jdbc:postgresql:[//][host][:port][/database][?key=value…​]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:601
+#: upstream/_guides/datasource.adoc:617
 #, fuzzy
 msgid "`jdbc:postgresql://localhost/test`"
 msgstr "`jdbc:postgresql://localhost/test`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:603
+#: upstream/_guides/datasource.adoc:619
 #, fuzzy
 msgid "The defaults for the different parts are as follows:"
 msgstr "Los valores predeterminados para las diferentes partes son los siguientes:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:604 upstream/_guides/datasource.adoc:743
-#: upstream/_guides/datasource.adoc:759 upstream/_guides/datasource.adoc:775
-#: upstream/_guides/datasource.adoc:808
+#: upstream/_guides/datasource.adoc:620 upstream/_guides/datasource.adoc:759
+#: upstream/_guides/datasource.adoc:775 upstream/_guides/datasource.adoc:791
+#: upstream/_guides/datasource.adoc:824
 #, fuzzy, no-wrap
 msgid "`host`"
 msgstr "`host`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:605
+#: upstream/_guides/datasource.adoc:621
 #, fuzzy
 msgid "localhost"
 msgstr "localhost"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:605 upstream/_guides/datasource.adoc:744
-#: upstream/_guides/datasource.adoc:760 upstream/_guides/datasource.adoc:776
-#: upstream/_guides/datasource.adoc:809
+#: upstream/_guides/datasource.adoc:621 upstream/_guides/datasource.adoc:760
+#: upstream/_guides/datasource.adoc:776 upstream/_guides/datasource.adoc:792
+#: upstream/_guides/datasource.adoc:825
 #, fuzzy, no-wrap
 msgid "`port`"
 msgstr "`port`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:606
+#: upstream/_guides/datasource.adoc:622
 #, fuzzy
 msgid "5432"
 msgstr "5432"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:606 upstream/_guides/datasource.adoc:747
-#: upstream/_guides/datasource.adoc:763
+#: upstream/_guides/datasource.adoc:622 upstream/_guides/datasource.adoc:763
+#: upstream/_guides/datasource.adoc:779
 #, fuzzy, no-wrap
 msgid "`database`"
 msgstr "`database`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:607
+#: upstream/_guides/datasource.adoc:623
 #, fuzzy
 msgid "same name as the username"
 msgstr "mismo nombre que el nombre de usuario"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:609
+#: upstream/_guides/datasource.adoc:625
 #, fuzzy
 msgid "For more information about additional parameters, see the link:https://jdbc.postgresql.org/documentation/head/connect.html[official documentation]."
 msgstr "Puede encontrar más información sobre esta función y otras detalladas en la  link:https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference.html[documentación oficial]."
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:612
+#: upstream/_guides/datasource.adoc:628
 #, fuzzy, no-wrap
 msgid "Quarkus extensions and database drivers reference"
 msgstr "Referencia de extensiones y controladores de bases de datos de Quarkus"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:615
+#: upstream/_guides/datasource.adoc:631
 #, fuzzy
 msgid "The following tables list the built-in `db-kind` values, the corresponding Quarkus extensions, and the JDBC drivers used by those extensions."
 msgstr "En las tablas siguientes se enumeran los valores incorporados en `db-kind`, las correspondientes extensiones de Quarkus y los controladores JDBC utilizados por dichas extensiones."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:617
+#: upstream/_guides/datasource.adoc:633
 #, fuzzy
 msgid "When using one of the built-in datasource kinds, the JDBC and Reactive drivers are resolved automatically to match the values from these tables."
 msgstr "Cuando se utiliza uno de los tipos de fuentes de datos incorporados, el controlador JDBC se resuelve automáticamente con los siguientes valores:"
 
 #. type: Block title
-#: upstream/_guides/datasource.adoc:618
+#: upstream/_guides/datasource.adoc:634
 #, fuzzy, no-wrap
 msgid "Database platform kind to JDBC driver mapping"
 msgstr "Asignación del tipo de base de datos al controlador JDBC"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:621 upstream/_guides/datasource.adoc:676
+#: upstream/_guides/datasource.adoc:637 upstream/_guides/datasource.adoc:692
 #, fuzzy, no-wrap
 msgid "Database kind"
 msgstr "Tipo de base de datos"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:621 upstream/_guides/datasource.adoc:676
+#: upstream/_guides/datasource.adoc:637 upstream/_guides/datasource.adoc:692
 #, fuzzy, no-wrap
 msgid "Quarkus extension"
 msgstr "Quarkus proporciona extensiones de controladores para:"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:623
+#: upstream/_guides/datasource.adoc:639
 #, fuzzy, no-wrap
 msgid "Drivers"
 msgstr "Controlador JDBC"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:624 upstream/_guides/datasource.adoc:695
+#: upstream/_guides/datasource.adoc:640 upstream/_guides/datasource.adoc:711
 #, fuzzy, no-wrap
 msgid "`db2`"
 msgstr "`db2`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:625
+#: upstream/_guides/datasource.adoc:641
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-db2`"
 msgstr "`quarkus-jdbc-db2`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:629
+#: upstream/_guides/datasource.adoc:645
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `com.ibm.db2.jcc.DBDriver`\n"
@@ -1564,19 +1599,19 @@ msgid ""
 msgstr "`com.ibm.db2.jcc.DB2XADataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:630
+#: upstream/_guides/datasource.adoc:646
 #, fuzzy, no-wrap
 msgid "`derby`"
 msgstr "`derby`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:631
+#: upstream/_guides/datasource.adoc:647
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-derby`"
 msgstr "Derby - `jdbc-derby`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:635
+#: upstream/_guides/datasource.adoc:651
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `org.apache.derby.jdbc.ClientDriver`\n"
@@ -1585,19 +1620,19 @@ msgid ""
 msgstr "`org.apache.derby.jdbc.ClientXADataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:636
+#: upstream/_guides/datasource.adoc:652
 #, fuzzy, no-wrap
 msgid "`h2`"
 msgstr "`h2`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:637
+#: upstream/_guides/datasource.adoc:653
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-h2`"
 msgstr "`quarkus-jdbc-h2`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:641
+#: upstream/_guides/datasource.adoc:657
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `org.h2.Driver`\n"
@@ -1606,19 +1641,19 @@ msgid ""
 msgstr "`org.h2.jdbcx.JdbcDataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:642
+#: upstream/_guides/datasource.adoc:658
 #, fuzzy, no-wrap
 msgid "`mariadb`"
 msgstr "`mariadb`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:643
+#: upstream/_guides/datasource.adoc:659
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-mariadb`"
 msgstr "MariaDB - `jdbc-mariadb`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:647
+#: upstream/_guides/datasource.adoc:663
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `org.mariadb.jdbc.Driver`\n"
@@ -1627,19 +1662,19 @@ msgid ""
 msgstr "`org.mariadb.jdbc.MySQLDataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:648 upstream/_guides/datasource.adoc:687
+#: upstream/_guides/datasource.adoc:664 upstream/_guides/datasource.adoc:703
 #, fuzzy, no-wrap
 msgid "`mssql`"
 msgstr "`mssql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:649
+#: upstream/_guides/datasource.adoc:665
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-mssql`"
 msgstr "`quarkus-jdbc-mssql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:653
+#: upstream/_guides/datasource.adoc:669
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `com.microsoft.sqlserver.jdbc.SQLServerDriver`\n"
@@ -1648,19 +1683,19 @@ msgid ""
 msgstr "`com.microsoft.sqlserver.jdbc.SQLServerXADataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:654 upstream/_guides/datasource.adoc:683
+#: upstream/_guides/datasource.adoc:670 upstream/_guides/datasource.adoc:699
 #, fuzzy, no-wrap
 msgid "`mysql`"
 msgstr "`mysql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:655
+#: upstream/_guides/datasource.adoc:671
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-mysql`"
 msgstr "MySQL - `jdbc-mysql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:659
+#: upstream/_guides/datasource.adoc:675
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `com.mysql.cj.jdbc.Driver`\n"
@@ -1669,19 +1704,19 @@ msgid ""
 msgstr "`com.mysql.cj.jdbc.MysqlXADataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:660 upstream/_guides/datasource.adoc:679
+#: upstream/_guides/datasource.adoc:676 upstream/_guides/datasource.adoc:695
 #, fuzzy, no-wrap
 msgid "`oracle`"
 msgstr "`oracle`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:661
+#: upstream/_guides/datasource.adoc:677
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-oracle`"
 msgstr "Oráculo - `jdbc-oracle`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:665
+#: upstream/_guides/datasource.adoc:681
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `oracle.jdbc.driver.OracleDriver`\n"
@@ -1690,19 +1725,19 @@ msgid ""
 msgstr "`oracle.jdbc.xa.client.OracleXADataSource`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:666 upstream/_guides/datasource.adoc:691
+#: upstream/_guides/datasource.adoc:682 upstream/_guides/datasource.adoc:707
 #, fuzzy, no-wrap
 msgid "`postgresql`"
 msgstr "`postgresql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:667
+#: upstream/_guides/datasource.adoc:683
 #, fuzzy, no-wrap
 msgid "`quarkus-jdbc-postgresql`"
 msgstr "PostgreSQL - `jdbc-postgresql`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:670
+#: upstream/_guides/datasource.adoc:686
 #, fuzzy, no-wrap
 msgid ""
 "* JDBC: `org.postgresql.Driver`\n"
@@ -1711,286 +1746,286 @@ msgid ""
 msgstr "`org.postgresql.xa.PGXADataSource`"
 
 #. type: Block title
-#: upstream/_guides/datasource.adoc:673
+#: upstream/_guides/datasource.adoc:689
 #, fuzzy, no-wrap
 msgid "Database kind to Reactive driver mapping"
 msgstr "Asignación del tipo de base de datos al controlador JDBC"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:678
+#: upstream/_guides/datasource.adoc:694
 #, fuzzy, no-wrap
 msgid "Driver"
 msgstr "Controlador JDBC"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:682
+#: upstream/_guides/datasource.adoc:698
 #, fuzzy, no-wrap
 msgid "`io.vertx.oracleclient.spi.OracleDriver`"
 msgstr "`oracle.jdbc.driver.OracleDriver`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:686
+#: upstream/_guides/datasource.adoc:702
 #, fuzzy, no-wrap
 msgid "`io.vertx.mysqlclient.spi.MySQLDriver`"
 msgstr "`io.vertx.mysqlclient.spi.MySQLDriver`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:690
+#: upstream/_guides/datasource.adoc:706
 #, fuzzy, no-wrap
 msgid "`io.vertx.mssqlclient.spi.MSSQLDriver`"
 msgstr "`io.vertx.mssqlclient.spi.MSSQLDriver`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:694
+#: upstream/_guides/datasource.adoc:710
 #, fuzzy, no-wrap
 msgid "`io.vertx.pgclient.spi.PgDriver`"
 msgstr "`io.vertx.pgclient.spi.PgDriver`"
 
 #. type: Table
-#: upstream/_guides/datasource.adoc:697
+#: upstream/_guides/datasource.adoc:713
 #, fuzzy, no-wrap
 msgid "`io.vertx.db2client.spi.DB2Driver`"
 msgstr "`org.apache.derby.jdbc.ClientDriver`"
 
 #. type: delimited block =
-#: upstream/_guides/datasource.adoc:702
+#: upstream/_guides/datasource.adoc:718
 #, fuzzy
 msgid "This automatic resolution is applicable in most cases so that driver configuration is not needed."
 msgstr "Esta resolución automática es aplicable en la mayoría de los casos, por lo que no es necesario configurar el controlador."
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:706
+#: upstream/_guides/datasource.adoc:722
 #, fuzzy, no-wrap
 msgid "Reactive datasource configuration reference"
 msgstr "Referencia a la configuración de fuentes de datos reactivas"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:710
+#: upstream/_guides/datasource.adoc:726
 #, fuzzy, no-wrap
 msgid "Reactive DB2 configuration"
 msgstr "Configuración reactiva de DB2"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:714
+#: upstream/_guides/datasource.adoc:730
 #, fuzzy, no-wrap
 msgid "Reactive MariaDB/MySQL specific configuration"
 msgstr "Configuración específica de Reactive MariaDB/MySQL"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:718
+#: upstream/_guides/datasource.adoc:734
 #, fuzzy, no-wrap
 msgid "Reactive Microsoft SQL server-specific configuration"
 msgstr "Configuración específica de Microsoft SQL Server reactivo"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:722
+#: upstream/_guides/datasource.adoc:738
 #, fuzzy, no-wrap
 msgid "Reactive Oracle-specific configuration"
 msgstr "Configuración específica de Oracle reactivo"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:726
+#: upstream/_guides/datasource.adoc:742
 #, fuzzy, no-wrap
 msgid "Reactive PostgreSQL-specific configuration"
 msgstr "Configuración específica de Reactive PostgreSQL"
 
 #. type: Title ===
-#: upstream/_guides/datasource.adoc:732
+#: upstream/_guides/datasource.adoc:748
 #, fuzzy, no-wrap
 msgid "Reactive datasource URL reference"
 msgstr "Referencia a la configuración de fuentes de datos reactivas"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:737
+#: upstream/_guides/datasource.adoc:753
 #, fuzzy
 msgid "`db2://[user[:[password]]@]host[:port][/database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:db2://&amp;lt;serverName&amp;gt;[:&amp;lt;portNumber&amp;gt;]/&amp;lt;databaseName&amp;gt;[:&amp;lt;key1&amp;gt;=&amp;lt;value&amp;gt;;[&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;;]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:739
+#: upstream/_guides/datasource.adoc:755
 #, fuzzy
 msgid "`db2://dbuser:secretpassword@database.server.com:50000/mydb`"
 msgstr "`db2://dbuser:secretpassword@database.server.com:50000/mydb`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:741 upstream/_guides/datasource.adoc:757
+#: upstream/_guides/datasource.adoc:757 upstream/_guides/datasource.adoc:773
 #, fuzzy
 msgid "Currently, the client supports the following parameter keys:"
 msgstr "Actualmente, el cliente admite las siguientes claves de parámetros:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:745 upstream/_guides/datasource.adoc:761
-#: upstream/_guides/datasource.adoc:777 upstream/_guides/datasource.adoc:810
+#: upstream/_guides/datasource.adoc:761 upstream/_guides/datasource.adoc:777
+#: upstream/_guides/datasource.adoc:793 upstream/_guides/datasource.adoc:826
 #, fuzzy
 msgid "`user`"
 msgstr "`user`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:746 upstream/_guides/datasource.adoc:762
-#: upstream/_guides/datasource.adoc:778 upstream/_guides/datasource.adoc:811
+#: upstream/_guides/datasource.adoc:762 upstream/_guides/datasource.adoc:778
+#: upstream/_guides/datasource.adoc:794 upstream/_guides/datasource.adoc:827
 #, fuzzy
 msgid "`password`"
 msgstr "`password`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:749 upstream/_guides/datasource.adoc:765
-#: upstream/_guides/datasource.adoc:783 upstream/_guides/datasource.adoc:820
+#: upstream/_guides/datasource.adoc:765 upstream/_guides/datasource.adoc:781
+#: upstream/_guides/datasource.adoc:799 upstream/_guides/datasource.adoc:836
 #, fuzzy
 msgid "Configuring parameters in the connection URL overrides the default properties."
 msgstr "La configuración de los parámetros en la URL de conexión anulará las propiedades por defecto."
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:753
+#: upstream/_guides/datasource.adoc:769
 #, fuzzy
 msgid "`sqlserver://[user[:[password]]@]host[:port][/database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:db2://&amp;lt;serverName&amp;gt;[:&amp;lt;portNumber&amp;gt;]/&amp;lt;databaseName&amp;gt;[:&amp;lt;key1&amp;gt;=&amp;lt;value&amp;gt;;[&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;;]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:755
+#: upstream/_guides/datasource.adoc:771
 #, fuzzy
 msgid "`sqlserver://dbuser:secretpassword@database.server.com:1433/mydb`"
 msgstr "`sqlserver://dbuser:secretpassword@database.server.com:1433/mydb`"
 
 #. type: Title ====
-#: upstream/_guides/datasource.adoc:766
+#: upstream/_guides/datasource.adoc:782
 #, fuzzy, no-wrap
 msgid "MySQL / MariaDB"
 msgstr "MariaDB"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:769
+#: upstream/_guides/datasource.adoc:785
 #, fuzzy
 msgid "`mysql://[user[:[password]]@]host[:port][/database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:db2://&amp;lt;serverName&amp;gt;[:&amp;lt;portNumber&amp;gt;]/&amp;lt;databaseName&amp;gt;[:&amp;lt;key1&amp;gt;=&amp;lt;value&amp;gt;;[&amp;lt;key2&amp;gt;=&amp;lt;value2&amp;gt;;]]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:771
+#: upstream/_guides/datasource.adoc:787
 #, fuzzy
 msgid "`mysql://dbuser:secretpassword@database.server.com:3211/mydb`"
 msgstr "`mysql://dbuser:secretpassword@database.server.com:3211/mydb`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:773
+#: upstream/_guides/datasource.adoc:789
 #, fuzzy
 msgid "Currently, the client supports the following parameter keys (case-insensitive):"
 msgstr "Actualmente, el cliente admite las siguientes claves de parámetros (sin distinción de mayúsculas y minúsculas):"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:779
+#: upstream/_guides/datasource.adoc:795
 #, fuzzy
 msgid "`schema`"
 msgstr "`schema`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:780
+#: upstream/_guides/datasource.adoc:796
 #, fuzzy
 msgid "`socket`"
 msgstr "`socket`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:781
+#: upstream/_guides/datasource.adoc:797
 #, fuzzy
 msgid "`useAffectedRows`"
 msgstr "`useAffectedRows`"
 
 #. type: Title =====
-#: upstream/_guides/datasource.adoc:786
+#: upstream/_guides/datasource.adoc:802
 #, fuzzy, no-wrap
 msgid "EZConnect format"
 msgstr "Formato EZConnect"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:789
+#: upstream/_guides/datasource.adoc:805
 #, fuzzy
 msgid "`oracle:thin:@[[protocol:]//]host[:port][/service_name][:server_mode][/instance_name][?connection properties]`"
 msgstr "`oracle:thin:@[[protocol:]//]host[:port][/service_name][:server_mode][/instance_name][?connection properties]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:791
+#: upstream/_guides/datasource.adoc:807
 #, fuzzy
 msgid "`oracle:thin:@mydbhost1:5521/mydbservice?connect_timeout=10sec`"
 msgstr "`oracle:thin:@mydbhost1:5521/mydbservice?connect_timeout=10sec`"
 
 #. type: Title =====
-#: upstream/_guides/datasource.adoc:792
+#: upstream/_guides/datasource.adoc:808
 #, fuzzy, no-wrap
 msgid "TNS alias format"
 msgstr "Formato de alias TNS"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:795
+#: upstream/_guides/datasource.adoc:811
 #, fuzzy
 msgid "`oracle:thin:@<alias_name>[?connection properties]`"
 msgstr "`oracle:thin:@&amp;lt;alias_name&amp;gt;[?connection properties]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:797
+#: upstream/_guides/datasource.adoc:813
 #, fuzzy
 msgid "`oracle:thin:@prod_db?TNS_ADMIN=/work/tns/`"
 msgstr "`oracle:thin:@prod_db?TNS_ADMIN=/work/tns/`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:801
+#: upstream/_guides/datasource.adoc:817
 #, fuzzy
 msgid "`postgresql://[user[:[password]]@]host[:port][/database][?<key1>=<value1>[&<key2>=<value2>]]`"
 msgstr "`jdbc:postgresql:[//][host][:port][/database][?key=value…​]`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:803
+#: upstream/_guides/datasource.adoc:819
 #, fuzzy
 msgid "`postgresql://dbuser:secretpassword@database.server.com:5432/mydb`"
 msgstr "`postgresql://dbuser:secretpassword@database.server.com:5432/mydb`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:805
+#: upstream/_guides/datasource.adoc:821
 #, fuzzy
 msgid "Currently, the client supports:"
 msgstr "Actualmente, el cliente admite las siguientes claves de parámetros:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:807
+#: upstream/_guides/datasource.adoc:823
 #, fuzzy
 msgid "Following parameter keys:"
 msgstr "Siguientes teclas de parámetros:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:812
+#: upstream/_guides/datasource.adoc:828
 #, fuzzy
 msgid "`dbname`"
 msgstr "`dbname`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:813
+#: upstream/_guides/datasource.adoc:829
 #, fuzzy
 msgid "`sslmode`"
 msgstr "`sslmode`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:815
+#: upstream/_guides/datasource.adoc:831
 #, fuzzy
 msgid "Additional properties, such as:"
 msgstr "propiedades adicionales, incluyendo:"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:816
+#: upstream/_guides/datasource.adoc:832
 #, fuzzy
 msgid "`application_name`"
 msgstr "`application_name`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:817
+#: upstream/_guides/datasource.adoc:833
 #, fuzzy
 msgid "`fallback_application_name`"
 msgstr "`fallback_application_name`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:818
+#: upstream/_guides/datasource.adoc:834
 #, fuzzy
 msgid "`search_path`"
 msgstr "`search_path`"
 
 #. type: Plain text
-#: upstream/_guides/datasource.adoc:819
+#: upstream/_guides/datasource.adoc:835
 #, fuzzy
 msgid "`options`"
 msgstr "`options`"
