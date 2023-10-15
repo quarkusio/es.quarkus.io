@@ -18,15 +18,15 @@ msgstr ""
 
 #. type: YAML Front Matter: author
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "cescoffier"
-msgstr ""
+msgstr "cescoffier"
 
 #. type: YAML Front Matter: date
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2023-10-09"
-msgstr ""
+msgstr "2023-10-09"
 
 #. type: YAML Front Matter: layout
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
@@ -36,36 +36,39 @@ msgstr "post"
 
 #. type: YAML Front Matter: synopsis
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Learn about the virtual threads integration in Quarkus messaging (Kafka, AMQP, Pulsar...)."
-msgstr ""
+msgstr "Conozca la integración de hilos virtuales en la mensajería Quarkus (Kafka, AMQP, Pulsar...)."
 
 #. type: YAML Front Matter: tags
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "virtual-threads reactive redis kafka messaging"
-msgstr ""
+msgstr "virtual-threads reactivo redis kafka mensajería"
 
 #. type: YAML Front Matter: title
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:1
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Processing Kafka records on virtual threads"
-msgstr ""
+msgstr "Procesamiento de registros Kafka en hilos virtuales"
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:15
+#, fuzzy
 msgid "In https://quarkus.io/blog/virtual-threads-2/[another blog post], we have seen how you can implement a CRUD application with Quarkus to utilize virtual threads.  The virtual threads support in Quarkus is not limited to REST and HTTP.  Many other parts support virtual threads, such as gRPC, scheduled tasks, and messaging.  In this post, we will see how you can process Kafka records on virtual threads, increasing the concurrency of the processing."
-msgstr ""
+msgstr "En  link:https://quarkus.io/blog/virtual-threads-2/[otra entrada del blog], hemos visto cómo se puede implementar una aplicación CRUD con Quarkus para utilizar hilos virtuales. El soporte de hilos virtuales en Quarkus no se limita a REST y HTTP. Muchas otras partes soportan hilos virtuales, como gRPC, tareas programadas y mensajería. En este post, veremos cómo se pueden procesar registros Kafka en hilos virtuales, aumentando la concurrencia del procesamiento."
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:17
+#, fuzzy
 msgid "## Processing messages on virtual threads"
-msgstr ""
+msgstr "Procesamiento de mensajes en hilos virtuales"
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:20
+#, fuzzy
 msgid "The Quarkus Reactive Messaging extension supports virtual threads.  Similarly to HTTP, to execute the processing on a virtual thread, you need to use the `@RunOnVirtualThread` annotation:"
-msgstr ""
+msgstr "La extensión Quarkus Reactive Messaging soporta hilos virtuales. De forma similar a HTTP, para ejecutar el procesamiento en un hilo virtual, es necesario utilizar la anotación `@RunOnVirtualThread`:"
 
 #. type: delimited block -
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:29
@@ -81,14 +84,15 @@ msgstr ""
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:33
+#, fuzzy
 msgid "The processing of each message runs on separate virtual threads.  So, for each message from the `input-channel`, a new virtual thread is created (as seen in https://quarkus.io/blog/virtual-thread-1/[this blog post], virtual thread creation is cheap)."
-msgstr ""
+msgstr "El procesamiento de cada mensaje se ejecuta en hilos virtuales separados. Así, por cada mensaje de la `input-channel`, se crea un nuevo hilo virtual (como se ha visto en  link:https://quarkus.io/blog/virtual-thread-1/[esta entrada del] blog, la creación de hilos virtuales es barata)."
 
 #. type: Positional ($1) AttributeList argument for macro 'image'
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:34
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Threading model of the messaging application"
-msgstr ""
+msgstr "Modelo de subprocesos de la aplicación de mensajería"
 
 #. type: Target for macro image
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:34
@@ -98,28 +102,33 @@ msgstr ""
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:39
+#, fuzzy
 msgid "This execution model can be used with any Quarkus reactive messaging connector, including AMQP 1.0, Apache Pulsar, and Apache Kafka.  The concurrency of this processing is no longer limited by the number of worker threads, as it would with the `@Blocking` annotation.  Thus, this novel execution model simplifies the development of highly concurrent data streaming applications."
-msgstr ""
+msgstr "Este modelo de ejecución se puede utilizar con cualquier conector de mensajería reactiva de Quarkus, incluyendo AMQP 1.0, Apache Pulsar y Apache Kafka. La concurrencia de este procesamiento ya no está limitada por el número de hilos del trabajador, como ocurriría con la anotación `@Blocking`. Así, este nuevo modelo de ejecución simplifica el desarrollo de aplicaciones de flujo de datos altamente concurrentes."
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:44
+#, fuzzy
 msgid "As we will see later, such high-level concurrency can cause problems.  To keep this concurrency controllable, Quarkus limits the number of concurrent message processing to `1024` (This default value is https://quarkus.io/guides/messaging-virtual-threads[configurable]).  One of the main benefits of this limit is preventing the application from polling millions of messages, which would be very expensive in terms of memory.  Without this limit, a Kafka application would poll all the records from the assigned topics-partitions and consume a large amount of memory."
-msgstr ""
+msgstr "Como veremos más adelante, tal concurrencia de alto nivel puede causar problemas. Para mantener esta concurrencia controlable, Quarkus limita el número de procesamientos de mensajes concurrentes a `1024` (Este valor por defecto es  link:https://quarkus.io/guides/messaging-virtual-threads[configurable]). Uno de los principales beneficios de este límite es evitar que la aplicación sondee millones de mensajes, lo que sería muy costoso en términos de memoria. Sin este límite, una aplicación Kafka sondearía todos los registros de los temas-particiones asignados y consumiría una gran cantidad de memoria."
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:50
+#, fuzzy
 msgid "Also, you may wonder why we do not use virtual threads by default.  The reasons have been explained in https://quarkus.io/blog/virtual-thread-1/#five-things-you-need-to-know-before-using-virtual-threads-for-everything[a previous blog post].  There are limitations that can make virtual threads dangerous.  You need to make sure your virtual threads usage is safe before using it.  We will see a few examples in this post."
-msgstr ""
+msgstr "Además, puede que te preguntes por qué no utilizamos hilos virtuales por defecto. Las razones se han explicado en  link:https://quarkus.io/blog/virtual-thread-1/#five-things-you-need-to-know-before-using-virtual-threads-for-everything[una entrada anterior del blog]. Existen limitaciones que pueden hacer que los hilos virtuales sean peligrosos. Necesitas asegurarte de que el uso de hilos virtuales es seguro antes de usarlo. Veremos algunos ejemplos en esta entrada."
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:52
+#, fuzzy
 msgid "## Processing Kafka records on virtual threads"
-msgstr ""
+msgstr "Procesamiento de registros Kafka en hilos virtuales"
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:60
+#, fuzzy
 msgid "To illustrate how to process Kafka records on virtual threads, let's consider a simple application.  This application is a fake fraud detector.  It analyzes banking transactions, and if the transaction amount for a given account in a given period of time reaches a threshold, we consider there is fraud.  The code is available in this https://github.com/quarkusio/virtual-threads-demos/tree/main/kafka-example[GitHub repository].  Of course, you can use more complex detection algorithms, and even use AI/ML.  In this case, we use the https://redis.io/docs/data-types/timeseries/[Redis time series] commands inefficiently to introduce more I/O than necessary.  It is done purposefully to utilize the virtual thread's ability to block:"
-msgstr ""
+msgstr "Para ilustrar cómo procesar registros de Kafka en hilos virtuales, consideremos una aplicación sencilla. Esta aplicación es un detector de fraudes falsos. Analiza transacciones bancarias, y si el importe de la transacción para una cuenta dada en un periodo de tiempo determinado alcanza un umbral, consideramos que hay fraude. El código está disponible en este  link:https://github.com/quarkusio/virtual-threads-demos/tree/main/kafka-example[repositorio de GitHub]. Por supuesto, se pueden utilizar algoritmos de detección más complejos, e incluso utilizar IA/ML. En este caso, utilizamos los comandos de  link:https://redis.io/docs/data-types/timeseries/[series temporales de Redis] de forma ineficiente para introducir más E/S de la necesaria. Se hace a propósito para utilizar la capacidad de bloqueo del hilo virtual:"
 
 #. type: delimited block -
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:68
@@ -190,8 +199,9 @@ msgstr ""
 
 #. type: Plain text
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:104
+#, fuzzy
 msgid "# Increase Redis pool size (and waiting queue size) as we will have a lot of concurrency quarkus.redis.max-pool-size=100 # Number of connection in the pool quarkus.redis.max-pool-waiting=10000 # Waiting queue max size"
-msgstr ""
+msgstr "# Increase Redis pool size (and waiting queue size) as we will have a lot of concurrency quarkus.redis.max-pool-size=100 # Number of connection in the pool quarkus.redis.max-pool-waiting=10000 # Waiting queue max size"
 
 #. type: delimited block -
 #: upstream/_posts/2023-09-30-virtual-threads-4.adoc:108
