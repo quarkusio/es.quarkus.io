@@ -2045,59 +2045,69 @@ msgstr "En MacOS Sierra y superior puedes habilitar las siguientes opciones de s
 
 #. type: Title ==
 #: upstream/_guides/vertx-reference.adoc:1011
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Use a Vert.x context-aware scheduler"
-msgstr ""
+msgstr "Utilizar un programador Vert.x sensible al contexto"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1015
+#, fuzzy
 msgid "Some Mutiny operators need to schedule work on an executor thread pool.  A good example is `.onItem().delayIt().by(Duration.ofMillis(10)` as it needs such an executor to delay emissions."
-msgstr ""
+msgstr "Algunos operadores Mutiny necesitan programar el trabajo en un grupo de hilos ejecutores. Un buen ejemplo es `.onItem().delayIt().by(Duration.ofMillis(10)`, ya que necesita un ejecutor de este tipo para retrasar las emisiones."
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1017
+#, fuzzy
 msgid "The default executor is returned by `io.smallrye.mutiny.infrastructure.Infrastructure` and it is already configured and managed by Quarkus."
-msgstr ""
+msgstr "El ejecutor por defecto es devuelto por `io.smallrye.mutiny.infrastructure.Infrastructure` y ya está configurado y gestionado por Quarkus."
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1019
+#, fuzzy
 msgid "That being said, there are cases where you need to make sure that an operation is run on a Vert.x (duplicated) context and not just on any random thread."
-msgstr ""
+msgstr "Dicho esto, hay casos en los que es necesario asegurarse de que una operación se ejecuta en un contexto Vert.x (duplicado) y no en un hilo cualquiera."
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1022
+#, fuzzy
 msgid "The `io.smallrye.mutiny.vertx.core.ContextAwareScheduler` interface offers an API to obtain context-aware schedulers.  Such a scheduler is configured with:"
-msgstr ""
+msgstr "La interfaz `io.smallrye.mutiny.vertx.core.ContextAwareScheduler` ofrece una API para obtener planificadores conscientes del contexto. Un planificador de este tipo se configura con:"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1024
+#, fuzzy
 msgid "a delegate `ScheduledExecutorService` of your choice (hint: you can reuse `Infrastructure.getDefaultWorkerPool()`), and"
-msgstr ""
+msgstr "un delegado `ScheduledExecutorService` de su elección (pista: puede reutilizar `Infrastructure.getDefaultWorkerPool()`), y"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1025
+#, fuzzy
 msgid "a context fetching strategy among:"
-msgstr ""
+msgstr "una estrategia de búsqueda de contexto entre:"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1026
+#, fuzzy
 msgid "an explicit `Context`, or"
-msgstr ""
+msgstr "una dirección explícita `Context`, o"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1027
+#, fuzzy
 msgid "calling `Vertx::getOrCreateContext()` either on the current thread or later when the scheduling request happens, or"
-msgstr ""
+msgstr "llamar a `Vertx::getOrCreateContext()`, ya sea en el subproceso actual o más tarde, cuando se produzca la solicitud de programación, o bien"
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1028
+#, fuzzy
 msgid "calling `Vertx::currentContext()`, which fails if the current thread is not a Vert.x thread."
-msgstr ""
+msgstr "llamando a `Vertx::currentContext()`, que falla si el hilo actual no es un hilo Vert.x."
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1030
+#, fuzzy
 msgid "Here is a sample where `ContextAwareScheduler` is used:"
-msgstr ""
+msgstr "He aquí un ejemplo en el que se utiliza `ContextAwareScheduler`:"
 
 #. type: delimited block -
 #: upstream/_guides/vertx-reference.adoc:1034
@@ -2140,8 +2150,9 @@ msgstr ""
 
 #. type: Plain text
 #: upstream/_guides/vertx-reference.adoc:1056
+#, fuzzy
 msgid "In this example a scheduler is created by capturing the context of the Vert.x event-loop that calls `asyncStart()`.  The `delayIt` operator uses that scheduler, and we can check that the context that we get in `invoke` is a Vert.x duplicated context where the data for key `\"foo\"` has been propagated."
-msgstr ""
+msgstr "En este ejemplo se crea un planificador capturando el contexto del evento-bucle Vert.x que llama a `asyncStart()`. El operador `delayIt` utiliza ese planificador, y podemos comprobar que el contexto que obtenemos en `invoke` es un contexto duplicado Vert.x en el que se han propagado los datos de la clave `\"foo\"`."
 
 #. type: Title ==
 #: upstream/_guides/vertx-reference.adoc:1057
