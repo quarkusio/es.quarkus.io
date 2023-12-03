@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-10-29 08:10+0000\n"
+"POT-Creation-Date: 2023-12-03 08:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2031,7 +2031,7 @@ msgstr "Luego, desde el interior del contenedor de herramientas ejecutamos:"
 
 #. type: delimited block -
 #: upstream/_guides/native-reference.adoc:1324
-#: upstream/_guides/native-reference.adoc:2070
+#: upstream/_guides/native-reference.adoc:2083
 #, no-wrap
 msgid "perf record -F 1009 -g -a ./target/debugging-native-1.0.0-SNAPSHOT-runner\n"
 msgstr ""
@@ -2867,19 +2867,41 @@ msgid "The time spent in analysis and compilation phases depends on how big the 
 msgstr "El tiempo empleado en las fases de análisis y compilación depende del tamaño de la aplicación. Cuanto más grande sea la aplicación, más tiempo se tarda en compilarla. Sin embargo, hay ciertas características que pueden tener un efecto exponencial. Por ejemplo, cuando se registran tipos y métodos para el acceso por reflexión, el análisis no puede ver fácilmente lo que hay detrás de esos tipos o métodos, por lo que tiene que hacer más trabajo para completar el paso de análisis."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:1892
+#: upstream/_guides/native-reference.adoc:1893
+#, no-wrap
+msgid "I get a warning about using experimental options, what can I do?"
+msgstr ""
+
+#. type: Plain text
+#: upstream/_guides/native-reference.adoc:1896
+msgid "Starting with Mandrel 23.1 and GraalVM for JDK 21, the native executable generation process will warn about the use of experimental options with a message like this:"
+msgstr ""
+
+#. type: delimited block -
+#: upstream/_guides/native-reference.adoc:1900
+#, no-wrap
+msgid "Warning: The option '-H:ReflectionConfigurationResources=META-INF/native-image/io.micrometer/micrometer-core/reflect-config.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.\n"
+msgstr ""
+
+#. type: Plain text
+#: upstream/_guides/native-reference.adoc:1904
+msgid "If the mentioned option is added by a third party library like in the example above, you should consider opening an issue in the library's repository to ask for the option to be removed.  If the option is added by your application, you should consider either removing it (if it's not necessary) or wrapping it between `-H:+UnlockExperimentalVMOptions` and `-H:-UnlockExperimentalVMOptions`."
+msgstr ""
+
+#. type: Title ===
+#: upstream/_guides/native-reference.adoc:1905
 #, fuzzy, no-wrap
 msgid "I get a `AnalysisError\\$ParsingError` when building a native executable due to an `UnresolvedElementException`, what can I do?"
 msgstr "Me sale un `OutOfMemoryError` (OOME) construyendo ejecutables nativos, ¿qué puedo hacer?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1897
+#: upstream/_guides/native-reference.adoc:1910
 #, fuzzy
 msgid "When building a native executable Quarkus requires all classes being referenced by the code, no matter if they are build-time or run-time initialized, to be present in the classpath.  This way it ensures that there will be no crashes at runtime due to potential `NoClassDefFoundError` exceptions.  To achieve this it makes use of GraalVM's `--link-at-build-time` parameter:"
 msgstr "Cuando se construye un ejecutable nativo Quarkus requiere que todas las clases referenciadas por el código, sin importar si son inicializadas en tiempo de construcción o en tiempo de ejecución, estén presentes en el classpath. De esta manera se asegura de que no habrá fallos en tiempo de ejecución debido a posibles excepciones `NoClassDefFoundError`. Para lograr esto se hace uso del parámetro `--link-at-build-time` de GraalVM:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:1903
+#: upstream/_guides/native-reference.adoc:1916
 #, no-wrap
 msgid ""
 "--link-at-build-time  require types to be fully defined at image build-time. If used\n"
@@ -2888,217 +2910,217 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1907
+#: upstream/_guides/native-reference.adoc:1920
 #, fuzzy
 msgid "This, however, may result in an `AnalysisError\\$ParsingError` due to an `UnresolvedElementException` at build time.  This is often caused because the application references a class from an https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html#optional-dependencies[optional dependency]."
 msgstr "Esto, sin embargo, puede resultar en un `AnalysisError\\$ParsingError` debido a un `UnresolvedElementException` en tiempo de compilación. Esto suele deberse a que la aplicación hace referencia a una clase de una  link:https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html#optional-dependencies[dependencia opcional]."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1909
+#: upstream/_guides/native-reference.adoc:1922
 #, fuzzy
 msgid "If you have access to the source code responsible for the reference to the missing dependency and can alter it, you should consider one of the following:"
 msgstr "Si tiene acceso al código fuente responsable de la referencia a la dependencia que falta y puede modificarlo, debería considerar una de las siguientes opciones:"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1911
+#: upstream/_guides/native-reference.adoc:1924
 #, fuzzy
 msgid "Remove the reference if it's not actually necessary."
 msgstr "Elimine la referencia si no es realmente necesaria."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1912
+#: upstream/_guides/native-reference.adoc:1925
 #, fuzzy
 msgid "Move the affected code in a sub-module and make the dependency non-optional (as is the best practice)."
 msgstr "Mueva el código afectado en un submódulo y haga que la dependencia no sea opcional (como es la mejor práctica)."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1913
+#: upstream/_guides/native-reference.adoc:1926
 #, fuzzy
 msgid "Make the dependency non-optional."
 msgstr "Hacer que la dependencia no sea opcional."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1915
+#: upstream/_guides/native-reference.adoc:1928
 #, fuzzy
 msgid "In the unfortunate case where the reference causing the issue is made by a 3rd party library, that you cannot modify, you should consider one of the following:"
 msgstr "En el desafortunado caso de que la referencia que causa el problema esté hecha por una biblioteca de terceros, que usted no puede modificar, debería considerar una de las siguientes opciones:"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1917
+#: upstream/_guides/native-reference.adoc:1930
 #, fuzzy
 msgid "Use a class/method substitution to remove the said reference."
 msgstr "Utilice una sustitución de clase/método para eliminar dicha referencia."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1918
+#: upstream/_guides/native-reference.adoc:1931
 #, fuzzy
 msgid "Add the optional dependency as a non-optional dependency of your project."
 msgstr "Añada la dependencia opcional como dependencia no opcional de su proyecto."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1922
+#: upstream/_guides/native-reference.adoc:1935
 #, fuzzy
 msgid "Note that although option (1) is the best choice performance wise, as it minimizes the applications footprint,it might not be trivial to implement.  To make matters worse, it's also not easy to maintain as it is tightly coupled to the 3rd party library implementation.  Option (2) is a straight forward alternative to work around the issue, but comes at the cost of including possibly never invoked code in the resulting native executable."
 msgstr "Tenga en cuenta que aunque la opción (1) es la mejor opción en cuanto a rendimiento, ya que minimiza la huella de las aplicaciones, puede que no sea trivial de implementar. Para empeorar las cosas, tampoco es fácil de mantener, ya que está estrechamente vinculada a la implementación de la biblioteca de terceros. La opción (2) es una alternativa directa para solucionar el problema, pero tiene el coste de incluir código que posiblemente nunca se invoque en el ejecutable nativo resultante."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:1923
+#: upstream/_guides/native-reference.adoc:1936
 #, fuzzy, no-wrap
 msgid "I get an `OutOfMemoryError` (OOME) building native executables, what can I do?"
 msgstr "Me sale un `OutOfMemoryError` (OOME) construyendo ejecutables nativos, ¿qué puedo hacer?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1935
+#: upstream/_guides/native-reference.adoc:1948
 #, fuzzy
 msgid "Building native executables is not only time consuming, but it also takes a fair amount of memory.  For example, building a sample native Quarkus Jakarta Persistence application such as the Hibernate ORM quickstart, may use 6GB to 8GB resident set size in memory.  A big chunk of this memory is Java heap, but extra memory is required for other aspects of the JVM that runs the native building process.  It is still possible to build such applications in environments that have total memory close to the limits, but to do that it is necessary to shrink the maximum heap size of the GraalVM native image process.  To do that, set a maximum heap size using the `quarkus.native.native-image-xmx` property.  For example, we can instruct GraalVM to use 5GB of maximum heap size by passing in `-Dquarkus.native.native-image-xmx=5g` in the command line."
 msgstr "La construcción de ejecutables nativos no sólo consume tiempo, sino que también requiere una buena cantidad de memoria. Por ejemplo, la construcción de un ejemplo de aplicación nativa JPA de Quarkus, como el inicio rápido de Hibernate, puede utilizar de 6GB a 8GB de tamaño de conjunto residente en memoria. Una gran parte de esta memoria es el heap de Java, pero se requiere memoria extra para otros aspectos de la JVM que ejecuta el proceso de construcción nativo. Todavía es posible construir este tipo de aplicaciones en entornos que tienen una memoria total cercana a los límites, pero para ello es necesario reducir el tamaño máximo del heap del proceso de imagen nativa de GraalVM. Para ello, hay que establecer un tamaño máximo de heap mediante la propiedad `quarkus.native.native-image-xmx`. Por ejemplo, podemos instruir a GraalVM para que utilice 5GB de tamaño máximo de heap pasando `-Dquarkus.native.native-image-xmx=5g` en la línea de comandos."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1938
+#: upstream/_guides/native-reference.adoc:1951
 #, fuzzy
 msgid "Building native executables this way might have the side effect of requiring more time to complete.  This is due to garbage collection having to work harder for native image generation to have free space to do its job."
 msgstr "Construir ejecutables nativos de esta manera puede tener el efecto secundario de requerir más tiempo para completarse. Esto se debe a que la recolección de basura tiene que trabajar más para que la generación de imágenes nativas tenga espacio libre para hacer su trabajo."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1941
+#: upstream/_guides/native-reference.adoc:1954
 #, fuzzy
 msgid "Note that typical applications are likely bigger than quickstarts, so the memory requirements will also likely be higher."
 msgstr "Tenga en cuenta que las aplicaciones típicas son probablemente más grandes que los quickstarts, por lo que los requisitos de memoria también serán probablemente mayores."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:1942
+#: upstream/_guides/native-reference.adoc:1955
 #, fuzzy, no-wrap
 msgid "Why is runtime performance of a native executable inferior compared to JVM mode?"
 msgstr "¿Por qué el rendimiento en tiempo de ejecución de un ejecutable nativo es inferior al del modo JVM?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1947
+#: upstream/_guides/native-reference.adoc:1960
 #, fuzzy
 msgid "As with most things in life there are some trade-offs involved when choosing native compilation over JVM mode.  So depending on the application the runtime performance of a native application might be slower compared to JVM mode, though that’s not always the case."
 msgstr "Como con la mayoría de las cosas en la vida, hay algunas compensaciones cuando se elige la compilación nativa sobre el modo JVM. Así, dependiendo de la aplicación, el rendimiento en tiempo de ejecución de una aplicación nativa puede ser más lento en comparación con el modo JVM, aunque no siempre es así."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1953
+#: upstream/_guides/native-reference.adoc:1966
 #, fuzzy
 msgid "JVM execution of an application includes runtime optimization of the code that profits from profile information built up during execution.  That includes the opportunities to inline a lot more of the code, locate hot code on direct paths (i.e. ensure better instruction cache locality)  and cut out a lot of the code on cold paths (on the JVM a lot of code does not get compiled until something tries to execute it -- it is replaced with a trap that causes deoptimization and recompilation).  Removal of cold paths provides many more optimization opportunities than are available for ahead of time compilation because it significantly reduces the branch complexity and combinatorial logic of the smaller amount of hot code that is compiled."
 msgstr "La ejecución de una aplicación en la JVM incluye la optimización en tiempo de ejecución del código que se beneficia de la información del perfil acumulada durante la ejecución. Esto incluye las oportunidades de alinear mucho más código, localizar el código caliente en las rutas directas (es decir, garantizar una mejor localidad de la caché de instrucciones) y eliminar gran parte del código en las rutas frías (en la JVM, gran parte del código no se compila hasta que algo intenta ejecutarlo: se sustituye por una trampa que provoca la desoptimización y la recompilación). La eliminación de las rutas frías proporciona muchas más oportunidades de optimización que las disponibles para la compilación anticipada, ya que reduce significativamente la complejidad de las ramas y la lógica combinatoria de la menor cantidad de código caliente que se compila."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1956
+#: upstream/_guides/native-reference.adoc:1969
 #, fuzzy
 msgid "By contrast, native executable compilation has to cater for all possible execution paths when it compiles code offline since it does not know which are the hot or cold paths and cannot use the trick of planting a trap and recompiling if it is hit. For the same reason it cannot load the dice to ensure that code cache conflicts are minimized by co-locating hot paths adjacent.  Native executable generation is able to remove some code because of the closed world hypothesis but that is often not enough to make up for all the benefits that profiling and runtime deopt & recompile provides to the JVM JIT compiler."
 msgstr "Por el contrario, la compilación nativa de ejecutables tiene que atender a todas las posibles rutas de ejecución cuando compila el código fuera de línea, ya que no sabe cuáles son las rutas calientes o frías y no puede utilizar el truco de plantar una trampa y recompilar si es golpeada. Por la misma razón, no puede cargar los dados para garantizar que los conflictos de la caché de código se minimicen mediante la ubicación conjunta de las rutas calientes adyacentes. La generación de ejecutables nativos es capaz de eliminar algo de código debido a la hipótesis del mundo cerrado, pero eso no suele ser suficiente para compensar todos los beneficios que el perfilado y la desoperatividad y recompilación en tiempo de ejecución proporcionan al compilador JVM JIT."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1958
+#: upstream/_guides/native-reference.adoc:1971
 #, fuzzy
 msgid "Note, however, that there is a price you pay for that potentially higher JVM speed, and that price is in increased resource usage (both CPU and memory) and startup time because:"
 msgstr "Tenga en cuenta, sin embargo, que hay un precio que se paga por esa velocidad potencialmente más alta de la JVM, y ese precio es en el aumento del uso de recursos (tanto de la CPU como de la memoria) y el tiempo de inicio porque:"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1960
+#: upstream/_guides/native-reference.adoc:1973
 #, fuzzy
 msgid "it takes some time before the JIT kicks in and fully optimizes the code."
 msgstr "tarda algún tiempo antes de que el JIT entre en acción y optimice completamente el código."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1961
+#: upstream/_guides/native-reference.adoc:1974
 #, fuzzy
 msgid "the JIT compiler consumes resources that could be utilized by the application."
 msgstr "el compilador JIT consume recursos que podrían ser utilizados por la aplicación."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1962
+#: upstream/_guides/native-reference.adoc:1975
 #, fuzzy
 msgid "the JVM has to retain a lot more metadata and compiler/profiler data to support the better optimizations that it can offer."
 msgstr "la JVM tiene que retener muchos más metadatos y datos del compilador/perfilador para soportar las mejores optimizaciones que puede ofrecer."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1964
+#: upstream/_guides/native-reference.adoc:1977
 #, fuzzy
 msgid "The reason for 1) is that code needs to be run interpreted for some time and, possibly, to be compiled several times before all potential optimizations are realized to ensure that:"
 msgstr "La razón de 1) es que el código debe ejecutarse interpretado durante algún tiempo y, posiblemente, ser compilado varias veces antes de que se realicen todas las optimizaciones potenciales para garantizarlo:"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1966
+#: upstream/_guides/native-reference.adoc:1979
 #, fuzzy
 msgid "it’s worth compiling that code path, i.e. it’s being executed enough times, and that"
 msgstr "vale la pena compilar esa ruta de código, es decir, que se ejecuta suficientes veces, y que"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1967
+#: upstream/_guides/native-reference.adoc:1980
 #, fuzzy
 msgid "we have enough profiling data to perform meaningful optimizations."
 msgstr "tenemos suficientes datos de perfiles para realizar optimizaciones significativas."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1970
+#: upstream/_guides/native-reference.adoc:1983
 #, fuzzy
 msgid "An implication of 1) is that for small, short-lived applications a native executable may well be a better bet.  Although the compiled code is not as well optimized it is available straight away."
 msgstr "Una implicación de 1) es que para aplicaciones pequeñas y de corta duración un ejecutable nativo puede ser una mejor apuesta. Aunque el código compilado no está tan bien optimizado, está disponible de inmediato."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1973
+#: upstream/_guides/native-reference.adoc:1986
 #, fuzzy
 msgid "The reason for 2) is that the JVM is essentially running the compiler at runtime in parallel with the application itself.  In the case of native executables the compiler is run ahead of time removing the need to run the compiler in parallel with the application."
 msgstr "La razón de 2) es que la JVM ejecuta esencialmente el compilador en tiempo de ejecución en paralelo con la propia aplicación. En el caso de los ejecutables nativos, el compilador se ejecuta antes de tiempo, eliminando la necesidad de ejecutar el compilador en paralelo con la aplicación."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1982
+#: upstream/_guides/native-reference.adoc:1995
 #, fuzzy
 msgid "There are several reasons for 3). The JVM does not have a closed world assumption.  So, it has to be able to recompile code if loading of new classes implies that it needs to revise optimistic assumptions made at compile time.  For example, if an interface has only one implementation it can make a call jump directly to that code.  However, in the case where a second implementation class is loaded the call site needs to be patched to test the type of the receiver instance and jump to the code that belongs to its class.  Supporting optimizations like this one requires keeping track of a lot more details of the class base than a native executable, including recording the full class and interface hierarchy, details of which methods override other methods, all method bytecode etc.  In a native executable most of the details of class structure and bytecode can be ignored at run time."
 msgstr "Hay varias razones para 3). La JVM no tiene una suposición de mundo cerrado. Por lo tanto, tiene que ser capaz de recompilar el código si la carga de nuevas clases implica que necesita revisar las suposiciones optimistas hechas en tiempo de compilación. Por ejemplo, si una interfaz sólo tiene una implementación, puede hacer un salto de llamada directamente a ese código. Sin embargo, en el caso de que se cargue una segunda clase de implementación, el sitio de la llamada necesita ser parcheado para comprobar el tipo de la instancia receptora y saltar al código que pertenece a su clase. Soportar optimizaciones como ésta requiere mantener un registro de muchos más detalles de la clase base que un ejecutable nativo, incluyendo el registro de la clase completa y la jerarquía de la interfaz, los detalles de qué métodos sobrescriben a otros métodos, todo el código de bytes del método, etc. En un ejecutable nativo, la mayoría de los detalles de la estructura de la clase y el código de bytes pueden ignorarse en tiempo de ejecución."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1987
+#: upstream/_guides/native-reference.adoc:2000
 #, fuzzy
 msgid "The JVM also has to cope with changes to the class base or execution profiles that result in a thread going down a previously cold path.  At that point the JVM has to jump out of the compiled code into the interpreter and recompile the code to cater for a new execution profile that includes the previously cold path.  That requires keeping runtime info that allow a compiled stack frame to be replaced with one or more interpreter frames.  It also requires runtime extensible profile counters to be allocated and updated to track what has or has not been executed."
 msgstr "La JVM también tiene que hacer frente a los cambios en la base de clases o en los perfiles de ejecución que hacen que un hilo vaya por un camino previamente frío. En ese momento la JVM tiene que saltar del código compilado al intérprete y recompilar el código para atender a un nuevo perfil de ejecución que incluya la ruta previamente fría. Esto requiere mantener información en tiempo de ejecución que permita sustituir un marco de pila compilado por uno o más marcos de intérprete. También requiere que se asignen y actualicen contadores de perfil extensibles en tiempo de ejecución para hacer un seguimiento de lo que se ha ejecutado o no."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:1988
+#: upstream/_guides/native-reference.adoc:2001
 #, fuzzy, no-wrap
 msgid "Why are native executables “big”?"
 msgstr "¿Por qué los ejecutables nativos son \"grandes\"?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1991
+#: upstream/_guides/native-reference.adoc:2004
 #, fuzzy
 msgid "This can be attributed to a number of different reasons:"
 msgstr "Esto puede atribuirse a diferentes razones:"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:1997
+#: upstream/_guides/native-reference.adoc:2010
 #, fuzzy
 msgid "Native executables include not only the application code but also, library code, and JDK code.  As a result a more fair comparison would be to compare the native executable’s size with the size of the application, plus the size of the libraries it uses, plus the size of the JDK.  Especially the JDK part is not negligible even in simple applications like HelloWorld.  To get a glance on what is being pulled in the image one can use `-H:+PrintUniverse` when building the native executable."
 msgstr "Los ejecutables nativos no sólo incluyen el código de la aplicación, sino también el de las bibliotecas y el del JDK. Como resultado, una comparación más justa sería comparar el tamaño del ejecutable nativo con el tamaño de la aplicación, más el tamaño de las bibliotecas que utiliza, más el tamaño del JDK. Especialmente la parte del JDK no es despreciable ni siquiera en aplicaciones sencillas como HelloWorld. Para echar un vistazo a lo que se tira en la imagen se puede utilizar `-H:+PrintUniverse` cuando se construye el ejecutable nativo."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2003
+#: upstream/_guides/native-reference.adoc:2016
 #, fuzzy
 msgid "Some features are always included in a native executable even though they might never be actually used at run time.  An example of such a feature is garbage collection.  At compile time we can’t be sure whether an application will need to run garbage collection at run time, so garbage collection is always included in native executables increasing their size even if not necessary.  Native executable generation relies on static code analysis to identify which code paths are reachable, and static code analysis can be imprecise leading to more code getting into the image than what’s actually needed."
 msgstr "Algunas funciones se incluyen siempre en un ejecutable nativo aunque nunca se utilicen realmente en tiempo de ejecución. Un ejemplo de este tipo de características es la recolección de basura. En tiempo de compilación no podemos estar seguros de si una aplicación necesitará ejecutar la recolección de basura en tiempo de ejecución, por lo que la recolección de basura siempre se incluye en los ejecutables nativos aumentando su tamaño aunque no sea necesaria. La generación de ejecutables nativos se basa en el análisis de código estático para identificar qué rutas de código son accesibles, y el análisis de código estático puede ser impreciso, lo que hace que se introduzca en la imagen más código del que realmente se necesita."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2006
+#: upstream/_guides/native-reference.adoc:2019
 #, fuzzy
 msgid "There is a https://github.com/oracle/graal/issues/287[GraalVM upstream issue] with some interesting discussions about that topic."
 msgstr "Hay una  link:https://github.com/oracle/graal/issues/287[edición de GraalVM] con algunas discusiones interesantes sobre este tema."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2007
+#: upstream/_guides/native-reference.adoc:2020
 #, fuzzy, no-wrap
 msgid "What version of Mandrel was used to generate a binary?"
 msgstr "¿Qué versión de Mandrel se ha utilizado para generar un binario?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2010
+#: upstream/_guides/native-reference.adoc:2023
 #, fuzzy
 msgid "One can see which Mandrel version was used to generate a binary by inspecting the binary as follows:"
 msgstr "Se puede ver qué versión de Mandrel se utilizó para generar un binario inspeccionando el binario de la siguiente manera:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2015
+#: upstream/_guides/native-reference.adoc:2028
 #, no-wrap
 msgid ""
 "$ strings target/debugging-native-1.0.0-SNAPSHOT-runner | grep GraalVM\n"
@@ -3106,49 +3128,49 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2017
+#: upstream/_guides/native-reference.adoc:2030
 #, fuzzy, no-wrap
 msgid "How do I enable GC logging in native executables?"
 msgstr "¿Cómo puedo activar el registro de la GC en los ejecutables nativos?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2020
+#: upstream/_guides/native-reference.adoc:2033
 #, fuzzy
 msgid "See xref:gc-logging[Native Memory Management GC Logging section] for details."
 msgstr "Para más detalles, consulte  link:#gc-logging[la sección de registro GC de la gestión de la memoria nativa]."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2022
+#: upstream/_guides/native-reference.adoc:2035
 #, fuzzy, no-wrap
 msgid "Can I get a heap dump of a native executable? e.g. if it runs out of memory"
 msgstr "¿Puedo obtener un volcado de heap de un ejecutable nativo? Por ejemplo, si se queda sin memoria"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2027
+#: upstream/_guides/native-reference.adoc:2040
 #, fuzzy
 msgid "Starting with GraalVM 22.2.0 it is possible to create heap dumps upon request, e.g. `kill -SIGUSR1 <pid>`.  Support for dumping the heap dump upon an out of memory error will follow up."
 msgstr "A partir de GraalVM 22.2.0 será posible realizar volcados de heap a petición, por ejemplo, `kill -SIGUSR1 &amp;lt;pid&amp;gt;`. El soporte para el volcado de la pila en caso de error de memoria será posterior."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2028
+#: upstream/_guides/native-reference.adoc:2041
 #, fuzzy, no-wrap
 msgid "Can I build and run this examples outside a container in Linux?"
 msgstr "¿Puedo construir y ejecutar estos ejemplos fuera de un contenedor en Linux?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2034
+#: upstream/_guides/native-reference.adoc:2047
 #, fuzzy
 msgid "Yes you can.  In fact, debugging native executables on a Linux bare metal box offers the best possible experience.  In this kind of environments, root access is not needed except to install packages required to run some debug steps, or to enable `perf` to gather events at the kernel."
 msgstr "Sí se puede. De hecho, la depuración de ejecutables nativos en una caja Linux bare metal ofrece la mejor experiencia posible. En este tipo de entornos, el acceso de root no es necesario, excepto para instalar los paquetes necesarios para ejecutar algunos pasos de depuración, o para habilitar `perf` para recoger eventos en el kernel."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2036
+#: upstream/_guides/native-reference.adoc:2049
 #, fuzzy
 msgid "These are the packages you'll need on your Linux environment to run through the different debugging sections:"
 msgstr "Estos son los paquetes que necesitarás en tu entorno Linux para ejecutar las diferentes secciones de depuración:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2043
+#: upstream/_guides/native-reference.adoc:2056
 #, no-wrap
 msgid ""
 "# dnf (rpm-based)\n"
@@ -3158,31 +3180,31 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2045
+#: upstream/_guides/native-reference.adoc:2058
 #, fuzzy, no-wrap
 msgid "Generating flame graphs is slow, or produces errors, what can I do?"
 msgstr "La generación de gráficos de llama es lenta o produce errores, ¿qué puedo hacer?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2049
+#: upstream/_guides/native-reference.adoc:2062
 #, fuzzy
 msgid "There are multiple ways in which a native executable produced by Mandrel can be profiled.  All the methods require you to pass in the `-H:-DeleteLocalSymbols` option."
 msgstr "Existen múltiples formas de perfilar un ejecutable nativo producido por Mandrel. Todos los métodos requieren que se pase la opción `-H:-DeleteLocalSymbols`."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2053
+#: upstream/_guides/native-reference.adoc:2066
 #, fuzzy
 msgid "The method shown in this reference guide generates a binary with DWARF debug information, runs it via `perf record` and then uses `perf script` and flame graph tooling to generate the flamegraphs.  However, the `perf script` post-processing step done on this binary can appear to be slow or can show some DWARF errors."
 msgstr "El método que se muestra en esta guía de referencia genera un binario con información de depuración DWARF, lo ejecuta a través de `perf record` y, a continuación, utiliza `perf script` y la herramienta de gráficos de llama para generar los gráficos de llama. Sin embargo, el paso de post-procesamiento `perf script` realizado en este binario puede parecer lento o puede mostrar algunos errores DWARF."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2058
+#: upstream/_guides/native-reference.adoc:2071
 #, fuzzy
 msgid "An alternative method to generate flame graphs is to pass in `-H:+PreserveFramePointer` when generating the native executable instead of generating the DWARF debug information.  It instructs the binary to use an extra register for the frame pointer.  This enables `perf` to do stack walking to profile the runtime behaviour.  To generate the native executable using these flags, do the following:"
 msgstr "Un método alternativo para generar gráficos de llama es pasar en `-H:+PreserveFramePointer` cuando se genera el ejecutable nativo en lugar de generar la información de depuración DWARF. Esto instruye al binario para que utilice un registro extra para el puntero de la trama. Esto permite a `perf` hacer stack walking para perfilar el comportamiento en tiempo de ejecución. Para generar el ejecutable nativo utilizando estas banderas, haz lo siguiente:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2063
+#: upstream/_guides/native-reference.adoc:2076
 #, no-wrap
 msgid ""
 "./mvnw package -DskipTests -Dnative\n"
@@ -3190,25 +3212,25 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2066
+#: upstream/_guides/native-reference.adoc:2079
 #, fuzzy
 msgid "To get runtime profiling information out of the native executable, simply do:"
 msgstr "Para obtener información de perfiles en tiempo de ejecución del ejecutable nativo, simplemente haga"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2074
+#: upstream/_guides/native-reference.adoc:2087
 #, fuzzy
 msgid "The recommended method for generating runtime profiling information is using the debug information rather than generating a binary that preserves the frame pointer.  This is because adding debug information to the native executable build process has no negative runtime performance whereas preserving the frame pointer does."
 msgstr "El método recomendado para generar información de perfil en tiempo de ejecución es utilizar la información de depuración en lugar de generar un binario que conserve el puntero de cuadro. Esto se debe a que la adición de información de depuración al proceso de construcción del ejecutable nativo no tiene un rendimiento negativo en tiempo de ejecución, mientras que la preservación del puntero de marco sí lo tiene."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2080
+#: upstream/_guides/native-reference.adoc:2093
 #, fuzzy
 msgid "DWARF debug info is generated in a separate file and can even be omitted in the default deployment and only be transferred and used on demand, for profiling or debugging purposes.  Furthermore, the presence of debug info enables `perf` to show us the relevant source code lines as well, hence it does not bloat the native executable itself.  To do that, simply call `perf report` with an extra parameter to show source code lines:"
 msgstr "La información de depuración DWARF se genera en un archivo separado y puede incluso omitirse en el despliegue por defecto y sólo ser transferida y utilizada bajo demanda, con fines de perfilado o depuración. Además, la presencia de la información de depuración permite que `perf` nos muestre también las líneas de código fuente relevantes, por lo que no abulta el propio ejecutable nativo. Para ello, basta con llamar a `perf report` con un parámetro extra para mostrar las líneas de código fuente:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2090
+#: upstream/_guides/native-reference.adoc:2103
 #, no-wrap
 msgid ""
 "perf report --stdio -F+srcline\n"
@@ -3221,37 +3243,37 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2096
+#: upstream/_guides/native-reference.adoc:2109
 #, fuzzy
 msgid "The performance penalty of preserving the frame pointer is due to using the extra register for stack walking, particularly in `x86_64` compared to `aarch64` where there are fewer registers available.  Using this extra register reduces the number of registers that are available for other work, which can lead to performance penalties."
 msgstr "La penalización de rendimiento que supone conservar el puntero de trama se debe a que se utiliza el registro extra para recorrer la pila, especialmente en `x86_64` en comparación con `aarch64`, donde hay menos registros disponibles. El uso de este registro extra reduce el número de registros que están disponibles para otras tareas, lo que puede llevar a penalizaciones de rendimiento."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2097
+#: upstream/_guides/native-reference.adoc:2110
 #, fuzzy, no-wrap
 msgid "I think I’ve found a bug in native-image, how can I debug it with the IDE?"
 msgstr "Creo que he encontrado un error en native-image, ¿cómo puedo depurarlo con el IDE?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2101
+#: upstream/_guides/native-reference.adoc:2114
 #, fuzzy
 msgid "Although it is possible to remote debug processes within containers, it might be easier to step-by-step debug native-image by installing Mandrel locally and adding it to the path of the shell process."
 msgstr "Aunque es posible depurar remotamente los procesos dentro de los contenedores, podría ser más fácil depurar paso a paso la imagen nativa instalando Mandrel localmente y añadiéndolo a la ruta del proceso del shell."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2106
+#: upstream/_guides/native-reference.adoc:2119
 #, fuzzy
 msgid "Native executable generation is the result of two Java processes that are executed sequentially.  The first process is very short and its main job is to set things up for the second process.  The second process is the one that takes care of most of the work.  The steps to debug one process or the other vary slightly."
 msgstr "La generación de ejecutables nativos es el resultado de dos procesos Java que se ejecutan secuencialmente. El primer proceso es muy corto y su trabajo principal es preparar las cosas para el segundo proceso. El segundo proceso es el que se encarga de la mayor parte del trabajo. Los pasos para depurar un proceso u otro varían ligeramente."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2111
+#: upstream/_guides/native-reference.adoc:2124
 #, fuzzy
 msgid "Let’s discuss first how to debug the second process, which is the one you most likely to want to debug.  The starting point for the second process is the `com.oracle.svm.hosted.NativeImageGeneratorRunner` class.  To debug this process, simply add `--debug-attach=*:8000` as an additional build time argument:"
 msgstr "Vamos a discutir primero cómo depurar el segundo proceso, que es el que más probablemente querrá depurar. El punto de partida del segundo proceso es la clase `com.oracle.svm.hosted.NativeImageGeneratorRunner`. Para depurar este proceso, simplemente añada `--debug-attach=*:8000` como un argumento adicional en tiempo de compilación:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2116
+#: upstream/_guides/native-reference.adoc:2129
 #, no-wrap
 msgid ""
 "./mvnw package -DskipTests -Dnative \\\n"
@@ -3259,13 +3281,13 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2122
+#: upstream/_guides/native-reference.adoc:2135
 #, fuzzy
 msgid "The starting point for the first process is the `com.oracle.svm.driver.NativeImages` class.  In GraalVM CE distributions, this first process is a binary, so debugging it in the traditional way with a Java IDE is not possible.  However, Mandrel distributions (or locally built GraalVM CE instances) keep this as a normal Java process, so you can remote debug this process by adding the `--vm.agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000` as an additional build argument, e.g."
 msgstr "El punto de partida del primer proceso es la clase `com.oracle.svm.driver.NativeImages`. En las distribuciones de GraalVM CE, este primer proceso es un binario, por lo que depurarlo de la forma tradicional con un IDE de Java no es posible. Sin embargo, las distribuciones de Mandrel (o las instancias de GraalVM CE construidas localmente) mantienen esto como un proceso Java normal, por lo que puedes depurar remotamente este proceso añadiendo el `--vm.agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000` como un argumento de construcción adicional, por ejemplo"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2127
+#: upstream/_guides/native-reference.adoc:2140
 #, no-wrap
 msgid ""
 "$ ./mvnw package -DskipTests -Dnative \\\n"
@@ -3273,148 +3295,148 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2129
+#: upstream/_guides/native-reference.adoc:2142
 #, fuzzy, no-wrap
 msgid "Can I use JFR/JMC to debug or profile native binaries?"
 msgstr "¿Puedo utilizar JFR/JMC para depurar o perfilar binarios nativos?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2138
+#: upstream/_guides/native-reference.adoc:2151
 #, fuzzy
 msgid "https://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/about.htm#JFRUH170[Java Flight Recorder (JFR)] and https://www.oracle.com/java/technologies/jdk-mission-control.html[JDK Mission Control (JMC)] can be used to profile native binaries since GraalVM CE 21.2.0.  However, JFR in GraalVM is currently limited in capabilities compared to HotSpot.  The custom event API is fully supported, but some VM level features are unavailable.  More events and JFR features will continue to be added in later releases.  The following table outlines Native Image JFR support and limitations by version."
 msgstr "link:https://docs.oracle.com/javacomponents/jmc-5-4/jfr-runtime-guide/about.htm#JFRUH170[Java Flight Recorder (JFR)] y  link:https://www.oracle.com/java/technologies/jdk-mission-control.html[JDK Mission Control (JMC)] pueden utilizarse para perfilar los binarios nativos desde GraalVM CE 21.2.0. Sin embargo, JFR en GraalVM está actualmente limitado significativamente en sus capacidades en comparación con HotSpot. La API de eventos personalizados es totalmente compatible, pero muchas características a nivel de VM no están disponibles. Se añadirán en futuras versiones. Las limitaciones actuales son:"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2141
+#: upstream/_guides/native-reference.adoc:2154
 #, fuzzy, no-wrap
 msgid "GraalVM Version"
 msgstr "Versión de GraalVM"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2141
+#: upstream/_guides/native-reference.adoc:2154
 #, fuzzy, no-wrap
 msgid "Supports"
 msgstr "Admite"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2143
+#: upstream/_guides/native-reference.adoc:2156
 #, fuzzy, no-wrap
 msgid "Limitations"
 msgstr "Limitaciones"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2144
+#: upstream/_guides/native-reference.adoc:2157
 #, fuzzy, no-wrap
 msgid "GraalVM CE 21.3 and Mandrel 21.3"
 msgstr "GraalVM CE 21.3 y Mandrel 21.3"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2147
+#: upstream/_guides/native-reference.adoc:2160
 #, fuzzy
 msgid "Minimal VM Level events"
 msgstr "Eventos mínimos a nivel de VM"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2147
+#: upstream/_guides/native-reference.adoc:2160
 #, fuzzy
 msgid "Custom events API"
 msgstr "API de eventos personalizados"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2147
+#: upstream/_guides/native-reference.adoc:2160
 #, fuzzy, no-wrap
 msgid "* Start recordings upon executabe run or JFR Recording API"
 msgstr "<li> <p>Iniciar grabaciones al ejecutar el programa o la API de grabación de JFR</p> </li>"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2152
-#: upstream/_guides/native-reference.adoc:2159
+#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2172
 #, fuzzy
 msgid "No old object sampling"
 msgstr "No hay muestreo de objetos antiguos"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2152
-#: upstream/_guides/native-reference.adoc:2159
+#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2172
 #, fuzzy
 msgid "No stacktrace tracing"
 msgstr "No hay rastreo de pila"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2152
-#: upstream/_guides/native-reference.adoc:2159
+#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2172
 #, fuzzy, no-wrap
 msgid "* No event streaming"
 msgstr "<li> <p>Sin retransmisión de eventos</p> </li>"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2153
+#: upstream/_guides/native-reference.adoc:2166
 #, fuzzy, no-wrap
 msgid "GraalVM CE 22.3 and Mandrel 22.3"
 msgstr "GraalVM CE 22.3 y Mandrel 22.3"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2155
+#: upstream/_guides/native-reference.adoc:2168
 #, fuzzy
 msgid "Everything from GraalVM CE 21.3"
 msgstr "Todo desde GraalVM CE 21.3"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2155
+#: upstream/_guides/native-reference.adoc:2168
 #, fuzzy, no-wrap
 msgid "* Additional monitor and thread events"
 msgstr "<li> <p>Eventos adicionales de monitores e hilos</p> </li>"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2160
+#: upstream/_guides/native-reference.adoc:2173
 #, fuzzy, no-wrap
 msgid "GraalVM CE for JDK 17/20 and Mandrel 23.0"
 msgstr "GraalVM CE para JDK 17/20 y Mandrel 23.0"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2178
 #, fuzzy
 msgid "Everything from GraalVM CE 22.3"
 msgstr "Todo desde GraalVM CE 22.3"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2178
 #, fuzzy
 msgid "Additional monitor, thread, container, and allocation events"
 msgstr "Eventos adicionales de monitor, hilo, contenedor y asignación"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2178
 #, fuzzy
 msgid "Stacktraces"
 msgstr "Stacktraces"
 
 #. type: Bullet: '* '
-#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2178
 #, fuzzy
 msgid "Sampling based method profiling"
 msgstr "Perfiles de métodos basados en muestreos"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2165
+#: upstream/_guides/native-reference.adoc:2178
 #, fuzzy, no-wrap
 msgid "* Event streaming"
 msgstr "<li> <p>Transmisión de eventos</p> </li>"
 
 #. type: Table
-#: upstream/_guides/native-reference.adoc:2167
+#: upstream/_guides/native-reference.adoc:2180
 #, fuzzy, no-wrap
 msgid "* No old object sampling"
 msgstr "No hay muestreo de objetos antiguos"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2172
+#: upstream/_guides/native-reference.adoc:2185
 #, fuzzy
 msgid "To add JFR support to your Quarkus executable, add the application property: `-Dquarkus.native.monitoring=jfr`.  E.g."
 msgstr "Para utilizar JFR añada la propiedad de la aplicación: `-Dquarkus.native.enable-vm-inspection=true`. Por ejemplo"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2178
+#: upstream/_guides/native-reference.adoc:2191
 #, no-wrap
 msgid ""
 "./mvnw package -DskipTests -Dnative -Dquarkus.native.container-build=true \\\n"
@@ -3423,13 +3445,13 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2181
+#: upstream/_guides/native-reference.adoc:2194
 #, fuzzy
 msgid "Once the image is compiled, enable and start JFR via runtime flags: `-XX:+FlightRecorder` and `-XX:StartFlightRecording`. For example:"
 msgstr "Una vez compilada la imagen, habilite e inicie JFR a través de las banderas de tiempo de ejecución: `-XX:+FlightRecorder` y `-XX:StartFlightRecording`. Por ejemplo:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2187
+#: upstream/_guides/native-reference.adoc:2200
 #, no-wrap
 msgid ""
 "./target/debugging-native-1.0.0-SNAPSHOT-runner \\\n"
@@ -3438,109 +3460,109 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2190
+#: upstream/_guides/native-reference.adoc:2203
 #, fuzzy
 msgid "For more information about using JFR, see the link:https://www.graalvm.org/{graalvm-docs-version}/reference-manual/native-image/debugging-and-diagnostics/JFR/[GraalVM JDK Flight Recorder (JFR) with Native Image] guide."
 msgstr "Para más detalles sobre el uso del JFR, consulte  link:https://www.graalvm.org/reference-manual/native-image/JFR[aquí]."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2191
+#: upstream/_guides/native-reference.adoc:2204
 #, fuzzy, no-wrap
 msgid "How can we troubleshoot performance problems only reproducible in production?"
 msgstr "¿Cómo podemos solucionar los problemas de rendimiento que sólo son reproducibles en producción?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2201
+#: upstream/_guides/native-reference.adoc:2214
 #, fuzzy
 msgid "In this situation, switching to JVM mode would be the best thing to try first.  If the performance issues continue after switching to JVM mode, you can use more established and mature tooling to figure out the root cause.  If the performance issue is limited to native mode only, you might not be able to use `perf`, so JFR is the only way to gather any information in this situation.  As JFR support for native expands, the ability to detect root causes of performance issues directly in production will improve."
 msgstr "En esta situación, cambiar al modo JVM sería lo mejor para probar primero. Si los problemas de rendimiento continúan después de cambiar al modo JVM, puedes utilizar herramientas más establecidas y maduras para averiguar la causa raíz. Si el problema de rendimiento se limita únicamente al modo nativo, es posible que no pueda utilizar `perf`, por lo que JFR es la única forma de obtener información en esta situación. A medida que se amplíe el soporte de JFR para el modo nativo, mejorará la capacidad de detectar las causas raíz de los problemas de rendimiento directamente en producción."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2202
+#: upstream/_guides/native-reference.adoc:2215
 #, fuzzy, no-wrap
 msgid "What information helps most debug issues that happen either at build-time or run-time?"
 msgstr "¿Qué información ayuda más a depurar los problemas que se producen en tiempo de compilación o de ejecución?"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2206
+#: upstream/_guides/native-reference.adoc:2219
 #, fuzzy
 msgid "To fix classpath, class initialization or forbidden API errors at build time it's best to use xref:native-reports[build time reports] to understand the closed world universe.  A complete picture of the universe, along with the relationships between the different classes and methods will help uncover and fix most of the issues."
 msgstr "Para solucionar errores de classpath, inicialización de clases o APIs prohibidas en tiempo de compilación, lo mejor es utilizar  link:#native-reports[los informes de tiempo de compilación] para entender el universo del mundo cerrado. Una imagen completa del universo, junto con las relaciones entre las diferentes clases y métodos ayudará a descubrir y solucionar la mayoría de los problemas."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2212
+#: upstream/_guides/native-reference.adoc:2225
 #, fuzzy
 msgid "To fix runtime native specific errors, it's best to have xref:debug-info[debug info builds] of the native executables around, so that `gdb` can be hooked up quickly to debug the issue.  If you also add local symbols to the debug info builds, you will obtain precise xref:profiling[profiling information] as well."
 msgstr "Para solucionar errores específicos de los nativos en tiempo de ejecución, es mejor tener  link:#debug-info[compilaciones] de información de depuración de los ejecutables nativos, de modo que `gdb` pueda conectarse rápidamente para depurar el problema. Si además añades símbolos locales a las compilaciones de información de depuración, también obtendrás  link:#profiling[información] precisa de  link:#profiling[perfiles]."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2213
+#: upstream/_guides/native-reference.adoc:2226
 #, fuzzy, no-wrap
 msgid "Build stalled for minutes, barely using any CPU"
 msgstr "La compilación se detuvo durante minutos, sin apenas usar CPU."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2216
+#: upstream/_guides/native-reference.adoc:2229
 #, fuzzy
 msgid "It might so happen that the build gets stalled and even ends up with:"
 msgstr "Puede ocurrir que la construcción se estanque e incluso acabe con:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2220
+#: upstream/_guides/native-reference.adoc:2233
 #, no-wrap
 msgid "Image generator watchdog detected no activity.\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2223
+#: upstream/_guides/native-reference.adoc:2236
 #, fuzzy
 msgid "One of the possible explanations could be a lack of entropy, e.g. on an entropy constrained VM, if such a source is needed as it is the case with Bouncycastle at build time."
 msgstr "Una de las posibles explicaciones podría ser la falta de entropía, por ejemplo, en una máquina virtual con restricciones de entropía, si se necesita una fuente de este tipo, como es el caso de Bouncycastle en el momento de la compilación."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2225
+#: upstream/_guides/native-reference.adoc:2238
 #, fuzzy
 msgid "One can check the available entropy on a Linux system with:"
 msgstr "Se puede comprobar la entropía disponible en un sistema Linux con:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2229
+#: upstream/_guides/native-reference.adoc:2242
 #, no-wrap
 msgid "$ cat /proc/sys/kernel/random/entropy_avail\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2231
+#: upstream/_guides/native-reference.adoc:2244
 #, fuzzy
 msgid "If the amount is not in hundreds, it could be a problem. A possible workaround is to compromise, acceptable for testing, and set:"
 msgstr "Si la cantidad no está en cientos, podría ser un problema. Una posible solución es comprometer, aceptable para la prueba, y establecer:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2234
+#: upstream/_guides/native-reference.adoc:2247
 #, no-wrap
 msgid "export JAVA_OPTS=-Djava.security.egd=/dev/urandom\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2236
+#: upstream/_guides/native-reference.adoc:2249
 #, fuzzy
 msgid "The proper solution is to increase the entropy available for the system. That is specific for each OS vendor and virtualization solution though."
 msgstr "La solución adecuada es aumentar la entropía disponible para el sistema. Sin embargo, esto es específico para cada proveedor de SO y solución de virtualización."
 
 #. type: Title ===
-#: upstream/_guides/native-reference.adoc:2237
+#: upstream/_guides/native-reference.adoc:2250
 #, fuzzy, no-wrap
 msgid "Work around missing CPU features"
 msgstr "Funciones de la CPU que faltan"
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2240
+#: upstream/_guides/native-reference.adoc:2253
 #, fuzzy
 msgid "When building on recent machines and running your native executable on older machines, you may see the following failure when starting the application:"
 msgstr "Al compilar en máquinas recientes y ejecutar su ejecutable nativo en máquinas más antiguas, es posible que vea el siguiente fallo al iniciar la aplicación:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2245
+#: upstream/_guides/native-reference.adoc:2258
 #, no-wrap
 msgid ""
 "The current machine does not support all of the following CPU features that are required by the image: [CX8, CMOV, FXSR, MMX, SSE, SSE2, SSE3, SSSE3, SSE4_1, SSE4_2, POPCNT, LZCNT, AVX, AVX2, BMI1, BMI2, FMA].\n"
@@ -3548,31 +3570,31 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2249
+#: upstream/_guides/native-reference.adoc:2262
 #, fuzzy
 msgid "This error message means that the native compilation used more advanced instruction sets, not supported by the CPU running the application.  To work around that issue, add the following line to the `application.properties`:"
 msgstr "Este mensaje de error significa que la compilación nativa utilizó conjuntos de instrucciones más avanzados, no soportados por la CPU que ejecuta la aplicación. Para solucionar este problema, añada la siguiente línea a `application.properties`:"
 
 #. type: delimited block -
-#: upstream/_guides/native-reference.adoc:2253
+#: upstream/_guides/native-reference.adoc:2266
 #, no-wrap
 msgid "quarkus.native.additional-build-args=-march=compatibility\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2257
+#: upstream/_guides/native-reference.adoc:2270
 #, fuzzy
 msgid "Then, rebuild your native executable.  This setting forces the native compilation to use an older instruction set, increasing the chance of compatibility."
 msgstr "A continuación, reconstruye tu ejecutable nativo. Esta configuración obliga a la compilación nativa a utilizar un conjunto de instrucciones más antiguo, lo que aumenta las posibilidades de compatibilidad."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2260
+#: upstream/_guides/native-reference.adoc:2273
 #, fuzzy
 msgid "To explicitly define the target architecture run `native-image -march=list` to get the supported configurations and then set `-march` to one of them, e.g., `quarkus.native.additional-build-args=-march=x86-64-v4`.  If you are targeting an AMD64 host, `-march=x86-64-v2` would work in most cases."
 msgstr "Para definir explícitamente la arquitectura de destino, ejecute `native-image -march=list` para obtener las configuraciones admitidas y, a continuación, establezca `-march` en una de ellas, por ejemplo, `quarkus.native.additional-build-args=-march=x86-64-v4`. Si su objetivo es un host AMD64, `-march=x86-64-v2` funcionará en la mayoría de los casos."
 
 #. type: Plain text
-#: upstream/_guides/native-reference.adoc:2261
+#: upstream/_guides/native-reference.adoc:2274
 #, fuzzy
 msgid "The `march` parameter is only available on GraalVM 23+."
 msgstr "El parámetro `march` sólo está disponible en GraalVM 23+."

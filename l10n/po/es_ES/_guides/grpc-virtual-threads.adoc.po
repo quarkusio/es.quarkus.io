@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-10-29 08:10+0000\n"
+"POT-Creation-Date: 2023-12-03 08:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr "La idea detrás del soporte de Quarkus Virtual Thread para servicios gRP
 #. type: Plain text
 #: upstream/_guides/grpc-virtual-threads.adoc:31
 #, fuzzy
-msgid "To enable virtual thread support on a service method, simply add the link:{runonvthread}[@RunOnVirtualThread] annotation to the method.  If the JDK is compatible (Java 19 or later versions) then the invocation will be offloaded to a new virtual thread.  It will then be possible to perform blocking operations without blocking the platform thread upon which the virtual thread is mounted."
+msgid "To enable virtual thread support on a service method, simply add the link:{runonvthread}[@RunOnVirtualThread] annotation to the method.  If the JDK is compatible (Java 19 or later versions - we recommend 21+) then the invocation will be offloaded to a new virtual thread.  It will then be possible to perform blocking operations without blocking the platform thread upon which the virtual thread is mounted."
 msgstr "Para habilitar el soporte de hilos virtuales en un método de servicio, simplemente añada la anotación  link:{runonvthread}[@RunOnVirtualThread] al método. Si el JDK es compatible (Java 19 o versiones posteriores), la invocación se descargará en un nuevo subproceso virtual. Entonces será posible realizar operaciones de bloqueo sin bloquear el hilo de la plataforma sobre el que está montado el hilo virtual."
 
 #. type: Title ==
@@ -100,7 +100,7 @@ msgstr ""
 #. type: Plain text
 #: upstream/_guides/grpc-virtual-threads.adoc:53
 #, fuzzy
-msgid "You also need to make sure that you are using Java 19 or later, this can be enforced in your `pom.xml` file with the following:"
+msgid "You also need to make sure that you are using Java 19 or later (we recommend 21+), this can be enforced in your `pom.xml` file with the following:"
 msgstr "También es necesario asegurarse de que está utilizando Java 19 o posterior, esto se puede aplicar en su archivo `pom.xml` con lo siguiente:"
 
 #. type: delimited block -
@@ -108,21 +108,20 @@ msgstr "También es necesario asegurarse de que está utilizando Java 19 o poste
 #, no-wrap
 msgid ""
 "<properties>\n"
-"    <maven.compiler.source>19</maven.compiler.source>\n"
-"    <maven.compiler.target>19</maven.compiler.target>\n"
+"    <maven.compiler.source>21</maven.compiler.source>\n"
+"    <maven.compiler.target>21</maven.compiler.target>\n"
 "</properties>\n"
 msgstr ""
 
 #. type: Plain text
 #: upstream/_guides/grpc-virtual-threads.adoc:64
-#, fuzzy
-msgid "Virtual threads are still a preview feature, so you need to start your application with the `--enable-preview` flag:"
-msgstr "Los subprocesos virtuales son todavía una función de vista previa, por lo que es necesario iniciar la aplicación con la bandera `--enable-preview`:"
+msgid "Run your application with:"
+msgstr ""
 
 #. type: delimited block -
 #: upstream/_guides/grpc-virtual-threads.adoc:68
 #, no-wrap
-msgid "java --enable-preview -jar target/quarkus-app/quarkus-run.jar\n"
+msgid "java -jar target/quarkus-app/quarkus-run.jar\n"
 msgstr ""
 
 #. type: Plain text
@@ -132,7 +131,7 @@ msgid "or to use the Quarkus Dev mode, insert the following to the `quarkus-mave
 msgstr "o para utilizar el modo Quarkus Dev, inserte lo siguiente en la configuración de `quarkus-maven-plugin`:"
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:96
+#: upstream/_guides/grpc-virtual-threads.adoc:93
 #, no-wrap
 msgid ""
 "<plugin>\n"
@@ -149,35 +148,26 @@ msgid ""
 "        </execution>\n"
 "    </executions>\n"
 "    <configuration>\n"
-"      <source>19</source>\n"
-"      <target>19</target>\n"
-"      <compilerArgs>\n"
-"        <arg>--enable-preview</arg>\n"
-"      </compilerArgs>\n"
+"      <source>21</source>\n"
+"      <target>21</target>\n"
 "    </configuration>\n"
 "</plugin>\n"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/grpc-virtual-threads.adoc:99
-#, fuzzy
-msgid "The `--enable-preview` flag is not necessary with Java 21+."
-msgstr "La bandera `--enable-preview` no es necesaria con Java 21+."
-
-#. type: Plain text
-#: upstream/_guides/grpc-virtual-threads.adoc:101
+#: upstream/_guides/grpc-virtual-threads.adoc:96
 #, fuzzy
 msgid "Then you can start using the annotation `@RunOnVirtualThread` in your service implementation:"
 msgstr "A continuación, puede empezar a utilizar la anotación `@RunOnVirtualThread` en la implementación de su servicio:"
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:105
+#: upstream/_guides/grpc-virtual-threads.adoc:100
 #, no-wrap
 msgid "package io.quarkus.grpc.example.streaming;\n"
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:108
+#: upstream/_guides/grpc-virtual-threads.adoc:103
 #, no-wrap
 msgid ""
 "import com.google.protobuf.ByteString;\n"
@@ -185,7 +175,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:115
+#: upstream/_guides/grpc-virtual-threads.adoc:110
 #, no-wrap
 msgid ""
 "import io.grpc.testing.integration.Messages;\n"
@@ -197,7 +187,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:118
+#: upstream/_guides/grpc-virtual-threads.adoc:113
 #, no-wrap
 msgid ""
 "@GrpcService\n"
@@ -205,7 +195,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:124
+#: upstream/_guides/grpc-virtual-threads.adoc:119
 #, no-wrap
 msgid ""
 "    @RunOnVirtualThread\n"
@@ -216,7 +206,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:134
+#: upstream/_guides/grpc-virtual-threads.adoc:129
 #, no-wrap
 msgid ""
 "    @RunOnVirtualThread\n"
@@ -231,7 +221,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block -
-#: upstream/_guides/grpc-virtual-threads.adoc:149
+#: upstream/_guides/grpc-virtual-threads.adoc:144
 #, no-wrap
 msgid ""
 "    @Override\n"
@@ -251,13 +241,21 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: upstream/_guides/grpc-virtual-threads.adoc:153
+#: upstream/_guides/grpc-virtual-threads.adoc:148
 #, fuzzy, no-wrap
 msgid "Limitations"
 msgstr "Limitaciones"
 
 #. type: delimited block =
-#: upstream/_guides/grpc-virtual-threads.adoc:156
+#: upstream/_guides/grpc-virtual-threads.adoc:151
 #, fuzzy
 msgid "The gRPC methods receiving _streams_, such as a `Multi` cannot use `@RunOnVirtualThread`, as the method must not be blocking and produce its result (`Multi` or `Uni`) immediately."
 msgstr "Los métodos gRPC que reciben _flujos_, como un `Multi` no pueden utilizar `@RunOnVirtualThread`, ya que el método no debe estar bloqueando y producir su resultado ( `Multi` o `Uni`) inmediatamente."
+
+#, fuzzy
+#~ msgid "Virtual threads are still a preview feature, so you need to start your application with the `--enable-preview` flag:"
+#~ msgstr "Los subprocesos virtuales son todavía una función de vista previa, por lo que es necesario iniciar la aplicación con la bandera `--enable-preview`:"
+
+#, fuzzy
+#~ msgid "The `--enable-preview` flag is not necessary with Java 21+."
+#~ msgstr "La bandera `--enable-preview` no es necesaria con Java 21+."

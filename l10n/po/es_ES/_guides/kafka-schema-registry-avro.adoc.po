@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-10-29 08:10+0000\n"
+"POT-Creation-Date: 2023-12-03 08:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -738,6 +738,7 @@ msgstr "En primer lugar, vamos a añadir las dependencias de prueba de REST Clie
 #: upstream/_guides/kafka-schema-registry-avro.adoc:543
 #: upstream/_guides/kafka-schema-registry-avro.adoc:634
 #: upstream/_guides/kafka-schema-registry-avro.adoc:733
+#: upstream/_guides/kafka-schema-registry-avro.adoc:803
 #, fuzzy, no-wrap
 msgid "pom.xml"
 msgstr "pom.xml"
@@ -764,6 +765,7 @@ msgstr ""
 #: upstream/_guides/kafka-schema-registry-avro.adoc:560
 #: upstream/_guides/kafka-schema-registry-avro.adoc:687
 #: upstream/_guides/kafka-schema-registry-avro.adoc:773
+#: upstream/_guides/kafka-schema-registry-avro.adoc:811
 #, fuzzy, no-wrap
 msgid "build.gradle"
 msgstr "build.gradle"
@@ -1326,119 +1328,135 @@ msgstr ""
 #. type: Plain text
 #: upstream/_guides/kafka-schema-registry-avro.adoc:799
 #, fuzzy
-msgid "In JVM mode, any version of `io.confluent:kafka-avro-serializer` can be used.  In native mode, Quarkus only supports the following versions:"
+msgid "In JVM mode, any version of `io.confluent:kafka-avro-serializer` can be used.  In native mode, Quarkus supports the following versions: `6.2.x`, `7.0.x`, `7.1.x`, `7.2.x`, `7.3.x`."
 msgstr "En el modo JVM, se puede utilizar cualquier versión de `io.confluent:kafka-avro-serializer`. En modo nativo, Quarkus sólo admite las siguientes versiones:"
 
 #. type: Plain text
 #: upstream/_guides/kafka-schema-registry-avro.adoc:801
-#, fuzzy
-msgid "6.2.x"
-msgstr "6.2.x"
+msgid "For version `7.4.x` and `7.5.x`, due to an issue with the Confluent Schema Serializer, you need to add another dependency:"
+msgstr ""
+
+#. type: delimited block -
+#: upstream/_guides/kafka-schema-registry-avro.adoc:809
+#, no-wrap
+msgid ""
+"<dependency>\n"
+"    <groupId>com.fasterxml.jackson.dataformat</groupId>\n"
+"    <artifactId>jackson-dataformat-csv</artifactId>\n"
+"</dependency>\n"
+msgstr ""
+
+#. type: delimited block -
+#: upstream/_guides/kafka-schema-registry-avro.adoc:816
+#, no-wrap
+msgid ""
+"dependencies {\n"
+"    implementation(\"com.fasterxml.jackson.dataformat:jackson-dataformat-csv\")\n"
+"}\n"
+msgstr ""
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:802
-#, fuzzy
-msgid "7.0.x"
-msgstr "7.0.x"
-
-#. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:803
-#, fuzzy
-msgid "7.1.x"
-msgstr "7.1.x"
-
-#. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:804
-#, fuzzy
-msgid "7.2.x"
-msgstr "7.2.x"
-
-#. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:806
+#: upstream/_guides/kafka-schema-registry-avro.adoc:819
 #, fuzzy
 msgid "For any other versions, the native configuration may need to be adjusted."
 msgstr "Para cualquier otra versión, puede ser necesario ajustar la configuración nativa."
 
 #. type: Title ==
-#: upstream/_guides/kafka-schema-registry-avro.adoc:807
+#: upstream/_guides/kafka-schema-registry-avro.adoc:820
 #, fuzzy, no-wrap
 msgid "Avro code generation details"
 msgstr "Detalles de la generación del código Avro"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:811
+#: upstream/_guides/kafka-schema-registry-avro.adoc:824
 #, fuzzy
 msgid "In this guide we used the Quarkus code generation mechanism to generate Java files from Avro schema."
 msgstr "En esta guía utilizamos el mecanismo de generación de código de Quarkus para generar archivos Java a partir del esquema Avro."
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:813
+#: upstream/_guides/kafka-schema-registry-avro.adoc:826
 #, fuzzy
 msgid "Under the hood, the mechanism uses `org.apache.avro:avro-compiler`."
 msgstr "Bajo el capó, el mecanismo utiliza `org.apache.avro:avro-compiler`."
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:815
+#: upstream/_guides/kafka-schema-registry-avro.adoc:828
 #, fuzzy
 msgid "You can use the following configuration properties to alter how it works:"
 msgstr "Puede utilizar las siguientes propiedades de configuración para modificar su funcionamiento:"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:819
+#: upstream/_guides/kafka-schema-registry-avro.adoc:832
 #, fuzzy
 msgid "`avro.codegen.[avsc|avdl|avpr].imports` - a list of files or directories that should be compiled first thus making them importable by subsequently compiled schemas. Note that imported files should not reference each other. All paths should be relative to the `src/[main|test]/avro` directory, or `avro` sub-directory in any source directory configured by the build system. Passed as a comma-separated list."
 msgstr "`avro.codegen.[avsc|avdl|avpr].imports` - una lista de archivos o directorios que deben ser compilados primero para que puedan ser importados por los esquemas compilados posteriormente. Tenga en cuenta que los archivos importados no deben hacer referencia a otros. Todas las rutas deben ser relativas al directorio `src/[main|test]/avro`. Se pasa como una lista separada por comas."
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:821
+#: upstream/_guides/kafka-schema-registry-avro.adoc:834
 #, fuzzy
 msgid "`avro.codegen.stringType` - the Java type to use for Avro strings. May be one of `CharSequence`, `String` or `Utf8`. Defaults to `String`"
 msgstr "`avro.codegen.stringType` - el tipo de Java a utilizar para las cadenas Avro. Puede ser uno de los siguientes: `CharSequence`, `String` o `Utf8`. El valor predeterminado es `String`"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:823
+#: upstream/_guides/kafka-schema-registry-avro.adoc:836
 #, fuzzy
 msgid "`avro.codegen.createOptionalGetters` - enables generating the `getOptional...` methods that return an Optional of the requested type. Defaults to `false`"
 msgstr "`avro.codegen.createOptionalGetters` - permite generar los métodos de `getOptional…​` que devuelven un Optional del tipo solicitado. El valor predeterminado es `false`"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:824
+#: upstream/_guides/kafka-schema-registry-avro.adoc:837
 #, fuzzy
 msgid "`avro.codegen.enableDecimalLogicalType` - determines whether to use Java classes for decimal types, defaults to `false`"
 msgstr "`avro.codegen.enableDecimalLogicalType` - determina si se utilizan las clases Java para los tipos decimales, por defecto es `false`"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:826
+#: upstream/_guides/kafka-schema-registry-avro.adoc:839
 #, fuzzy
 msgid "`avro.codegen.createSetters` - determines whether to create setters for the fields of the record.  Defaults to `false`"
 msgstr "`avro.codegen.createSetters` - determina si se deben crear definidores para los campos del registro. El valor predeterminado es `false`"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:828
+#: upstream/_guides/kafka-schema-registry-avro.adoc:841
 #, fuzzy
 msgid "`avro.codegen.gettersReturnOptional` - enables generating `get...` methods that return an Optional of the requested type. Defaults to `false`"
 msgstr "`avro.codegen.gettersReturnOptional` - permite generar métodos `get…​` que devuelven un Optional del tipo solicitado. El valor predeterminado es `false`"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:831
+#: upstream/_guides/kafka-schema-registry-avro.adoc:844
 #, fuzzy
 msgid "`avro.codegen.optionalGettersForNullableFieldsOnly`, works in conjunction with `gettersReturnOptional` option.  If it is set, `Optional` getters will be generated only for fields that are nullable. If the field is mandatory, regular getter will be generated. Defaults to `false`"
 msgstr "`avro.codegen.optionalGettersForNullableFieldsOnly`funciona junto con la opción `gettersReturnOptional`. Si se establece, se generarán getters de `Optional` sólo para los campos que sean anulables. Si el campo es obligatorio, se generará un getter normal. El valor predeterminado es `false`"
 
 #. type: Title ==
-#: upstream/_guides/kafka-schema-registry-avro.adoc:832
+#: upstream/_guides/kafka-schema-registry-avro.adoc:845
 #, fuzzy, no-wrap
 msgid "Further reading"
 msgstr "Más información"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:835
+#: upstream/_guides/kafka-schema-registry-avro.adoc:848
 #, fuzzy
 msgid "link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/kafka/kafka.html[SmallRye Reactive Messaging Kafka] documentation"
 msgstr "Documentación de link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.9/kafka/kafka.html[SmallRye Reactive Messaging Kafka]"
 
 #. type: Plain text
-#: upstream/_guides/kafka-schema-registry-avro.adoc:836
+#: upstream/_guides/kafka-schema-registry-avro.adoc:849
 #, fuzzy
 msgid "link:https://quarkus.io/blog/kafka-avro/[How to Use Kafka, Schema Registry and Avro with Quarkus] - a blog post on which the guide is based. It gives a good introduction to Avro and the concept of schema registry"
 msgstr "link:https://quarkus.io/blog/kafka-avro/[How to Use Kafka, Schema Registry and Avro with Quarkus] - una entrada del blog en la que se basa la guía. Ofrece una buena introducción a Avro y al concepto de registro de esquemas"
+
+#, fuzzy
+#~ msgid "6.2.x"
+#~ msgstr "6.2.x"
+
+#, fuzzy
+#~ msgid "7.0.x"
+#~ msgstr "7.0.x"
+
+#, fuzzy
+#~ msgid "7.1.x"
+#~ msgstr "7.1.x"
+
+#, fuzzy
+#~ msgid "7.2.x"
+#~ msgstr "7.2.x"
