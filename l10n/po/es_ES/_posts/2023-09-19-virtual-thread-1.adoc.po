@@ -11,681 +11,479 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. type: YAML Front Matter: author
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
-#, fuzzy, no-wrap
-msgid "cescoffier"
-msgstr "cescoffier"
-
-#. type: YAML Front Matter: date
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
-#, fuzzy, no-wrap
-msgid "2023-09-19"
-msgstr "2023-09-19"
-
-#. type: YAML Front Matter: layout
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
-#, no-wrap
-msgid "post"
-msgstr "post"
-
-#. type: YAML Front Matter: synopsis
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
-#, fuzzy, no-wrap
-msgid "What do virtual threads change when building concurrent applications with Quarkus."
-msgstr "Qué cambian los hilos virtuales al crear aplicaciones concurrentes con Quarkus."
-
-#. type: YAML Front Matter: tags
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
-#, fuzzy, no-wrap
-msgid "virtual-threads"
-msgstr "hilos virtuales"
-
 #. type: YAML Front Matter: title
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:1
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy, no-wrap
 msgid "When Quarkus meets Virtual Threads"
 msgstr "Cuando Quarkus se encuentra con Hilos Virtuales"
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:13
-#, fuzzy
-msgid "Java 21 offers a new feature that will reshape the development of concurrent applications in Java.  For over two years, the Quarkus team explored integrating this new feature to ease the development of distributed applications, including microservices and event-driven applications."
-msgstr "Java 21 ofrece una nueva característica que remodelará el desarrollo de aplicaciones concurrentes en Java. Durante más de dos años, el equipo de Quarkus exploró la integración de esta nueva característica para facilitar el desarrollo de aplicaciones distribuidas, incluidos los microservicios y las aplicaciones basadas en eventos."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:17
-#, fuzzy
-msgid "This blog post is the first part of a series of posts and videos demonstrating how to use virtual threads in Quarkus applications.  The series covers REST, messaging, containers, native compilation, and our plans for the future.  But first, let's look at virtual threads, what they change, and what you should know about them."
-msgstr "Esta entrada de blog es la primera parte de una serie de entradas y vídeos que demuestran cómo utilizar hilos virtuales en aplicaciones Quarkus. La serie cubre REST, mensajería, contenedores, compilación nativa, y nuestros planes para el futuro. Pero primero, echemos un vistazo a los hilos virtuales, lo que cambian, y lo que debes saber sobre ellos."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:19
-#, fuzzy
-msgid "## The Java world before Java 21"
-msgstr "El mundo Java antes de Java 21"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:26
-#, fuzzy
-msgid "At the beginning of the Java time, Java had _green threads_.  Green threads were user-level threads scheduled by the Java virtual machine (JVM) instead of natively by the underlying operating system (OS).  They emulated multithreaded environments without relying on native OS abilities.  They were managed in user space instead of kernel space, enabling them to work in environments that do not have native thread support.  Green threads were briefly available in Java between 1997 and 2000.  I used green threads; they did not leave me with a fantastic memory."
-msgstr "Al principio de la era Java, Java tenía hilos _verdes_. Los hilos verdes eran hilos a nivel de usuario programados por la máquina virtual Java (JVM) en lugar de nativamente por el sistema operativo (SO) subyacente. Emulaban entornos multihilo sin depender de las capacidades nativas del SO. Se gestionaban en el espacio de usuario en lugar de en el espacio del núcleo, lo que les permitía funcionar en entornos sin soporte nativo de hilos. Los hilos verdes estuvieron brevemente disponibles en Java entre 1997 y 2000. Yo utilicé hilos verdes; no me dejaron un recuerdo fantástico."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:32
-#, fuzzy
-msgid "In Java 1.3, released in 2000, Java made a big step forward and started integrating OS threads.  So, the threads are managed by the operating system.  It is still the model we are using today.  Each time a Java application creates a thread, a platform thread is created, which wraps an OS thread.  So, creating a platform thread creates an OS thread, and **blocking a platform thread blocks an OS thread**."
-msgstr "En Java 1.3, publicada en 2000, Java dio un gran paso adelante y empezó a integrar los hilos del sistema operativo. Así, los hilos son gestionados por el sistema operativo. Sigue siendo el modelo que utilizamos hoy en día. Cada vez que una aplicación Java crea un hilo, se crea un hilo de plataforma, que envuelve a un hilo del sistema operativo. Así, al crear un hilo de plataforma se crea un hilo de sistema operativo, y al *bloquear un hilo de plataforma se bloquea un hilo de sistema operativo*."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:40
-#, fuzzy
-msgid "When you use a Java application framework, you rarely create threads yourself.  It is done for you by the framework.  For example, when your application receives an HTTP request, the framework creates or reuses a platform thread (and so an OS thread) and executes the processing on that thread.  The whole processing runs on this thread, and the thread cannot be reused until the processing completes (so the response is sent back).  When the processing executes a blocking I/O operation, like calling another service, writing to the file system, or interacting with a database, the thread is blocked, waiting for the response.  As mentioned above, the OS thread is also blocked while waiting.  When this response is received, the processing continues:"
-msgstr "Cuando utilizas un framework de aplicaciones Java, rara vez creas hilos tú mismo. El framework lo hace por usted. Por ejemplo, cuando tu aplicación recibe una petición HTTP, el framework crea o reutiliza un hilo de la plataforma (y por tanto un hilo del sistema operativo) y ejecuta el procesamiento en ese hilo. Todo el procesamiento se ejecuta en este hilo, y el hilo no puede ser reutilizado hasta que el procesamiento se complete (por lo que la respuesta se envía de vuelta). Cuando el procesamiento ejecuta una operación de E/S bloqueante, como llamar a otro servicio, escribir en el sistema de archivos o interactuar con una base de datos, el hilo está bloqueado, esperando la respuesta. Como se mencionó anteriormente, el hilo del sistema operativo también se bloquea mientras espera. Cuando se recibe la respuesta, el proceso continúa:"
-
-#. type: Positional ($1) AttributeList argument for macro 'image'
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:41
+#. type: YAML Front Matter: synopsis
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy, no-wrap
-msgid "Threads involved with the imperative model"
-msgstr "Temas relacionados con el modelo imperativo"
+msgid "What do virtual threads change when building concurrent applications with Quarkus."
+msgstr "Qué cambian los hilos virtuales al crear aplicaciones concurrentes con Quarkus."
 
-#. type: Target for macro image
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:41
-#, no-wrap
-msgid "imperative-model.png"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:50
-#, fuzzy
-msgid "This model has the advantage of being simple to program with.  The code follows an imperative model.  The code is executed sequentially.  It's simple to write, simple to reason about.  For example, the following snippet shows how you receive an HTTP request, call another HTTP service, and return a response with Quarkus.  It follows the sequence diagram from above."
-msgstr "Este modelo tiene la ventaja de ser sencillo de programar. El código sigue un modelo imperativo. El código se ejecuta secuencialmente. Es sencillo de escribir y de razonar. Por ejemplo, el siguiente fragmento muestra cómo se recibe una petición HTTP, se llama a otro servicio HTTP y se devuelve una respuesta con Quarkus. Sigue el diagrama secuencial de arriba."
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:55
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"@Path(\"/greetings\")\n"
-"public class ImperativeApp {\n"
+"Java 21 offers a new feature that will reshape the development of concurrent applications in Java.\n"
+"For over two years, the Quarkus team explored integrating this new feature to ease the development of distributed applications, including microservices and event-driven applications."
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:57
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:110
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:185
-#, no-wrap
-msgid "  @RestClient RemoteService service;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:62
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"  @GET\n"
-"  public String process() {\n"
-"    // Runs on a worker (platform) thread because the\n"
-"    // method uses a synchronous signature\n"
+"This blog post is the first part of a series of posts and videos demonstrating how to use virtual threads in Quarkus applications.\n"
+"The series covers REST, messaging, containers, native compilation, and our plans for the future.\n"
+"But first, let's look at virtual threads, what they change, and what you should know about them."
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:67
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "The Java world before Java 21"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"    // `service` is a rest client, it executes an I/O operation\n"
-"    // (send an HTTP request and waits for the response)\n"
-"    var response = service.greetings(); // Blocking, it waits for the response\n"
-"                                        // The OS thread is also blocked\n"
+"At the beginning of the Java time, Java had _green threads_.\n"
+"Green threads were user-level threads scheduled by the Java virtual machine (JVM) instead of natively by the underlying operating system (OS).\n"
+"They emulated multithreaded environments without relying on native OS abilities.\n"
+"They were managed in user space instead of kernel space, enabling them to work in environments that do not have native thread support.\n"
+"Green threads were briefly available in Java between 1997 and 2000.\n"
+"I used green threads; they did not leave me with a fantastic memory."
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:70
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"    return response.toUpperCase();\n"
-"  }\n"
+"In Java 1.3, released in 2000, Java made a big step forward and started integrating OS threads.\n"
+"So, the threads are managed by the operating system.\n"
+"It is still the model we are using today.\n"
+"Each time a Java application creates a thread, a platform thread is created, which wraps an OS thread.\n"
+"So, creating a platform thread creates an OS thread, and **blocking a platform thread blocks an OS thread**."
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:72
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:201
-#, no-wrap
-msgid "}\n"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"When you use a Java application framework, you rarely create threads yourself.\n"
+"It is done for you by the framework.\n"
+"For example, when your application receives an HTTP request, the framework creates or reuses a platform thread (and so an OS thread) and executes the processing on that thread.\n"
+"The whole processing runs on this thread, and the thread cannot be reused until the processing completes (so the response is sent back).\n"
+"When the processing executes a blocking I/O operation, like calling another service, writing to the file system, or interacting with a database, the thread is blocked, waiting for the response.\n"
+"As mentioned above, the OS thread is also blocked while waiting.\n"
+"When this response is received, the processing continues:"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"This model has the advantage of being simple to program with.\n"
+"The code follows an imperative model.\n"
+"The code is executed sequentially.\n"
+"It's simple to write, simple to reason about.\n"
+"For example, the following snippet shows how you receive an HTTP request, call another HTTP service, and return a response with Quarkus.\n"
+"It follows the sequence diagram from above."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"But there is a limit to that imperative model.\n"
+"You can only handle _n_ requests concurrently, with _n_ the number of threads the framework can create.\n"
+"OS threads are expensive.\n"
+"They consume memory (around 1 Mb per thread), are expensive to create, use CPU to schedule them…\n"
+"Frameworks use thread pools to allow reusing idle threads, but when the concurrency level exceeds your number of threads, you start pilling up requests, increasing the response time, and, in the worst case, even rejecting requests.\n"
+"Increasing the thread pool size and, consequently, swelling the memory usage can blow up your Cloud bill and deployment density.\n"
+"Futhermore, adding more threads may not even improve the concurrency as explained by the https://youtu.be/07V08SB1l8c?t=142[Little Law]."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"The reactive movement proposed an alternative model to work around that issue.\n"
+"It promotes the usage of non-blocking I/O and asynchronous development models to use resources (CPU and memory) more efficiently.\n"
+"With the reactive model, **a single thread can handle multiple concurrent requests**.\n"
+"So, instead of having a large pool of threads, you have a minimum number of threads (generally equal to the number of CPU cores).\n"
+"This small amount of threads, often named event loops, handles all your requests.\n"
+"When a request is received, it calls the processing code on one of these threads.\n"
+"When the processing needs to execute an I/O operation, instead of using blocking I/O, it schedules the operations and passes a **continuation**.\n"
+"This continuation is the code to be invoked when the I/O completes, so basically, the rest of the processing:"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"The reactive model is highly efficient, but there is a catch.\n"
+"As mentioned, you need to write your code as a chain of continuations.\n"
+"While there are multiple approaches, such as callbacks, futures, reactive programming, or co-routines, it makes the code harder to reason about.\n"
+"The code must be structured in a way that may not be natural for every developer.\n"
+"That limits the adoption of this solution.\n"
+"Also, the code can not only block during I/O operation; it must not execute lengthy processing (what we call monopolization).\n"
+"The model's efficiency comes from the ability to process many requests concurrently.\n"
+"If the thread is used for a long time, it does not allow the other requests to be processed, and, as for the imperative model, you start piling up requests."
 msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:81
-#, fuzzy
-msgid "But there is a limit to that imperative model.  You can only handle _n_ requests concurrently, with _n_ the number of threads the framework can create.  OS threads are expensive.  They consume memory (around 1 Mb per thread), are expensive to create, use CPU to schedule them… Frameworks use thread pools to allow reusing idle threads, but when the concurrency level exceeds your number of threads, you start pilling up requests, increasing the response time, and, in the worst case, even rejecting requests.  Increasing the thread pool size and, consequently, swelling the memory usage can blow up your Cloud bill and deployment density.  Futhermore, adding more threads may not even improve the concurrency as explained by the https://youtu.be/07V08SB1l8c?t=142[Little Law]."
-msgstr "Pero ese modelo imperativo tiene un límite. Sólo se pueden manejar _n_ peticiones simultáneamente, siendo _n_ el número de hilos que el framework puede crear. Los hilos del SO son caros. Consumen memoria (alrededor de 1 Mb por hilo), son caros de crear, usan CPU para programarlos... Los frameworks usan pools de hilos para permitir la reutilización de hilos ociosos, pero cuando el nivel de concurrencia excede tu número de hilos, empiezas a acumular peticiones, aumentando el tiempo de respuesta, y, en el peor de los casos, incluso rechazando peticiones. Aumentar el tamaño del grupo de hilos y, en consecuencia, el uso de memoria puede disparar la factura de Cloud y la densidad de despliegue. Además, añadir más hilos puede que ni siquiera mejore la concurrencia, como explica la  link:https://youtu.be/07V08SB1l8c?t=142[Ley de Little]."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:90
-#, fuzzy
-msgid "The reactive movement proposed an alternative model to work around that issue.  It promotes the usage of non-blocking I/O and asynchronous development models to use resources (CPU and memory) more efficiently.  With the reactive model, **a single thread can handle multiple concurrent requests**.  So, instead of having a large pool of threads, you have a minimum number of threads (generally equal to the number of CPU cores).  This small amount of threads, often named event loops, handles all your requests.  When a request is received, it calls the processing code on one of these threads.  When the processing needs to execute an I/O operation, instead of using blocking I/O, it schedules the operations and passes a **continuation**.  This continuation is the code to be invoked when the I/O completes, so basically, the rest of the processing:"
-msgstr "El movimiento reactivo propuso un modelo alternativo para solucionar este problema. Promueve el uso de E/S no bloqueantes y modelos de desarrollo asíncronos para utilizar los recursos (CPU y memoria) de forma más eficiente. Con el modelo reactivo, *un único hilo puede gestionar múltiples peticiones simultáneas*. Así, en lugar de tener un gran grupo de hilos, se dispone de un número mínimo de hilos (generalmente igual al número de núcleos de la CPU). Este pequeño número de hilos, a menudo denominados bucles de eventos, gestiona todas las peticiones. Cuando se recibe una petición, se llama al código de procesamiento en uno de estos hilos. Cuando el procesamiento necesita ejecutar una operación de E/S, en lugar de utilizar E/S de bloqueo, programa las operaciones y pasa una *continuación*. Esta continuación es el código que se invocará cuando la E/S se complete, así que básicamente, el resto del procesamiento:"
-
-#. type: Positional ($1) AttributeList argument for macro 'image'
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:91
-#, fuzzy, no-wrap
-msgid "Thread involved with the reactive model"
-msgstr "Hilo conductor del modelo reactivo"
-
-#. type: Target for macro image
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:91
-#, no-wrap
-msgid "reactive-model.png"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:101
-#, fuzzy
-msgid "The reactive model is highly efficient, but there is a catch.  As mentioned, you need to write your code as a chain of continuations.  While there are multiple approaches, such as callbacks, futures, reactive programming, or co-routines, it makes the code harder to reason about.  The code must be structured in a way that may not be natural for every developer.  That limits the adoption of this solution.  Also, the code can not only block during I/O operation; it must not execute lengthy processing (what we call monopolization).  The model's efficiency comes from the ability to process many requests concurrently.  If the thread is used for a long time, it does not allow the other requests to be processed, and, as for the imperative model, you start piling up requests."
-msgstr "El modelo reactivo es muy eficiente, pero tiene truco. Como se ha mencionado, es necesario escribir el código como una cadena de continuaciones. Aunque existen múltiples enfoques, como las devoluciones de llamada, los futuros, la programación reactiva o las co-rutinas, esto hace que el código sea más difícil de razonar. El código debe estructurarse de un modo que puede no ser natural para todos los desarrolladores. Esto limita la adopción de esta solución. Además, el código no sólo puede bloquearse durante las operaciones de E/S, sino que no debe ejecutar procesamientos largos (lo que llamamos monopolización). La eficiencia del modelo proviene de la capacidad de procesar muchas peticiones simultáneamente. Si el hilo se utiliza durante mucho tiempo, no permite que se procesen las demás peticiones y, al igual que en el modelo imperativo, se empiezan a acumular peticiones."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:103
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "To illustrate the difference between the imperative and reactive model, the following snippet is equivalent to the previous one: it receives an HTTP request, calls another HTTP service, and returns a response. But this time, it uses the Quarkus reactive model."
 msgstr "Para ilustrar la diferencia entre el modelo imperativo y el reactivo, el siguiente fragmento es equivalente al anterior: recibe una petición HTTP, llama a otro servicio HTTP y devuelve una respuesta. Pero esta vez, utiliza el modelo reactivo de Quarkus."
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:108
-#, no-wrap
-msgid ""
-"@Path(\"/greetings\")\n"
-"public class ReactiveApp {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:115
-#, no-wrap
-msgid ""
-"  @GET\n"
-"  public Uni<String> process() {\n"
-"    // Runs on an event loop (platform) thread because the\n"
-"    // method uses a asynchronous signature\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:126
-#, no-wrap
-msgid ""
-"    // `service` is a rest client, it executes an I/O operation\n"
-"    // but this time it returns a Uni<String>, so it's not blocking\n"
-"    return service.asyncGreetings() // Non-blocking\n"
-"        .map(resp -> {\n"
-"          // This is the continuation, the code executed once the\n"
-"          // response is received\n"
-"          return resp.toUpperCase();\n"
-"        });\n"
-"    }\n"
-"}\n"
-msgstr ""
-
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:129
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "An application with this code handles more concurrent requests and uses less memory than the imperative one, but, the development model is different."
 msgstr "Una aplicación con este código maneja más peticiones concurrentes y utiliza menos memoria que la imperativa, pero, el modelo de desarrollo es diferente."
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:134
-#, fuzzy
-msgid "Most of the time, the reactive and imperative models are opposed.  This does not need to be the case.  Quarkus uses a reactive core and lets you decide if you want to use the reactive or imperative model.  Check the https://quarkus.io/blog/resteasy-reactive-smart-dispatch/['to block or not to block' article] for more details about this ability."
-msgstr "La mayoría de las veces, los modelos reactivo e imperativo son opuestos. Esto no tiene por qué ser así. Quarkus utiliza un núcleo reactivo y te permite decidir si quieres utilizar el modelo reactivo o el imperativo. Consulta el  link:https://quarkus.io/blog/resteasy-reactive-smart-dispatch/[artículo 'bloquear o no bloquear'] para más detalles sobre esta capacidad."
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Most of the time, the reactive and imperative models are opposed.\n"
+"This does not need to be the case.\n"
+"Quarkus uses a reactive core and lets you decide if you want to use the reactive or imperative model.\n"
+"Check the https://quarkus.io/blog/resteasy-reactive-smart-dispatch/['to block or not to block' article] for more details about this ability."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "What do virtual threads change?"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Java 19 introduced a new type of thread: virtual threads.\n"
+"In Java 21, this API became generally available."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"But what are these virtual threads?\n"
+"Virtual threads reuse the idea of the reactive paradigm but allow an imperative development model.\n"
+"You get the benefits from the reactive and imperative models without the drawbacks!"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Like with green threads, virtual threads are managed by the JVM.\n"
+"Virtual threads occupy less space than platform threads in memory.\n"
+"Hence, using more virtual threads than platform threads simultaneously becomes possible without blowing up the memory.\n"
+"Virtual threads are supposed to be disposable entities that we create when we need them; pooling or reusing them for different tasks is discouraged."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"But what does it change?\n"
+"Blocking a virtual thread is, in general, very cheap!\n"
+"There is a pinch of magic that makes virtual thread very appealing.\n"
+"When your code running on a virtual thread needs to execute an I/O operation, it uses a blocking API.\n"
+"So, the code waits for the result, as with the imperative model.\n"
+"However, since the JVM manages virtual threads, no underlying OS thread is blocked when they perform this blocking operation.\n"
+"The state of the virtual thread is stored in the heap, and another virtual thread can be executed on the same Java platform (carrier) thread, exactly as in the reactive model.\n"
+"When the I/O operation completes, the virtual thread becomes executable again, and when a carrier thread is available, the state of the virtual thread is restored, and the execution continues.\n"
+"For the developer, this magic is invisible!\n"
+"You just write synchronous code, and it's executed like proper reactive code without blocking the OS thread."
+msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:136
-#, fuzzy
-msgid "## What do virtual threads change?"
-msgstr "¿Qué cambian los hilos virtuales?"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:139
-#, fuzzy
-msgid "Java 19 introduced a new type of thread: virtual threads.  In Java 21, this API became generally available."
-msgstr "Java 19 introdujo un nuevo tipo de hilo: los hilos virtuales. En Java 21, esta API pasó a estar disponible de forma general."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:143
-#, fuzzy
-msgid "But what are these virtual threads? Virtual threads reuse the idea of the reactive paradigm but allow an imperative development model.  You get the benefits from the reactive and imperative models without the drawbacks!"
-msgstr "Pero, ¿qué son estos hilos virtuales? Los hilos virtuales reutilizan la idea del paradigma reactivo pero permiten un modelo de desarrollo imperativo. Se obtienen los beneficios de los modelos reactivo e imperativo sin los inconvenientes."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:148
-#, fuzzy
-msgid "Like with green threads, virtual threads are managed by the JVM.  Virtual threads occupy less space than platform threads in memory.  Hence, using more virtual threads than platform threads simultaneously becomes possible without blowing up the memory.  Virtual threads are supposed to be disposable entities that we create when we need them; pooling or reusing them for different tasks is discouraged."
-msgstr "Al igual que los hilos verdes, los hilos virtuales son gestionados por la JVM. Los hilos virtuales ocupan menos espacio en memoria que los hilos de plataforma. Por lo tanto, es posible utilizar más hilos virtuales que hilos de plataforma simultáneamente sin agotar la memoria. Se supone que los hilos virtuales son entidades desechables que creamos cuando los necesitamos; se desaconseja agruparlos o reutilizarlos para diferentes tareas."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:159
-#, fuzzy
-msgid "But what does it change? Blocking a virtual thread is, in general, very cheap! There is a pinch of magic that makes virtual thread very appealing.  When your code running on a virtual thread needs to execute an I/O operation, it uses a blocking API.  So, the code waits for the result, as with the imperative model.  However, since the JVM manages virtual threads, no underlying OS thread is blocked when they perform this blocking operation.  The state of the virtual thread is stored in the heap, and another virtual thread can be executed on the same Java platform (carrier) thread, exactly as in the reactive model.  When the I/O operation completes, the virtual thread becomes executable again, and when a carrier thread is available, the state of the virtual thread is restored, and the execution continues.  For the developer, this magic is invisible! You just write synchronous code, and it's executed like proper reactive code without blocking the OS thread."
-msgstr "Pero, ¿qué cambia? Bloquear un hilo virtual es, en general, ¡muy barato! Hay una pizca de magia que hace que los hilos virtuales sean muy atractivos. Cuando tu código ejecutándose en un hilo virtual necesita ejecutar una operación de E/S, utiliza una API de bloqueo. Así, el código espera el resultado, como en el modelo imperativo. Sin embargo, como la JVM gestiona los hilos virtuales, ningún hilo subyacente del SO se bloquea cuando realiza esta operación de bloqueo. El estado del hilo virtual se almacena en el heap, y otro hilo virtual puede ejecutarse en el mismo hilo (portador) de la plataforma Java, exactamente igual que en el modelo reactivo. Cuando la operación de E/S finaliza, el hilo virtual vuelve a ser ejecutable, y cuando un hilo portador está disponible, el estado del hilo virtual se restaura, y la ejecución continúa. Para el desarrollador, ¡esta magia es invisible! Sólo tienes que escribir código síncrono, y se ejecuta como código reactivo adecuado sin bloquear el hilo del sistema operativo."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:161
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Your code runs on top of virtual threads, but under the hood, only a few carrier threads execute them."
 msgstr "Tu código se ejecuta sobre hilos virtuales, pero bajo el capó, sólo unos pocos hilos portadores los ejecutan."
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:163
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "To summarize, virtual threads are:"
 msgstr "En resumen, los hilos virtuales son:"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:165
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Lightweight - you can have a LOT of them"
 msgstr "Ligeros: se pueden tener MUCHOS"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:166
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Cheap to create - no need to pool them anymore"
 msgstr "Baratas de crear: ya no es necesario ponerlas en común"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:167
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Cheap to block when using blocking operations - blocking a virtual thread does not block the underlying OS thread when executing I/O operations"
 msgstr "El bloqueo de un subproceso virtual no bloquea el subproceso subyacente del sistema operativo cuando se ejecutan operaciones de E/S."
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:169
-#, fuzzy
-msgid "## How can you use virtual threads in Quarkus?"
-msgstr "¿Cómo se pueden utilizar hilos virtuales en Quarkus?"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "How can you use virtual threads in Quarkus?"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Using virtual threads in Quarkus is straightforward.\n"
+"You only need to use the `@RunOnVirtualThread` annotation.\n"
+"It indicates to Quarkus to invoke the annotated method on a virtual thread instead of a regular platform thread."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"This new strategy extends the _smart dispatch_ explained in the https://quarkus.io/blog/resteasy-reactive-smart-dispatch/['to block or not to block' article]. In addition to the signature, Quarkus now looks for this specific annotation.\n"
+"If your JVM does not provide virtual thread support, it does fall back to platform threads."
+msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:173
-#, fuzzy
-msgid "Using virtual threads in Quarkus is straightforward.  You only need to use the `@RunOnVirtualThread` annotation.  It indicates to Quarkus to invoke the annotated method on a virtual thread instead of a regular platform thread."
-msgstr "Utilizar hilos virtuales en Quarkus es sencillo. Sólo hay que utilizar la anotación `@RunOnVirtualThread`. Indica a Quarkus que invoque el método anotado en un subproceso virtual en lugar de un subproceso normal de la plataforma."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:176
-#, fuzzy
-msgid "This new strategy extends the _smart dispatch_ explained in the https://quarkus.io/blog/resteasy-reactive-smart-dispatch/['to block or not to block' article]. In addition to the signature, Quarkus now looks for this specific annotation.  If your JVM does not provide virtual thread support, it does fall back to platform threads."
-msgstr "Esta nueva estrategia amplía el _envío inteligente_ explicado en el  link:https://quarkus.io/blog/resteasy-reactive-smart-dispatch/[artículo \"bloquear o no bloquear\"]. Además de la firma, Quarkus ahora busca esta anotación específica. Si tu JVM no proporciona soporte para hilos virtuales, recurre a los hilos de la plataforma."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:178
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Let's rewrite the same example using a virtual thread (the full code is available in https://github.com/quarkusio/virtual-threads-demos/tree/main/rest-example[this repository]):"
 msgstr "Reescribamos el mismo ejemplo utilizando un hilo virtual (el código completo está disponible en  link:https://github.com/quarkusio/virtual-threads-demos/tree/main/rest-example[este repositorio]):"
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:183
-#, no-wrap
-msgid ""
-"@Path(\"/greetings\")\n"
-"public class VirtualThreadApp {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:191
-#, no-wrap
-msgid ""
-"  @GET\n"
-"  @RunOnVirtualThread\n"
-"  public String process() {\n"
-"    // Runs on a virtual thread because the\n"
-"    // method uses the @RunOnVirtualThread annotation.\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:199
-#, no-wrap
-msgid ""
-"    // `service` is a rest client, it executes an I/O operation\n"
-"    var response = service.greetings(); // Blocking, but this time, it \n"
-"                                        // does neither block the carrier thread\n"
-"                                        // nor the OS thread.\n"
-"                                        // Only the virtual thread is blocked.\n"
-"\treturn response.toUpperCase();\n"
-"  }\n"
-msgstr ""
-
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:204
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "It's the code from the first snippet (the imperative one), but its execution model is closer to the reactive one:"
 msgstr "Es el código del primer fragmento (el imperativo), pero su modelo de ejecución se acerca más al reactivo:"
 
-#. type: Positional ($1) AttributeList argument for macro 'image'
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:205
-#, fuzzy, no-wrap
-msgid "Threads involved with virtual threads"
-msgstr "Hilos implicados con hilos virtuales"
-
-#. type: Target for macro image
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:205
-#, no-wrap
-msgid "virtual-thread-model-2.png"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:213
-#, fuzzy
-msgid "For every request, a virtual thread is created.  When a carrier thread is idle, the virtual thread is mounted on that carrier thread and executed.  When the virtual thread needs to execute the I/O (the call to the remote service), it only blocks the virtual thread.  The carrier thread is released, and can mount another virtual thread (like the one handling the second request while the I/O from the first one is pending).  When the I/O completes, a carrier thread (not necessarily the same one) restores the blocked virtual thread and continues its execution until the response is ready to be sent back to the client.  The code snippet works as described because the Quarkus REST client is virtual-thread-friendly; we will see exceptions in the next section."
-msgstr "Para cada solicitud, se crea un hilo virtual. Cuando un hilo portador está inactivo, el hilo virtual se monta en ese hilo portador y se ejecuta. Cuando el hilo virtual necesita ejecutar la E/S (la llamada al servicio remoto), sólo bloquea el hilo virtual. El hilo portador se libera, y puede montar otro hilo virtual (como el que gestiona la segunda petición mientras la E/S del primero está pendiente). Cuando la E/S se completa, un hilo portador (no necesariamente el mismo) restaura el hilo virtual bloqueado y continúa su ejecución hasta que la respuesta está lista para ser enviada de vuelta al cliente. El fragmento de código funciona como se describe porque el cliente REST de Quarkus es amigable con los hilos virtuales; veremos las excepciones en la siguiente sección."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:216
-#, fuzzy
-msgid "Virtual threads in Quarkus are not limited to HTTP endpoints.  The following snippet shows how you can process Kafka/Pulsar/AMQP messages on virtual threads:"
-msgstr "Los hilos virtuales en Quarkus no se limitan a los extremos HTTP. El siguiente fragmento muestra cómo se pueden procesar mensajes Kafka/Pulsar/AMQP en hilos virtuales:"
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:225
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"@Incoming(\"events\")\n"
-"@Transactional\n"
-"@RunOnVirtualThread\n"
-"public void persistEventInDatabase(Event event) {\n"
-"  event.persist(); // Use Hibernate ORM with Panache\n"
-"}\n"
+"For every request, a virtual thread is created.\n"
+"When a carrier thread is idle, the virtual thread is mounted on that carrier thread and executed.\n"
+"When the virtual thread needs to execute the I/O (the call to the remote service), it only blocks the virtual thread.\n"
+"The carrier thread is released, and can mount another virtual thread (like the one handling the second request while the I/O from the first one is pending).\n"
+"When the I/O completes, a carrier thread (not necessarily the same one) restores the blocked virtual thread and continues its execution until the response is ready to be sent back to the client.\n"
+"The code snippet works as described because the Quarkus REST client is virtual-thread-friendly; we will see exceptions in the next section."
 msgstr ""
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:230
-#, fuzzy
-msgid "Attentive readers may have seen that the virtual thread integration relies on _reactive_ extensions.  These extensions provide more flexibility (such as the control on which thread the processing is executed) to integrate virtual threads properly and efficiently.  It's important to understand that for the developer, it's invisible (except the `@RunOnVirtualThread` annotation)."
-msgstr "Los lectores atentos habrán visto que la integración de hilos virtuales se basa en extensiones _reactivas_. Estas extensiones proporcionan más flexibilidad (como el control sobre qué hilo se ejecuta el procesamiento) para integrar hilos virtuales de forma adecuada y eficiente. Es importante entender que para el desarrollador, es invisible (excepto la anotación `@RunOnVirtualThread` )."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:233
-#, fuzzy
-msgid "## Five things you need to know before using virtual threads for everything"
-msgstr "Cinco cosas que debe saber antes de utilizar hilos virtuales para todo"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:238
-#, fuzzy
-msgid "Well, you probably see this coming.  There is no free lunch.  You need to know a few things before utilizing virtual threads for everything.  These are the reasons why, currently, there is no global switch to run exclusively on virtual threads in Quarkus."
-msgstr "Probablemente lo veas venir. No hay almuerzo gratis. Necesitas saber algunas cosas antes de utilizar hilos virtuales para todo. Estas son las razones por las que, actualmente, no hay un interruptor global para ejecutar exclusivamente en hilos virtuales en Quarkus."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:240
-#, fuzzy
-msgid "### 1. Pinning"
-msgstr "1. Fijación"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:244
-#, fuzzy
-msgid "As described above, when a virtual thread executes a blocking operation, it gets unmounted from the carrier thread, preventing the carrier thread from being blocked.  However, sometimes, the virtual thread cannot be unmounted because its state cannot be stored in the heap.  It happens when the thread holds a monitor lock or has a native call in the stack:"
-msgstr "Como se ha descrito anteriormente, cuando un subproceso virtual ejecuta una operación de bloqueo, se desmonta del subproceso portador, evitando que éste se bloquee. Sin embargo, a veces, el hilo virtual no puede ser desmontado porque su estado no puede ser almacenado en el heap. Esto ocurre cuando el hilo mantiene un bloqueo de monitor o tiene una llamada nativa en la pila:"
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:255
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"Object monitor = new Object();\n"
-"//...\n"
-"public void aMethodThatPinTheCarrierThread() throws Exception {\n"
-"  synchronized(monitor) {\n"
-"    Thread.sleep(1000); // The virtual thread cannot be unmounted because it holds a lock, \n"
-"                        // so the carrier thread is blocked.\n"
-"  }\n"
-"}\n"
+"Virtual threads in Quarkus are not limited to HTTP endpoints.\n"
+"The following snippet shows how you can process Kafka/Pulsar/AMQP messages on virtual threads:"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Attentive readers may have seen that the virtual thread integration relies on _reactive_ extensions.\n"
+"These extensions provide more flexibility (such as the control on which thread the processing is executed) to integrate virtual threads properly and efficiently.\n"
+"It's important to understand that for the developer, it's invisible (except the `@RunOnVirtualThread` annotation)."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "Five things you need to know before using virtual threads for everything"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Well, you probably see this coming.\n"
+"There is no free lunch.\n"
+"You need to know a few things before utilizing virtual threads for everything.\n"
+"These are the reasons why, currently, there is no global switch to run exclusively on virtual threads in Quarkus."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "1. Pinning"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"As described above, when a virtual thread executes a blocking operation, it gets unmounted from the carrier thread, preventing the carrier thread from being blocked.\n"
+"However, sometimes, the virtual thread cannot be unmounted because its state cannot be stored in the heap.\n"
+"It happens when the thread holds a monitor lock or has a native call in the stack:"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:258
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "In this case, the carrier thread is blocked, so the OS thread is blocked:"
 msgstr "En este caso, el hilo portador está bloqueado, por lo que el hilo OS está bloqueado:"
 
-#. type: Positional ($1) AttributeList argument for macro 'image'
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:259
-#, fuzzy, no-wrap
-msgid "Pinning of the carrier thread"
-msgstr "Fijación del hilo portador"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Unfortunately, as of today, lots of Java libraries are pinning the carrier thread.\n"
+"The Quarkus team and Red Hat, in general, have patched many libraries (such as Narayana (the transaction manager of Quarkus) or Hibernate ORM) to avoid pinning.\n"
+"However, when you use a library, be careful.\n"
+"It will take time until all the code gets reworked in a more virtual-thread-friendly way."
+msgstr ""
 
-#. type: Target for macro image
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:259
-#, no-wrap
-msgid "pinning.png"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "2. Monopolization"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"As for the reactive model, if the virtual thread executes intensive and long computation, it monopolizes that carrier.\n"
+"The virtual thread scheduler is not preemptive.\n"
+"So it cannot interrupt a running thread.\n"
+"It needs to wait for an I/O or the completion of the computation.\n"
+"Until then, this carrier thread cannot execute other virtual threads:"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:265
-#, fuzzy
-msgid "Unfortunately, as of today, lots of Java libraries are pinning the carrier thread.  The Quarkus team and Red Hat, in general, have patched many libraries (such as Narayana (the transaction manager of Quarkus) or Hibernate ORM) to avoid pinning.  However, when you use a library, be careful.  It will take time until all the code gets reworked in a more virtual-thread-friendly way."
-msgstr "Desgraciadamente, a día de hoy, muchas librerías Java están pinesando el hilo portador. El equipo de Quarkus y Red Hat, en general, han parcheado muchas librerías (como Narayana (el gestor de transacciones de Quarkus) o Hibernate ORM) para evitar el pinning. Sin embargo, cuando utilices una librería, ten cuidado. Llevará tiempo hasta que todo el código sea reelaborado de una forma más amigable con los hilos virtuales."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:267
-#, fuzzy
-msgid "### 2. Monopolization"
-msgstr "2. Monopolización"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:273
-#, fuzzy
-msgid "As for the reactive model, if the virtual thread executes intensive and long computation, it monopolizes that carrier.  The virtual thread scheduler is not preemptive.  So it cannot interrupt a running thread.  It needs to wait for an I/O or the completion of the computation.  Until then, this carrier thread cannot execute other virtual threads:"
-msgstr "En cuanto al modelo reactivo, si el hilo virtual ejecuta un cálculo intensivo y largo, monopoliza esa portadora. El programador de hilos virtuales no es preventivo. Por lo tanto, no puede interrumpir un hilo en ejecución. Tiene que esperar a una E/S o a la finalización del cálculo. Hasta entonces, este hilo portador no puede ejecutar otros hilos virtuales:"
-
-#. type: Positional ($1) AttributeList argument for macro 'image'
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:274
-#, fuzzy, no-wrap
-msgid "Monopolization of the carrier thread"
-msgstr "Monopolización del hilo portador"
-
-#. type: Target for macro image
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:274
-#, no-wrap
-msgid "monopolization.png"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:277
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Using a dedicated platform thread pool might be wiser when executing long computations."
 msgstr "El uso de un grupo de hilos de plataforma dedicado puede ser más prudente cuando se ejecutan cálculos largos."
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:279
-#, fuzzy
-msgid "### 3. Carrier thread pool elasticity"
-msgstr "3. Elasticidad de la piscina de hilo portador"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "3. Carrier thread pool elasticity"
+msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:281
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "When there is pinning or monopolization, the JVM may create new carrier threads (as illustrated on the previous picture) to avoid having too many unscheduled virtual threads."
 msgstr "Cuando hay pinning o monopolización, la JVM puede crear nuevos hilos portadores (como se ilustra en la imagen anterior) para evitar tener demasiados hilos virtuales no programados."
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:287
-#, fuzzy
-msgid "These creations are creating platform/OS threads.  So, it's expensive and uses memory.  You especially need to pay attention to the second point.  You may hit the memory limit if you run on low resources and your code is not very virtual-thread-friendly, meaning that you should always check for pinning, monopolization, and memory usage.  If you don't, in a container with memory constraints, the application can be killed."
-msgstr "Estas creaciones están creando hilos de plataforma/OS. Por lo tanto, es costoso y utiliza memoria. Debes prestar especial atención al segundo punto. Puedes llegar al límite de memoria si corres con pocos recursos y tu código no es muy amigable con los hilos virtuales, lo que significa que siempre debes comprobar el pinning, la monopolización y el uso de memoria. Si no lo haces, en un contenedor con restricciones de memoria, la aplicación puede morir."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:289
-#, fuzzy
-msgid "### 4. Object pooling"
-msgstr "4. Puesta en común de objetos"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:302
-#, fuzzy
-msgid "For years, threads were scarce resources.  It was recommended to pool them and reuse them.  This good practice has encouraged the use of thread locals as an object-pooling mechanism.  Like https://github.com/FasterXML/jackson-core/issues/919[Jackson] or Netty, many libraries store expensive objects in thread locals.  These objects can only be accessed by the code running on the thread in which the objects are stored.  Because the number of threads was limited, it capped the number of creation.  Also, because threads were reused, the objects were cached and reused.  Unfortunately, these two assumptions are not valid with virtual threads: You can have a lot of them, they are not reused.  It's even discouraged to pool them.  Thus, libraries utilizing these pooling patterns may underperform when using virtual threads.  You will see many allocations of large objects, as every virtual thread will get its own instance of the object."
-msgstr "Durante años, los hilos fueron recursos escasos. Se recomendaba agruparlos y reutilizarlos. Esta buena práctica ha fomentado el uso de subprocesos locales como mecanismo de agrupación de objetos. Como  link:https://github.com/FasterXML/jackson-core/issues/919[Jackson] o Netty, muchas bibliotecas almacenan objetos caros en thread locals. A estos objetos sólo puede acceder el código que se ejecuta en el hilo en el que están almacenados. Como el número de hilos era limitado, se limitaba el número de creaciones. Además, como los hilos se reutilizaban, los objetos se almacenaban en caché y se reutilizaban. Desgraciadamente, estos dos supuestos no son válidos con los hilos virtuales: Se pueden tener muchos, pero no se reutilizan. Incluso se desaconseja agruparlos. Por lo tanto, las bibliotecas que utilizan estos patrones de agrupación pueden tener un rendimiento inferior al utilizar hilos virtuales. Verás muchas asignaciones de objetos grandes, ya que cada hilo virtual obtendrá su propia instancia del objeto."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:306
-#, fuzzy
-msgid "Replacing this pattern is not an easy task.  As an example, this https://github.com/FasterXML/jackson-core/pull/1064[PR] from Mario Fusco proposes an SPI for Jackson.  Quarkus will implement the SPI to provide a virtual-thread-friendly pool mechanism."
-msgstr "Sustituir este patrón no es tarea fácil. Como ejemplo, este  link:https://github.com/FasterXML/jackson-core/pull/1064[PR] de Mario Fusco propone un SPI para Jackson. Quarkus implementará el SPI para proporcionar un mecanismo de pool de hilos virtuales amigable."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:308
-#, fuzzy
-msgid "### 5. Stressing thread safety"
-msgstr "5. Hacer hincapié en la seguridad de las roscas"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:312
-#, fuzzy
-msgid "Virtual threads provide a new way to build concurrent applications in Java.  You are not limited by the number of threads in the pool.  You do not have to use asynchronous development models."
-msgstr "Los hilos virtuales ofrecen una nueva forma de crear aplicaciones concurrentes en Java. No está limitado por el número de hilos en el pool. No es necesario utilizar modelos de desarrollo asíncronos."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:317
-#, fuzzy
-msgid "But, before rewriting your application to leverage this new mechanism, ensure the code is thread-safe.  Many libraries and frameworks do not allow concurrent access to some objects.  For example, database connections should not be accessed concurrently.  You must be cautious when you have many virtual threads, especially when using the structured concurrency API (still in preview in Java 21)."
-msgstr "Pero, antes de reescribir tu aplicación para aprovechar este nuevo mecanismo, asegúrate de que el código es seguro para los hilos. Muchas bibliotecas y frameworks no permiten el acceso concurrente a algunos objetos. Por ejemplo, las conexiones a bases de datos no deben ser accedidas concurrentemente. Debe tener cuidado cuando tenga muchos subprocesos virtuales, especialmente cuando utilice la API de concurrencia estructurada (aún en fase de previsualización en Java 21)."
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:320
-#, fuzzy
-msgid "When using structured concurrency, it becomes easy to run tasks in _parallel_.  However, you must be absolutely sure that these tasks to not access a shared state which do not support concurrent access:"
-msgstr "Cuando se utiliza la concurrencia estructurada, es fácil ejecutar tareas en _paralelo_. Sin embargo, debe estar absolutamente seguro de que estas tareas no acceder a un estado compartido que no admiten el acceso concurrente:"
-
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:337
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"@GET\n"
-"@RunOnVirtualThread\n"
-"public String structuredConcurrencyExample() throws InterruptedException, ExecutionException {\n"
-"    var someState = ... // Must be thread-safe, as multiple virtual thread will access\n"
-"                        // it concurrently\n"
-"    try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {\n"
-"        var task1 = scope.fork(() -> { \n"
-"          // Run in another virtual thread\n"
-"          return someState.touch();\n"
-"        });\n"
-"        var task2 = scope.fork(() -> {\n"
-"          // Run in another virtual thread\n"
-"          return someState.touch(); \n"
-"        });\n"
+"These creations are creating platform/OS threads.\n"
+"So, it's expensive and uses memory.\n"
+"You especially need to pay attention to the second point.\n"
+"You may hit the memory limit if you run on low resources and your code is not very virtual-thread-friendly, meaning that you should always check for pinning, monopolization, and memory usage.\n"
+"If you don't, in a container with memory constraints, the application can be killed."
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:339
-#, no-wrap
-msgid "        scope.join().throwIfFailed();\n"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "4. Object pooling"
 msgstr ""
 
-#. type: delimited block -
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:343
-#, no-wrap
+#: _posts/2023-09-19-virtual-thread-1.adoc
 msgid ""
-"        return task1.get() + \"/\" + task2.get();\n"
-"    }\n"
-"}\n"
+"For years, threads were scarce resources.\n"
+"It was recommended to pool them and reuse them.\n"
+"This good practice has encouraged the use of thread locals as an object-pooling mechanism.\n"
+"Like https://github.com/FasterXML/jackson-core/issues/919[Jackson] or Netty, many libraries store expensive objects in thread locals.\n"
+"These objects can only be accessed by the code running on the thread in which the objects are stored.\n"
+"Because the number of threads was limited, it capped the number of creation.\n"
+"Also, because threads were reused, the objects were cached and reused.\n"
+"Unfortunately, these two assumptions are not valid with virtual threads:\n"
+"You can have a lot of them, they are not reused.\n"
+"It's even discouraged to pool them.\n"
+"Thus, libraries utilizing these pooling patterns may underperform when using virtual threads.\n"
+"You will see many allocations of large objects, as every virtual thread will get its own instance of the object."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Replacing this pattern is not an easy task.\n"
+"As an example, this https://github.com/FasterXML/jackson-core/pull/1064[PR] from Mario Fusco proposes an SPI for Jackson.\n"
+"Quarkus will implement the SPI to provide a virtual-thread-friendly pool mechanism."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "5. Stressing thread safety"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"Virtual threads provide a new way to build concurrent applications in Java.\n"
+"You are not limited by the number of threads in the pool.\n"
+"You do not have to use asynchronous development models."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"But, before rewriting your application to leverage this new mechanism, ensure the code is thread-safe.\n"
+"Many libraries and frameworks do not allow concurrent access to some objects.\n"
+"For example, database connections should not be accessed concurrently.\n"
+"You must be cautious when you have many virtual threads, especially when using the structured concurrency API (still in preview in Java 21)."
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"When using structured concurrency, it becomes easy to run tasks in _parallel_.\n"
+"However, you must be absolutely sure that these tasks to not access a shared state which do not support concurrent access:"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid "Summary and what's next"
+msgstr ""
+
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"This post described the new kind of thread available in Java 21 and how to use them in Quarkus.\n"
+"Virtual threads are not a silver bullet, and while they can improve the concurrency, there are a few limitations you need to be aware of:"
 msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:348
-#, fuzzy
-msgid "## Summary and what's next This post described the new kind of thread available in Java 21 and how to use them in Quarkus.  Virtual threads are not a silver bullet, and while they can improve the concurrency, there are a few limitations you need to be aware of:"
-msgstr "Resumen y próximos pasos En esta entrada se han descrito los nuevos tipos de hilos disponibles en Java 21 y cómo utilizarlos en Quarkus. Los hilos virtuales no son una bala de plata, y aunque pueden mejorar la concurrencia, hay algunas limitaciones que hay que tener en cuenta:"
-
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:350
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Many libraries are pinning the carrier thread; it will take time until the Java world becomes virtual-thread-friendly."
 msgstr "Muchas bibliotecas están fijando el hilo portador; pasará tiempo hasta que el mundo Java se convierta en amigable para los hilos virtuales."
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:351
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Lengthy computations must be analyzed cautiously to avoid monopolization issues."
 msgstr "Los cálculos largos deben analizarse con cautela para evitar problemas de monopolización."
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:352
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "The carrier thread pool elasticity may result in high memory usage."
 msgstr "La elasticidad del pool de hilos portadores puede dar lugar a un uso elevado de memoria."
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:353
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "The thread-local object polling pattern can have terrible consequences on the allocations and memory usage."
 msgstr "El patrón de sondeo de objetos a nivel local puede tener consecuencias terribles en las asignaciones y el uso de memoria."
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:354
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Virtual threads do not prevent thread safety issues."
 msgstr "Los hilos virtuales no evitan los problemas de seguridad de los hilos."
 
-#. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:357
-#, fuzzy
-msgid "It is the first part (and the most boring, hopefully) post of a multiple-post series.  Next, we will cover:"
-msgstr "Es la primera parte (y la más aburrida, esperemos) de una serie de varios posts. A continuación trataremos:"
+#: _posts/2023-09-19-virtual-thread-1.adoc
+msgid ""
+"It is the first part (and the most boring, hopefully) post of a multiple-post series.\n"
+"Next, we will cover:"
+msgstr ""
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:359
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "https://quarkus.io/blog/virtual-threads-2/[How to write a crud application using virtual threads]"
 msgstr "link:https://quarkus.io/blog/virtual-threads-2/[Cómo escribir una aplicación con hilos virtuales]"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:360
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "https://quarkus.io/blog/virtual-threads-3/[How to test virtual threads applications]"
 msgstr "link:https://quarkus.io/blog/virtual-threads-3/[Cómo probar aplicaciones de hilos virtuales]"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:361
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "https://quarkus.io/blog/virtual-threads-4/[How to process Kafka messages using virtual threads]"
 msgstr "link:https://quarkus.io/blog/virtual-threads-4/[Cómo procesar mensajes Kafka utilizando hilos virtuales]"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:362
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "https://quarkus.io/blog/virtual-threads-5/[How to build a native executable when using virtual threads]"
 msgstr "link:https://quarkus.io/blog/virtual-threads-2/[Cómo escribir una aplicación con hilos virtuales]"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:363
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "How to containerize an application using virtual threads (in JVM mode) (_to be published_)"
 msgstr "Cómo contenerizar una aplicación utilizando hilos virtuales (en modo JVM) _(pendiente de publicación_)"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:364
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "How to containerize an application using virtual threads in native mode (_to be published_)"
 msgstr "Cómo contenerizar una aplicación utilizando hilos virtuales en modo nativo _(pendiente de publicación_)"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:365
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "How to process Kafka messages using virtual threads (_to be published_)"
 msgstr "Cómo procesar mensajes Kafka utilizando hilos virtuales _(por publicar_)"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:366
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "What are we exploring to improve the virtual thread support in Quarkus (_to be published_)"
 msgstr "Qué estamos explorando para mejorar el soporte de hilos virtuales en Quarkus _(por publicar_)"
 
 #. type: Plain text
-#: upstream/_posts/2023-09-19-virtual-thread-1.adoc:368
+#: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "To know more about the virtual thread support in Quarkus, check the https://quarkus.io/guides/virtual-threads[Virtual thread reference guide]."
 msgstr "Para saber más sobre el soporte de hilos virtuales en Quarkus, consulta la  link:https://quarkus.io/guides/virtual-threads[Guía de referencia de hilos vir]tuales."
-
-#, fuzzy
-#~ msgid "How to build a native executable when using virtual threads (_to be published_)"
-#~ msgstr "Cómo construir un ejecutable nativo cuando se utilizan hilos virtuales _(pendiente de publicación_)"
