@@ -23,21 +23,23 @@ msgstr ""
 #: _guides/building-my-first-extension.adoc
 #, fuzzy, no-wrap
 msgid "Building my first extension"
-msgstr "Construyendo mi primera extensión"
+msgstr "Construir mi primera ampliación"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Quarkus extensions enhance your application just as projects dependencies do.\n"
 "The role of the extensions is to leverage Quarkus paradigms to integrate seamlessly a library into Quarkus architecture - e.g. do more things at build time.\n"
 "This is how you can use your battle-tested ecosystem and take advantage of Quarkus performance and native compilation.\n"
 "Go to https://code.quarkus.io/[code.quarkus.io] to get the list of the supported extensions."
-msgstr ""
+msgstr "Las extensiones de Quarkus mejoran su aplicación del mismo modo que lo hacen las dependencias de los proyectos. El papel de las extensiones es aprovechar los paradigmas de Quarkus para integrar sin problemas una biblioteca en la arquitectura de Quarkus, por ejemplo, hacer más cosas en tiempo de compilación. Así es como puede utilizar su ecosistema probado en batalla y aprovechar el rendimiento y la compilación nativa de Quarkus. Vaya a link:https://code.quarkus.io/[code.quarkus.io] para obtener la lista de las extensiones soportadas."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "In this guide we are going to develop the *Sample Greeting Extension*.\n"
 "The extension will expose a customizable HTTP endpoint which simply greets the visitor."
-msgstr ""
+msgstr "En esta guía vamos a desarrollar la Extensión de *Saludo de Muestra* . La extensión expondrá un punto final HTTP personalizable que simplemente saluda al visitante."
 
 #. type: Block title
 #: _guides/building-my-first-extension.adoc
@@ -46,11 +48,12 @@ msgid "Disclaimer"
 msgstr "Descargo de responsabilidad"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "To be sure it's extra clear you don't need an extension to add a Servlet to your application.\n"
 "This guide is a simplified example to explain the concepts of extensions development, see the xref:writing-extensions.adoc[full documentation] if you need more information.\n"
 "Keep in mind it's not representative of the power of moving things to build time or simplifying the build of native images."
-msgstr ""
+msgstr "Para que quede más claro, no necesita una extensión para añadir un Servlet a su aplicación. Esta guía es un ejemplo simplificado para explicar los conceptos del desarrollo de extensiones, consulte la xref:writing-extensions.adoc[documentación completa] si necesita más información. Tenga en cuenta que no es representativo del poder de trasladar cosas al tiempo de compilación o simplificar la compilación de imágenes nativas."
 
 #. type: Title ==
 #: _guides/building-my-first-extension.adoc
@@ -101,16 +104,18 @@ msgid "build time vs runtime in classic Java frameworks"
 msgstr "tiempo de compilación frente a tiempo de ejecución en los marcos clásicos de Java"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The build time corresponds to all the actions you apply to your Java source files to convert them into something runnable (class files, jar/war, native images).\n"
 "Usually this stage is composed by the compilation, annotation processing, bytecode generation, etc. At this point, everything is under the developer's scope and control."
-msgstr ""
+msgstr "El tiempo de compilación corresponde a todas las acciones que aplica a sus archivos fuente Java para convertirlos en algo ejecutable (archivos de clase, jar/war, imágenes nativas). Normalmente, esta etapa está compuesta por la compilación, el procesamiento de anotaciones, la generación de código de bytes, etc. En este punto, todo está bajo el alcance y el control del desarrollador."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The runtime is all the actions that happen when you execute your application.\n"
 "It's obviously focused on starting your business-oriented actions, but it relies on a lot of technical actions like loading libraries and configuration files, scanning the application's classpath, configuring the dependency injection, setting up your Object-Relational Mapping, instantiating your REST controllers, etc."
-msgstr ""
+msgstr "El tiempo de ejecución son todas las acciones que ocurren cuando ejecuta su aplicación. Obviamente está enfocado a iniciar sus acciones orientadas al negocio, pero se apoya en un montón de acciones técnicas como cargar librerías y archivos de configuración, escanear el classpath de la aplicación, configurar la inyección de dependencias, configurar su Object-Relational Mapping, instanciar sus controladores REST, etc."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -131,10 +136,11 @@ msgid "Having a peak of resource consumption at bootstrap: in a constrained envi
 msgstr "Tener un pico de consumo de recursos en el arranque: en un entorno restringido, tendrá que dimensionar los recursos necesarios en función de sus necesidades técnicas de arranque y no de sus necesidades empresariales reales."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Quarkus' philosophy is to prevent as much as possible slow and memory intensive dynamic code execution by shifting left these actions and eventually do them during the build time.\n"
 "A Quarkus extension is a Java piece of code acting as an adapter layer for your favorite library or technology."
-msgstr ""
+msgstr "La filosofía de Quarkus es evitar en la medida de lo posible la ejecución de código dinámico lento y con uso intensivo de memoria, desplazando a la izquierda estas acciones y realizándolas finalmente durante el tiempo de compilación. Una extensión de Quarkus es una pieza de código Java que actúa como una capa adaptadora para su biblioteca o tecnología favorita."
 
 #. type: Title ==
 #: _guides/building-my-first-extension.adoc
@@ -149,24 +155,27 @@ msgid "A Quarkus extension consists of two parts:"
 msgstr "Una extensión de Quarkus consta de dos partes:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The *runtime module* which represents the capabilities the extension developer exposes to the application's developer (an authentication filter, an enhanced data layer API, etc).\n"
 "Runtime dependencies are the ones the users will add as their application dependencies (in Maven POMs or Gradle build scripts)."
-msgstr ""
+msgstr "El *módulo* en tiempo de ejecución que representa las capacidades que el desarrollador de la extensión expone al desarrollador de la aplicación (un filtro de autenticación, una API de capa de datos mejorada, etc.). Las dependencias en tiempo de ejecución son las que los usuarios añadirán como dependencias de su aplicación (en POMs de Maven o scripts de compilación de Gradle)."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The *deployment module* which is used during the augmentation phase of the build, it describes how to \"deploy\" a library\n"
 "following the Quarkus philosophy.\n"
 "In other words, it applies all the Quarkus optimizations to your application during the build.\n"
 "The deployment module is also where we prepare things for GraalVM's native compilation."
-msgstr ""
+msgstr "El *módulo de despli* egue que se utiliza durante la fase de aumento de la compilación, describe cómo \"desplegar\" una biblioteca siguiendo la filosofía de Quarkus. En otras palabras, aplica todas las optimizaciones de Quarkus a su aplicación durante la compilación. El módulo de despliegue es también donde preparamos las cosas para la compilación nativa de GraalVM."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Users should not be adding the deployment modules of extension as application dependencies. The deployment dependencies are resolved by\n"
 "Quarkus during the augmentation phase from the runtime dependencies of the application."
-msgstr ""
+msgstr "Los usuarios no deben añadir los módulos de despliegue de la ampliación como dependencias de la aplicación. Las dependencias de despliegue son resueltas por Quarkus durante la fase de ampliación a partir de las dependencias en tiempo de ejecución de la aplicación."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -187,25 +196,28 @@ msgid "There are three distinct bootstrap phases of a Quarkus application."
 msgstr "Hay tres fases distintas de arranque de una aplicación Quarkus."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "*Augmentation*. During the build time, the Quarkus extensions will load and scan your application's bytecode (including the dependencies) and configuration.\n"
 "At this stage, the extension can read configuration files, scan classes for specific annotations, etc.\n"
 "Once all the metadata has been collected, the extensions can pre-process the libraries bootstrap actions like your ORM, DI or REST controllers configurations.\n"
 "The result of the bootstrap is directly recorded into bytecode and will be part of your final application package."
-msgstr ""
+msgstr "*Aumento* . Durante el tiempo de compilación, las extensiones de Quarkus cargarán y escanearán el código de bytes de su aplicación (incluidas las dependencias) y la configuración. En esta fase, la extensión puede leer archivos de configuración, escanear clases en busca de anotaciones específicas, etc. Una vez recopilados todos los metadatos, las extensiones pueden preprocesar las acciones de bootstrap de las bibliotecas, como las configuraciones de sus ORM, DI o controladores REST. El resultado del bootstrap se graba directamente en bytecode y formará parte de su paquete de aplicación final."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "*Static Init*. During the run time, Quarkus will execute first a static init method which contains some extensions actions/configurations.\n"
 "When you will do your native packaging, this static method will be pre-processed during the build time and the objects it has generated will be serialized into the final native executable, so the initialization code will not be executed in the native mode (imagine you execute a Fibonacci function during this phase, the result of the computation will be directly recorded in the native executable).\n"
 "When running the application in JVM mode, this static init phase is executed at the start of the application."
-msgstr ""
+msgstr "Init *estático* . Durante el tiempo de ejecución, Quarkus ejecutará primero un método init estático que contiene algunas acciones/configuraciones de las extensiones. Cuando realice su empaquetado nativo, este método estático se preprocesará durante el tiempo de compilación y los objetos que haya generado se serializarán en el ejecutable nativo final, por lo que el código de inicialización no se ejecutará en el modo nativo (imagine que ejecuta una función Fibonacci durante esta fase, el resultado del cálculo se registrará directamente en el ejecutable nativo). Cuando se ejecuta la aplicación en modo JVM, esta fase de init estática se ejecuta al inicio de la aplicación."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "*Runtime Init*. Well nothing fancy here, we do classic run time code execution.\n"
 "So, the more code you run during the two phases above, the faster your application will start."
-msgstr ""
+msgstr "*Init en tiempo* de ejecución. Bueno, aquí no hay nada del otro mundo, hacemos la clásica ejecución de código en tiempo de ejecución. Así que, cuanto más código ejecute durante las dos fases anteriores, más rápido arrancará su aplicación."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -382,10 +394,11 @@ msgid "By convention, the deployment module has the `-deployment` suffix (`greet
 msgstr "Por convención, el módulo de despliegue tiene el sufijo `-deployment` ( `greeting-extension-deployment`)."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The deployment module depends on the `quarkus-arc-deployment` artifact.\n"
 "We will see later which dependencies are convenient to add."
-msgstr ""
+msgstr "El módulo de despliegue depende del artefacto `quarkus-arc-deployment` . Veremos más adelante qué dependencias es conveniente añadir."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -394,8 +407,9 @@ msgid "The deployment module also *must* depend on the runtime module."
 msgstr "El módulo de despliegue también *debe* depender del módulo de ejecución."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid "We add  the `quarkus-extension-processor` to the compiler annotation processors."
-msgstr ""
+msgstr "Añadimos el `quarkus-extension-processor` a los procesadores de anotaciones del compilador."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -404,18 +418,20 @@ msgid "In addition to the `pom.xml` `create-extension` also generated the `org.a
 msgstr "Además de la `pom.xml` `create-extension` también generó la clase `org.acme.greeting.extension.deployment.GreetingExtensionProcessor`."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "`FeatureBuildItem` represents a functionality provided by an extension.\n"
 "The name of the feature gets displayed in the log during application bootstrap.\n"
 "An extension should provide at most one feature."
-msgstr ""
+msgstr "`FeatureBuildItem` representa una funcionalidad proporcionada por una extensión. El nombre de la funcionalidad se muestra en el registro durante el arranque de la aplicación. Una extensión debe proporcionar como máximo una funcionalidad."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Be patient, we will explain the `Build Step Processor` concept and all the extension deployment API later on.\n"
 "At this point, you just need to understand that this class explains to Quarkus how to deploy a feature named `greeting` which is your extension.\n"
 "In other words, you are augmenting your application to use the `greeting` extension with all the Quarkus benefits (build time optimization, native support, etc.)."
-msgstr ""
+msgstr "Tenga paciencia, explicaremos el concepto `Build Step Processor` y toda la API de despliegue de extensiones más adelante. En este momento, sólo tiene que entender que esta clase explica a Quarkus cómo desplegar una característica llamada `greeting` que es su extensión. En otras palabras, usted está aumentando su aplicación para utilizar la extensión `greeting` con todas las ventajas de Quarkus (optimización del tiempo de compilación, soporte nativo, etc.)."
 
 #. type: Title ====
 #: _guides/building-my-first-extension.adoc
@@ -442,8 +458,9 @@ msgid "The runtime module depends on the `quarkus-arc` artifact."
 msgstr "El módulo de ejecución depende del artefacto `quarkus-arc`."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid "We add  the `quarkus-extension-maven-plugin` to generate the Quarkus extension descriptor included into the runtime artifact which links it with the corresponding deployment artifact."
-msgstr ""
+msgstr "Añadimos el `quarkus-extension-maven-plugin` para generar el descriptor de extensión de Quarkus incluido en el artefacto de ejecución que lo vincula con el artefacto de despliegue correspondiente."
 
 #. type: Title ===
 #: _guides/building-my-first-extension.adoc
@@ -518,10 +535,11 @@ msgid "Globally set the group id used for publication"
 msgstr "Establecer globalmente el identificador de grupo utilizado para la publicación"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The `io.quarkus.extension` plugin will be used in order to help us building the extension.\n"
 "The plugin will *only* be applied to the `runtime` module."
-msgstr ""
+msgstr "El plugin `io.quarkus.extension` se utilizará para ayudarnos a construir la extensión. El plugin *sólo* se aplicará al módulo `runtime` ."
 
 #. type: Title ====
 #: _guides/building-my-first-extension.adoc
@@ -530,10 +548,11 @@ msgid "The deployment module"
 msgstr "El módulo de despliegue"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The deployment module does not require any specific plugin.\n"
 "Here is an example of a minimal `build.gradle` file for the `deployment` module:"
-msgstr ""
+msgstr "El módulo de despliegue no requiere ningún plugin específico. He aquí un ejemplo de un archivo `build.gradle` mínimo para el módulo `deployment` :"
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -596,10 +615,11 @@ msgid "Implementing the Greeting feature"
 msgstr "Implementación de la función de saludo"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The (killer) feature proposed by our extension is to greet the user.\n"
 "To do so, our extension will deploy, in the user application, a Servlet exposing the HTTP endpoint `/greeting` which responds to the GET verb with a plain text `Hello`."
-msgstr ""
+msgstr "La función (asesina) que propone nuestra extensión es saludar al usuario. Para ello, nuestra extensión desplegará, en la aplicación de usuario, un Servlet que exponga el punto final HTTP `/greeting` y que responda al verbo GET con un texto plano `Hello` ."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -608,10 +628,11 @@ msgid "The `runtime` module is where you develop the feature you want to propose
 msgstr "El módulo `runtime` es donde se desarrolla la función que se quiere proponer a los usuarios, así que es el momento de crear nuestro Servlet Web."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "To use Servlets in your applications you need to have a Servlet Container such as https://undertow.io[Undertow].\n"
 "Luckily, `quarkus-bom` imported by our parent `pom.xml` already includes the Undertow Quarkus extension."
-msgstr ""
+msgstr "Para utilizar Servlets en sus aplicaciones necesita disponer de un contenedor de Servlets como link:https://undertow.io[Undertow] . Por suerte, `quarkus-bom` importado por nuestro padre `pom.xml` ya incluye la extensión Quarkus de Undertow."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -626,10 +647,11 @@ msgid "For Gradle, add the dependency in `./greeting-extension/runtime/build.gra
 msgstr "Para Gradle, añada la dependencia en el archivo `./greeting-extension/runtime/build.gradle`:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The dependency on `quarkus-arc` generated by the `create-extension` mojo can now be removed since\n"
 "`quarkus-undertow` already depends on it."
-msgstr ""
+msgstr "La dependencia de `quarkus-arc` generada por el mojo `create-extension` puede eliminarse ahora puesto que `quarkus-undertow` ya depende de él."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -656,11 +678,12 @@ msgid "Deploying the Greeting feature"
 msgstr "Despliegue de la función de saludo"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Quarkus magic relies on bytecode generation at build time rather than waiting for the runtime code evaluation, that's the role of your extension's `deployment` module.\n"
 "Calm down, we know, bytecode is hard and you don't want to do it manually. Quarkus proposes a high level API to make your life easier.\n"
 "Thanks to basic concepts, you will describe the items to produce/consume and the corresponding steps in order to generate the bytecode to produce during the deployment time."
-msgstr ""
+msgstr "La magia de Quarkus se basa en la generación de bytecode en tiempo de compilación en lugar de esperar a la evaluación del código en tiempo de ejecución, ese es el papel del módulo `deployment` de su extensión. Cálmese, lo sabemos, el bytecode es difícil y usted no quiere hacerlo manualmente. Quarkus propone una API de alto nivel para facilitarle la vida. Gracias a conceptos básicos, usted describirá los elementos a producir/consumir y los pasos correspondientes para generar el bytecode a producir en el momento del despliegue."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -687,23 +710,26 @@ msgid "Go back to the generated `org.acme.greeting.extension.deployment.Greeting
 msgstr "Vuelva a la clase generada `org.acme.greeting.extension.deployment.GreetingExtensionProcessor`."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "`feature()` method is annotated with `@BuildStep` which means it is identified as a deployment task Quarkus will have to execute during the deployment.\n"
 "`BuildStep` methods are run concurrently at augmentation time to augment the application.\n"
 "They use a producer/consumer model, where a step is guaranteed not to be run until all the items that it is consuming have been produced."
-msgstr ""
+msgstr "`feature()` está anotado con `@BuildStep` , lo que significa que se identifica como una tarea de despliegue que Quarkus tendrá que ejecutar durante el despliegue. Los métodos `BuildStep` se ejecutan concurrentemente en el momento del aumento para aumentar la aplicación. Utilizan un modelo productor/consumidor, en el que se garantiza que un paso no se ejecutará hasta que se hayan producido todos los elementos que está consumiendo."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "`io.quarkus.deployment.builditem.FeatureBuildItem` is an implementation of `BuildItem` which represents the description of an extension.\n"
 "This `BuildItem` will be used by Quarkus to display information to the users when the application is starting."
-msgstr ""
+msgstr "`io.quarkus.deployment.builditem.FeatureBuildItem` es una implementación de `BuildItem` que representa la descripción de una extensión. Este `BuildItem` será utilizado por Quarkus para mostrar información a los usuarios cuando se inicie la aplicación."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "There are many `BuildItem` implementations, each one represents an aspect of the deployment process.\n"
 "Here are some examples:"
-msgstr ""
+msgstr "Existen muchas implementaciones de `BuildItem` , cada una de las cuales representa un aspecto del proceso de despliegue. He aquí algunos ejemplos:"
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -718,10 +744,11 @@ msgid "`BeanContainerBuildItem`: describes a container used to store and retriev
 msgstr "`BeanContainerBuildItem`describe un contenedor utilizado para almacenar y recuperar instancias de objetos durante el despliegue."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "If you don't find a `BuildItem` for what you want to achieve, you can create your own implementation. Keep in mind that a `BuildItem` should be as fine-grained as possible, representing a specific part of the deployment.\n"
 "To create your `BuildItem` you can extend:"
-msgstr ""
+msgstr "Si no encuentra un `BuildItem` para lo que quiere conseguir, puede crear su propia implementación. Tenga en cuenta que un `BuildItem` debe ser lo más preciso posible, representando una parte específica del despliegue. Para crear su `BuildItem` puede extender:"
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -736,10 +763,11 @@ msgid "`io.quarkus.builder.item.MultiBuildItem` if you want to have multiple ins
 msgstr "`io.quarkus.builder.item.MultiBuildItem` si quieres tener varias instancias (por ejemplo, `ServletBuildItem`, puedes producir muchos Servlets durante el despliegue)."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "It's now time to declare our HTTP endpoint. To do so, we need to produce a `ServletBuildItem`.\n"
 "At this point, we are sure you understood that if the `quarkus-undertow` dependency proposes Servlet support for our `runtime` module, we will need the `quarkus-undertow-deployment` dependency in our `deployment` module to have access to the `io.quarkus.undertow.deployment.ServletBuildItem`."
-msgstr ""
+msgstr "Ha llegado el momento de declarar nuestro punto final HTTP. Para ello, necesitamos producir un `ServletBuildItem` . En este punto, estamos seguros de que ha entendido que si la dependencia `quarkus-undertow` propone soporte Servlet para nuestro módulo `runtime` , necesitaremos la dependencia `quarkus-undertow-deployment` en nuestro módulo `deployment` para tener acceso al `io.quarkus.undertow.deployment.ServletBuildItem` ."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -748,10 +776,11 @@ msgid "Let's add `quarkus-undertow-deployment` as dependency to our `./greeting-
 msgstr "Añadamos `quarkus-undertow-deployment` como dependencia a nuestro `./greeting-extension/deployment/pom.xml`:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "The dependency on `quarkus-arc-deployment` generated by the `create-extension` mojo can now be removed since\n"
 "`quarkus-undertow-deployment` already depends on it."
-msgstr ""
+msgstr "La dependencia de `quarkus-arc-deployment` generada por el mojo `create-extension` puede eliminarse ahora puesto que `quarkus-undertow-deployment` ya depende de él."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -766,10 +795,11 @@ msgid "We can now update `org.acme.greeting.extension.deployment.GreetingExtensi
 msgstr "Ahora podemos actualizar `org.acme.greeting.extension.deployment.GreetingExtensionProcessor`:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "We add a `createServlet` method which returns a `ServletBuildItem` and annotate it with `@BuildStep`.\n"
 "Now, Quarkus will process this new task which will result in the bytecode generation of the Servlet registration at build time."
-msgstr ""
+msgstr "Añadimos un método `createServlet` que devuelve un `ServletBuildItem` y lo anotamos con `@BuildStep` . Ahora, Quarkus procesará esta nueva tarea que dará lugar a la generación de bytecode del registro del servlet en tiempo de compilación."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -784,10 +814,11 @@ msgid "Testing the Greeting Extension feature"
 msgstr "Prueba de la función de extensión de saludo"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "When developing a Quarkus extension, you mainly want to test your feature is properly deployed in an application and works as expected.\n"
 "That's why the tests will be hosted in the `deployment` module."
-msgstr ""
+msgstr "Cuando desarrolle una extensión de Quarkus, principalmente querrá probar que su característica se despliega correctamente en una aplicación y funciona como se espera. Por eso las pruebas se alojarán en el módulo `deployment` ."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -796,10 +827,11 @@ msgid "Quarkus proposes facilities to test extensions via the `quarkus-junit5-in
 msgstr "Quarkus propone facilidades para probar las extensiones a través del artefacto `quarkus-junit5-internal` (que ya debería estar en el pom.xml de despliegue), en particular el corredor `io.quarkus.test.QuarkusUnitTest` que inicia una aplicación con su extensión."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "We will use https://rest-assured.io[RestAssured] (massively used in Quarkus) to test our HTTP endpoint.\n"
 "Let's add the `rest-assured` dependency into the  `./greeting-extension/deployment/pom.xml`."
-msgstr ""
+msgstr "Utilizaremos link:https://rest-assured.io[RestAssured] (de uso masivo en Quarkus) para probar nuestro punto final HTTP. Añadamos la dependencia `rest-assured` en el archivo `./greeting-extension/deployment/pom.xml` ."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -844,10 +876,11 @@ msgid "Debugging your extension"
 msgstr "Depuración de la extensión"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "_If debugging is the process of removing bugs, then programming must be the process of putting them in._\n"
 "Edsger W. Dijkstra"
-msgstr ""
+msgstr "_Si depurar es el proceso de eliminar errores, entonces programar debe ser el proceso de ponerlos._ Edsger W. Dijkstra"
 
 #. type: Title ====
 #: _guides/building-my-first-extension.adoc
@@ -856,10 +889,11 @@ msgid "Debugging your application build"
 msgstr "Depuración de la construcción de la aplicación"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Since your extension deployment is made during the application build, this process is triggered by your build tool.\n"
 "That means if you want to debug this phase you need to launch your build tool with the remote debug mode switched one."
-msgstr ""
+msgstr "Dado que el despliegue de su extensión se realiza durante la compilación de la aplicación, este proceso es lanzado por su herramienta de compilación. Eso significa que si quiere depurar esta fase necesita lanzar su herramienta de compilación con el modo de depuración remota conmutado a uno."
 
 #. type: Title =====
 #: _guides/building-my-first-extension.adoc
@@ -868,16 +902,18 @@ msgid "Maven"
 msgstr "Maven"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "You can activate Maven remote debugging by using `mvnDebug`.\n"
 "You can launch your application with the following command line:"
-msgstr ""
+msgstr "Puede activar la depuración remota de Maven utilizando `mvnDebug` . Puede lanzar su aplicación con la siguiente línea de comandos:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "By default, Maven will wait for a connection on `localhost:8000`.\n"
 "Now, you can run your IDE `Remote` configuration to attach it to `localhost:8000`."
-msgstr ""
+msgstr "Por defecto, Maven esperará una conexión en `localhost:8000` . Ahora, puede ejecutar su configuración IDE `Remote` para adjuntarla a `localhost:8000` ."
 
 #. type: Title =====
 #: _guides/building-my-first-extension.adoc
@@ -886,16 +922,18 @@ msgid "Gradle"
 msgstr "Gradle"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "You can activate Gradle remote debugging by using the flags `org.gradle.debug=true` or `org.gradle.daemon.debug=true` in daemon mode.\n"
 "You can launch your application with the following command line:"
-msgstr ""
+msgstr "Puede activar la depuración remota de Gradle utilizando las banderas `org.gradle.debug=true` o `org.gradle.daemon.debug=true` en modo demonio. Puede lanzar su aplicación con la siguiente línea de comandos:"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "By default, Gradle will wait for a connection on `localhost:5005`.\n"
 "Now, you can run your IDE `Remote` configuration to attach it to `localhost:5005`."
-msgstr ""
+msgstr "Por defecto, Gradle esperará una conexión en `localhost:5005` . Ahora, puede ejecutar su configuración IDE `Remote` para adjuntarla a `localhost:5005` ."
 
 #. type: Title ====
 #: _guides/building-my-first-extension.adoc
@@ -904,10 +942,11 @@ msgid "Debugging your extension tests"
 msgstr "Depuración de las pruebas de extensión"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "We have seen together how to test your extension and sometimes things don't go so well and you want to debug your tests.\n"
 "Same principle here, the trick is to enable the Maven Surefire remote debugging in order to attach an IDE `Remote` configuration."
-msgstr ""
+msgstr "Hemos visto juntos cómo probar su extensión y a veces las cosas no van muy bien y desea depurar sus pruebas. El mismo principio aquí, el truco es habilitar la depuración remota Maven Surefire con el fin de adjuntar una configuración IDE `Remote` ."
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -928,8 +967,9 @@ msgid "Now that you just finished building your first extension you should be ea
 msgstr "Ahora que acabas de terminar de construir tu primera extensión, deberías estar ansioso por usarla en una aplicación de Quarkus."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid "*Classic Maven publication*"
-msgstr ""
+msgstr "*Publicación clásica de Maven*"
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc
@@ -962,25 +1002,29 @@ msgid "Run the application and notice the `Installed Features` list contains the
 msgstr "Ejecute la aplicación y observe que la lista `Installed Features` contiene la extensión `greeting-extension`."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "From an extension developer standpoint the Maven publication strategy is very handy and fast but Quarkus wants to go one step further by also ensuring a reliability of the ecosystem for the people who will use the extensions.\n"
 "Think about it, we all had a poor Developer Experience with an unmaintained library, an incompatibility between dependencies (and we don't even talk about legal issues).\n"
 "That's why there is the Quarkus Platform."
-msgstr ""
+msgstr "Desde el punto de vista del desarrollador de extensiones, la estrategia de publicación de Maven es muy práctica y rápida, pero Quarkus quiere ir un paso más allá garantizando también la fiabilidad del ecosistema para las personas que utilizarán las extensiones. Piénselo, todos hemos tenido una mala experiencia como desarrolladores con una biblioteca sin mantenimiento, una incompatibilidad entre dependencias (y ni siquiera hablamos de cuestiones legales). Por eso existe la Plataforma Quarkus."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid "*Quarkus Platform*"
-msgstr ""
+msgstr "*Plataforma Quarkus*"
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid ""
 "Quarkus platform is a set of extensions that target the primary use-cases of Quarkus as a development framework and can safely be used in any combination in the same application without creating a dependency conflict.\n"
 "From an application developer perspective, a Quarkus platform is represented as one or more Maven BOMs, for example `{quarkus-platform-groupid}:quarkus-bom:{quarkus-version}`, `{quarkus-platform-groupid}:quarkus-camel-bom:{quarkus-version}`, etc, whose dependency version constraints were globally aligned so that these BOMs can be imported in the same application in any order without introducing a dependency conflict."
-msgstr ""
+msgstr "La plataforma Quarkus es un conjunto de extensiones que se dirigen a los principales casos de uso de Quarkus como marco de desarrollo y que pueden utilizarse con seguridad en cualquier combinación en la misma aplicación sin crear un conflicto de dependencias. Desde la perspectiva de un desarrollador de aplicaciones, una plataforma Quarkus se representa como una o más listas de materiales Maven, por ejemplo `{quarkus-platform-groupid}:quarkus-bom:{quarkus-version}` , `{quarkus-platform-groupid}:quarkus-camel-bom:{quarkus-version}` , etc, cuyas restricciones de versión de dependencia se alinearon globalmente para que estas listas de materiales puedan importarse en la misma aplicación en cualquier orden sin introducir un conflicto de dependencia."
 
 #: _guides/building-my-first-extension.adoc
+#, fuzzy
 msgid "*Quarkiverse Hub*"
-msgstr ""
+msgstr "*Centro Quarkiverse*"
 
 #. type: Plain text
 #: _guides/building-my-first-extension.adoc

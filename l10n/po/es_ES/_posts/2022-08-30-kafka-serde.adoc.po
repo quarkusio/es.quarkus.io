@@ -29,12 +29,13 @@ msgid "JSON, Avro and Custom Kafka Serializers and Deserializers with Quarkus"
 msgstr "Serializadores y deserializadores JSON, Avro y Kafka personalizados con Quarkus"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "When your application writes a _record_ into a Kafka topic or when it consumes a _record_ from a Kafka topic, a mechanism of serialization and deserialization happens.\n"
 "The serialization process transforms the business objects you want to send to Kafka into bytes.\n"
 "The deserialization process is the opposite.\n"
 "It receives the bytes from Kafka and recreates the business objects."
-msgstr ""
+msgstr "Cuando su aplicación escribe un _registro_ en un tema de Kafka o cuando consume un _registro_ de un tema de Kafka, se produce un mecanismo de serialización y deserialización. El proceso de serialización transforma en bytes los objetos de negocio que desea enviar a Kafka. El proceso de deserialización es lo contrario. Recibe los bytes de Kafka y vuelve a crear los objetos de negocio."
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -49,16 +50,18 @@ msgid "Why do I need a custom serializer and deserializer?"
 msgstr "¿Por qué necesito un serializador y un deserializador personalizados?"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "https://javadoc.io/static/org.apache.kafka/kafka-clients/3.2.1/org/apache/kafka/common/serialization/package-summary.html[Kafka] provides a set of serializers and deserializers for the common types: `String`, `Double`, `Integer`, `Bytes`...\n"
 "But that's rarely enough for business objects, even for objects are simple as:"
-msgstr ""
+msgstr "link:https://javadoc.io/static/org.apache.kafka/kafka-clients/3.2.1/org/apache/kafka/common/serialization/package-summary.html[Kafka] proporciona un conjunto de serializadores y deserializadores para los tipos comunes: `String` , `Double` , `Integer` , `Bytes` ... Pero eso rara vez es suficiente para objetos de negocio, incluso para objetos tan simples como:"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Fortunately, Kafka lets us implement our own.\n"
 "To achieve this, you need to implement the following interfaces:"
-msgstr ""
+msgstr "Afortunadamente, Kafka nos permite implementar las nuestras propias. Para ello, es necesario implementar las siguientes interfaces:"
 
 #. type: Block title
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -73,10 +76,11 @@ msgid "The Deserializer interface"
 msgstr "La interfaz del Deserializador"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Once implemented, you need to configure your Kafka producer and consumer's key and value serializer and deserializer.\n"
 "If you are using the Kafka connector from Quarkus, it will look like this:"
-msgstr ""
+msgstr "Una vez implementado, necesita configurar el serializador y deserializador de claves y valores de su productor y consumidor de Kafka. Si está utilizando el conector Kafka de Quarkus, tendrá este aspecto:"
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -91,10 +95,11 @@ msgid "In the rest of this post, we will use the following application:"
 msgstr "En el resto de este post, utilizaremos la siguiente aplicación:"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "The code can be found on https://github.com/cescoffier/quarkus-kafka-serde-demo.\n"
 "We will develop three variants:"
-msgstr ""
+msgstr "El código puede encontrarse en link:https://github.com/cescoffier/quarkus-kafka-serde-demo[https://github.com/cescoffier/quarkus-kafka-serde-demo.] Desarrollaremos tres variantes:"
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -121,35 +126,39 @@ msgid "Using JSON"
 msgstr "Uso de JSON"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Using JSON with Kafka is very popular.\n"
 "As most web applications use JSON to exchange messages, using it with Kafka sounds like a natural extension."
-msgstr ""
+msgstr "Utilizar JSON con Kafka es muy popular. Como la mayoría de las aplicaciones web utilizan JSON para intercambiar mensajes, usarlo con Kafka suena como una extensión natural."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "In our case, it means transforming the instances of https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/json-serde/json-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/Hero.java[Hero] to a JSON document and then using the String serializer.\n"
 "For the deserialization process, we would do the reverse process.\n"
 "To do that with Quarkus, you have *nothing* to do: Quarkus generates the custom JSON serializer and deserializer for you."
-msgstr ""
+msgstr "En nuestro caso, significa transformar las instancias de link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/json-serde/json-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/Hero.java[Hero] a un documento JSON y luego utilizar el serializador String. Para el proceso de deserialización, haríamos el proceso inverso. Para hacerlo con Quarkus, *no tiene nada* que hacer: Quarkus genera el serializador y el deserializador JSON personalizados por usted."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "In the https://github.com/cescoffier/quarkus-kafka-serde-demo/tree/main/json-serde[json-serde directory], you can find a version of the application using JSON to serialize and deserialize the records.\n"
 "It does not contain any custom code or configuration.\n"
 "Quarkus automatically detects that you need to write and consume Heroes and generates the serializer and deserializer for you.\n"
 "It also configures the channels for you.\n"
 "Of course, you can override the configuration, but it's what you want most of the time."
-msgstr ""
+msgstr "En el link:https://github.com/cescoffier/quarkus-kafka-serde-demo/tree/main/json-serde[directorio json-serde] encontrará una versión de la aplicación que utiliza JSON para serializar y deserializar los registros. No contiene ningún código personalizado ni configuración. Quarkus detecta automáticamente que necesita escribir y consumir Heroes y genera el serializador y el deserializador por usted. También configura los canales para usted. Por supuesto, puede anular la configuración, pero es lo que desea la mayoría de las veces."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "To run this application, open two terminals.\n"
 "In the first one, navigate to `json-serde/json-serde-publisher`, and run `mvn quarkus:dev`.\n"
 "In the second terminal, navigate to `json-serde/json-serde-consumer`, and run `mvn quarkus:dev`.\n"
 "Then, open a browser to http://localhost:8080.\n"
 "Every 5 seconds, a new picture of a hero is displayed."
-msgstr ""
+msgstr "Para ejecutar esta aplicación, abra dos terminales. En la primera, navegue hasta `json-serde/json-serde-publisher` , y ejecute `mvn quarkus:dev` . En el segundo terminal, navegue hasta `json-serde/json-serde-consumer` , y ejecute `mvn quarkus:dev` . A continuación, abra un navegador en http://localhost:8080 . Cada 5 segundos, aparecerá una nueva imagen de un héroe."
 
 #. type: Title ==
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -158,10 +167,11 @@ msgid "Using Avro"
 msgstr "Uso de Avro"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "The second approach uses https://avro.apache.org/[Avro].\n"
 "Avro has several advantages over (bare) JSON:"
-msgstr ""
+msgstr "El segundo enfoque utiliza link:https://avro.apache.org/[Avro] . Avro tiene varias ventajas sobre JSON (desnudo):"
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -182,45 +192,52 @@ msgid "The format of the message is defined using a schema stored on a schema re
 msgstr "El formato del mensaje se define mediante un esquema almacenado en un registro de esquemas que permite el control de versiones y refuerza la estructura."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "The last point is essential.\n"
 "To use Avro, you need a schema registry.\n"
 "In this post, we are using https://www.apicur.io/registry/[Apicurio], but you can use the https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] or https://github.com/aiven/karapace[Karapace].\n"
 "Quarkus provides a dev service for Apicurio, so you have nothing to do (as soon as you can run containers on your machine)."
-msgstr ""
+msgstr "El último punto es esencial. Para utilizar Avro, necesita un registro de esquemas. En este post, estamos utilizando link:https://www.apicur.io/registry/[Apicurio] , pero puede utilizar el link:https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] o link:https://github.com/aiven/karapace[Karapace] . Quarkus proporciona un servicio dev para Apicurio, así que no tiene nada que hacer (en cuanto pueda ejecutar contenedores en su máquina)."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "To use Avro, we need a schema.\n"
 "In https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-consumer/src/main/avro/hero.avsc[hero.avsc], you can find the schema representing our heroes:"
-msgstr ""
+msgstr "Para utilizar Avro, necesitamos un esquema. En link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-consumer/src/main/avro/hero.avsc[hero.avsc] encontrará el esquema que representa a nuestros héroes:"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Avro relies on code generation.\n"
 "It processes the schema to generate Java classes with the defined fields and serialization and deserialization methods."
-msgstr ""
+msgstr "Avro se basa en la generación de código. Procesa el esquema para generar clases Java con los campos definidos y los métodos de serialización y deserialización."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "While in general, using code generation is an extra step, with Quarkus, it's built-in!\n"
 "Once you have a schema in `src/main/avro`, it generates the code for you, and you are ready to use the produced classes."
-msgstr ""
+msgstr "Mientras que, en general, utilizar la generación de código es un paso adicional, con Quarkus, ¡está incorporado! Una vez que tenga un esquema en `src/main/avro` , éste genera el código por usted, y ya está listo para utilizar las clases producidas."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "In https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/AvroPublisherApp.java[AvroPublisherApp] and https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-consumer/src/main/java/me/escoffier/quarkus/AvroConsumerResource.java[AvroConsumerResource], we are using the `Hero` class generated from the schema.\n"
 "As an example, the consumer application looks like this:"
-msgstr ""
+msgstr "En link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/AvroPublisherApp.java[AvroPublisherApp] y link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/avro-serde/avro-serde-consumer/src/main/java/me/escoffier/quarkus/AvroConsumerResource.java[AvroConsumerResource] , estamos utilizando la clase `Hero` generada a partir del esquema. A modo de ejemplo, la aplicación del consumidor tiene el siguiente aspecto:"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Quarkus automatically finds the serializer and deserializer and configures the channels, so again: *no config*.\n"
 "However, you still need to instruct Apicurio to register the schema.\n"
 "In general, it's a manual operation, but for development, you can use the following property:"
-msgstr ""
+msgstr "Quarkus encuentra automáticamente el serializador y el deserializador y configura los canales, así que de nuevo: *sin configuración* . Sin embargo, todavía necesita instruir a Apicurio para que registre el esquema. En general, es una operación manual, pero para el desarrollo, puede utilizar la siguiente propiedad:"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "To run this application, open two terminals.\n"
 "In the first one, navigate to `avro-serde/avro-serde-publisher`, and run `mvn quarkus:dev`.\n"
@@ -228,7 +245,7 @@ msgid ""
 "Then, open a browser to http://localhost:8080.\n"
 "As for the JSON variant, every 5 seconds, a new picture of a hero is displayed.\n"
 "This time the Kafka records are serialized using Avro"
-msgstr ""
+msgstr "Para ejecutar esta aplicación, abra dos terminales. En la primera, navegue hasta `avro-serde/avro-serde-publisher` , y ejecute `mvn quarkus:dev` . En el segundo terminal, navegue hasta `avro-serde/avro-serde-consumer` , y ejecute `mvn quarkus:dev` . A continuación, abra un navegador en http://localhost:8080 . En cuanto a la variante JSON, cada 5 segundos se muestra una nueva imagen de un héroe. Esta vez los registros Kafka se serializan utilizando Avro"
 
 #. type: Title ==
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -237,14 +254,16 @@ msgid "Writing a custom serializer and deserializer"
 msgstr "Escribir un serializador y deserializador personalizado"
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Of course, you can still write your custom serializer and deserializer.\n"
 "As mentioned above, you need to implement the `Serializer` and `Deserializer` interfaces."
-msgstr ""
+msgstr "Por supuesto, aún puede escribir su serializador y deserializador personalizados. Como se mencionó anteriormente, necesita implementar las interfaces `Serializer` y `Deserializer` ."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid "For example, the  https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/custom-serde/custom-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/HeroSerializer.java[HeroSerializer class] contains a straightforward (and inefficient) approach to serializing our heroes:"
-msgstr ""
+msgstr "Por ejemplo, la link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/custom-serde/custom-serde-publisher/src/main/java/me/escoffier/quarkus/json/publisher/HeroSerializer.java[clase HeroSerializer] contiene un enfoque directo (e ineficiente) para serializar nuestros héroes:"
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc
@@ -253,16 +272,18 @@ msgid "The https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/cust
 msgstr "La  link:https://github.com/cescoffier/quarkus-kafka-serde-demo/blob/main/custom-serde/custom-serde-consumer/src/main/java/me/escoffier/quarkus/HeroDeserializer.java[clase HeroDeserializer] contiene la contraparte de deserialización."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "As before, Quarkus discovers these implementations and configures the channels for you.\n"
 "So you do not have to configure anything."
-msgstr ""
+msgstr "Como antes, Quarkus descubre estas implementaciones y configura los canales por usted. Por lo tanto, usted no tiene que configurar nada."
 
 #: _posts/2022-08-30-kafka-serde.adoc
+#, fuzzy
 msgid ""
 "Custom serializers and deserializers can receive configuration attributes.\n"
 "They receive the producer/consumer configuration in the `configure` method."
-msgstr ""
+msgstr "Los serializadores y deserializadores personalizados pueden recibir atributos de configuración. Reciben la configuración del productor/consumidor en el método `configure` ."
 
 #. type: Plain text
 #: _posts/2022-08-30-kafka-serde.adoc

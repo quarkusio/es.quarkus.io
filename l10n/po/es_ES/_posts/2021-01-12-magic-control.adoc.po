@@ -29,41 +29,46 @@ msgid "How to control the amount of magic from Quarkus"
 msgstr "Cómo controlar la cantidad de magia de Quarkus"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Just before my PTO, someone told me: '_I don't like magic._'\n"
 "In this context, _magic_ refers to the amount of hidden _stuff_ done by Quarkus under the hood for the sake of simplicity.\n"
 "It includes dependency injection, annotations, and so on."
-msgstr ""
+msgstr "Justo antes de mi PTO, alguien me dijo: _'No me gusta la magia_ ' _._ En este contexto, la _magia_ se refiere a la cantidad de _cosas_ ocultas que hace Quarkus bajo el capó en aras de la simplicidad. Incluye inyección de dependencias, anotaciones, etc."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "It's not the first time that I get that kind of comment, and coming from the Vert.x project, it makes sense.\n"
 "Vert.x has (almost) no magic, and for a good reason: too much magic can be terrible and make production tuning utterly expensive.\n"
 "Sometimes you want to have more control and avoid unexpected behaviors: execute the code you wrote, and nothing else."
-msgstr ""
+msgstr "No es la primera vez que recibo ese tipo de comentarios, y viniendo del proyecto Vert.x, tiene sentido. Vert.x no tiene (casi) magia, y por una buena razón: demasiada magia puede ser terrible y hacer que la puesta a punto en producción sea totalmente costosa. A veces quiere tener más control y evitar comportamientos inesperados: ejecute el código que escribió, y nada más."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "But magic is not inherently bad.\n"
 "Magic is power that can be used for good or for bad.\n"
 "After all, your application runs on a silicon with microcode magic powering an Operating System with abstraction magic powering the Java Virtual Machine with Just In Time magic.\n"
 "There is magic, it's just magic you have enough knowledge (or trust) of vs magic you don't."
-msgstr ""
+msgstr "Pero la magia no es intrínsecamente mala. La magia es poder que puede utilizarse para bien o para mal. Después de todo, su aplicación se ejecuta en un silicio con magia de microcódigo que potencia un Sistema Operativo con magia de abstracción que potencia la Máquina Virtual Java con magia Just In Time. Existe la magia, sólo que es magia de la que usted tiene suficiente conocimiento (o confianza) frente a magia de la que no."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "You may think that Quarkus has a lot of magic tricks.\n"
 "It is true in some sense but it is easily understood and comes with strong benefits in either memory optimization, startup time optimization or last but not least developer experience improvements.\n"
 "You can decide the amount of magic that you want and the amount of control you feel comfortable with.\n"
 "You don't have to use dependency injection or managed clients if you prefer doing things yourself."
-msgstr ""
+msgstr "Usted puede pensar que Quarkus tiene un montón de trucos de magia. Es cierto en cierto sentido, pero es fácil de entender y viene con fuertes beneficios, ya sea en la optimización de la memoria, la optimización del tiempo de arranque o, por último pero no menos importante, mejoras en la experiencia del desarrollador. Usted puede decidir la cantidad de magia que desea y la cantidad de control con la que se siente cómodo. No tiene por qué utilizar inyección de dependencias o clientes gestionados si prefiere hacer las cosas usted mismo."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "In this post, we will cover three different approaches to reducing the amount of magic.\n"
 "We will go from almost no magic to just enough to get a good developer experience.\n"
 "Examples from this blog post are available on https://github.com/cescoffier/quarkus-magic-control[GitHub]."
-msgstr ""
+msgstr "En este post, cubriremos tres enfoques diferentes para reducir la cantidad de magia. Iremos desde casi nada de magia hasta sólo lo suficiente para conseguir una buena experiencia del desarrollador. Los ejemplos de esta entrada del blog están disponibles en link:https://github.com/cescoffier/quarkus-magic-control[GitHub] ."
 
 #. type: Title ==
 #: _posts/2021-01-12-magic-control.adoc
@@ -72,12 +77,13 @@ msgid "The _almost no magic_ approach"
 msgstr "El enfoque _casi sin magia_"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Quarkus applications are Java applications.\n"
 "So, somewhere there is a `public static void main(String... args)`.\n"
 "While you don't need to write that method when using Quarkus, it can still be convenient and give you more control about your application startup.\n"
 "It's also a good trick to start your Quarkus application directly from your IDE."
-msgstr ""
+msgstr "Las aplicaciones Quarkus son aplicaciones Java. Por lo tanto, en algún lugar hay un `public static void main(String…​ args)` . Aunque no es necesario escribir ese método cuando se utiliza Quarkus, aún puede ser conveniente y darle más control sobre el inicio de su aplicación. También es un buen truco para iniciar su aplicación Quarkus directamente desde su IDE."
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -86,12 +92,14 @@ msgid "As an example, we will implement a straightforward HTTP application. Noth
 msgstr "Como ejemplo, implementaremos una aplicación HTTP sencilla. No es nada del otro mundo:"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "The complete source code is available https://github.com/cescoffier/quarkus-magic-control/tree/main/no-magic-example[here].\n"
 "Don't expect much more; the application had only one Java class, but let's look into it."
-msgstr ""
+msgstr "El código fuente completo está disponible link:https://github.com/cescoffier/quarkus-magic-control/tree/main/no-magic-example[aquí] . No espere mucho más; la aplicación sólo tenía una clase Java, pero vamos a examinarla."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "The `@QuarkusMain` indicates that Quarkus should use this class as the _main entry point_ of the application.\n"
 "The `run` method contains your application logic.\n"
@@ -101,29 +109,32 @@ msgid ""
 "You can use this entry point directly from your IDE.\n"
 "Yes, there is still a bit of magic behind `Quarkus.run`; that's where the extension initialization happens - not unlike _any_ framework initialization including Vert.x.\n"
 "As this application does not use any extension, nothing much will happen."
-msgstr ""
+msgstr "El `@QuarkusMain` indica que Quarkus debe utilizar esta clase como _punto de entrada principal_ de la aplicación. El método `run` contiene la lógica de su aplicación. Volveremos sobre esta lógica más adelante. En primer lugar, observe el método `public static void main(String…​ args)` . Simplemente inicia la aplicación. Puede utilizar este punto de entrada directamente desde su IDE. Sí, todavía hay un poco de magia detrás de `Quarkus.run` ; ahí es donde ocurre la inicialización de la extensión - no muy diferente a la inicialización de _cualquier_ framework incluyendo Vert.x. Como esta aplicación no utiliza ninguna extensión, no ocurrirá gran cosa."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "This application https://github.com/cescoffier/quarkus-magic-control/blob/main/no-magic-example/pom.xml#L17-L26[depends] directly on Vert.x Web and Vert.x Core.\n"
 "The only Quarkus dependency is Arc (not used directly but required):"
-msgstr ""
+msgstr "Esta aplicación link:https://github.com/cescoffier/quarkus-magic-control/blob/main/no-magic-example/pom.xml#L17-L26[depende] directamente de Vert.x Web y Vert.x Core. La única dependencia de Quarkus es Arc (no se utiliza directamente pero es necesaria):"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Let's go back to the `run` method.\n"
 "It contains the application logic, here, a dummy Vert.x application.\n"
 "It creates the `Vertx` instance, a `Router`, registers a few routes, and starts the HTTP server.\n"
 "Because we don't want the application to stop immediately, we _wait for exit_.\n"
 "The `/bye` request handler illustrates how you can programmatically trigger the application shutdown."
-msgstr ""
+msgstr "Volvamos al método `run` . Contiene la lógica de la aplicación, aquí, una aplicación Vert.x ficticia. Crea la instancia `Vertx` , un `Router` , registra unas cuantas rutas, e inicia el servidor HTTP. Como no queremos que la aplicación se detenga inmediatamente, _esperamos a la salida_ . El manejador de peticiones `/bye` ilustra cómo puede desencadenar mediante programación el cierre de la aplicación."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "This application has almost no magic, just a single annotation, and a regular Java entry point.\n"
 "You may wonder why not using a bare Java program?\n"
 "Even used that way, Quarkus provides benefits. For example, you can access the built-in configuration support as illustrated in the snippet:"
-msgstr ""
+msgstr "Esta aplicación casi no tiene magia, sólo una única anotación, y un punto de entrada Java normal. Puede que se pregunte ¿por qué no utilizar un programa Java desnudo? Incluso utilizado de ese modo, Quarkus proporciona ventajas. Por ejemplo, puede acceder al soporte de configuración incorporado, como se ilustra en el fragmento de código:"
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -132,13 +143,14 @@ msgid "The configuration is located in the `application.properties` file."
 msgstr "La configuración se encuentra en el archivo `application.properties`."
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "This first approach has a few drawbacks.\n"
 "It does not benefit from the built-time processing of Quarkus.\n"
 "The logic executed at build time is packaged inside extensions, and in this case, we don't use extensions (except Arc).\n"
 "Another issue is that compiling this application to native will fail because extensions are also involved during the native compilation.\n"
 "Finally, the hot reload won't work, but you can directly restart the application from your IDE."
-msgstr ""
+msgstr "Este primer enfoque tiene algunos inconvenientes. No se beneficia del procesamiento en tiempo de compilación de Quarkus. La lógica que se ejecuta en tiempo de compilación se empaqueta dentro de extensiones, y en este caso, no utilizamos extensiones (excepto Arc). Otro problema es que compilar esta aplicación a nativo fallará porque las extensiones también intervienen durante la compilación nativa. Por último, la recarga en caliente no funcionará, pero puede reiniciar directamente la aplicación desde su IDE."
 
 #. type: Title ==
 #: _posts/2021-01-12-magic-control.adoc
@@ -147,13 +159,14 @@ msgid "Using the managed Vert.x instance"
 msgstr "Uso de la instancia gestionada de Vert.x"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Quarkus uses Vert.x heavily.\n"
 "The `quarkus-vertx-core` extension manages the Vert.x instance used by Quarkus.\n"
 "You can use that instance directly and avoid creating the Vert.x instance.\n"
 "If you need to configure the instance, you can configure it from https://quarkus.io/guides/all-config#quarkus-vertx-core_quarkus-vertx-core-eclipse-vert.x-core[the `application.properties`].\n"
 "It also enables native packaging (as that extension contains the directive to compile Vert.x applications to native)."
-msgstr ""
+msgstr "Quarkus utiliza Vert.x en gran medida. La extensión `quarkus-vertx-core` gestiona la instancia Vert.x utilizada por Quarkus. Puede utilizar esa instancia directamente y evitar crear la instancia Vert.x. Si necesita configurar la instancia, puede hacerlo link:https://quarkus.io/guides/all-config#quarkus-vertx-core_quarkus-vertx-core-eclipse-vert.x-core[desde application.properties] . También permite el empaquetado nativo (ya que esa extensión contiene la directiva para compilar aplicaciones Vert.x a nativo)."
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -168,12 +181,13 @@ msgid "With this, the _run_ method becomes:"
 msgstr "Con esto, el método de _ejecución_ se convierte en:"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Note how it retrieves the managed Vert.x instance.\n"
 "While you can use `@Inject`, you can also retrieve it programmatically, the rest of the code does not change.\n"
 "See? No magic for you!\n"
 "We can still start it from the IDE using the _main_ method."
-msgstr ""
+msgstr "Observe cómo recupera la instancia gestionada de Vert.x. Aunque puede utilizar `@Inject` , también puede recuperarla mediante programación, el resto del código no cambia. ¿Lo ve? ¡No hay magia para usted! Aún podemos iniciarlo desde el IDE utilizando el método _main_ ."
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -200,10 +214,11 @@ msgid "Using the managed HTTP server"
 msgstr "Uso del servidor HTTP gestionado"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Instead of using only the `quarkus-vertx-core` extension, we can choose to delegate the HTTP server to Quarkus.\n"
 "You may see that as a loss of control, but actually, we rarely do much around it, and again, you can configure it from the `application.properties` file if needed."
-msgstr ""
+msgstr "En lugar de utilizar únicamente la extensión `quarkus-vertx-core` , podemos optar por delegar el servidor HTTP en Quarkus. Puede que lo vea como una pérdida de control, pero en realidad, rara vez hacemos mucho al respecto y, de nuevo, puede configurarlo desde el archivo `application.properties` si es necesario."
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -224,10 +239,11 @@ msgid "You will still register your routes, but using a managed `Router`:"
 msgstr "Seguirá registrando sus rutas, pero utilizando un `Router` gestionado:"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "That approach enables the Quarkus hot reload as it intercepts the HTTP requests.\n"
 "You are still in control of everything related to your application logic."
-msgstr ""
+msgstr "Ese enfoque permite la recarga en caliente de Quarkus a medida que intercepta las peticiones HTTP. Usted sigue teniendo el control de todo lo relacionado con la lógica de su aplicación."
 
 #. type: Plain text
 #: _posts/2021-01-12-magic-control.adoc
@@ -242,20 +258,22 @@ msgid "The final _magic touch_"
 msgstr "El _toque mágico_final"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "The question, now, is how far are we from a _regular_ Quarkus application?\n"
 "Quite close, actually.\n"
 "The equivalent application using RESTEasy Reactive would be something like:"
-msgstr ""
+msgstr "La pregunta, ahora, es ¿cuán lejos estamos de una aplicación _normal_ de Quarkus? Bastante cerca, en realidad. La aplicación equivalente utilizando RESTEasy Reactive sería algo así:"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Unlike the previous approaches, this one leverages a declarative (annotation-based) model.\n"
 "Under the hood, it's not that different from the last approach.\n"
 "Quarkus registers a route (on the router), which then calls the `hello` method when a matching request is received.\n"
 "The router gets initialized during the `Quarkus.run` method.\n"
 "No need for the _main_ endpoint, but you can still use one, often convenient in IDEs."
-msgstr ""
+msgstr "A diferencia de los enfoques anteriores, éste aprovecha un modelo declarativo (basado en anotaciones). Bajo el capó, no es tan diferente del último enfoque. Quarkus registra una ruta (en el enrutador), que luego llama al método `hello` cuando se recibe una solicitud coincidente. El enrutador se inicializa durante el método `Quarkus.run` . No hay necesidad de que el punto final _principal_ , pero todavía se puede utilizar uno, a menudo conveniente en IDEs."
 
 #. type: Title ==
 #: _posts/2021-01-12-magic-control.adoc
@@ -264,12 +282,13 @@ msgid "Summary"
 msgstr "Resumen"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Our relation to magic depends on our background and experience.\n"
 "Quarkus lets you decide how much magic you accept.\n"
 "This post presented fours configurations, going from almost no magic to the _regular_ Quarkus code.\n"
 "Each approach has pros and cons:"
-msgstr ""
+msgstr "Nuestra relación con la magia depende de nuestros antecedentes y experiencia. Quarkus le permite decidir cuánta magia acepta. Este post presenta cuatro configuraciones, que van desde casi nada de magia hasta el código Quarkus _normal_ . Cada enfoque tiene pros y contras:"
 
 #. type: Table
 #: _posts/2021-01-12-magic-control.adoc
@@ -368,8 +387,9 @@ msgid "Endpoint managed by Quarkus"
 msgstr "Punto final gestionado por Quarkus"
 
 #: _posts/2021-01-12-magic-control.adoc
+#, fuzzy
 msgid ""
 "Pick the approach that fits your needs.\n"
 "Besides, most of Quarkus services are also available using a programmatic approach, as we have seen for configuration.\n"
 "So, if you prefer avoiding managed objects, feel free just to use the available APIs."
-msgstr ""
+msgstr "Elija el enfoque que se adapte a sus necesidades. Además, la mayoría de los servicios de Quarkus también están disponibles mediante un enfoque programático, como hemos visto para la configuración. Así que, si prefiere evitar los objetos gestionados, no dude en utilizar simplemente las API disponibles."

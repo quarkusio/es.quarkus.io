@@ -29,17 +29,19 @@ msgid "How Stork selects the best service instance and the various built-in stat
 msgstr "Cómo selecciona Stork la mejor instancia de servicio y las distintas estrategias incorporadas."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "The essence of distributed systems resides in the interaction between _services_.\n"
 "In modern architectures, you often have multiple instances of your service to share the load or improve the resilience by redundancy."
-msgstr ""
+msgstr "La esencia de los sistemas distribuidos reside en la interacción entre _servicios_ . En las arquitecturas modernas, a menudo se dispone de varias instancias del servicio para compartir la carga o mejorar la capacidad de recuperación mediante la redundancia."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "But, when you have all these instances, how do you select the _best_ one? That's where Stork helps.\n"
 "Stork is a service discovery and load balancing framework. Stork will locate and choose the most appropriate instance for each call.\n"
 "In this post, we will look into some of the load-balancing strategies offered by Stork, so you can decide which one is the best for you."
-msgstr ""
+msgstr "Pero, cuando se tienen todas estas instancias, ¿cómo se selecciona la _mejor_ ? Ahí es donde Stork le ayuda. Stork es un marco de descubrimiento de servicios y equilibrio de carga. Stork localizará y elegirá la instancia más adecuada para cada llamada. En este post, examinaremos algunas de las estrategias de equilibrio de carga que ofrece Stork, para que pueda decidir cuál es la mejor para usted."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -48,18 +50,20 @@ msgid "Playground"
 msgstr "Parque infantil"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "When your application needs to invoke a remote service (2), it asks Stork to locate this service (3).\n"
 "This service discovery step retrieves the service instances. You may have a single instance, which eases the selection process, but you can also have multiple instances available.\n"
 "Then, you need to pick one.\n"
 "That's where Stork load balancing capability comes and selects the instance (4)."
-msgstr ""
+msgstr "Cuando su aplicación necesita invocar un servicio remoto (2), pide a Stork que localice este servicio (3). Este paso de descubrimiento del servicio recupera las instancias del servicio. Puede tener una única instancia, lo que facilita el proceso de selección, pero también puede tener varias instancias disponibles. Entonces, debe elegir una. Ahí es donde entra la capacidad de equilibrio de carga de Stork y selecciona la instancia (4)."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "To illustrate this service selection feature, we need an application.\n"
 "The following picture represents our system:"
-msgstr ""
+msgstr "Para ilustrar esta función de selección de servicios, necesitamos una aplicación. La siguiente imagen representa nuestro sistema:"
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -104,10 +108,11 @@ msgid "The main endpoint delegates the invocation to the client:"
 msgstr "El punto final principal delega la invocación al cliente:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "The UI (exposed on http://localhost:8080[http://localhost:8080]) allows you to invoke the `/dispatcher` endpoint ten times. It will use the REST Client ten times, which will lead to ten service selections.\n"
 "These calls can be either:"
-msgstr ""
+msgstr "La interfaz de usuario (expuesta en link:http://localhost:8080[http://localhost:8080)] le permite invocar el punto final `/dispatcher` diez veces. Utilizará el cliente REST diez veces, lo que dará lugar a diez selecciones de servicio. Estas llamadas pueden ser:"
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -134,23 +139,26 @@ msgid "The round-robin strategy"
 msgstr "La estrategia round-robin"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "Stork uses a round-robin if you do not set any load balancing strategy.\n"
 "When you call the service (either sequentially or concurrently), you get something like:"
-msgstr ""
+msgstr "Stork utiliza un round-robin si no establece ninguna estrategia de equilibrio de carga. Cuando llame al servicio (ya sea de forma secuencial o concurrente), obtendrá algo como:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "Stork iterates over the available instances. So we can see 🔵 🟡 🟢 🔵 🟡 🟢 🔵 🟡 🟢 sequences.\n"
 "It does not change the strategy when the call fails.\n"
 "When the green instance fails (❌), it does not evict the instance, continues the iteration, and picks the blue instance, then the yellow instance, and then the green one again."
-msgstr ""
+msgstr "Stork itera sobre las instancias disponibles. Así podemos ver 🔵🟡🟢🔵🟡🟢🟡🟢 secuencias. No cambia la estrategia cuando falla la llamada. Cuando falla la instancia verde (❌), no desaloja la instancia, continúa la iteración y elige la instancia azul, luego la amarilla y de nuevo la verde."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "The round-robin strategy is convenient to dispatch the load equally among a set of service instances.\n"
 "When there is a failure, and when a retry is possible, you can use `@Retry` to use the next service instance."
-msgstr ""
+msgstr "La estrategia round-robin es conveniente para repartir la carga equitativamente entre un conjunto de instancias de servicio. Cuando se produce un fallo, y cuando es posible un reintento, puede utilizar `@Retry` para utilizar la siguiente instancia de servicio."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -159,10 +167,11 @@ msgid "The random strategy"
 msgstr "La estrategia aleatoria"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "Unlike the round-robin, iterating over a set of service instances, the random strategy randomly picks an instance.\n"
 "The following dependency provides the random strategy:"
-msgstr ""
+msgstr "A diferencia de la round-robin, que itera sobre un conjunto de instancias de servicio, la estrategia aleatoria escoge una instancia al azar. La siguiente dependencia proporciona la estrategia aleatoria:"
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -177,12 +186,13 @@ msgid "As you can see in the picture below, it does not follow a pattern. So, th
 msgstr "Como puede ver en la imagen de abajo, no sigue un patrón. Así, la misma instancia de servicio puede ser llamada varias veces consecutivas."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This strategy does not share the load equally between the instances.\n"
 "It can, in the worst case, pick a busy instance.\n"
 "However, suppose the invoked service is also used by other applications (also using the random load balancing).\n"
 "In that case, it can be convenient to share the load and avoid overloading a specific instance globally."
-msgstr ""
+msgstr "Esta estrategia no reparte la carga por igual entre las instancias. Puede, en el peor de los casos, elegir una instancia ocupada. Sin embargo, supongamos que el servicio invocado también es utilizado por otras aplicaciones (que también utilizan el equilibrio de carga aleatorio). En ese caso, puede ser conveniente compartir la carga y evitar sobrecargar globalmente una instancia específica."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -191,12 +201,13 @@ msgid "Least-Requests"
 msgstr "Menor número de solicitudes"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "The two previous strategies do not monitor the invocations.\n"
 "The _least-requests_ strategy does. When an instance is selected, it tracks the invocations, which counts the number of inflight requests in the case of this strategy.\n"
 "When a call completes (successfully or not), it decrements the counter.\n"
 "Thus, selecting an instance returns the instance with fewer inflight calls."
-msgstr ""
+msgstr "Las dos estrategias anteriores no supervisan las invocaciones. La estrategia _de menos solicitudes_ sí lo hace. Cuando se selecciona una instancia, realiza un seguimiento de las invocaciones, lo que contabiliza el número de solicitudes de entrada en el caso de esta estrategia. Cuando una llamada finaliza (con éxito o no), disminuye el contador. Así, al seleccionar una instancia se devuelve la instancia con menos llamadas inflight."
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -217,28 +228,32 @@ msgid "If you call the service sequentially, it always picks the same instance:"
 msgstr "Si se llama al servicio de forma secuencial, siempre se elige la misma instancia:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "Indeed, the number of inflight requests for the service is always 0, as it waits for the response before calling it another time.\n"
 "However, when you call the service concurrently, this strategy becomes a lot more relevant:"
-msgstr ""
+msgstr "De hecho, el número de solicitudes de entrada para el servicio es siempre 0, ya que espera la respuesta antes de llamarlo otra vez. Sin embargo, cuando llama al servicio de forma concurrente, esta estrategia adquiere mucha más relevancia:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "As the green service is the fastest, it gets called more frequently as inflight requests decrease quickly.\n"
 "Thus, while the blue and yellow services still have inflight calls, the green service is back to 0 and selected."
-msgstr ""
+msgstr "Como el servicio verde es el más rápido, recibe llamadas con más frecuencia a medida que las solicitudes inflight disminuyen rápidamente. Así, mientras los servicios azul y amarillo siguen teniendo llamadas inflight, el servicio verde vuelve a ser 0 y seleccionado."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This strategy is convenient when you have services with an API having different response times.\n"
 "For example, you can have endpoints answering quickly and endpoints doing a lot more work, thus taking more time."
-msgstr ""
+msgstr "Esta estrategia es conveniente cuando tiene servicios con una API que tienen diferentes tiempos de respuesta. Por ejemplo, puede tener puntos finales que respondan rápidamente y puntos finales que realicen mucho más trabajo, por lo que tardarán más tiempo."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This strategy has one drawback.\n"
 "If you have many service instances, you need to iterate over the whole set to find the one to pick."
-msgstr ""
+msgstr "Esta estrategia tiene un inconveniente. Si tiene muchas instancias de servicio, tendrá que iterar sobre todo el conjunto para encontrar la que debe elegir."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -247,10 +262,11 @@ msgid "The power of two random choices"
 msgstr "El poder de dos elecciones al azar"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This strategy extends the _least-request_ one and addresses the drawback mentioned above.\n"
 "Instead of iterating over the whole list of instances, it picks two instances randomly and selects the one with the fewer inflight requests."
-msgstr ""
+msgstr "Esta estrategia amplía la de _menor_ número de solicitudes y aborda el inconveniente mencionado anteriormente. En lugar de iterar sobre toda la lista de instancias, escoge dos instancias al azar y selecciona la que tenga menos solicitudes de entrada."
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -265,10 +281,11 @@ msgid "The results are similar to the _least-request_ as we have only three inst
 msgstr "Los resultados son similares a los de la _solicitud mínima_, ya que sólo tenemos tres instancias:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "However, this strategy is less expensive when you have many instances and when the iteration takes too much time.\n"
 "In the worst case, it would pick the two most busy instances and select the one with fewer requests."
-msgstr ""
+msgstr "Sin embargo, esta estrategia es menos costosa cuando se tienen muchas instancias y cuando la iteración lleva demasiado tiempo. En el peor de los casos, elegiría las dos instancias más ocupadas y seleccionaría la que tenga menos peticiones."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -277,11 +294,12 @@ msgid "Least response time"
 msgstr "Menor tiempo de respuesta"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "The least response time keeps track of the response time and failures.\n"
 "Thus, it selects the fastest instances.\n"
 "That strategy handles failures by adding a penalty to failing instances."
-msgstr ""
+msgstr "El tiempo de respuesta mínimo realiza un seguimiento del tiempo de respuesta y de los fallos. Así, selecciona las instancias más rápidas. Esa estrategia gestiona los fallos añadiendo una penalización a las instancias que fallan."
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -290,10 +308,11 @@ msgid "You also need to configure the load-balancer for the service:"
 msgstr "También es necesario configurar el balanceador de carga para el servicio:"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This strategy selects the green instance more often.\n"
 "However, due to the chance of failure, it will also pick the other ones once in a while."
-msgstr ""
+msgstr "Esta estrategia selecciona la instancia verde más a menudo. Sin embargo, debido a la posibilidad de fallo, también elegirá las otras de vez en cuando."
 
 #. type: Title ==
 #: _posts/2022-07-15-stork-load-balancing.adoc
@@ -302,16 +321,18 @@ msgid "Summary"
 msgstr "Resumen"
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "This blog post has presented the load balancing strategies offered by Stork.\n"
 "You can find the full list on http://smallrye.io/smallrye-stork/latest[the Stork web site]."
-msgstr ""
+msgstr "En esta entrada del blog se han presentado las estrategias de equilibrio de carga que ofrece Stork. Puede encontrar la lista completa en link:http://smallrye.io/smallrye-stork/latest[el sitio web de St] ork."
 
 #: _posts/2022-07-15-stork-load-balancing.adoc
+#, fuzzy
 msgid ""
 "Strategies like `random` or `round-robin` allow dispatching the load between instances.\n"
 "The `least-request`, `power-of-two-choices`, and `least-response-time` strategies monitor the calls to select the less loaded or fastest instance."
-msgstr ""
+msgstr "Estrategias como `random` o `round-robin` permiten despachar la carga entre instancias. Las estrategias `least-request` , `power-of-two-choices` y `least-response-time` supervisan las llamadas para seleccionar la instancia menos cargada o más rápida."
 
 #. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc

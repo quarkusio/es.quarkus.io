@@ -29,32 +29,37 @@ msgid "How does flow control works with Mutiny"
 msgstr "Cómo funciona el control de flujo con Mutiny"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Reactive Programming offers an elegant, flexible, and powerful way to write asynchronous code.\n"
 "It supports failure handling, both sequential and parallel operation composition, and plenty of operators.\n"
 "Reactive programming promotes data streams as a primary construct, and your code is observing streams and reacting to signals."
-msgstr ""
+msgstr "La programación reactiva ofrece una forma elegante, flexible y potente de escribir código asíncrono. Soporta el manejo de fallos, la composición de operaciones tanto secuenciales como paralelas, y un montón de operadores. La programación reactiva promueve los flujos de datos como construcción principal, y su código observa los flujos y reacciona a las señales."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Origins of back-pressure (https://impurepics.com/posts/2018-05-26-backpressure-origins.html)"
-msgstr ""
+msgstr "Orígenes de la contrapresión ( link:https://impurepics.com/posts/2018-05-26-backpressure-origins.html[https://impurepics.com/posts/2018-05-26-backpressure-origins.html)]"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "However, using data streams as primary constructs does not come without some issues.\n"
 "One of the main problems is the need for flow control."
-msgstr ""
+msgstr "Sin embargo, utilizar flujos de datos como construcciones primarias no viene sin algunos problemas. Uno de los principales problemas es la necesidad de control de flujo."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "The producer/consumer problem"
-msgstr ""
+msgstr "El problema productor/consumidor"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Let's imagine a fast producer and a slow consumer.\n"
 "The producer sends events too quickly for the consumer that can't keep up.\n"
 "That phenomenon is remarkably well illustrated in the following picture."
-msgstr ""
+msgstr "Imaginemos un productor rápido y un consumidor lento. El productor envía eventos demasiado rápido para el consumidor que no puede seguirle el ritmo. Ese fenómeno se ilustra muy bien en la siguiente imagen."
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -63,10 +68,11 @@ msgid "No Back-Pressure (https://impurepics.com/posts/2018-05-26-backpressure-or
 msgstr "Sin contrapresión https://impurepics.com/posts/2018-05-26-backpressure-origins.html"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Let's see some code.\n"
 "Imagine a producer emitting an event every ten milliseconds, while the consumer can only consume one per second."
-msgstr ""
+msgstr "Veamos algo de código. Imagine un productor que emite un evento cada diez milisegundos, mientras que el consumidor sólo puede consumir uno por segundo."
 
 #. type: Plain text
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -81,11 +87,12 @@ msgid "emitOn"
 msgstr "emitOn"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "In the previous code, you may wonder about the `emitOn.`\n"
 "It's a Mutiny operator allowing controlling on which thread the Subscriber receives the events.\n"
 "Back-pressure is often required when multiple threads are involved, as in a single thread approach, blocking the thread would block the source, which may have dramatic consequences."
-msgstr ""
+msgstr "En el código anterior, puede que se pregunte por el operador `emitOn.` It's a Mutiny que permite controlar en qué hilo recibe los eventos el Suscriptor. La contrapresión suele ser necesaria cuando intervienen varios hilos, ya que en un enfoque de un solo hilo, el bloqueo del hilo bloquearía la fuente, lo que podría tener consecuencias dramáticas."
 
 #. type: Plain text
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -94,14 +101,16 @@ msgid "So, what can we do to handle this _overflow_?"
 msgstr "Entonces, ¿qué podemos hacer para gestionar este _desbordamiento_?"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Buffering items"
-msgstr ""
+msgstr "Buffering items"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "The first natural solution uses buffers.\n"
 "The consumer can buffer the events, so it does not fail:"
-msgstr ""
+msgstr "La primera solución natural utiliza tampones. El consumidor puede amortiguar los eventos para que no fallen:"
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -110,21 +119,24 @@ msgid "Buffering to avoid overwhelming downstream consumers"
 msgstr "Amortiguación para evitar abrumar a los consumidores posteriores"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Using a buffer allows handling small bumps, but it's not a long term solution.\n"
 "If we update the code to use a large buffer, the consumer can handle more events but eventually fails:"
-msgstr ""
+msgstr "Utilizar un búfer permite manejar pequeños golpes, pero no es una solución a largo plazo. Si actualizamos el código para utilizar un búfer grande, el consumidor puede manejar más eventos, pero acaba fallando:"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "You can imagine increasing the buffer's size, but it's hard to anticipate the optimal value.\n"
 "What about unbounded buffers?\n"
 "In general, that's a terrible idea as you may run out of memory."
-msgstr ""
+msgstr "Puede imaginar aumentar el tamaño del búfer, pero es difícil anticipar el valor óptimo. ¿Qué ocurre con los búferes no limitados? En general, es una idea terrible, ya que puede quedarse sin memoria."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Dropping items"
-msgstr ""
+msgstr "Arrojar objetos"
 
 #. type: Plain text
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -145,69 +157,79 @@ msgid "You can drop the newest received items or oldest ones:"
 msgstr "Puede dejar los artículos recibidos más recientes o los más antiguos:"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Dropping items provides a sustainable solution to our problem, but we are losing events!\n"
 "As we can see in the previous output, we may drop the high majority of items.\n"
 "In many cases, this is not acceptable."
-msgstr ""
+msgstr "Dejar caer artículos proporciona una solución sostenible a nuestro problema, ¡pero estamos perdiendo eventos! Como podemos ver en la salida anterior, podemos dejar caer la gran mayoría de los artículos. En muchos casos, esto no es aceptable."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "So, we need another solution, a solution where the overall pace is adjusted to satisfy the pipeline's slowest element.\n"
 "We need flow control."
-msgstr ""
+msgstr "Así que necesitamos otra solución, una solución en la que el ritmo global se ajuste para satisfacer al elemento más lento de la tubería. Necesitamos un control del flujo."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "What the heck is Back-Pressure?"
-msgstr ""
+msgstr "¿Qué diablos es la contrapresión?"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "You may have seen this term many times, and often associated with Reactive.\n"
 "In mechanics, back-pressure is a way to control the flow of fluid through pipes, leading to a pressure drop.\n"
 "That control can use reducers or bends.\n"
 "While very interesting, if you are a plumber, it's not clear how it can help us here?"
-msgstr ""
+msgstr "Es posible que haya visto este término muchas veces, y a menudo asociado a Reactiva. En mecánica, la contrapresión es una forma de controlar el flujo de fluido a través de las tuberías, lo que provoca una caída de presión. Ese control puede utilizar reductores o codos. Aunque es muy interesante, si usted es fontanero, no está claro cómo puede ayudarnos aquí..."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "We can see our streams as a flow of fluid, and the set of stages (operator or subscriber) forms a pipe.\n"
 "We want to make the fluid flows as frictionless as possible without swirls and waves."
-msgstr ""
+msgstr "Podemos ver nuestros arroyos como un flujo de fluido, y el conjunto de etapas (operador o abonado) forma una tubería. Queremos que el flujo de fluido sea lo menos friccionado posible, sin remolinos ni ondas."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "An interesting characteristic of fluid mechanics is how a downstream reduction of the throughput affects the upstream.\n"
 "Essentially, that's what we need: a way for the downstream operators and subscribers to reduce the throughput, not only locally but also upstream."
-msgstr ""
+msgstr "Una característica interesante de la mecánica de fluidos es cómo una reducción del caudal aguas abajo afecta al caudal aguas arriba. Esencialmente, eso es lo que necesitamos: una forma de que los operadores y abonados aguas abajo reduzcan el caudal, no sólo localmente sino también aguas arriba."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Don't be mistaken; back-pressure is not something new in the IT world and is not limited to Reactive.\n"
 "One of the most brilliant usages of back-pressure is in TCP.\n"
 "A reader, receiving data, can block the writer, on the other side of the wire, if it does not read the sent data.\n"
 "That way, the reader is never overwhelmed.\n"
 "But, the consequence need to be understood: blocking the writer may not be without side-effects."
-msgstr ""
+msgstr "No se equivoque; la contrapresión no es algo nuevo en el mundo de la informática y no se limita a Reactive. Uno de los usos más brillantes de la contrapresión se da en TCP. Un lector, que recibe datos, puede bloquear al escritor, al otro lado del cable, si no lee los datos enviados. De esta forma, el lector nunca se ve desbordado. Pero hay que entender las consecuencias: bloquear al escritor puede no estar exento de efectos secundarios."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "There are other back-pressure implementations.\n"
 "AMQP uses a credit-based flow control, where you can only send if you have enough credit.\n"
 "Eclipse Vert.x back-pressure is based on pause/resume, where a consumer can pause the upstream until it catches up and resume it once back on track."
-msgstr ""
+msgstr "Existen otras implementaciones de contrapresión. AMQP utiliza un control de flujo basado en el crédito, en el que sólo se puede enviar si se dispone de crédito suficiente. La contrapresión de Eclipse Vert.x se basa en la pausa/reanudación, en la que un consumidor puede pausar el flujo ascendente hasta que se ponga al día y reanudarlo una vez de nuevo en marcha."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Introducing Reactive Streams"
-msgstr ""
+msgstr "Presentación de los flujos reactivos"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Let's now focus on another back-pressure protocol: https://www.reactive-streams.org/[Reactive Streams].\n"
 "It defines an asynchronous and back-pressure protocol suiting to our fast producer/slow consumer problem.\n"
 "With Reactive Streams, the consumer, named `Subscriber`, requests items from the producer, named `Publisher`.\n"
 "The `Publisher` cannot send more than the requested amount of items:"
-msgstr ""
+msgstr "Centrémonos ahora en otro protocolo de contrapresión: link:https://www.reactive-streams.org/[Reactive Streams] . Define un protocolo asíncrono y de contrapresión adecuado a nuestro problema de productor rápido/consumidor lento. Con Reactive Streams, el consumidor, llamado `Subscriber` , solicita elementos al productor, llamado `Publisher` . El `Publisher` no puede enviar más artículos de los solicitados:"
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -216,10 +238,11 @@ msgid "Reactive Streams Back-Pressure (https://impurepics.com/posts/2018-05-26-b
 msgstr "Presión de retorno de las corrientes reactivas https://impurepics.com/posts/2018-05-26-backpressure-origins.html"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "When the items are received and processed, the consumer can request more items, and so on.\n"
 "Thus, the consumer controls the flow."
-msgstr ""
+msgstr "Cuando los artículos se reciben y procesan, el consumidor puede solicitar más artículos, y así sucesivamente. Así, el consumidor controla el flujo."
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -228,10 +251,12 @@ msgid "Using flow control to avoid overwhelming consumers"
 msgstr "Utilizar el control de flujo para evitar abrumar a los consumidores"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Reactive Streams entities"
-msgstr ""
+msgstr "Entidades Reactive Streams"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "To implement that protocol, Reactive Streams define a set of entities.\n"
 "First, a `Subscriber` is a consumer.\n"
@@ -239,7 +264,7 @@ msgid ""
 "Then, the `Publisher` sends, asynchronously, a `Subscription` object to the `Subscriber`.\n"
 "This `Subscription` is a contract.\n"
 "With this `Subscription,` the `Subscriber` can request items and cancels the subscription when it does not want any more items."
-msgstr ""
+msgstr "Para implementar ese protocolo, los flujos reactivos definen un conjunto de entidades. En primer lugar, un `Subscriber` es un consumidor. Se suscribe a un `Publisher,` que produce elementos. A continuación, el `Publisher` envía, de forma asíncrona, un objeto `Subscription` al `Subscriber` . Este `Subscription` es un contrato. Con este `Subscription,` , el `Subscriber` puede solicitar artículos y cancela la suscripción cuando no desea más artículos."
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -254,17 +279,19 @@ msgid "A `Publisher` cannot send more items than requested to the `Subscriber,` 
 msgstr "Un `Publisher` no puede enviar más artículos de los solicitados al `Subscriber,` y el `Subscriber` puede solicitar más artículos en cualquier momento."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "It is essential to understand that the requests and emissions are not necessarily happening synchronously.\n"
 "A `Subscriber` can request three items, and the Publisher will send one by one when they are available."
-msgstr ""
+msgstr "Es esencial comprender que las solicitudes y las emisiones no se producen necesariamente de forma sincrónica. Un `Subscriber` puede solicitar tres elementos, y el Editor enviará uno por uno cuando estén disponibles."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "Reactive Streams introduces another entity named `Processor.`\n"
 "A `Processor` is a `Subscriber` and a `Publisher` simultaneously.\n"
 "In other words, it's a link in our pipeline:"
-msgstr ""
+msgstr "Reactive Streams introduce otra entidad denominada `Processor.` Un `Processor` es un `Subscriber` y un `Publisher` simultáneamente. En otras palabras, es un enlace en nuestro pipeline:"
 
 #. type: Block title
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
@@ -273,6 +300,7 @@ msgid "Example of interactions between a `Subscriber,` a `Processor` and a `Publ
 msgstr "Ejemplo de interacciones entre un `Subscriber,` un `Processor` y un `Publisher`"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "A `Subscriber` calls `subscribe` on a `Processor.`\n"
 "Before receiving a `Subscription,` the `Processor` subscribes to its own upstream (the `Publisher` in the picture above).\n"
@@ -283,50 +311,59 @@ msgid ""
 "For example, as illustrated in the picture above, if the `Subscriber` requires two items, the `Processor` also requests two items to its own upstream.\n"
 "Of course, depending on the `Processor` code, it may not be that simple.\n"
 "What's fundamental is that each `Publisher` and `Processor` enforces the flowing requests never to overload downstream Subscribers."
-msgstr ""
+msgstr "Un `Subscriber` llama a `subscribe` en un `Processor.` Antes de recibir un `Subscription,` el `Processor` se suscribe a su propio upstream (el `Publisher` en la imagen de arriba). Cuando ese ascendente proporciona un `Subscription` a nuestro procesador, éste puede dar un `Subscription` al suscriptor. Todas estas interacciones son asíncronas. Cuando se completa este apretón de manos, el `Subscriber` puede empezar a solicitar elementos. El procesador se encarga de mediar en las solicitudes de `Subscriber` con su ascendente. Por ejemplo, como se ilustra en la imagen anterior, si el `Subscriber` requiere dos elementos, el `Processor` también solicita dos elementos a su propio ascendente. Por supuesto, dependiendo del código de `Processor` , puede que no sea tan sencillo. Lo fundamental es que cada `Publisher` y `Processor` haga cumplir las peticiones de flujo para no sobrecargar nunca a los abonados aguas abajo."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Be warned; it's a trap!"
-msgstr ""
+msgstr "Esté advertido; ¡es una trampa!"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "If you look at the http://www.reactive-streams.org/reactive-streams-1.0.3-javadoc/org/reactivestreams/package-summary.html[Reactive Streams API], you will find it straightforward.\n"
 "Be warned; it's a trap!\n"
 "Behind this apparent simplicity, implementing Reactive Streams entities yourself is a nightmare.\n"
 "Reactive Streams come with a broad set of rules and a strict TCK."
-msgstr ""
+msgstr "Si echa un vistazo a la link:http://www.reactive-streams.org/reactive-streams-1.0.3-javadoc/org/reactivestreams/package-summary.html[API de Reactive Streams] , lo encontrará sencillo. Esté advertido; ¡es una trampa! Detrás de esta aparente simplicidad, implementar usted mismo las entidades Reactive Streams es una pesadilla. Los Reactive Streams vienen con un amplio conjunto de reglas y un estricto TCK."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "But, no worries, Mutiny implements the Reactive Streams protocol for you.\n"
 "In other words, when using `Multi,` you are using a `Publisher` following the Reactive Streams protocol.\n"
 "All the subscription handshakes and requests negotiations are done for you."
-msgstr ""
+msgstr "Pero, no se preocupe, Mutiny implementa el protocolo Reactive Streams por usted. En otras palabras, cuando utilice `Multi,` estará utilizando un `Publisher` que sigue el protocolo Reactive Streams. Todos los apretones de manos de suscripción y las negociaciones de peticiones se hacen por usted."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Looking under the hood"
-msgstr ""
+msgstr "Mirando bajo el capó"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "I knew it! You are curious!\n"
 "You can use `onSubscribe().invoke()` and `onRequest().invoke()` to check what's going on:"
-msgstr ""
+msgstr "¡Lo sabía! ¡Tiene curiosidad! Puede utilizar `onSubscribe().invoke()` y `onRequest().invoke()` para comprobar lo que ocurre:"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "You can also go a step further and not only observing but also controlling the flow yourself:"
-msgstr ""
+msgstr "También puede ir un paso más allá y no sólo observar sino también controlar usted mismo el flujo:"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "And, if you are a bit insane, you can even implement a `Subscriber` directly:"
-msgstr ""
+msgstr "Y, si está un poco loco, puede incluso implementar directamente un `Subscriber` :"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "This post described the different approaches offered by Mutiny to handle back-pressure.\n"
 "The Reactive Streams protocol works well when you can control the pace of the upstream.\n"
@@ -337,10 +374,11 @@ msgid ""
 "That would be a terrible user experience.\n"
 "As we have seen above, time is also not something we can slow down, unfortunately...\n"
 "In this case, the `onOverflow()` group lets you decide the mitigation, such as using buffers or dropping items."
-msgstr ""
+msgstr "Este post describía los diferentes enfoques que ofrece Mutiny para manejar la contrapresión. El protocolo de flujos reactivos funciona bien cuando se puede controlar el ritmo del flujo ascendente. Pero no siempre es el caso. Los flujos que representan entidades físicas rara vez son controlables. Imagine un flujo que emite las pulsaciones de los usuarios. No puede pedir a los usuarios que reduzcan la velocidad. Sería una experiencia de usuario terrible. Como hemos visto anteriormente, el tiempo tampoco es algo que podamos ralentizar, por desgracia... En este caso, el grupo `onOverflow()` le permite decidir la mitigación, como utilizar buffers o soltar elementos."
 
 #: _posts/2020-10-27-mutiny-back-pressure.adoc
+#, fuzzy
 msgid ""
 "It's critical to avoid overwhelming downstream subscribers.\n"
 "It is the small crack that ripples in your system with dreadful consequences."
-msgstr ""
+msgstr "Es fundamental evitar abrumar a los abonados de abajo. Es la pequeña grieta que se ondula en su sistema con consecuencias terribles."

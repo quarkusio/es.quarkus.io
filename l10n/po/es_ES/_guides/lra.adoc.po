@@ -32,20 +32,23 @@ msgid "Introduction"
 msgstr "Introducción"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The LRA (short for Long Running Action) participant extension is useful in microservice based\n"
 "designs where different services can benefit from a relaxed notion of distributed consistency."
-msgstr ""
+msgstr "La extensión participante LRA (abreviatura de Long Running Action, acción de larga duración) es útil en diseños basados en microservicios, en los que los distintos servicios pueden beneficiarse de una noción relajada de coherencia distribuida."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The idea is for multiple services to perform different computations/actions in concert, whilst\n"
 "retaining the option to compensate for any actions performed during the computation.\n"
 "This kind of loose coupling of services bridges the gap between strong consistency models\n"
 "such as JTA/XA and \"home-grown\" ad hoc consistency solutions."
-msgstr ""
+msgstr "La idea es que varios servicios realicen diferentes cómputos/acciones de forma concertada, conservando la opción de compensar cualquier acción realizada durante el cómputo. Este tipo de acoplamiento flexible de servicios tiende un puente entre los modelos de coherencia sólidos como JTA/XA y las soluciones de coherencia ad hoc \"caseras\"."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The model is based on the https://github.com/eclipse/microprofile-lra/blob/master/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc[Eclipse MicroProfile LRA specification].\n"
 "The approach is for the developer to annotate a business method with a Java annotation\n"
@@ -69,7 +72,7 @@ msgid ""
 "and closing an LRA causes all participants to be notified via their Complete callback (if they have one).\n"
 "Other annotations for controlling participants are documented in the\n"
 "https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/[MicroProfile LRA API v1.0 javadoc]."
-msgstr ""
+msgstr "El modelo se basa en la link:https://github.com/eclipse/microprofile-lra/blob/master/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc[especificación Eclipse MicroProfile LRA] . El enfoque consiste en que el desarrollador anote un método de negocio con una anotación Java ( link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/[@LRA] ). Cuando se llama a un método de este tipo, se crea un contexto de ERS (si aún no existe) que se pasa junto con las invocaciones REST de Yakarta posteriores hasta que se llega a un método que también contiene una anotación `@LRA` con un atributo que indica que el ERS debe cerrarse o cancelarse. El valor predeterminado es que el ERS se cierre en el mismo método que inició el ERS (que a su vez puede haber propagado el contexto durante la ejecución del método). El recurso REST de Jakarta indica que desea participar en la interacción marcando, como mínimo, uno de los métodos con una link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/[@Compensate] anotación. Si el contexto se cancela posteriormente, se garantiza que esta acción de `@Compensate` se llamará incluso en presencia de fallos y es el desencadenante para que el recurso compense cualquier actividad que haya realizado en el contexto del ERS. Esta garantía permite que los servicios funcionen de forma fiable con la seguridad de una eventual coherencia (cuando todas las actividades de compensación hayan corrido hasta su finalización). El participante puede solicitar que se le notifique de forma fiable cuando se cierre el ERS en el que participa marcando uno de los métodos con una link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/[@Complete] anotación. De este modo, cancelar un ERS hace que todos los participantes sean notificados a través de su llamada de retorno Compensar y cerrar un ERS hace que todos los participantes sean notificados a través de su llamada de retorno Completar (si tienen una). En link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/[el javadoc de la API de ERS v1.0 de MicroProfile] se documentan otras anotaciones para controlar a los participantes."
 
 #. type: Title ==
 #: _guides/lra.adoc
@@ -78,10 +81,11 @@ msgid "Configuration"
 msgstr "Configuración"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "Once you have your Quarkus Maven project configured you can add the `narayana-lra` extension\n"
 "by running the following command in your project base directory:"
-msgstr ""
+msgstr "Una vez configurado su proyecto Quarkus Maven, puede añadir la extensión `narayana-lra` ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #. type: Plain text
 #: _guides/lra.adoc
@@ -101,26 +105,30 @@ msgid "build.gradle"
 msgstr "build.gradle"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "`quarkus-narayana-lra` needs to be complemented with a server Jakarta REST implementation and a REST Client implementation in order to work.\n"
 "This means that users should also have either `quarkus-resteasy-jackson` and `quarkus-rest-client-jackson` or `quarkus-resteasy-reactive-jackson` and `quarkus-rest-client-reactive-jackson` dependencies in their application."
-msgstr ""
+msgstr "`quarkus-narayana-lra` necesita complementarse con una implementación REST Jakarta del servidor y una implementación REST del cliente para funcionar. Esto significa que los usuarios también deben tener en su aplicación las dependencias `quarkus-resteasy-jackson` y `quarkus-rest-client-jackson` o `quarkus-resteasy-reactive-jackson` y `quarkus-rest-client-reactive-jackson` ."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "If there is a running coordinator then this is all you need in order to create\n"
 "new LRAs and to enlist participants with them."
-msgstr ""
+msgstr "Si hay un coordinador en marcha, es todo lo que necesita para crear nuevos ERS y alistar a los participantes con ellos."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The LRA extension can be configured by updating an `application.properties` file\n"
 "in the `src/main/resources` directory. The only LRA specific property is\n"
 "`quarkus.lra.coordinator-url=<url>` which specifies the HTTP endpoint of an external\n"
 "coordinator, for example:"
-msgstr ""
+msgstr "La extensión LRA puede configurarse actualizando un archivo `application.properties` en el directorio `src/main/resources` . La única propiedad específica del ERS es `quarkus.lra.coordinator-url=<url>` , que especifica el punto final HTTP de un coordinador externo, por ejemplo:"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "For a Narayana coordinator the path component of the url is normally `lra-coordinator`.\n"
 "Coordinators can be obtained from https://quay.io/repository/jbosstm/lra-coordinator\n"
@@ -128,7 +136,7 @@ msgid ""
 "dependencies. A Quarkus quickstart will be provided to show how to do this, or you can\n"
 "take a look at one of the https://github.com/jbosstm/quickstart/tree/master/rts/lra-examples/lra-coordinator[Narayana quickstarts].\n"
 "Another option would be to run it managed inside a WildFly application server."
-msgstr ""
+msgstr "Para un coordinador Narayana, el componente path de la url es normalmente `lra-coordinator` . Los coordinadores pueden obtenerse de https://quay.io/repository/jbosstm/lra-coordinator o puede construir su propio coordinador utilizando un pom de maven que incluya las dependencias apropiadas. Se proporcionará un quickstart de Quarkus para mostrar cómo hacerlo, o puede echar un vistazo a uno de los link:https://github.com/jbosstm/quickstart/tree/master/rts/lra-examples/lra-coordinator[quickstarts de Narayana] . Otra opción sería ejecutarlo gestionado dentro de un servidor de aplicaciones WildFly."
 
 #. type: Title ==
 #: _guides/lra.adoc
@@ -137,6 +145,7 @@ msgid "Handling failures"
 msgstr "Gestión de fallos"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "When an LRA is told to finish, i.e. when a method annotated with `@LRA(end = true, ...)`\n"
 "is invoked, the coordinator will instruct all services involved in the interaction to\n"
@@ -145,9 +154,10 @@ msgid ""
 "endpoint that they used when they first joined the LRA, or to tell the coordinator that\n"
 "they wish to be notified on new endpoints. An LRA is not deemed finished until *all*\n"
 "participants have acknowledged that they have finished."
-msgstr ""
+msgstr "Cuando se ordena a un ERS que termine, es decir, cuando se invoca un método anotado con `@LRA(end = true, …​)` , el coordinador ordenará a todos los servicios implicados en la interacción que terminen. Si un servicio no está disponible (o aún está terminando), el coordinador volverá a intentarlo periódicamente. Es responsabilidad del usuario reiniciar los servicios fallidos en el mismo punto final que utilizó cuando se unió por primera vez al ERS, o indicar al coordinador que desea ser notificado en nuevos puntos finales. Un ERS no se considerará finalizado hasta que *todos los* participantes hayan reconocido que han terminado."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The coordinator is responsible for reliably creating and ending LRAs and for managing\n"
 "participant enlistment, and it therefore must be available (for example if it or the\n"
@@ -156,7 +166,7 @@ msgid ""
 "coordinator must have access to durable storage for its logs (via a filesystem or in\n"
 "a database).  At the time of writing, managing coordinators is the responsibility of\n"
 "the user. An \"out-of-the-box\" solution will be forthcoming."
-msgstr ""
+msgstr "El coordinador es responsable de crear y finalizar los ERS de forma fiable y de gestionar el alistamiento de los participantes, por lo que debe estar disponible (por ejemplo, si él o la red fallan, algo en el entorno se encarga de reiniciar el coordinador o de reparar la red, respectivamente). Para cumplir esta tarea, el coordinador debe tener acceso a un almacenamiento duradero para sus registros (a través de un sistema de archivos o en una base de datos). En el momento de redactar este documento, la gestión de los coordinadores es responsabilidad del usuario. Una solución \"out-of-the-box\" estará disponible próximamente."
 
 #. type: Title ==
 #: _guides/lra.adoc
@@ -165,28 +175,32 @@ msgid "Examples"
 msgstr "Ejemplos"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The following is a simple example of how to start an LRA and how to receive a notification\n"
 "when the LRA is later cancelled (the `@Compensate` annotated method is called) or closed\n"
 "(`@Complete` is called):"
-msgstr ""
+msgstr "A continuación se muestra un ejemplo sencillo de cómo iniciar un ERS y cómo recibir una notificación cuando el ERS se cancela posteriormente (se llama al método anotado `@Compensate` ) o se cierra (se llama a `@Complete` ):"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The example also shows that when an LRA is present its identifier can be obtained\n"
 "by reading the request headers via the `@HeaderParam` Jakarta REST annotation type."
-msgstr ""
+msgstr "El ejemplo también muestra que cuando un ERS está presente, su identificador puede obtenerse leyendo las cabeceras de la solicitud a través del tipo de anotación `@HeaderParam` Jakarta REST."
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "And here's an example of how to start an LRA in one resource method and close it in\n"
 "a different resource method using the `end` element of the `LRA` annotation. It also\n"
 "shows how to configure the LRA to be automatically cancelled if the business method\n"
 "returns the particular HTTP status codes identified in the `cancelOn` and\n"
 "`cancelOnFamily` elements:"
-msgstr ""
+msgstr "Y aquí tiene un ejemplo de cómo iniciar un ERS en un método de recurso y cerrarlo en un método de recurso diferente utilizando el elemento `end` de la anotación `LRA` . También muestra cómo configurar el ERS para que se cancele automáticamente si el método de negocio devuelve los códigos de estado HTTP particulares identificados en los elementos `cancelOn` y `cancelOnFamily` :"
 
 #: _guides/lra.adoc
+#, fuzzy
 msgid ""
 "The `end = false` element on the bookTrip method forces the LRA to continue running when\n"
 "the method finishes and the `end = true` element on the confirmTrip method forces the LRA\n"
@@ -194,4 +208,4 @@ msgid ""
 "end element can be placed on any Jakarta REST resource (ie one service can start the LRA whilst\n"
 "a different service ends it). There are many more examples in the\n"
 "https://github.com/eclipse/microprofile-lra/blob/master/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc#java-annotations-for-lras[Microprofile LRA specification document] and in the https://github.com/eclipse/microprofile-lra/tree/master/tck/src/main/java/org/eclipse/microprofile/lra/tck[Microprofile LRA TCK]."
-msgstr ""
+msgstr "El elemento `end = false` en el método bookTrip obliga al ERS a seguir ejecutándose cuando el método finaliza y el elemento `end = true` en el método confirmTrip obliga al ERS (iniciado por el método bookTrip) a cerrarse cuando el método finaliza. Tenga en cuenta que este elemento final puede colocarse en cualquier recurso REST de Yakarta (es decir, un servicio puede iniciar el ERS mientras que otro servicio diferente lo finaliza). Hay muchos más ejemplos en el link:https://github.com/eclipse/microprofile-lra/blob/master/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc#java-annotations-for-lras[documento de especificaciones] del link:https://github.com/eclipse/microprofile-lra/tree/master/tck/src/main/java/org/eclipse/microprofile/lra/tck[Microperfil] LRA y en el link:https://github.com/eclipse/microprofile-lra/tree/master/tck/src/main/java/org/eclipse/microprofile/lra/tck[TCK del Microperfil LRA] ."

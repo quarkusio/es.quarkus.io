@@ -23,7 +23,7 @@ msgstr ""
 #: _guides/messaging-virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Quarkus Virtual Thread support with Reactive Messaging"
-msgstr "Soporte de Quarkus Virtual Thread con Mensajería Reactiva"
+msgstr "Soporte de hilos virtuales Quarkus con mensajería reactiva"
 
 #. type: Plain text
 #: _guides/messaging-virtual-threads.adoc
@@ -32,39 +32,44 @@ msgid "This guide explains how to benefit from Java virtual threads when writing
 msgstr "Esta guía explica cómo beneficiarse de los hilos virtuales de Java al escribir aplicaciones de procesamiento de mensajes en Quarkus."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "This guide focuses on using virtual threads with Reactive Messaging extensions.\n"
 "Please refer to xref:virtual-threads.adoc[Writing simpler reactive REST services with Quarkus Virtual Thread support]\n"
 "to read more about Java virtual threads in general and the Quarkus Virtual Thread support for REST services."
-msgstr ""
+msgstr "Esta guía se centra en el uso de hilos virtuales con extensiones de mensajería reactiva. Consulte xref:virtual-threads.adoc[Escribir servicios REST reactivos más sencillos con el] soporte de hilos virtuales de Quarkus para leer más sobre los hilos virtuales de Java en general y el soporte de hilos virtuales de Quarkus para servicios REST."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "For reference guides of specific Reactive Messaging extensions see xref:kafka.adoc[Apache Kafka Reference Guide],\n"
 "xref:amqp-reference.adoc[Reactive Messaging AMQP 1.0 Connector], xref:rabbitmq-reference.adoc[Reactive Messaging RabbitMQ Connector] or xref:pulsar.adoc[Apache Pulsar Reference Guide]."
-msgstr ""
+msgstr "Para obtener guías de referencia de extensiones específicas de Mensajería Reactiva, consulte la Guía de xref:pulsar.adoc[referencia de Ap] xref:kafka.adoc[ache Kafka] , el xref:amqp-reference.adoc[Conector AMQP 1.0 de Mensajería Re] activa, xref:rabbitmq-reference.adoc[el Conector RabbitMQ de Mensajería Reactiva] o la xref:pulsar.adoc[Guía de referencia de Apache Pulsar] ."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "By default, Reactive Messaging invokes message processing methods on an event-loop thread.\n"
 "See the xref:quarkus-reactive-architecture.adoc[Quarkus Reactive Architecture documentation] for further details on this topic.\n"
 "But, you sometimes need to combine Reactive Messaging with blocking processing such as calling external services or database operations.\n"
 "For this, you can use the link:{rm_blocking_annotation}[@Blocking] annotation indicating that the processing is _blocking_ and should be run on a worker thread.\n"
 "You can read more on the blocking processing in link:{rm_blocking_docs}[SmallRye Reactive Messaging documentation]."
-msgstr ""
+msgstr "Por defecto, la Mensajería Reactiva invoca métodos de procesamiento de mensajes en un hilo de bucle de eventos. Consulte la xref:quarkus-reactive-architecture.adoc[documentación de la Arquitectura Reactiva de Quarkus] para más detalles sobre este tema. Pero, a veces es necesario combinar la Mensajería Reactiva con el procesamiento de bloqueo, como la llamada a servicios externos u operaciones de base de datos. Para ello, puede utilizar la anotación link:{rm_blocking_annotation}[@Blocking] indicando que el procesamiento es _bloqueante_ y debe ejecutarse en un hilo trabajador. Puede leer más sobre el procesamiento bloqueante en link:{rm_blocking_docs}[la documentación de Mensajería Reactiva de SmallRye] ."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "The idea behind Quarkus Virtual Thread support for Reactive Messaging is to offload the message processing on virtual threads,\n"
 "instead of running it on an event-loop thread or a worker thread."
-msgstr ""
+msgstr "La idea que subyace al soporte de hilos virtuales de Quarkus para la mensajería reactiva es descargar el procesamiento de mensajes en hilos virtuales, en lugar de ejecutarlo en un hilo de bucle de eventos o en un hilo de trabajador."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "To enable virtual thread support on a message consumer method, simply add the link:{runonvthread}[@RunOnVirtualThread] annotation to the method.\n"
 "If the JDK is compatible (Java 19 or later versions, we recommend 21+) then each incoming message will be offloaded to a new virtual thread.\n"
 "It will then be possible to perform blocking operations without blocking the platform thread upon which the virtual thread is mounted."
-msgstr ""
+msgstr "Para habilitar el soporte de hilos virtuales en un método consumidor de mensajes, basta con añadir la anotación link:{runonvthread}[@RunOnVirtualThread] al método. Si el JDK es compatible (Java 19 o versiones posteriores, recomendamos 21+) entonces cada mensaje entrante se descargará en un nuevo hilo virtual. Entonces será posible realizar operaciones de bloqueo sin bloquear el hilo de la plataforma sobre el que está montado el hilo virtual."
 
 #. type: Title ==
 #: _guides/messaging-virtual-threads.adoc
@@ -73,10 +78,11 @@ msgid "Example using the Reactive Messaging Kafka extension"
 msgstr "Ejemplo de uso de la extensión Reactive Messaging Kafka"
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "Let's see an example of how to process Kafka records on virtual threads.\n"
 "First, make sure to have a reactive messaging extension dependency to your build file:"
-msgstr ""
+msgstr "Veamos un ejemplo de cómo procesar registros Kafka en hilos virtuales. En primer lugar, asegúrese de tener una dependencia de extensión de mensajería reactiva a su archivo de compilación:"
 
 #. type: Block title
 #: _guides/messaging-virtual-threads.adoc
@@ -109,10 +115,11 @@ msgid "or to use the Quarkus Dev mode, insert the following to the `quarkus-mave
 msgstr "o para utilizar el modo Quarkus Dev, inserte lo siguiente en la configuración de `quarkus-maven-plugin`:"
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "Then you can start using the annotation `@RunOnVirtualThread` on your consumer methods also annotated with `@Incoming`.\n"
 "In the following example we'll use the xref:rest-client-reactive.adoc[RESTEasy Reactive REST Client] to make a blocking call to a REST endpoint:"
-msgstr ""
+msgstr "A continuación, puede empezar a utilizar la anotación `@RunOnVirtualThread` en sus métodos consumidores también anotados con `@Incoming` . En el siguiente ejemplo utilizaremos el xref:rest-client-reactive.adoc[cliente REST reactivo de RESTEasy] para realizar una llamada de bloqueo a un punto final REST:"
 
 #. type: Plain text
 #: _guides/messaging-virtual-threads.adoc
@@ -139,11 +146,12 @@ msgid "This `@Outgoing` method generates random prices and writes them a Kafka t
 msgstr "Este método de `@Outgoing` genera precios aleatorios y los escribe en un tema de Kafka para que la aplicación los vuelva a consumir."
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "Note that by default Reactive Messaging message processing happens sequentially, preserving the order of messages.\n"
 "In the same way, `@Blocking(ordered = false)` annotation changes this behaviour,\n"
 "using `@RunOnVirtualThread` enforces concurrent message processing without preserving the order."
-msgstr ""
+msgstr "Tenga en cuenta que, por defecto, el procesamiento de mensajes de Mensajería Reactiva ocurre secuencialmente, preservando el orden de los mensajes. Del mismo modo, la anotación `@Blocking(ordered = false)` cambia este comportamiento, utilizando `@RunOnVirtualThread` se impone el procesamiento concurrente de mensajes sin preservar el orden."
 
 #. type: Title ==
 #: _guides/messaging-virtual-threads.adoc
@@ -158,10 +166,11 @@ msgid "Methods signatures eligible to @RunOnVirtualThread"
 msgstr "Firmas de métodos elegibles para @RunOnVirtualThread"
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "Only method can be annotated with `@Blocking` can use `@RunOnVirtualThreads`.\n"
 "The eligible method signatures are:"
-msgstr ""
+msgstr "Sólo los métodos anotados con `@Blocking` pueden utilizar `@RunOnVirtualThreads` . Las firmas de método elegibles son:"
 
 #. type: Plain text
 #: _guides/messaging-virtual-threads.adoc
@@ -260,10 +269,11 @@ msgid "Control the maximum concurrency"
 msgstr "Controlar la concurrencia máxima"
 
 #: _guides/messaging-virtual-threads.adoc
+#, fuzzy
 msgid ""
 "In order to leverage the lightweight nature of virtual threads, the default maximum concurrency for methods annotated with `@RunOnVirtualThread` is 1024.\n"
 "As opposed to platform threads, virtual threads are not pooled and created per message. Therefore the maximum concurrency applies separately to all `@RunOnVirtualThread` methods."
-msgstr ""
+msgstr "Para aprovechar la naturaleza ligera de los hilos virtuales, la concurrencia máxima por defecto para los métodos anotados con `@RunOnVirtualThread` es de 1024. A diferencia de los hilos de plataforma, los hilos virtuales no se agrupan ni se crean por mensaje. Por lo tanto, la concurrencia máxima se aplica por separado a todos los métodos `@RunOnVirtualThread` ."
 
 #. type: Plain text
 #: _guides/messaging-virtual-threads.adoc

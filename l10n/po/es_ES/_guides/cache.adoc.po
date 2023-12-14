@@ -23,7 +23,7 @@ msgstr ""
 #: _guides/cache.adoc
 #, fuzzy, no-wrap
 msgid "Application Data Caching"
-msgstr "Caché de datos de aplicaciones"
+msgstr "Almacenamiento en caché de datos de aplicaciones"
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -44,11 +44,12 @@ msgid "Scenario"
 msgstr "Escenario"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Let's imagine you want to expose in your Quarkus application a REST API that allows users to retrieve the weather forecast for the next three days.\n"
 "The problem is that you have to rely on an external meteorological service which only accepts requests for one day at a time and takes forever to answer.\n"
 "Since the weather forecast is updated once every twelve hours, caching the service responses would definitely improve your API performances."
-msgstr ""
+msgstr "Imaginemos que quiere exponer en su aplicación Quarkus una API REST que permita a los usuarios recuperar la previsión meteorológica para los próximos tres días. El problema es que tiene que depender de un servicio meteorológico externo que sólo acepta solicitudes para un día cada vez y tarda una eternidad en responder. Dado que la previsión meteorológica se actualiza una vez cada doce horas, almacenar en caché las respuestas del servicio mejoraría sin duda el rendimiento de su API."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -57,11 +58,12 @@ msgid "We'll do that using a single Quarkus annotation."
 msgstr "Lo haremos utilizando una única anotación de Quarkus."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "In this guide, we use the default Quarkus Cache backend (Caffeine).\n"
 "You can use Redis instead.\n"
 "Refer to the xref:cache-redis-reference.adoc[Redis cache backend reference] to configure the Redis backend."
-msgstr ""
+msgstr "En esta guía, utilizamos el backend por defecto de Quarkus Cache (Caffeine). Puede utilizar Redis en su lugar. Consulte la xref:cache-redis-reference.adoc[referencia] del backend de caché Redis para configurar el backend Redis."
 
 #. type: Title ==
 #: _guides/cache.adoc
@@ -70,10 +72,11 @@ msgid "Solution"
 msgstr "Solución"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -106,10 +109,11 @@ msgid "This command generates the project and imports the `cache` and `resteasy-
 msgstr "Este comando genera el proyecto e importa las extensiones `cache` y `resteasy-reactive-jackson`."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "If you already have your Quarkus project configured, you can add the `cache` extension\n"
 "to your project by running the following command in your project base directory:"
-msgstr ""
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `cache` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -136,10 +140,11 @@ msgid "Creating the REST API"
 msgstr "Creación de la API REST"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Let's start by creating a service that will simulate an extremely slow call to the external meteorological service.\n"
 "Create `src/main/java/org/acme/cache/WeatherForecastService.java` with the following content:"
-msgstr ""
+msgstr "Empecemos creando un servicio que simulará una llamada extremadamente lenta al servicio meteorológico externo. Cree `src/main/java/org/acme/cache/WeatherForecastService.java` con el siguiente contenido:"
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -148,22 +153,25 @@ msgid "This is where the slowness comes from."
 msgstr "De ahí viene la lentitud."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "We also need a class that will contain the response sent to the users when they ask for the next three days weather forecast.\n"
 "Create `src/main/java/org/acme/cache/WeatherForecast.java` this way:"
-msgstr ""
+msgstr "También necesitamos una clase que contenga la respuesta enviada a los usuarios cuando pregunten por la previsión meteorológica de los próximos tres días. Cree `src/main/java/org/acme/cache/WeatherForecast.java` de esta forma:"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Now, we just need to create the REST resource.\n"
 "Create the `src/main/java/org/acme/cache/WeatherForecastResource.java` file with this content:"
-msgstr ""
+msgstr "Ahora, sólo tenemos que crear el recurso REST. Cree el archivo `src/main/java/org/acme/cache/WeatherForecastResource.java` con este contenido:"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "If the `daysInFuture` query parameter is omitted, the three days weather forecast will start from the current day.\n"
 "Otherwise, it will start from the current day plus the `daysInFuture` value."
-msgstr ""
+msgstr "Si se omite el parámetro de consulta `daysInFuture` , la previsión meteorológica a tres días comenzará a partir del día actual. En caso contrario, comenzará a partir del día actual más el valor de `daysInFuture` ."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -178,10 +186,11 @@ msgid "First, run the application using dev mode from the project directory:"
 msgstr "En primer lugar, ejecute la aplicación en modo dev desde el directorio del proyecto:"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Then, call `http://localhost:8080/weather?city=Raleigh` from a browser.\n"
 "After six long seconds, the application will answer something like this:"
-msgstr ""
+msgstr "A continuación, llame a `http://localhost:8080/weather?city=Raleigh` desde un navegador. Tras seis largos segundos, la aplicación le responderá algo así:"
 
 #. type: delimited block =
 #: _guides/cache.adoc
@@ -193,7 +202,7 @@ msgstr "El contenido de la respuesta puede variar según el día en que se ejecu
 #: _guides/cache.adoc
 #, fuzzy
 msgid "You can try calling the same URL again and again, it will always take six seconds to answer."
-msgstr "Puedes intentar llamar a la misma URL una y otra vez, siempre tardará seis segundos en responder."
+msgstr "Puedes intentar llamar a la misma URL una y otra vez, siempre tardará seis segundos en contestar."
 
 #. type: Title ==
 #: _guides/cache.adoc
@@ -202,10 +211,11 @@ msgid "Enabling the cache"
 msgstr "Activación de la caché"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Now that your Quarkus application is up and running, let's tremendously improve its response time by caching the external meteorological service responses.\n"
 "Update the `WeatherForecastService` class like this:"
-msgstr ""
+msgstr "Ahora que su aplicación Quarkus está en marcha, mejoremos enormemente su tiempo de respuesta almacenando en caché las respuestas del servicio meteorológico externo. Actualice la clase `WeatherForecastService` de la siguiente manera:"
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -214,35 +224,40 @@ msgid "We only added this annotation (and the associated import of course)."
 msgstr "Sólo añadimos esta anotación (y la importación asociada, por supuesto)."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Let's try to call `http://localhost:8080/weather?city=Raleigh` again.\n"
 "You're still waiting a long time before receiving an answer.\n"
 "This is normal since the server just restarted and the cache was empty."
-msgstr ""
+msgstr "Intentemos llamar `http://localhost:8080/weather?city=Raleigh` de nuevo. Sigue esperando mucho tiempo antes de recibir una respuesta. Es normal, ya que el servidor acaba de reiniciarse y la caché estaba vacía."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Wait a second! The server restarted by itself after the `WeatherForecastService` update?\n"
 "Yes, this is one of Quarkus amazing features for developers called `live coding`."
-msgstr ""
+msgstr "¡Un momento! ¿El servidor se reinició solo tras la actualización de `WeatherForecastService` ? Sí, se trata de una de las increíbles funciones de Quarkus para desarrolladores llamada `live coding` ."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Now that the cache was loaded during the previous call, try calling the same URL.\n"
 "This time, you should get a super fast answer with an `executionTimeInMs` value close to 0."
-msgstr ""
+msgstr "Ahora que la caché se ha cargado durante la llamada anterior, intente llamar a la misma URL. Esta vez, debería obtener una respuesta superrápida con un valor `executionTimeInMs` cercano a 0."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Let's see what happens if we start from one day in the future using the `http://localhost:8080/weather?city=Raleigh&daysInFuture=1` URL.\n"
 "You should get an answer two seconds later since two of the requested days were already loaded in the cache."
-msgstr ""
+msgstr "Veamos qué ocurre si empezamos desde un día en el futuro utilizando la `http://localhost:8080/weather?city=Raleigh&daysInFuture=1` URL. Debería obtener una respuesta dos segundos más tarde, ya que dos de los días solicitados ya estaban cargados en la caché."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "You can also try calling the same URL with a different city and see the cache in action again.\n"
 "The first call will take six seconds and the following ones will be answered immediately."
-msgstr ""
+msgstr "También puede probar a llamar a la misma URL con una ciudad diferente y ver de nuevo la caché en acción. La primera llamada tardará seis segundos y las siguientes se responderán inmediatamente."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -251,10 +266,11 @@ msgid "Congratulations! You just added application data caching to your Quarkus 
 msgstr "¡Enhorabuena! Acaba de añadir el almacenamiento en caché de los datos de la aplicación a su aplicación Quarkus con una sola línea de código."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Do you want to learn more about the Quarkus application data caching abilities?\n"
 "The following sections will show you everything there is to know about it."
-msgstr ""
+msgstr "¿Desea obtener más información sobre las capacidades de almacenamiento en caché de datos de la aplicación Quarkus? Las siguientes secciones le mostrarán todo lo que hay que saber al respecto."
 
 #. type: Title ==
 #: _guides/cache.adoc
@@ -269,16 +285,17 @@ msgid "Quarkus offers a set of annotations that can be used in a CDI managed bea
 msgstr "Quarkus ofrece un conjunto de anotaciones que se pueden utilizar en un bean gestionado por CDI para habilitar las capacidades de almacenamiento en caché."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Caching annotations are not allowed on private methods.\n"
 "They will work fine with any other access modifier including package-private (no explicit modifier)."
-msgstr ""
+msgstr "Las anotaciones de caché no están permitidas en los métodos privados. Funcionarán bien con cualquier otro modificador de acceso, incluido paquete-privado (sin modificador explícito)."
 
 #. type: Title ===
 #: _guides/cache.adoc
 #, fuzzy, no-wrap
 msgid "@CacheResult"
-msgstr "@CacheResultado"
+msgstr "@ResultadoCache"
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -287,14 +304,16 @@ msgid "Loads a method result from the cache without executing the method body wh
 msgstr "Carga el resultado de un método desde la caché sin ejecutar el cuerpo del método siempre que sea posible."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "When a method annotated with `@CacheResult` is invoked, Quarkus will compute a cache key and use it to check in the cache whether the method has been already invoked.\n"
 "See the xref:cache-keys-building-logic[Cache keys building logic] section of this guide to learn how the cache key is computed.\n"
 "If a value is found in the cache, it is returned and the annotated method is never actually executed.\n"
 "If no value is found, the annotated method is invoked and the returned value is stored in the cache using the computed key."
-msgstr ""
+msgstr "Cuando se invoca un método anotado con `@CacheResult` , Quarkus calculará una clave de caché y la utilizará para comprobar en la caché si el método ya ha sido invocado. Consulte la sección xref:cache-keys-building-logic[Lógica de construcción de] claves de caché de esta guía para saber cómo se calcula la clave de caché. Si se encuentra un valor en la caché, se devuelve y el método anotado nunca se ejecuta realmente. Si no se encuentra ningún valor, se invoca el método anotado y el valor devuelto se almacena en la caché utilizando la clave calculada."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "A method annotated with `CacheResult` is protected by a lock on cache miss mechanism.\n"
 "If several concurrent invocations try to retrieve a cache value from the same missing key, the method will only be invoked once.\n"
@@ -302,7 +321,7 @@ msgid ""
 "The `lockTimeout` parameter can be used to interrupt the lock after a given delay.\n"
 "The lock timeout is disabled by default, meaning the lock is never interrupted.\n"
 "See the parameter Javadoc for more details."
-msgstr ""
+msgstr "Un método anotado con `CacheResult` está protegido por un mecanismo de bloqueo en caso de pérdida de caché. Si varias invocaciones concurrentes intentan recuperar un valor de la caché de la misma clave perdida, el método sólo se invocará una vez. La primera invocación concurrente activará la invocación del método, mientras que las invocaciones concurrentes posteriores esperarán a que finalice la invocación del método para obtener el resultado de la caché. El parámetro `lockTimeout` puede utilizarse para interrumpir el bloqueo tras un retardo determinado. El tiempo de espera del bloqueo está desactivado por defecto, lo que significa que el bloqueo nunca se interrumpe. Consulte el Javadoc del parámetro para obtener más detalles."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -311,10 +330,11 @@ msgid "This annotation cannot be used on a method returning `void`."
 msgstr "Esta anotación no puede utilizarse en un método que devuelva `void`."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Quarkus is able to also cache `null` values unlike the underlying Caffeine provider.\n"
 "See xref:negative-cache[more on this topic below]."
-msgstr ""
+msgstr "Quarkus también puede almacenar en caché los valores de `null` , a diferencia del proveedor subyacente Caffeine. Vea xref:negative-cache[más información sobre este tema a continuación] ."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -329,11 +349,12 @@ msgid "Removes an entry from the cache."
 msgstr "Elimina una entrada de la caché."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "When a method annotated with `@CacheInvalidate` is invoked, Quarkus will compute a cache key and use it to try to remove an existing entry from the cache.\n"
 "See the xref:cache-keys-building-logic[Cache keys building logic] section of this guide to learn how the cache key is computed.\n"
 "If the key does not identify any cache entry, nothing will happen."
-msgstr ""
+msgstr "Cuando se invoca un método anotado con `@CacheInvalidate` , Quarkus calculará una clave de caché y la utilizará para intentar eliminar una entrada existente de la caché. Consulte la sección xref:cache-keys-building-logic[Lógica de construcción de] claves de caché de esta guía para saber cómo se calcula la clave de caché. Si la clave no identifica ninguna entrada de la caché, no ocurrirá nada."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -354,10 +375,11 @@ msgid "@CacheKey"
 msgstr "@CacheKey"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "When a method argument is annotated with `@CacheKey`, it is identified as a part of the cache key during an invocation of a\n"
 "method annotated with `@CacheResult` or `@CacheInvalidate`."
-msgstr ""
+msgstr "Cuando un argumento de método está anotado con `@CacheKey` , se identifica como parte de la clave de caché durante una invocación de un método anotado con `@CacheResult` o `@CacheInvalidate` ."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -450,17 +472,19 @@ msgid "Generating a cache key with `CacheKeyGenerator`"
 msgstr "Inyección de un `Cache` con la anotación `@CacheName`"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "You may want to include more than the arguments of a method into a cache key.\n"
 "This can be done by implementing the `io.quarkus.cache.CacheKeyGenerator` interface and declaring that implementation in the `keyGenerator` field of a `@CacheResult` or `@CacheInvalidate` annotation."
-msgstr ""
+msgstr "Puede que desee incluir más que los argumentos de un método en una clave de caché. Esto puede hacerse implementando la interfaz `io.quarkus.cache.CacheKeyGenerator` y declarando esa implementación en el campo `keyGenerator` de una anotación `@CacheResult` o `@CacheInvalidate` ."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "If a CDI scope is declared on a key generator class and if that class has a default qualifier (no qualifier annotation or `@jakarta.enterprise.inject.Default`), then the key generator will be injected as a CDI bean during the cache key computation.\n"
 "Otherwise, the key generator will be instantiated using its default constructor.\n"
 "All CDI scopes supported by Quarkus can be used on a key generator."
-msgstr ""
+msgstr "Si se declara un ámbito CDI en una clase generadora de claves y si esa clase tiene un calificador por defecto (sin anotación de calificador o `@jakarta.enterprise.inject.Default` ), entonces el generador de claves se inyectará como un frijol CDI durante el cálculo de la clave de caché. En caso contrario, el generador de claves se instanciará utilizando su constructor por defecto. Todos los ámbitos CDI admitidos por Quarkus pueden utilizarse en un generador de claves."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -481,10 +505,11 @@ msgid "Be careful while using `Method`, some of its methods can be expensive."
 msgstr "Tenga cuidado al usar `Method`, algunos de sus métodos pueden ser costosos."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Make sure the method has enough arguments before accessing them from their index.\n"
 "Otherwise, an `IndexOutOfBoundsException` may be thrown during the cache key computation."
-msgstr ""
+msgstr "Asegúrese de que el método tiene suficientes argumentos antes de acceder a ellos desde su índice. De lo contrario, puede lanzarse un `IndexOutOfBoundsException` durante el cálculo de la clave de la caché."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -535,16 +560,18 @@ msgid "Caching using the programmatic API"
 msgstr "Almacenamiento en caché mediante la API programática"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Quarkus also offers a programmatic API which can be used to store, retrieve or delete values from any cache declared using the annotations API.\n"
 "All operations from the programmatic API are non-blocking and rely on https://smallrye.io/smallrye-mutiny/[Mutiny] under the hood."
-msgstr ""
+msgstr "Quarkus también ofrece una API programática que puede utilizarse para almacenar, recuperar o eliminar valores de cualquier caché declarada mediante la API de anotaciones. Todas las operaciones de la API programática no son de bloqueo y dependen de link:https://smallrye.io/smallrye-mutiny/[Mutiny] bajo el capó."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Before accessing programmatically the cached data, you need to retrieve an `io.quarkus.cache.Cache` instance.\n"
 "The following sections will show you how to do that."
-msgstr ""
+msgstr "Antes de acceder mediante programación a los datos almacenados en caché, necesita recuperar una instancia de `io.quarkus.cache.Cache` . Las siguientes secciones le mostrarán cómo hacerlo."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -601,10 +628,11 @@ msgid "Building a programmatic cache key"
 msgstr "Construir una clave de caché programática"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Before building a programmatic cache key, you need to know how cache keys are built by the annotations API when an annotated method is invoked.\n"
 "This is explained in the xref:cache-keys-building-logic[Cache keys building logic] section of this guide."
-msgstr ""
+msgstr "Antes de construir una clave de caché programática, necesita saber cómo se construyen las claves de caché por la API de anotaciones cuando se invoca un método anotado. Esto se explica en la sección xref:cache-keys-building-logic[Lógica de] construcción de claves de caché de esta guía."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -619,10 +647,11 @@ msgid "Retrieving all keys from a `CaffeineCache`"
 msgstr "Recuperación de todas las claves de un `CaffeineCache`"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "The cache keys from a specific `CaffeineCache` can be retrieved as an unmodifiable `Set` as shown below.\n"
 "If the cache entries are modified while an iteration over the set is in progress, the set will remain unchanged."
-msgstr ""
+msgstr "Las claves de la caché de un `CaffeineCache` específico pueden recuperarse como un `Set` no modificable, como se muestra a continuación. Si las entradas de la caché se modifican mientras se está realizando una iteración sobre el conjunto, éste permanecerá inalterado."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -631,10 +660,11 @@ msgid "Populating a `CaffeineCache`"
 msgstr "Recuperación de todas las claves de un `CaffeineCache`"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "You can populate a `CaffeineCache` using the `CaffeineCache#put(Object, CompletableFuture)` method.\n"
 "This method associates the `CompletableFuture` with the given key in the cache. If the cache previously contained a value associated with the key, the old value is replaced by this `CompletableFuture`. If the asynchronous computation fails, the entry will be automatically removed."
-msgstr ""
+msgstr "Puede rellenar un `CaffeineCache` utilizando el método `CaffeineCache#put(Object, CompletableFuture)` . Este método asocia el `CompletableFuture` con la clave dada en la caché. Si la caché contenía previamente un valor asociado a la clave, el valor antiguo se sustituye por este `CompletableFuture` . Si el cálculo asíncrono falla, la entrada se eliminará automáticamente."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -643,12 +673,13 @@ msgid "Retrieving a value if a key is present from a `CaffeineCache`"
 msgstr "Recuperación de todas las claves de un `CaffeineCache`"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "The cache value from a specific `CaffeineCache` can be retrieved if present as shown below.\n"
 "If the given key is contained in the cache, the method will return the `CompletableFuture` the specified key is mapped to.\n"
 "That `CompletableFuture` may be computing or may already be completed.\n"
 "Otherwise, the method will return `null`."
-msgstr ""
+msgstr "Se puede recuperar el valor de la caché de un `CaffeineCache` específico si está presente, como se muestra a continuación. Si la clave dada está contenida en la caché, el método devolverá el `CompletableFuture` al que está asignada la clave especificada. Ese `CompletableFuture` puede estar computando o puede que ya se haya completado. En caso contrario, el método devolverá `null` ."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -657,10 +688,11 @@ msgid "Changing the expiration policy or the maximum size of a `CaffeineCache` i
 msgstr "Modificación en tiempo real de la política de caducidad o del tamaño máximo de un `CaffeineCache`"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "The expiration policy of a `CaffeineCache` can be changed while a Quarkus app is running if that policy was initially specified in the Quarkus configuration.\n"
 "Similarly, the maximum size of a `CaffeineCache` can be changed in real time if the cache was built with an initial maximum size defined in the configuration."
-msgstr ""
+msgstr "La política de caducidad de un `CaffeineCache` puede cambiarse mientras se ejecuta una aplicación de Quarkus si esa política se especificó inicialmente en la configuración de Quarkus. Del mismo modo, el tamaño máximo de un `CaffeineCache` puede cambiarse en tiempo real si la caché se construyó con un tamaño máximo inicial definido en la configuración."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -693,10 +725,11 @@ msgid "Configuring the underlying caching provider"
 msgstr "Configuración del proveedor de caché subyacente"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "This extension uses https://github.com/ben-manes/caffeine[Caffeine] as its underlying caching provider.\n"
 "Caffeine is a high performance, near optimal caching library."
-msgstr ""
+msgstr "Esta extensión utiliza link:https://github.com/ben-manes/caffeine[Caffeine] como proveedor de caché subyacente. Caffeine es una biblioteca de almacenamiento en caché de alto rendimiento y casi óptima."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -705,10 +738,11 @@ msgid "Caffeine configuration properties"
 msgstr "Propiedades de configuración de la cafeína"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Each of the Caffeine caches backing up the Quarkus application data caching extension can be configured using the following\n"
 "properties in the `application.properties` file. By default, caches do not perform any type of eviction if not configured."
-msgstr ""
+msgstr "Cada una de las cachés Caffeine que respaldan la extensión de caché de datos de aplicación Quarkus puede configurarse utilizando las siguientes propiedades en el archivo `application.properties` . Por defecto, las cachés no realizan ningún tipo de desalojo si no están configuradas."
 
 #. type: delimited block =
 #: _guides/cache.adoc
@@ -747,16 +781,18 @@ msgid "Each cache declared using the xref:annotations-api[annotations caching AP
 msgstr "Cada caché declarada mediante la  link:#annotations-api[API de almacenamiento en caché de anotaciones] puede supervisarse mediante las métricas de Micrometer."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "The cache metrics collection will only work if your application depends on a `quarkus-micrometer-registry-*` extension.\n"
 "See the xref:telemetry-micrometer.adoc[Micrometer metrics guide] to learn how to use Micrometer in Quarkus."
-msgstr ""
+msgstr "La colección de métricas de caché sólo funcionará si su aplicación depende de una extensión de `quarkus-micrometer-registry-*` . Consulte la xref:telemetry-micrometer.adoc[guía] de métricas Micrometer para aprender a utilizar Micrometer en Quarkus."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "The cache metrics collection is disabled by default.\n"
 "It can be enabled from the `application.properties` file:"
-msgstr ""
+msgstr "La recopilación de métricas en caché está desactivada por defecto. Puede habilitarse desde el archivo `application.properties` :"
 
 #. type: delimited block =
 #: _guides/cache.adoc
@@ -873,17 +909,19 @@ msgid "Negative caching and nulls"
 msgstr "Caché negativo y nulos"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "Sometimes one wants to cache the result of an (expensive) remote call.\n"
 "If the remote call fails, one may not want to cache the result or exception,\n"
 "but rather re-try the remote call on the next invocation."
-msgstr ""
+msgstr "A veces uno quiere almacenar en caché el resultado de una (costosa) llamada remota. Si la llamada remota falla, puede que uno no quiera almacenar en caché el resultado o la excepción, sino reintentar la llamada remota en la siguiente invocación."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "A simple approach could be to catch the exception and return `null`, so that the caller can\n"
 "act accordingly:"
-msgstr ""
+msgstr "Un enfoque sencillo podría ser atrapar la excepción y devolver `null` , para que la persona que llama pueda actuar en consecuencia:"
 
 #. type: Block title
 #: _guides/cache.adoc
@@ -910,12 +948,13 @@ msgid "Return in case of exception"
 msgstr "Retorno en caso de excepción"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "This approach has an unfortunate side effect: as we said before, Quarkus can also cache\n"
 "`null` values. Which means that the next call to `callRemote()` with the same parameter value\n"
 "will be answered out of the cache, returning `null` and no remote call will be done.\n"
 "This may be desired in some scenarios, but usually one wants to retry the remote call until it returns a result."
-msgstr ""
+msgstr "Este enfoque tiene un desafortunado efecto secundario: como dijimos antes, Quarkus también puede almacenar en caché los valores de `null` . Lo que significa que la siguiente llamada a `callRemote()` con el mismo valor de parámetro será respondida fuera de la caché, devolviendo `null` y no se realizará ninguna llamada remota. Esto puede ser deseable en algunos escenarios, pero normalmente uno quiere reintentar la llamada remota hasta que devuelva un resultado."
 
 #. type: Title ===
 #: _guides/cache.adoc
@@ -924,10 +963,11 @@ msgid "Let exceptions bubble up"
 msgstr "Deja que las excepciones surjan"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "To prevent the cache from caching (marker) results from a remote call, we need to let\n"
 "the exception bubble out of the called method and catch it at the caller side:"
-msgstr ""
+msgstr "Para evitar que la caché almacene (marque) los resultados de una llamada remota, tenemos que dejar que la excepción salga del método llamado y atraparla en el lado del llamante:"
 
 #. type: Block title
 #: _guides/cache.adoc
@@ -948,12 +988,13 @@ msgid "This can throw all kinds of remote exceptions"
 msgstr "Esto puede lanzar todo tipo de excepciones remotas"
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "When the call to the remote throws an exception, the cache does not store the result,\n"
 "so that a subsequent call to `callRemote()` with the same parameter value will not be\n"
 "answered out of the cache.\n"
 "It will instead result in another attempt to call the remote."
-msgstr ""
+msgstr "Cuando la llamada a la remota lanza una excepción, la caché no almacena el resultado, de modo que una llamada posterior a `callRemote()` con el mismo valor de parámetro no será respondida fuera de la caché. En su lugar, dará lugar a otro intento de llamada a la remota."
 
 #. type: Title ==
 #: _guides/cache.adoc
@@ -968,11 +1009,12 @@ msgid "The Cache extension supports building native executables."
 msgstr "La extensión Cache soporta la construcción de ejecutables nativos."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "However, to optimize runtime memory, Caffeine embarks many cache implementation classes that are selected depending on the cache configuration.\n"
 "We are not registering all of them for reflection\n"
 "(and the ones not registered are not included into the native executables) as registering all of them would be very costly."
-msgstr ""
+msgstr "Sin embargo, para optimizar la memoria en tiempo de ejecución, Caffeine embarca muchas clases de implementación de caché que se seleccionan en función de la configuración de la caché. No las registramos todas para la reflexión (y las que no se registran no se incluyen en los ejecutables nativos), ya que registrarlas todas sería muy costoso."
 
 #. type: Plain text
 #: _guides/cache.adoc
@@ -987,10 +1029,11 @@ msgid "`PSAMS` is one of the many cache implementation classes of Caffeine so th
 msgstr "`PSAMS` es una de las muchas clases de implementación de caché de Caffeine, por lo que esta parte puede variar."
 
 #: _guides/cache.adoc
+#, fuzzy
 msgid ""
 "When you encounter this error, you can easily fix it by adding the following annotation to any of your application classes\n"
 "(or you can create a new class such as `Reflections` just to host this annotation if you prefer):"
-msgstr ""
+msgstr "Cuando se encuentre con este error, puede solucionarlo fácilmente añadiendo la siguiente anotación a cualquiera de sus clases de aplicación (o puede crear una nueva clase como `Reflections` sólo para alojar esta anotación si lo prefiere):"
 
 #. type: Plain text
 #: _guides/cache.adoc

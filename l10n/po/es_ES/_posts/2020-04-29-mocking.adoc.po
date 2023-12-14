@@ -29,6 +29,7 @@ msgid "Quarkus 1.4 introduces some interesting new capabilities for mocking CDI 
 msgstr "Quarkus 1.4 introduce algunas capacidades nuevas e interesantes para imitar los beans CDI."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Testing Quarkus applications has been an important part of the Quarkus Developer Joy, which is why\n"
 "`@QuarkusTest` for testing JVM applications and `@NativeTest` for black-box testing of the native images have been\n"
@@ -37,7 +38,7 @@ msgid ""
 "mock certain CDI beans for specific tests. This post will introduce the new mocking capabilities\n"
 "that `1.4` brings which aim to address those concerns, while also providing a glimpse of additional\n"
 "improvements in this are that will be part of `1.5`."
-msgstr ""
+msgstr "Probar las aplicaciones de Quarkus ha sido una parte importante de la alegría de los desarrolladores de Quarkus, razón por la cual `@QuarkusTest` para probar aplicaciones JVM y `@NativeTest` para pruebas de caja negra de las imágenes nativas han formado parte de Quarkus desde la primera versión. Sin embargo, una petición recurrente entre los miembros de nuestra comunidad ha sido que Quarkus les permita burlarse selectivamente de ciertos beans CDI para pruebas específicas. Este post presentará las nuevas capacidades de mocking que aporta `1.4` y que pretenden dar respuesta a esas preocupaciones, al tiempo que ofrece un vistazo a las mejoras adicionales en este ámbito que formarán parte de `1.5` ."
 
 #. type: Title ==
 #: _posts/2020-04-29-mocking.adoc
@@ -52,18 +53,20 @@ msgid "Let us assume that a Quarkus application contains the following (purely c
 msgstr "Supongamos que una aplicación Quarkus contiene el siguiente bean (puramente inventado):"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "When testing the `generateSendInvoice` method we most likely don't want to use the actual `InvoiceNotificationService` as it would\n"
 "result in sending real notifications. With the old Quarkus approach one could \"override\"\n"
 "the `InvoiceNotificationService` in tests by adding the following bean in the test sources:"
-msgstr ""
+msgstr "Al probar el método `generateSendInvoice` lo más probable es que no queramos utilizar el `InvoiceNotificationService` real, ya que daría lugar al envío de notificaciones reales. Con el antiguo enfoque de Quarkus se podía \"anular\" el `InvoiceNotificationService` en las pruebas añadiendo el siguiente bean en los fuentes de prueba:"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "When Quarkus scanned this code, the use of `@Mock` would result in `MockInvoiceNotificationService` being used as\n"
 "the implementation of `InvoiceNotificationService` in every place where a `InvoiceNotificationService` bean was injected\n"
 "(in CDI terms this is called an injection point)."
-msgstr ""
+msgstr "Cuando Quarkus escaneó este código, el uso de `@Mock` tendría como resultado que `MockInvoiceNotificationService` se utilizaría como la implementación de `InvoiceNotificationService` en cada lugar en el que se inyectara un bean `InvoiceNotificationService` (en términos CDI esto se denomina punto de inyección)."
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -72,24 +75,27 @@ msgid "Although this mechanism is fairly straightforward to use, it nonetheless 
 msgstr "Aunque este mecanismo es bastante sencillo de utilizar, adolece de algunos problemas:"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "A new class (or a new CDI producer method) needs to be used for each bean type that requires a mock. In a large application where a lot of\n"
 "mocks are needed, the amount of boilerplate code increases unacceptably."
-msgstr ""
+msgstr "Es necesario utilizar una nueva clase (o un nuevo método productor CDI) para cada tipo de frijol que requiera un mock. En una aplicación grande en la que se necesiten muchos mocks, la cantidad de código boilerplate aumenta de forma inaceptable."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "There is no way for a mock to be used for certain tests only. This is due to the fact that beans that are annotated with `@Mock` are normal\n"
 "CDI beans (and are therefore used throughout the application).\n"
 "Depending on what needs to be tested, this can be very problematic."
-msgstr ""
+msgstr "No hay forma de que un simulacro se utilice únicamente para determinadas pruebas. Esto se debe al hecho de que los beans anotados con `@Mock` son beans CDI normales (y, por tanto, se utilizan en toda la aplicación). Dependiendo de lo que haya que probar, esto puede resultar muy problemático."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "There is a no out of the box integration with https://site.mockito.org/[Mockito], which is the de-facto standard for\n"
 "mocking in Java applications. Users can certainly use Mockito (most commonly by using a CDI producer method), but there\n"
 "is boilerplate code involved."
-msgstr ""
+msgstr "No hay una integración \"out of the box\" con link:https://site.mockito.org/[Mockito] , que es el estándar de-facto para mocking en aplicaciones Java. Los usuarios pueden ciertamente utilizar Mockito (más comúnmente mediante el uso de un método productor CDI), pero hay código boilerplate involucrado."
 
 #. type: Title ==
 #: _posts/2020-04-29-mocking.adoc
@@ -98,11 +104,12 @@ msgid "New approach"
 msgstr "Nuevo enfoque"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Starting with Quarkus `1.4`, users have the ability to create and inject per-test mocks for normal scoped CDI beans using\n"
 "`io.quarkus.test.junit.QuarkusMock`. Moreover, Quarkus provides out of the box integration with Mockito\n"
 "allowing for zero effort mocking of CDI beans using the `io.quarkus.test.junit.mockito.@InjectMock` annotation."
-msgstr ""
+msgstr "A partir de Quarkus `1.4` , los usuarios tienen la posibilidad de crear e inyectar mocks por prueba para beans CDI de ámbito normal utilizando `io.quarkus.test.junit.QuarkusMock` . Además, Quarkus proporciona una integración inmediata con Mockito que permite realizar un mocking sin esfuerzo de los beans CDI utilizando la anotación `io.quarkus.test.junit.mockito.@InjectMock` ."
 
 #. type: Title ===
 #: _posts/2020-04-29-mocking.adoc
@@ -111,20 +118,23 @@ msgid "Using QuarkusMock"
 msgstr "Uso de QuarkusMock"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "`QuarkusMock` provides the foundation for mocking normal scoped CDI beans and is also used under the hood by `@InjectMock`, so let us examine\n"
 "it first. The best way to do this is using an example:"
-msgstr ""
+msgstr "`QuarkusMock` proporciona la base para el mocking de beans CDI de ámbito normal y también es utilizado bajo el capó por `@InjectMock` , así que examinémoslo primero. La mejor manera de hacerlo es utilizando un ejemplo:"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid "This part of the  example uses Mockito for convenience's sake only. `QuarkusMock` is not tied to Mockito in any way."
-msgstr ""
+msgstr "Esta parte del ejemplo utiliza Mockito sólo por comodidad. `QuarkusMock` no está vinculado a Mockito de ninguna manera."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "We use `QuarkusMock.installMockForType()` because the injected bean instance is not yet available. Very important to note is that\n"
 "the mock setup in a JUnit `@BeforeAll` method, is used for *all* test methods of the class (other test classes are *not* affected by this)."
-msgstr ""
+msgstr "Utilizamos `QuarkusMock.installMockForType()` porque la instancia del bean inyectado aún no está disponible. Es muy importante tener en cuenta que la configuración del simulacro en un método JUnit `@BeforeAll` , se utiliza para *todos los* métodos de prueba de la clase (otras clases de prueba *no* se ven afectadas por esto)."
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -151,10 +161,11 @@ msgid "As we used `BonjourMockableBean2` as a mock `MockableBean2`, this class i
 msgstr "Como hemos utilizado `BonjourMockableBean2` como simulacro de `MockableBean2`, ahora se utiliza esta clase."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "`QuarkusMock` can be used for any normal scoped CDI bean - the most common of which are `@ApplicationScoped` and `@RequestScoped`.\n"
 "This means that beans with `@Singleton` and `@Dependent` scope *cannot* be used with `QuarkusMock`."
-msgstr ""
+msgstr "`QuarkusMock` puede utilizarse para cualquier frijol CDI de ámbito normal, los más comunes de los cuales son `@ApplicationScoped` y `@RequestScoped` . Esto significa que los beans con ámbito `@Singleton` y `@Dependent` *no pueden* utilizarse con `QuarkusMock` ."
 
 #. type: delimited block =
 #: _posts/2020-04-29-mocking.adoc
@@ -163,28 +174,32 @@ msgid "Furthermore, `QuarkusMock` will not work properly when it's used in tests
 msgstr "Además, `QuarkusMock` no funcionará correctamente cuando se utilice en pruebas que se ejecuten en paralelo en la misma JVM."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Returning to the original example of the blog post, we could get rid of the `MockInvoiceNotificationService` class and\n"
 "instead use something like the following:"
-msgstr ""
+msgstr "Volviendo al ejemplo original de la entrada del blog, podríamos deshacernos de la clase `MockInvoiceNotificationService` y utilizar en su lugar algo como lo siguiente:"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Note that in this case we don't need to create a new class implementing `InvoiceNotificationService`.\n"
 "Moreover, we have full and per test control over the mock, something which grants up a lot of flexibility when writing tests."
-msgstr ""
+msgstr "Observe que en este caso no necesitamos crear una nueva clase que implemente `InvoiceNotificationService` . Además, tenemos un control total y por prueba sobre el simulacro, algo que otorga mucha flexibilidad a la hora de escribir pruebas."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "For example, if we had some other test where we did want to use the real `InvoiceNotificationService`, then in that test\n"
 "we would simply not do any mocking of `InvoiceNotificationService`."
-msgstr ""
+msgstr "Por ejemplo, si tuviéramos alguna otra prueba en la que sí quisiéramos utilizar el `InvoiceNotificationService` real, entonces en esa prueba simplemente no haríamos ninguna burla de `InvoiceNotificationService` ."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "If yet another test needed to mock `InvoiceNotificationService` in some other way, then it would be perfectly free to do so,\n"
 "using the same method `OrderServiceTest` uses, without causing any problems to the other tests."
-msgstr ""
+msgstr "Si otra prueba necesitara burlarse de `InvoiceNotificationService` de alguna otra manera, entonces sería perfectamente libre de hacerlo, utilizando el mismo método que utiliza `OrderServiceTest` , sin causar ningún problema a las otras pruebas."
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -199,11 +214,12 @@ msgid "Using @InjectMock"
 msgstr "Uso de @InjectMock"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Hopefully the previous section convinced you of the merits of `QuarkusMock` over the old approach. You might also be wondering\n"
 "however if there is a way to reduce boilerplate code even further and provide tighter integration with Mockito. That is\n"
 "where `@InjectMock` comes in handy."
-msgstr ""
+msgstr "Esperemos que la sección anterior le haya convencido de las ventajas de `QuarkusMock` sobre el antiguo enfoque. Sin embargo, puede que se esté preguntando si existe alguna forma de reducir aún más el código repetitivo y proporcionar una integración más estrecha con Mockito. Ahí es donde `@InjectMock` resulta útil."
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -248,11 +264,12 @@ msgid "Since `@InjectMock` uses `QuarkusMock` under the hood, the same limitatio
 msgstr "Dado que `@InjectMock` utiliza `QuarkusMock` bajo el capó, se aplican las mismas limitaciones a su uso."
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Additionally, `@InjectMock` works like an injection point for the bean, so for it to work properly when\n"
 "the target bean uses CDI qualifiers, those qualifiers also need to be added to the field.\n"
 "We will see an example of this in next section about mocking a `@RestClient` bean."
-msgstr ""
+msgstr "Además, `@InjectMock` funciona como un punto de inyección para el bean, por lo que para que funcione correctamente cuando el bean de destino utilice calificadores CDI, dichos calificadores también deberán añadirse al campo. Veremos un ejemplo de esto en la próxima sección sobre mocking a un bean `@RestClient` ."
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -267,10 +284,11 @@ msgid "Using @InjectMock with @RestClient"
 msgstr "Uso de @InjectMock con @RestClient"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "A very common need is to mock `@RestClient` beans. Thankfully it's a need well covered by `@InjectMock` - as long\n"
 "as two principles are followed:"
-msgstr ""
+msgstr "Una necesidad muy común es burlarse de los frijoles de `@RestClient` . Afortunadamente es una necesidad bien cubierta por `@InjectMock` - siempre que se sigan dos principios:"
 
 #. type: Plain text
 #: _posts/2020-04-29-mocking.adoc
@@ -315,8 +333,9 @@ msgid "More Mocking in Quarkus 1.5"
 msgstr "Más burlas en Quarkus 1.5"
 
 #: _posts/2020-04-29-mocking.adoc
+#, fuzzy
 msgid ""
 "Quarkus 1.5 will ship with a new testing module (`quarkus-panache-mock`) that will make mocking Panache entities a breeze.\n"
 "If you are eager to see what this feature is all about, check out https://github.com/quarkusio/quarkus/blob/3a5680ea367c5dad60655dcef0ca9765f14d5efe/docs/src/main/asciidoc/getting-started-testing.adoc#73-mocking-with-panache[this]\n"
 "and feel free to give us early feedback."
-msgstr ""
+msgstr "Quarkus 1.5 se enviará con un nuevo módulo de pruebas ( `quarkus-panache-mock` ) que hará que la simulación de entidades Panache sea pan comido. Si usted está ansioso por ver de qué se trata esta característica, echa un vistazo a link:https://github.com/quarkusio/quarkus/blob/3a5680ea367c5dad60655dcef0ca9765f14d5efe/docs/src/main/asciidoc/getting-started-testing.adoc#73-mocking-with-panache[esto] y no dude en darnos retroalimentación temprana."

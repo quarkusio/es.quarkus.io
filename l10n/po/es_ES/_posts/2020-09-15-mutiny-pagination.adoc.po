@@ -29,6 +29,7 @@ msgid "How to use API using pagination with Mutiny"
 msgstr "Cómo utilizar la API mediante la paginación con Mutiny"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "At the beginning of the Mutiny adventure, my friend Alex came to me with an interesting problem.\n"
 "Alex wanted to retrieve data from a REST service in a reactive manner.\n"
@@ -37,25 +38,28 @@ msgid ""
 "Ah! That makes things a bit more spicy.\n"
 "Alex wanted to retrieve all the items and consume them as a stream, but you can't retrieve the items in one batch.\n"
 "You need to invoke the service for every page, extract the items and feed the stream."
-msgstr ""
+msgstr "Al principio de la aventura Mutiny, mi amigo Alex acudió a mí con un problema interesante. Alex quería recuperar datos de un servicio REST de forma reactiva. Hasta aquí, ningún problema, tenemos todo para ello en nuestra caja de herramientas. Pero, este servicio, como muchos otros, utiliza paginación. Eso pone las cosas un poco más picantes. Alex quería recuperar todos los elementos y consumirlos como un flujo, pero no puede recuperar los elementos en un lote. Necesita invocar el servicio para cada página, extraer los elementos y alimentar el flujo."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "So, how to achieve this in a reactive manner and build a proper stream of items without loosing your sanity?\n"
 "Let's have a look!"
-msgstr ""
+msgstr "Entonces, ¿cómo conseguirlo de forma reactiva y construir un flujo adecuado de artículos sin perder la cordura? ¡Echemos un vistazo!"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "The Punk API"
-msgstr ""
+msgstr "La API punk"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "First, we need an API.\n"
 "Alex introduced me to the https://punkapi.com/documentation/v2[Punk API], a REST API to retrieve beers.\n"
 "That's fun, and even better, it uses pagination.\n"
 "We got our API!"
-msgstr ""
+msgstr "En primer lugar, necesitamos una API. Alex me presentó la API link:https://punkapi.com/documentation/v2[Punk] , una API REST para recuperar cervezas. Es divertido, y aún mejor, utiliza la paginación. ¡Ya tenemos nuestra API!"
 
 #. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
@@ -64,13 +68,14 @@ msgid "If you call `https://api.punkapi.com/v2/beers?page=1`, you get a JSON arr
 msgstr "Si llamas a `&lt;a href=\"https://api.punkapi.com/v2/beers?page=1\" class=\"bare\"&gt;https://api.punkapi.com/v2/beers?page=1&lt;/a&gt;`se obtiene un array JSON como"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "I won't show discuss the content of each object, the documentation page does a great job about that.\n"
 "Let's focus on the pagination aspect.\n"
 "First, we passed the `page` query parameter, indicating which page we want.\n"
 "Generally, when you retrieve a page, the API provides a way to know if there is a next page (a special field in the JSON document, or HTTP header), but the Punk API does not provide any hint.\n"
 "So, to retrieve all the beers, we need to invoke the service for page 1, 2, 3... until the returned JSON array is empty."
-msgstr ""
+msgstr "No voy a discutir el contenido de cada objeto, la página de documentación hace un gran trabajo al respecto. Centrémonos en el aspecto de la paginación. En primer lugar, pasamos el parámetro de consulta `page` , indicando qué página queremos. Generalmente, cuando se recupera una página, la API proporciona una forma de saber si hay una página siguiente (un campo especial en el documento JSON, o una cabecera HTTP), pero la API de Punk no proporciona ninguna pista. Así que, para recuperar todas las cervezas, necesitamos invocar el servicio para la página 1, 2, 3... hasta que la matriz JSON devuelta esté vacía."
 
 #. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
@@ -97,20 +102,23 @@ msgid "Let's proceed step by step."
 msgstr "Procedamos paso a paso."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "Retrieving a single page"
-msgstr ""
+msgstr "Recuperación de una sola página"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "First, we need to see how we can retrieve a single page.\n"
 "I'm going to use the Vert.x Web Client, but you can use any reactive HTTP clients providing a Mutiny API."
-msgstr ""
+msgstr "En primer lugar, tenemos que ver cómo podemos recuperar una sola página. Voy a utilizar el cliente web Vert.x, pero puede utilizar cualquier cliente HTTP reactivo que proporcione una API Mutiny."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "This snippet creates the web client.\n"
 "Then, we use that client and retrieve the first page."
-msgstr ""
+msgstr "Este fragmento crea el cliente web. A continuación, utilizamos ese cliente y recuperamos la primera página."
 
 #. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
@@ -131,53 +139,61 @@ msgid "So far, so good."
 msgstr "Hasta ahora, todo va bien."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "Retrieving multiple page"
-msgstr ""
+msgstr "Recuperación de varias páginas"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "So, now, we know how to retrieve a single page and extract the items from it.\n"
 "We just need to repeat this operation for every page, and provide a stream."
-msgstr ""
+msgstr "Así pues, ahora sabemos cómo recuperar una sola página y extraer los elementos de ella. Sólo tenemos que repetir esta operación para cada página y proporcionar un flujo."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "Mutiny provides a method to create a `Multi` by repeating multiple times a `Uni`.\n"
 "Under the hood, it calls a method returning a `Uni` and subscribe on it.\n"
 "But we need to make _progress_, and pass the current page.\n"
 "Mutiny offers the possibility to store a state in order to let the method creating the `Uni` increments the page number:"
-msgstr ""
+msgstr "Mutiny proporciona un método para crear un `Multi` repitiendo varias veces un `Uni` . Bajo el capó, llama a un método que devuelve un `Uni` y se suscribe en él. Pero necesitamos _avanzar_ y pasar la página actual. Mutiny ofrece la posibilidad de almacenar un estado para permitir que el método que crea el `Uni` incremente el número de página:"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "This code above creates a stream with the item emitted by the `Unis` returned by the `getPage` method.\n"
 "We increment the page number (stored in an `AtomicInteger`) every time.\n"
 "So, it retrieves the page 1, 2, 3 ... and every time emits the received `List<Beer>` downstream."
-msgstr ""
+msgstr "Este código anterior crea un flujo con el elemento emitido por el `Unis` devuelto por el método `getPage` . Incrementamos el número de página (almacenado en un `AtomicInteger` ) cada vez. Así, recupera la página 1, 2, 3 ... y cada vez emite el `List<Beer>` recibido aguas abajo."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "However, at some point, we must stop.\n"
 "As we said earlier, we can stop when the returned list is empty:"
-msgstr ""
+msgstr "Sin embargo, en algún momento debemos detenernos. Como dijimos antes, podemos detenernos cuando la lista devuelta esté vacía:"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "The `until` clause indicates when the iteration must be stopped.\n"
 "It receives the retrieved list (produced by `getPage`), and when this list is empty, stops the repetition.\n"
 "If the list still contains beers, it retrieves the next page."
-msgstr ""
+msgstr "La cláusula `until` indica cuándo debe detenerse la iteración. Recibe la lista recuperada (producida por `getPage` ), y cuando esta lista está vacía, detiene la repetición. Si la lista aún contiene cervezas, recupera la página siguiente."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "Unpacking the beers"
-msgstr ""
+msgstr "Desembalaje de las cervezas"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "We now have a stream of list, and each list contain a set of beers.\n"
 "We are almost there, but Alex wants a stream of beer.\n"
 "So we need to unpack the beers."
-msgstr ""
+msgstr "Ahora tenemos un flujo de lista, y cada lista contiene un conjunto de cervezas. Ya casi lo tenemos, pero Alex quiere un flujo de cervezas. Así que tenemos que desempaquetar las cervezas."
 
 #. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
@@ -210,29 +226,34 @@ msgid "And we are done!"
 msgstr "¡Y ya está!"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "The benefits of reactive"
-msgstr ""
+msgstr "Las ventajas de la reactividad"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "We have our stream, it's time to use it!\n"
 "Let's, for example, retrieve the first 10 beers with \"IPA\" (let's be trendy) in their description:"
-msgstr ""
+msgstr "Ya tenemos nuestro flujo, ¡es hora de utilizarlo! Recuperemos, por ejemplo, las 10 primeras cervezas con \"IPA\" (seamos modernos) en su descripción:"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "The advantage of our stream is that we won't retrieve every page.\n"
 "As soon as we have enough beers, we stop the repetition.\n"
 "How? Because it informs the upstream that it does not need more items (*cancellation*) and that stops the repetition.\n"
 "So, retrieving items from paginated APIs this way can reduce the number of requests and, as a consequence the load on the remote service."
-msgstr ""
+msgstr "La ventaja de nuestro flujo es que no recuperaremos todas las páginas. En cuanto tengamos suficientes cervezas, detendremos la repetición. ¿Cómo? Porque informa al flujo ascendente de que no necesita más elementos *(cancelación* ) y eso detiene la repetición. Así pues, recuperar elementos de API paginadas de esta forma puede reducir el número de peticiones y, en consecuencia, la carga del servicio remoto."
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid "Feel thirsty?"
-msgstr ""
+msgstr "¿Tiene sed?"
 
 #: _posts/2020-09-15-mutiny-pagination.adoc
+#, fuzzy
 msgid ""
 "Wanna try this code, checkout this https://gist.github.com/cescoffier/18a326a5c057392bec54d95ec5a06ca6[gist].\n"
 "You can run it immediately with jbang:"
-msgstr ""
+msgstr "Si quiere probar este código, consulte este link:https://gist.github.com/cescoffier/18a326a5c057392bec54d95ec5a06ca6[gist] . Puede ejecutarlo inmediatamente con jbang:"

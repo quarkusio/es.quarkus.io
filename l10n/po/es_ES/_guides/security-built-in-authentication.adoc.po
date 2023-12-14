@@ -29,7 +29,7 @@ msgstr "Soporte de autenticación incorporado"
 #: upstream/_guides/security-built-in-authentication.adoc:11
 #, fuzzy
 msgid "The following section describes the Quarkus built-in authentication mechanisms for HTTP based FORM, BASIC, and Mutual TLS authentication. Proactive authentication is also described."
-msgstr "Este documento describe los mecanismos de autenticación incorporados en Quarkus para la autenticación FORM basada en HTTP, BASIC y Mutual TLS, así como la autenticación proactiva."
+msgstr "En la siguiente sección se describen los mecanismos de autenticación incorporados en Quarkus para la autenticación HTTP basada en FORM, BASIC y Mutual TLS. También se describe la autenticación proactiva."
 
 #. type: Title ==
 #: upstream/_guides/security-built-in-authentication.adoc:18
@@ -41,7 +41,7 @@ msgstr "Autenticación basada en formularios"
 #: upstream/_guides/security-built-in-authentication.adoc:24
 #, fuzzy
 msgid "Quarkus provides form based authentication that works in a similar manner to traditional Servlet form based auth. Unlike traditional form authentication, the authenticated user is not stored in an HTTP session, as Quarkus does not provide clustered HTTP session support. Instead, the authentication information is stored in an encrypted cookie, which can be read by all members of the cluster (provided they all share the same encryption key)."
-msgstr "Quarkus proporciona una autenticación basada en formularios que funciona de manera similar a la autenticación tradicional basada en formularios Servlet. A diferencia de la autenticación tradicional de formularios, el usuario autenticado no se almacena en una sesión HTTP, ya que Quarkus no proporciona soporte para sesiones HTTP agrupadas. En su lugar, la información de autenticación se almacena en una cookie encriptada, que puede ser leída por todos los miembros del clúster (siempre que todos compartan la misma clave de encriptación)."
+msgstr "Quarkus proporciona autenticación basada en formularios que funciona de manera similar a la autenticación tradicional basada en formularios Servlet. A diferencia de la autenticación de formulario tradicional, el usuario autenticado no se almacena en una sesión HTTP, ya que Quarkus no proporciona soporte de sesión HTTP agrupada. En su lugar, la información de autenticación se almacena en una cookie cifrada, que puede ser leída por todos los miembros del clúster (siempre que todos compartan la misma clave de cifrado)."
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:30
@@ -180,7 +180,7 @@ msgstr "Autorización"
 #: upstream/_guides/security-built-in-authentication.adoc:98
 #, fuzzy
 msgid "The information from the client certificate can be used to enhance Quarkus `SecurityIdentity`. For example, one can add new roles after checking a client certificate subject name, and so on.  Please see the xref:security-customization.adoc#security-identity-customization[SecurityIdentity Customization] section for more information about customizing Quarkus `SecurityIdentity`."
-msgstr "La información del certificado del cliente puede utilizarse para mejorar Quarkus `SecurityIdentity`. Por ejemplo, se pueden añadir nuevos roles después de comprobar el nombre del sujeto del certificado del cliente, etc. Consulte la sección xref:security-customization.html#security-identity-customization[Personalización de SecurityIdentity] para obtener más información sobre la personalización de Quarkus `SecurityIdentity`."
+msgstr "La información del certificado de cliente puede utilizarse para mejorar Quarkus `SecurityIdentity`. Por ejemplo, se pueden añadir nuevas funciones después de comprobar el nombre del sujeto de un certificado de cliente, etc. Consulte la sección  link:security-customization.html#security-identity-customization[Personalización de SecurityIdentity] para obtener más información sobre la personalización de Quarkus `SecurityIdentity`."
 
 #. type: Title ==
 #: upstream/_guides/security-built-in-authentication.adoc:100
@@ -192,7 +192,7 @@ msgstr "Autenticación proactiva"
 #: upstream/_guides/security-built-in-authentication.adoc:104
 #, fuzzy
 msgid "By default, Quarkus does what we call proactive authentication. This means that if an incoming request has a credential then that request will always be authenticated (even if the target page does not require authentication)."
-msgstr "Por defecto Quarkus hace lo que llamamos autenticación proactiva. Esto significa que si una solicitud entrante tiene una credencial entonces esa solicitud siempre será autenticada (incluso si la página de destino no requiere autenticación)."
+msgstr "Por defecto, Quarkus hace lo que llamamos autenticación proactiva. Esto significa que si una solicitud entrante tiene una credencial, entonces esa solicitud siempre será autenticada (incluso si la página de destino no requiere autenticación)."
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:107
@@ -208,25 +208,25 @@ msgstr "Si desactiva la autenticación proactiva, el proceso de autenticación s
 #: upstream/_guides/security-built-in-authentication.adoc:119
 #, fuzzy
 msgid "Note that if proactive authentication is in use accessing the `SecurityIdentity` is a blocking operation. This is because authentication may not have happened yet, and accessing it may require calls to external systems such as databases that may block. For blocking applications this is no problem, however if you have disabled authentication in a reactive application this will fail (as you cannot do blocking operations on the IO thread). To work around this you need to `@Inject` an instance of `io.quarkus.security.identity.CurrentIdentityAssociation`, and call the `Uni<SecurityIdentity> getDeferredIdentity();` method. You can then subscribe to the resulting `Uni` and will be notified when authentication is complete and the identity is available."
-msgstr "Tenga en cuenta que si se utiliza la autenticación proactiva, el acceso a `SecurityIdentity` es una operación de bloqueo. Esto se debe a que la autenticación puede no haber ocurrido todavía, y el acceso puede requerir llamadas a sistemas externos como bases de datos que pueden bloquearse. Para las aplicaciones de bloqueo esto no es un problema, sin embargo, si has desactivado la autenticación en una aplicación reactiva esto fallará (ya que no puedes hacer operaciones de bloqueo en el hilo IO). Para solucionar esto, es necesario `@Inject` una instancia de `io.quarkus.security.identity.CurrentIdentityAssociation`, y llamar al método `Uni<SecurityIdentity>`. Entonces puedes suscribirte al `Uni` resultante y serás notificado cuando la autenticación se complete y la identidad esté disponible."
+msgstr "Ten en cuenta que si se utiliza la autenticación proactiva, acceder a `SecurityIdentity` es una operación que se bloquea. Esto se debe a que la autenticación puede no haber ocurrido todavía, y acceder a ella puede requerir llamadas a sistemas externos como bases de datos que pueden bloquearse. Para aplicaciones bloqueantes esto no es problema, sin embargo si has deshabilitado la autenticación en una aplicación reactiva esto fallará (ya que no puedes hacer operaciones bloqueantes en el hilo IO). Para evitarlo, debe crear una instancia de `io.quarkus.security.identity.CurrentIdentityAssociation` en `@Inject` y llamar al método `Uni&amp;lt;SecurityIdentity&amp;gt; getDeferredIdentity();`. Entonces puedes suscribirte al `Uni` resultante y serás notificado cuando la autenticación se complete y la identidad esté disponible."
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:124
 #, fuzzy
 msgid "It's still possible to access the `SecurityIdentity` synchronously with `public SecurityIdentity getIdentity()` in the xref:resteasy-reactive.adoc[RESTEasy Reactive] from endpoints annotated with `@RolesAllowed`, `@Authenticated`, or with respective configuration authorization checks as authentication has already happened. The same is also valid for the xref:reactive-routes.adoc[Reactive routes] if a route response is synchronous."
-msgstr "Sigue siendo posible acceder a `SecurityIdentity` de forma sincrónica con `public SecurityIdentity getIdentity()` en el  link:resteasy-reactive.html[RESTEasy Reactive] desde puntos finales anotados con `@RolesAllowed`, `@Authenticated`, o con las respectivas comprobaciones de autorización de la configuración, ya que la autenticación ya se ha producido. Lo mismo es válido para las  link:reactive-routes.html[rutas] Reactive si una respuesta de ruta es sincrónica."
+msgstr "Sigue siendo posible acceder a `SecurityIdentity` de forma sincrónica con `public SecurityIdentity getIdentity()` en  link:resteasy-reactive.html[RESTEasy Reactive] desde endpoints anotados con `@RolesAllowed`, `@Authenticated`, o con las respectivas comprobaciones de autorización de configuración, ya que la autenticación ya se ha producido. Lo mismo es válido para las  link:reactive-routes.html[rutas Re] active si una respuesta de ruta es sincrónica."
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:128
 #, fuzzy
 msgid "xref:security-authorization.adoc#standard-security-annotations[Standard security annotations] on CDI beans are not supported on IO thread if a non-void secured method returns a value synchronously and proactive authentication is disabled, as they need to access the `SecurityIdentity`.  In the example below, we have defined `HelloResource` and `HelloService`. It's easy to see that any GET request to `/hello` will run on IO thread and throw `BlockingOperationNotAllowedException` exception.  There is more than one way to fix the example:"
-msgstr "Las  link:security-authorization.html#standard-security-annotations[anotaciones de seguridad estándar] en los beans CDI no son compatibles con el hilo IO si un método asegurado no vacío devuelve un valor de forma sincrónica y la autenticación proactiva está deshabilitada, ya que necesitan acceder a la `SecurityIdentity`. En el ejemplo siguiente, hemos definido `HelloResource` y `HelloService`. Es fácil ver que cualquier petición GET a `/hello` se ejecutará en el hilo IO y lanzará la excepción `BlockingOperationNotAllowedException`. Hay más de una forma de arreglar el ejemplo:"
+msgstr "Las  link:security-authorization.html#standard-security-annotations[anotaciones de seguridad estándar] en beans CDI no son soportadas en el hilo IO si un método asegurado no vacío devuelve un valor de forma síncrona y la autenticación proactiva está deshabilitada, ya que necesitan acceder a `SecurityIdentity`. En el ejemplo de abajo, hemos definido `HelloResource` y `HelloService`. Es fácil ver que cualquier petición GET a `/hello` se ejecutará en el hilo IO y lanzará la excepción `BlockingOperationNotAllowedException`. Hay más de una forma de arreglar el ejemplo:"
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:130
 #, fuzzy
 msgid "switch to a worker thread (annotate `hello` endpoint with `@Blocking`)"
-msgstr "cambiar a un hilo de trabajo (anotar `hello` endpoint con `@Blocking`)"
+msgstr "cambiar a un hilo trabajador (anotar `hello` endpoint con `@Blocking`)"
 
 #. type: Plain text
 #: upstream/_guides/security-built-in-authentication.adoc:131
@@ -238,7 +238,7 @@ msgstr "cambiar el tipo de retorno del método `sayHello` (utilizar un tipo de d
 #: upstream/_guides/security-built-in-authentication.adoc:132
 #, fuzzy
 msgid "arguably the safest way is to move `@RolesAllowed` annotation to the endpoint, as accessing `SecurityIdentity` from endpoint methods is never the blocking operation"
-msgstr "Podría decirse que la forma más segura es mover la anotación `@RolesAllowed` al punto final, ya que el acceso a `SecurityIdentity` desde los métodos del punto final nunca es una operación de bloqueo"
+msgstr "Podría decirse que la forma más segura es mover la anotación `@RolesAllowed` al endpoint, ya que acceder a `SecurityIdentity` desde los métodos del endpoint nunca es una operación de bloqueo."
 
 #. type: delimited block -
 #: upstream/_guides/security-built-in-authentication.adoc:139
@@ -471,7 +471,7 @@ msgstr "xref:security.html[Seguridad Quarkus]"
 
 #, fuzzy
 #~ msgid "Credentials are sent as plain text"
-#~ msgstr "Las credenciales se envían como texto plano"
+#~ msgstr "Las credenciales se envían como texto sin formato"
 
 #, fuzzy
 #~ msgid "It is required to use HTTPS with Basic Authentication to avoid exposing the credentials. However, if the load balancer terminates HTTPS, the risk of exposing credentials as plain text increases when a request is forwarded to Quarkus over HTTP."
@@ -491,7 +491,7 @@ msgstr "xref:security.html[Seguridad Quarkus]"
 
 #, fuzzy
 #~ msgid "Application complexity increases"
-#~ msgstr "La complejidad de la aplicación aumenta"
+#~ msgstr "Aumenta la complejidad de las aplicaciones"
 
 #, fuzzy
 #~ msgid "The Quarkus application needs to ensure itself that usernames, passwords, and roles are managed securely, which increases the application complexity."

@@ -29,24 +29,27 @@ msgid "How to Use Kafka, Schema Registry, and Avro with Quarkus"
 msgstr "Cómo utilizar Kafka, Schema Registry y Avro con Quarkus"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "In the Kafka world, Apache Avro is by far the most used serialization protocol.\n"
 "Avro is a data serialization system.\n"
 "Combined with Kafka, it provides schema-based, robust, and fast binary serialization."
-msgstr ""
+msgstr "En el mundo Kafka, Apache Avro es con diferencia el protocolo de serialización más utilizado. Avro es un sistema de serialización de datos. Combinado con Kafka, proporciona una serialización binaria basada en esquemas, robusta y rápida."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "In this blog post, we will see how you can use Avro with a schema registry in a Quarkus application.\n"
 "This blog focuses on the JVM mode.\n"
 "We will cover the native mode in another post."
-msgstr ""
+msgstr "En esta entrada del blog, veremos cómo se puede utilizar Avro con un registro de esquemas en una aplicación Quarkus. Este blog se centra en el modo JVM. Cubriremos el modo nativo en otro post."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "We will write a simple application receiving HTTP requests, writing the payload into Kafka, and reading them from Kafka.\n"
 "For simplicity, the same application will write into Kafka and read from it, but obviously, it would be different applications in the real world."
-msgstr ""
+msgstr "Escribiremos una aplicación sencilla que reciba solicitudes HTTP, escriba la carga útil en Kafka y la lea de Kafka. Por simplicidad, la misma aplicación escribirá en Kafka y leerá de él, pero obviamente, serían aplicaciones diferentes en el mundo real."
 
 #. type: Plain text
 #: _posts/2020-09-22-kafka-avro.adoc
@@ -55,14 +58,16 @@ msgid "image:/assets/images/posts/kafka-avro/architecture.png[]"
 msgstr "image:/assets/images/posts/kafka-avro/architecture.png[alt=architecture]"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "How to start"
-msgstr ""
+msgstr "Cómo empezar"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "Well, let's start from the beginning.\n"
 "Go to https://code.quarkus.io to create your project, and select the following extension:"
-msgstr ""
+msgstr "Empecemos por el principio. Vaya a https://code.quarkus.io para crear su proyecto, y seleccione la siguiente extensión:"
 
 #. type: Plain text
 #: _posts/2020-09-22-kafka-avro.adoc
@@ -74,7 +79,7 @@ msgstr "RESTEasy JSON-B"
 #: _posts/2020-09-22-kafka-avro.adoc
 #, fuzzy
 msgid "SmallRye Reactive Messaging - Kafka Connector"
-msgstr "SmallRye Reactive Messaging - Conector Kafka"
+msgstr "Mensajería reactiva SmallRye - Conector Kafka"
 
 #. type: Plain text
 #: _posts/2020-09-22-kafka-avro.adoc
@@ -95,84 +100,98 @@ msgid "Download the project and open it in your favorite IDE."
 msgstr "Descargue el proyecto y ábralo en su IDE favorito."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "We need to add a few more content to the generated `pom.xml`.\n"
 "Open the `pom.xml` file and add the following `dependency`:"
-msgstr ""
+msgstr "Necesitamos añadir algunos contenidos más al `pom.xml` generado. Abra el archivo `pom.xml` y añada lo siguiente `dependency` :"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "This dependency provides Avro serializer and deserializer.\n"
 "There are multiple versions of this _serde_.\n"
 "In this blog post, we use the ones provided by Apicurio.\n"
 "You can also use Confluent's one (the artifact is not on Maven Central, so you need to add an extra repository)."
-msgstr ""
+msgstr "Esta dependencia proporciona el serializador y deserializador Avro. Existen múltiples versiones de este _serdeador_ . En esta entrada de blog, utilizamos los proporcionados por Apicurio. También puede utilizar la de Confluent (el artefacto no está en Maven Central, por lo que necesita añadir un repositorio extra)."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "We also need to add the `avro-maven-plugin`.\n"
 "Under `<build><plugins>`, add:"
-msgstr ""
+msgstr "También tenemos que añadir el `avro-maven-plugin` . En `<build><plugins>` , añada:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "This plugin generates the code from Avro schema files located in the `src/main/avro` directory.\n"
 "With this setup, we can finally start to write some code."
-msgstr ""
+msgstr "Este plugin genera el código a partir de archivos de esquema Avro ubicados en el directorio `src/main/avro` . Con esta configuración, por fin podemos empezar a escribir algo de código."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "The Avro schema"
-msgstr ""
+msgstr "El esquema Avro"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "First, we need to write the schema representing the object we will read and write in Kafka.\n"
 "Create the `src/main/avro/movie.avsc` file with the following content:"
-msgstr ""
+msgstr "En primer lugar, necesitamos escribir el esquema que representa el objeto que leeremos y escribiremos en Kafka. Cree el archivo `src/main/avro/movie.avsc` con el siguiente contenido:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "The `avro-maven-plugin`, configured in the `pom.xml` file, generates the `me.escoffier.quarkus.Movie` class with the `title` and `year` attributes.\n"
 "To generate the class, run:"
-msgstr ""
+msgstr "El `avro-maven-plugin` , configurado en el archivo `pom.xml` , genera la clase `me.escoffier.quarkus.Movie` con los atributos `title` y `year` . Para generar la clase, ejecute"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "The Movie Resource"
-msgstr ""
+msgstr "El recurso cinematográfico"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "The first class we will write receives HTTP requests and writes the (Movie) payload into Kafka.\n"
 "Create the `src/main/java/me/escoffier/MovieResource.java` with the following content:"
-msgstr ""
+msgstr "La primera clase que escribiremos recibe peticiones HTTP y escribe la carga útil (Película) en Kafka. Cree el sitio `src/main/java/me/escoffier/MovieResource.java` con el siguiente contenido:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "This JAX-RS resource is straightforward.\n"
 "It has a single endpoint method, receiving JSON payload on `/movies`.\n"
 "RESTEasy maps the JSON document into `Movie` objects automatically.\n"
 "As described in the `avsc` file, the expected JSON contains two fields: `title` and `year`."
-msgstr ""
+msgstr "Este recurso JAX-RS es sencillo. Tiene un único método de punto final, que recibe la carga útil JSON en `/movies` . RESTEasy mapea el documento JSON en objetos `Movie` automáticamente. Como se describe en el archivo `avsc` , el JSON esperado contiene dos campos: `title` y `year` ."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "When using Quarkus with Reactive Messaging, you don't interact with Kafka directly.\n"
 "You inject an `Emitter`, which sends an object (our movie) to a _channel_.\n"
 "The application configuration maps this channel to a Kafka topic."
-msgstr ""
+msgstr "Cuando se utiliza Quarkus con mensajería reactiva, no se interactúa directamente con Kafka. Usted inyecta un `Emitter` , que envía un objeto (nuestra película) a un _canal_ . La configuración de la aplicación asigna este canal a un tema de Kafka."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Speaking about configuration, open the `src/main/resources/application.properties`, and add:"
-msgstr ""
+msgstr "Hablando de configuración, abra el `src/main/resources/application.properties` , y añada:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "This configuration requires a bit of an explanation.\n"
 "First, `mp.messaging.connector.smallrye-kafka.apicurio.registry.url` configure the schema registry URL.\n"
 "If you use the Confluent _serde_, instead of the Apicurio one, the property is named `mp.messaging.connector.smallrye-kafka.schema.registry.url`."
-msgstr ""
+msgstr "Esta configuración requiere un poco de explicación. En primer lugar, `mp.messaging.connector.smallrye-kafka.apicurio.registry.url` configure la URL del registro de esquemas. Si utiliza el _serde_ Confluent, en lugar del de Apicurio, la propiedad se denomina `mp.messaging.connector.smallrye-kafka.schema.registry.url` ."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "The `mp.messaging.outgoing.movies` configure the `movies` channel.\n"
 "The `connector` attribute indicates that the SmallRye Kafka connector manages the channel.\n"
@@ -180,110 +199,132 @@ msgid ""
 "`value.serializer` sets the serializer to use.\n"
 "Here we use `io.apicurio.registry.utils.serde.AvroKafkaSerializer` provided by Apicurio.\n"
 "The `registry.*` properties configure how the registry handles the schema."
-msgstr ""
+msgstr "El atributo `mp.messaging.outgoing.movies` configura el canal `movies` . El atributo `connector` indica que el conector Kafka de SmallRye gestiona el canal. El atributo `topic` (que podríamos omitir en este caso ya que coincide con el nombre del canal) especifica el nombre del tema. `value.serializer` configura el serializador a utilizar. Aquí utilizamos `io.apicurio.registry.utils.serde.AvroKafkaSerializer` proporcionado por Apicurio. Las propiedades `registry.*` configuran la forma en que el registro maneja el esquema."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "The movie consumer"
-msgstr ""
+msgstr "El consumidor de cine"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "The second half of the application is even simpler.\n"
 "It just logs the received movies."
-msgstr ""
+msgstr "La segunda mitad de la aplicación es aún más sencilla. Se limita a registrar las películas recibidas."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Creates the `src/main/java/me/escoffier/MovieConsumer.java` with the following content:"
-msgstr ""
+msgstr "Crea la página `src/main/java/me/escoffier/MovieConsumer.java` con el siguiente contenido:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "The `@Incoming` annotation indicates that the method is called for each `Movie` object transiting on the `movies-from-kafka` channel.\n"
 "In this case, we simply write a log message."
-msgstr ""
+msgstr "La anotación `@Incoming` indica que el método se llama para cada objeto `Movie` que transite por el canal `movies-from-kafka` . En este caso, simplemente escribimos un mensaje de registro."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "We are almost there.\n"
 "We need to configure the reception from Kafka.\n"
 "Re-open the `application.properties` and add:"
-msgstr ""
+msgstr "Ya casi hemos llegado. Necesitamos configurar la recepción desde Kafka. Vuelva a abrir la página `application.properties` y añada:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "These properties map the `movies-from-kafka` to the `movies` Kafka topic.\n"
 "It also configures the deserializer (`io.apicurio.registry.utils.serde.AvroKafkaDeserializer`).\n"
 "We disable Kafka auto-commit (`enable.auto.commit=false`), as Reactive Messaging handles the offset commit for you."
-msgstr ""
+msgstr "Estas propiedades asignan el `movies-from-kafka` al tema Kafka `movies` . También configura el deserializador ( `io.apicurio.registry.utils.serde.AvroKafkaDeserializer` ). Deshabilitamos el auto-commit de Kafka ( `enable.auto.commit=false` ), ya que Reactive Messaging se encarga del commit de offset por usted."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Because the sender and receiver are colocalized in the same application, we cannot use the same channel name."
-msgstr ""
+msgstr "Como el emisor y el receptor están colocalizados en la misma aplicación, no podemos utilizar el mismo nombre de canal."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "A bit of infrastructure"
-msgstr ""
+msgstr "Un poco de infraestructura"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Before running the application, we need:"
-msgstr ""
+msgstr "Antes de ejecutar la aplicación, necesitamos:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "A Kafka broker"
-msgstr ""
+msgstr "Un corredor Kafka"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "The Apicurio schema registry"
-msgstr ""
+msgstr "El registro de esquemas de Apicurio"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Create the `docker-compose.yaml` file at the root of your project with the following content:"
-msgstr ""
+msgstr "Cree el archivo `docker-compose.yaml` en la raíz de su proyecto con el siguiente contenido:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "This `docker-compose` file starts everything we need.\n"
 "You may wonder about some of the properties of the Apicurio registry.\n"
 "Actually, the Apicurio registry is also a Quarkus application."
-msgstr ""
+msgstr "Este archivo `docker-compose` inicia todo lo que necesitamos. Puede que se pregunte por algunas de las propiedades del registro Apicurio. En realidad, el registro Apicurio es también una aplicación Quarkus."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Time to run"
-msgstr ""
+msgstr "Hora de correr"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "Alright, let's get this rolling.\n"
 "First, start the infrastructure with:"
-msgstr ""
+msgstr "Muy bien, pongamos esto en marcha. En primer lugar, inicie la infraestructura con:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Stop the infrastructure with `docker-compose down; docker-compose rm`"
-msgstr ""
+msgstr "Detenga la infraestructura con `docker-compose down; docker-compose rm`"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Then, start the application:"
-msgstr ""
+msgstr "A continuación, inicie la aplicación:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Once start, open another terminal and _post_ movies:"
-msgstr ""
+msgstr "Una vez iniciado, abra otro terminal y _publique_ las películas:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "In the application log, you should see:"
-msgstr ""
+msgstr "En el registro de la aplicación, debería ver:"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Conclusion"
-msgstr ""
+msgstr "Conclusión"
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid ""
 "Done!\n"
 "In just a few code lines and a bit of configuration, we can integrate Kafka, Avro, and a schema registry in a Quarkus application!\n"
 "You can found the code of this demo on https://github.com/cescoffier/quarkus-kafka-and-avro. The readme file contains the instructions to run it."
-msgstr ""
+msgstr "¡Listo! En sólo unas pocas líneas de código y un poco de configuración, ¡podemos integrar Kafka, Avro y un registro de esquemas en una aplicación Quarkus! Puede encontrar el código de esta demo en link:https://github.com/cescoffier/quarkus-kafka-and-avro[https://github.com/cescoffier/quarkus-kafka-and-avro.] El archivo readme contiene las instrucciones para ejecutarla."
 
 #: _posts/2020-09-22-kafka-avro.adoc
+#, fuzzy
 msgid "Quarkus 1.9 will be a lots of new goodies around messaging and reactive in general. Stay tuned!"
-msgstr ""
+msgstr "Quarkus 1.9 tendrá un montón de novedades en torno a la mensajería y la reactividad en general. ¡Permanezca atento!"

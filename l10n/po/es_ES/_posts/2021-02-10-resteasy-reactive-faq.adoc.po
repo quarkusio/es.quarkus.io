@@ -59,15 +59,17 @@ msgid "In our quest to understand why RESTEasy Reactive is important and how it 
 msgstr "Para entender por qué es importante RESTEasy Reactive y en qué se diferencia de RESTEasy Classic, es útil parafrasear un mensaje muy importante que se presentó por primera vez  link:https://quarkus.io/blog/io-thread-benchmark/#imperative-and-reactive-the-elevator-pitch[aquí]."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "In general, Java web applications use imperative programming combined with blocking IO operations. This is incredibly popular because it is easier to reason about the code.\n"
 "Things get executed sequentially. When the application receives a request, the framework associates this request to a worker thread.\n"
 "When the request processing needs to interact with a database or another remote service, it relies on blocking IO.\n"
 "The thread is blocked waiting for the answer, making the communication synchronous. With this model one request is not affected by another as they are run on different threads.\n"
 "Even when one thread is waiting, other requests running on different threads are not slowed down significantly."
-msgstr ""
+msgstr "En general, las aplicaciones web Java utilizan programación imperativa combinada con operaciones IO de bloqueo. Esto es increíblemente popular porque es más fácil razonar sobre el código. Las cosas se ejecutan secuencialmente. Cuando la aplicación recibe una solicitud, el framework asocia esta solicitud a un hilo de trabajo. Cuando el procesamiento de la solicitud necesita interactuar con una base de datos u otro servicio remoto, se basa en el bloqueo de IO. El hilo se bloquea a la espera de la respuesta, haciendo que la comunicación sea sincrónica. Con este modelo, una solicitud no se ve afectada por otra, ya que se ejecutan en hilos diferentes. Incluso cuando un hilo está esperando, las demás peticiones que se ejecutan en hilos diferentes no se ralentizan significativamente."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "However, with this model, you need one thread for every concurrent request, which places a limit on the achievable concurrency.\n"
 "On the other side, the reactive execution model embraces asynchronous development models and non-blocking IO.\n"
@@ -77,7 +79,7 @@ msgid ""
 "of the operationfootnote:[This article won’t detail how operating systems and non-blocking IO libraries enable such a model. Under the hood, kernel mechanisms such as select, epoll and ICMP are making the handling of IO very efficient, in terms of speed and resource utilization.].\n"
 "This releases the thread immediately, which can then be used to serve another request. When the result of the IO operation is available,\n"
 "the processing of the request is resumed and continues its execution."
-msgstr ""
+msgstr "Sin embargo, con este modelo se necesita un hilo por cada solicitud concurrente, lo que pone un límite a la concurrencia alcanzable. Por otro lado, el modelo de ejecución reactiva abarca modelos de desarrollo asíncronos y E/S no bloqueantes. Con este modelo, múltiples peticiones pueden ser gestionadas por el mismo hilo. Cuando el procesamiento de una solicitud ya no puede progresar (porque solicita un servicio remoto o interactúa con una base de datos, por ejemplo), utiliza IO no bloqueante. En lugar de bloquear el hilo, programa la operación y pasa una continuación que se invocaría tras la finalización de la operación[ link:[1, id=\"_footnoteref_1\", class=\"footnote\", href=\"#_footnotedef_1\", title=\"View footnote.\"] ]. Esto libera inmediatamente el hilo, que puede utilizarse para servir otra petición. Cuando el resultado de la operación IO está disponible, se reanuda el procesamiento de la solicitud y continúa su ejecución."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -104,6 +106,7 @@ msgid "Third, your concurrency is no longer limited by the number of threads."
 msgstr "En tercer lugar, su concurrencia ya no está limitada por el número de hilos."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "The reactive model uses the hardware resources more efficiently, but... a significant pitfall lurks. If the processing of a request starts to block, things can go south really quickly as\n"
 "no other request can be handled. To avoid this, you need to learn how to write asynchronous and non-blocking code, how to schedule operations, how to write continuations, how to chain actions.\n"
@@ -111,7 +114,7 @@ msgid ""
 "In Quarkus, we want to make the shift as easy as possible, so RESTEasy Reactive allows you to choose whether an endpoint is blocking or non-blocking\n"
 "(an application is free to mix and match blocking and non-blocking methods at will).\n"
 "So don’t be intimidated by the reactive word, the infrastructure is reactive, but your code can be either reactive or imperative. That’s what we mean by unification of reactive and imperative."
-msgstr ""
+msgstr "El modelo reactivo utiliza los recursos de hardware de forma más eficiente, pero... acecha un escollo importante. Si el procesamiento de una solicitud comienza a bloquearse, las cosas pueden torcerse muy rápidamente al no poder atender ninguna otra solicitud. Para evitarlo, hay que aprender a escribir código asíncrono y no bloqueante, a programar operaciones, a escribir continuaciones, a encadenar acciones. Básicamente, necesitamos una forma de estructurar el procesamiento asíncrono y utilizar IO no bloqueante. Sin duda, se trata de un cambio de paradigma. En Quarkus, queremos que el cambio sea lo más fácil posible, por lo que RESTEasy Reactive le permite elegir si un punto final es bloqueante o no bloqueante (una aplicación es libre de mezclar y combinar métodos bloqueantes y no bloqueantes a voluntad). Así que no se deje intimidar por la palabra reactivo, la infraestructura es reactiva, pero su código puede ser reactivo o imperativo. Eso es lo que entendemos por unificación de reactivo e imperativo."
 
 #. type: Title ==
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -132,10 +135,11 @@ msgid "The following image shows what that looks at a high level:"
 msgstr "La siguiente imagen muestra su aspecto a alto nivel:"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "This ensures that maximum throughput can be achieved, but it also means that the implementation of an endpoint method should complete in a timely fashion otherwise the thread will be used for too longfootnote:[\"Too long\" depends on your target concurrency. You may consider 1ms as too long for some endpoint heavily used, but 100ms might be acceptable for less used endpoints]\n"
 "and other requests will be queued up and lead to degraded throughput."
-msgstr ""
+msgstr "Esto garantiza que pueda alcanzarse el máximo rendimiento, pero también significa que la implementación de un método de punto final debe completarse en el momento oportuno, ya que de lo contrario el hilo se utilizará durante demasiado tiempo[ link:[1, id=\"_footnoteref_1\", class=\"footnote\", href=\"#_footnotedef_1\", title=\"View footnote.\"] ] y otras peticiones se pondrán en cola y provocarán una degradación del rendimiento."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -144,12 +148,13 @@ msgid "It is important to understand that a method body that uses imperative cod
 msgstr "Es importante entender que el cuerpo de un método que utiliza código imperativo sólo se convierte en un problema cuando tarda mucho tiempo en ejecutarse, lo cual es casi siempre el caso de las operaciones IO de bloqueo."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "For that reason, when the body of the method performs some kind of blocking IO operation (or even some CPU bound operation that requires time to complete), the request needs to be offloaded to a worker thread.\n"
 "In RESTEasy Reactive that is done declaratively using the `@Blocking` annotation - no reactive programming or complex Java concurrency related code is needed.\n"
 "Quarkus also warns you when you attempt to use blocking IO on an IO thread.\n"
 "If however the method body performs non-blocking IO (or some CPU bound operation that completes very quickly) then RESTEasy Reactive can continue to serve the entire request on the IO thread."
-msgstr ""
+msgstr "Por esa razón, cuando el cuerpo del método realiza algún tipo de operación de E/S bloqueante (o incluso alguna operación ligada a la CPU que requiere tiempo para completarse), es necesario descargar la petición a un hilo trabajador. En RESTEasy Reactive eso se hace de forma declarativa utilizando la anotación `@Blocking` - no se necesita programación reactiva ni código complejo de Java relacionado con la concurrencia. Quarkus también le advierte cuando intenta utilizar IO de bloqueo en un subproceso de IO. Sin embargo, si el cuerpo del método realiza IO no bloqueante (o alguna operación ligada a la CPU que se complete muy rápidamente) entonces RESTEasy Reactive puede continuar sirviendo toda la petición en el hilo IO."
 
 #. type: Title ==
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -164,16 +169,18 @@ msgid "Absolutely not!"
 msgstr "¡No, en absoluto!"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Although RESTEasy Reactive was built from the ground up to do non-blocking IO and serve requests from the event loop threads (thus avoiding the needless usage of worker pool threads)\n"
 "it can effortlessly work with blocking IO and any piece of code that provides a blocking API (such as Hibernate) without blocking the event loop."
-msgstr ""
+msgstr "Aunque RESTEasy Reactive se construyó desde cero para hacer IO no bloqueante y servir peticiones desde los hilos del bucle de eventos (evitando así el uso innecesario de hilos del pool de trabajadores), puede trabajar sin esfuerzo con IO bloqueante y con cualquier pieza de código que proporcione una API bloqueante (como Hibernate) sin bloquear el bucle de eventos."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "The only thing you have to do is add `@Blocking` on your endpoint method or class.\n"
 "That’s it! If you use `@Blocking` you are back to the regular dispatching mechanism: a worker thread is used to execute your method."
-msgstr ""
+msgstr "Lo único que tiene que hacer es añadir `@Blocking` en su método o clase de punto final. Y ya está. Si utiliza `@Blocking` volverá al mecanismo de despacho habitual: se utiliza un hilo de trabajador para ejecutar su método."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -212,10 +219,11 @@ msgid "What is the performance implication of using @Blocking?"
 msgstr "¿Qué consecuencias tiene para el rendimiento el uso de @Blocking?"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Although the absolute highest throughput is achieved when an endpoint method is non-blocking (that is the HTTP request is served completely from the event loop thread),\n"
 "great performance can nonetheless be achieved even when `@Blocking` is used."
-msgstr ""
+msgstr "Aunque el mayor rendimiento absoluto se consigue cuando un método de punto final es no bloqueante (es decir, la petición HTTP se sirve completamente desde el hilo del bucle de eventos), se puede conseguir un gran rendimiento incluso cuando se utiliza `@Blocking` ."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -242,22 +250,25 @@ msgid "RESTEasy Reactive is able to gain its performance advantage over RESTEasy
 msgstr "RESTEasy Reactive es capaz de obtener su ventaja de rendimiento sobre RESTEasy Classic mediante:"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Integrating very tightly with Eclipse Vert.x for everything IO related. Vert.x has been extremely well optimized for IO operations and so tight integration with it allows RESTEasy Reactive to benefit from all that work.\n"
 "You might recall that RESTEasy Classic on Quarkus uses Vert.x under the hood as well, but in that case the integration is not as deep and is therefore unable to fully utilize the power of Vert.x."
-msgstr ""
+msgstr "Integración muy estrecha con Eclipse Vert.x para todo lo relacionado con IO. Vert.x ha sido extremadamente bien optimizado para las operaciones IO y, por tanto, la estrecha integración con él permite a RESTEasy Reactive beneficiarse de todo ese trabajo. Quizá recuerde que RESTEasy Classic en Quarkus también utiliza Vert.x bajo el capó, pero en ese caso la integración no es tan profunda y, por lo tanto, no puede aprovechar plenamente la potencia de Vert.x."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Moving a lot of work to build time. As RESTEasy Reactive was built from the ground up to serve the needs of Quarkus, it benefits from the tightest possible integration with Quarkus and is probably the extension that does the most build time work.\n"
 "This in turn results in creating an optimal data pipeline for serving each request, helping the JIT compiler by generating bytecode to inline runtime operations, eliminating reflection at runtime (both for invoking methods and for determining types) and reducing memory allocations."
-msgstr ""
+msgstr "Trasladando mucho trabajo al tiempo de compilación. Como RESTEasy Reactive se construyó desde cero para atender las necesidades de Quarkus, se beneficia de la integración más estrecha posible con Quarkus y es probablemente la extensión que más trabajo realiza en tiempo de compilación. Esto, a su vez, se traduce en la creación de una canalización de datos óptima para atender cada solicitud, ayuda al compilador JIT generando bytecode para alinear las operaciones en tiempo de ejecución, elimina la reflexión en tiempo de ejecución (tanto para invocar métodos como para determinar tipos) y reduce las asignaciones de memoria."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Avoiding the use of ThreadLocals and instead by utilizing a context object that contains all the necessary information.\n"
 "ThreadLocals are a convenient way to make data available to different parts of a framework, but their frequent use comes at a cost and are thus fully avoided in RESTEasy Reactive."
-msgstr ""
+msgstr "Evitando el uso de ThreadLocals y utilizando en su lugar un objeto de contexto que contiene toda la información necesaria. Los ThreadLocals son una forma cómoda de hacer que los datos estén disponibles para diferentes partes de un marco de trabajo, pero su uso frecuente tiene un coste y por ello se evitan totalmente en RESTEasy Reactive."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -290,10 +301,11 @@ msgid "This is best shown by the following image:"
 msgstr "La mejor muestra de ello es la siguiente imagen:"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "So when using RESTEasy Classic even when you return a reactive type like `Uni` or `Multi` the initial request is still being handled on a worker thread and while the call to the library may result in non-blocking IO,\n"
 "nevertheless there is no way for RESTEasy Classic to reuse the worker thread once it is blocked waiting on IO."
-msgstr ""
+msgstr "Por lo tanto, cuando se utiliza RESTEasy Classic, incluso cuando se devuelve un tipo reactivo como `Uni` o `Multi` , la solicitud inicial se sigue gestionando en un subproceso de trabajo y, aunque la llamada a la biblioteca puede dar como resultado una E/S no bloqueante, no hay forma de que RESTEasy Classic reutilice el subproceso de trabajo una vez que se ha bloqueado esperando la E/S."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -314,23 +326,26 @@ msgid "Do I have to use the new RESTEasy Reactive APIs to achieve maximum perfor
 msgstr "¿Tengo que utilizar las nuevas API reactivas de RESTEasy para conseguir el máximo rendimiento?"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Reading through the RESTEasy Reactive documentation you soon come across the new APIs for writing request filters (https://quarkus.io/guides/resteasy-reactive#request-or-response-filters[@ServerRequestFilter]),\n"
 "response filters (`@ServerResponseFilter`) and exception mappers (https://quarkus.io/guides/resteasy-reactive#exception-mapping[@ServerExceptionMapper]).\n"
 "You might wonder if their usage affects performance in any way compared to the standard JAX-RS APIs (`ContainerRequestFilter`, `ContainerResponseFilter` and `ExceptionMapper`)."
-msgstr ""
+msgstr "Leyendo la documentación de RESTEasy Reactive pronto se topará con las nuevas API para escribir filtros de petición ( link:https://quarkus.io/guides/resteasy-reactive#request-or-response-filters[@ServerRequestFilter] ), filtros de respuesta ( `@ServerResponseFilter` ) y mapeadores de excepciones ( link:https://quarkus.io/guides/resteasy-reactive#exception-mapping[@ServerExceptionMapper] ). Quizá se pregunte si su uso afecta de algún modo al rendimiento en comparación con las API JAX-RS estándar ( `ContainerRequestFilter` , `ContainerResponseFilter` y `ExceptionMapper` )."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Although the new APIs will give a tiny performance advantage over using the old APIs if the use of `@Context` is involved in the latter case, the advantage is negligible and should not worry you unless you are trying to squeeze out every inch of performance you can find.\n"
 "One thing to keep in mind when writing filters with either API, is that using `org.jboss.resteasy.reactive.server.SimpleResourceInfo` instead of `javax.ws.rs.container.ResourceInfo` is advised as the latter results in reflection being performed."
-msgstr ""
+msgstr "Aunque en este último caso las nuevas API supondrán una pequeña ventaja de rendimiento respecto al uso de las antiguas API si se utiliza `@Context` , la ventaja es insignificante y no debería preocuparle a menos que esté intentando exprimir hasta el último centímetro de rendimiento que pueda encontrar. Una cosa que hay que tener en cuenta al escribir filtros con cualquiera de las dos API, es que se aconseja utilizar `org.jboss.resteasy.reactive.server.SimpleResourceInfo` en lugar de `javax.ws.rs.container.ResourceInfo` , ya que con esta última se realiza una reflexión."
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "A special (albeit rather advanced) case where the new APIs do result in noticeably better performance is the case of `MessageBodyReader` and `MessageBodyWriter` classes.\n"
 "When reading the HTTP request and writing the HTTP response, the use of https://quarkus.io/guides/resteasy-reactive#readers-and-writers-mapping-entities-and-http-bodies[ServerMessageBodyReader] and `ServerMessageBodyWriter` allows RESTEasy Reactive to optimize the data-path for serving the request."
-msgstr ""
+msgstr "Un caso especial (aunque bastante avanzado) en el que las nuevas API sí dan lugar a un rendimiento notablemente mejor es el de las clases `MessageBodyReader` y `MessageBodyWriter` . Al leer la solicitud HTTP y escribir la respuesta HTTP, el uso de link:https://quarkus.io/guides/resteasy-reactive#readers-and-writers-mapping-entities-and-http-bodies[ServerMessageBodyReader] y `ServerMessageBodyWriter` permite a RESTEasy Reactive optimizar la ruta de datos para servir la solicitud."
 
 #. type: Title ==
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -339,16 +354,18 @@ msgid "What about Reactive Routes?"
 msgstr "¿Qué pasa con las rutas reactivas?"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "Quarkus was already providing a way to handle HTTP requests from the IO thread. Reactive Routes provides a declarative model to implement HTTP API. Each route can be called on the IO thread (default) or on a worker thread (using the `@Blocking` annotation).\n"
 "Reactive Routes provide very good throughput and performance as highlighted in https://quarkus.io/blog/io-thread-benchmark/[this] article. How does reactive routes compare to RESTEasy Reactive?"
-msgstr ""
+msgstr "Quarkus ya proporcionaba una forma de manejar las peticiones HTTP desde el hilo IO. Las rutas reactivas proporcionan un modelo declarativo para implementar la API HTTP. Cada ruta puede ser llamada en el hilo IO (por defecto) o en un hilo worker (utilizando la anotación `@Blocking` ). Las Rutas Reactivas proporcionan muy buen rendimiento y desempeño como se destaca en link:https://quarkus.io/blog/io-thread-benchmark/[este] artículo. ¿Cómo se comparan las rutas reactivas con RESTEasy Reactive?"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "One of the main complaints we got about Reactive Routes was about the development model: it’s very different from the one used with RESTEasy. However, Reactive Routes allowed us to verify the performance and efficiency benefits of using an end-to-end reactive model on top of Quarkus.\n"
 "RESTEasy Reactive can be seen as the “next generation”: you get the runtime benefits while also using a familiar development model."
-msgstr ""
+msgstr "Una de las principales quejas que recibimos sobre Reactive Routes se refería al modelo de desarrollo: es muy diferente del utilizado con RESTEasy. Sin embargo, las Rutas Reactivas nos permitieron comprobar las ventajas de rendimiento y eficacia de utilizar un modelo reactivo de extremo a extremo sobre Quarkus. RESTEasy Reactive puede considerarse la \"próxima generación\": se obtienen los beneficios del tiempo de ejecución al tiempo que se utiliza un modelo de desarrollo familiar."
 
 #. type: Title ==
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
@@ -357,10 +374,11 @@ msgid "Summary"
 msgstr "Resumen"
 
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc
+#, fuzzy
 msgid ""
 "RESTEasy Reactive is the next generation of HTTP framework. It unifies reactive (non-blocking IO, asynchronous APIs) and imperative (thanks to the `@Blocking` annotation). It improves raw performances without constraining the user experience.\n"
 "Its reactive/imperative duality makes it fit any use cases, from highly concurrent HTTP APIs, to more traditional transactional CRUD applications."
-msgstr ""
+msgstr "RESTEasy Reactive es la próxima generación de framework HTTP. Unifica lo reactivo (IO no bloqueante, API asíncronas) y lo imperativo (gracias a la anotación `@Blocking` ). Mejora el rendimiento bruto sin limitar la experiencia del usuario. Su dualidad reactiva/imperativa hace que se adapte a cualquier caso de uso, desde API HTTP altamente concurrentes, hasta aplicaciones CRUD transaccionales más tradicionales."
 
 #. type: Plain text
 #: _posts/2021-02-10-resteasy-reactive-faq.adoc

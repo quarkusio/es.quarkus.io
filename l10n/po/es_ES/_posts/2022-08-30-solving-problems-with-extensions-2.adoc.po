@@ -26,7 +26,14 @@ msgstr "Resolución de problemas con las extensiones de Quarkus (2/n)"
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
 #, fuzzy, no-wrap
 msgid "The unique build infrastructure of Quarkus allows you to solve complex issues in a very simple way by developing custom extensions."
-msgstr "La infraestructura de construcción única de Quarkus le permite resolver problemas complejos de una manera muy simple mediante el desarrollo de extensiones personalizadas."
+msgstr ""
+"layout: post\n"
+"title: 'Resolución de problemas con extensiones de Quarkus (1/n)'\n"
+"date: 2022-04-20\n"
+"tags: extensions development-tips\n"
+"synopsis: La infraestructura de construcción única de Quarkus le permite resolver problemas complejos de una manera muy simple mediante el desarrollo de extensiones personalizadas.\n"
+"author: gsmet\n"
+"---\n"
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -41,10 +48,11 @@ msgid "If you haven't looked at the first post of this series, I invite you to l
 msgstr "Si no has mirado el primer post de esta serie, ¡te invito a  link:/blog/solving-problems-with-extensions/[leerlo]!"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "**Problem of the day:** A library is using the `@Inject` annotation to handle its internal injection and, when used on beans, that will conflict with the CDI injection we have in Quarkus.\n"
 "Leading to the impossibility for the CDI layer to inject these objects as they are not CDI beans."
-msgstr ""
+msgstr "*Problema del día:* Una biblioteca está utilizando la anotación `@Inject` para gestionar su inyección interna y, al utilizarla en beans, entrará en conflicto con la inyección CDI que tenemos en Quarkus. Esto conduce a la imposibilidad de que la capa CDI inyecte estos objetos, ya que no son beans CDI."
 
 #. type: Title ==
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -53,22 +61,25 @@ msgid "Some context"
 msgstr "Un poco de contexto"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "As for the first post of the series, this post is based on my work on https://github.com/quarkiverse/quarkus-github-app[the Quarkus GitHub App extension]\n"
 "that allows you to develop GitHub Apps based on Quarkus at light speed with very little boilerplate."
-msgstr ""
+msgstr "En cuanto al primer post de la serie, este post se basa en mi trabajo sobre link:https://github.com/quarkiverse/quarkus-github-app[la extensión Quarkus GitHub App] que le permite desarrollar GitHub Apps basadas en Quarkus a la velocidad de la luz con muy poco boilerplate."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "The newest feature of this extension is the ability to easily develop comment-based commands in your GitHub apps.\n"
 "For instance, do something when a user posts a `@bot do-something` in a comment of a pull request."
-msgstr ""
+msgstr "La característica más novedosa de esta extensión es la posibilidad de desarrollar fácilmente comandos basados en comentarios en sus aplicaciones de GitHub. Por ejemplo, hacer algo cuando un usuario publique un `@bot do-something` en un comentario de un pull request."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "While it is possible to implement it all by yourself with the standard features of Quarkus GitHub App,\n"
 "we developed an additional extension to make things even easier."
-msgstr ""
+msgstr "Aunque es posible implementarlo todo por sí mismo con las características estándar de Quarkus GitHub App, hemos desarrollado una extensión adicional para hacer las cosas aún más fáciles."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -89,11 +100,12 @@ msgid "These are the basics but the extension has a ton of other features such a
 msgstr "Estos son los aspectos básicos, pero la extensión tiene un montón de otras características, como la retroalimentación basada en la reacción, los ámbitos, los permisos..."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "This extension is based on the https://rvesse.github.io/airline/[Airline library].\n"
 "This library is designed to easily parse and execute command lines.\n"
 "While originally designed to develop CLI applications, it is a perfect fit for our usage."
-msgstr ""
+msgstr "Esta extensión se basa en la link:https://rvesse.github.io/airline/[librería Airline] . Esta biblioteca está diseñada para analizar y ejecutar fácilmente líneas de comandos. Aunque originalmente fue diseñada para desarrollar aplicaciones CLI, se adapta perfectamente a nuestro uso."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -102,10 +114,11 @@ msgid "One problem that we have with this library is that it uses the `@Inject` 
 msgstr "Un problema que tenemos con esta biblioteca es que utiliza la anotación `@Inject` para inyectar algunos objetos en comandos como `GlobalMetadata`:"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "This is a problem for us as this `@Inject` annotation is used by CDI injection and, in the context of our extension, the `@Command` classes are CDI beans.\n"
 "Thus, this particular `@Inject` annotation will also be interpreted by ArC, our CDI implementation, and ArC will try to inject `GlobalMetadata` as a CDI bean... and fail because it is not a CDI bean."
-msgstr ""
+msgstr "Esto supone un problema para nosotros, ya que esta anotación `@Inject` es utilizada por la inyección CDI y, en el contexto de nuestra extensión, las clases `@Command` son beans CDI. Así, esta anotación `@Inject` en particular también será interpretada por ArC, nuestra implementación CDI, y ArC intentará inyectar `GlobalMetadata` como un frijol CDI... y fallará porque no es un frijol CDI."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -126,10 +139,11 @@ msgid "How can we work around this?"
 msgstr "¿Cómo podemos evitarlo?"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "Ideally, the Airline library wouldn't use the `@Inject` annotation for its internal purpose\n"
 "and the good news is, in the latest versions, the annotation used for injection can be specified."
-msgstr ""
+msgstr "Lo ideal sería que la biblioteca de aerolíneas no utilizara la anotación `@Inject` para sus fines internos y la buena noticia es que, en las últimas versiones, se puede especificar la anotación utilizada para la inyección."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -144,10 +158,11 @@ msgid "So now what?"
 msgstr "¿Y ahora qué?"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "The set of classes the Airline library is susceptible to inject is limited:\n"
 "it is used to inject a limited number of classes and to handle composition (i.e. sharing components across several commands)."
-msgstr ""
+msgstr "El conjunto de clases que la biblioteca Airline es susceptible de inyectar es limitado: se utiliza para inyectar un número limitado de clases y para gestionar la composición (es decir, compartir componentes entre varios comandos)."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -162,10 +177,11 @@ msgid "AnnotationTransformers to the rescue"
 msgstr "AnotaciónTransformadores al rescate"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "If you are familiar with Quarkus, you are probably familiar with the notion of Jandex index.\n"
 "In Quarkus, we build indexes of the project annotations and these indexes are used by our core and extensions to find annotations (and more)."
-msgstr ""
+msgstr "Si conoce Quarkus, probablemente esté familiarizado con la noción de índice Jandex. En Quarkus, construimos índices de las anotaciones del proyecto y estos índices son utilizados por nuestro núcleo y las extensiones para encontrar anotaciones (y más)."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -180,10 +196,11 @@ msgid "Interestingly though, ArC does not consume the Jandex index as is:"
 msgstr "Sin embargo, es interesante que ArC no consuma el índice Jandex tal cual:"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "Annotations transformers can add, remove, update existing annotations before consumption by ArC.\n"
 "These are used by several features in Quarkus, for instance Hibernate Validator interceptor support."
-msgstr ""
+msgstr "Los transformadores de anotaciones pueden añadir, eliminar, actualizar las anotaciones existentes antes de ser consumidas por ArC. Éstas son utilizadas por varias características de Quarkus, por ejemplo el soporte del interceptor Hibernate Validator."
 
 #. type: delimited block =
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -198,11 +215,12 @@ msgid "Using annotations transfomers will solely impact ArC, our CDI implementat
 msgstr "El uso de transfomadores de anotaciones afectará únicamente a ArC, nuestra implementación de CDI."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "This behavior is of great interest to us:\n"
 "we could hide the annotations from ArC using an annotations transformer\n"
 "while keeping them available for Airline to consume them via reflection."
-msgstr ""
+msgstr "Este comportamiento es de gran interés para nosotros: podríamos ocultar las anotaciones de ArC utilizando un transformador de anotaciones y, al mismo tiempo, mantenerlas disponibles para que Airline las consuma mediante reflexión."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -247,10 +265,11 @@ msgid "We are also detecting composition."
 msgstr "También detectamos la composición."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "We remove the `@Inject` annotation from the transformed view visible to ArC.\n"
 "Make sure you don't forget to finalize the transformation with `.done()`."
-msgstr ""
+msgstr "Eliminamos la anotación `@Inject` de la vista transformada visible para ArC. Asegúrese de no olvidar finalizar la transformación con `.done()` ."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -259,10 +278,11 @@ msgid "For composition, we detect if the field is of a type that contains `@Argu
 msgstr "Para la composición, detectamos si el campo es de un tipo que contiene anotaciones `@Arguments` o `@Option`."
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "Now that we have created our annotations transformer,\n"
 "we need to make sure Quarkus knows about it."
-msgstr ""
+msgstr "Ahora que hemos creado nuestro transformador de anotaciones, tenemos que asegurarnos de que Quarkus lo conoce."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -271,10 +291,11 @@ msgid "As usual, for the Quarkus build process, you just need to produce a `Buil
 msgstr "Como es habitual, para el proceso de construcción de Quarkus, basta con producir un `BuildItem` para registrar el transformador de anotaciones:"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "And that's it, from now on, the `@Inject` annotations consumed by the Airline library will be hidden from ArC,\n"
 "while still being visible from the Airline library, which uses reflection."
-msgstr ""
+msgstr "Y eso es todo, a partir de ahora, las anotaciones de `@Inject` consumidas por la biblioteca de aerolíneas estarán ocultas para ArC, mientras que seguirán siendo visibles para la biblioteca de aerolíneas, que utiliza la reflexión."
 
 #. type: Plain text
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
@@ -289,7 +310,8 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2022-08-30-solving-problems-with-extensions-2.adoc
+#, fuzzy
 msgid ""
 "Once again, we have seen how the unique build infrastructure of Quarkus can solve real life issues with very little boilerplate.\n"
 "And that with unified concepts that are very easy to grasp."
-msgstr ""
+msgstr "Una vez más, hemos visto cómo la infraestructura de construcción única de Quarkus puede resolver problemas de la vida real con muy poca boilerplate. Y eso con conceptos unificados que son muy fáciles de comprender."

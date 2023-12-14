@@ -21,376 +21,424 @@ msgstr ""
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 #. type: Title =
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Implementing a gRPC Service"
-msgstr ""
+msgstr "Implementación de un servicio gRPC"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "gRPC service implementations exposed as CDI beans are automatically registered and served by quarkus-grpc."
-msgstr ""
+msgstr "Las implementaciones de servicios gRPC expuestas como beans CDI son automáticamente registradas y servidas por quarkus-grpc."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Implementing a gRPC service requires the gRPC classes to be generated.\n"
 "Place your `proto` files in `src/main/proto` and run `mvn compile`."
-msgstr ""
+msgstr "La implementación de un servicio gRPC requiere que se generen las clases gRPC. Coloque sus archivos `proto` en `src/main/proto` y ejecute `mvn compile` ."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Generated Code"
-msgstr ""
+msgstr "Código generado"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Quarkus generates a few implementation classes for services declared in the `proto` file:"
-msgstr ""
+msgstr "Quarkus genera algunas clases de implementación para los servicios declarados en el archivo `proto`:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "A _service interface_ using the Mutiny API"
-msgstr ""
+msgstr "Una _interfaz de servicio_ que utiliza la API de Mutiny"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "the class name is `${JAVA_PACKAGE}.${NAME_OF_THE_SERVICE}`"
-msgstr ""
+msgstr "el nombre de la clase es `${JAVA_PACKAGE}.${NAME_OF_THE_SERVICE}`"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "An _implementation base_ class using the gRPC API"
-msgstr ""
+msgstr "Una clase _base de implementación_ que utiliza la API gRPC"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "the class name is structured as follows: `${JAVA_PACKAGE}.${NAME_OF_THE_SERVICE}Grpc.${NAME_OF_THE_SERVICE}ImplBase`"
-msgstr ""
+msgstr "el nombre de la clase está estructurado de la siguiente manera: `${JAVA_PACKAGE}.${NAME_OF_THE_SERVICE}Grpc.${NAME_OF_THE_SERVICE}ImplBase`"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "For example, if you use the following `proto` file snippet:"
-msgstr ""
+msgstr "Por ejemplo, si utiliza el siguiente fragmento de archivo `proto`:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "`hello` is the java package for the generated classes."
-msgstr ""
+msgstr "`hello` es el paquete java para las clases generadas."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "`Greeter` is the service name."
-msgstr ""
+msgstr "`Greeter` es el nombre del servicio."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Then the service interface is `hello.Greeter` and the implementation base is the abstract static nested class: `hello.GreeterGrpc.GreeterImplBase`."
-msgstr ""
+msgstr "Entonces la interfaz del servicio es `hello.Greeter` y la base de implementación es la clase abstracta estática anidada: `hello.GreeterGrpc.GreeterImplBase`."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "You'll need to implement the _service interface_ or extend the _base class_ with your service implementation bean as described in the following sections."
-msgstr ""
+msgstr "Tendrás que implementar la _interfaz de servicio_ o extender la _clase base_ con tu bean de implementación de servicio como se describe en las siguientes secciones."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Implementing a Service with the Mutiny API"
-msgstr ""
+msgstr "Implementación de un servicio con la API de Mutiny"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "To implement a gRPC service using the Mutiny API, create a class that implements the service interface.\n"
 "Then, implement the methods defined in the service interface.\n"
 "If you don't want to implement a service method just throw an `java.lang.UnsupportedOperationException` from the method body (the exception will be automatically converted to the appropriate gRPC exception).\n"
 "Finally, implement the service and add the `@GrpcService` annotation:"
-msgstr ""
+msgstr "Para implementar un servicio gRPC utilizando la API Mutiny, cree una clase que implemente la interfaz del servicio. A continuación, implemente los métodos definidos en la interfaz de servicio. Si no desea implementar un método de servicio, simplemente lance una `java.lang.UnsupportedOperationException` desde el cuerpo del método (la excepción se convertirá automáticamente en la excepción gRPC apropiada). Por último, implemente el servicio y añada la anotación `@GrpcService` :"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "A gRPC service implementation bean must be annotated with the `@GrpcService` annotation and should not declare any other CDI qualifier. All gRPC services have the `javax.inject.Singleton` scope. Additionally, the request context is always active during a service call."
-msgstr ""
+msgstr "Un bean de implementación de servicio gRPC debe estar anotado con la anotación `@GrpcService` y no debe declarar ningún otro calificador CDI. Todos los servicios gRPC tienen el ámbito `javax.inject.Singleton` . Además, el contexto de solicitud está siempre activo durante una llamada de servicio."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "`hello.Greeter` is the generated service interface."
-msgstr ""
+msgstr "`hello.Greeter` es la interfaz de servicio generada."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "The service implementation bean can also extend the Mutiny implementation base, where the class name is structured as follows: `Mutiny${NAME_OF_THE_SERVICE}Grpc.${NAME_OF_THE_SERVICE}ImplBase`."
-msgstr ""
+msgstr "El bean de implementación del servicio también puede extender la base de implementación de Mutiny, donde el nombre de la clase se estructura de la siguiente manera: `Mutiny${NAME_OF_THE_SERVICE}Grpc.${NAME_OF_THE_SERVICE}ImplBase`."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Implementing a Service with the default gRPC API"
-msgstr ""
+msgstr "Implementación de un servicio con la API gRPC por defecto"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "To implement a gRPC service using the default gRPC API, create a class that extends the default implementation base.\n"
 "Then, override the methods defined in the service interface.\n"
 "Finally, implement the service and add the `@GrpcService` annotation:"
-msgstr ""
+msgstr "Para implementar un servicio gRPC utilizando la API gRPC por defecto, cree una clase que extienda la base de implementación por defecto. A continuación, sobrescriba los métodos definidos en la interfaz del servicio. Por último, implemente el servicio y añada la anotación `@GrpcService` :"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Blocking Service Implementation"
-msgstr ""
+msgstr "Implementación del servicio de bloqueo"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "By default, all the methods from a gRPC service run on the event loop.\n"
 "As a consequence, you must **not** block.\n"
 "If your service logic must block, annotate the method with `io.smallrye.common.annotation.Blocking`:"
-msgstr ""
+msgstr "Por defecto, todos los métodos de un servicio gRPC se ejecutan en el bucle de eventos. En consecuencia, *no* deben bloquearse. Si la lógica de su servicio debe bloquearse, anote el método con `io.smallrye.common.annotation.Blocking` :"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Handling Streams"
-msgstr ""
+msgstr "Manejo de flujos"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "gRPC allows receiving and returning streams:"
-msgstr ""
+msgstr "gRPC permite recibir y devolver flujos:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Using Mutiny, you can implement these as follows:"
-msgstr ""
+msgstr "Usando Mutiny, puedes implementarlos de la siguiente manera:"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Health Check"
-msgstr ""
+msgstr "Chequeo de salud"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "For the implemented services, Quarkus gRPC exposes health information in the following format:"
-msgstr ""
+msgstr "Para los servicios implementados, Quarkus gRPC expone la información sanitaria en el siguiente formato:"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Clients can specify the fully qualified service name to get the health status of a specific service\n"
 "or skip specifying the service name to get the general status of the gRPC server."
-msgstr ""
+msgstr "Los clientes pueden especificar el nombre completo del servicio para obtener el estado de salud de un servicio específico u omitir la especificación del nombre del servicio para obtener el estado general del servidor gRPC."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "For more details, check out the\n"
 "https://github.com/grpc/grpc/blob/v1.28.1/doc/health-checking.md[gRPC documentation]"
-msgstr ""
+msgstr "Para más detalles, consulte la link:https://github.com/grpc/grpc/blob/v1.28.1/doc/health-checking.md[documentación de gRPC]"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Additionally, if Quarkus SmallRye Health is added to the application, a readiness check for\n"
 "the state of the gRPC services will be added to the MicroProfile Health endpoint response, that is `/q/health`."
-msgstr ""
+msgstr "Además, si se añade Quarkus SmallRye Health a la aplicación, se añadirá a la respuesta del punto final MicroProfile Health una comprobación del estado de los servicios gRPC, es decir, `/q/health` ."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Reflection Service"
-msgstr ""
+msgstr "Servicio de Reflexión"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Quarkus gRPC Server implements the https://github.com/grpc/grpc/blob/master/doc/server-reflection.md[reflection service].\n"
 "This service allows tools like https://github.com/fullstorydev/grpcurl[grpcurl] or https://github.com/gusaul/grpcox[grpcox] to interact with your services."
-msgstr ""
+msgstr "El Servidor gRPC de Quarkus implementa el servicio de link:https://github.com/grpc/grpc/blob/master/doc/server-reflection.md[reflexión] . Este servicio permite a herramientas como link:https://github.com/fullstorydev/grpcurl[grpcurl] o link:https://github.com/gusaul/grpcox[grpcox] interactuar con sus servicios."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "The reflection service is enabled by default in _dev_ mode.\n"
 "In test or production mode, you need to enable it explicitly by setting `quarkus.grpc.server.enable-reflection-service` to `true`."
-msgstr ""
+msgstr "El servicio de reflexión está habilitado por defecto en modo _dev_ . En modo de prueba o producción, debe habilitarlo explícitamente configurando `quarkus.grpc.server.enable-reflection-service` en `true` ."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Scaling"
-msgstr ""
+msgstr "Escala"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "By default, quarkus-grpc starts a single gRPC server running on a single event loop."
-msgstr ""
+msgstr "Por defecto, quarkus-grpc inicia un único servidor gRPC que se ejecuta en un único bucle de eventos."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "If you wish to scale your server, you can set the number of server instances by setting `quarkus.grpc.server.instances`."
-msgstr ""
+msgstr "Si desea escalar su servidor, puede establecer el número de instancias del servidor configurando `quarkus.grpc.server.instances`."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Server Configuration"
-msgstr ""
+msgstr "Configuración del servidor"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Example of Configuration"
-msgstr ""
+msgstr "Ejemplo de configuración"
 
 #. type: Title ===
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Enabling TLS"
-msgstr ""
+msgstr "Activación de TLS"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "To enable TLS, use the following configuration."
-msgstr ""
+msgstr "Para habilitar TLS, utilice la siguiente configuración."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Note that all paths in the configuration may either specify a resource on the classpath\n"
 "(typically from `src/main/resources` or its subfolder) or an external file."
-msgstr ""
+msgstr "Tenga en cuenta que todas las rutas de la configuración pueden especificar un recurso del classpath (normalmente de `src/main/resources` o su subcarpeta) o un archivo externo."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "When SSL/TLS is configured, `plain-text` is automatically disabled."
-msgstr ""
+msgstr "Cuando se configura SSL/TLS, `plain-text` se desactiva automáticamente."
 
 #. type: Title ===
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "TLS with Mutual Auth"
-msgstr ""
+msgstr "TLS con autentificación mutua"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "To use TLS with mutual authentication, use the following configuration:"
-msgstr ""
+msgstr "Para utilizar TLS con autenticación mutua, utilice la siguiente configuración:"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Server Interceptors"
-msgstr ""
+msgstr "Interceptores de servidores"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "gRPC server interceptors let you perform logic, such as authentication, before your service is invoked."
-msgstr ""
+msgstr "Los interceptores del servidor gRPC le permiten realizar la lógica, como la autenticación, antes de que su servicio sea invocado."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "You can implement a gRPC server interceptor by creating an `@ApplicationScoped` bean implementing `io.grpc.ServerInterceptor`:"
-msgstr ""
+msgstr "Puede implementar un interceptor de servidor gRPC creando un bean `@ApplicationScoped` que implemente `io.grpc.ServerInterceptor`:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Check the https://grpc.github.io/grpc-java/javadoc/io/grpc/ServerInterceptor.html[ServerInterceptor JavaDoc] to properly implement your interceptor."
-msgstr ""
+msgstr "Consulte el  link:https://grpc.github.io/grpc-java/javadoc/io/grpc/ServerInterceptor.html[JavaDoc de ServerInterceptor] para implementar correctamente su interceptor."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "To apply an interceptor to all exposed services, annotate it with `@io.quarkus.grpc.GlobalInterceptor`.\n"
 "To apply an interceptor to a single service, register it on the service with `@io.quarkus.grpc.RegisterInterceptor`:"
-msgstr ""
+msgstr "Para aplicar un interceptor a todos los servicios expuestos, anótelo con `@io.quarkus.grpc.GlobalInterceptor` . Para aplicar un interceptor a un único servicio, regístrelo en el servicio con `@io.quarkus.grpc.RegisterInterceptor` :"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "When you have multiple server interceptors, you can order them by implementing the `javax.enterprise.inject.spi.Prioritized` interface. Please note that all the global interceptors are invoked before the service-specific\n"
 "interceptors."
-msgstr ""
+msgstr "Cuando tenga varios interceptores de servidor, puede ordenarlos implementando la interfaz `javax.enterprise.inject.spi.Prioritized` . Tenga en cuenta que todos los interceptores globales se invocan antes que los interceptores específicos del servicio."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Interceptors with the highest priority are called first.\n"
 "The default priority, used if the interceptor does not implement the `Prioritized` interface, is `0`."
-msgstr ""
+msgstr "Los interceptores con la prioridad más alta son llamados en primer lugar. La prioridad por defecto, utilizada si el interceptor no implementa la interfaz `Prioritized` , es `0` ."
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Testing your services"
-msgstr ""
+msgstr "Probar sus servicios"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "The easiest way to test a gRPC service is to use a gRPC client as described\n"
 "in xref:grpc-service-consumption.adoc[Consuming a gRPC Service]."
-msgstr ""
+msgstr "La forma más sencilla de probar un xref:grpc-service-consumption.adoc[servicio] gRPC es utilizar un cliente gRPC como se describe en xref:grpc-service-consumption.adoc[Consumir un servicio gRPC] ."
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "Please note that in the case of using a client to test an exposed service that does not use TLS,\n"
 "there is no need to provide any configuration. E.g. to test the `HelloService`\n"
 "defined above, one could create the following test:"
-msgstr ""
+msgstr "Tenga en cuenta que en el caso de utilizar un cliente para probar un servicio expuesto que no utiliza TLS, no es necesario proporcionar ninguna configuración. Por ejemplo, para probar el `HelloService` definido anteriormente, se podría crear la siguiente prueba:"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Trying out your services manually"
-msgstr ""
+msgstr "Probar sus servicios manualmente"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "In the dev mode, you can try out your gRPC services in the Quarkus Dev UI.\n"
 "Just go to http://localhost:8080/q/dev and click on _Services_ under the gRPC tile."
-msgstr ""
+msgstr "En el modo dev, puede probar sus servicios gRPC en la Quarkus Dev UI. Sólo tiene que ir a http://localhost:8080/q/dev y hacer clic en _Servicios_ bajo el mosaico gRPC."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Please note that your application needs to expose the \"normal\" HTTP port for the Dev UI to be accessible. If your application does not expose any HTTP endpoints, you can create a dedicated profile with a dependency on `quarkus-vertx-http`:"
-msgstr ""
+msgstr "Tenga en cuenta que su aplicación debe exponer el puerto HTTP \"normal\" para que la interfaz de usuario de desarrollo sea accesible. Si su aplicación no expone ningún punto final HTTP, puede crear un perfil dedicado con una dependencia de `quarkus-vertx-http`:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "Having it, you can run the dev mode with: `mvn quarkus:dev -Pdevelopment`."
-msgstr ""
+msgstr "Al tenerlo, puedes ejecutar el modo dev con: `mvn quarkus:dev -Pdevelopment`."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "If you use Gradle, you can simply add a dependency for the `quarkusDev` task:"
-msgstr ""
+msgstr "Si utiliza Gradle, puede añadir simplemente una dependencia para la tarea `quarkusDev`:"
 
 #. type: Title ==
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "gRPC Server metrics"
-msgstr ""
+msgstr "Métricas del servidor gRPC"
 
 #. type: Title ===
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Enabling metrics collection"
-msgstr ""
+msgstr "Habilitación de la recopilación de métricas"
 
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid ""
 "gRPC server metrics are automatically enabled when the application also uses the xref:micrometer.adoc[`quarkus-micrometer`] extension.\n"
 "Micrometer collects the metrics of all the gRPC services implemented by the application."
-msgstr ""
+msgstr "Las métricas del servidor gRPC se activan automáticamente cuando la aplicación también utiliza la xref:micrometer.adoc[quarkus-micrometer] extensión. Micrometer recoge las métricas de todos los servicios gRPC implementados por la aplicación."
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "As an example, if you export the metrics to Prometheus, you will get:"
-msgstr ""
+msgstr "A modo de ejemplo, si exporta las métricas a Prometheus, obtendrá:"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "The service name, method and type can be found in the _tags_."
-msgstr ""
+msgstr "El nombre del servicio, el método y el tipo se encuentran en las _etiquetas_."
 
 #. type: Title ===
 #: _versions/2.7/guides/grpc-service-implementation.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Disabling metrics collection"
-msgstr ""
+msgstr "Desactivación de la recogida de métricas"
 
 #. type: Plain text
 #: _versions/2.7/guides/grpc-service-implementation.adoc
+#, fuzzy
 msgid "To disable the gRPC server metrics when `quarkus-micrometer` is used, add the following property to the application configuration:"
-msgstr ""
+msgstr "Para desactivar las métricas del servidor gRPC cuando se utiliza `quarkus-micrometer`, añada la siguiente propiedad a la configuración de la aplicación:"

@@ -38,7 +38,7 @@ msgstr "Jakarta Persistence `IdentityProvider` verifica y convierte un par de no
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "For more information about Jakarta Persistence, see the xref:security-jpa.adoc[Quarkus Security with Jakarta Persistence] guide."
-msgstr "Para más información sobre Jakarta  link:security-jpa.html[Persistence], véase la guía  link:security-jpa.html[Quarkus Security with Jakarta Persistence]."
+msgstr "Para más información sobre Jakarta  link:security-jpa-concept.html[Persistence], véase la sección  link:security-jpa-concept.html[Seguridad de Quarkus con Jakarta Persistence]."
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
@@ -56,13 +56,13 @@ msgstr "Requisitos previos"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy, no-wrap
 msgid "What you will build"
-msgstr "Qué construirás"
+msgstr "Qué vas a construir"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To demonstrate different authorization policies, the steps in this tutorial guide you through building an application that provides the following endpoints:"
-msgstr "Para demostrar las diferentes políticas de autorización, los pasos de este tutorial le guiarán a través de la creación de una aplicación que proporcione los siguientes puntos finales:"
+msgstr "Los pasos de este tutorial le guiarán en la creación de una aplicación que proporcione los siguientes puntos finales:"
 
 #. type: Table
 #: _guides/security-getting-started-tutorial.adoc
@@ -101,7 +101,7 @@ msgid ""
 "The `/api/admin` endpoint is protected with role-based access control (RBAC).\n"
 "Only users granted with the `admin` role can access it.\n"
 "At this endpoint, the `@RolesAllowed` annotation enforces the access constraint declaratively."
-msgstr "El endpoint `/api/admin` está protegido con control de acceso basado en roles (RBAC). Sólo los usuarios con el rol `admin` pueden acceder a él. En este punto final, la anotación `@RolesAllowed` impone la restricción de acceso de forma declarativa."
+msgstr "El punto final `/api/admin` está protegido con control de acceso basado en roles (RBAC), y sólo los usuarios a los que se les ha concedido el rol `admin` pueden acceder a él. En este punto final, la anotación `@RolesAllowed` se utiliza para aplicar declarativamente la restricción de acceso."
 
 #. type: Table
 #: _guides/security-getting-started-tutorial.adoc
@@ -116,7 +116,7 @@ msgid ""
 "The `/api/users/me` endpoint is protected by RBAC.\n"
 "Only users that have the `user` role can access the endpoint.\n"
 "This endpoint returns the caller's username as a string."
-msgstr "El endpoint `/api/users/me` está protegido por RBAC. Sólo los usuarios que tengan el rol `user` pueden acceder al endpoint. Este endpoint devuelve el nombre de usuario de la persona que llama como una cadena."
+msgstr "El endpoint `/api/users/me` está protegido con RBAC y sólo los usuarios a los que se les ha concedido el rol `user` pueden acceder a él. Como respuesta se devuelve un documento JSON con detalles sobre el usuario."
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
@@ -128,37 +128,39 @@ msgstr "Para examinar el ejemplo completo, descargue el {quickstarts-archive-url
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "You can find the solution in the `security-jpa-quickstart` link:{quickstarts-tree-url}/security-jpa-quickstart[directory] in the upstream {ProductName} community."
-msgstr "Puede encontrar la solución en el  link:{quickstarts-tree-url}/security-jpa-quickstart[directorio] `security-jpa-quickstart` de la comunidad upstream {ProductName}."
+msgstr "Puede encontrar la solución en `security-jpa-quickstart` {quickstarts-tree-url}/security-jpa-quickstart[directory]."
 
 #. type: Title ==
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy, no-wrap
 msgid "Create and verify the Maven project"
-msgstr "Crear y verificar el proyecto Maven"
+msgstr "Crear un proyecto Maven"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "For Quarkus Security to be able to map your security source to Jakarta Persistence entities, ensure that the Maven project that is used in this tutorial includes the `security-jpa` or the `security-jpa-reactive` extension."
-msgstr "Para que Quarkus Security pueda asignar su fuente de seguridad a las entidades de Jakarta Persistence, asegúrese de que el proyecto Maven que se utiliza en este tutorial incluya la extensión `security-jpa` o `security-jpa-reactive`."
+msgstr "Para que Quarkus security pueda asignar su fuente de seguridad a entidades JPA, asegúrese de que el proyecto Maven que se utiliza en este tutorial incluye la extensión `security-jpa`. Puede crear un nuevo proyecto Maven con la extensión `security-jpa` o puede añadir la extensión a un proyecto Maven existente."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "xref:hibernate-orm-panache.adoc[Hibernate ORM with Panache] is used to store your user identities but you can also use xref:hibernate-orm.adoc[Hibernate ORM] with the `security-jpa` extension.\n"
 "Both xref:hibernate-reactive.adoc[Hibernate Reactive] and xref:hibernate-reactive-panache.adoc[Hibernate Reactive with Panache] can be used with the `security-jpa-reactive` extension."
-msgstr ""
+msgstr "link:hibernate-orm-panache.html[Hibernate ORM con Panache] se utiliza para almacenar sus identidades de usuario, pero también puede utilizar  link:hibernate-orm.html[Hibernate ORM]. También debe añadir su biblioteca de conectores de bases de datos preferida. Las instrucciones de este tutorial de ejemplo utilizan una base de datos PostgreSQL para el almacén de identidades."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "You must also add your preferred database connector library.\n"
 "The instructions in this example tutorial use a PostgreSQL database for the identity store."
-msgstr ""
+msgstr "link:hibernate-orm-panache.html[Hibernate ORM con Panache] se utiliza para almacenar sus identidades de usuario, pero también puede utilizar  link:hibernate-orm.html[Hibernate ORM]. También debe añadir su biblioteca de conectores de bases de datos preferida. Las instrucciones de este tutorial de ejemplo utilizan una base de datos PostgreSQL para el almacén de identidades."
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy, no-wrap
 msgid "Create the Maven project"
-msgstr "Crear el proyecto Maven"
+msgstr "Creación del proyecto Maven"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
@@ -170,73 +172,82 @@ msgstr "Puedes crear un nuevo proyecto Maven con la extensión Security Jakarta 
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To create a new Maven project with the Jakarta Persistence extension, complete one of the following steps:"
-msgstr "Para crear un nuevo proyecto Maven con la extensión Jakarta Persistence, complete uno de los siguientes pasos:"
+msgstr "Para crear el proyecto Maven, utilice el siguiente comando:"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To create the Maven project with Hibernate ORM, use the following command:"
-msgstr "Para crear el proyecto Maven con Hibernate ORM, utilice el siguiente comando:"
+msgstr "Para crear el proyecto Maven, utilice el siguiente comando:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "CLI"
-msgstr ""
+msgstr "CLI"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
-msgstr ""
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "Maven"
-msgstr ""
+msgstr "Maven"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "For Windows users:"
-msgstr ""
+msgstr "Para usuarios de Windows:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
-msgstr ""
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
-msgstr ""
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To create the Maven project with Hibernate Reactive, use the following command:"
-msgstr "Para crear el proyecto Maven con Hibernate Reactive, utilice el siguiente comando:"
+msgstr "Para crear el proyecto Maven, utilice el siguiente comando:"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To add the Jakarta Persistence extension to an existing Maven project, complete one of the following steps:"
-msgstr "Para añadir la extensión Jakarta Persistence a un proyecto Maven existente, complete uno de los siguientes pasos:"
+msgstr "Para añadir la extensión `security-jpa` a un proyecto Maven existente, ejecute el siguiente comando desde el directorio base de su proyecto:"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To add the Security Jakarta Persistence extension to an existing Maven project with Hibernate ORM, run the following command from your project base directory:"
-msgstr "Para añadir la extensión Security Jakarta Persistence a un proyecto Maven existente con Hibernate ORM, ejecute el siguiente comando desde el directorio base de su proyecto:"
+msgstr "Para añadir la extensión `security-jpa` a un proyecto Maven existente, ejecute el siguiente comando desde el directorio base de su proyecto:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid "Gradle"
-msgstr ""
+msgstr "Gradle"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To add the Security Jakarta Persistence extension to an existing Maven project with Hibernate Reactive, run the following command from your project base directory:"
-msgstr "Para añadir la extensión Security Jakarta Persistence a un proyecto Maven existente con Hibernate Reactive, ejecuta el siguiente comando desde el directorio base de tu proyecto:"
+msgstr "Para añadir la extensión `security-jpa` a un proyecto Maven existente, ejecute el siguiente comando desde el directorio base de su proyecto:"
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
@@ -248,7 +259,7 @@ msgstr "Verificar la dependencia de quarkus-security-jpa"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "After you have run either of the preceding commands to create the Maven project, verify that the `security-jpa` dependency was added to your project build XML file."
-msgstr "Después de ejecutar cualquiera de los comandos anteriores para crear el proyecto Maven, compruebe que la dependencia `security-jpa` se ha añadido al archivo XML de compilación del proyecto."
+msgstr "Después de ejecutar cualquiera de los comandos anteriores, compruebe que se ha añadido la dependencia `security-jpa` al archivo XML de compilación del proyecto, como se indica a continuación:"
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
@@ -284,26 +295,29 @@ msgstr "Redactar la solicitud"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "Secure the API endpoint to determine who can access the application by using one of the following approaches:"
-msgstr "Asegure el punto final de la API para determinar quién puede acceder a la aplicación utilizando uno de los siguientes enfoques:"
+msgstr "Compila y ejecuta tu aplicación Quarkus utilizando uno de los siguientes métodos:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Implement the `/api/public` endpoint to allow all users access to the application.\n"
 "Add a regular Jakarta REST resource to your Java source code, as shown in the following code snippet:"
-msgstr ""
+msgstr "Empecemos por implementar el endpoint `/api/public` para permitir a todos los usuarios acceder a la aplicación. Añade un recurso JAX-RS normal a tu código fuente Java, como se indica en el siguiente fragmento de código:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Implement the `/api/public` endpoint to allow all users to access the application.\n"
 "The source code for the `/api/admin` endpoint is similar, but instead, you use a `@RolesAllowed` annotation to ensure that only users granted the `admin` role can access the endpoint.\n"
 "Add a Jakarta REST resource with the following `@RolesAllowed` annotation:"
-msgstr ""
+msgstr "El código fuente para el endpoint `/api/admin` es similar, pero en su lugar se utiliza una anotación `@RolesAllowed` para asegurarse de que sólo los usuarios con el rol `admin` pueden acceder al endpoint. Añade un recurso JAX-RS con la siguiente anotación `@RolesAllowed`:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Implement an `/api/users/me` endpoint that can only be accessed by users who have the `user` role.\n"
 "Use `SecurityContext` to get access to the currently authenticated `Principal` user and to return their username, all of which is retrieved from the database."
-msgstr ""
+msgstr "Por último, implementa el endpoint `/api/users/me`. Como se puede ver en el ejemplo de código fuente a continuación, estamos confiando sólo en los usuarios con el rol `user`. También estamos usando `SecurityContext` para obtener acceso al actualmente autenticado `Principal`, y devolvemos el nombre de usuario, todo lo cual es cargado desde la base de datos."
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
@@ -336,11 +350,12 @@ msgid "Indicates the field used for the username."
 msgstr "Indica el campo utilizado para el nombre de usuario."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Indicates the field used for the password.\n"
 "By default, it uses bcrypt-hashed passwords.\n"
 "You can configure it to use plain text or custom passwords."
-msgstr ""
+msgstr "Indica el campo utilizado para la contraseña, que por defecto utiliza contraseñas con hash bcrypt pero también se puede configurar para texto plano o contraseñas personalizadas."
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
@@ -352,13 +367,14 @@ msgstr "Indica la lista separada por comas de funciones añadidas a los atributo
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "Allows us to add users while hashing passwords with the proper bcrypt hash."
-msgstr "Nos permite añadir usuarios a la vez que hashea las contraseñas con el hash bcrypt adecuado."
+msgstr "Este método nos permite añadir usuarios mientras hacemos hash de la contraseña con el hash bcrypt adecuado."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Hibernate Reactive Panache uses `io.quarkus.hibernate.reactive.panache.PanacheEntity` instead of `io.quarkus.hibernate.orm.panache.PanacheEntity`.\n"
 "For more information, see  link:{quickstarts-tree-url}/security-jpa-reactive-quickstart/src/main/java/org/acme/elytron/security/jpa/reactive/User.java[User file]."
-msgstr ""
+msgstr "Hibernate Reactive Panache utiliza `io.quarkus.hibernate.reactive.panache.PanacheEntity` en lugar de `io.quarkus.hibernate.orm.panache.PanacheEntity`. Para obtener más información, consulte {quickstarts-tree-url}/security-jpa-reactive-quickstart/src/main/java/org/acme/elytron/security/jpa/reactive/User.java[Archivo de usuario]."
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
@@ -370,7 +386,7 @@ msgstr "Configurar la aplicación"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "Enable the built-in Quarkus xref:security-basic-authentication.adoc[Basic authentication] mechanism by setting the `quarkus.http.auth.basic` property to `true`:"
-msgstr "Habilite el mecanismo de  link:security-basic-authentication.html[autenticación] integrado Quarkus  link:security-basic-authentication.html[Basic] estableciendo la propiedad `quarkus.http.auth.basic` en `true`:"
+msgstr "Habilite la  link:security-built-in-authentication-support-concept.html#basic-auth[autenticación HTTP básica incorporada de Quarkus] estableciendo la propiedad `quarkus.http.auth.basic` en `true`:"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
@@ -379,16 +395,18 @@ msgid "`quarkus.http.auth.basic`=true`"
 msgstr "`quarkus.http.auth.basic`=verdadero`"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "When secure access is required and no other authentication mechanisms are enabled, the built-in xref:security-basic-authentication.adoc[Basic authentication] of Quarkus is the fallback authentication mechanism.\n"
 "Therefore, in this tutorial, you do not need to set the property `quarkus.http.auth.basic` to `true`."
-msgstr ""
+msgstr "Cuando se requiere acceso seguro y no hay otros mecanismos de autenticación habilitados,  link:security-built-in-authentication-support-concept.html#basic-auth[la autenticación HTTP básica incorporada en Quarkus] es el mecanismo de autenticación de reserva. Por lo tanto, en este tutorial, no es necesario establecer la propiedad `quarkus.http.auth.basic=true`."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Configure at least one data source in the `application.properties` file so the `security-jpa` extension can access your database.\n"
 "For example:"
-msgstr ""
+msgstr "Configure al menos una fuente de datos para que la extensión `security-jpa` pueda acceder a su base de datos."
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
@@ -397,30 +415,33 @@ msgid "To initialize the database with users and roles, implement the `Startup` 
 msgstr "Para inicializar la base de datos con usuarios y roles, implemente la clase `Startup`, como se indica en el siguiente fragmento de código:"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "The URLs of Reactive datasources that are used by the `security-jpa-reactive` extension are set with the `quarkus.datasource.reactive.url`\n"
 "configuration property and not the `quarkus.datasource.jdbc.url` configuration property that is typically used by JDBC datasources."
-msgstr ""
+msgstr "Si planea utilizar Hibernate Reactive y controladores de bases de datos no bloqueantes, tendrá que utilizar la extensión `security-jpa-reactive` en su lugar. La extensión `security-jpa-reactive` funciona con las mismas anotaciones y la única diferencia en la configuración es la URL del origen de datos. La fuente de datos reactiva tiene la URL establecida con la propiedad de configuración `quarkus.datasource.reactive.url`, en lugar de la propiedad de configuración `quarkus.datasource.jdbc.url` utilizada por la fuente de datos JDBC."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "In this tutorial, a PostgreSQL database is used for the identity store.\n"
 "link:https://hibernate.org/orm/[Hibernate ORM] automatically creates the database schema on startup.\n"
 "This approach is suitable for development but is not recommended for production.\n"
 "Therefore adjustments are needed in a production environment."
-msgstr ""
+msgstr "En este tutorial, se utiliza una base de datos PostgreSQL para el almacén de identidades. Hibernate ORM crea automáticamente el esquema de la base de datos al inicio (cámbialo en producción)."
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "The preceding example demonstrates how the application can be protected and identities provided by the specified database."
-msgstr "El ejemplo anterior demuestra cómo se puede proteger la aplicación y las identidades proporcionadas por la base de datos especificada."
+msgstr "La aplicación está ahora protegida y las identidades de los usuarios son proporcionadas por la base de datos especificada."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "In a production environment, do not store plain text passwords.\n"
 "As a result, the `security-jpa` defaults to using bcrypt-hashed passwords."
-msgstr ""
+msgstr "En un entorno de producción, no almacene contraseñas en texto plano. Por ello, `security-jpa` utiliza por defecto contraseñas cifradas con bcrypt."
 
 #. type: Title ==
 #: _guides/security-getting-started-tutorial.adoc
@@ -432,19 +453,20 @@ msgstr "Pruebe su aplicación utilizando Dev Services para PostgreSQL"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "Complete the integration testing of your application in JVM and native modes by using xref:dev-services.adoc#databases[Dev Services for PostgreSQL] before you run your application in production mode."
-msgstr "Complete las pruebas de integración de su aplicación en los modos JVM y nativo utilizando  link:dev-services.html#databases[Dev Services para PostgreSQL] antes de ejecutar su aplicación en modo de producción."
+msgstr "Utilice  link:https://quarkus.io/guides/dev-services.html#databases[Dev Services para PostgreSQL] para las pruebas de integración de su aplicación en JVM y modos nativos."
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "To run your application in dev mode:"
-msgstr "Para ejecutar tu aplicación en modo dev:"
+msgstr "Pruebe su aplicación"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "The following properties configuration demonstrates how you can enable PostgreSQL testing to run in production (`prod`) mode only.\n"
 "In this scenario, `Dev Services for PostgreSQL` launches and configures a `PostgreSQL` test container."
-msgstr ""
+msgstr "La siguiente configuración de propiedades demuestra cómo puede habilitar las pruebas PostgreSQL para que se ejecuten únicamente en modo de producción ( `prod`). En este escenario, `Dev Services for PostgreSQL` lanza y configura un contenedor de pruebas `PostgreSQL`."
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
@@ -465,17 +487,18 @@ msgid "As you can see in this code sample, you do not need to start the test con
 msgstr "Como puede ver en este ejemplo de código, no es necesario iniciar el contenedor de prueba desde el código de prueba."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "When you start your application in dev mode, `Dev Services for PostgreSQL` launches a `PostgreSQL` `devmode` container so that you can start developing your application.\n"
 "While developing your application, you can add tests one by one and run them using the xref:continuous-testing.adoc[Continuous Testing] feature.\n"
 "`Dev Services for PostgreSQL` supports testing while you develop by providing a separate `PostgreSQL` test container that does not conflict with the `devmode` container."
-msgstr ""
+msgstr "Si inicias tu aplicación en modo de desarrollo, `Dev Services for PostgreSQL` lanza un contenedor `PostgreSQL` `devmode` para que puedas empezar a desarrollar tu aplicación. Mientras desarrollas tu aplicación, también puedes empezar a añadir pruebas una a una y ejecutarlas utilizando la función de  link:continuous-testing.html[pruebas continuas]. `Dev Services for PostgreSQL` permite realizar pruebas mientras desarrollas proporcionando un contenedor de pruebas `PostgreSQL` independiente que no entra en conflicto con el contenedor `devmode`."
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy, no-wrap
 msgid "Use Curl or a browser to test your application"
-msgstr "Utilice Curl o un navegador para probar su aplicación"
+msgstr "Utilice `curl` o un navegador para probar su aplicación"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
@@ -536,7 +559,7 @@ msgstr "Acceder y probar la seguridad de la aplicación"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "When your application is running, you can access its endpoints by using one of the following Curl commands."
-msgstr "Cuando su aplicación se está ejecutando, puede acceder a sus puntos finales utilizando uno de los siguientes comandos Curl."
+msgstr "Cuando su aplicación se está ejecutando, puede acceder a ella utilizando uno de los siguientes comandos `curl`. También puede acceder a las mismas URL de punto final utilizando un navegador."
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
@@ -560,7 +583,7 @@ msgstr "También puede acceder a las mismas URL de punto final utilizando un nav
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "If you use a browser to anonymously connect to a protected resource, a Basic authentication form displays, prompting you to enter credentials."
-msgstr "Si utiliza un navegador para conectarse de forma anónima a un recurso protegido, aparecerá un formulario de autenticación básica que le pedirá que introduzca sus credenciales."
+msgstr "Cuando utilizas un navegador para conectarte de forma anónima a un recurso protegido, aparece un formulario de autenticación básica que te pide que introduzcas las credenciales."
 
 #. type: Title ===
 #: _guides/security-getting-started-tutorial.adoc
@@ -569,22 +592,23 @@ msgid "Results"
 msgstr "Resultados"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "When you provide the credentials of an authorized user, for example, `admin:admin`, the Jakarta Persistence security extension authenticates and loads the roles of the user.\n"
 "The `admin` user is authorized to access the protected resources."
-msgstr ""
+msgstr "Cuando se proporcionan las credenciales de un usuario autorizado, por ejemplo, `admin:admin`, la extensión de seguridad JPA autentica y carga los roles del usuario. El usuario de `admin` está autorizado a acceder a los recursos protegidos."
 
 #. type: delimited block =
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "If a resource is protected with `@RolesAllowed(\"user\")`, the user `admin` is not authorized to access the resource because it is not assigned to the \"user\" role, as shown in the following shell example:"
-msgstr "Si un recurso está protegido con `@RolesAllowed(\"user\")`, el usuario `admin` no está autorizado a acceder al recurso porque no tiene asignado el rol \"usuario\", como se muestra en el siguiente ejemplo de shell:"
+msgstr "Si un recurso está protegido con `@RolesAllowed(\"user\")`, el usuario `admin` no está autorizado a acceder al recurso porque no tiene asignado el rol \"usuario\", como se indica en el siguiente ejemplo de shell:"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "Finally, the user named `user` is authorized and the security context contains the principal details, for example, the username."
-msgstr "Finalmente, el usuario llamado `user` es autorizado y el contexto de seguridad contiene los detalles principales, por ejemplo, el nombre de usuario."
+msgstr "Por último, se autoriza el nombre de usuario `user` y el contexto de seguridad contiene los detalles principales, por ejemplo, el nombre de usuario."
 
 #. type: Title ==
 #: _guides/security-getting-started-tutorial.adoc
@@ -593,28 +617,30 @@ msgid "What's next"
 msgstr "Próximos pasos"
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "Congratulations!\n"
 "You have learned how to create and test a secure Quarkus application by combining the built-in xref:security-basic-authentication.adoc[Basic authentication] in Quarkus with the Jakarta Persistence identity provider."
-msgstr ""
+msgstr "Enhorabuena. Ha aprendido a crear y probar una aplicación Quarkus segura combinando la  link:security-built-in-authentication-support-concept.html#basic-auth[autenticación HTTP básica incorporada en Quarkus] con el proveedor de identidad JPA."
 
 #: _guides/security-getting-started-tutorial.adoc
+#, fuzzy
 msgid ""
 "After completing this tutorial, you can explore more advanced security mechanisms in Quarkus.\n"
 "The following information shows you how to use `OpenID Connect` for secure single sign-on access to your Quarkus endpoints:"
-msgstr ""
+msgstr "Después de completar este tutorial, explore algunos de los mecanismos de seguridad más avanzados de Quarkus. Utilice la siguiente información para aprender cómo puede utilizar de forma segura `OpenID Connect` para proporcionar un acceso seguro de inicio de sesión único a sus terminales de Quarkus:"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "xref:security-oidc-bearer-token-authentication.adoc[OIDC Bearer token authentication]"
-msgstr "link:security-oidc-bearer-token-authentication.html[Autenticación de token de portador OIDC]"
+msgstr "link:security-oidc-bearer-authentication-concept.html[Autenticación del portador OIDC]"
 
 #. type: Plain text
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "xref:security-oidc-code-flow-authentication.adoc[OIDC code flow mechanism for protecting web applications]"
-msgstr "link:security-oidc-code-flow-authentication.html[Mecanismo de flujo de código OIDC para proteger las aplicaciones web]"
+msgstr "link:security-oidc-code-flow-authentication-concept.html[Mecanismo de flujo de código OIDC para proteger las aplicaciones web]"
 
 #. type: Title ==
 #: _guides/security-getting-started-tutorial.adoc
@@ -657,4 +683,4 @@ msgstr "link:hibernate-orm-panache.html[Hibernate ORM simplificado con Panache]"
 #: _guides/security-getting-started-tutorial.adoc
 #, fuzzy
 msgid "xref:hibernate-orm.adoc[Using Hibernate ORM and Jakarta Persistence]"
-msgstr "link:hibernate-orm.html[Uso de Hibernate ORM y Jakarta Persistence]"
+msgstr "link:hibernate-orm.html[Uso de Hibernate ORM y JPA]"

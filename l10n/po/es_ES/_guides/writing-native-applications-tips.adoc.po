@@ -74,10 +74,11 @@ msgid "Including resources"
 msgstr "Incluidos los recursos"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "By default, when building a native executable, GraalVM will not include any of the resources that are on the classpath into the native executable it creates.\n"
 "Resources that are meant to be part of the native executable need to be configured explicitly."
-msgstr ""
+msgstr "Por defecto, al construir un ejecutable nativo, GraalVM no incluirá ninguno de los recursos que están en el classpath en el ejecutable nativo que crea. Los recursos que deben formar parte del ejecutable nativo deben configurarse explícitamente."
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -86,10 +87,11 @@ msgid "Quarkus automatically includes the resources present in `META-INF/resourc
 msgstr "Quarkus incluye automáticamente los recursos presentes en `META-INF/resources` (los recursos de la web) pero, fuera de este directorio, estás por tu cuenta."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Note that you need to be extremely careful here as anything in `META-INF/resources` will be exposed as static web resources.\n"
 "So this directory is not a shortcut for \"let's automatically include these resources in the native executable\" and should only be used for static web resources."
-msgstr ""
+msgstr "Tenga en cuenta que debe ser extremadamente cuidadoso aquí, ya que cualquier cosa en `META-INF/resources` será expuesta como recursos web estáticos. Así que este directorio no es un atajo para \"incluyamos automáticamente estos recursos en el ejecutable nativo\" y sólo debe utilizarse para recursos web estáticos."
 
 #. type: delimited block =
 #: _guides/writing-native-applications-tips.adoc
@@ -104,10 +106,11 @@ msgid "Using the `quarkus.native.resources.includes` configuration property"
 msgstr "Utilización de la propiedad de configuración `quarkus.native.resources.includes`"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "To include more resources in the native executable, the easiest way is to use the `quarkus.native.resources.includes` configuration property,\n"
 "and its counterpart to exclude resources `quarkus.native.resources.excludes`."
-msgstr ""
+msgstr "Para incluir más recursos en el ejecutable nativo, lo más sencillo es utilizar la propiedad de configuración `quarkus.native.resources.includes` , y su contrapartida para excluir recursos `quarkus.native.resources.excludes` ."
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -146,10 +149,11 @@ msgid "Using a configuration file"
 msgstr "Uso de un archivo de configuración"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "If globs are not sufficiently precise for your use case and you need to rely on regular expressions, or if you prefer relying on the GraalVM infrastructure,\n"
 "you can also create a `resources-config.json` (the most common location is within `src/main/resources`) JSON file defining which resources should be included."
-msgstr ""
+msgstr "Si los globs no son lo suficientemente precisos para su caso de uso y necesita recurrir a expresiones regulares, o si prefiere confiar en la infraestructura de GraalVM, también puede crear un archivo JSON en `resources-config.json` (la ubicación más habitual es dentro de `src/main/resources` ) que defina qué recursos deben incluirse."
 
 #. type: delimited block =
 #: _guides/writing-native-applications-tips.adoc
@@ -170,10 +174,11 @@ msgid "An example of such a file is the following:"
 msgstr "Un ejemplo de archivo de este tipo es el siguiente:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "The patterns are valid Java regexps.\n"
 "Here we include all the XML files and JSON files into the native executable."
-msgstr ""
+msgstr "Los patrones son regexps de Java válidos. Aquí incluimos todos los archivos XML y JSON en el ejecutable nativo."
 
 #. type: delimited block =
 #: _guides/writing-native-applications-tips.adoc
@@ -188,16 +193,18 @@ msgid "The final order of business is to make the configuration file known to th
 msgstr "El último paso es dar a conocer el archivo de configuración al ejecutable `native-image` añadiendo la configuración adecuada a `application.properties`:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Starting with Mandrel 23.1 and GraalVM for JDK 21, `-H:ResourceConfigurationFiles=resources-config.json` results in a warning being shown unless wrapped in `-H:+UnlockExperimentalVMOptions` and `-H:-UnlockExperimentalVMOptions`.\n"
 "The absence of these options will result in build failures in the future."
-msgstr ""
+msgstr "A partir de Mandrel 23.1 y GraalVM para JDK 21, `-H:ResourceConfigurationFiles=resources-config.json` hace que se muestre una advertencia a menos que esté envuelto en `-H:+UnlockExperimentalVMOptions` y `-H:-UnlockExperimentalVMOptions` . La ausencia de estas opciones provocará fallos de compilación en el futuro."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "In the previous snippet we were able to simply use `resources-config.json` instead of specifying the entire path of the file simply because it was added to `src/main/resources`.\n"
 "If the file had been added to another directory, the proper file path would have had to be specified manually."
-msgstr ""
+msgstr "En el fragmento anterior pudimos utilizar simplemente `resources-config.json` en lugar de especificar la ruta completa del archivo simplemente porque se había añadido a `src/main/resources` . Si el archivo se hubiera añadido a otro directorio, habría sido necesario especificar manualmente la ruta de archivo adecuada."
 
 #. type: delimited block =
 #: _guides/writing-native-applications-tips.adoc
@@ -230,16 +237,18 @@ msgid "Registering for reflection"
 msgstr "Registro de la reflexión"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "When building a native executable, GraalVM operates with a closed world assumption.\n"
 "It analyzes the call tree and removes all the classes/methods/fields that are not used directly."
-msgstr ""
+msgstr "Al construir un ejecutable nativo, GraalVM opera con una suposición de mundo cerrado. Analiza el árbol de llamadas y elimina todas las clases/métodos/campos que no se utilizan directamente."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "The elements used via reflection are not part of the call tree so they are dead code eliminated (if not called directly in other cases).\n"
 "To include these elements in your native executable, you need to register them for reflection explicitly."
-msgstr ""
+msgstr "Los elementos utilizados mediante reflexión no forman parte del árbol de llamadas, por lo que son código muerto eliminado (si no se llaman directamente en otros casos). Para incluir estos elementos en su ejecutable nativo, debe registrarlos para la reflexión explícitamente."
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -290,8 +299,9 @@ msgid "If your class is in a third-party jar, you can do it by using an empty cl
 msgstr "Si tu clase está en un jar de terceros, puedes hacerlo utilizando una clase vacía que alojará el `@RegisterForReflection` para ella."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid "Note that `MyClassRequiringReflection` and  `MySecondClassRequiringReflection` will be registered for reflection but not `MyReflectionConfiguration`."
-msgstr ""
+msgstr "Tenga en cuenta que `MyClassRequiringReflection` y `MySecondClassRequiringReflection` se registrarán para la reflexión pero no `MyReflectionConfiguration` ."
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -318,10 +328,11 @@ msgid "For more information about the format of this file, see the link:https://
 msgstr "Para más detalles sobre el formato de este archivo, consulte  link:https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/Reflection.md[la documentación de GraalVM]."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "In the previous snippet we were able to simply use `reflection-config.json` instead of specifying the entire path of the file simply because it was added to `src/main/resources`.\n"
 "If the file had been added to another directory, the proper file path would have had to be specified manually."
-msgstr ""
+msgstr "En el fragmento anterior pudimos utilizar simplemente `reflection-config.json` en lugar de especificar la ruta completa del archivo simplemente porque se había añadido a `src/main/resources` . Si el archivo se hubiera añadido a otro directorio, habría sido necesario especificar manualmente la ruta de archivo adecuada."
 
 #. type: Title ===
 #: _guides/writing-native-applications-tips.adoc
@@ -336,10 +347,11 @@ msgid "By default, Quarkus initializes all classes at build time."
 msgstr "Por defecto, Quarkus inicializa todas las clases en tiempo de construcción."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "There are cases where the initialization of certain classes is done in a static block needs to be postponed to runtime.\n"
 "Typically, omitting such configuration would result in a runtime exception like the following:"
-msgstr ""
+msgstr "Hay casos en los que la inicialización de determinadas clases se realiza en un bloque estático que debe posponerse al tiempo de ejecución. Normalmente, omitir dicha configuración daría lugar a una excepción en tiempo de ejecución como la siguiente:"
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -348,10 +360,11 @@ msgid "Another common source of errors is when the image heap taken by GraalVM c
 msgstr "Otra fuente común de errores es cuando el montón de imágenes tomado por GraalVM contiene una instancia de `Random`/ `SplittableRandom`:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Which is more often than not caused by Quarkus initializing at build time a class with a static `Random`/`SplittableRandom` field,\n"
 "causing this particular instance to be tentatively included in the image heap."
-msgstr ""
+msgstr "La mayoría de las veces esto se debe a que Quarkus inicializa en tiempo de compilación una clase con un campo estático `Random` / `SplittableRandom` , haciendo que esta instancia en particular se incluya provisionalmente en el montón de imágenes."
 
 #. type: delimited block =
 #: _guides/writing-native-applications-tips.adoc
@@ -360,10 +373,11 @@ msgid "You can find detailed information about this `Random`/`SplittableRandom` 
 msgstr "Puede encontrar información detallada sobre este tema en `Random`/ `SplittableRandom` en  link:https://foivos.zakkak.net/tutorials/working-with-randoms-native-images/[esta entrada del blog]."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "In these cases, delaying the infringing class initialization at runtime might be the solution and, to achieve that,\n"
 "you can use the `--initialize-at-run-time=<package or class>` configuration knob."
-msgstr ""
+msgstr "En estos casos, retrasar la inicialización de la clase infractora en tiempo de ejecución puede ser la solución y, para lograrlo, puede utilizar el mando de configuración `--initialize-at-run-time=<package or class>` ."
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -378,10 +392,11 @@ msgid "For more information, see the link:https://www.graalvm.org/{graalvm-docs-
 msgstr "Puedes encontrar más información sobre todo esto en  link:https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/ClassInitialization.md[la documentación de GraalVM]."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "When multiple classes or packages need to be specified via the `quarkus.native.additional-build-args` configuration property, the `,` symbol needs to be escaped.\n"
 "An example of this is the following:"
-msgstr ""
+msgstr "Cuando es necesario especificar varias clases o paquetes a través de la propiedad de configuración `quarkus.native.additional-build-args` , es necesario escapar el símbolo `,` . Un ejemplo de ello es el siguiente:"
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -426,14 +441,16 @@ msgid "Modularity Benefits"
 msgstr "Ventajas de la modularidad"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "During native executable build time GraalVM analyses the application's call tree and generates a code-set that includes all the code it needs.\n"
 "Having a modular codebase is key to avoiding problems with unused or optional parts of your application,\n"
 "while at the same time reducing both native executable build times and size.\n"
 "In this section you will learn about the details behind the benefits of modularity for native applications."
-msgstr ""
+msgstr "Durante el tiempo de compilación del ejecutable nativo, GraalVM analiza el árbol de llamadas de la aplicación y genera un conjunto de código que incluye todo el código que necesita. Disponer de una base de código modular es clave para evitar problemas con partes no utilizadas u opcionales de su aplicación, al tiempo que se reducen tanto los tiempos de compilación del ejecutable nativo como su tamaño. En esta sección conocerá los detalles que se esconden tras las ventajas de la modularidad para las aplicaciones nativas."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "When code is not modular enough, generated native executables can end up with more code than what the user needs.\n"
 "If a feature is not used and the code gets compiled into the native executable,\n"
@@ -448,30 +465,34 @@ msgid ""
 "However, because JAXB code that uses AWT is in the same jar as the rest of the XML parsing code,\n"
 "achieving this separation was rather complex and required the use of Java bytecode substitutions to get around it.\n"
 "These substitutions are hard to maintain and can easily break, hence they should be one's last resort."
-msgstr ""
+msgstr "Cuando el código no es lo suficientemente modular, los ejecutables nativos generados pueden acabar con más código del que necesita el usuario. Si no se utiliza una función y el código se compila en el ejecutable nativo, esto supone una pérdida de tiempo de compilación nativa y de uso de memoria, así como de espacio en disco del ejecutable nativo y de tamaño de la pila inicial. Aún surgen más problemas cuando se utilizan bibliotecas de terceros o subsistemas API especializados que provocan errores de compilación nativa o de ejecución, y su uso no está lo suficientemente modularizado. Un problema reciente lo encontramos en la biblioteca JAXB, capaz de deserializar archivos XML que contienen imágenes utilizando las API AWT de Java. La gran mayoría de los usuarios de Quarkus XML no necesitan deserializar imágenes, por lo que no debería ser necesario que las aplicaciones de los usuarios incluyeran código AWT de Java, a menos que configuren específicamente Quarkus para añadir el código JAXB AWT al ejecutable nativo. Sin embargo, como el código JAXB que utiliza AWT está en el mismo jar que el resto del código de análisis XML, conseguir esta separación era bastante complejo y requería el uso de sustituciones de código de bytes Java para sortearlo. Estas sustituciones son difíciles de mantener y pueden romperse fácilmente, por lo que deberían ser el último recurso."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "A modular codebase is the best way to avoid these kind of issues.\n"
 "Taking the JAXB/AWT problem above,\n"
 "if the JAXB code that dealt with images was in a separate module or jar (e.g. `jaxb-images`),\n"
 "then Quarkus could choose not to include that module unless the user specifically requested the need to serialize/deserialize XML files containing images at build time."
-msgstr ""
+msgstr "Una base de código modular es la mejor manera de evitar este tipo de problemas. Tomando el problema JAXB/AWT anterior, si el código JAXB que se ocupara de las imágenes estuviera en un módulo o tarro separado (por ejemplo, `jaxb-images` ), entonces Quarkus podría optar por no incluir ese módulo a menos que el usuario solicitara específicamente la necesidad de serializar/deserializar archivos XML que contuvieran imágenes en el momento de la compilación."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Another benefit of modular applications is that they can reduce the code-set that will need to get into the native executable.\n"
 "The smaller the code-set, the faster the native executable builds will be and the smaller the native executable produced."
-msgstr ""
+msgstr "Otra ventaja de las aplicaciones modulares es que pueden reducir el conjunto de código que tendrá que entrar en el ejecutable nativo. Cuanto más pequeño sea el conjunto de códigos, más rápida será la construcción del ejecutable nativo y más pequeño será el ejecutable nativo producido."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "The key takeaway point here is the following:\n"
 "Keeping optional features, particularly those that depend on third party libraries or API subsystems with a big footprint,\n"
 "in separate modules is the best solution."
-msgstr ""
+msgstr "El punto clave a tener en cuenta aquí es el siguiente: Mantener las características opcionales, en particular las que dependen de bibliotecas de terceros o subsistemas de API con una gran huella, en módulos separados es la mejor solución."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "How do I know if my application suffers from similar problems?\n"
 "Aside from a deep study of the application,\n"
@@ -480,7 +501,7 @@ msgid ""
 "is a clear indicator that your application might suffer from similar problems.\n"
 "These type of dependencies should be avoided,\n"
 "and instead code that interacts with optional dependencies should be moved into separate modules."
-msgstr ""
+msgstr "¿Cómo puedo saber si mi aplicación sufre problemas similares? Aparte de un estudio profundo de la aplicación, encontrar usos de dependencias opcionales link:https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html[de Maven] es un claro indicador de que su aplicación puede sufrir problemas similares. Este tipo de dependencias deben evitarse y, en su lugar, el código que interactúa con las dependencias opcionales debe trasladarse a módulos independientes."
 
 #. type: Title ===
 #: _guides/writing-native-applications-tips.adoc
@@ -489,34 +510,38 @@ msgid "Enforcing Singletons"
 msgstr "Aplicación de los monotontos"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "As already explained in the xref:delay-class-init-in-your-app[delay class initialization] section,\n"
 "Quarkus marks all code to be initialized at build time by default.\n"
 "This means that, unless marked otherwise,\n"
 "static variables will be assigned at build time,\n"
 "and static blocks will be executed at build time too."
-msgstr ""
+msgstr "Como ya se explicó en la sección de xref:delay-class-init-in-your-app[inicialización de clases retardada] , Quarkus marca todo el código para que se inicialice en tiempo de compilación por defecto. Esto significa que, a menos que se marque lo contrario, las variables estáticas se asignarán en tiempo de compilación, y los bloques estáticos se ejecutarán también en tiempo de compilación."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "This can cause values in Java programs that would normally vary from one run to another,\n"
 "to always return a constant value.\n"
 "E.g. a static field that is assigned the value of `System.currentTimeMillis()`\n"
 "will always return the same value when executed as a Quarkus native executable."
-msgstr ""
+msgstr "Esto puede hacer que valores en programas Java que normalmente variarían de una ejecución a otra, devuelvan siempre un valor constante. Por ejemplo, un campo estático al que se asigne el valor de `System.currentTimeMillis()` devolverá siempre el mismo valor cuando se ejecute como un ejecutable nativo de Quarkus."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Singletons that rely on static variable initialization will suffer similar problems.\n"
 "For example, imagine you have a singleton based around static initialization along with a REST endpoint to query it:"
-msgstr ""
+msgstr "Los singletons que se basan en la inicialización estática de variables sufrirán problemas similares. Por ejemplo, imagine que tiene un singleton basado en la inicialización estática junto con un punto final REST para consultarlo:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "When the `singletons/static` endpoint is queried,\n"
 "it will always return the same value,\n"
 "even after the application is restarted:"
-msgstr ""
+msgstr "Cuando se consulte el punto final `singletons/static` , siempre devolverá el mismo valor, incluso después de que se reinicie la aplicación:"
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -525,11 +550,12 @@ msgid "Singletons that rely on `enum` classes are also affected by the same issu
 msgstr "Los singletons que dependen de las clases `enum` también se ven afectados por el mismo problema:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "When the `singletons/enum` endpoint is queried,\n"
 "it will always return the same value,\n"
 "even after the application is restarted:"
-msgstr ""
+msgstr "Cuando se consulte el punto final `singletons/enum` , siempre devolverá el mismo valor, incluso después de que se reinicie la aplicación:"
 
 #. type: Plain text
 #: _guides/writing-native-applications-tips.adoc
@@ -538,20 +564,22 @@ msgid "One way to fix it is to build singletons using CDI's `@Singleton` annotat
 msgstr "Una forma de solucionarlo es construir singletons utilizando la anotación `@Singleton` de CDI:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "After each restart,\n"
 "querying `singletons/cdi` will return a different value,\n"
 "just like it would in JVM mode:"
-msgstr ""
+msgstr "Después de cada reinicio, la consulta a `singletons/cdi` devolverá un valor diferente, al igual que lo haría en el modo JVM:"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "An alternative way to enforce a singleton while relying static fields, or enums,\n"
 "is to xref:delay-class-init-in-your-app[delay its class initialization until run time].\n"
 "The nice advantage of CDI-based singletons is that your class initialization is not constrained,\n"
 "so you can freely decide whether it should be build-time or run-time initialized,\n"
 "depending on your use case."
-msgstr ""
+msgstr "Una forma alternativa de imponer un singleton mientras se confía en los campos estáticos, o enums, es xref:delay-class-init-in-your-app[retrasar la inicialización de su clase hasta] el tiempo de ejecución. La buena ventaja de los singletons basados en CDI es que la inicialización de su clase no está restringida, por lo que puede decidir libremente si debe inicializarse en tiempo de compilación o en tiempo de ejecución, dependiendo de su caso de uso."
 
 #. type: Title ===
 #: _guides/writing-native-applications-tips.adoc
@@ -560,6 +588,7 @@ msgid "Beware of common Java API overrides"
 msgstr "Cuidado con las anulaciones comunes de la API de Java"
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "Certain commonly used Java methods are overriden by user classes,\n"
 "e.g. `toString`, `equals`, `hashCode`...etc.\n"
@@ -569,9 +598,10 @@ msgid ""
 "they can cause native image build to fail.\n"
 "Some of those failures might be solvable via configuration,\n"
 "but others can be more tricky to handle."
-msgstr ""
+msgstr "Ciertos métodos Java de uso común son anulados por las clases de usuario, por ejemplo `toString` , `equals` , `hashCode` ...etc. La mayoría de los overrides no causan problemas, pero si utilizan bibliotecas de terceros (por ejemplo, para dar formato adicional), o emplean características dinámicas del lenguaje (por ejemplo, reflection o proxies), pueden hacer que falle la compilación nativa de la imagen. Algunos de esos fallos pueden solucionarse mediante la configuración, pero otros pueden ser más difíciles de manejar."
 
 #: _guides/writing-native-applications-tips.adoc
+#, fuzzy
 msgid ""
 "From a GraalVM points-to analysis perspective,\n"
 "what happens in these method overrides matters,\n"
@@ -580,7 +610,7 @@ msgid ""
 "and all it takes is for one of those calls to be done on an unconstrained type,\n"
 "e.g. `java.lang.Object`,\n"
 "for the analysis to have to pull all implementations of that particular method."
-msgstr ""
+msgstr "Desde la perspectiva del análisis por puntos de GraalVM, lo que ocurre en estas anulaciones de métodos importa, aunque la aplicación no los llame explícitamente. Esto se debe a que estos métodos se utilizan en todo el JDK, y basta con que una de esas llamadas se realice en un tipo no restringido, por ejemplo `java.lang.Object` , para que el análisis tenga que tirar de todas las implementaciones de ese método concreto."
 
 #. type: Title ==
 #: _guides/writing-native-applications-tips.adoc

@@ -47,39 +47,45 @@ msgid "In this post, we are going look at this emitter construct a little bit mo
 msgstr "En este post, vamos a ver esta construcción de emisor un poco más de cerca."
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Injecting an Emitter"
-msgstr ""
+msgstr "Inyectar un emisor"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "Injecting an emitter is straightforward.\n"
 "You indicate the targeted channel, i.e., where do you send your messages:"
-msgstr ""
+msgstr "Inyectar un emisor es sencillo. Usted indica el canal al que se dirige, es decir, a dónde envía sus mensajes:"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "Remember that reactive messaging uses _channels_ as a primary abstraction.\n"
 "They can be in-memory channels or mapped to a remote broker."
-msgstr ""
+msgstr "Recuerde que la mensajería reactiva utiliza _canales_ como abstracción primaria. Pueden ser canales en memoria o mapeados a un broker remoto."
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "In the previous code snippet, we inject an `Emitter<Movie>`.\n"
 "It means you will send messages containing movies as payload.\n"
 "So, the specified type is the payload type.\n"
 "That lets you send: payloads directly (wrapped automatically in a message) or more detailed messages containing a movie as payload:"
-msgstr ""
+msgstr "En el fragmento de código anterior, inyectamos un `Emitter<Movie>` . Significa que enviará mensajes que contienen películas como carga útil. Por lo tanto, el tipo especificado es el tipo de carga útil. Eso le permite enviar: cargas útiles directamente (envueltas automáticamente en un mensaje) o mensajes más detallados que contengan una película como carga útil:"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Sending payloads"
-msgstr ""
+msgstr "Envío de cargas útiles"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "Sending payload is the simplest way to send data.\n"
 "You just pass the payload to the `send` method like an instance of `Movie`.\n"
 "Under the hood, it just creates a simple `Message` wrapping the payload."
-msgstr ""
+msgstr "El envío de la carga útil es la forma más sencilla de enviar datos. Sólo tiene que pasar la carga útil al método `send` como una instancia de `Movie` . Bajo el capó, sólo crea un simple `Message` envolviendo la carga útil."
 
 #. type: Plain text
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
@@ -88,6 +94,7 @@ msgid "When used with payload, the `send` method returns a `CompletionStage` ind
 msgstr "Cuando se utiliza con la carga útil, el método `send` devuelve un `CompletionStage` que indica si el procesamiento del mensaje tuvo éxito o falló:"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "Processing, and will see later event the emission, happens asynchronously.\n"
 "So, the returned `CompletionStage` lets you know when the message is processed.\n"
@@ -95,26 +102,30 @@ msgid ""
 "Most of the time, it means that the processing has been completed smoothly, or the message has been sent to a broker successfully.\n"
 "If something wrong happens, the `CompletionStage` is completed exceptionally.\n"
 "The passed exception gives you an idea of the reason."
-msgstr ""
+msgstr "El procesamiento, y verá más adelante el evento la emisión, se produce de forma asíncrona. Así, el `CompletionStage` devuelto le permite saber cuándo se procesa el mensaje. El `CompletionStage` se completa con éxito cuando se acusa recibo del mensaje. La mayoría de las veces, significa que el procesamiento se ha completado sin problemas, o que el mensaje se ha enviado a un intermediario con éxito. Si ocurre algo incorrecto, el `CompletionStage` se completa excepcionalmente. La excepción pasada le da una idea del motivo."
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Sending messages"
-msgstr ""
+msgstr "Envío de mensajes"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "While sending payloads is more straightforward, sometimes you want to attach metadata to the message, like configuring how it should be written in Kafka, tracing information, etc.\n"
 "The emitter also allows sending messages, and so attach the metadata you want.\n"
 "In the following example, we configure the outbound Kafka record.\n"
 "We set the key, the topic, and so on.\n"
 "That way, you can dispatch messages to different topics and even decide dynamically:"
-msgstr ""
+msgstr "Aunque el envío de cargas útiles es más sencillo, a veces querrá adjuntar metadatos al mensaje, como configurar cómo debe escribirse en Kafka, información de rastreo, etc. El emisor también permite enviar mensajes, y así adjuntar los metadatos que desee. En el siguiente ejemplo, configuramos el registro Kafka de salida. Establecemos la clave, el tema, etc. De esta forma, puede enviar mensajes a diferentes temas e incluso decidir dinámicamente:"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Emissions are asynchronous"
-msgstr ""
+msgstr "Las emisiones son asíncronas"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "Emitters form a bridge between the imperative and the reactive worlds.\n"
 "When you emit a message, this message is not processed immediately.\n"
@@ -122,7 +133,7 @@ msgid ""
 "Passing the message immediately would violate the Reactive Streams protocol.\n"
 "We must be sure that the downstream components are ready to accept this message.\n"
 "As a result, the emitter is not pushing the message directly, but enqueue it in a buffer used to handle the downstream capacity (requests in Reactive Streams lingo)."
-msgstr ""
+msgstr "Los emisores forman un puente entre el mundo imperativo y el reactivo. Cuando se emite un mensaje, éste no se procesa inmediatamente. El componente descendente que consume el mensaje forma parte de un Reactive _Streams_ . Pasar el mensaje inmediatamente violaría el protocolo Reactive Streams. Debemos estar seguros de que los componentes aguas abajo están preparados para aceptar este mensaje. Como resultado, el emisor no está empujando el mensaje directamente, sino que lo pone en cola en un búfer utilizado para manejar la capacidad aguas abajo (peticiones en la jerga de Reactive Streams)."
 
 #. type: Plain text
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
@@ -137,10 +148,12 @@ msgid "The downstream component receives the messages according to the requests 
 msgstr "El componente descendente recibe los mensajes en función de las solicitudes que realiza, garantizando que su capacidad nunca se vea superada."
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Overflow management"
-msgstr ""
+msgstr "Gestión de desbordamientos"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "But with buffer comes... overflow.\n"
 "If you emit too many messages and the downstream cannot keep up, the messages are stored in the buffer until it reaches its maximum capacity.\n"
@@ -149,24 +162,27 @@ msgid ""
 "When injecting the emitter, you can configure an Overflow strategy.\n"
 "For example, you can set the buffer size, use an unbounded buffer, drop the messages, fail, or just ignore the back pressure and let the downstream handle it.\n"
 "By default, it uses a buffer, but depending on your use case, you may want to configure it differently:"
-msgstr ""
+msgstr "Pero con el búfer viene... el desbordamiento. Si emite demasiados mensajes y el flujo descendente no puede seguir el ritmo, los mensajes se almacenan en el búfer hasta que alcanza su capacidad máxima. Entonces, ya no podrá emitir más, e intentarlo lanzará excepciones. Pero, ¿qué podemos hacer en este caso? Al inyectar el emisor, puede configurar una estrategia de desbordamiento. Por ejemplo, puede establecer el tamaño del búfer, utilizar un búfer no limitado, desechar los mensajes, fallar o simplemente ignorar la contrapresión y dejar que el flujo descendente se encargue de ello. Por defecto, utiliza un búfer, pero dependiendo de su caso de uso, es posible que desee configurarlo de forma diferente:"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid "Conclusion"
-msgstr ""
+msgstr "Conclusión"
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "This post is a brief introduction to the `Emitter` construct from Reactive Messaging.\n"
 "More information is available on the https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.2/emitter/emitter.html[SmallRye Reactive Messaging documentation]."
-msgstr ""
+msgstr "Este post es una breve introducción a la construcción `Emitter` de Reactive Messaging. Encontrará más información en la link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.2/emitter/emitter.html[documentación de SmallRye Reactive Mess] aging."
 
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc
+#, fuzzy
 msgid ""
 "In the next Quarkus version (1.9), this feature will be improved with two very nice enhancements.\n"
 "First, it will offer a Mutiny variant, easing the integration with Mutiny APIs.\n"
 "Then, it would be possible for the Kafka case to directly emit key/value pairs without needing to use metadata."
-msgstr ""
+msgstr "En la próxima versión de Quarkus (1.9), esta función mejorará con dos mejoras muy agradables. En primer lugar, ofrecerá una variante Mutiny, facilitando la integración con las API Mutiny. Después, será posible que el caso Kafka emita directamente pares clave/valor sin necesidad de utilizar metadatos."
 
 #. type: Plain text
 #: _posts/2020-10-06-reactive-messaging-emitter.adoc

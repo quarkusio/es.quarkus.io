@@ -98,10 +98,11 @@ msgid "Solution"
 msgstr "Solución"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the applications step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree las aplicaciones paso a paso. No obstante, puede ir directamente al ejemplo completado."
 
 #. type: Plain text
 #: _guides/stork-kubernetes.adoc
@@ -127,23 +128,26 @@ msgid "Before going further, we need to discuss discovery vs. selection."
 msgstr "Antes de seguir adelante, tenemos que hablar del descubrimiento frente a la selección."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "Service discovery is the process of locating service instances.\n"
 "It produces a list of service instances that is potentially empty (if no service matches the request) or contains multiple service instances."
-msgstr ""
+msgstr "El descubrimiento de servicios es el proceso de localización de instancias de servicio. Produce una lista de instancias de servicio que puede estar vacía (si ningún servicio coincide con la solicitud) o contener múltiples instancias de servicio."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "Service selection, also called load-balancing, chooses the best instance from the list returned by the discovery process.\n"
 "The result is a single service instance or an exception when no suitable instance can be found."
-msgstr ""
+msgstr "La selección de servicios, también llamada equilibrio de carga, elige la mejor instancia de la lista devuelta por el proceso de descubrimiento. El resultado es una única instancia de servicio o una excepción cuando no se encuentra ninguna instancia adecuada."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "Stork handles both discovery and selection.\n"
 "However, it does not handle the communication with the service but only provides a service instance.\n"
 "The various integrations in Quarkus extract the location of the service from that service instance."
-msgstr ""
+msgstr "Stork se encarga tanto del descubrimiento como de la selección. Sin embargo, no se ocupa de la comunicación con el servicio, sino que sólo proporciona una instancia de servicio. Las distintas integraciones de Quarkus extraen la ubicación del servicio de esa instancia de servicio."
 
 #. type: Title ==
 #: _guides/stork-kubernetes.adoc
@@ -290,23 +294,26 @@ msgid "So far, we didn't use Stork; we just deployed the services we will be dis
 msgstr "Hasta ahora, no hemos utilizado Stork; sólo hemos desplegado los servicios que vamos a descubrir, seleccionar y llamar."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "We will call the services using the Reactive REST Client.\n"
 "Create the `src/main/java/org/acme/MyService.java` file with the following content:"
-msgstr ""
+msgstr "Llamaremos a los servicios utilizando el cliente REST reactivo. Cree el archivo `src/main/java/org/acme/MyService.java` con el siguiente contenido:"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "It's a straightforward REST client interface containing a single method. However, note the `baseUri` attribute:\n"
 "* the `stork://` suffix instructs the REST client to delegate the discovery and selection of the service instances to Stork,\n"
 "* the `my-service` part of the URI is the service name we will be using in the application configuration."
-msgstr ""
+msgstr "Se trata de una interfaz de cliente REST sencilla que contiene un único método. Sin embargo, observe el atributo `baseUri` : * el sufijo `stork://` indica al cliente REST que delegue en Stork el descubrimiento y la selección de las instancias de servicio, * la parte `my-service` del URI es el nombre del servicio que utilizaremos en la configuración de la aplicación."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "It does not change how the REST client is used.\n"
 "Create the `src/main/java/org/acme/FrontendApi.java` file with the following content:"
-msgstr ""
+msgstr "No cambia la forma de utilizar el cliente REST. Cree el archivo `src/main/java/org/acme/FrontendApi.java` con el siguiente contenido:"
 
 #. type: Plain text
 #: _guides/stork-kubernetes.adoc
@@ -330,16 +337,17 @@ msgstr "Ahora necesitamos configurar Stork para usar Kubernetes para descubrir l
 #: _guides/stork-kubernetes.adoc
 #, fuzzy
 msgid "In the `src/main/resources/application.properties`, add:"
-msgstr "En la página web `src/main/resources/application.properties`, añada:"
+msgstr "En el `src/main/resources/application.properties`, añada:"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "`stork.my-service.service-discovery` indicates which type of service discovery we will be using to locate the `my-service` service.\n"
 "In our case, it's `kubernetes`.\n"
 "If your access to the Kubernetes cluster is configured via Kube config file, you don't need to configure the access to it. Otherwise, set the proper Kubernetes url using the `quarkus.stork.my-service.service-discovery.k8s-host` property.\n"
 "`quarkus.stork.my-service.service-discovery.application` contains the name of the Kubernetes service Stork is going to ask for. In our case, this is the `color-service` corresponding to the kubernetes service backed by the Red and Blue instances.\n"
 "Finally, `quarkus.stork.my-service.load-balancer.type` configures the service selection. In our case, we use a `random` Load Balancer."
-msgstr ""
+msgstr "`stork.my-service.service-discovery` indica qué tipo de descubrimiento de servicios utilizaremos para localizar el servicio `my-service` . En nuestro caso, es `kubernetes` . Si su acceso al clúster de Kubernetes está configurado a través del archivo de configuración de Kube, no necesita configurar el acceso al mismo. En caso contrario, configure la url de Kubernetes adecuada mediante la propiedad `quarkus.stork.my-service.service-discovery.k8s-host` . `quarkus.stork.my-service.service-discovery.application` contiene el nombre del servicio Kubernetes que Stork va a solicitar. En nuestro caso, se trata del `color-service` correspondiente al servicio kubernetes respaldado por las instancias Roja y Azul. Por último, `quarkus.stork.my-service.load-balancer.type` configura la selección del servicio. En nuestro caso, utilizamos un `random` Load Balancer."
 
 #. type: Title ==
 #: _guides/stork-kubernetes.adoc
@@ -348,17 +356,19 @@ msgid "Deploy the REST Client interface and the front end API in the Kubernetes 
 msgstr "Despliegue de la interfaz del cliente REST y de la API del front-end en el clúster Kubernetes"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "The system is almost complete. We only need to deploy the REST Client interface and the client service to the cluster.\n"
 "In the `src/main/resources/application.properties`, add:"
-msgstr ""
+msgstr "El sistema está casi completo. Sólo tenemos que desplegar la interfaz cliente REST y el servicio cliente en el clúster. En la página `src/main/resources/application.properties` , añada:"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "The `quarkus.container-image.registry` contains the container registry to use.\n"
 "The `quarkus.kubernetes.ingress.expose` indicates that the service will be accessible from the outside of the cluster.\n"
 "The `quarkus.kubernetes.ingress.host` contains the url to access the service. We are using https://nip.io/[nip.io] wildcard for IP address mappings."
-msgstr ""
+msgstr "El `quarkus.container-image.registry` contiene el registro de contenedores a utilizar. El `quarkus.kubernetes.ingress.expose` indica que el servicio será accesible desde el exterior del cluster. El `quarkus.kubernetes.ingress.host` contiene la url para acceder al servicio. Estamos utilizando el comodín link:https://nip.io/[nip.io] para las asignaciones de direcciones IP."
 
 #. type: Plain text
 #: _guides/stork-kubernetes.adoc
@@ -409,10 +419,11 @@ msgid "You can have this provider registered as described in the xref:security-c
 msgstr "Puede hacer que este proveedor se registre como se describe en las secciones  link:security-customization.html#bouncy-castle[BouncyCastle] o  link:security-customization.html#bouncy-castle-fips[BouncyCastle FIPS]."
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "We're done!\n"
 "So, let's see if it works."
-msgstr ""
+msgstr "¡Ya está! Veamos si funciona."
 
 #. type: Plain text
 #: _guides/stork-kubernetes.adoc
@@ -457,10 +468,11 @@ msgid "Going further"
 msgstr "Ir más allá"
 
 #: _guides/stork-kubernetes.adoc
+#, fuzzy
 msgid ""
 "This guide has shown how to use SmallRye Stork to discover and select your services.\n"
 "You can find more about Stork in:"
-msgstr ""
+msgstr "Esta guía le ha mostrado cómo utilizar SmallRye Stork para descubrir y seleccionar sus servicios. Puede encontrar más información sobre Stork en:"
 
 #. type: Plain text
 #: _guides/stork-kubernetes.adoc

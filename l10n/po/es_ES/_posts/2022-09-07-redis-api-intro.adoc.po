@@ -29,11 +29,12 @@ msgid "How to implement a simple cache with the Redis data source"
 msgstr "Cómo implementar una caché simple con la fuente de datos Redis"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "In Quarkus 2.11, we introduced a new API to interact with Redis.\n"
 "The Redis DataSource APIs aim to be simpler, more extensive, and type-safe.\n"
 "Under the hood, it uses a performant, non-blocking client (that you can also use if you prefer low-level APIs)."
-msgstr ""
+msgstr "En Quarkus 2.11, introdujimos una nueva API para interactuar con Redis. El objetivo de la API Redis DataSource es ser más simple, más amplia y de tipo seguro. Bajo el capó, utiliza un cliente performante y no bloqueante (que también puede utilizar si prefiere APIs de bajo nivel)."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -48,13 +49,14 @@ msgid "What is Redis?"
 msgstr "¿Qué es Redis?"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "https://redis.io/[Redis] is an open-source, in-memory data store that can be used as a database, cache, streaming engine, and message broker.\n"
 "Redis is often used as real-time data stores,  cache backends, data storage for geospatial entities, and so on.\n"
 "To interact with Redis, you emit _commands_ and receive responses.\n"
 "These commands target _keys_ and manipulate the associated data.\n"
 "There are many commands divided into groups, including:"
-msgstr ""
+msgstr "link:https://redis.io/[Redis] es un almacén de datos en memoria de código abierto que puede utilizarse como base de datos, caché, motor de streaming y corredor de mensajes. Redis se utiliza a menudo como almacén de datos en tiempo real, backend de caché, almacenamiento de datos para entidades geoespaciales, etc. Para interactuar con Redis, se emiten _comandos_ y se reciben respuestas. Estos comandos se dirigen a _claves_ y manipulan los datos asociados. Existen muchos comandos divididos en grupos, entre los que se incluyen:"
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -141,12 +143,13 @@ msgid "As mentioned above, these APIs are implemented on top of a lower-level cl
 msgstr "Como se ha mencionado anteriormente, estas APIs se implementan sobre un cliente de nivel inferior:"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The data source APIs follow the command group structure.\n"
 "For each group, you retrieve an object dedicated to emitting the commands of that group.\n"
 "In that regard, this new API is not an abstraction of Redis.\n"
 "You still need to know the command you need."
-msgstr ""
+msgstr "Las API de fuentes de datos siguen la estructura de grupos de comandos. Para cada grupo, se recupera un objeto dedicado a emitir los comandos de ese grupo. En ese sentido, esta nueva API no es una abstracción de Redis. Aún necesita conocer el comando que necesita."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -155,10 +158,11 @@ msgid "For example, to manipulate a `Set<Person>`, you will use the following co
 msgstr "Por ejemplo, para manipular un `Set&amp;lt;Person&amp;gt;`, utilizará el siguiente código:"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The API manages the serialization and deserialization for you.\n"
 "Currently, it uses JSON for objects (using Jackson), but soon the API will offer more advanced features."
-msgstr ""
+msgstr "La API gestiona la serialización y deserialización por usted. Actualmente, utiliza JSON para los objetos (mediante Jackson), pero pronto la API ofrecerá funciones más avanzadas."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -173,45 +177,52 @@ msgid "Implementing a Redis cache"
 msgstr "Implementación de una caché Redis"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "Time for more cohesive code.\n"
 "Let's imagine the following https://github.com/cescoffier/quarkus-redis-demo[application]:"
-msgstr ""
+msgstr "Es hora de un código más cohesionado. Imaginemos la siguiente link:https://github.com/cescoffier/quarkus-redis-demo[aplicación] :"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "We have a database storing `Heroes`, a lot of them.\n"
 "You need to return the 3 most powerful heroes based on their level.\n"
 "Of course, you can use your SQL ninja skills, but let's imagine that this code was coded a long time ago, cannot be changed, and is very time-consuming:"
-msgstr ""
+msgstr "Tenemos una base de datos que almacena `Heroes` , muchos de ellos. Necesita devolver los 3 héroes más poderosos en función de su nivel. Por supuesto, puede utilizar sus habilidades de ninja SQL, pero imaginemos que este código se codificó hace mucho tiempo, no puede modificarse y requiere mucho tiempo:"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "So, one solution to avoid having to re-compute this set of heroes on every call is to cache the result for a bit of time, let's say 10 seconds.\n"
 "Let's consider that it's acceptable in this case to return a potentially outdated result set."
-msgstr ""
+msgstr "Por tanto, una solución para evitar tener que volver a calcular este conjunto de héroes en cada llamada es almacenar en caché el resultado durante un tiempo, digamos 10 segundos. Consideremos que en este caso es aceptable devolver un conjunto de resultados potencialmente obsoleto."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "To use the new Redis API, we need to use the `redis-client` extension.\n"
 "For users from the previous API, it's the same extension. The previous API is still available but is deprecated, and we plan to remove it at some point."
-msgstr ""
+msgstr "Para utilizar la nueva API de Redis, necesitamos utilizar la extensión `redis-client` . Para los usuarios de la API anterior, se trata de la misma extensión. La API anterior sigue disponible pero está obsoleta, y tenemos previsto eliminarla en algún momento."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid "Now that we can use the  `RedisDataSource`, we can implement the https://github.com/cescoffier/quarkus-redis-demo/blob/735f8cdbe579ef5c13631e8ec6e3ddad6821a3cb/src/main/java/me/escoffier/quarkus/supes/MyRedisCache.java[`MyRedisCache` class] as follows:"
-msgstr ""
+msgstr "Ahora que podemos utilizar el `RedisDataSource` , podemos implementar la link:https://github.com/cescoffier/quarkus-redis-demo/blob/735f8cdbe579ef5c13631e8ec6e3ddad6821a3cb/src/main/java/me/escoffier/quarkus/supes/MyRedisCache.java[claseMyRedisCache] de la siguiente manera:"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "Note that it's a simple cache without any fancy features.\n"
 "Redis provides more advanced commands to implement more complicated strategies."
-msgstr ""
+msgstr "Tenga en cuenta que se trata de una caché sencilla sin ninguna función sofisticada. Redis proporciona comandos más avanzados para implementar estrategias más complicadas."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The constructor receives the `RedisDataSource` and gets an object to manipulate Redis _values_.\n"
 "In our case, https://github.com/cescoffier/quarkus-redis-demo/blob/735f8cdbe579ef5c13631e8ec6e3ddad6821a3cb/src/main/java/me/escoffier/quarkus/supes/Ranking.java[`Ranking`] (the top 3 heroes)"
-msgstr ""
+msgstr "El constructor recibe la dirección `RedisDataSource` y obtiene un objeto para manipular _los valores de_ Redis. En nuestro caso link:https://github.com/cescoffier/quarkus-redis-demo/blob/735f8cdbe579ef5c13631e8ec6e3ddad6821a3cb/src/main/java/me/escoffier/quarkus/supes/Ranking.java[Ranking] (los 3 héroes superiores)"
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -220,26 +231,29 @@ msgid "The `get` method emits the Redis `get` command to retrieve an already sto
 msgstr "El método `get` emite el comando de Redis `get` para recuperar un `Ranking(`null` ya almacenado si no lo tiene)."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The `set` method emits the Redis `set` command and store a `Ranking` to the passed key.\n"
 "The command also configures the expiration time.\n"
 "So, after 10 seconds, the value is removed by Redis.\n"
 "As mentioned above, the Ranking instance is serialized into a JSON document."
-msgstr ""
+msgstr "El método `set` emite el comando `set` de Redis y almacena un `Ranking` a la clave pasada. El comando también configura el tiempo de caducidad. Así, después de 10 segundos, el valor es eliminado por Redis. Como se ha mencionado anteriormente, la instancia Ranking se serializa en un documento JSON."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The `evict` method allows removing the stored value.\n"
 "Multiple commands can do this, such as the `del` or `getdel` (which also returned the stored value)."
-msgstr ""
+msgstr "El método `evict` permite eliminar el valor almacenado. Varios comandos pueden hacerlo, como `del` o `getdel` (que también devuelven el valor almacenado)."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "For our application, we need something a bit more fancy.\n"
 "We want to check if we have a value in Redis.\n"
 "If so, uses that value, and if not, compute the value and store it.\n"
 "This is implemented in the `getOrSetIfAbsent`."
-msgstr ""
+msgstr "Para nuestra aplicación, necesitamos algo un poco más sofisticado. Queremos comprobar si tenemos un valor en Redis. Si es así, utiliza ese valor, y si no, calcula el valor y lo almacena. Esto se implementa en la página `getOrSetIfAbsent` ."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -254,11 +268,12 @@ msgid "To run the application, just start `mvn quarkus:dev` and open your browse
 msgstr "Para ejecutar la aplicación, basta con iniciar `mvn quarkus:dev` y abrir el navegador en  http://localhost:8080"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "To see the cache in action, check the time displayed on the page and refresh the page.\n"
 "Don't forget that the cached value is only valid for 10 seconds (as set in `MyRedisCache`).\n"
 "So, if you wait 10 seconds, it will recompute the result."
-msgstr ""
+msgstr "Para ver la caché en acción, compruebe la hora que aparece en la página y actualícela. No olvide que el valor almacenado en caché sólo es válido durante 10 segundos (como se establece en `MyRedisCache` ). Por lo tanto, si espera 10 segundos, se volverá a calcular el resultado."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc
@@ -273,16 +288,18 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "This post briefly introduces the new Redis API and demonstrates its usage with a cache implementation example.\n"
 "The complete code is available from this  https://github.com/cescoffier/quarkus-redis-demo[GitHub repo]."
-msgstr ""
+msgstr "Este post introduce brevemente la nueva API de Redis y demuestra su uso con un ejemplo de implementación de caché. El código completo está disponible en este link:https://github.com/cescoffier/quarkus-redis-demo[repositorio de GitHub] ."
 
 #: _posts/2022-09-07-redis-api-intro.adoc
+#, fuzzy
 msgid ""
 "The API supports many more features, such as geospatial data, pub/sub, and transactions, which could be used to improve the `getOrSetIfAbsent`  method.\n"
 "We will cover more advanced use cases in future posts."
-msgstr ""
+msgstr "La API admite muchas más funciones, como datos geoespaciales, pub/sub y transacciones, que podrían utilizarse para mejorar el método `getOrSetIfAbsent` . Cubriremos casos de uso más avanzados en futuros posts."
 
 #. type: Plain text
 #: _posts/2022-09-07-redis-api-intro.adoc

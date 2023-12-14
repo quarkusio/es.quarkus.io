@@ -72,12 +72,14 @@ msgid "Run your Quarkus application performance tests as you normally would with
 msgstr "Ejecute las pruebas de rendimiento de su aplicación Quarkus como lo haría normalmente con las siguientes banderas de línea de comandos en Java 11 (jdk11u) y, si es posible, Java 15 (jdk15):"
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid "*enabled*: -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0"
-msgstr ""
+msgstr "*habilitado* : -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0"
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid "*disabled*: -XX:-UseBiasedLocking"
-msgstr ""
+msgstr "*desactivado* : -XX:-UseBiasedLocking"
 
 #. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
@@ -137,7 +139,7 @@ msgstr "Esto nos ayudará enormemente. Gracias."
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "Background"
-msgstr "Antecedentes"
+msgstr "Fondo"
 
 #. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
@@ -158,28 +160,32 @@ msgid "Biased locking lowers the cost of /uncontended/ synchronization."
 msgstr "El bloqueo sesgado reduce el coste de la sincronización /inconforme/."
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid ""
 "*Without biased locking*: a thread needs to set and clear a lock bit\n"
 "when it performs repeated synchronizations on the same object. It also needs to wait for those set/clear writes to be drained to local cache before proceeding to execute further memory operations."
-msgstr ""
+msgstr "*Sin bloqueo sesgado* : un hilo necesita establecer y borrar un bit de bloqueo cuando realiza sincronizaciones repetidas sobre el mismo objeto. También necesita esperar a que esas escrituras de establecimiento/borrado se vacíen en la caché local antes de proceder a ejecutar otras operaciones de memoria."
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid "*With biased locking*: the first time a thread synchronizes on an object it does a bit more work to acquire synchronized ('bias' it to the thread). Subsequent syncrhonizations proceed via a simple read test with no need to  drain to cache."
-msgstr ""
+msgstr "*Con bloqueo sesgado* : la primera vez que un hilo se sincroniza sobre un objeto realiza un poco más de trabajo para adquirir la sincronización (\"sesgarla\" hacia el hilo). Las sincronizaciones posteriores proceden mediante una simple prueba de lectura sin necesidad de drenar a la caché."
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid ""
 "Where's the trade off? Well, if a biased lock is contended then\n"
 "there is more work to do to bias and unbias the lock. However, it is known that many synchronized operations are uncontended."
-msgstr ""
+msgstr "¿Dónde está la compensación? Bueno, si se disputa un bloqueo sesgado, entonces hay más trabajo que hacer para sesgar y sesgar el bloqueo. Sin embargo, se sabe que muchas operaciones sincronizadas no están sesgadas."
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid ""
 "Biasing can be big win when a potentially concurrent data structure is actually used sequentially. The case where it helps most is exemplified in the problem we already found in class `DataOutputStream`. Normally only\n"
 "one thread writes a `DataOutputStream` and it is often not read until the stream has been filled. All the same, every `putInt()` or `putLong()`` call invokes a syncrhonized method to increment the byte count by 4 or 8.\n"
 "That's needed just in case some other thread might want to reliably\n"
 "locate the end of the valid buffer data but that rarely happens. So, the unbiased case suffers lock write and cache drain delays at every basic put operation."
-msgstr ""
+msgstr "El sesgo puede ser de gran ayuda cuando una estructura de datos potencialmente concurrente se utiliza realmente de forma secuencial. El caso en el que más ayuda se ejemplifica en el problema que ya encontramos en la clase `DataOutputStream` . Normalmente, sólo un hilo escribe un `DataOutputStream` y a menudo no se lee hasta que el flujo se ha llenado. De todos modos, cada llamada a `putInt()` o `putLong()`` invoca un método sincronizado para incrementar la cuenta de bytes en 4 u 8 bytes. Eso es necesario por si algún otro hilo quisiera localizar de forma fiable el final de los datos válidos del búfer, pero eso rara vez ocurre. Así pues, el caso no sincronizado sufre retrasos de escritura de bloqueo y drenaje de caché en cada operación put básica."
 
 #. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
@@ -194,10 +200,11 @@ msgid "Why is biased locking being removed?"
 msgstr "¿Por qué se suprime el bloqueo parcial?"
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid ""
 "The implementation of biased locking adds a great deal of complexity to the JVM and is understood by only a small subset of the most experienced engineers. The cost of maintaining it and designing around it is significantly slowing down progress on new features. It has been a long term goal to remove it if at all possible. Some OpenJDK contributors wanted to remove it\n"
 "right away in jdk15 others argue for a slower deprecation route in order to check that we could really dispense with it."
-msgstr ""
+msgstr "La implementación del bloqueo sesgado añade una gran complejidad a la JVM y sólo es comprendida por un pequeño subconjunto de los ingenieros más experimentados. El coste de mantenerlo y diseñar a su alrededor está ralentizando significativamente el progreso en nuevas características. Ha sido un objetivo a largo plazo eliminarlo si es posible. Algunos colaboradores de OpenJDK querían eliminarlo de inmediato en jdk15 otros abogan por una vía de depreciación más lenta para comprobar que realmente podemos prescindir de él."
 
 #. type: Title ==
 #: _posts/2020-09-30-biased-locking-help.adoc
@@ -218,10 +225,11 @@ msgid "Once processed we might reach out to those reporting scenarios with unexp
 msgstr "Una vez procesado, podríamos contactar con aquellos que informan de escenarios con resultados inesperados y obtener más detalles."
 
 #: _posts/2020-09-30-biased-locking-help.adoc
+#, fuzzy
 msgid ""
 "Then we'll work with the larger OpenJDK community to aid in deciding if biased locking can be turned off completely or a longer\n"
 "graceful deprecation period is needed."
-msgstr ""
+msgstr "A continuación, trabajaremos con la comunidad OpenJDK en general para ayudar a decidir si el bloqueo sesgado puede desactivarse por completo o si es necesario un periodo de depreciación gradual más largo."
 
 #. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
