@@ -441,6 +441,7 @@ msgid ""
 msgstr "`throttled` mantiene un registro de los mensajes recibidos y consigna un desplazamiento del último mensaje acuse de recibo en la secuencia (lo que significa que todos los mensajes anteriores también fueron acuse de recibo). Esta estrategia garantiza la entrega al menos una vez, incluso si el canal realiza un procesamiento asíncrono. El conector realiza un seguimiento de los registros recibidos y periódicamente (periodo especificado por `auto.commit.interval.ms` , por defecto: 5000 ms) consigna el desplazamiento consecutivo más alto. El conector se marcará como no sano si un mensaje asociado a un registro no es reconocido en `throttled.unprocessed-record-max-age.ms` (por defecto: 60000 ms). De hecho, esta estrategia no puede consignar el desfase en cuanto falla el procesamiento de un único registro. Si `throttled.unprocessed-record-max-age.ms` se fija en un valor inferior o igual a `0` , no realiza ninguna verificación de chequeo. Una configuración de este tipo podría llevar a quedarse sin memoria si hay mensajes de \"píldora envenenada\" (que nunca se aceptan). Esta estrategia es la predeterminada si `enable.auto.commit` no se establece explícitamente en true."
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "`checkpoint` allows persisting consumer offsets on a **state store**, instead of committing them back to the Kafka broker.\n"
 "Using the `CheckpointMetadata` API, consumer code can persist a _processing state_ with the record offset to mark the progress of a consumer.\n"
@@ -449,7 +450,7 @@ msgid ""
 "The connector will be marked as unhealthy if no processing state is persisted to the state store in `checkpoint.unsynced-state-max-age.ms` (default: 10000).\n"
 "If `checkpoint.unsynced-state-max-age.ms` is set to less than or equal to 0, it does not perform any health check verification.\n"
 "For more information, see <<Stateful processing with Checkpointing>>"
-msgstr ""
+msgstr "`checkpoint` permite persistir los desplazamientos de los consumidores en un *almacén de* estados, en lugar de enviarlos de vuelta al corredor de Kafka. Utilizando la API `CheckpointMetadata` , el código del consumidor puede persistir un estado de _procesamiento_ con el desplazamiento de registro para marcar el progreso de un consumidor. Cuando el procesamiento continúa desde un desplazamiento persistido previamente, busca el consumidor Kafka ese desplazamiento y también restaura el estado persistido, continuando el procesamiento con estado desde donde lo dejó. La estrategia de punto de control mantiene localmente el estado de procesamiento asociado al último desplazamiento y lo persiste periódicamente en el almacén de estado (periodo especificado por `auto.commit.interval.ms` (por defecto: 5000)). El conector se marcará como no saludable si no se persiste ningún estado de procesamiento al almacén de estado en `checkpoint.unsynced-state-max-age.ms` (por defecto: 10000). Si `checkpoint.unsynced-state-max-age.ms` es menor o igual a 0, no realiza ninguna verificación de estado. Para más información, consulte <<Stateful processing with Checkpointing>>"
 
 #: _versions/2.16/guides/kafka.adoc
 #, fuzzy
@@ -742,10 +743,11 @@ msgid ""
 msgstr "Un requisito empresarial habitual es consumir y procesar los registros de Kafka en orden. El corredor Kafka conserva el orden de los registros dentro de una partición y no dentro de un tema. Por lo tanto, es importante pensar en cómo se particionan los registros dentro de un tema. El particionador por defecto utiliza el hash de la clave del registro para calcular la partición de un registro, o cuando la clave no está definida, elige una partición aleatoriamente por lote o registros."
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "During normal operation, a Kafka consumer preserves the order of records inside each partition assigned to it.\n"
 "Smallrye Reactive Messaging keeps this order for processing, unless `@Blocking(ordered = false)` is used (see <<blocking-processing>>)."
-msgstr ""
+msgstr "Durante el funcionamiento normal, un consumidor Kafka conserva el orden de los registros dentro de cada partición que se le asigna. Smallrye Reactive Messaging mantiene este orden para su procesamiento, a menos que se utilice `@Blocking(ordered = false)` (consulte <<blocking-processing>> )."
 
 #. type: delimited block =
 #: _versions/2.16/guides/kafka.adoc
@@ -945,13 +947,14 @@ msgid "The `checkpoint` commit strategy is an experimental feature and can chang
 msgstr "La `KafkaClientService` es una API experimental y puede cambiar en el futuro."
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Smallrye Reactive Messaging `checkpoint` commit strategy allows consumer applications to process messages in a stateful manner, while also respecting Kafka consumer scalability.\n"
 "An incoming channel with `checkpoint` commit strategy persists consumer offsets on an external\n"
 "<<state-stores, state store>>, such as a relational database or a key-value store.\n"
 "As a result of processing consumed records, the consumer application can accumulate an internal state for each topic-partition assigned to the Kafka consumer.\n"
 "This local state will be periodically persisted to the state store and will be associated with the offset of the record that produced it."
-msgstr ""
+msgstr "La estrategia de commit de Smallrye Reactive Messaging `checkpoint` permite a las aplicaciones consumidoras procesar los mensajes de forma que se respete el estado, respetando al mismo tiempo la escalabilidad del consumidor Kafka. Un canal entrante con la estrategia de commit `checkpoint` persiste los registros consumidos en un xref:state-stores[almacén de estado] externo, como una base de datos relacional o un almacén de valores clave. Como resultado del procesamiento de los registros consumidos, la aplicación consumidora puede acumular un estado interno para cada tema-partición asignado al consumidor Kafka. Este estado local se persistirá periódicamente en el almacén de estado y se asociará con el desplazamiento del registro que lo produjo."
 
 #: _versions/2.16/guides/kafka.adoc
 #, fuzzy
@@ -1006,12 +1009,13 @@ msgid "Quarkus provides following state store implementations:"
 msgstr "Quarkus proporciona las siguientes implementaciones de almacenes de estado:"
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "`quarkus-redis`: Uses the xref:redis-reference.adoc[`quarkus-redis-client`] extension to persist processing states.\n"
 "Jackson is used to serialize processing state in Json. For complex objects it is required to configure the `checkpoint.state-type` property with the class name of the object.\n"
 "By default, the state store uses the default redis client, but if a link:https://quarkus.io/guides/redis-reference#default-and-named-clients[named client] is to be used, the client name can be specified using the `mp.messaging.incoming.[channel-name].checkpoint.quarkus-redis.client-name` property.\n"
 "Processing states will be stored in Redis using the key naming scheme `[consumer-group-id]:[topic]:[partition]`."
-msgstr ""
+msgstr "`quarkus-redis` : Utiliza la xref:redis-reference.adoc[quarkus-redis-client] para persistir los estados de procesamiento. Jackson se utiliza para serializar el estado de procesamiento en Json. Para objetos complejos es necesario configurar la propiedad `checkpoint.state-type` con el nombre de la clase del objeto. Por defecto, el almacén de estados utiliza el cliente redis predeterminado, pero si se desea utilizar un link:https://quarkus.io/guides/redis-reference#default-and-named-clients[cliente con nombre] , se puede especificar el nombre del cliente utilizando la propiedad `mp.messaging.incoming.[channel-name].checkpoint.quarkus-redis.client-name` . Los estados de procesamiento se almacenarán en Redis utilizando el esquema de nomenclatura de claves `[consumer-group-id]:[topic]:[partition]` ."
 
 #. type: Plain text
 #: _versions/2.16/guides/kafka.adoc
@@ -1020,17 +1024,19 @@ msgid "For example the configuration of the previous code would be the following
 msgstr "Por ejemplo la configuración del código anterior sería la siguiente:"
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "`quarkus-hibernate-reactive`: Uses the xref:hibernate-reactive.adoc[`quarkus-hibernate-reactive`] extension to persist processing states.\n"
 "Processing state objects are required to be a JPA entity and extend the `CheckpointEntity` class,\n"
 "which handles object identifiers composed of the consumer group id, topic and partition.\n"
 "Therefore, the class name of the entity needs to be configured using the `checkpoint.state-type` property."
-msgstr ""
+msgstr "`quarkus-hibernate-reactive` : Utiliza la xref:hibernate-reactive.adoc[quarkus-hibernate-reactive] extensión para persistir estados de procesamiento. Se requiere que los objetos de estado de procesamiento sean una entidad JPA y extiendan la clase `CheckpointEntity` , que maneja identificadores de objetos compuestos por el id del grupo de consumidores, el tema y la partición. Por lo tanto, es necesario configurar el nombre de la clase de la entidad mediante la propiedad `checkpoint.state-type` ."
 
 #. type: Plain text
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid "With `AveragePriceEntity` being a JPA entity extending `CheckpointEntity`:"
-msgstr ""
+msgstr "Siendo `AveragePriceEntity` una entidad JPA que extiende `CheckpointEntity` :"
 
 #: _versions/2.16/guides/kafka.adoc
 #, fuzzy
@@ -1496,16 +1502,18 @@ msgid ""
 msgstr "Mientras que un emisor de mensajes normal soportaría llamadas concurrentes a los métodos de `send` y, en consecuencia, pondría en cola los mensajes salientes para escribirlos en Kafka, un emisor de `KafkaTransactions` sólo soporta una transacción a la vez. Se considera que una transacción está en curso desde la llamada al `withTransaction` hasta que el `Uni` devuelto resulta exitoso o fallido. Mientras una transacción esté en curso, las llamadas posteriores al `withTransaction` , incluidas las anidadas dentro de la función dada, lanzarán `IllegalStateException` ."
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Note that in Reactive Messaging, the execution of processing methods, is already serialized, unless `@Blocking(ordered = false)` is used.\n"
 "If `withTransaction` can be called concurrently, for example from a REST endpoint, it is recommended to limit the concurrency of the execution.\n"
 "This can be done using the `@Bulkhead` annotation from link:https://quarkus.io/guides/smallrye-fault-tolerance[_Microprofile Fault Tolerance_]."
-msgstr ""
+msgstr "Tenga en cuenta que en Mensajería Reactiva, la ejecución de los métodos de procesamiento, ya está serializada, a menos que se utilice `@Blocking(ordered = false)` . Si `withTransaction` puede ser llamado concurrentemente, por ejemplo desde un punto final REST, se recomienda limitar la concurrencia de la ejecución. Esto puede hacerse utilizando la anotación `@Bulkhead` de link:https://quarkus.io/guides/smallrye-fault-tolerance[Microprofile Fault Tolerance] ."
 
 #. type: delimited block =
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid "An example usage can be found in <<chaining-kafka-transactions-with-hibernate-reactive-transactions>>."
-msgstr ""
+msgstr "Encontrará un ejemplo de uso en <<chaining-kafka-transactions-with-hibernate-reactive-transactions>> ."
 
 #. type: Title ====
 #: _versions/2.16/guides/kafka.adoc
@@ -1650,11 +1658,12 @@ msgid ""
 msgstr "El `Uni` devuelto desde el `KafkaTransactions#withTransaction` producirá un fallo si la transacción falla y es abortada. La aplicación puede elegir manejar el caso de error, pero si se devuelve un `Uni` fallido desde el método `@Incoming` , el canal entrante fallará efectivamente y detendrá el flujo reactivo."
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `KafkaTransactions#withTransactionAndAck` method acks and nacks the message but will *not* return a failing `Uni`.\n"
 "Nacked messages will be handled by the failure strategy of the incoming channel, (see <<error-handling>>).\n"
 "Configuring `failure-strategy=ignore` simply resets the Kafka consumer to the last committed offsets and resumes the consumption from there."
-msgstr ""
+msgstr "El método `KafkaTransactions#withTransactionAndAck` acks y nacks el mensaje pero *no* devolverá un fallo `Uni` . Los mensajes nacked serán manejados por la estrategia de fallo del canal entrante, (ver <<error-handling>> ). Configurar `failure-strategy=ignore` simplemente reinicia el consumidor Kafka a los últimos desplazamientos comprometidos y reanuda el consumo a partir de ahí."
 
 #. type: Title ==
 #: _versions/2.16/guides/kafka.adoc
@@ -2391,11 +2400,12 @@ msgid "Testing using a Kafka broker"
 msgstr "Pruebas con un broker de Kafka"
 
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid ""
 "If you are using <<kafka-dev-services>>, a Kafka broker will be started and available throughout the tests, unless it is disabled in `%test` profile.\n"
 "While it is possible to connect to this broker using Kafka Clients API,\n"
 "https://smallrye.io/smallrye-reactive-messaging/latest/kafka/test-companion/[Kafka Companion Library] proposes an easier way of interacting with a Kafka broker and, creating consumer, producer and admin actions inside tests."
-msgstr ""
+msgstr "Si está utilizando <<kafka-dev-services>> , un broker de Kafka se iniciará y estará disponible durante todas las pruebas, a menos que esté desactivado en el perfil de `%test` . Aunque es posible conectarse a este broker utilizando la API de clientes de Kafka, link:https://smallrye.io/smallrye-reactive-messaging/latest/kafka/test-companion/[Kafka Companion Library] propone una forma más sencilla de interactuar con un broker de Kafka y, crear acciones de consumidor, productor y administrador dentro de las pruebas."
 
 #. type: Plain text
 #: _versions/2.16/guides/kafka.adoc
@@ -2518,8 +2528,9 @@ msgstr "Decoradores de canales"
 
 #. type: Plain text
 #: _versions/2.16/guides/kafka.adoc
+#, fuzzy
 msgid "SmallRye Reactive Messaging supports decorating incoming and outgoing channels for implementing cross-cutting concerns such as monitoring, tracing or message interception. For more information on implementing decorators and message interceptors see the http://smallrye.io/smallrye-reactive-messaging/3.19.1/concepts/decorators/[SmallRye Reactive Messaging documentation]."
-msgstr ""
+msgstr "SmallRye Reactive Messaging admite la decoración de canales entrantes y salientes para implementar preocupaciones transversales como la supervisión, el rastreo o la interceptación de mensajes. Para más información sobre la implementación de decoradores e interceptores de mensajes consulte la link:http://smallrye.io/smallrye-reactive-messaging/3.19.1/concepts/decorators/[documentación] de SmallRye Reactive Messaging."
 
 #. type: Title ==
 #: _versions/2.16/guides/kafka.adoc

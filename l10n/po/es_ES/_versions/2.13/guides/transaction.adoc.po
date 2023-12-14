@@ -277,9 +277,9 @@ msgstr "Si necesita propagar el contexto de su transacción a través de su cana
 
 #. type: Title ===
 #: _versions/2.13/guides/transaction.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Programmatic Approach"
-msgstr ""
+msgstr "Enfoque programático"
 
 #: _versions/2.13/guides/transaction.adoc
 #, fuzzy
@@ -290,20 +290,22 @@ msgid ""
 msgstr "Puede utilizar métodos estáticos en `QuarkusTransaction` para definir los límites de las transacciones. Esto proporciona dos opciones diferentes, un enfoque funcional que le permite ejecutar una lambda dentro del ámbito de una transacción, o mediante el uso explícito de los métodos `begin` , `commit` y `rollback` ."
 
 #: _versions/2.13/guides/transaction.adoc
+#, fuzzy
 msgid ""
 "The above example shows a few different ways the API can be used. The first method simply calls begin, does some work and commits it.\n"
 "This created transaction is tied to the CDI request scope, so if it is still active when the request scope is destroyed then it will\n"
 "be automatically rolled back. This removes the need to explicitly catch exceptions and call `rollback`, and acts as a safety net\n"
 "against inadvertent transaction leaks, however it does mean that this can only be used when the request scope is active. The second\n"
 "example in the method calls begin with a timeout option, and then rolls back the transaction."
-msgstr ""
+msgstr "El ejemplo anterior muestra algunas formas diferentes de utilizar la API. El primer método simplemente llama a begin, realiza algún trabajo y lo consigna. Esta transacción creada está vinculada al ámbito de la solicitud CDI, por lo que si sigue activa cuando se destruya el ámbito de la solicitud, se revertirá automáticamente. Esto elimina la necesidad de capturar explícitamente excepciones y llamar a `rollback` , y actúa como una red de seguridad contra fugas inadvertidas de transacciones, sin embargo significa que esto sólo puede ser utilizado cuando el ámbito de la solicitud está activo. El segundo ejemplo en las llamadas al método comienza con una opción de tiempo de espera, y luego hace retroceder la transacción."
 
 #: _versions/2.13/guides/transaction.adoc
+#, fuzzy
 msgid ""
 "The second example shows the use of lambda scoped transactions, the first just runs a `Runnable` within a transaction, the second,\n"
 "runs `Callable` with some specific options. In particular the `exceptionHandler` method can be used to control if the transaction\n"
 "is rolled back or not on exception, and the `semantic` method controls the behaviour if an existing transaction is already started."
-msgstr ""
+msgstr "El segundo ejemplo muestra el uso de transacciones con ámbito lambda, el primero sólo ejecuta un `Runnable` dentro de una transacción, el segundo, ejecuta `Callable` con algunas opciones específicas. En particular, el método `exceptionHandler` puede utilizarse para controlar si la transacción se revierte o no en caso de excepción, y el método `semantic` controla el comportamiento si ya se ha iniciado una transacción existente."
 
 #. type: Plain text
 #: _versions/2.13/guides/transaction.adoc
@@ -313,9 +315,9 @@ msgstr "Se admiten las siguientes semánticas:"
 
 #. type: Labeled list
 #: _versions/2.13/guides/transaction.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "DISALLOW_EXISTING"
-msgstr ""
+msgstr "DISALLOW_EXISTING"
 
 #: _versions/2.13/guides/transaction.adoc
 #, fuzzy
@@ -326,9 +328,9 @@ msgstr "Si una transacción ya está asociada con el hilo actual se lanzará un 
 
 #. type: Labeled list
 #: _versions/2.13/guides/transaction.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "JOIN_EXISTING"
-msgstr ""
+msgstr "JOIN_EXISTENTE"
 
 #: _versions/2.13/guides/transaction.adoc
 #, fuzzy
@@ -344,33 +346,35 @@ msgstr "Si no hay ninguna transacción activa, se iniciará una nueva y se confi
 
 #. type: Labeled list
 #: _versions/2.13/guides/transaction.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "REQUIRE_NEW"
-msgstr ""
+msgstr "REQUIRE_NEW"
 
 #: _versions/2.13/guides/transaction.adoc
+#, fuzzy
 msgid ""
 "This is the default semantic.\n"
 "If an existing transaction is already associated with the current thread then the transaction is suspended, and\n"
 "resumed once\n"
 "the current transaction is complete.\n"
 "A new transaction is started after the existing transaction is suspended, and follows all the normal lifecycle rules."
-msgstr ""
+msgstr "Esta es la semántica por defecto. Si una transacción existente ya está asociada con el hilo actual, entonces la transacción se suspende, y se reanuda una vez que la transacción actual se ha completado. Una nueva transacción se inicia después de que se suspenda la transacción existente, y sigue todas las reglas normales del ciclo de vida."
 
 #. type: Labeled list
 #: _versions/2.13/guides/transaction.adoc
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "SUSPEND_EXISTING"
-msgstr ""
+msgstr "SUSPENDER_EXISTENTES"
 
 #: _versions/2.13/guides/transaction.adoc
+#, fuzzy
 msgid ""
 "If no transaction is active then this semantic is basically a no-op.\n"
 "If a transaction is active then it is suspended, and resumed after the task is run.\n"
 "The exception handler will never be consulted when this semantic is in use, specifying both an exception handler and\n"
 "this semantic is considered an error.\n"
 "This semantic allows for code to easily be run outside the scope of a transaction."
-msgstr ""
+msgstr "Si no hay ninguna transacción activa entonces esta semántica es básicamente un no-op. Si hay una transacción activa entonces se suspende, y se reanuda después de que se ejecute la tarea. El manejador de excepciones nunca será consultado cuando esta semántica esté en uso, especificar tanto un manejador de excepciones como esta semántica se considera un error. Esta semántica permite ejecutar fácilmente código fuera del ámbito de una transacción."
 
 #. type: Title ===
 #: _versions/2.13/guides/transaction.adoc
@@ -527,9 +531,10 @@ msgid "It's a mess because I don't know if my JPA persistence unit is using `JTA
 msgstr "Es un lío porque no sé si mi unidad de persistencia JPA utiliza `JTA` o `Resource-level` Transaction"
 
 #: _versions/2.13/guides/transaction.adoc
+#, fuzzy
 msgid ""
 "It's not a mess in Quarkus :)\n"
 "Resource-level was introduced to support JPA in a non managed environment.\n"
 "But Quarkus is both lean and a managed environment, so we can safely always assume we are in JTA mode.\n"
 "The end result is that the difficulties of running Hibernate ORM + CDI + a transaction manager in Java SE mode are solved by Quarkus."
-msgstr ""
+msgstr "No es un lío en Quarkus :) El nivel de recursos se introdujo para soportar JPA en un entorno no gestionado. Pero Quarkus es a la vez ligero y un entorno gestionado, por lo que podemos asumir con seguridad que siempre estamos en modo JTA. El resultado final es que las dificultades de ejecutar Hibernate ORM + CDI + un gestor de transacciones en modo Java SE quedan resueltas con Quarkus."
