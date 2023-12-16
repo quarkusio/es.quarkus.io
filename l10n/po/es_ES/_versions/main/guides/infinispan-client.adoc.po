@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,696 +20,466 @@ msgstr ""
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 #. type: Title =
-#: upstream/_versions/main/guides/infinispan-client.adoc:6
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Using the Infinispan Client"
-msgstr ""
+msgstr "Uso del cliente Infinispan"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:14
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "This guide demonstrates how your Quarkus application can connect to an Infinispan server using the Infinispan Client extension."
-msgstr ""
+msgstr "Esta guía demuestra cómo su aplicación Quarkus puede conectarse a un servidor Infinispan utilizando la extensión Infinispan Client."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:15
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Prerequisites"
-msgstr ""
+msgstr "Requisitos previos"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:19
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "A working Docker environment"
-msgstr ""
+msgstr "Un entorno Docker operativo"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:20
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Architecture"
-msgstr ""
+msgstr "Arquitectura"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"In this guide, we are going to expose a Greeting Rest API to create and display greeting messages by using\n"
+"the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html#remotecache_api[Infinispan RemoteCache API]\n"
+"and `getAsync` and `putAsync` operations."
+msgstr "En esta guía, vamos a exponer una API Rest de saludo para crear y mostrar mensajes de saludo utilizando la link:https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html#remotecache_api[API Infinispan RemoteCache] y las operaciones `getAsync` y `putAsync` ."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:24
-msgid "In this guide, we are going to expose a Greeting Rest API to create and display greeting messages by using the https://infinispan.org/docs/stable/titles/hotrod_java/hotrod_java.html#remotecache_api[Infinispan RemoteCache API] and `getAsync` and `putAsync` operations."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:26
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "We'll be using the Quarkus Infinispan Client extension to connect to interact with Infinispan."
-msgstr ""
+msgstr "Para utilizar la extensión de cliente Infinispan, necesita al menos una instancia de Infinispan Server en funcionamiento."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:27
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Solution"
-msgstr ""
+msgstr "Solución"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:30
-msgid "We recommend that you follow the instructions in the next sections and create the application step by step.  However, you can go right to the completed example."
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"We recommend that you follow the instructions in the next sections and create the application step by step.\n"
+"However, you can go right to the completed example."
 msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:32
+#: _versions/main/guides/infinispan-client.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:34
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "The solution is located in the `infinispan-client-quickstart` link:{quickstarts-tree-url}/infinispan-client-quickstart[directory]."
-msgstr ""
+msgstr "Clonar el repositorio Git: `git clone {quickstarts-clone-url}` o descargar un {quickstarts-archive-url}[archivo]. Localiza la solución en el `infinispan-client-quickstart` {quickstarts-tree-url}/infinispan-client-quickstart[directorio]."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:35
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Maven Project"
-msgstr ""
+msgstr "Creación del proyecto Maven"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:38
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "First, we need a new project. Create a new project with the following command:"
-msgstr ""
+msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:44
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "This command generates a new project, importing the Infinispan Client extension."
-msgstr ""
+msgstr "Este comando genera un nuevo proyecto, importando la extensión Infinispan Client."
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"If you already have your Quarkus project configured, you can add the `infinispan-client` extension\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `infinispan-client` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:47
-msgid "If you already have your Quarkus project configured, you can add the `infinispan-client` extension to your project by running the following command in your project base directory:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:52
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "This will add the following to your build file:"
-msgstr ""
+msgstr "Esto añadirá lo siguiente a su archivo de construcción:"
 
 #. type: Block title
-#: upstream/_versions/main/guides/infinispan-client.adoc:54
+#: _versions/main/guides/infinispan-client.adoc
 #, no-wrap
 msgid "pom.xml"
 msgstr "pom.xml"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:60
-#, no-wrap
-msgid ""
-"<dependency>\n"
-"    <groupId>io.quarkus</groupId>\n"
-"    <artifactId>quarkus-infinispan-client</artifactId>\n"
-"</dependency>\n"
-msgstr ""
-
 #. type: Block title
-#: upstream/_versions/main/guides/infinispan-client.adoc:63
+#: _versions/main/guides/infinispan-client.adoc
 #, no-wrap
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:67
-#, no-wrap
-msgid ""
-"implementation(\"io.quarkus:quarkus-infinispan-client\")\n"
-"annotationProcessor 'org.infinispan.protostream:protostream-processor:4.6.1.Final' <1>\n"
-msgstr ""
-
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:69
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Mandatory in the Gradle build to enable the generation of the files in the annotation based serialization"
-msgstr ""
+msgstr "Obligatorio en la compilación Gradle para permitir la generación de los archivos en la serialización basada en anotaciones."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:70
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Greeting POJO"
-msgstr ""
+msgstr "Creación del POJO de saludo"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"We are going to model our increments using the `Greeting` POJO.\n"
+"Create the `src/main/java/org/acme/infinispan/client/Greeting.java` file, with the following content:"
+msgstr "Vamos a modelar nuestros incrementos utilizando el POJO `Greeting` . Cree el archivo `src/main/java/org/acme/infinispan/client/Greeting.java` , con el siguiente contenido:"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"If your classes have only mutable fields, then the `ProtoFactory` annotation is not required\n"
+"is not required, assuming your class has a no arg constructor"
+msgstr "Si sus clases sólo tienen campos mutables, entonces la anotación `ProtoFactory` no es necesaria no es necesaria, suponiendo que su clase tenga un constructor no arg"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:73
-msgid "We are going to model our increments using the `Greeting` POJO.  Create the `src/main/java/org/acme/infinispan/client/Greeting.java` file, with the following content:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:77
-#: upstream/_versions/main/guides/infinispan-client.adoc:105
-#: upstream/_versions/main/guides/infinispan-client.adoc:140
-#: upstream/_versions/main/guides/infinispan-client.adoc:197
-#, no-wrap
-msgid "package org.acme.infinispan.client;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:80
-#, no-wrap
-msgid ""
-"import org.infinispan.protostream.annotations.ProtoFactory;\n"
-"import org.infinispan.protostream.annotations.ProtoField;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:84
-#, no-wrap
-msgid ""
-"public class Greeting { // <1>\n"
-"   @ProtoField(number = 1) // <2>\n"
-"   public String name;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:88
-#, no-wrap
-msgid ""
-"   @ProtoField(number = 2) // <3>\n"
-"   public String message;\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:91
-msgid "If your classes have only mutable fields, then the `ProtoFactory` annotation is not required is not required, assuming your class has a no arg constructor"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:92
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "`@ProtoField` annotation to add the name field as string in the generated Protobuf schema"
-msgstr ""
+msgstr "`@ProtoField` para añadir el campo name como cadena en el esquema Protobuf generado"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:93
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "`@ProtoField` annotation to add the message field as string in the generated Protobuf schema"
-msgstr ""
+msgstr "`@ProtoField` para añadir el campo de mensaje como cadena en el esquema Protobuf generado"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:97
-msgid "Note that we are not going to use Java serialization. https://github.com/infinispan/protostream[Protostream] is a serialization library based on Protobuf data format part of Infinispan. Using an annotation based API, we will store our data in Protobuf format."
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"Note that we are not going to use Java serialization. https://github.com/infinispan/protostream[Protostream] is\n"
+"a serialization library based on Protobuf data format part of Infinispan. Using an annotation based API, we\n"
+"will store our data in Protobuf format."
+msgstr "Tenga en cuenta que no vamos a utilizar la serialización Java. link:https://github.com/infinispan/protostream[Protostream] es una biblioteca de serialización basada en el formato de datos Protobuf que forma parte de Infinispan. Utilizando una API basada en anotaciones, almacenaremos nuestros datos en formato Protobuf."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:98
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Greeting Schema"
-msgstr ""
+msgstr "Creación del esquema de saludo"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"We are going to create our serialization schema using the `GreetingSchema` interface.\n"
+"Create the `src/main/java/org/acme/infinispan/client/GreetingSchema.java` file, with the following content:"
+msgstr "Vamos a crear nuestro esquema de serialización utilizando la interfaz `GreetingSchema` . Cree el archivo `src/main/java/org/acme/infinispan/client/GreetingSchema.java` , con el siguiente contenido:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:101
-msgid "We are going to create our serialization schema using the `GreetingSchema` interface.  Create the `src/main/java/org/acme/infinispan/client/GreetingSchema.java` file, with the following content:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:108
-#, no-wrap
-msgid ""
-"import org.infinispan.protostream.GeneratedSchema;\n"
-"import org.infinispan.protostream.annotations.AutoProtoSchemaBuilder;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:112
-#, no-wrap
-msgid ""
-"@AutoProtoSchemaBuilder(includeClasses = Greeting.class) // <1>\n"
-"public interface GreetingSchema extends GeneratedSchema { // <2>\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:114
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Includes the `Greeting` pojo with the `@AutoProtoSchemaBuilder` annotation"
-msgstr ""
+msgstr "Incluye el pojo `Greeting` con la anotación `@AutoProtoSchemaBuilder`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:115
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Extends `GeneratedSchema` Protostream API interface"
-msgstr ""
+msgstr "Amplía la interfaz API Protostream de `GeneratedSchema`"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:118
-msgid "The Protobuf Schema that will be generated and used both on client and Infinispan Server side, will have the following content:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:123
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid ""
-"// File name: GreetingSchema.proto\n"
-"// Generated from : org.acme.infinispan.client.GreetingSchema\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:125
-#, no-wrap
-msgid "syntax = \"proto2\";\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:127
-#, no-wrap
-msgid "message Greeting {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:129
-#, no-wrap
-msgid "   optional string name = 1;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:132
-#, no-wrap
-msgid ""
-"   optional string message = 2;\n"
-"}\n"
-msgstr ""
+"The Protobuf Schema that will be generated and used both on client and Infinispan Server side, will have\n"
+"the following content:"
+msgstr "El esquema Protobuf que se generará y utilizará tanto en el lado del cliente como en el del servidor Infinispan, tendrá el siguiente contenido:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:134
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Infinispan Greeting Resource"
-msgstr ""
+msgstr "Añadir la extensión del cliente Infinispan"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:136
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Create the `src/main/java/org/acme/infinispan/client/InfinispanGreetingResource.java` file, with the following content:"
-msgstr ""
+msgstr "Cree el archivo `src/main/java/org/acme/infinispan/client/InfinispanGreetingResource.java`, con el siguiente contenido:"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:147
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid ""
-"import io.quarkus.infinispan.client.Remote;\n"
-"import jakarta.inject.Inject;\n"
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.POST;\n"
-"import jakarta.ws.rs.Path;\n"
-"import org.infinispan.client.hotrod.RemoteCache;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:149
-#, no-wrap
-msgid "import java.util.concurrent.CompletionStage;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:152
-#, no-wrap
-msgid ""
-"@Path(\"/greeting\")\n"
-"public class InfinispanGreetingResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:156
-#, no-wrap
-msgid ""
-"    @Inject\n"
-"    @Remote(\"mycache\") // <1>\n"
-"    RemoteCache<String, Greeting> cache; //<2>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:164
-#, no-wrap
-msgid ""
-"    @POST\n"
-"    @Path(\"/{id}\")\n"
-"    public CompletionStage<String> postGreeting(String id, Greeting greeting) {\n"
-"        return cache.putAsync(id, greeting) // <3>\n"
-"              .thenApply(g -> \"Greeting done!\")\n"
-"              .exceptionally(ex -> ex.getMessage());\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:171
-#, no-wrap
-msgid ""
-"    @GET\n"
-"    @Path(\"/{id}\")\n"
-"    public CompletionStage<Greeting> getGreeting(String id) {\n"
-"        return cache.getAsync(id); // <4>\n"
-"    }\n"
-"}\n"
-msgstr ""
+"Use the `@Remote` annotation to use a cache. If the cache does not exist, will be created with a\n"
+"default configuration *on first access*."
+msgstr "Utilice la anotación `@Remote` para utilizar una caché. Si la caché no existe, se creará con una configuración por defecto *en el primer acceso* ."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:174
-msgid "Use the `@Remote` annotation to use a cache. If the cache does not exist, will be created with a default configuration *on first access*."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:175
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Inject the `RemoteCache`"
-msgstr ""
+msgstr "Inyecte el `RemoteCache`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:176
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Put the greeting id as a key and the Greeting pojo as a value"
-msgstr ""
+msgstr "Pon el id de saludo como clave y el pojo de saludo como valor"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:177
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Get the greeting by id as the key"
-msgstr ""
+msgstr "Obtener el saludo por id como clave"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:178
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the test class"
-msgstr ""
+msgstr "Creación de cachés desde el cliente"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:181
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Edit the `pom.xml` file to add the following dependency:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:189
-#, no-wrap
-msgid ""
-"<dependency>\n"
-"    <groupId>io.rest-assured</groupId>\n"
-"    <artifactId>rest-assured</artifactId>\n"
-"    <scope>test</scope>\n"
-"</dependency>\n"
-msgstr ""
+msgstr "Edite el archivo `pom.xml` para añadir la siguiente dependencia:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:192
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Create the `src/test/java/org/acme/infinispan/client/InfinispanGreetingResourceTest.java` file with the following content:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:201
-#, no-wrap
-msgid ""
-"import io.quarkus.test.junit.QuarkusTest;\n"
-"import io.restassured.http.ContentType;\n"
-"import org.junit.jupiter.api.Test;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:204
-#, no-wrap
-msgid ""
-"import static io.restassured.RestAssured.given;\n"
-"import static org.hamcrest.CoreMatchers.is;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:207
-#, no-wrap
-msgid ""
-"@QuarkusTest\n"
-"class InfinispanGreetingResourceTest {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:217
-#, no-wrap
-msgid ""
-"    @Test\n"
-"    public void testHelloEndpoint() {\n"
-"        given()\n"
-"              .contentType(ContentType.JSON)\n"
-"              .body(\"{\\\"name\\\":\\\"Infinispan Client\\\",\\\"message\\\":\\\"Hello World, Infinispan is up!\\\"}\")\n"
-"              .when()\n"
-"              .post(\"/greeting/quarkus\")\n"
-"              .then()\n"
-"              .statusCode(200);\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:225
-#, no-wrap
-msgid ""
-"        given()\n"
-"                .when().get(\"/greeting/quarkus\")\n"
-"                .then()\n"
-"                .statusCode(200)\n"
-"                .body(is(\"{\\\"name\\\":\\\"Infinispan Client\\\",\\\"message\\\":\\\"Hello World, Infinispan is up!\\\"}\"));\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "Cree el archivo `src/test/java/org/acme/infinispan/client/InfinispanGreetingResourceTest.java` con el siguiente contenido:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:227
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Get it running"
-msgstr ""
+msgstr "Ponerlo en marcha"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:230
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "We just need to run the application using:"
-msgstr ""
+msgstr "Sólo tenemos que ejecutar la aplicación utilizando:"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:236
-msgid "We should have the Infinispan server running thanks to the Dev Services.  We can access the Dev Services UI through `http://localhost:8080/q/dev/`.  The Dev UI should display the Infinispan UI Panel."
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"We should have the Infinispan server running thanks to the Dev Services.\n"
+"We can access the Dev Services UI through `http://localhost:8080/q/dev/`.\n"
+"The Dev UI should display the Infinispan UI Panel."
+msgstr "Deberíamos tener el servidor Infinispan en funcionamiento gracias a los Dev Services. Podemos acceder a la interfaz de usuario de los Dev Services a través de `http://localhost:8080/q/dev/` . La UI Dev debería mostrar el panel de la UI Infinispan."
 
-#. type: Named 'alt' AttributeList argument for macro 'image'
-#: upstream/_versions/main/guides/infinispan-client.adoc:237
-#, no-wrap
-msgid "Dev"
-msgstr "Dev"
-
-#. type: Target for macro image
-#: upstream/_versions/main/guides/infinispan-client.adoc:237
-#, no-wrap
-msgid "dev-ui-infinispan.png"
-msgstr ""
-
-#. type: delimited block =
-#: upstream/_versions/main/guides/infinispan-client.adoc:245
-msgid "Click on the Web Console link and log using `admin` and `password` default credentials.  Quarkus has uploaded into the Schemas Tab the Protobuf Schema that is needed to marshall on the server the Greeting POJO with Protobuf.  Check the xref:infinispan-dev-services.adoc[Infinispan Dev Services Guide] to learn more."
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"Click on the Web Console link and log using `admin` and `password` default credentials.\n"
+"Quarkus has uploaded into the Schemas Tab the Protobuf Schema that is needed to marshall on the server the\n"
+"Greeting POJO with Protobuf.\n"
+"Check the xref:infinispan-dev-services.adoc[Infinispan Dev Services Guide] to learn more."
+msgstr "Haga clic en el enlace Consola Web e inicie sesión utilizando las credenciales predeterminadas `admin` y `password` . Quarkus ha cargado en la pestaña Schemas el esquema Protobuf que se necesita para marshallar en el servidor el POJO de saludo con Protobuf. Consulte la xref:infinispan-dev-services.adoc[Guía de Servicios Infinispan Dev] para obtener más información."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:247
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Interacting with the Greeting Service"
-msgstr ""
+msgstr "Interactuar con el Servicio de Saludo"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:250
-msgid "As we have seen above, the Greeting API exposes two Rest endpoints.  In this section we are going to see how to create and display a greeting message."
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"As we have seen above, the Greeting API exposes two Rest endpoints.\n"
+"In this section we are going to see how to create and display a greeting message."
+msgstr "Como hemos visto anteriormente, la API de saludo expone dos puntos finales Rest. En esta sección vamos a ver cómo crear y mostrar un mensaje de saludo."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/infinispan-client.adoc:251
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating a Greeting Message"
-msgstr ""
+msgstr "Crear un mensaje de saludo"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:253
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "With the following command, we will create a greeting message with the id `quarkus`."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:257
-#, no-wrap
-msgid "curl -X POST http://localhost:8080/greeting/quarkus -H \"Content-Type: application/json\" -d '{\"name\" : \"Infinispan Client\", \"message\":\"Hello World, Infinispan is up!\"}'\n"
-msgstr ""
+msgstr "Con el siguiente comando, crearemos un mensaje de bienvenida con el id `quarkus`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:260
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "The service should respond with a `Greeting added!` message."
-msgstr ""
+msgstr "El servicio debe responder con un mensaje `Greeting added!`."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/infinispan-client.adoc:261
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Displaying a Greeting Message"
-msgstr ""
+msgstr "Visualización de un mensaje de bienvenida"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:263
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "With the following command, we will display the greeting message with the id `quarkus`."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:266
-#, no-wrap
-msgid "curl  http://localhost:8080/greeting/quarkus\n"
-msgstr ""
+msgstr "Con el siguiente comando, mostraremos el mensaje de bienvenida con el id `quarkus`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:269
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "The service should respond with the following json content."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:276
-#, no-wrap
-msgid ""
-"{\n"
-"  \"name\" : \"Infinispan Client\",\n"
-"  \"message\" : \"Hello World, Infinispan is up!\"\n"
-"}\n"
-msgstr ""
+msgstr "El servicio debe responder con el siguiente contenido json."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/infinispan-client.adoc:278
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Display the cache and content with the Infinispan Server Console"
-msgstr ""
+msgstr "Visualizar la caché y el contenido con la consola del servidor Infinispan"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:284
-msgid "If a requested cache does not exist, Quarkus creates a cache with a Default configuration on first access.  We should be able to reaload the Infinispan Server Console and display the content of the Cache.  The Infinispan Server Console uses the https://infinispan.org/docs/stable/titles/rest/rest.html[Infinispan Server REST API].  The content can be displayed in JSON thanks to the Protobuf Encoding that converts to JSON format."
-msgstr ""
-
-#. type: Named 'alt' AttributeList argument for macro 'image'
-#: upstream/_versions/main/guides/infinispan-client.adoc:285
-#, no-wrap
-msgid "Infinispan"
-msgstr "Infinispan"
-
-#. type: Target for macro image
-#: upstream/_versions/main/guides/infinispan-client.adoc:285
-#, no-wrap
-msgid "infinispan-console-client-guide.png"
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"If a requested cache does not exist, Quarkus creates a cache with a Default configuration on first access.\n"
+"We should be able to reaload the Infinispan Server Console and display the content of the Cache.\n"
+"The Infinispan Server Console uses the https://infinispan.org/docs/stable/titles/rest/rest.html[Infinispan Server REST API].\n"
+"The content can be displayed in JSON thanks to the Protobuf Encoding that converts to JSON format."
+msgstr "Si la caché solicitada no existe, Quarkus crea una caché con una configuración por defecto en el primer acceso. Deberíamos poder volver a cargar la Consola del Servidor Infinispan y mostrar el contenido de la Caché. La Consola del Servidor Infinispan utiliza la link:https://infinispan.org/docs/stable/titles/rest/rest.html[API REST del Servidor Infin] ispan. El contenido puede visualizarse en JSON gracias a la codificación Protobuf que convierte a formato JSON."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:288
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Configuring for production"
-msgstr ""
+msgstr "Configuración para producción"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"At this point, Quarkus uses the Infinispan Dev Service to run an Infinispan server and configure the application.\n"
+"However, in production, you will run your own Infinispan (or Red Hat Data Grid)."
+msgstr "En este punto, Quarkus utiliza el Infinispan Dev Service para ejecutar un servidor Infinispan y configurar la aplicación. Sin embargo, en producción, usted ejecutará su propio Infinispan (o Red Hat Data Grid)."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:292
-msgid "At this point, Quarkus uses the Infinispan Dev Service to run an Infinispan server and configure the application.  However, in production, you will run your own Infinispan (or Red Hat Data Grid)."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:294
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Let's start an Infinispan server on the port 11222 using:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:298
-#, no-wrap
-msgid "docker run -it -p 11222:11222 -e USER=\"admin\" -e PASS=\"password\" quay.io/infinispan/server:latest\n"
-msgstr ""
+msgstr "Vamos a iniciar un servidor Infinispan en el puerto 11222 usando:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:301
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Then, open the `src/main/resources/application.properties` file and add:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:307
-#, no-wrap
-msgid ""
-"%prod.quarkus.infinispan-client.hosts=localhost:11222 # <1>\n"
-"%prod.quarkus.infinispan-client.username=admin <2>\n"
-"%prod.quarkus.infinispan-client.password=password <3>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:311
-#, no-wrap
-msgid ""
-"## Docker 4 Mac workaround. Uncomment only if you are using Docker for Mac.\n"
-"## Read more about it in the Infinispan Reference Guide\n"
-"# %prod.quarkus.infinispan-client.client-intelligence=BASIC <4>\n"
-msgstr ""
+msgstr "A continuación, abra el archivo `src/main/resources/application.properties` y añádalo:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:313
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Sets Infinispan Server address list, separated with commas"
-msgstr ""
+msgstr "Establece la lista de direcciones del servidor Infinispan, separadas por comas"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:314
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Sets the authentication username"
-msgstr ""
+msgstr "Establece el nombre de usuario de autenticación"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:315
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Sets the authentication password"
-msgstr ""
+msgstr "Establece la contraseña de autenticación"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:316
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Sets the client intelligence. Use BASIC as a workaround if using Docker for Mac."
-msgstr ""
+msgstr "Establece la inteligencia del cliente. Utilice BASIC como solución si utiliza Docker para Mac."
 
-#. type: delimited block =
-#: upstream/_versions/main/guides/infinispan-client.adoc:322
-msgid "Client intelligence changes impact your performance in production.  Don't change the client intelligence unless strictly necessary for your case.  Read more in the xref:infinispan-client-reference.adoc[Infinispan Client extension reference guide]."
-msgstr ""
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"Client intelligence changes impact your performance in production.\n"
+"Don't change the client intelligence unless strictly necessary for your case.\n"
+"Read more in the xref:infinispan-client-reference.adoc[Infinispan Client extension reference guide]."
+msgstr "Los cambios en la inteligencia de cliente afectan a su rendimiento en producción. No cambie la inteligencia de cliente a menos que sea estrictamente necesario para su caso. Lea más en la xref:infinispan-client-reference.adoc[guía de referencia de la extensión Infinispan Client] ."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:324
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Packaging and running in JVM mode"
-msgstr ""
+msgstr "Empaquetado y ejecución en modo JVM"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:327
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "You can run the application as a conventional jar file."
-msgstr ""
+msgstr "Puede ejecutar la aplicación como un archivo jar convencional."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:329
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "First, we will need to package it:"
-msgstr ""
+msgstr "En primer lugar, tendremos que empaquetarlo:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:333
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "This command will start an Infinispan instance to execute the tests."
-msgstr ""
+msgstr "Este comando iniciará una instancia Infinispan para ejecutar las pruebas."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:335
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Then run it:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:339
-#, no-wrap
-msgid "java -jar target/quarkus-app/quarkus-run.jar\n"
-msgstr ""
+msgstr "Entonces, ejecútalo:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:341
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Running Native"
-msgstr ""
+msgstr "Running Native"
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"You can also create a native executable from this application without making any\n"
+"source code changes. A native executable removes the dependency on the JVM:\n"
+"everything needed to run the application on the target platform is included in\n"
+"the executable, allowing the application to run with minimal resource overhead."
+msgstr "También puede crear un ejecutable nativo a partir de esta aplicación sin realizar ningún cambio en el código fuente. Un ejecutable nativo elimina la dependencia de la JVM: todo lo necesario para ejecutar la aplicación en la plataforma de destino está incluido en el ejecutable, lo que permite que la aplicación se ejecute con una sobrecarga mínima de recursos."
+
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
+msgid ""
+"Compiling a native executable takes a bit longer, as GraalVM performs additional\n"
+"steps to remove unnecessary codepaths. Use the  `native` profile to compile a\n"
+"native executable:"
+msgstr "Compilar un ejecutable nativo lleva un poco más de tiempo, ya que GraalVM realiza pasos adicionales para eliminar rutas de código innecesarias. Utilice el perfil `native` para compilar un ejecutable nativo:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:347
-msgid "You can also create a native executable from this application without making any source code changes. A native executable removes the dependency on the JVM: everything needed to run the application on the target platform is included in the executable, allowing the application to run with minimal resource overhead."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:351
-msgid "Compiling a native executable takes a bit longer, as GraalVM performs additional steps to remove unnecessary codepaths. Use the `native` profile to compile a native executable:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:355
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "Once the build is finished, you can run the executable with:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/infinispan-client.adoc:359
-#, no-wrap
-msgid "./target/infinispan-client-quickstart-1.0.0-SNAPSHOT-runner\n"
-msgstr ""
+msgstr "Una vez finalizada la compilación, puede ejecutar el ejecutable con:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/infinispan-client.adoc:361
-#, no-wrap
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy, no-wrap
 msgid "Going further"
-msgstr ""
+msgstr "Ir más allá"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/infinispan-client.adoc:363
+#: _versions/main/guides/infinispan-client.adoc
+#, fuzzy
 msgid "To learn more about the Quarkus Infinispan extension, check xref:infinispan-client-reference.adoc[the Infinispan Client extension reference guide]."
-msgstr ""
+msgstr "Para saber más sobre la extensión Quarkus Infinispan, consulte  link:infinispan-client-reference.html[la guía de referencia de la extensión Infinispan Client]."

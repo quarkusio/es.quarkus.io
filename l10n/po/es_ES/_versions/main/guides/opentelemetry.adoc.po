@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,1341 +20,973 @@ msgstr ""
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 #. type: Title =
-#: upstream/_versions/main/guides/opentelemetry.adoc:6
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Using OpenTelemetry"
-msgstr ""
+msgstr "Uso de OpenTelemetry"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:15
-msgid "This guide explains how your Quarkus application can utilize https://opentelemetry.io/[OpenTelemetry] (OTel) to provide distributed tracing for interactive web applications."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"This guide explains how your Quarkus application can utilize https://opentelemetry.io/[OpenTelemetry] (OTel) to provide\n"
+"distributed tracing for interactive web applications."
+msgstr "Esta guía explica cómo su aplicación Quarkus puede utilizar link:https://opentelemetry.io/[OpenTelemetry] (OTel) para proporcionar rastreo distribuido para aplicaciones web interactivas."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:19
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "OpenTelemetry Metrics and Logging are not yet supported."
-msgstr ""
+msgstr "Las métricas y el registro de OpenTelemetry aún no son compatibles."
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Quarkus now supports the OpenTelemetry Autoconfiguration for Traces. The configurations match what you can see at\n"
+"https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure]\n"
+"with the `quarkus.*` prefix."
+msgstr "Quarkus ahora soporta la Autoconfiguración OpenTelemetry para Trazas. Las configuraciones coinciden con lo que se puede ver en link:https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure] con el prefijo `quarkus.*` ."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:22
-msgid "Quarkus now supports the OpenTelemetry Autoconfiguration for Traces. The configurations match what you can see at https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure] with the `quarkus.*` prefix."
-msgstr ""
-
-#. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:23
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Extensions and the libraries they provide, are directly instrumented in Quarkus. The *use of the https://opentelemetry.io/docs/instrumentation/java/automatic/[OpenTelemetry Agent] is not needed nor recommended* due to context propagation issues between imperative and reactive libraries."
-msgstr ""
+msgstr "Las extensiones y las bibliotecas que proporcionan, se instrumentan directamente en Quarkus. El *uso del &lt;a href=\"https://opentelemetry.io/docs/instrumentation/java/automatic/\"&gt;Agente OpenTelemetry&lt;/a&gt; no es necesario ni recomendable* debido a problemas de propagación de contexto entre bibliotecas imperativas y reactivas."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:24
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If you come from the legacy OpenTracing extension, there is a xref:telemetry-opentracing-to-otel-tutorial.adoc[guide to help with the migration]."
-msgstr ""
+msgstr "Si vienes de la extensión OpenTracing heredada, hay una  link:telemetry-opentracing-to-otel-tutorial.html[guía que te ayudará con la migración]."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:26
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Prerequisites"
-msgstr ""
+msgstr "Requisitos previos"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:31
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Architecture"
-msgstr ""
+msgstr "Arquitectura"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:34
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "In this guide, we create a straightforward REST application to demonstrate distributed tracing."
-msgstr ""
+msgstr "En esta guía, creamos una aplicación REST sencilla para demostrar el rastreo distribuido."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:35
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Solution"
-msgstr ""
+msgstr "Solución"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"We recommend that you follow the instructions in the next sections and create the application step by step.\n"
+"However, you can skip right to the completed example."
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede pasar directamente al ejemplo completado."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:39
-msgid "We recommend that you follow the instructions in the next sections and create the application step by step.  However, you can skip right to the completed example."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:41
+#: _versions/main/guides/opentelemetry.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:43
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The solution is located in the `opentelemetry-quickstart` link:{quickstarts-tree-url}/opentelemetry-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en el `opentelemetry-quickstart` {quickstarts-tree-url}/opentelemetry-quickstart[directorio]."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:44
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Maven project"
-msgstr ""
+msgstr "Creación del proyecto Maven"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:47
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "First, we need a new project. Create a new project with the following command:"
-msgstr ""
+msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"This command generates the Maven project and imports the `quarkus-opentelemetry` extension,\n"
+"which includes the default OpenTelemetry support,\n"
+"and a gRPC span exporter for https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md[OTLP]."
+msgstr "Este comando genera el proyecto Maven e importa la extensión `quarkus-opentelemetry` , que incluye el soporte OpenTelemetry por defecto, y un exportador span gRPC para link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md[OTLP] ."
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"If you already have your Quarkus project configured, you can add the `quarkus-opentelemetry` extension\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `quarkus-opentelemetry` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:55
-msgid "This command generates the Maven project and imports the `quarkus-opentelemetry` extension, which includes the default OpenTelemetry support, and a gRPC span exporter for https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md[OTLP]."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:58
-msgid "If you already have your Quarkus project configured, you can add the `quarkus-opentelemetry` extension to your project by running the following command in your project base directory:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:63
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "This will add the following to your build file:"
-msgstr ""
+msgstr "Esto añadirá lo siguiente a su archivo de construcción:"
 
 #. type: Block title
-#: upstream/_versions/main/guides/opentelemetry.adoc:65
-#: upstream/_versions/main/guides/opentelemetry.adoc:236
-#: upstream/_versions/main/guides/opentelemetry.adoc:300
-#: upstream/_versions/main/guides/opentelemetry.adoc:318
+#: _versions/main/guides/opentelemetry.adoc
 #, no-wrap
 msgid "pom.xml"
 msgstr "pom.xml"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:71
-#, no-wrap
-msgid ""
-"<dependency>\n"
-"    <groupId>io.quarkus</groupId>\n"
-"    <artifactId>quarkus-opentelemetry</artifactId>\n"
-"</dependency>\n"
-msgstr ""
-
 #. type: Block title
-#: upstream/_versions/main/guides/opentelemetry.adoc:74
-#: upstream/_versions/main/guides/opentelemetry.adoc:245
-#: upstream/_versions/main/guides/opentelemetry.adoc:309
-#: upstream/_versions/main/guides/opentelemetry.adoc:327
+#: _versions/main/guides/opentelemetry.adoc
 #, no-wrap
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:77
-#, no-wrap
-msgid "implementation(\"io.quarkus:quarkus-opentelemetry\")\n"
-msgstr ""
-
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:79
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Examine the Jakarta REST resource"
-msgstr ""
+msgstr "Examinar el recurso JAX-RS"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:82
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Create a `src/main/java/org/acme/opentelemetry/TracedResource.java` file with the following content:"
-msgstr ""
+msgstr "Cree un archivo `src/main/java/org/acme/opentelemetry/TracedResource.java` con el siguiente contenido:"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:86
-#, no-wrap
-msgid "package org.acme.opentelemetry;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:92
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.Path;\n"
-"import jakarta.ws.rs.Produces;\n"
-"import jakarta.ws.rs.core.MediaType;\n"
-"import org.jboss.logging.Logger;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:95
-#, no-wrap
-msgid ""
-"@Path(\"/hello\")\n"
-"public class TracedResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:97
-#, no-wrap
-msgid "    private static final Logger LOG = Logger.getLogger(TracedResource.class);\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:105
-#, no-wrap
-msgid ""
-"    @GET\n"
-"    @Produces(MediaType.TEXT_PLAIN)\n"
-"    public String hello() {\n"
-"        LOG.info(\"hello\");\n"
-"        return \"hello\";\n"
-"    }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:109
-msgid "Notice that there is no tracing specific code included in the application. By default, requests sent to this endpoint will be traced without any required code changes."
-msgstr ""
+"Notice that there is no tracing specific code included in the application. By default, requests sent to this\n"
+"endpoint will be traced without any required code changes."
+msgstr "Observe que no hay código específico de rastreo incluido en la aplicación. Por defecto, las solicitudes enviadas a este punto final serán rastreadas sin ningún cambio de código requerido."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:110
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Create the configuration"
-msgstr ""
+msgstr "Crear la configuración"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:113
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "There are no mandatory configurations for the extension to work."
-msgstr ""
+msgstr "No hay configuraciones obligatorias para que la extensión funcione."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:115
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If you need to change any of the default property values, here is an example on how to configure the default OTLP gRPC Exporter within the application, using the `src/main/resources/application.properties` file:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:122
-#, no-wrap
-msgid ""
-"quarkus.application.name=myservice // <1>\n"
-"quarkus.otel.exporter.otlp.traces.endpoint=http://localhost:4317 // <2>\n"
-"quarkus.otel.exporter.otlp.traces.headers=authorization=Bearer my_secret // <3>\n"
-"quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n  // <4>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:125
-#, no-wrap
-msgid ""
-"# Alternative to the console log\n"
-"quarkus.http.access-log.pattern=\"...traceId=%{X,traceId} spanId=%{X,spanId}\" // <5>\n"
-msgstr ""
+msgstr "Si necesita cambiar alguno de los valores de las propiedades por defecto, aquí tiene un ejemplo de cómo configurar el Exportador OTLP gRPC por defecto dentro de la aplicación, utilizando el archivo `src/main/resources/application.properties`:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:128
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "All spans created from the application will include an OpenTelemetry `Resource` indicating the span was created by the `myservice` application. If not set, it will default to the artifact id."
-msgstr ""
+msgstr "Todos los tramos creados desde la aplicación incluirán un `Resource` de OpenTelemetry que indica que el tramo fue creado por la aplicación `myservice`. Si no se establece, será por defecto el id del artefacto."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:129
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "gRPC endpoint to send spans. If not set, it will default to `http://localhost:4317`."
-msgstr ""
+msgstr "Punto final gRPC para enviar tramos. Si no se establece, se utilizará por defecto `&lt;a href=\"http://localhost:4317\" class=\"bare\"&gt;http://localhost:4317&lt;/a&gt;`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:130
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Optional gRPC headers commonly used for authentication"
-msgstr ""
+msgstr "Cabeceras opcionales de gRPC utilizadas habitualmente para la autenticación"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:131
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Add tracing information into log messages."
-msgstr ""
+msgstr "Añade información de rastreo en el mensaje de registro."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:132
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "You can also only put the trace info into the access log. In this case you must omit the info in the console log format."
-msgstr ""
+msgstr "También puedes poner sólo la información de rastreo en el registro de acceso. En este caso debes omitir la información en el formato de registro de la consola."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:136
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "All configurations have been updated from `quarkus.opentelemetry.\\*` -> `quarkus.otel.*`"
-msgstr ""
+msgstr "Todas las configuraciones se han actualizado a partir de `quarkus.opentelemetry.*` → `quarkus.otel.*`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:138
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The legacy configurations are now deprecated but will still work during a transition period."
-msgstr ""
+msgstr "Las configuraciones heredadas han quedado obsoletas, pero seguirán funcionando durante un periodo de transición."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:140
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Disable all or parts of the OpenTelemetry extension"
-msgstr ""
+msgstr "Desactivar toda o parte de la extensión OpenTelemetry"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:143
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Once you add the dependency, the extension will be enabled by default but there are a few ways to disable the OpenTelemetry extension globally or partially."
-msgstr ""
+msgstr "Una vez que añada la dependencia, la extensión se activará por defecto, pero hay algunas maneras de desactivar la extensión OpenTelemetry global o parcialmente."
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:145
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Property name"
-msgstr ""
+msgstr "Nombre de la propiedad"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:145
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Default value"
-msgstr ""
+msgstr "Por defecto"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:147
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:148
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`quarkus.otel.enabled`"
-msgstr ""
+msgstr "`quarkus.otel.enabled`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:149
-#: upstream/_versions/main/guides/opentelemetry.adoc:157
-#: upstream/_versions/main/guides/opentelemetry.adoc:161
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "true"
-msgstr ""
+msgstr "verdadero"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:151
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "If false, disable the OpenTelemetry usage at *build* time."
-msgstr ""
+msgstr "Si es false, deshabilita el uso de OpenTelemetry en tiempo de *compilación*."
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:152
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`quarkus.otel.sdk.disabled`"
-msgstr ""
+msgstr "`quarkus.otel.sdk.disabled`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:153
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "false"
-msgstr ""
+msgstr "falso"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:155
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Comes from the OpenTelemetry autoconfiguration. If true, will disable the OpenTelemetry SDK usage at *runtime*."
-msgstr ""
+msgstr "Proviene de la autoconfiguración de OpenTelemetry. Si es true, deshabilitará el uso del SDK de OpenTelemetry en *tiempo de ejecución*."
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:156
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`quarkus.otel.traces.enabled`"
-msgstr ""
+msgstr "`quarkus.otel.traces.enabled`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:159
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "If false, disable the OpenTelemetry tracing usage at *build* time."
-msgstr ""
+msgstr "Si es false, deshabilita el uso de rastreo de OpenTelemetry en tiempo de *compilación*."
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:160
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`quarkus.otel.exporter.otlp.enabled`"
-msgstr ""
+msgstr "`quarkus.otel.exporter.otlp.enabled`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:162
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "If false will disable the default OTLP exporter at *build* time."
-msgstr ""
+msgstr "Si es false deshabilitará el exportador OTLP por defecto en tiempo de *compilación*."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:165
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If you need to enable or disable the exporter at runtime, you can use the xref:sampler[Sampler] because it has the ability to filter out all the spans if needed."
-msgstr ""
+msgstr "Si necesita activar o desactivar el exportador en tiempo de ejecución, puede utilizar el  link:#sampler[Muestreador] porque tiene la capacidad de filtrar todos los espacios si es necesario."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:167
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Run the application"
-msgstr ""
+msgstr "Ejecutar la aplicación"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:170
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The first step is to configure and start the https://opentelemetry.io/docs/collector/[OpenTelemetry Collector] to receive, process and export telemetry data to https://www.jaegertracing.io/[Jaeger] that will display the captured traces."
-msgstr ""
+msgstr "El primer paso es configurar e iniciar el  link:https://opentelemetry.io/docs/collector/[colector OpenTelemetry] para recibir, procesar y exportar los datos de telemetría a  link:https://www.jaegertracing.io/[Jaeger] que mostrará las trazas capturadas."
 
-#. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:176
-msgid "Jaeger-all-in-one includes the Jaeger agent, an OTel collector, and the query service/UI.  You do not need to install a separated collector. You can directly send the trace data to Jaeger (after enabling OTLP receivers there, see e.g. this https://medium.com/jaegertracing/introducing-native-support-for-opentelemetry-in-jaeger-eb661be8183c[blog entry] for details)."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Jaeger-all-in-one includes the Jaeger agent, an OTel collector, and the query service/UI.\n"
+"You do not need to install a separated collector. You can directly send the trace data to Jaeger (after enabling OTLP receivers there, see e.g. this\n"
+"https://medium.com/jaegertracing/introducing-native-support-for-opentelemetry-in-jaeger-eb661be8183c[blog entry] for details)."
+msgstr "Jaeger-all-in-one incluye el agente Jaeger, un recolector OTel y el servicio de consulta/UI. No necesita instalar un colector separado. Puede enviar directamente los datos de rastreo a Jaeger (después de habilitar allí los receptores OTLP, véase, por ejemplo, esta link:https://medium.com/jaegertracing/introducing-native-support-for-opentelemetry-in-jaeger-eb661be8183c[entrada del] blog para más detalles)."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:179
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Start the OpenTelemetry Collector and Jaeger system via the following `docker-compose.yml` file that you can launch via `docker-compose up -d`:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:184
-#, no-wrap
-msgid ""
-"version: \"2\"\n"
-"services:\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:196
-#, no-wrap
-msgid ""
-"  # Jaeger\n"
-"  jaeger-all-in-one:\n"
-"    image: jaegertracing/all-in-one:latest\n"
-"    ports:\n"
-"      - \"16686:16686\" # Jaeger UI\n"
-"      - \"14268:14268\" # Receive legacy OpenTracing traces, optional\n"
-"      - \"4317:4317\"   # OTLP gRPC receiver\n"
-"      - \"4318:4318\"   # OTLP HTTP receiver, not yet used by Quarkus, optional\n"
-"      - \"14250:14250\" # Receive from external otel-collector, optional\n"
-"    environment:\n"
-"      - COLLECTOR_OTLP_ENABLED=true\n"
-msgstr ""
+msgstr "Inicie el sistema OpenTelemetry Collector y Jaeger a través del siguiente archivo `docker-compose.yml` que puede lanzar a través de `docker-compose up -d`:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:198
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "You should remove the optional ports you don't need them."
-msgstr ""
+msgstr "Deberías quitar los puertos opcionales si no los necesitas."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:200
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Now we are ready to run our application. If using `application.properties` to configure the tracer:"
-msgstr ""
+msgstr "Ahora estamos listos para ejecutar nuestra aplicación. Si se utiliza `application.properties` para configurar el trazador:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:204
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "or if configuring the OTLP gRPC endpoint via JVM arguments:"
-msgstr ""
+msgstr "o si se configura el punto final OTLP gRPC a través de argumentos JVM:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:210
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "With the OpenTelemetry Collector, the Jaeger system and the application running, you can make a request to the provided endpoint:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:215
-#, no-wrap
-msgid ""
-"$ curl http://localhost:8080/hello\n"
-"hello\n"
-msgstr ""
+msgstr "Con el colector de OpenTelemetry, el sistema Jaeger y la aplicación en ejecución, puede hacer una solicitud al punto final proporcionado:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:218
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "When the first request has been submitted, you will be able to see the tracing information in the logs:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:224
-#, no-wrap
-msgid ""
-"10:49:02 INFO  traceId=, parentId=, spanId=, sampled= [io.quarkus] (main) Installed features: [cdi, opentelemetry, rest-client, resteasy, smallrye-context-propagation, vertx]\n"
-"10:49:03 INFO  traceId=17ceb8429b9f25b0b879fa1503259456, parentId=3125c8bee75b7ad6, spanId=58ce77c86dd23457, sampled=true [or.ac.op.TracedResource] (executor-thread-1) hello\n"
-"10:49:03 INFO  traceId=ad23acd6d9a4ed3d1de07866a52fa2df, parentId=, spanId=df13f5b45cf4d1e2, sampled=true [or.ac.op.TracedResource] (executor-thread-0) hello\n"
-msgstr ""
+msgstr "Cuando se haya enviado la primera solicitud, podrá ver la información de seguimiento en los registros:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:228
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Then visit the http://localhost:16686[Jaeger UI] to see the tracing information."
-msgstr ""
+msgstr "A continuación, visite la  link:http://localhost:16686[interfaz de usuario de Jaeger] para ver la información de rastreo."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:230
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Hit `CTRL+C` or type `q` to stop the application."
-msgstr ""
+msgstr "Pulse `CTRL+C` para detener la aplicación."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:231
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "JDBC"
-msgstr ""
+msgstr "JDBC"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:234
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/jdbc/library[JDBC instrumentation] will add a span for each JDBC queries done by your application, to enable it, add the following dependency to your build file:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:242
-#, no-wrap
-msgid ""
-"<dependency>\n"
-"    <groupId>io.opentelemetry.instrumentation</groupId>\n"
-"    <artifactId>opentelemetry-jdbc</artifactId>\n"
-"</dependency>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:248
-#, no-wrap
-msgid "implementation(\"io.opentelemetry.instrumentation:opentelemetry-jdbc\")\n"
-msgstr ""
+msgstr "La  link:https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation/jdbc/library[instrumentación JDBC] añadirá un span por cada consulta JDBC realizada por su aplicación, para habilitarla, añada la siguiente dependencia a su archivo de construcción:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:251
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "As it uses a dedicated JDBC datasource wrapper, you must enable telemetry for your datasource:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:256
-#, no-wrap
-msgid ""
-"# enable tracing\n"
-"quarkus.datasource.jdbc.telemetry=true\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:260
-#, no-wrap
-msgid ""
-"# configure datasource\n"
-"quarkus.datasource.db-kind=postgresql\n"
-"quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydatabase\n"
-msgstr ""
+msgstr "Como utiliza un controlador JDBC dedicado, debe configurar su fuente de datos y el ORM de Hibernate para utilizarlo."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:262
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Additional configuration"
-msgstr ""
+msgstr "Configuración adicional"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:265
-msgid "Some use cases will require custom configuration of OpenTelemetry.  These sections will outline what is necessary to properly configure it."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Some use cases will require custom configuration of OpenTelemetry.\n"
+"These sections will outline what is necessary to properly configure it."
+msgstr "Algunos casos de uso requerirán una configuración personalizada de OpenTelemetry. Estas secciones esbozarán lo necesario para configurarlo adecuadamente."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:266
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "ID Generator"
-msgstr ""
+msgstr "Generador de ID"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:269
-msgid "The OpenTelemetry extension will use by default a random https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#id-generators[ID Generator] when creating the trace and span identifier."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:272
-msgid "Some vendor-specific protocols need a custom ID Generator, you can override the default one by creating a producer.  The OpenTelemetry extension will detect the `IdGenerator` CDI bean and will use it when configuring the tracer producer."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:277
-#: upstream/_versions/main/guides/opentelemetry.adoc:454
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"@Singleton\n"
-"public class CustomConfiguration {\n"
-msgstr ""
+"The OpenTelemetry extension will use by default a random https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#id-generators[ID Generator]\n"
+"when creating the trace and span identifier."
+msgstr "La extensión OpenTelemetry utilizará por defecto un link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#id-generators[generador de ID] aleatorio al crear el identificador de la traza y del tramo."
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:285
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"    /** Creates a custom IdGenerator for OpenTelemetry */\n"
-"    @Produces\n"
-"    @Singleton\n"
-"    public IdGenerator idGenerator() {\n"
-"        return AwsXrayIdGenerator.getInstance();\n"
-"    }\n"
-"}\n"
-msgstr ""
+"Some vendor-specific protocols need a custom ID Generator, you can override the default one by creating a producer.\n"
+"The OpenTelemetry extension will detect the `IdGenerator` CDI bean and will use it when configuring the tracer producer."
+msgstr "Algunos protocolos específicos de proveedores necesitan un generador de ID personalizado, puede anular el predeterminado creando un productor. La extensión OpenTelemetry detectará el frijol CDI `IdGenerator` y lo utilizará al configurar el productor del trazador."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:287
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Propagators"
-msgstr ""
+msgstr "Propagadores"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:290
-msgid "OpenTelemetry propagates cross-cutting concerns through https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md[propagators] that will share an underlying `Context` for storing state and accessing data across the lifespan of a distributed transaction."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"OpenTelemetry propagates cross-cutting concerns through https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md[propagators] that will share an underlying `Context` for storing state and accessing\n"
+"data across the lifespan of a distributed transaction."
+msgstr "OpenTelemetry propaga las preocupaciones transversales a través de link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/context/api-propagators.md[propagadores] que compartirán un `Context` subyacente para almacenar el estado y acceder a los datos a lo largo de la vida de una transacción distribuida."
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:293
-msgid "By default, the OpenTelemetry extension enables the https://www.w3.org/TR/trace-context/[W3C Trace Context] and the https://www.w3.org/TR/baggage/[W3C Baggage] propagators, you can however choose any of the supported OpenTelemetry propagators by setting the `propagators` config that is described in the xref:configuration-reference[OpenTelemetry Configuration Reference]."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"By default, the OpenTelemetry extension enables the https://www.w3.org/TR/trace-context/[W3C Trace Context] and the https://www.w3.org/TR/baggage/[W3C Baggage]\n"
+"propagators, you can however choose any of the supported OpenTelemetry propagators by setting the `propagators` config that is described in the xref:configuration-reference[OpenTelemetry Configuration Reference]."
+msgstr "Por defecto, la extensión OpenTelemetry habilita los propagadores link:https://www.w3.org/TR/trace-context/[W3C Trace Context] y link:https://www.w3.org/TR/baggage/[W3C Baggage] , sin embargo puede elegir cualquiera de los propagadores OpenTelemetry soportados configurando el `propagators` config que se describe en la xref:configuration-reference[Referencia de configuración de OpenTelemetry] ."
 
 #. type: Title ====
-#: upstream/_versions/main/guides/opentelemetry.adoc:294
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Additional Propagators"
-msgstr ""
+msgstr "Configuración adicional"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:298
-msgid "The `b3`, `b3multi`, `jaeger` and `ottrace` propagators will need the https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/trace-propagators[trace-propagators] extension to be added as a dependency to your project."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:306
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"<dependency>\n"
-"    <groupId>io.opentelemetry</groupId>\n"
-"    <artifactId>opentelemetry-extension-trace-propagators</artifactId>\n"
-"</dependency>\n"
-msgstr ""
+"The `b3`, `b3multi`, `jaeger` and `ottrace` propagators will need the https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/trace-propagators[trace-propagators]\n"
+"extension to be added as a dependency to your project."
+msgstr "Los propagadores `b3` , `b3multi` , `jaeger` y `ottrace` necesitarán que la extensión link:https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/trace-propagators[trace-propagators] se añada como dependencia a su proyecto."
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:312
-#, no-wrap
-msgid "implementation(\"io.opentelemetry:opentelemetry-extension-trace-propagators\")\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:316
-msgid "The `xray` propagator will need the https://github.com/open-telemetry/opentelemetry-java-contrib/tree/main/aws-xray-propagator[aws] extension to be added as a dependency to your project."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:324
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"<dependency>\n"
-"    <groupId>io.opentelemetry.contrib</groupId>\n"
-"    <artifactId>opentelemetry-aws-xray-propagator</artifactId>\n"
-"</dependency>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:330
-#, no-wrap
-msgid "implementation(\"io.opentelemetry.contrib:opentelemetry-aws-xray-propagator\")\n"
-msgstr ""
+"The `xray` propagator will need the https://github.com/open-telemetry/opentelemetry-java-contrib/tree/main/aws-xray-propagator[aws]\n"
+"extension to be added as a dependency to your project."
+msgstr "El propagador `xray` necesitará que la extensión link:https://github.com/open-telemetry/opentelemetry-java-contrib/tree/main/aws-xray-propagator[aws] se añada como dependencia a su proyecto."
 
 #. type: Title ====
-#: upstream/_versions/main/guides/opentelemetry.adoc:332
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Customise Propagator"
-msgstr ""
+msgstr "Propagadores"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:335
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "To customise the propagation header you can implement the `TextMapPropagatorCustomizer` interface. This can be used, as an example, to restrict propagation of OpenTelemetry trace headers and prevent potentially sensitive data to be sent to third party systems."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:338
-msgid "```java /**"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:339
-msgid "/**"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:340
-msgid "Meant to be implemented by a CDI bean that provides arbitrary customization for the TextMapPropagator"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:341
-msgid "that are to be registered with OpenTelemetry"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:343
-#, no-wrap
-msgid ""
-"*/\n"
-"public interface TextMapPropagatorCustomizer {\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:345
-#, no-wrap
-msgid "    TextMapPropagator customize(Context context);\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:348
-#, no-wrap
-msgid ""
-"    interface Context {\n"
-"        TextMapPropagator propagator();\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:353
-#, no-wrap
-msgid ""
-"        ConfigProperties otelConfigProperties();\n"
-"    }\n"
-"}\n"
-"```\n"
-msgstr ""
+msgstr "Para personalizar la cabecera de propagación puede implementar la interfaz `TextMapPropagatorCustomizer`. Esto se puede utilizar, por ejemplo, para restringir la propagación de las cabeceras de rastreo de OpenTelemetry y evitar que se envíen datos potencialmente sensibles a sistemas de terceros."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:354
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Resource"
-msgstr ""
+msgstr "Recursos"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:357
-msgid "A https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#resources[resource] is a representation of the entity that is producing telemetry, it adds attributes to the exported trace to characterize who is producing the trace."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:361
-msgid "You can add attributes by setting the `resource-attributes` tracer config that is described in the xref:configuration-reference[OpenTelemetry Configuration Reference].  Since this property can be overridden at runtime, the OpenTelemetry extension will pick up its value following the order of precedence that is described in the xref:config-reference.adoc#configuration-sources[Quarkus Configuration Reference]."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:364
-msgid "If by any means you need to use a custom resource or one that is provided by one of the https://github.com/open-telemetry/opentelemetry-java/tree/main/sdk-extensions[OpenTelemetry SDK Extensions] you can create multiple resource producers. The OpenTelemetry extension will detect the `Resource` CDI beans and will merge them when configuring the tracer producer."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:369
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"@ApplicationScoped\n"
-"public class CustomConfiguration {\n"
-msgstr ""
+"A https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#resources[resource] is a representation\n"
+"of the entity that is producing telemetry, it adds attributes to the exported trace to characterize who is producing the trace."
+msgstr "Un link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#resources[recurso] es una representación de la entidad que está produciendo telemetría, añade atributos a la traza exportada para caracterizar quién está produciendo la traza."
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:375
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"    @Produces\n"
-"    @ApplicationScoped\n"
-"    public Resource osResource() {\n"
-"        return OsResource.get();\n"
-"    }\n"
-msgstr ""
+"You can add attributes by setting the `resource-attributes` tracer config that is described in the xref:configuration-reference[OpenTelemetry Configuration Reference].\n"
+"Since this property can be overridden at runtime, the OpenTelemetry extension will pick up its value following the order of precedence that\n"
+"is described in the xref:config-reference.adoc#configuration-sources[Quarkus Configuration Reference]."
+msgstr "Puede añadir atributos estableciendo la configuración del rastreador `resource-attributes` que se describe en la Referencia de configuración de xref:configuration-reference[OpenTelemetry] . Dado que esta propiedad puede ser anulada en tiempo de ejecución, la extensión OpenTelemetry recogerá su valor siguiendo el orden de precedencia que se describe en la Referencia de Configuración xref:config-reference.adoc#configuration-sources[de Quarkus] ."
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:382
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"    @Produces\n"
-"    @ApplicationScoped\n"
-"    public Resource ecsResource() {\n"
-"        return EcsResource.get();\n"
-"    }\n"
-"}\n"
-msgstr ""
+"If by any means you need to use a custom resource or one that is provided by one of the https://github.com/open-telemetry/opentelemetry-java/tree/main/sdk-extensions[OpenTelemetry SDK Extensions]\n"
+"you can create multiple resource producers. The OpenTelemetry extension will detect the `Resource` CDI beans and will merge them when configuring the tracer producer."
+msgstr "Si por alguna razón necesita utilizar un recurso personalizado o uno que sea proporcionado por una de las link:https://github.com/open-telemetry/opentelemetry-java/tree/main/sdk-extensions[extensiones del SDK] de OpenTelemetry puede crear múltiples productores de recursos. La extensión OpenTelemetry detectará los beans CDI de `Resource` y los fusionará al configurar el productor de trazadores."
 
 #. type: Title ====
-#: upstream/_versions/main/guides/opentelemetry.adoc:384
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "User data"
-msgstr ""
+msgstr "Datos del usuario"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:387
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "By setting `quarkus.otel.traces.eusp.enabled=true` you can add information about the user related to each span. The user's ID and roles will be added to the span attributes, if available."
-msgstr ""
+msgstr "Configurando `quarkus.otel.traces.eusp.enabled=true` puede añadir información sobre el usuario relacionada con cada span. El ID y los roles del usuario se añadirán a los atributos del span, si están disponibles."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:389
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Sampler"
-msgstr ""
+msgstr "Muestrario"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:391
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "A https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#sampling[sampler] decides whether a trace should be discarded or forwarded, effectively managing noise and reducing overhead by limiting the number of collected traces sent to the collector."
-msgstr ""
+msgstr "Un  link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#sampling[muestreador] decide si una traza debe ser muestreada y exportada, controlando el ruido y la sobrecarga al reducir el número de muestras de trazas recogidas y enviadas al recolector."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:393
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Quarkus comes equipped with a https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#built-in-samplers[built-in sampler], and you also have the option to create your custom sampler."
-msgstr ""
+msgstr "Puede establecer un  link:https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/sdk.md#built-in-samplers[muestreador incorporado] simplemente configurando el muestreador deseado descrito en la  link:#configuration-reference[[configuración-referencia]]."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:395
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "To use the built-in sampler, you can configure it by setting the desired sampler parameters as detailed in the xref:configuration-reference[OpenTelemetry Configuration Reference]. As an example, you can configure the sampler to retain 50% of the traces:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:401
-#, no-wrap
-msgid ""
-"# build time property only:\n"
-"quarkus.otel.traces.sampler=traceidratio\n"
-"# Runtime property:\n"
-"quarkus.otel.traces.sampler.arg=0.5\n"
-msgstr ""
+msgstr "Para utilizar el muestreador incorporado, puede configurarlo estableciendo los parámetros de muestreo deseados, tal y como se detalla en la  link:#configuration-reference[Referencia de configuración de OpenTelemetry]. Como ejemplo, puede configurar el muestreador para que retenga el 50% de las trazas:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:406
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "An interesting use case for the sampler is to activate and deactivate tracing export at runtime, acording to this example:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:414
-#, no-wrap
-msgid ""
-"# build time property only:\n"
-"quarkus.otel.traces.sampler=traceidratio\n"
-"# On (default). All traces are exported:\n"
-"quarkus.otel.traces.sampler.arg=1.0\n"
-"# Off. No traces are exported:\n"
-"quarkus.otel.traces.sampler.arg=0.0\n"
-msgstr ""
+msgstr "Un caso de uso interesante para el muestreador es activar y desactivar la exportación de trazas en tiempo de ejecución, según este ejemplo:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:420
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Quarkus 3.0 introduced breaking changes on the configuration."
-msgstr ""
+msgstr "Quarkus 3.0 introdujo cambios de última hora en la configuración."
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid "Sampler related property names and values change to comply with the latest Java OpenTelemetry SDK. During a transition period it will be possible to set the new configuration values in the old property because we are mapping  `quarkus.opentelemetry.tracer.sampler` -> `quarkus.otel.traces.sampler`."
+msgstr "Los nombres y valores de las propiedades relacionadas con el muestreador cambian para cumplir con el último SDK de OpenTelemetry de Java. Durante un periodo de transición será posible establecer los nuevos valores de configuración en la propiedad antigua porque estamos mapeando `quarkus.opentelemetry.tracer.sampler` → `quarkus.otel.traces.sampler` ."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:422
-msgid "Sampler related property names and values change to comply with the latest Java OpenTelemetry SDK. During a transition period it will be possible to set the new configuration values in the old property because we are mapping `quarkus.opentelemetry.tracer.sampler` -> `quarkus.otel.traces.sampler`."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:424
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If the sampler is parent based, there is no need to set, the now dropped property, `quarkus.opentelemetry.tracer.sampler.parent-based`."
-msgstr ""
+msgstr "Si el muestreador está basado en el padre, no es necesario establecer la propiedad, ahora eliminada, `quarkus.opentelemetry.tracer.sampler.parent-based`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:426
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The values you need to set on `quarkus.opentelemetry.tracer.sampler` are now:"
-msgstr ""
+msgstr "Los valores que debe establecer en `quarkus.opentelemetry.tracer.sampler` son ahora:"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:428
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Old Sampler config value"
-msgstr ""
+msgstr "Antiguo valor de configuración del muestreador"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid "New Sampler config value"
+msgstr "Nuevo valor de configuración del muestreador"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:428
-#, no-wrap
-msgid "New Sampler config valu"
-msgstr ""
-
-#. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:430
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "New Sampler config value (Parent based)"
-msgstr ""
+msgstr "Nuevo valor de configuración del muestreador (basado en los padres)"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:431
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`on`"
-msgstr ""
+msgstr "`on`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:432
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`always_on`"
-msgstr ""
+msgstr "`always_on`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:434
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`parentbased_always_on`"
-msgstr ""
+msgstr "`parentbased_always_on`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:435
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`off`"
-msgstr ""
+msgstr "`off`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:436
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`always_off`"
-msgstr ""
+msgstr "`always_off`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:438
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`parentbased_always_off`"
-msgstr ""
+msgstr "`parentbased_always_off`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:439
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`ratio`"
-msgstr ""
+msgstr "`ratio`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:440
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`traceidratio`"
-msgstr ""
+msgstr "`traceidratio`"
 
 #. type: Table
-#: upstream/_versions/main/guides/opentelemetry.adoc:441
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "`parentbased_traceidratio`"
-msgstr ""
+msgstr "`parentbased_traceidratio`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:445
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If you need to use a custom sampler there are now 2 different ways:"
-msgstr ""
+msgstr "Si necesitas utilizar un muestreador personalizado, ahora hay 2 formas diferentes:"
 
 #. type: Title ====
-#: upstream/_versions/main/guides/opentelemetry.adoc:446
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Sampler CDI Producer"
-msgstr ""
+msgstr "Muestra Productor CDI"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/opentelemetry.adoc:449
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "You can create a sampler CDI producer. The Quarkus OpenTelemetry extension will detect the `Sampler` CDI bean and will use it when configuring the Tracer."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:464
-#, no-wrap
-msgid ""
-"    /** Creates a custom sampler for OpenTelemetry */\n"
-"    @Produces\n"
-"    @Singleton\n"
-"    public Sampler sampler() {\n"
-"        return JaegerRemoteSampler.builder()\n"
-"        .setServiceName(\"my-service\")\n"
-"        .build();\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "Algunos protocolos específicos del proveedor necesitan un generador de ID personalizado, puede anular el predeterminado creando un productor. La extensión de OpenTelemetry detectará el frijol CDI de `IdGenerator` y lo utilizará cuando configure el productor del trazador."
 
 #. type: Title ====
-#: upstream/_versions/main/guides/opentelemetry.adoc:466
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "OTel Sampler SPI"
-msgstr ""
+msgstr "Muestrario"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"This will use the SPI hooks available with the OTel Autoconfiguration.\n"
+"You can create a simple Sampler class:"
+msgstr "Esto utilizará los ganchos SPI disponibles con la Autoconfiguración OTel. Puede crear una simple clase Sampler:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:470
-msgid "This will use the SPI hooks available with the OTel Autoconfiguration.  You can create a simple Sampler class:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:483
-#, no-wrap
-msgid ""
-"public class CustomSPISampler implements Sampler {\n"
-"    @Override\n"
-"    public SamplingResult shouldSample(Context context,\n"
-"            String s,\n"
-"            String s1,\n"
-"            SpanKind spanKind,\n"
-"            Attributes attributes,\n"
-"            List<LinkData> list) {\n"
-"        // Do some sampling here\n"
-"        return Sampler.alwaysOn().shouldSample(context, s, s1, spanKind, attributes, list);\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:489
-#, no-wrap
-msgid ""
-"    @Override\n"
-"    public String getDescription() {\n"
-"        return \"custom-spi-sampler-description\";\n"
-"    }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:492
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Then a Sampler Provider:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:499
-#, no-wrap
-msgid ""
-"public class CustomSPISamplerProvider implements ConfigurableSamplerProvider {\n"
-"    @Override\n"
-"    public Sampler createSampler(ConfigProperties configProperties) {\n"
-"        return new CustomSPISampler();\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:505
-#, no-wrap
-msgid ""
-"    @Override\n"
-"    public String getName() {\n"
-"        return \"custom-spi-sampler\";\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "A continuación, un proveedor de muestras:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:507
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Write the SPI loader text file at `resources/META-INF/services` with name `io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSamplerProvider` containing the full qualified name of the `CustomSPISamplerProvider` class."
-msgstr ""
+msgstr "Escriba el archivo de texto del cargador SPI en `resources/META-INF/services` con el nombre `io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSamplerProvider` que contiene el nombre completo calificado de la clase `CustomSPISamplerProvider`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:509
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Then activate on the configuration:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:512
-#, no-wrap
-msgid "quarkus.otel.traces.sampler=custom-spi-sampler\n"
-msgstr ""
+msgstr "Crear la configuración"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:515
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "As you can see, CDI is much simpler to work with."
-msgstr ""
+msgstr "Como puedes ver, CDI es mucho más sencillo de trabajar."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:516
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Additional instrumentation"
-msgstr ""
+msgstr "Instrumentos adicionales"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Some Quarkus extensions will require additional code to ensure traces are propagated to subsequent execution.\n"
+"These sections will outline what is necessary to propagate traces across process boundaries."
+msgstr "Algunas extensiones de Quarkus requerirán código adicional para asegurar que las trazas se propaguen a la ejecución subsiguiente. Estas secciones esbozarán lo necesario para propagar las trazas a través de los límites del proceso."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:520
-msgid "Some Quarkus extensions will require additional code to ensure traces are propagated to subsequent execution.  These sections will outline what is necessary to propagate traces across process boundaries."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:522
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The instrumentation documented in this section has been tested with Quarkus and works in both standard and native mode."
-msgstr ""
+msgstr "La instrumentación documentada en esta sección ha sido probada con Quarkus y funciona tanto en modo estándar como nativo."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:523
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "CDI"
-msgstr ""
+msgstr "CDI"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Annotating a method in any CDI aware bean with the `io.opentelemetry.instrumentation.annotations.WithSpan`\n"
+"annotation will create a new Span and establish any required relationships with the current Trace context."
+msgstr "Al anotar un método en cualquier frijol consciente de CDI con la anotación `io.opentelemetry.instrumentation.annotations.WithSpan` se creará un nuevo Span y se establecerán las relaciones necesarias con el contexto Trace actual."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:527
-msgid "Annotating a method in any CDI aware bean with the `io.opentelemetry.instrumentation.annotations.WithSpan` annotation will create a new Span and establish any required relationships with the current Trace context."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:529
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Annotating a method in any CDI aware bean with the `io.opentelemetry.instrumentation.annotations.AddingSpanAttributes` will not create a new span but will add annotated method parameters to attributes in the current span."
-msgstr ""
+msgstr "Al anotar un método en cualquier frijol con CDI con la anotación `io.opentelemetry.extension.annotations.WithSpan` se creará un nuevo Span y se establecerán las relaciones necesarias con el contexto actual de Trace."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:531
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "If a method is annotated by mistake with `@AddingSpanAttributes` and `@WithSpan` annotations, the `@WithSpan` annotation will take precedence."
-msgstr ""
+msgstr "Si un método está anotado por error con anotaciones `@AddingSpanAttributes` y `@WithSpan`, la anotación `@WithSpan` tendrá prioridad."
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Method parameters can be annotated with the `io.opentelemetry.instrumentation.annotations.SpanAttribute` annotation to\n"
+"indicate which method parameters should be part of the span. The parameter name can be customized as well."
+msgstr "Los parámetros de método pueden anotarse con la anotación `io.opentelemetry.instrumentation.annotations.SpanAttribute` para indicar qué parámetros de método deben formar parte del span. El nombre del parámetro también puede personalizarse."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:534
-msgid "Method parameters can be annotated with the `io.opentelemetry.instrumentation.annotations.SpanAttribute` annotation to indicate which method parameters should be part of the span. The parameter name can be customized as well."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:536
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Example:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:542
-#, no-wrap
-msgid ""
-"@ApplicationScoped\n"
-"class SpanBean {\n"
-"    @WithSpan\n"
-"    void span() {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:544
-#: upstream/_versions/main/guides/opentelemetry.adoc:549
-#: upstream/_versions/main/guides/opentelemetry.adoc:554
-#: upstream/_versions/main/guides/opentelemetry.adoc:559
-#, no-wrap
-msgid "    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:547
-#, no-wrap
-msgid ""
-"    @WithSpan(\"name\")\n"
-"    void spanName() {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:552
-#, no-wrap
-msgid ""
-"    @WithSpan(kind = SERVER)\n"
-"    void spanKind() {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:557
-#, no-wrap
-msgid ""
-"    @WithSpan\n"
-"    void spanArgs(@SpanAttribute(value = \"arg\") String arg) {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:562
-#, no-wrap
-msgid ""
-"    @AddingSpanAttributes\n"
-"    void addArgumentToExistingSpan(@SpanAttribute(value = \"arg\") String arg) {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:565
-#, no-wrap
-msgid ""
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "Ejemplo:"
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:567
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Available OpenTelemetry CDI injections"
-msgstr ""
+msgstr "Inyecciones OpenTelemetry CDI disponibles"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"As per MicroProfile Telemetry Tracing specification, Quarkus supports the CDI injections of the\n"
+"following classes:"
+msgstr "De acuerdo con la especificación de rastreo telemétrico de MicroProfile, Quarkus admite las inyecciones CDI de las siguientes clases:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:571
-msgid "As per MicroProfile Telemetry Tracing specification, Quarkus supports the CDI injections of the following classes:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:573
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "`io.opentelemetry.api.OpenTelemetry`"
-msgstr ""
+msgstr "`io.opentelemetry.api.OpenTelemetry`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:574
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "`io.opentelemetry.api.trace.Tracer`"
-msgstr ""
+msgstr "`io.opentelemetry.api.trace.Tracer`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:575
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "`io.opentelemetry.api.trace.Span`"
-msgstr ""
+msgstr "`io.opentelemetry.api.trace.Span`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:576
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "`io.opentelemetry.api.baggage.Baggage`"
-msgstr ""
+msgstr "`io.opentelemetry.api.baggage.Baggage`"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:578
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "You can inject these classes in any CDI enabled bean. For instance, the `Tracer` is particularly useful to start custom spans:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:583
-#, no-wrap
-msgid ""
-"@Inject\n"
-"Tracer tracer;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:585
-#, no-wrap
-msgid "...\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:592
-#, no-wrap
-msgid ""
-"public void tracedWork() {\n"
-"    Span span = tracer.spanBuilder(\"My custom span\")\n"
-"        .setAttribute(\"attr\", \"attr.value\")\n"
-"        .setParent(Context.current().with(Span.current()))\n"
-"        .setSpanKind(SpanKind.INTERNAL)\n"
-"        .startSpan();\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:594
-#, no-wrap
-msgid "    // traced work\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:597
-#, no-wrap
-msgid ""
-"    span.end();\n"
-"}\n"
-msgstr ""
+msgstr "Puedes inyectar estas clases en cualquier bean habilitado para CDI. Por ejemplo, el `Tracer` es particularmente útil para iniciar spans personalizados:"
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:599
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "SmallRye Reactive Messaging - Kafka"
-msgstr ""
+msgstr "SmallRye Reactive Messaging - Kafka"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:603
-msgid "When using the SmallRye Reactive Messaging extension for Kafka, we are able to propagate the span into the Kafka Record with:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/opentelemetry.adoc:608
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid ""
-"TracingMetadata tm = TracingMetadata.withPrevious(Context.current());\n"
-"Message out = Message.of(...).withMetadata(tm);\n"
-msgstr ""
+"When using the SmallRye Reactive Messaging extension for Kafka,\n"
+"we are able to propagate the span into the Kafka Record with:"
+msgstr "Al utilizar la extensión SmallRye Reactive Messaging para Kafka, podemos propagar el span en el registro de Kafka con:"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:612
-msgid "The above creates a `TracingMetadata` object we can add to the `Message` being produced, which retrieves the OpenTelemetry `Context` to extract the current span for propagation."
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"The above creates a `TracingMetadata` object we can add to the `Message` being produced,\n"
+"which retrieves the OpenTelemetry `Context` to extract the current span for propagation."
+msgstr "Lo anterior crea un objeto `TracingMetadata` que podemos añadir al `Message` que se está produciendo, el cual recupera el OpenTelemetry `Context` para extraer el tramo actual para su propagación."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:613
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Exporters"
-msgstr ""
+msgstr "Exportadores"
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:615
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Default"
-msgstr ""
+msgstr "Por defecto"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:618
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The Quarkus OpenTelemetry extension uses its own exporter built on top of Vert.x for optimal performance and maintainability."
-msgstr ""
+msgstr "La extensión OpenTelemetry de Quarkus utiliza su propio exportador construido sobre Vert.x para un rendimiento y mantenimiento óptimos."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:620
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The exporter is automatically wired with CDI, that's why the `quarkus.otel.traces.exporter` property defaults to `cdi`."
-msgstr ""
+msgstr "El exportador se cablea automáticamente con CDI, por eso la propiedad `quarkus.otel.traces.exporter` por defecto es `cdi`."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:622
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "The `quarkus.otel.exporter.otlp.traces.protocol` default to `grpc` and `http/protobuf` can also be used."
-msgstr ""
+msgstr "También se puede utilizar `quarkus.otel.exporter.otlp.traces.protocol` por defecto a `grpc` y `http/protobuf`."
 
 #. type: Title ===
-#: upstream/_versions/main/guides/opentelemetry.adoc:623
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "On Quarkiverse"
-msgstr ""
+msgstr "En Quarkiverse"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:625
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Additional exporters will be available in the Quarkiverse https://github.com/quarkiverse/quarkus-opentelemetry-exporter/blob/main/README.md[quarkus-opentelemetry-exporter] project."
-msgstr ""
+msgstr "Habrá exportadores adicionales en el proyecto Quarkiverse  link:https://github.com/quarkiverse/quarkus-opentelemetry-exporter/blob/main/README.md[quarkus-opentelemetry-exporter]."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:627
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "Quarkus core extensions instrumented with OpenTelemetry tracing"
-msgstr ""
+msgstr "que deben registrarse en OpenTelemetry"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:630
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/extensions/io.quarkus/quarkus-agroal[`quarkus-agroal`]"
-msgstr ""
+msgstr "link:https://quarkus.io/extensions/io.quarkus/quarkus-agroal[`quarkus-agroal`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:631
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/grpc-getting-started[`quarkus-grpc`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/grpc-getting-started[`quarkus-grpc`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:632
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/extensions/io.quarkus/quarkus-jaxrs-client-reactive[`quarkus-jaxrs-client-reactive`]"
-msgstr ""
+msgstr "link:https://quarkus.io/extensions/io.quarkus/quarkus-jaxrs-client-reactive[`quarkus-jaxrs-client-reactive`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:633
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/resteasy[`quarkus-resteasy-jackson`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/resteasy[`quarkus-resteasy-jackson`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:634
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/resteasy-reactive[`quarkus-resteasy-reactive`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/resteasy-reactive[`quarkus-resteasy-reactive`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:635
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/rest-client[`quarkus-rest-client`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/rest-client[`quarkus-rest-client`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:636
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/scheduler[`quarkus-scheduler`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/scheduler[`quarkus-scheduler`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:637
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/smallrye-graphql[`quarkus-smallrye-graphql`]"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/smallrye-graphql[`quarkus-smallrye-graphql`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:638
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging[`quarkus-smallrye-reactive-messaging`]"
-msgstr ""
+msgstr "link:https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging[`quarkus-smallrye-reactive-messaging`]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:639
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "AMQP 1.0"
-msgstr ""
+msgstr "AMQP 1.0"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:640
+#: _versions/main/guides/opentelemetry.adoc
 msgid "RabbitMQ"
 msgstr "RabbitMQ"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:641
+#: _versions/main/guides/opentelemetry.adoc
 msgid "Kafka"
 msgstr "Kafka"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:642
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Pulsar"
-msgstr ""
+msgstr "Pulsar"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:643
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "https://quarkus.io/guides/vertx[`quarkus-vertx`] (http requests)"
-msgstr ""
+msgstr "link:https://quarkus.io/guides/vertx[`quarkus-vertx`] (solicitudes http)"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/opentelemetry.adoc:645
-#, no-wrap
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy, no-wrap
 msgid "OpenTelemetry Configuration Reference"
-msgstr ""
+msgstr "Referencia de configuración de OpenTelemetry"
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid ""
+"Quarkus supports the OpenTelemetry Autoconfiguration for Traces.\n"
+"The configurations match what you can see at\n"
+"https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure]\n"
+"adding the usual `quarkus.*` prefix."
+msgstr "Quarkus soporta la Autoconfiguración de OpenTelemetry para Trazas. Las configuraciones coinciden con lo que se puede ver en link:https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure] añadiendo el prefijo habitual `quarkus.*` ."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:651
-msgid "Quarkus supports the OpenTelemetry Autoconfiguration for Traces.  The configurations match what you can see at https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md[OpenTelemetry SDK Autoconfigure] adding the usual `quarkus.*` prefix."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:653
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
 msgid "Quarkus OpenTelemetry configuration properties now have the `quarkus.otel.*` prefix."
-msgstr ""
+msgstr "Las propiedades de configuración de Quarkus OpenTelemetry ahora tienen el prefijo `quarkus.otel.*`."
 
-#. type: Plain text
-#: upstream/_versions/main/guides/opentelemetry.adoc:655
-#, no-wrap
-msgid "*The legacy properties* with prefix `quarkus.opentelemetry.*` are currently being mapped to the new ones as a default, during a transition period. See Default column in the details below.\n"
-msgstr ""
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid "*The legacy properties* with prefix `quarkus.opentelemetry.*` are currently being mapped to the new ones as a default, during a transition period. See Default column in the details below."
+msgstr "*Las propiedades heredadas* con el prefijo `quarkus.opentelemetry.*` se están mapeando actualmente a las nuevas por defecto, durante un periodo de transición. Véase la columna Por defecto en los detalles a continuación."
+
+#: _versions/main/guides/opentelemetry.adoc
+#, fuzzy
+msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
+msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"

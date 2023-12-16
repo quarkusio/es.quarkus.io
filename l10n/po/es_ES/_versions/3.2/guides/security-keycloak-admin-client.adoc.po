@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,362 +20,217 @@ msgstr ""
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 #. type: Title =
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:6
-#, no-wrap
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy, no-wrap
 msgid "Using Keycloak Admin Client"
-msgstr ""
+msgstr "Uso de Keycloak Admin Client"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:11
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "The Quarkus Keycloak Admin Client and its reactive twin support Keycloak Admin Client which can be used to configure a running Keycloak server."
-msgstr ""
+msgstr "El Quarkus Keycloak Admin Client y su gemelo reactivo soportan el Keycloak Admin Client que puede utilizarse para configurar un servidor Keycloak en ejecución."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:13
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "This guide demonstrates how you can leverage the xref:cdi-reference.adoc[Quarkus ArC] and inject the admin client to your Quarkus application, as well as how to create it directly in the application code."
-msgstr ""
+msgstr "Esta guía demuestra cómo puede aprovechar el  link:cdi-reference.html[ArC de Qu] arkus e inyectar el cliente de administración a su aplicación de Quarkus, así como la forma de crearlo directamente en el código de la aplicación."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:15
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "To learn more about the Keycloak Admin Client, please refer to its https://www.keycloak.org/docs/latest/server_development/#example-using-java[reference guide]."
-msgstr ""
+msgstr "Para obtener más información sobre el cliente de administración de Keycloak, consulte su  link:https://www.keycloak.org/docs/latest/server_development/#example-using-java[guía de referencia]."
 
 #. type: Title ==
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:16
-#, no-wrap
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy, no-wrap
 msgid "Prerequisites"
-msgstr ""
+msgstr "Requisitos previos"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:21
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "https://www.keycloak.org/docs/latest/server_installation/index.html[Keycloak]"
-msgstr ""
+msgstr "link:https://www.keycloak.org/docs/latest/server_installation/index.html[Keycloak]"
 
 #. type: Title ==
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:22
-#, no-wrap
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy, no-wrap
 msgid "Creating the Project"
-msgstr ""
+msgstr "Creación del proyecto"
+
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
+msgid ""
+"First, we need a new project.\n"
+"Create a new project with the following command:"
+msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:26
-msgid "First, we need a new project.  Create a new project with the following command:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:32
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "This command generates a project which imports the `keycloak-admin-client-reactive` and `resteasy-reactive-jackson` extensions."
-msgstr ""
+msgstr "Este comando genera un proyecto que importa las extensiones `keycloak-admin-client-reactive` y `resteasy-reactive-jackson`."
+
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
+msgid ""
+"If you already have your Quarkus project configured, you can add the `keycloak-admin-client-reactive` and `resteasy-reactive-jackson` extensions\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir las extensiones `keycloak-admin-client-reactive` y `resteasy-reactive-jackson` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:35
-msgid "If you already have your Quarkus project configured, you can add the `keycloak-admin-client-reactive` and `resteasy-reactive-jackson` extensions to your project by running the following command in your project base directory:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:40
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "This will add the following to your build file:"
-msgstr ""
+msgstr "Esto añadirá lo siguiente a su archivo de construcción:"
 
 #. type: Block title
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:42
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
 #, no-wrap
 msgid "pom.xml"
 msgstr "pom.xml"
 
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:52
-#, no-wrap
-msgid ""
-"<dependency>\n"
-"    <groupId>io.quarkus</groupId>\n"
-"    <artifactId>quarkus-keycloak-admin-client-reactive</artifactId>\n"
-"</dependency>\n"
-"<dependency>\n"
-"    <groupId>io.quarkus</groupId>\n"
-"    <artifactId>quarkus-resteasy-reactive-jackson</artifactId>\n"
-"</dependency>\n"
-msgstr ""
-
 #. type: Block title
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:55
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
 #, no-wrap
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:59
-#, no-wrap
-msgid ""
-"implementation(\"io.quarkus:quarkus-keycloak-admin-client-reactive\")\n"
-"implementation(\"io.quarkus:quarkus-resteasy-reactive-jackson\")\n"
-msgstr ""
-
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:62
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "We also are going to need a simple resource with a `Keycloak` injected as request scoped CDI bean."
-msgstr ""
+msgstr "También vamos a necesitar un recurso simple con un `Keycloak` inyectado como bean CDI de ámbito de solicitud."
 
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:66
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:119
-#, no-wrap
-msgid "package org.acme.keycloak.admin.client;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:69
-#, no-wrap
-msgid ""
-"import org.keycloak.admin.client.Keycloak;\n"
-"import org.keycloak.representations.idm.RoleRepresentation;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:74
-#, no-wrap
-msgid ""
-"import jakarta.inject.Inject;\n"
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.Path;\n"
-"import java.util.List;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:77
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:132
-#, no-wrap
-msgid ""
-"@Path(\"/api/admin\")\n"
-"public class RolesResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:80
-#, no-wrap
-msgid ""
-"        @Inject\n"
-"        Keycloak keycloak; <1>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:86
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:157
-#, no-wrap
-msgid ""
-"        @GET\n"
-"        @Path(\"/roles\")\n"
-"        public List<RoleRepresentation> getRoles() {\n"
-"            return keycloak.realm(\"quarkus\").roles().list();\n"
-"        }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:88
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:159
-#, no-wrap
-msgid "}\n"
-msgstr ""
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
+msgid "Create  a default Keycloak Admin Client which can perform Keycloak `master` realm administration tasks as an `admin-cli` client, such as adding new realms, clients and users."
+msgstr "Cree un cliente Keycloak Admin predeterminado que pueda realizar las tareas de administración de reinos de Keycloak `master` como un cliente `admin-cli` , como añadir nuevos reinos, clientes y usuarios."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:90
-msgid "Create a default Keycloak Admin Client which can perform Keycloak `master` realm administration tasks as an `admin-cli` client, such as adding new realms, clients and users."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:92
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "The only configuration which is required to create this Keycloak Admin Client is a Keycloak server URL."
-msgstr ""
+msgstr "La única configuración que se requiere para crear este Keycloak Admin Client es una URL del servidor Keycloak, por ejemplo:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:94
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "For example:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:99
-#, no-wrap
-msgid ""
-"# Quarkus based Keycloak distribution\n"
-"quarkus.keycloak.admin-client.server-url=http://localhost:8081\n"
-msgstr ""
+msgstr "Por ejemplo:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:102
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "or"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:107
-#, no-wrap
-msgid ""
-"# WildFly based Keycloak distribution\n"
-"quarkus.keycloak.admin-client.server-url=http://localhost:8081/auth\n"
-msgstr ""
+msgstr "o"
 
 #. type: delimited block =
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:112
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "It is important that `quarkus.keycloak.admin-client.server-url` is configured if you would like to have `Keycloak` injected. The injection will fail if you attempt to inject `Keycloak` without configuring this property."
-msgstr ""
+msgstr "Es importante que `quarkus.keycloak.admin-client.server-url` esté configurado si desea que se inyecte `Keycloak`. La inyección fallará si se intenta inyectar `Keycloak` sin configurar esta propiedad."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:115
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "Injecting Keycloak Admin Client instead of creating it directly in the application code is a simpler and more flexible option but you can create the same admin client manually if necessary:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:123
-#, no-wrap
-msgid ""
-"import org.keycloak.admin.client.Keycloak;\n"
-"import org.keycloak.admin.client.KeycloakBuilder;\n"
-"import org.keycloak.representations.idm.RoleRepresentation;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:129
-#, no-wrap
-msgid ""
-"import jakarta.annotations.PostConstruct;\n"
-"import jakarta.annotations.PreConstruct;\n"
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.Path;\n"
-"import java.util.List;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:134
-#, no-wrap
-msgid "        Keycloak keycloak;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:146
-#, no-wrap
-msgid ""
-"        @PostConstruct\n"
-"        public void initKeycloak() {\n"
-"            keycloak = KeycloakBuilder.builder()\n"
-"                .serverUrl(\"http://localhost:8081\")\n"
-"                .realm(\"master\")\n"
-"                .clientId(\"admin-cli\")\n"
-"                .grantType(\"password\")\n"
-"                .username(\"admin\")\n"
-"                .password(\"admin\")\n"
-"                .build();\n"
-"        }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:151
-#, no-wrap
-msgid ""
-"        @PreDestroy\n"
-"        public void closeKeycloak() {\n"
-"            keycloak.close();\n"
-"        }\n"
-msgstr ""
+msgstr "Inyectar el cliente de administración de Keycloak en lugar de crearlo directamente en el código de la aplicación es una opción más sencilla y flexible, pero puede crear el mismo cliente de administración manualmente si es necesario:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:162
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "For more details consult https://www.keycloak.org/docs/latest/server_development/#admin-rest-api[Keycloak Admin REST API documentation]."
-msgstr ""
+msgstr "Para más detalles, consulte  link:https://www.keycloak.org/docs/latest/server_development/#admin-rest-api[la documentación de la API REST de Keycloak Admin]."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:164
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "You can configure Keycloak Admin Client to administer other realms and clients. It can use either a `password` or `client_credentials` grant to acquire an access token to call the Admin REST API which requires authorization."
-msgstr ""
+msgstr "Puede configurar Keycloak Admin Client para administrar otros reinos y clientes. Puede utilizar una concesión de `password` o `client_credentials` para adquirir un token de acceso para llamar a la API REST de Admin que requiere autorización."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:166
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "If you exchange user's credentials for the access token, here is an example configuration for the `password` grant type:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:175
-#, no-wrap
-msgid ""
-"quarkus.keycloak.admin-client.server-url=http://localhost:8081\n"
-"quarkus.keycloak.admin-client.realm=quarkus\n"
-"quarkus.keycloak.admin-client.client-id=quarkus-client\n"
-"quarkus.keycloak.admin-client.username=alice\n"
-"quarkus.keycloak.admin-client.password=alice\n"
-"quarkus.keycloak.admin-client.grant-type=PASSWORD <1>\n"
-msgstr ""
+msgstr "Si intercambia las credenciales del usuario por el token de acceso, aquí tiene un ejemplo de configuración para el tipo de concesión `password`:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:177
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "Use `password` grant type."
-msgstr ""
+msgstr "Utilice `password` tipo de subvención."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:179
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "An example using the `client-credentials` grant type needs only a minor adjustments:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:190
-#, no-wrap
-msgid ""
-"quarkus.keycloak.admin-client.enabled=true\n"
-"quarkus.keycloak.admin-client.server-url=http://localhost:8081\n"
-"quarkus.keycloak.admin-client.realm=quarkus\n"
-"quarkus.keycloak.admin-client.client-id=quarkus-client\n"
-"quarkus.keycloak.admin-client.client-secret=secret\n"
-"quarkus.keycloak.admin-client.username= # remove default username\n"
-"quarkus.keycloak.admin-client.password= # remove default password\n"
-"quarkus.keycloak.admin-client.grant-type=CLIENT_CREDENTIALS <1>\n"
-msgstr ""
+msgstr "Un ejemplo en el que se utiliza el tipo de subvención `client-credentials` sólo necesita unos pequeños ajustes:"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:192
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "Use `client_credentials` grant type."
-msgstr ""
+msgstr "Utilice `client_credentials` tipo de subvención."
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:194
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "Note that the xref:security-openid-connect-client.adoc[OidcClient] can also be used to acquire tokens."
-msgstr ""
+msgstr "Tenga en cuenta que el  link:security-openid-connect-client.html[OidcClient] también se puede utilizar para adquirir tokens."
 
 #. type: Title ==
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:196
-#, no-wrap
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy, no-wrap
 msgid "Quarkus Keycloak Admin Client Configuration Reference"
-msgstr ""
+msgstr "Referencia de la configuración del cliente Quarkus Keycloak Admin"
+
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
+msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
+msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"
 
 #. type: Title ==
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:200
-#, no-wrap
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy, no-wrap
 msgid "References"
-msgstr ""
+msgstr "Referencias"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:203
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "https://www.keycloak.org/documentation.html[Keycloak Documentation]"
-msgstr ""
+msgstr "link:https://www.keycloak.org/documentation.html[Documentación de Keycloak]"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:204
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "xref:security-keycloak-authorization.adoc[Keycloak Authorization extension]"
-msgstr ""
+msgstr "link:security-keycloak-authorization.html[Extensión de autorización de Keycloak]"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:205
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "xref:security-oidc-code-flow-authentication.adoc[OIDC code flow mechanism for protecting web applications]"
-msgstr ""
+msgstr "link:security-oidc-code-flow-authentication-concept.html[Mecanismo de flujo de código OIDC para proteger las aplicaciones web]"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:206
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "xref:security-oidc-bearer-token-authentication.adoc[OIDC Bearer token authentication]"
-msgstr ""
+msgstr "link:security-oidc-bearer-authentication-concept.html[Autenticación del portador OIDC]"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:207
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
+#, fuzzy
 msgid "xref:security-openid-connect-client.adoc[OpenID Connect Client and Token Propagation Quickstart]"
-msgstr ""
+msgstr "link:security-openid-connect-client.html[Inicio rápido del cliente de OpenID Connect y de la propagación de tokens]"
 
 #. type: Plain text
-#: upstream/_versions/3.2/guides/security-keycloak-admin-client.adoc:207
+#: _versions/3.2/guides/security-keycloak-admin-client.adoc
 msgid "xref:security-overview.adoc[Quarkus Security overview]"
 msgstr ""
 "xref:security-overview.adoc\n"
