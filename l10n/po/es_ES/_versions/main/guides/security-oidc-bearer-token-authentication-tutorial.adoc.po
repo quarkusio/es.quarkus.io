@@ -11,696 +11,604 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. type: Title =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:7
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Protect a service application by using OpenID Connect (OIDC) Bearer token authentication"
-msgstr ""
+msgstr "Proteger una aplicación de servicio mediante la autenticación con token de portador OpenID Connect (OIDC)"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:17
-msgid "Use the Quarkus OpenID Connect (OIDC) extension to secure a Jakarta REST application with Bearer token authentication.  The bearer tokens are issued by OIDC and OAuth 2.0 compliant authorization servers, such as link:https://www.keycloak.org[Keycloak]."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:19
-msgid "For more information about OIDC Bearer token authentication, see the Quarkus xref:security-oidc-bearer-token-authentication.adoc[OpenID Connect (OIDC) Bearer token authentication] guide."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:21
-msgid "If you want to protect web applications by using OIDC Authorization Code Flow authentication, see the xref:security-oidc-code-flow-authentication.adoc[OpenID Connect authorization code flow mechanism for protecting web applications] guide."
-msgstr ""
-
-#. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:22
-#, no-wrap
-msgid "Prerequisites"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:27
-msgid "The https://stedolan.github.io/jq/[jq command-line processor tool]"
-msgstr ""
-
-#. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:28
-#, no-wrap
-msgid "Architecture"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:31
-msgid "This example shows how you can build a simple microservice that offers two endpoints:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:33
-msgid "`/api/users/me`"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:34
-msgid "`/api/admin`"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:36
-msgid "These endpoints are protected and can only be accessed if a client sends a bearer token along with the request, which must be valid (for example, signature, expiration, and audience) and trusted by the microservice."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:39
-msgid "The bearer token is issued by a Keycloak server and represents the subject for which the token was issued.  Because it is an OAuth 2.0 Authorization server, the token also references the client acting on the user's behalf."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:42
-msgid "Any user with a valid token can access the `/api/users/me` endpoint.  As a response, it returns a JSON document with user details obtained from the information in the token."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:45
-msgid "The `/api/admin` endpoint is protected with RBAC (Role-Based Access Control), which only users with the `admin` role can access.  At this endpoint, the `@RolesAllowed` annotation is used to enforce the access constraint declaratively."
-msgstr ""
-
-#. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:46
-#, no-wrap
-msgid "Solution"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:50
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 #, fuzzy
-msgid "Follow the instructions in the next sections and create the application step by step.  You can also go straight to the completed example."
-msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
+msgid ""
+"Use the Quarkus OpenID Connect (OIDC) extension to secure a Jakarta REST application with Bearer token authentication.\n"
+"The bearer tokens are issued by OIDC and OAuth 2.0 compliant authorization servers, such as link:https://www.keycloak.org[Keycloak]."
+msgstr "Utilice la extensión OpenID Connect (OIDC) de Quarkus para asegurar una aplicación REST de Yakarta con autenticación mediante token portador. Los tokens de portador son emitidos por servidores de autorización compatibles con OIDC y OAuth 2.0, como link:https://www.keycloak.org[Keycloak] ."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:52
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "For more information about OIDC Bearer token authentication, see the Quarkus xref:security-oidc-bearer-token-authentication.adoc[OpenID Connect (OIDC) Bearer token authentication] guide."
+msgstr "Para comprender mejor la autenticación de  link:security-oidc-bearer-authentication-concept.html[portadores OIDC], consulte  link:security-oidc-bearer-authentication-concept.html[Autenticación de portadores OIDC]."
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "If you want to protect web applications by using OIDC Authorization Code Flow authentication, see the xref:security-oidc-code-flow-authentication.adoc[OpenID Connect authorization code flow mechanism for protecting web applications] guide."
+msgstr "Para comprender mejor la autenticación de  link:security-oidc-bearer-authentication-concept.html[portadores OIDC], consulte  link:security-oidc-bearer-authentication-concept.html[Autenticación de portadores OIDC]."
+
+#. type: Title ==
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
+msgid "Prerequisites"
+msgstr "Requisitos previos"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "The https://stedolan.github.io/jq/[jq command-line processor tool]"
+msgstr "link:https://stedolan.github.io/jq/[herramienta jq]"
+
+#. type: Title ==
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
+msgid "Architecture"
+msgstr "Arquitectura"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "This example shows how you can build a simple microservice that offers two endpoints:"
+msgstr "En este ejemplo, construimos un microservicio simple que ofrece dos puntos finales:"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "`/api/users/me`"
+msgstr "`/api/users/me`"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "`/api/admin`"
+msgstr "`/api/admin`"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "These endpoints are protected and can only be accessed if a client sends a bearer token along with the request, which must be valid (for example, signature, expiration, and audience) and trusted by the microservice."
+msgstr "Estos puntos finales están protegidos y sólo se puede acceder a ellos si un cliente envía un token portador junto con la solicitud, que debe ser válido (por ejemplo: firma, caducidad y audiencia) y de confianza para el microservicio."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"The bearer token is issued by a Keycloak server and represents the subject for which the token was issued.\n"
+"Because it is an OAuth 2.0 Authorization server, the token also references the client acting on the user's behalf."
+msgstr "El token portador es emitido por un servidor Keycloak y representa al sujeto para el que se emitió el token. Al tratarse de un servidor de autorización OAuth 2.0, el token también hace referencia al cliente que actúa en nombre del usuario."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"Any user with a valid token can access the `/api/users/me` endpoint.\n"
+"As a response, it returns a JSON document with user details obtained from the information in the token."
+msgstr "Cualquier usuario con un token válido puede acceder al punto final `/api/users/me` . Como respuesta, devuelve un documento JSON con los detalles del usuario obtenidos a partir de la información del token."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"The `/api/admin` endpoint is protected with RBAC (Role-Based Access Control), which only users with the `admin` role can access.\n"
+"At this endpoint, the `@RolesAllowed` annotation is used to enforce the access constraint declaratively."
+msgstr "El punto final `/api/admin` está protegido con RBAC (control de acceso basado en roles), al que sólo pueden acceder los usuarios con el rol `admin` . En este punto final, la anotación `@RolesAllowed` se utiliza para hacer cumplir la restricción de acceso de forma declarativa."
+
+#. type: Title ==
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
+msgid "Solution"
+msgstr "Solución"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"Follow the instructions in the next sections and create the application step by step.\n"
+"You can also go straight to the completed example."
+msgstr "Siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. También puede ir directamente al ejemplo completado."
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 #, fuzzy
 msgid "You can clone the Git repository by running the command `git clone {quickstarts-clone-url}`, or you can download an {quickstarts-archive-url}[archive]."
 msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:54
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "The solution is located in the `security-openid-connect-quickstart` link:{quickstarts-tree-url}/security-openid-connect-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en `security-openid-connect-quickstart` {quickstarts-tree-url}/security-openid-connect-quickstart[directory]."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:55
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Create the Maven project"
-msgstr ""
+msgstr "Creación del proyecto Maven"
 
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:59
-msgid "You can either create a new Maven project with the `oidc` extension or you can add the extension to an existing Maven project.  Complete one of the following commands:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:61
-msgid "To create a new Maven project, use the following command:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:69
-msgid "This command generates a Maven project, importing the `oidc` extension which is an implementation of OIDC for Quarkus."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:72
-msgid "If you already have your Quarkus project configured, you can add the `oidc` extension to your project by running the following command in your project base directory:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:78
-msgid "The following configuration gets added to your build file:"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:80
-msgid "Using Maven (pom.xml):"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:88
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid ""
-"<dependency>\n"
-"    <groupId>io.quarkus</groupId>\n"
-"    <artifactId>quarkus-oidc</artifactId>\n"
-"</dependency>\n"
-msgstr ""
+"You can either create a new Maven project with the `oidc` extension or you can add the extension to an existing Maven project.\n"
+"Complete one of the following commands:"
+msgstr "Puede crear un nuevo proyecto Maven con la extensión `oidc` o puede añadir la extensión a un proyecto Maven existente. Complete uno de los siguientes comandos:"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "To create a new Maven project, use the following command:"
+msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "CLI"
+msgstr "CLI"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "Maven"
+msgstr "Maven"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "For Windows users:"
+msgstr "Para usuarios de Windows:"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"This command generates a Maven project, importing the `oidc` extension\n"
+"which is an implementation of OIDC for Quarkus."
+msgstr "Este comando genera un proyecto Maven, importando la extensión `oidc` que es una implementación de OIDC para Quarkus."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"If you already have your Quarkus project configured, you can add the `oidc` extension\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tienes configurado tu proyecto Quarkus, puedes añadir la extensión `oidc` a tu proyecto ejecutando el siguiente comando en el directorio base de tu proyecto:"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "Gradle"
+msgstr "Gradle"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "The following configuration gets added to your build file:"
+msgstr "Esto añadirá lo siguiente a su archivo de compilación:"
+
+#. type: Plain text
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid "Using Maven (pom.xml):"
+msgstr "Uso de Maven (pom.xml):"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:92
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 #, fuzzy
 msgid "Using Gradle (build.gradle):"
 msgstr "build.gradle"
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:98
-#, no-wrap
-msgid "implementation(\"io.quarkus:quarkus-oidc\")\n"
-msgstr ""
-
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:102
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Write the application"
-msgstr ""
+msgstr "Redactar la solicitud"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:105
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Implement the `/api/users/me` endpoint as shown in the following example, which is a regular Jakarta REST resource:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:110
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:154
-#, no-wrap
-msgid "package org.acme.security.openid.connect;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:115
-#, no-wrap
-msgid ""
-"import jakarta.annotation.security.RolesAllowed;\n"
-"import jakarta.inject.Inject;\n"
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.Path;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:118
-#, no-wrap
-msgid ""
-"import org.jboss.resteasy.reactive.NoCache;\n"
-"import io.quarkus.security.identity.SecurityIdentity;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:121
-#, no-wrap
-msgid ""
-"@Path(\"/api/users\")\n"
-"public class UsersResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:124
-#, no-wrap
-msgid ""
-"    @Inject\n"
-"    SecurityIdentity securityIdentity;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:132
-#, no-wrap
-msgid ""
-"    @GET\n"
-"    @Path(\"/me\")\n"
-"    @RolesAllowed(\"user\")\n"
-"    @NoCache\n"
-"    public User me() {\n"
-"        return new User(securityIdentity);\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:134
-#, no-wrap
-msgid "    public static class User {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:136
-#, no-wrap
-msgid "        private final String userName;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:140
-#, no-wrap
-msgid ""
-"        User(SecurityIdentity securityIdentity) {\n"
-"            this.userName = securityIdentity.getPrincipal().getName();\n"
-"        }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:146
-#, no-wrap
-msgid ""
-"        public String getUserName() {\n"
-"            return userName;\n"
-"        }\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "Empecemos implementando el endpoint `/api/users/me`. Como se puede ver en el código fuente a continuación es sólo un recurso REST Jakarta regular:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:149
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Implement the `/api/admin` endpoint as shown in the following simple example:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:160
-#, no-wrap
-msgid ""
-"import jakarta.annotation.security.RolesAllowed;\n"
-"import jakarta.ws.rs.GET;\n"
-"import jakarta.ws.rs.Path;\n"
-"import jakarta.ws.rs.Produces;\n"
-"import jakarta.ws.rs.core.MediaType;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:163
-#, no-wrap
-msgid ""
-"@Path(\"/api/admin\")\n"
-"public class AdminResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:171
-#, no-wrap
-msgid ""
-"    @GET\n"
-"    @RolesAllowed(\"admin\")\n"
-"    @Produces(MediaType.TEXT_PLAIN)\n"
-"    public String admin() {\n"
-"        return \"granted\";\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "Implemente el endpoint `/api/admin` como se muestra en el siguiente ejemplo sencillo:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:177
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "The main difference in this example is that the `@RolesAllowed` annotation is used to verify that only users granted the `admin` role can access the endpoint."
-msgstr ""
+msgstr "El código fuente del endpoint `/api/admin` también es muy sencillo. La principal diferencia aquí es que estamos utilizando una anotación `@RolesAllowed` para asegurarnos de que sólo los usuarios con el rol `admin` pueden acceder al endpoint:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:180
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Injection of the `SecurityIdentity` is supported in both `@RequestScoped` and `@ApplicationScoped` contexts."
-msgstr ""
+msgstr "La inyección de `SecurityIdentity` se admite en los contextos `@RequestScoped` y `@ApplicationScoped`."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:181
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Configure the application"
-msgstr ""
+msgstr "Configurar la aplicación"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:184
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Configure the Quarkus OpenID Connect (OIDC) extension by setting the following configuration properties in the `src/main/resources/application.properties` file."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:191
-#, no-wrap
-msgid ""
-"%prod.quarkus.oidc.auth-server-url=http://localhost:8180/realms/quarkus\n"
-"quarkus.oidc.client-id=backend-service\n"
-"quarkus.oidc.credentials.secret=secret\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:194
-#, no-wrap
-msgid ""
-"# Tell Dev Services for Keycloak to import the realm file\n"
-"# This property is not effective when running the application in JVM or Native modes\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:196
-#, no-wrap
-msgid "quarkus.keycloak.devservices.realm-path=quarkus-realm.json\n"
-msgstr ""
+msgstr "Configure la extensión OpenID Connect (OIDC) de Quarkus estableciendo las siguientes propiedades de configuración en el archivo `src/main/resources/application.properties`."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:200
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Where:"
-msgstr ""
+msgstr "Dónde:"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"`%prod.quarkus.oidc.auth-server-url` sets the base URL of the OpenID Connect (OIDC) server.\n"
+"The `%prod.` profile prefix ensures that `Dev Services for Keycloak` launches a container when you run the application in development (dev) mode.\n"
+"For more information, see the xref:keycloak-dev-mode[Run the application in dev mode] section."
+msgstr "`%prod.quarkus.oidc.auth-server-url` establece la URL base del servidor OpenID Connect (OIDC). El prefijo del perfil `%prod.` garantiza que `Dev Services for Keycloak` lance un contenedor cuando ejecute la aplicación en modo de desarrollo (dev). Para más información, consulte la sección Ejecutar xref:keycloak-dev-mode[la] aplicación en modo dev."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:204
-msgid "`%prod.quarkus.oidc.auth-server-url` sets the base URL of the OpenID Connect (OIDC) server.  The `%prod.` profile prefix ensures that `Dev Services for Keycloak` launches a container when you run the application in development (dev) mode.  For more information, see the xref:keycloak-dev-mode[Run the application in dev mode] section."
-msgstr ""
-
-#. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:206
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "`quarkus.oidc.client-id` sets a client-ID that identifies the application."
-msgstr ""
+msgstr "`quarkus.oidc.client-id` establece un cliente-id que identifica la aplicación."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:207
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "`quarkus.oidc.credentials.secret` sets the client secret, which is used by the `client_secret_basic` authentication method."
-msgstr ""
+msgstr "`quarkus.oidc.credentials.secret` establece el secreto del cliente, que es utilizado por el método de autenticación `client_secret_basic`."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:209
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "For more information, see the Quarkus xref:security-oidc-configuration-properties-reference.adoc[OpenID Connect (OIDC) configuration properties] guide."
-msgstr ""
+msgstr "Para obtener más información, consulte  link:security-openid-connect-oidc-configuration-properties-reference.html[Propiedades de configuración de OpenID Connect (OIDC])."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:211
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Start and configure the Keycloak server"
-msgstr ""
+msgstr "Iniciar y configurar el servidor Keycloak"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"Put the link:{quickstarts-tree-url}/security-openid-connect-quickstart/config/quarkus-realm.json[realm configuration file] on the classpath (`target/classes` directory) so that it gets imported automatically when running in dev mode.\n"
+"You do not need to do this if you have already built a link:{quickstarts-tree-url}/security-openid-connect-quickstart[complete solution], in which case, this realm file is added to the classpath during the build."
+msgstr "Ponga el archivo de link:{quickstarts-tree-url}/security-openid-connect-quickstart/config/quarkus-realm.json[configuración] del dominio en el classpath (directorio `target/classes` ) para que se importe automáticamente cuando se ejecute en modo dev. No necesita hacer esto si ya ha construido una link:{quickstarts-tree-url}/security-openid-connect-quickstart[solución completa] , en cuyo caso, este archivo realm se añade al classpath durante la construcción."
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"Do not start the Keycloak server when you run the application in dev mode; `Dev Services for Keycloak` will start a container.\n"
+"For more information, see the xref:keycloak-dev-mode[Run the application in dev mode] section."
+msgstr "No inicie el servidor Keycloak cuando ejecute la aplicación en modo dev; `Dev Services for Keycloak` iniciará un contenedor. Para más información, consulte la sección Ejecutar xref:keycloak-dev-mode[la] aplicación en modo dev."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:215
-msgid "Put the link:{quickstarts-tree-url}/security-openid-connect-quickstart/config/quarkus-realm.json[realm configuration file] on the classpath (`target/classes` directory) so that it gets imported automatically when running in dev mode.  You do not need to do this if you have already built a link:{quickstarts-tree-url}/security-openid-connect-quickstart[complete solution], in which case, this realm file is added to the classpath during the build."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:220
-msgid "Do not start the Keycloak server when you run the application in dev mode; `Dev Services for Keycloak` will start a container.  For more information, see the xref:keycloak-dev-mode[Run the application in dev mode] section."
-msgstr ""
-
-#. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:223
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "To start a Keycloak server, you can use Docker to run the following command:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:228
-#, no-wrap
-msgid "docker run --name keycloak -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -p 8180:8080 quay.io/keycloak/keycloak:{keycloak.version} start-dev\n"
-msgstr ""
+msgstr "Para iniciar un servidor Keycloak, puede utilizar Docker y ejecutar el siguiente comando:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:231
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 msgid "Where the `keycloak.version` is set to version `23.0.0` or later."
 msgstr ""
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:232
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "You can access your Keycloak Server at http://localhost:8180[localhost:8180]."
-msgstr ""
+msgstr "Debería poder acceder a su servidor Keycloak en  link:http://localhost:8180[localhost:8180]."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:233
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "To access the Keycloak Administration Console, log in as the `admin` user by using the following login credentials:"
-msgstr ""
+msgstr "Para acceder a la Consola de Administración de Keycloak, inicie sesión como usuario `admin` utilizando las siguientes credenciales de acceso:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:235
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Username: `admin`"
-msgstr ""
+msgstr "Nombre de usuario: `admin`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:236
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Password: `admin`"
-msgstr ""
+msgstr "Contraseña: `admin`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:238
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Import the link:{quickstarts-tree-url}/security-openid-connect-quickstart/config/quarkus-realm.json[realm configuration file] from the upstream community repository to create a new realm."
-msgstr ""
+msgstr "Importe el {quickstarts-tree-url}/security-openid-connect-quickstart/config/quarkus-realm.json[archivo de configuración del dominio] para crear un nuevo dominio. Para más detalles, consulte la documentación de Keycloak sobre cómo  link:https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm[crear un] nuevo dominio."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:240
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 msgid "For more information, see the Keycloak documentation about link:https://www.keycloak.org/docs/latest/server_admin/index.html#configuring-realms[create and configure a new realm]."
 msgstr ""
 
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:246
-msgid "If you want to use the Keycloak Admin Client to configure your server from your application, you need to include either the `quarkus-keycloak-admin-client` or the `quarkus-keycloak-admin-client-reactive` (if the application uses `quarkus-rest-client-reactive`) extension.  For more information, see the xref:security-keycloak-admin-client.adoc[Quarkus Keycloak Admin Client] guide."
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+msgid ""
+"If you want to use the Keycloak Admin Client to configure your server from your application, you need to include either the `quarkus-keycloak-admin-client` or the `quarkus-keycloak-admin-client-reactive` (if the application uses `quarkus-rest-client-reactive`) extension.\n"
+"For more information, see the xref:security-keycloak-admin-client.adoc[Quarkus Keycloak Admin Client] guide."
 msgstr ""
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:251
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Run the application in dev mode"
-msgstr ""
+msgstr "Ejecutar la aplicación en modo Dev"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:254
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "To run the application in dev mode, run the following commands:"
-msgstr ""
+msgstr "Para ejecutar la aplicación en modo dev, utilice:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:259
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 msgid "xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak] will start a Keycloak container and import a `quarkus-realm.json`."
 msgstr ""
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:260
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 msgid "Open a xref:dev-ui.adoc[Dev UI], which you can find at http://localhost:8080/q/dev-ui[/q/dev-ui], then click a `Provider: Keycloak` link in an `OpenID Connect` `Dev UI` card."
 msgstr ""
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:261
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "When prompted to log in to a `Single Page Application` provided by `OpenID Connect Dev UI`, do the following steps:"
-msgstr ""
+msgstr "Se le pedirá que inicie sesión en `Single Page Application` proporcionada por `OpenID Connect Dev UI`:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:263
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Log in as `alice` (password: `alice`), who has a `user` role."
-msgstr ""
+msgstr "Inicie sesión como `alice` (contraseña: `alice`) que tiene un rol `user`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:264
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Accessing `/api/admin` returns `403`."
-msgstr ""
+msgstr "acceder a `/api/admin` devolverá `403`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:265
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:268
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Accessing `/api/users/me` returns `200`."
-msgstr ""
+msgstr "acceder a `/api/users/me` devolverá `200`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:266
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Log out and log in as `admin` (password: `admin`), who has both `admin` and `user` roles."
-msgstr ""
+msgstr "Cerrar sesión e iniciar sesión como `admin` (contraseña: `admin`) que tiene los roles `admin` y `user`"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:267
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Accessing `/api/admin` returns `200`."
-msgstr ""
+msgstr "acceder a `/api/admin` devolverá `200`"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:269
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Run the Application in JVM mode"
-msgstr ""
+msgstr "Ejecutar la aplicación en modo JVM"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:272
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "When you are done with dev mode, you can run the application as a standard Java application."
-msgstr ""
+msgstr "Cuando haya terminado de jugar con el modo `dev` \", podrá ejecutarlo como una aplicación Java estándar."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:274
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Compile the application:"
-msgstr ""
+msgstr "Compila la aplicación:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:279
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Run the application:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:284
-#, no-wrap
-msgid "java -jar target/quarkus-app/quarkus-run.jar\n"
-msgstr ""
+msgstr "Ejecuta la aplicación:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:287
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Run the application in native mode"
-msgstr ""
+msgstr "Ejecutar la aplicación en modo nativo"
+
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
+msgid ""
+"You can compile this same demo as-is into native mode without needing any modifications.\n"
+"This implies that you no longer need to install a JVM on your production environment.\n"
+"The runtime technology is included in the produced binary and optimized to run with minimal resources required."
+msgstr "Puede compilar esta misma demo tal cual en modo nativo sin necesidad de realizar ninguna modificación. Esto implica que ya no necesita instalar una JVM en su entorno de producción. La tecnología de tiempo de ejecución está incluida en el binario producido y optimizada para ejecutarse con los mínimos recursos necesarios."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:292
-msgid "You can compile this same demo as-is into native mode without needing any modifications.  This implies that you no longer need to install a JVM on your production environment.  The runtime technology is included in the produced binary and optimized to run with minimal resources required."
-msgstr ""
-
-#. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:294
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Compilation takes a bit longer, so this step is disabled by default."
-msgstr ""
+msgstr "La compilación tarda un poco más, por lo que este paso está desactivado por defecto."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:296
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Build your application again by enabling the `native` profile:"
-msgstr ""
+msgstr "Vuelva a crear su aplicación activando el perfil `native`:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:302
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "After waiting a little while, you run the following binary directly:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:307
-#, no-wrap
-msgid "./target/security-openid-connect-quickstart-1.0.0-SNAPSHOT-runner\n"
-msgstr ""
+msgstr "Después de tomar una taza de café, podrás ejecutar directamente este binario:"
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:310
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "Test the application"
-msgstr ""
+msgstr "Probar la aplicación"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:313
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "For information about testing your application in dev mode, see the preceding xref:keycloak-dev-mode[Run the application in dev mode] section."
-msgstr ""
+msgstr "No inicie el servidor Keycloak cuando ejecute la aplicación en modo dev - `Dev Services for Keycloak` lanzará un contenedor. Consulte la sección  link:#keycloak-dev-mode[Ejecutar la] aplicación en modo Dev más abajo para obtener más información."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:315
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "You can test the application launched in JVM or Native modes with `curl`."
-msgstr ""
+msgstr "Puede probar la aplicación lanzada en los modos JVM o Nativo con `curl`."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:317
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Because the application uses Bearer token authentication, you first need to obtain an access token from the Keycloak server to access the application resources:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:327
-#, no-wrap
-msgid ""
-"export access_token=$(\\\n"
-"    curl --insecure -X POST http://localhost:8180/realms/quarkus/protocol/openid-connect/token \\\n"
-"    --user backend-service:secret \\\n"
-"    -H 'content-type: application/x-www-form-urlencoded' \\\n"
-"    -d 'username=alice&password=alice&grant_type=password' | jq --raw-output '.access_token' \\\n"
-" )\n"
-msgstr ""
+msgstr "La aplicación está utilizando autenticación Bearer y lo primero que hay que hacer es obtener un token de acceso del servidor Keycloak para poder acceder a los recursos de la aplicación:"
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:331
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "The preceding example obtains an access token for the user `alice`."
-msgstr ""
+msgstr "El ejemplo anterior obtiene un token de acceso para el usuario `alice`."
 
 #. type: delimited block =
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:333
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "Any user can access the `http://localhost:8080/api/users/me` endpoint, which returns a JSON payload with details about the user."
-msgstr ""
+msgstr "Cualquier usuario puede acceder al `&lt;a href=\"http://localhost:8080/api/users/me\" class=\"bare\"&gt;http://localhost:8080/api/users/me&lt;/a&gt;` que básicamente devuelve una carga JSON con detalles sobre el usuario."
 
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:339
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid ""
-"curl -v -X GET \\\n"
-"  http://localhost:8080/api/users/me \\\n"
-"  -H \"Authorization: Bearer \"$access_token\n"
-msgstr ""
+"Only users with the `admin` role can access the `http://localhost:8080/api/admin` endpoint.\n"
+"If you try to access this endpoint with the previously-issued access token, you get a `403` response from the server."
+msgstr "Sólo los usuarios con el rol `admin` pueden acceder al `http://localhost:8080/api/admin` punto final. Si intenta acceder a este punto final con el token de acceso emitido previamente, obtendrá una respuesta `403` del servidor."
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:343
-msgid "Only users with the `admin` role can access the `http://localhost:8080/api/admin` endpoint.  If you try to access this endpoint with the previously-issued access token, you get a `403` response from the server."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:349
-#, no-wrap
-msgid ""
-"curl -v -X GET \\\n"
-"   http://localhost:8080/api/admin \\\n"
-"   -H \"Authorization: Bearer \"$access_token\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:352
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "To access the admin endpoint, obtain a token for the `admin` user:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:361
-#, no-wrap
-msgid ""
-"export access_token=$(\\\n"
-"    curl --insecure -X POST http://localhost:8180/realms/quarkus/protocol/openid-connect/token \\\n"
-"    --user backend-service:secret \\\n"
-"    -H 'content-type: application/x-www-form-urlencoded' \\\n"
-"    -d 'username=admin&password=admin&grant_type=password' | jq --raw-output '.access_token' \\\n"
-" )\n"
-msgstr ""
+msgstr "Para acceder al endpoint admin, debe obtener un token para el usuario `admin`:"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:364
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "For information about writing integration tests that depend on `Dev Services for Keycloak`, see the xref:security-oidc-bearer-token-authentication.adoc#integration-testing-keycloak-devservices[Dev Services for Keycloak] section of the \"OpenID Connect (OIDC) Bearer token authentication\" guide."
-msgstr ""
+msgstr "Consulte también la sección  link:security-oidc-bearer-authentication-concept.html#integration-testing-keycloak-devservices[Autenticación OIDC Bearer, Dev Services para Keycloak], sobre cómo escribir las pruebas de integración que dependen de `Dev Services for Keycloak`."
 
 #. type: Title ==
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:367
-#, no-wrap
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy, no-wrap
 msgid "References"
-msgstr ""
+msgstr "Referencias"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:370
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-oidc-configuration-properties-reference.adoc[OIDC configuration properties]"
-msgstr ""
+msgstr "link:security-oidc-configuration-properties-reference.html[Propiedades de configuración de OIDC]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:371
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-oidc-bearer-token-authentication.adoc[OpenID Connect (OIDC) Bearer token authentication]"
-msgstr ""
+msgstr "link:security-oidc-bearer-authentication-concept.html[Autenticación del portador OIDC]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:372
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "link:https://www.keycloak.org/documentation.html[Keycloak Documentation]"
-msgstr ""
+msgstr "link:https://www.keycloak.org/documentation.html[Documentación de Keycloak]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:373
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "link:https://openid.net/connect/[OpenID Connect]"
-msgstr ""
+msgstr "link:https://openid.net/connect/[OpenID Connect]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:374
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "link:https://tools.ietf.org/html/rfc7519[JSON Web Token]"
-msgstr ""
+msgstr "link:https://tools.ietf.org/html/rfc7519[Token web JSON]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:375
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-openid-connect-client-reference.adoc[OpenID Connect and OAuth2 Client and Filters Reference Guide]"
-msgstr ""
+msgstr "link:security-openid-connect-client-reference.html[Guía de referencia del cliente y los filtros de OpenID Connect y OAuth2]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:376
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak]"
-msgstr ""
+msgstr "link:security-openid-connect-dev-services.html[Servicios de desarrollo para Keycloak]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:377
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-jwt-build.adoc[Sign and encrypt JWT tokens with SmallRye JWT Build]"
-msgstr ""
+msgstr "link:security-jwt-build.html[Firmar y cifrar tokens JWT con SmallRye JWT Build]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:378
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-authentication-mechanisms.adoc#combining-authentication-mechanisms[Combining authentication mechanisms]"
-msgstr ""
+msgstr "link:security-authentication-mechanisms.html#combining-authentication-mechanisms[Combinación de mecanismos de autenticación]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:379
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
 msgid "xref:security-overview.adoc[Quarkus Security overview]"
 msgstr ""
 "xref:security-overview.adoc\n"
 "[Visión general de Quarkus Security]"
 
 #. type: Plain text
-#: upstream/_versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc:379
+#: _versions/main/guides/security-oidc-bearer-token-authentication-tutorial.adoc
+#, fuzzy
 msgid "xref:security-keycloak-admin-client.adoc[Quarkus Keycloak Admin Client]"
-msgstr ""
-
-#~ msgid "pom.xml"
-#~ msgstr "pom.xml"
+msgstr "link:security-keycloak-admin-client.html[Cliente Quarkus Keycloak Admin]"

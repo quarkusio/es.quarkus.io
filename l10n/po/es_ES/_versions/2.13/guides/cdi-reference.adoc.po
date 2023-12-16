@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,2079 +20,1525 @@ msgstr ""
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
 #. type: Title =
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:6
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Contexts and Dependency Injection"
-msgstr ""
+msgstr "Contextos e inyección de dependencia"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Quarkus DI solution (also called ArC) is based on the https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html[Contexts and Dependency Injection for Java 2.0, window=\"_blank\"] specification.\n"
+"However, it is not a full CDI implementation verified by the TCK.\n"
+"Only a subset of the CDI features is implemented - see also <<supported_features,the list of supported features>> and <<limitations,the list of limitations>>."
+msgstr "La solución Quarkus DI (también llamada ArC) se basa en la especificación link:https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html[Contexts and Dependency Injection for Java 2.0] . Sin embargo, no es una implementación completa de CDI verificada por el TCK. Sólo se implementa un subconjunto de las características CDI - véase también xref:supported_features[la lista de características soportadas] y xref:limitations[la lista de limitaciones] ."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:17
-msgid "Quarkus DI solution (also called ArC) is based on the https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html[Contexts and Dependency Injection for Java 2.0, window=\"_blank\"] specification.  However, it is not a full CDI implementation verified by the TCK.  Only a subset of the CDI features is implemented - see also <<supported_features,the list of supported features>> and <<limitations,the list of limitations>>."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:19
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "If you're new to CDI then we recommend you to read the xref:cdi.adoc[Introduction to CDI] first."
-msgstr ""
+msgstr "Si es nuevo en el CDI, le recomendamos que lea primero la  link:cdi.html[Introducción al CDI]."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:21
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Most of the existing CDI code should work just fine but there are some small differences which follow from the Quarkus architecture and goals."
-msgstr ""
+msgstr "La mayor parte del código CDI existente debería funcionar bien, pero hay algunas pequeñas diferencias que se derivan de la arquitectura y los objetivos de Quarkus."
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:23
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Bean Discovery"
-msgstr ""
+msgstr "Descubrimiento de las judías"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Bean discovery in CDI is a complex process which involves legacy deployment structures and accessibility requirements of the underlying module architecture.\n"
+"However, Quarkus is using a *simplified bean discovery*.\n"
+"There is only single bean archive with the https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#default_bean_discovery[bean discovery mode `annotated`, window=\"_blank\"] and no visibility boundaries."
+msgstr "El descubrimiento de beans en CDI es un proceso complejo que implica estructuras de despliegue heredadas y requisitos de accesibilidad de la arquitectura de módulos subyacente. Sin embargo, Quarkus utiliza un descubrimiento de beans *simplificado* . Sólo existe un único archivo de beans con el link:https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#default_bean_discovery[modo de] descubrimiento de beans link:https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#default_bean_discovery[annotated y sin límites de visibilidad.]"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:28
-msgid "Bean discovery in CDI is a complex process which involves legacy deployment structures and accessibility requirements of the underlying module architecture.  However, Quarkus is using a *simplified bean discovery*.  There is only single bean archive with the https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#default_bean_discovery[bean discovery mode `annotated`, window=\"_blank\"] and no visibility boundaries."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:30
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The bean archive is synthesized from:"
-msgstr ""
+msgstr "El archivo de frijoles se sintetiza a partir de:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:32
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "the application classes,"
-msgstr ""
+msgstr "las clases de aplicación,"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:33
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "dependencies that contain a `beans.xml` descriptor (content is ignored),"
-msgstr ""
+msgstr "dependencias que contienen un descriptor `beans.xml` (se ignora el contenido),"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:34
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "dependencies that contain a Jandex index - `META-INF/jandex.idx`,"
-msgstr ""
+msgstr "dependencias que contienen un índice Jandex - `META-INF/jandex.idx`,"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:35
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "dependencies referenced by `quarkus.index-dependency` in `application.properties`,"
-msgstr ""
+msgstr "dependencias referenciadas por `quarkus.index-dependency` en `application.properties`,"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:36
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "and Quarkus integration code."
-msgstr ""
+msgstr "y el código de integración de Quarkus."
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Bean classes that don't have a https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#bean_defining_annotations[bean defining annotation, window=\"_blank\"] are not discovered.\n"
+"This behavior is defined by CDI.\n"
+"But producer methods and fields and observer methods are discovered even if the declaring class is not annotated with a bean defining annotation (this behavior is different to what is defined in CDI).\n"
+"In fact, the declaring bean classes are considered annotated with `@Dependent`."
+msgstr "Las clases de frijol que no tienen una link:https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#bean_defining_annotations[anotación de definición de frijol] no se descubren. Este comportamiento está definido por CDI. Pero los métodos y campos productores y los métodos observadores se descubren aunque la clase declarante no esté anotada con una anotación definidora de judías (este comportamiento es diferente al definido en CDI). De hecho, las clases bean declarantes se consideran anotadas con `@Dependent` ."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:41
-msgid "Bean classes that don't have a https://jakarta.ee/specifications/cdi/2.0/cdi-spec-2.0.html#bean_defining_annotations[bean defining annotation, window=\"_blank\"] are not discovered.  This behavior is defined by CDI.  But producer methods and fields and observer methods are discovered even if the declaring class is not annotated with a bean defining annotation (this behavior is different to what is defined in CDI).  In fact, the declaring bean classes are considered annotated with `@Dependent`."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:43
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Quarkus extensions may declare additional discovery rules. For example, `@Scheduled` business methods are registered even if the declaring class is not annotated with a bean defining annotation."
-msgstr ""
+msgstr "Las extensiones de Quarkus pueden declarar reglas de descubrimiento adicionales. Por ejemplo, los métodos de negocio de `@Scheduled` se registran incluso si la clase declarante no está anotada con una anotación de definición de frijoles."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:44
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "How to Generate a Jandex Index"
-msgstr ""
+msgstr "Cómo generar un índice Jandex"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:48
-msgid "A dependency with a Jandex index is automatically scanned for beans.  To generate the index just add the following plugin to your build file:"
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"A dependency with a Jandex index is automatically scanned for beans.\n"
+"To generate the index just add the following plugin to your build file:"
+msgstr "Una dependencia con un índice Jandex se escanea automáticamente en busca de beans. Para generar el índice sólo tiene que añadir el siguiente plugin a su archivo de compilación:"
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:50
+#: _versions/2.13/guides/cdi-reference.adoc
 #, no-wrap
 msgid "Maven"
 msgstr "Maven"
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:71
-#, no-wrap
-msgid ""
-"<build>\n"
-"  <plugins>\n"
-"    <plugin>\n"
-"      <groupId>org.jboss.jandex</groupId>\n"
-"      <artifactId>jandex-maven-plugin</artifactId>\n"
-"      <version>{jandex-maven-plugin-version}</version>\n"
-"      <executions>\n"
-"        <execution>\n"
-"          <id>make-index</id>\n"
-"          <goals>\n"
-"            <goal>jandex</goal>\n"
-"          </goals>\n"
-"        </execution>\n"
-"      </executions>\n"
-"    </plugin>\n"
-"  </plugins>\n"
-"</build>\n"
-msgstr ""
-
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:75
+#: _versions/2.13/guides/cdi-reference.adoc
 #, no-wrap
 msgid "Gradle (Groovy DSL)"
 msgstr "Gradle (Groovy DSL)"
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:83
-#, no-wrap
-msgid ""
-"plugins {\n"
-"    id 'org.kordamp.gradle.jandex' version '{jandex-gradle-plugin-version}'\n"
-"}\n"
-msgstr ""
-
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:88
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Gradle (Kotlin DSL)"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:96
-#, no-wrap
-msgid ""
-"plugins {\n"
-"    id(\"org.kordamp.gradle.jandex\") version '{jandex-gradle-plugin-version}'\n"
-"}\n"
-msgstr ""
+msgstr "Gradle (DSL de Kotlin)"
 
 #. type: delimited block *
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:101
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "If you can't modify the dependency, you can still index it by adding `quarkus.index-dependency` entries to your `application.properties`:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:107
-#, no-wrap
-msgid ""
-"quarkus.index-dependency.<name>.group-id=\n"
-"quarkus.index-dependency.<name>.artifact-id=\n"
-"quarkus.index-dependency.<name>.classifier=(this one is optional)\n"
-msgstr ""
+msgstr "Si no puede modificar la dependencia, todavía puede indexarla añadiendo entradas de `quarkus.index-dependency` a su `application.properties`:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:110
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "For example, the following entries ensure that the `org.acme:acme-api` dependency is indexed:"
-msgstr ""
+msgstr "Por ejemplo, las siguientes entradas garantizan la indexación de la dependencia `org.acme:acme-api`:"
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:111
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:136
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:148
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:490
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:678
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Example application.properties"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:116
-#, no-wrap
-msgid ""
-"quarkus.index-dependency.acme.group-id=org.acme <1>\n"
-"quarkus.index-dependency.acme.artifact-id=acme-api <2>\n"
-msgstr ""
+msgstr "Ejemplo de application.properties"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:118
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:155
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Value is a group id for a dependency identified by name `acme`."
-msgstr ""
+msgstr "El valor es un identificador de grupo para una relación identificada por el nombre `acme`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:119
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:156
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Value is an artifact id for a dependency identified by name `acme`."
-msgstr ""
+msgstr "El valor es un identificador de artefacto para una relación identificada por el nombre `acme`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:120
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "How To Exclude Types and Dependencies from Discovery"
-msgstr ""
+msgstr "Cómo excluir tipos y relaciones de la detección"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:126
-msgid "It may happen that some beans from third-party libraries do not work correctly in Quarkus.  A typical example is a bean injecting a portable extension.  In such case, it's possible to exclude types and dependencies from the bean discovery.  The `quarkus.arc.exclude-types` property accepts a list of string values that are used to match classes that should be excluded."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"It may happen that some beans from third-party libraries do not work correctly in Quarkus.\n"
+"A typical example is a bean injecting a portable extension.\n"
+"In such case, it's possible to exclude types and dependencies from the bean discovery.\n"
+"The `quarkus.arc.exclude-types` property accepts a list of string values that are used to match classes that should be excluded."
+msgstr "Puede ocurrir que algunos beans de bibliotecas de terceros no funcionen correctamente en Quarkus. Un ejemplo típico es un bean que inyecta una extensión portable. En tal caso, es posible excluir clases y dependencias del descubrimiento de judías. La propiedad `quarkus.arc.exclude-types` acepta una lista de valores de cadena que se utilizan para hacer coincidir las clases que deben excluirse."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:127
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:481
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:669
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Value Examples"
-msgstr ""
+msgstr "Ejemplos de valores"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid "Value"
+msgstr "Valor"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:129
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:483
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:671
-#, no-wrap
-msgid "Valu"
-msgstr ""
-
-#. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:130
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:484
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:672
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:130
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:484
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:672
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`org.acme.Foo`"
-msgstr ""
+msgstr "`org.acme.Foo`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:131
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the fully qualified name of the class"
-msgstr ""
+msgstr "Coincidir con el nombre completo de la clase"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:131
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:485
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:673
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`org.acme.*`"
-msgstr ""
+msgstr "`org.acme.*`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:132
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match classes with package `org.acme`"
-msgstr ""
+msgstr "Combinar las clases con el paquete `org.acme`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:132
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:486
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:674
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`org.acme.**`"
-msgstr ""
+msgstr "`org.acme.**`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:133
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match classes where the package starts with `org.acme`"
-msgstr ""
+msgstr "Coinciden con las clases en las que el paquete empieza por `org.acme`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:133
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:487
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:675
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`Bar`"
-msgstr ""
+msgstr "`Bar`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:134
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the simple name of the class"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:140
-#, no-wrap
-msgid "quarkus.arc.exclude-types=org.acme.Foo,org.acme.*,Bar <1><2><3>\n"
-msgstr ""
+msgstr "Coincidir con el nombre simple de la clase"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:142
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Exclude the type `org.acme.Foo`."
-msgstr ""
+msgstr "Excluya el tipo `org.acme.Foo`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:143
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Exclude all types from the `org.acme` package."
-msgstr ""
+msgstr "Excluya todos los tipos del paquete `org.acme`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:144
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Exclude all types whose simple name is `Bar`"
-msgstr ""
+msgstr "Excluir todos los tipos cuyo nombre simple sea `Bar`"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:147
-msgid "It is also possible to exclude a dependency artifact that would be otherwise scanned for beans.  For example, because it contains a `beans.xml` descriptor."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:153
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"quarkus.arc.exclude-dependency.acme.group-id=org.acme <1>\n"
-"quarkus.arc.exclude-dependency.acme.artifact-id=acme-services <2>\n"
-msgstr ""
+"It is also possible to exclude a dependency artifact that would be otherwise scanned for beans.\n"
+"For example, because it contains a `beans.xml` descriptor."
+msgstr "También es posible excluir un artefacto de dependencia que, de otro modo, sería escaneado en busca de judías. Por ejemplo, porque contiene un descriptor `beans.xml` ."
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:157
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Native Executables and Private Members"
-msgstr ""
+msgstr "Ejecutables nativos y miembros privados"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:163
-msgid "Quarkus is using GraalVM to build a native executable.  One of the limitations of GraalVM is the usage of https://www.graalvm.org/{graalvm-version}/reference-manual/native-image/Reflection/[Reflection, window=\"_blank\"].  Reflective operations are supported but all relevant members must be registered for reflection explicitly.  Those registrations result in a bigger native executable."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:167
-msgid "And if Quarkus DI needs to access a private member it *has to use reflection*.  That's why Quarkus users are encouraged __not to use private members__ in their beans.  This involves injection fields, constructors and initializers, observer methods, producer methods and fields, disposers and interceptor methods."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:170
-msgid "How to avoid using private members? You can use package-private modifiers:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:175
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:192
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@ApplicationScoped\n"
-"public class CounterBean {\n"
-msgstr ""
+"Quarkus is using GraalVM to build a native executable.\n"
+"One of the limitations of GraalVM is the usage of https://www.graalvm.org/{graalvm-version}/reference-manual/native-image/Reflection/[Reflection, window=\"_blank\"].\n"
+"Reflective operations are supported but all relevant members must be registered for reflection explicitly.\n"
+"Those registrations result in a bigger native executable."
+msgstr "Quarkus utiliza GraalVM para construir un ejecutable nativo. Una de las limitaciones de GraalVM es el uso de link:https://www.graalvm.org/{graalvm-version}/reference-manual/native-image/Reflection/[Reflection] . Las operaciones de reflexión están soportadas, pero todos los miembros relevantes deben ser registrados para la reflexión explícitamente. Esos registros dan como resultado un ejecutable nativo más grande."
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:178
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    @Inject\n"
-"    CounterService counterService; <1>\n"
-msgstr ""
+"And if Quarkus DI needs to access a private member it *has to use reflection*.\n"
+"That's why Quarkus users are encouraged __not to use private members__ in their beans.\n"
+"This involves injection fields, constructors and initializers, observer methods, producer methods and fields, disposers and interceptor methods."
+msgstr "Y si Quarkus DI necesita acceder a un miembro privado *tiene que utilizar la reflexión* . Por eso se recomienda a los usuarios de Quarkus _que no utilicen_ miembros privados en sus judías. Esto afecta a los campos de inyección, constructores e inicializadores, métodos observadores, métodos y campos productores, dispositores y métodos interceptores."
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:182
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    void onMessage(@Observes Event msg) { <2>\n"
-"    }\n"
-"}\n"
-msgstr ""
+"How to avoid using private members?\n"
+"You can use package-private modifiers:"
+msgstr "¿Cómo evitar el uso de miembros privados? Puede utilizar modificadores paquete-privado:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:184
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A package-private injection field."
-msgstr ""
+msgstr "Un campo de inyección privado del paquete."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:185
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A package-private observer method."
-msgstr ""
+msgstr "Un método de observador privado del paquete."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:187
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Or constructor injection:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:194
-#, no-wrap
-msgid "    private CounterService service;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:199
-#, no-wrap
-msgid ""
-"    CounterBean(CounterService service) { <1>\n"
-"      this.service = service;\n"
-"    }\n"
-"}\n"
-msgstr ""
+msgstr "O la inyección de constructores:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:201
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A package-private constructor injection. `@Inject` is optional in this particular case."
-msgstr ""
+msgstr "Inyección de un constructor privado del paquete. `@Inject` es opcional en este caso particular."
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:203
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Supported Features"
-msgstr ""
+msgstr "Funciones compatibles"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:206
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Programming model"
-msgstr ""
+msgstr "Modelo de programación"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:207
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Managed beans implemented by a Java class"
-msgstr ""
+msgstr "Frijoles gestionados implementados por una clase Java"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:208
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@PostConstruct` and `@PreDestroy` lifecycle callbacks"
-msgstr ""
+msgstr "`@PostConstruct` y `@PreDestroy` devoluciones de llamada del ciclo de vida"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:209
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Producer methods and fields, disposers"
-msgstr ""
+msgstr "Métodos y campos de producción, trituradoras"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:210
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Qualifiers"
-msgstr ""
+msgstr "Clasificatorios"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:211
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Alternatives"
-msgstr ""
+msgstr "Alternativas"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:212
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Stereotypes"
-msgstr ""
+msgstr "Estereotipos"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:213
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Dependency injection and lookup"
-msgstr ""
+msgstr "Inyección de dependencia y búsqueda"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:214
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Field, constructor and initializer/setter injection"
-msgstr ""
+msgstr "Inyección de campos, constructores e inicializadores y fijadores"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:215
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Type-safe resolution"
-msgstr ""
+msgstr "Resolución segura"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:216
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Programmatic lookup via `javax.enterprise.inject.Instance`"
-msgstr ""
+msgstr "Búsqueda programática a través de `javax.enterprise.inject.Instance`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:217
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Client proxies"
-msgstr ""
+msgstr "Proxies de clientes"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:218
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Injection point metadata"
-msgstr ""
+msgstr "Metadatos del punto de inyección"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:219
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Scopes and contexts"
-msgstr ""
+msgstr "Ámbitos y contextos"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:220
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@Dependent`, `@ApplicationScoped`, `@Singleton`, `@RequestScoped` and `@SessionScoped`"
-msgstr ""
+msgstr "`@Dependent` , `@ApplicationScoped` , `@Singleton` , `@RequestScoped` y `@SessionScoped`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:221
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Custom scopes and contexts"
-msgstr ""
+msgstr "Ámbitos y contextos personalizados"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:222
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Interceptors"
-msgstr ""
+msgstr "Interceptores"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:223
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Business method interceptors: `@AroundInvoke`"
-msgstr ""
+msgstr "Interceptores de métodos de negocio: `@AroundInvoke`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:224
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Interceptors for lifecycle event callbacks: `@PostConstruct`, `@PreDestroy`, `@AroundConstruct`"
-msgstr ""
+msgstr "Interceptores para devoluciones de llamada de eventos del ciclo de vida: `@PostConstruct` , `@PreDestroy` , `@AroundConstruct`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:225
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Decorators"
-msgstr ""
+msgstr "Decoradores"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:226
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Events and observer methods, including asynchronous events and transactional observer methods"
-msgstr ""
+msgstr "Eventos y métodos observadores, incluidos los eventos asíncronos y los métodos observadores transaccionales"
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:228
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:742
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Limitations"
-msgstr ""
+msgstr "Limitaciones"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:231
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@ConversationScoped` is not supported"
-msgstr ""
+msgstr "`@ConversationScoped` no es compatible"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:232
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Portable Extensions are not supported"
-msgstr ""
+msgstr "Las extensiones portátiles no son compatibles"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:233
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`BeanManager` - only the following methods are implemented: `getBeans()`, `createCreationalContext()`, `getReference()`, `getInjectableReference()` , `resolve()`, `getContext()`, `fireEvent()`, `getEvent()` and `createInstance()`"
-msgstr ""
+msgstr "`BeanManager` - sólo se implementan los siguientes métodos: `getBeans()` , `createCreationalContext()` , `getReference()` , `getInjectableReference()` , `resolve()` , `getContext()` , `fireEvent()` , `getEvent()` y `createInstance()`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:234
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Specialization is not supported"
-msgstr ""
+msgstr "No se admite la especialización"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:235
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`beans.xml` descriptor content is ignored"
-msgstr ""
+msgstr "`beans.xml` se ignora el contenido del descriptor"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:236
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Passivation and passivating scopes are not supported"
-msgstr ""
+msgstr "Los ámbitos de pasivación y pasivación no son compatibles"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:237
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Interceptor methods on superclasses are not implemented yet"
-msgstr ""
+msgstr "Los métodos interceptores en superclases aún no están implementados"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:238
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@Interceptors` is not supported"
-msgstr ""
+msgstr "`@Interceptors` no es compatible"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:239
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Decoration of built-in beans, such as `Event`, is not supported"
-msgstr ""
+msgstr "No se admite la decoración de los frijoles incorporados, como `Event`"
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:241
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Non-standard Features"
-msgstr ""
+msgstr "Características no estándar"
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:243
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Eager Instantiation of Beans"
-msgstr ""
+msgstr "Instanciación ansiosa de los frijoles"
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:246
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Lazy By Default"
-msgstr ""
+msgstr "Vagos por defecto"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"By default, CDI beans are created lazily, when needed.\n"
+"What exactly \"needed\" means depends on the scope of a bean."
+msgstr "Por defecto, los beans CDI se crean perezosamente, cuando se necesitan. Lo que significa exactamente \"necesario\" depende del ámbito de un frijol."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:250
-msgid "By default, CDI beans are created lazily, when needed.  What exactly \"needed\" means depends on the scope of a bean."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:252
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A *normal scoped bean* (`@ApplicationScoped`, `@RequestScoped`, etc.) is needed when a method is invoked upon an injected instance (contextual reference per the specification)."
-msgstr ""
+msgstr "Un *bean de ámbito normal* ( `@ApplicationScoped`, `@RequestScoped`, etc.) es necesario cuando se invoca un método sobre una instancia inyectada (referencia contextual según la especificación)."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:254
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In other words, injecting a normal scoped bean will not suffice because a _client proxy_ is injected instead of a contextual instance of the bean."
-msgstr ""
+msgstr "En otras palabras, inyectar un bean de ámbito normal no será suficiente porque se inyecta un _proxy del cliente_ en lugar de una instancia contextual del bean."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:256
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A *bean with a pseudo-scope* (`@Dependent` and `@Singleton` ) is created when injected."
-msgstr ""
+msgstr "Cuando se inyecta, se crea un *bean con un pseudo-ámbito* ( `@Dependent` y `@Singleton` )."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:257
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Lazy Instantiation Example"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:266
-#, no-wrap
-msgid ""
-"@Singleton // => pseudo-scope\n"
-"class AmazingService {\n"
-"  String ping() {\n"
-"    return \"amazing\";\n"
-"  }\n"
-"}\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:273
-#, no-wrap
-msgid ""
-"@ApplicationScoped // => normal scope\n"
-"class CoolService {\n"
-"  String ping() {\n"
-"    return \"cool\";\n"
-"  }\n"
-"}\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:276
-#, no-wrap
-msgid ""
-"@Path(\"/ping\")\n"
-"public class PingResource {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:279
-#, no-wrap
-msgid ""
-"  @Inject\n"
-"  AmazingService s1; <1>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:282
-#, no-wrap
-msgid ""
-"  @Inject\n"
-"  CoolService s2; <2>\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:288
-#, no-wrap
-msgid ""
-"  @GET\n"
-"  public String ping() {\n"
-"    return s1.ping() + s2.ping(); <3>\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "Ejemplo de instanciación perezosa"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:290
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Injection triggers the instantiation of `AmazingService`."
-msgstr ""
+msgstr "La inyección desencadena la instanciación de `AmazingService`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:291
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Injection itself does not result in the instantiation of `CoolService`. A client proxy is injected."
-msgstr ""
+msgstr "La inyección en sí misma no da lugar a la instanciación de `CoolService`. Se inyecta un proxy de cliente."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:292
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The first invocation upon the injected proxy triggers the instantiation of `CoolService`."
-msgstr ""
+msgstr "La primera invocación al proxy inyectado desencadena la instanciación de `CoolService`."
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:294
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Startup Event"
-msgstr ""
+msgstr "Evento de inicio"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:297
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "However, if you really need to instantiate a bean eagerly you can:"
-msgstr ""
+msgstr "Sin embargo, si realmente necesitas instanciar un bean de forma ansiosa puedes hacerlo:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:299
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Declare an observer of the `StartupEvent` - the scope of the bean does not matter in this case:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:307
-#, no-wrap
-msgid ""
-"@ApplicationScoped\n"
-"class CoolService {\n"
-"  void startup(@Observes StartupEvent event) { <1>\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "Declarar un observador de la `StartupEvent` - el ámbito del frijol no importa en este caso:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:309
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "A `CoolService` is created during startup to service the observer method invocation."
-msgstr ""
+msgstr "Durante el inicio se crea un `CoolService` para atender la invocación del método del observador."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:311
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Use the bean in an observer of the `StartupEvent` - normal scoped beans must be used as described in <<lazy_by_default>>:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:316
-#, no-wrap
-msgid ""
-"@Dependent\n"
-"class MyBeanStarter {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:321
-#, no-wrap
-msgid ""
-"  void startup(@Observes StartupEvent event, AmazingService amazing, CoolService cool) { <1>\n"
-"    cool.toString(); <2>\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "Utilice el frijol en un observador de la `StartupEvent` - los frijoles de ámbito normal deben utilizarse como se describe en <<lazy_by_default>> :"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:323
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The `AmazingService` is created during injection."
-msgstr ""
+msgstr "El `AmazingService` se crea durante la inyección."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:324
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The `CoolService` is a normal scoped bean, so we have to invoke a method upon the injected proxy to force the instantiation."
-msgstr ""
+msgstr "El `CoolService` es un bean de ámbito normal por lo que tenemos que invocar un método sobre el proxy inyectado para forzar la instanciación."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:326
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Annotate the bean with `@io.quarkus.runtime.Startup` as described in xref:lifecycle.adoc#startup_annotation[Startup annotation]:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:332
-#, no-wrap
-msgid ""
-"@Startup // <1>\n"
-"@ApplicationScoped\n"
-"public class EagerAppBean {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:334
-#, no-wrap
-msgid "   private final String name;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:339
-#, no-wrap
-msgid ""
-"   EagerAppBean(NameGenerator generator) { // <2>\n"
-"     this.name = generator.createName();\n"
-"   }\n"
-"}\n"
-msgstr ""
+msgstr "Anote el frijol con `@io.quarkus.runtime.Startup` como se describe en  link:lifecycle.html#startup_annotation[Anotación de inicio]:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:341
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "For each bean annotated with `@Startup` a synthetic observer of `StartupEvent` is generated. The default priority is used."
-msgstr ""
+msgstr "Para cada frijol anotado con `@Startup` se genera un observador sintético de `StartupEvent`. Se utiliza la prioridad por defecto."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:342
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The bean constructor is called when the application starts and the resulting contextual instance is stored in the application context."
-msgstr ""
+msgstr "El constructor del bean se llama cuando la aplicación se inicia y la instancia contextual resultante se almacena en el contexto de la aplicación."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:344
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Quarkus users are encouraged to always prefer the `@Observes StartupEvent` to `@Initialized(ApplicationScoped.class)` as explained in the xref:lifecycle.adoc[Application Initialization and Termination] guide."
-msgstr ""
+msgstr "Se anima a los usuarios de Quarkus a preferir siempre el `@Observes StartupEvent` a `@Initialized(ApplicationScoped.class)` como se explica en la guía de  link:lifecycle.html[Inicialización y Terminación de Aplicaciones]."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:345
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Request Context Lifecycle"
-msgstr ""
+msgstr "Ciclo de vida del contexto de la solicitud"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:348
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The request context is also active:"
-msgstr ""
+msgstr "El contexto de la solicitud también está activo:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:350
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "during notification of a synchronous observer method."
-msgstr ""
+msgstr "durante la notificación de un método observador síncrono."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:352
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The request context is destroyed:"
-msgstr ""
+msgstr "El contexto de la solicitud se destruye:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:354
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "after the observer notification completes for an event, if it was not already active when the notification started."
-msgstr ""
+msgstr "después de que se complete la notificación del observador para un evento, si no estaba ya activo cuando se inició la notificación."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:356
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "An event with qualifier `@Initialized(RequestScoped.class)` is fired when the request context is initialized for an observer notification. Moreover, the events with qualifiers `@BeforeDestroyed(RequestScoped.class)` and `@Destroyed(RequestScoped.class)` are fired when the request context is destroyed."
-msgstr ""
+msgstr "Un evento con el calificador `@Initialized(RequestScoped.class)` se dispara cuando el contexto de la solicitud se inicializa para una notificación de observador. Además, los eventos con los calificadores `@BeforeDestroyed(RequestScoped.class)` y `@Destroyed(RequestScoped.class)` se disparan cuando se destruye el contexto de la solicitud."
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:357
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "How to Enable Trace Logging for Request Context Activation"
-msgstr ""
+msgstr "Cómo habilitar el registro de rastros para la activación del contexto de solicitud"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:360
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "You can set the `TRACE` level for the logger `io.quarkus.arc.requestContext` and try to analyze the log output afterwards."
-msgstr ""
+msgstr "Puede establecer el nivel `TRACE` para el registrador `io.quarkus.arc.requestContext` y tratar de analizar la salida del registro después."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:361
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`application.properties` Example"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:366
-#, no-wrap
-msgid ""
-"quarkus.log.category.\"io.quarkus.arc.requestContext\".min-level=TRACE <1>\n"
-"quarkus.log.category.\"io.quarkus.arc.requestContext\".level=TRACE\n"
-msgstr ""
+msgstr "Ejemplo de application.properties"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:368
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "You also need to adjust the minimum log level for the relevant category."
-msgstr ""
+msgstr "También es necesario ajustar el nivel mínimo de registro para la categoría correspondiente."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:369
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Qualified Injected Fields"
-msgstr ""
+msgstr "Campos inyectados cualificados"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:372
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In CDI, if you declare a field injection point you need to use `@Inject` and optionally a set of qualifiers."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:378
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:695
-#, no-wrap
-msgid ""
-"  @Inject\n"
-"  @ConfigProperty(name = \"cool\")\n"
-"  String coolProperty;\n"
-msgstr ""
+msgstr "En CDI, si se declara un punto de inyección de campo es necesario utilizar `@Inject` y opcionalmente un conjunto de calificadores."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:381
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In Quarkus, you can skip the `@Inject` annotation completely if the injected field declares at least one qualifier."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:386
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:712
-#, no-wrap
-msgid ""
-"  @ConfigProperty(name = \"cool\")\n"
-"  String coolProperty;\n"
-msgstr ""
+msgstr "En Quarkus, se puede omitir completamente la anotación `@Inject` si el campo inyectado declara al menos un calificador."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:389
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "With the notable exception of one special case discussed below, `@Inject` is still required for constructor and method injection."
-msgstr ""
+msgstr "Con la notable excepción de un caso especial que se discute más adelante, `@Inject` sigue siendo necesario para la inyección de constructores y métodos."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:390
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Simplified Constructor Injection"
-msgstr ""
+msgstr "Inyección de constructores simplificada"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"In CDI, a normal scoped bean must always declare a no-args constructor (this constructor is normally generated by the compiler unless you declare any other constructor).\n"
+"However, this requirement complicates constructor injection - you need to provide a dummy no-args constructor to make things work in CDI."
+msgstr "En CDI, un frijol de ámbito normal debe declarar siempre un constructor no-args (este constructor es generado normalmente por el compilador a menos que usted declare cualquier otro constructor). Sin embargo, este requisito complica la inyección de constructores - necesita proporcionar un constructor no-args ficticio para que las cosas funcionen en CDI."
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"There is no need to declare dummy constructors for normal scoped bean in Quarkus - they are generated automatically.\n"
+"Also, if there's only one constructor there is no need for `@Inject`."
+msgstr "No es necesario declarar constructores ficticios para un frijol de ámbito normal en Quarkus: se generan automáticamente. Además, si sólo hay un constructor no hay necesidad de `@Inject` ."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:394
-msgid "In CDI, a normal scoped bean must always declare a no-args constructor (this constructor is normally generated by the compiler unless you declare any other constructor).  However, this requirement complicates constructor injection - you need to provide a dummy no-args constructor to make things work in CDI."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:399
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:419
-#, no-wrap
-msgid ""
-"@ApplicationScoped\n"
-"public class MyCoolService {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:401
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:421
-#, no-wrap
-msgid "  private SimpleProcessor processor;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:404
-#, no-wrap
-msgid ""
-"  MyCoolService() { // dummy constructor needed\n"
-"  }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:410
-#, no-wrap
-msgid ""
-"  @Inject // constructor injection\n"
-"  MyCoolService(SimpleProcessor processor) {\n"
-"    this.processor = processor;\n"
-"  }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:414
-msgid "There is no need to declare dummy constructors for normal scoped bean in Quarkus - they are generated automatically.  Also, if there's only one constructor there is no need for `@Inject`."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:426
-#, no-wrap
-msgid ""
-"  MyCoolService(SimpleProcessor processor) {\n"
-"    this.processor = processor;\n"
-"  }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:429
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "We don't generate a no-args constructor automatically if a bean class extends a class that does not declare a no-args constructor."
-msgstr ""
+msgstr "No generamos un constructor no-args automáticamente si una clase bean extiende una clase que no declara un constructor no-args."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:431
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Removing Unused Beans"
-msgstr ""
+msgstr "Eliminación de los granos no utilizados"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:439
-msgid "The container attempts to remove all unused beans, interceptors and decorators during build by default.  This optimization helps to minimize the amount of generated classes, thus conserving memory.  However, Quarkus can't detect the programmatic lookup performed via the `CDI.current()` static method.  Therefore, it is possible that a removal results in a false positive error, i.e. a bean is removed although it's actually used.  In such cases, you'll notice a big warning in the log.  Users and extension authors have several options <<eliminate_false_positives,how to eliminate false positives>>."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"The container attempts to remove all unused beans, interceptors and decorators during build by default.\n"
+"This optimization helps to minimize the amount of generated classes, thus conserving memory.\n"
+"However, Quarkus can't detect the programmatic lookup performed via the `CDI.current()` static method.\n"
+"Therefore, it is possible that a removal results in a false positive error, i.e. a bean is removed although it's actually used.\n"
+"In such cases, you'll notice a big warning in the log.\n"
+"Users and extension authors have several options <<eliminate_false_positives,how to eliminate false positives>>."
+msgstr "Por defecto, el contenedor intenta eliminar todos los beans, interceptores y decoradores no utilizados durante la compilación. Esta optimización ayuda a minimizar la cantidad de clases generadas, conservando así la memoria. Sin embargo, Quarkus no puede detectar la búsqueda programática realizada a través del método estático `CDI.current()` . Por lo tanto, es posible que una eliminación dé lugar a un error falso positivo, es decir, que se elimine un bean aunque en realidad se utilice. En tales casos, notará una gran advertencia en el registro. Los usuarios y los autores de extensiones tienen varias opciones xref:eliminate_false_positives[para eliminar los falsos positivos] ."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:443
-msgid "The optimization can be disabled by setting `quarkus.arc.remove-unused-beans` to `none` or `false`.  Quarkus also provides a middle ground where application beans are never removed whether or not they are unused, while the optimization proceeds normally for non application classes.  To use this mode, set `quarkus.arc.remove-unused-beans` to `fwk` or `framework`."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"The optimization can be disabled by setting `quarkus.arc.remove-unused-beans` to `none` or `false`.\n"
+"Quarkus also provides a middle ground where application beans are never removed whether or not they are unused, while the optimization proceeds normally for non application classes.\n"
+"To use this mode, set `quarkus.arc.remove-unused-beans` to `fwk` or `framework`."
+msgstr "La optimización puede desactivarse estableciendo `quarkus.arc.remove-unused-beans` en `none` o `false` . Quarkus también proporciona un punto intermedio en el que los beans de aplicación nunca se eliminan, estén o no sin usar, mientras que la optimización procede normalmente para las clases que no son de aplicación. Para utilizar este modo, configure `quarkus.arc.remove-unused-beans` como `fwk` o `framework` ."
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:444
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "What's Removed?"
-msgstr ""
+msgstr "¿Qué se elimina?"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Quarkus first identifies so-called _unremovable_ beans that form the roots in the dependency tree.\n"
+"A good example is a JAX-RS resource class or a bean which declares a `@Scheduled` method."
+msgstr "Quarkus identifica primero los denominados beans _no extraíbles_ que forman las raíces en el árbol de dependencias. Un buen ejemplo es una clase de recurso JAX-RS o un bean que declare un método `@Scheduled` ."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:448
-msgid "Quarkus first identifies so-called _unremovable_ beans that form the roots in the dependency tree.  A good example is a JAX-RS resource class or a bean which declares a `@Scheduled` method."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:450
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "An _unremovable_ bean:"
-msgstr ""
+msgstr "Una judía _inamovible_:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:452
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "is excluded from removal by an extension, or"
-msgstr ""
+msgstr "está excluida de la eliminación por una prórroga, o"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:453
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "has a name designated via `@Named`, or"
-msgstr ""
+msgstr "tiene un nombre designado a través de `@Named`, o"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:454
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "declares an observer method."
-msgstr ""
+msgstr "declara un método observador."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:456
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "An _unused_ bean:"
-msgstr ""
+msgstr "Una judía _sin usar_:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:458
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "is not _unremovable_, and"
-msgstr ""
+msgstr "no es _inamovible_, y"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:459
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "is not eligible for injection to any injection point in the dependency tree, and"
-msgstr ""
+msgstr "no puede inyectarse en ningún punto de inyección del árbol de dependencias, y"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:460
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "does not declare any producer which is eligible for injection to any injection point in the dependency tree, and"
-msgstr ""
+msgstr "no declara ningún productor que pueda ser inyectado en ningún punto de inyección del árbol de dependencias, y"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:461
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "is not eligible for injection into any `javax.enterprise.inject.Instance` or `javax.inject.Provider` injection point."
-msgstr ""
+msgstr "no se puede inyectar en ningún punto de inyección de `javax.enterprise.inject.Instance` o `javax.inject.Provider`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:463
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Unused interceptors and decorators are not associated with any bean."
-msgstr ""
+msgstr "Los interceptores y decoradores no utilizados no están asociados a ningún bean."
 
 #. type: delimited block =
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:467
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "When using the dev mode (running `./mvnw clean compile quarkus:dev`), you can see more information about which beans are being removed:"
-msgstr ""
+msgstr "Cuando se utiliza el modo dev (ejecutando `./mvnw clean compile quarkus:dev`), se puede ver más información sobre los beans que se están eliminando:"
 
 #. type: delimited block =
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:469
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In the console - just enable the DEBUG level in your `application.properties`, i.e. `quarkus.log.category.\"io.quarkus.arc.processor\".level=DEBUG`"
-msgstr ""
+msgstr "En la consola - simplemente habilite el nivel DEBUG en su `application.properties`, es decir. `quarkus.log.category.\"io.quarkus.arc.processor\".level=DEBUG`"
 
 #. type: delimited block =
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:470
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In the relevant Dev UI page"
-msgstr ""
+msgstr "En la página correspondiente de la interfaz de usuario de desarrollo"
 
 #. type: Title ====
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:473
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "How To Eliminate False Positives"
-msgstr ""
+msgstr "Cómo eliminar los falsos positivos"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:477
-msgid "Users can instruct the container to not remove any of their specific beans (even if they satisfy all the rules specified above) by annotating them with `@io.quarkus.arc.Unremovable`.  This annotation can be declared on a class, a producer method or field."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Users can instruct the container to not remove any of their specific beans (even if they satisfy all the rules specified above) by annotating them with `@io.quarkus.arc.Unremovable`.\n"
+"This annotation can be declared on a class, a producer method or field."
+msgstr "Los usuarios pueden ordenar al contenedor que no elimine ninguna de sus judías específicas (aunque satisfagan todas las reglas especificadas anteriormente) anotándolas con `@io.quarkus.arc.Unremovable` . Esta anotación puede declararse sobre una clase, un método productor o un campo."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:480
-msgid "Since this is not always possible, there is an option to achieve the same via `application.properties`.  The `quarkus.arc.unremovable-types` property accepts a list of string values that are used to match beans based on their name or package."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Since this is not always possible, there is an option to achieve the same via `application.properties`.\n"
+"The `quarkus.arc.unremovable-types` property accepts a list of string values that are used to match beans based on their name or package."
+msgstr "Como esto no siempre es posible, existe una opción para conseguir lo mismo a través de `application.properties` . La propiedad `quarkus.arc.unremovable-types` acepta una lista de valores de cadena que se utilizan para hacer coincidir las judías en función de su nombre o paquete."
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:485
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the fully qualified name of the bean class"
-msgstr ""
+msgstr "Coincidir con el nombre completo de la clase de frijol"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:486
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:674
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match beans where the package of the bean class is `org.acme`"
-msgstr ""
+msgstr "Emparejar frijoles donde el paquete de la clase de frijol es `org.acme`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:487
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:675
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match beans where the package of the bean class starts with `org.acme`"
-msgstr ""
+msgstr "Coincidir con los frijoles cuyo paquete de la clase de frijol comienza con `org.acme`"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:488
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the simple name of the bean class"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:494
-#, no-wrap
-msgid "quarkus.arc.unremovable-types=org.acme.Foo,org.acme.*,Bar\n"
-msgstr ""
+msgstr "Coincidir con el nombre simple de la clase de frijol"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:497
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Furthermore, extensions can eliminate false positives by producing an `UnremovableBeanBuildItem`."
-msgstr ""
+msgstr "Además, las extensiones pueden eliminar los falsos positivos produciendo un `UnremovableBeanBuildItem`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:499
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Default Beans"
-msgstr ""
+msgstr "Frijoles por defecto"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Quarkus adds a capability that CDI currently does not support which is to conditionally declare a bean if no other bean with equal types and qualifiers was declared by any available means (bean class, producer, synthetic bean, ...)\n"
+"This is done using the `@io.quarkus.arc.DefaultBean` annotation and is best explained with an example."
+msgstr "Quarkus añade una capacidad que CDI no soporta actualmente y que consiste en declarar condicionalmente un bean si no se ha declarado ningún otro bean con tipos y calificadores iguales por ningún medio disponible (clase bean, productor, bean sintético, ...) Esto se hace utilizando la anotación `@io.quarkus.arc.DefaultBean` y se explica mejor con un ejemplo."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:503
-msgid "Quarkus adds a capability that CDI currently does not support which is to conditionally declare a bean if no other bean with equal types and qualifiers was declared by any available means (bean class, producer, synthetic bean, ...)  This is done using the `@io.quarkus.arc.DefaultBean` annotation and is best explained with an example."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:505
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Say there is a Quarkus extension that among other things declares a few CDI beans like the following code does:"
-msgstr ""
+msgstr "Digamos que hay una extensión de Quarkus que, entre otras cosas, declara unos cuantos beans CDI como lo hace el siguiente código:"
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:510
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:564
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:585
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:615
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:638
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@Dependent\n"
-"public class TracerConfiguration {\n"
-msgstr ""
+"The idea is that the extension autoconfigures things for the user, eliminating a lot of boilerplate - we can just `@Inject` a `Tracer` wherever it is needed.\n"
+"Now imagine that in our application we would like to utilize the configured `Tracer`, but we need to customize it a little, for example by providing a custom `Reporter`.\n"
+"The only thing that would be needed in our application would be something like the following:"
+msgstr "La idea es que la extensión autoconfigure las cosas para el usuario, eliminando un montón de boilerplate - podemos simplemente `@Inject` un `Tracer` donde sea necesario. Imaginemos ahora que en nuestra aplicación quisiéramos utilizar el `Tracer` configurado, pero necesitamos personalizarlo un poco, por ejemplo proporcionando un `Reporter` personalizado. Lo único que necesitaríamos en nuestra aplicación sería algo como lo siguiente:"
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:515
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    @Produces\n"
-"    public Tracer tracer(Reporter reporter, Configuration configuration) {\n"
-"        return new Tracer(reporter, configuration);\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:521
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    @DefaultBean\n"
-"    public Configuration configuration() {\n"
-"        // create a Configuration\n"
-"    }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:528
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    @DefaultBean\n"
-"    public Reporter reporter(){\n"
-"        // create a Reporter\n"
-"    }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:533
-msgid "The idea is that the extension autoconfigures things for the user, eliminating a lot of boilerplate - we can just `@Inject` a `Tracer` wherever it is needed.  Now imagine that in our application we would like to utilize the configured `Tracer`, but we need to customize it a little, for example by providing a custom `Reporter`.  The only thing that would be needed in our application would be something like the following:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:539
-#, no-wrap
-msgid ""
-"@Dependent\n"
-"public class CustomTracerConfiguration {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:545
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    public Reporter reporter(){\n"
-"        // create a custom Reporter\n"
-"    }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:549
-msgid "`@DefaultBean` allows extensions (or any other code for that matter) to provide defaults while backing off if beans of that type are supplied in any way Quarkus supports."
-msgstr ""
+"`@DefaultBean` allows extensions (or any other code for that matter) to provide defaults while backing off if beans of that type are supplied in any\n"
+"way Quarkus supports."
+msgstr "`@DefaultBean` permite a las extensiones (o a cualquier otro código, para el caso) proporcionar valores por defecto y al mismo tiempo retroceder si se suministran judías de ese tipo de cualquier forma que admita Quarkus."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:551
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Enabling Beans for Quarkus Build Profile"
-msgstr ""
+msgstr "Habilitación de los frijoles para el perfil de construcción de Quarkus"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:556
-msgid "Quarkus adds a capability that CDI currently does not support which is to conditionally enable a bean when a Quarkus build time profile is enabled, via the `@io.quarkus.arc.profile.IfBuildProfile` and `@io.quarkus.arc.profile.UnlessBuildProfile` annotations.  When used in conjunction with `@io.quarkus.arc.DefaultBean`, these annotations allow for the creation of different bean configurations for different build profiles."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:559
-msgid "Imagine for instance that an application contains a bean named `Tracer`, which needs to do nothing when in tests or in dev mode, but works in its normal capacity for the production artifact.  An elegant way to create such beans is the following:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:570
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    @Produces\n"
-"    @IfBuildProfile(\"prod\")\n"
-"    public Tracer realTracer(Reporter reporter, Configuration configuration) {\n"
-"        return new RealTracer(reporter, configuration);\n"
-"    }\n"
-msgstr ""
+"Quarkus adds a capability that CDI currently does not support which is to conditionally enable a bean when a Quarkus build time profile is enabled,\n"
+"via the `@io.quarkus.arc.profile.IfBuildProfile` and `@io.quarkus.arc.profile.UnlessBuildProfile` annotations.\n"
+"When used in conjunction with `@io.quarkus.arc.DefaultBean`, these annotations allow for the creation of different bean configurations for different build profiles."
+msgstr "Quarkus añade una capacidad que CDI no admite actualmente, que consiste en habilitar condicionalmente un bean cuando se habilita un perfil de tiempo de compilación de Quarkus, a través de las anotaciones `@io.quarkus.arc.profile.IfBuildProfile` y `@io.quarkus.arc.profile.UnlessBuildProfile` . Cuando se utilizan junto con `@io.quarkus.arc.DefaultBean` , estas anotaciones permiten la creación de diferentes configuraciones de beans para diferentes perfiles de compilación."
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:577
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:598
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:628
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:651
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    @Produces\n"
-"    @DefaultBean\n"
-"    public Tracer noopTracer() {\n"
-"        return new NoopTracer();\n"
-"    }\n"
-"}\n"
-msgstr ""
+"Imagine for instance that an application contains a bean named `Tracer`, which needs to do nothing when in tests or in dev mode, but works in its normal capacity for the production artifact.\n"
+"An elegant way to create such beans is the following:"
+msgstr "Imagine, por ejemplo, que una aplicación contiene un bean llamado `Tracer` , que no necesita hacer nada cuando está en pruebas o en modo dev, pero que funciona en su capacidad normal para el artefacto de producción. Una forma elegante de crear este tipo de beans es la siguiente:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:580
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "If instead, it is required that the `Tracer` bean also works in dev mode and only default to doing nothing for tests, then `@UnlessBuildProfile` would be ideal. The code would look like:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:591
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    @UnlessBuildProfile(\"test\") // this will be enabled for both prod and dev build time profiles\n"
-"    public Tracer realTracer(Reporter reporter, Configuration configuration) {\n"
-"        return new RealTracer(reporter, configuration);\n"
-"    }\n"
-msgstr ""
+msgstr "Si por el contrario, se requiere que el frijol `Tracer` también funcione en modo dev y sólo por defecto no hacer nada para las pruebas, entonces `@UnlessBuildProfile` sería ideal. El código se vería así:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:601
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The runtime profile has absolutely no effect on the bean resolution using `@IfBuildProfile` and `@UnlessBuildProfile`."
-msgstr ""
+msgstr "El perfil de tiempo de ejecución no tiene absolutamente ningún efecto sobre la resolución de los frijoles utilizando `@IfBuildProfile` y `@UnlessBuildProfile`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:603
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Enabling Beans for Quarkus Build Properties"
-msgstr ""
+msgstr "Habilitación de los frijoles para las propiedades de construcción de Quarkus"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Quarkus adds a capability that CDI currently does not support which is to conditionally enable a bean when a Quarkus build time property has/has not a specific value,\n"
+"via the `@io.quarkus.arc.properties.IfBuildProperty` and `@io.quarkus.arc.properties.UnlessBuildProperty` annotations.\n"
+"When used in conjunction with `@io.quarkus.arc.DefaultBean`, this annotation allow for the creation of different bean configurations for different build properties."
+msgstr "Quarkus añade una capacidad que CDI no admite actualmente y que consiste en habilitar condicionalmente un frijol cuando una propiedad de tiempo de compilación de Quarkus tiene/no tiene un valor específico, a través de las anotaciones `@io.quarkus.arc.properties.IfBuildProperty` y `@io.quarkus.arc.properties.UnlessBuildProperty` . Cuando se utiliza junto con `@io.quarkus.arc.DefaultBean` , esta anotación permite la creación de diferentes configuraciones de beans para diferentes propiedades de compilación."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:608
-msgid "Quarkus adds a capability that CDI currently does not support which is to conditionally enable a bean when a Quarkus build time property has/has not a specific value, via the `@io.quarkus.arc.properties.IfBuildProperty` and `@io.quarkus.arc.properties.UnlessBuildProperty` annotations.  When used in conjunction with `@io.quarkus.arc.DefaultBean`, this annotation allow for the creation of different bean configurations for different build properties."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:610
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The scenario we mentioned above with `Tracer` could also be implemented in the following way:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:621
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    @IfBuildProperty(name = \"some.tracer.enabled\", stringValue = \"true\")\n"
-"    public Tracer realTracer(Reporter reporter, Configuration configuration) {\n"
-"        return new RealTracer(reporter, configuration);\n"
-"    }\n"
-msgstr ""
+msgstr "El escenario que mencionamos anteriormente con `Tracer` también podría implementarse de la siguiente manera:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:631
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@IfBuildProperty` and `@UnlessBuildProperty` are repeatable annotations, i.e. a bean will only be enabled if **all** the conditions defined by these annotations are satisfied."
-msgstr ""
+msgstr "`@IfBuildProperty` y `@UnlessBuildProperty` son anotaciones repetibles, es decir, un bean sólo se habilitará si se cumplen *todas* las condiciones definidas por estas anotaciones."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:633
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "If instead, it is required that the `RealTracer` bean is only used if the `some.tracer.enabled` property is not `false`, then `@UnlessBuildProperty` would be ideal. The code would look like:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:644
-#, no-wrap
-msgid ""
-"    @Produces\n"
-"    @UnlessBuildProperty(name = \"some.tracer.enabled\", stringValue = \"false\")\n"
-"    public Tracer realTracer(Reporter reporter, Configuration configuration) {\n"
-"        return new RealTracer(reporter, configuration);\n"
-"    }\n"
-msgstr ""
+msgstr "Si en cambio, se requiere que el frijol `RealTracer` sólo se utilice si la propiedad `some.tracer.enabled` no es `false`, entonces `@UnlessBuildProperty` sería lo ideal. El código se vería así:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:654
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Properties set at runtime have absolutely no effect on the bean resolution using `@IfBuildProperty`."
-msgstr ""
+msgstr "Las propiedades establecidas en tiempo de ejecución no tienen absolutamente ningún efecto en la resolución de los frijoles utilizando `@IfBuildProperty`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:655
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Declaring Selected Alternatives"
-msgstr ""
+msgstr "Declarar las alternativas seleccionadas"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:659
-msgid "In CDI, an alternative bean may be selected either globally for an application by means of `@Priority`, or for a bean archive using a `beans.xml` descriptor.  Quarkus has a simplified bean discovery and the content of `beans.xml` is ignored."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"In CDI, an alternative bean may be selected either globally for an application by means of `@Priority`, or for a bean archive using a `beans.xml` descriptor.\n"
+"Quarkus has a simplified bean discovery and the content of `beans.xml` is ignored."
+msgstr "En CDI, se puede seleccionar un frijol alternativo de forma global para una aplicación mediante `@Priority` , o para un archivo de frijoles mediante un descriptor `beans.xml` . Quarkus tiene un descubrimiento de beans simplificado y se ignora el contenido de `beans.xml` ."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:663
-msgid "The disadvantage of `@javax.annotation.Priority` is that it has `@Target({ TYPE, PARAMETER })` and so it cannot be used for producer methods and fields.  This problem should be fixed in Common Annotations 2.1.  Users are encouraged to use `@io.quarkus.arc.Priority` instead, until Quarkus upgrades to this version of `jakarta.annotation-api`."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"The disadvantage of `@javax.annotation.Priority` is that it has `@Target({ TYPE, PARAMETER })` and so it cannot be used for producer methods and fields.\n"
+"This problem should be fixed in Common Annotations 2.1.\n"
+"Users are encouraged to use `@io.quarkus.arc.Priority` instead, until Quarkus upgrades to this version of `jakarta.annotation-api`."
+msgstr "La desventaja de `@javax.annotation.Priority` es que tiene `@Target({ TYPE, PARAMETER })` , por lo que no puede utilizarse para métodos y campos productores. Este problema debería solucionarse en Common Annotations 2.1. Se recomienda a los usuarios que utilicen `@io.quarkus.arc.Priority` en su lugar, hasta que Quarkus se actualice a esta versión de `jakarta.annotation-api` ."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:668
-msgid "However, it is also possible to select alternatives for an application using the unified configuration.  The `quarkus.arc.selected-alternatives` property accepts a list of string values that are used to match alternative beans.  If any value matches then the priority of `Integer#MAX_VALUE` is used for the relevant bean.  The priority declared via `@Priority` or `@AlternativePriority` is overridden."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"However, it is also possible to select alternatives for an application using the unified configuration.\n"
+"The `quarkus.arc.selected-alternatives` property accepts a list of string values that are used to match alternative beans.\n"
+"If any value matches then the priority of `Integer#MAX_VALUE` is used for the relevant bean.\n"
+"The priority declared via `@Priority` or `@AlternativePriority` is overridden."
+msgstr "Sin embargo, también es posible seleccionar alternativas para una aplicación utilizando la configuración unificada. La propiedad `quarkus.arc.selected-alternatives` acepta una lista de valores de cadena que se utilizan para hacer coincidir los beans alternativos. Si coincide algún valor, se utiliza la prioridad de `Integer#MAX_VALUE` para el frijol correspondiente. La prioridad declarada a través de `@Priority` o `@AlternativePriority` se anula."
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:673
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the fully qualified name of the bean class or the bean class of the bean that declares the producer"
-msgstr ""
+msgstr "Coincidir con el nombre completo de la clase del bean o la clase del bean que declara el productor"
 
 #. type: Table
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:676
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Match the simple name of the bean class or the bean class of the bean that declares the producer"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:682
-#, no-wrap
-msgid "quarkus.arc.selected-alternatives=org.acme.Foo,org.acme.*,Bar\n"
-msgstr ""
+msgstr "Coincidir con el nombre simple de la clase del bean o la clase del bean que declara el productor"
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:684
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Simplified Producer Method Declaration"
-msgstr ""
+msgstr "Declaración simplificada del método del productor"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:687
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In CDI, a producer method must be always annotated with `@Produces`."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:691
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:709
-#, no-wrap
-msgid "class Producers {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:702
-#, no-wrap
-msgid ""
-"  @Produces\n"
-"  @ApplicationScoped\n"
-"  MyService produceService() {\n"
-"    return new MyService(coolProperty);\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "En CDI, un método productor debe estar siempre anotado con `@Produces`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:705
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In Quarkus, you can skip the `@Produces` annotation completely if the producer method is annotated with a scope annotation, a stereotype or a qualifier."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:718
-#, no-wrap
-msgid ""
-"  @ApplicationScoped\n"
-"  MyService produceService() {\n"
-"    return new MyService(coolProperty);\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "En Quarkus, se puede omitir completamente la anotación `@Produces` si el método productor está anotado con una anotación de alcance, un estereotipo o un calificador."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:720
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Interception of Static Methods"
-msgstr ""
+msgstr "Interceptación de métodos estáticos"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:726
-msgid "The Interceptors specification is clear that _around-invoke_ methods must not be declared static.  However, this restriction was driven mostly by technical limitations.  And since Quarkus is a build-time oriented stack that allows for additional class transformations, those limitations don't apply anymore.  It's possible to annotate a non-private static method with an interceptor binding:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:730
-#, no-wrap
-msgid "class Services {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:738
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"  @Logged <1>\n"
-"  static BigDecimal computePrice(long amount) { <2>\n"
-"    BigDecimal price;\n"
-"    // Perform computations...\n"
-"    return price;\n"
-"  }\n"
-"}\n"
-msgstr ""
+"The Interceptors specification is clear that _around-invoke_ methods must not be declared static.\n"
+"However, this restriction was driven mostly by technical limitations.\n"
+"And since Quarkus is a build-time oriented stack that allows for additional class transformations, those limitations don't apply anymore.\n"
+"It's possible to annotate a non-private static method with an interceptor binding:"
+msgstr "La especificación de los interceptores deja claro que los métodos _around-invoke_ no deben declararse estáticos. Sin embargo, esta restricción obedecía sobre todo a limitaciones técnicas. Y puesto que Quarkus es una pila orientada al tiempo de compilación que permite transformaciones adicionales de las clases, esas limitaciones ya no se aplican. Es posible anotar un método estático no privado con un enlace interceptor:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:740
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`Logged` is an interceptor binding."
-msgstr ""
+msgstr "`Logged` es un enlace interceptor."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:741
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Each method invocation is intercepted if there is an interceptor associated with `Logged`."
-msgstr ""
+msgstr "Cada invocación de un método se intercepta si hay un interceptor asociado a `Logged`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:745
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Only *method-level bindings* are considered for backward compatibility reasons (otherwise static methods of bean classes that declare class-level bindings would be suddenly intercepted)"
-msgstr ""
+msgstr "Sólo se tienen en cuenta los enlaces a nivel de *método* por razones de compatibilidad con versiones anteriores (de lo contrario, los métodos estáticos de las clases de frijoles que declaran enlaces a nivel de clase serían interceptados de repente)"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:746
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Private static methods are never intercepted"
-msgstr ""
+msgstr "Los métodos estáticos privados nunca son interceptados"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:747
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`InvocationContext#getTarget()` returns `null` for obvious reasons; therefore not all existing interceptors may behave correctly when intercepting static methods"
-msgstr ""
+msgstr "`InvocationContext#getTarget()` devuelve `null` por razones obvias; por lo tanto, no todos los interceptores existentes pueden comportarse correctamente al interceptar métodos estáticos"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:749
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Interceptors can use `InvocationContext.getMethod()` to detect static methods and adjust the behavior accordingly."
-msgstr ""
+msgstr "Los interceptores pueden utilizar `InvocationContext.getMethod()` para detectar métodos estáticos y ajustar el comportamiento en consecuencia."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:750
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Ability to handle 'final' classes and methods"
-msgstr ""
+msgstr "Capacidad para manejar clases y métodos \"finales\"."
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"In normal CDI, classes that are marked as `final` and / or have `final` methods are not eligible for proxy creation,\n"
+"which in turn means that interceptors and normal scoped beans don't work properly.\n"
+"This situation is very common when trying to use CDI with alternative JVM languages like Kotlin where classes and methods are `final` by default."
+msgstr "En CDI normal, las clases que están marcadas como `final` y/o tienen métodos `final` no son elegibles para la creación de proxy, lo que a su vez significa que los interceptores y los beans de ámbito normal no funcionan correctamente. Esta situación es muy común cuando se intenta utilizar CDI con lenguajes JVM alternativos como Kotlin, donde las clases y los métodos son `final` por defecto."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:755
-msgid "In normal CDI, classes that are marked as `final` and / or have `final` methods are not eligible for proxy creation, which in turn means that interceptors and normal scoped beans don't work properly.  This situation is very common when trying to use CDI with alternative JVM languages like Kotlin where classes and methods are `final` by default."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:757
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Quarkus however, can overcome these limitations when `quarkus.arc.transform-unproxyable-classes` is set to `true` (which is the default value)."
-msgstr ""
+msgstr "Sin embargo, Quarkus puede superar estas limitaciones cuando `quarkus.arc.transform-unproxyable-classes` se establece en `true` (que es el valor por defecto)."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:758
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Container-managed Concurrency"
-msgstr ""
+msgstr "Concurrencia gestionada por contenedores"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"There is no standard concurrency control mechanism for CDI beans.\n"
+"Nevertheless, a bean instance can be shared and accessed concurrently from multiple threads.\n"
+"In that case it should be thread-safe.\n"
+"You can use standard Java constructs (`volatile`, `synchronized`, `ReadWriteLock`, etc.) or let the container control the concurrent access.\n"
+"Quarkus provides `@io.quarkus.arc.Lock` and a built-in interceptor for this interceptor binding.\n"
+"Each interceptor instance associated with a contextual instance of an intercepted bean holds a separate `ReadWriteLock` with non-fair ordering policy."
+msgstr "No existe un mecanismo estándar de control de concurrencia para los beans CDI. No obstante, una instancia de beans puede ser compartida y accedida concurrentemente desde múltiples hilos. En ese caso debe ser segura para los hilos. Puede utilizar construcciones Java estándar ( `volatile` , `synchronized` , `ReadWriteLock` , etc.) o dejar que el contenedor controle el acceso concurrente. Quarkus proporciona `@io.quarkus.arc.Lock` y un interceptor incorporado para esta unión de interceptores. Cada instancia de interceptor asociada a una instancia contextual de un frijol interceptado contiene un `ReadWriteLock` independiente con una política de ordenación no justa."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:766
-msgid "There is no standard concurrency control mechanism for CDI beans.  Nevertheless, a bean instance can be shared and accessed concurrently from multiple threads.  In that case it should be thread-safe.  You can use standard Java constructs (`volatile`, `synchronized`, `ReadWriteLock`, etc.) or let the container control the concurrent access.  Quarkus provides `@io.quarkus.arc.Lock` and a built-in interceptor for this interceptor binding.  Each interceptor instance associated with a contextual instance of an intercepted bean holds a separate `ReadWriteLock` with non-fair ordering policy."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:768
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`io.quarkus.arc.Lock` is a regular interceptor binding and as such can be used for any bean with any scope. However, it is especially useful for \"shared\" scopes, e.g. `@Singleton` and `@ApplicationScoped`."
-msgstr ""
+msgstr "`io.quarkus.arc.Lock` es un enlace interceptor normal y, como tal, puede utilizarse para cualquier frijol con cualquier ámbito. Sin embargo, es especialmente útil para ámbitos \"compartidos\", por ejemplo, `@Singleton` y `@ApplicationScoped`."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:769
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Container-managed Concurrency Example"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:773
-#, no-wrap
-msgid "import io.quarkus.arc.Lock;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:777
-#, no-wrap
-msgid ""
-"@Lock <1>\n"
-"@ApplicationScoped\n"
-"class SharedService {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:781
-#, no-wrap
-msgid ""
-"  void addAmount(BigDecimal amount) {\n"
-"    // ...changes some internal state of the bean\n"
-"  }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:787
-#, no-wrap
-msgid ""
-"  @Lock(value = Lock.Type.READ, time = 1, unit = TimeUnit.SECONDS) <2> <3>\n"
-"  BigDecimal getAmount() {\n"
-"    // ...it is safe to read the value concurrently\n"
-"  }\n"
-"}\n"
-msgstr ""
+msgstr "Ejemplo de concurrencia gestionada por contenedores"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:789
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@Lock` (which maps to `@Lock(Lock.Type.WRITE)`) declared on the class instructs the container to lock the bean instance for any invocation of any business method, i.e. the client has \"exclusive access\" and no concurrent invocations will be allowed."
-msgstr ""
+msgstr "`@Lock` (que se asigna a `@Lock(Lock.Type.WRITE)`) declarada en la clase indica al contenedor que bloquee la instancia del frijol para cualquier invocación de cualquier método de negocio, es decir, el cliente tiene \"acceso exclusivo\" y no se permitirán invocaciones concurrentes."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:790
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`@Lock(Lock.Type.READ)` overrides the value specified at class level. It means that any number of clients can invoke the method concurrently, unless the bean instance is locked by `@Lock(Lock.Type.WRITE)`."
-msgstr ""
+msgstr "`@Lock(Lock.Type.READ)` anula el valor especificado a nivel de clase. Significa que cualquier número de clientes puede invocar el método de forma concurrente, a menos que la instancia del bean esté bloqueada por `@Lock(Lock.Type.WRITE)`."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:791
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "You can also specify the \"wait time\". If it's not possible to acquire the lock in the given time a `LockException` is thrown."
-msgstr ""
+msgstr "También se puede especificar el \"tiempo de espera\". Si no es posible adquirir el bloqueo en el tiempo dado se lanza un `LockException`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:792
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Repeatable interceptor bindings"
-msgstr ""
+msgstr "Enlaces interceptores repetibles"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:795
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Quarkus has limited support for `@Repeatable` interceptor binding annotations."
-msgstr ""
+msgstr "Quarkus tiene un soporte limitado para las anotaciones de enlace del interceptor `@Repeatable`."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:799
-msgid "When binding an interceptor to a component, you can declare multiple `@Repeatable` annotations on methods.  Repeatable interceptor bindings declared on classes and stereotypes are not supported, because there are some open questions around interactions with the Interceptors specification.  This might be added in the future."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:803
-msgid "As an example, suppose we have an interceptor that clears a cache.  The corresponding interceptor binding would be called `@CacheInvalidateAll` and would be declared as `@Repeatable`.  If we wanted to clear two caches at the same time, we would add `@CacheInvalidateAll` twice:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:817
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@ApplicationScoped\n"
-"class CachingService {\n"
-"  @CacheInvalidateAll(cacheName = \"foo\")\n"
-"  @CacheInvalidateAll(cacheName = \"bar\")\n"
-"  void heavyComputation() {\n"
-"    // ...\n"
-"    // some computation that updates a lot of data\n"
-"    // and requires 2 caches to be invalidated\n"
-"    // ...\n"
-"  }\n"
-"}\n"
-msgstr ""
+"When binding an interceptor to a component, you can declare multiple `@Repeatable` annotations on methods.\n"
+"Repeatable interceptor bindings declared on classes and stereotypes are not supported, because there are some open questions around interactions with the Interceptors specification.\n"
+"This might be added in the future."
+msgstr "Al vincular un interceptor a un componente, puede declarar varias anotaciones `@Repeatable` en los métodos. No se admiten las vinculaciones repetidas de interceptores declaradas en clases y estereotipos, porque hay algunas cuestiones abiertas en torno a las interacciones con la especificación de interceptores. Esto podría añadirse en el futuro."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:821
-msgid "This is how interceptors are used.  What about creating an interceptor?"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:824
-msgid "When declaring interceptor bindings of an interceptor, you can add multiple `@Repeatable` annotations to the interceptor class as usual.  This is useless when the annotation members are `@Nonbinding`, as would be the case for the `@Cached` annotation, but is important otherwise."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:828
-msgid "For example, suppose we have an interceptor that can automatically log method invocations to certain targets.  The interceptor binding annotation `@Logged` would have a member called `target`, which specifies where to store the log.  Our implementation could be restricted to console logging and file logging:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:837
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@Interceptor\n"
-"@Logged(target = \"console\")\n"
-"@Logged(target = \"file\")\n"
-"class NaiveLoggingInterceptor {\n"
-"  // ...\n"
-"}\n"
-msgstr ""
+"As an example, suppose we have an interceptor that clears a cache.\n"
+"The corresponding interceptor binding would be called `@CacheInvalidateAll` and would be declared as `@Repeatable`.\n"
+"If we wanted to clear two caches at the same time, we would add `@CacheInvalidateAll` twice:"
+msgstr "Como ejemplo, supongamos que tenemos un interceptor que limpia una caché. La vinculación del interceptor correspondiente se llamaría `@CacheInvalidateAll` y se declararía como `@Repeatable` . Si quisiéramos borrar dos cachés al mismo tiempo, añadiríamos `@CacheInvalidateAll` dos veces:"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"This is how interceptors are used.\n"
+"What about creating an interceptor?"
+msgstr "Así es como se utilizan los interceptores. ¿Qué hay que hacer para crear un interceptor?"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"When declaring interceptor bindings of an interceptor, you can add multiple `@Repeatable` annotations to the interceptor class as usual.\n"
+"This is useless when the annotation members are `@Nonbinding`, as would be the case for the `@Cached` annotation, but is important otherwise."
+msgstr "Al declarar los enlaces de un interceptor, puede añadir varias anotaciones `@Repeatable` a la clase del interceptor, como es habitual. Esto es inútil cuando los miembros de la anotación son `@Nonbinding` , como sería el caso de la anotación `@Cached` , pero es importante en caso contrario."
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"For example, suppose we have an interceptor that can automatically log method invocations to certain targets.\n"
+"The interceptor binding annotation `@Logged` would have a member called `target`, which specifies where to store the log.\n"
+"Our implementation could be restricted to console logging and file logging:"
+msgstr "Por ejemplo, supongamos que tenemos un interceptor que puede registrar automáticamente las invocaciones de métodos a determinados objetivos. La anotación de enlace del interceptor `@Logged` tendría un miembro llamado `target` , que especifica dónde almacenar el registro. Nuestra implementación podría limitarse al registro en consola y al registro en archivos:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:840
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Other interceptors could be provided to log method invocations to different targets."
-msgstr ""
+msgstr "Se podrían proporcionar otros interceptores para registrar las invocaciones de métodos a diferentes objetivos."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:841
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Caching the Result of Programmatic Lookup"
-msgstr ""
+msgstr "Almacenamiento en caché del resultado de la búsqueda programática"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"In certain situations, it is practical to obtain a bean instance programmatically via an injected `javax.enterprise.inject.Instance` and `Instance.get()`.\n"
+"However, according to the specification the `get()` method must identify the matching bean and obtain a contextual reference.\n"
+"As a consequence, a new instance of a  `@Dependent` bean is returned from each invocation of `get()`.\n"
+"Moreover, this instance is a dependent object of the injected `Instance`.\n"
+"This behavior is well-defined, but it may lead to unexpected errors and memory leaks.\n"
+"Therefore, Quarkus comes with the `io.quarkus.arc.WithCaching` annotation.\n"
+"An injected `Instance` annotated with this annotation will cache the result of the `Instance#get()` operation.\n"
+"The result is computed on the first call and the same value is returned for all subsequent calls, even for `@Dependent` beans."
+msgstr "En determinadas situaciones, resulta práctico obtener una instancia de un bean mediante programación a través de un `javax.enterprise.inject.Instance` y un `Instance.get()` inyectados. Sin embargo, según la especificación, el método `get()` debe identificar el bean correspondiente y obtener una referencia contextual. Como consecuencia, cada vez que se invoca `get()` se devuelve una nueva instancia de un bean `@Dependent` . Además, esta instancia es un objeto dependiente del inyectado `Instance` . Este comportamiento está bien definido, pero puede dar lugar a errores inesperados y fugas de memoria. Por ello, Quarkus incorpora la anotación `io.quarkus.arc.WithCaching` . Un `Instance` inyectado anotado con esta anotación almacenará en caché el resultado de la operación `Instance#get()` . El resultado se calcula en la primera llamada y se devuelve el mismo valor para todas las llamadas posteriores, incluso para los beans `@Dependent` ."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:851
-msgid "In certain situations, it is practical to obtain a bean instance programmatically via an injected `javax.enterprise.inject.Instance` and `Instance.get()`.  However, according to the specification the `get()` method must identify the matching bean and obtain a contextual reference.  As a consequence, a new instance of a `@Dependent` bean is returned from each invocation of `get()`.  Moreover, this instance is a dependent object of the injected `Instance`.  This behavior is well-defined, but it may lead to unexpected errors and memory leaks.  Therefore, Quarkus comes with the `io.quarkus.arc.WithCaching` annotation.  An injected `Instance` annotated with this annotation will cache the result of the `Instance#get()` operation.  The result is computed on the first call and the same value is returned for all subsequent calls, even for `@Dependent` beans."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:855
-#, no-wrap
-msgid "class Producer {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:858
-#, no-wrap
-msgid ""
-"  AtomicLong nextLong = new AtomicLong();\n"
-"  AtomicInteger nextInt = new AtomicInteger();\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:864
-#, no-wrap
-msgid ""
-"   @Dependent\n"
-"   @Produces\n"
-"   Integer produceInt() {\n"
-"     return nextInt.incrementAndGet();\n"
-"   }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:871
-#, no-wrap
-msgid ""
-"   @Dependent\n"
-"   @Produces\n"
-"   Long produceLong() {\n"
-"     return nextLong.incrementAndGet();\n"
-"   }\n"
-"}\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:873
-#, no-wrap
-msgid "class Consumer {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:876
-#, no-wrap
-msgid ""
-"  @Inject\n"
-"  Instance<Long> longInstance;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:880
-#, no-wrap
-msgid ""
-"  @Inject\n"
-"  @WithCaching\n"
-"  Instance<Integer> intInstance;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:886
-#, no-wrap
-msgid ""
-"  // this method should always return true\n"
-"  // Producer#produceInt() is only called once\n"
-"  boolean pingInt() {\n"
-"    return intInstance.get().equals(intInstance.get());\n"
-"  }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:893
-#, no-wrap
-msgid ""
-"  // this method should always return false\n"
-"  // Producer#produceLong() is called twice per each pingLong() invocation\n"
-"  boolean pingLong() {\n"
-"    return longInstance.get().equals(longInstance.get());\n"
-"  }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:896
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "It is also possible to clear the cached value via `io.quarkus.arc.InjectableInstance.clearCache()`. In this case, you'll need to inject the Quarkus-specific `io.quarkus.arc.InjectableInstance` instead of `javax.enterprise.inject.Instance`."
-msgstr ""
+msgstr "También es posible borrar el valor almacenado en caché a través de `io.quarkus.arc.InjectableInstance.clearCache()` . En este caso, tendrá que inyectar el `io.quarkus.arc.InjectableInstance` específico de Quarkus en lugar de `javax.enterprise.inject.Instance` ."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:897
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Declaratively Choose Beans That Can Be Obtained by Programmatic Lookup"
-msgstr ""
+msgstr "Elija de forma declarativa los frijoles que pueden obtenerse mediante la búsqueda programática"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:901
-msgid "It is sometimes useful to narrow down the set of beans that can be obtained by programmatic lookup via `javax.enterprise.inject.Instance`.  Typically, a user needs to choose the appropriate implementation of an interface based on a runtime configuration property."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"It is sometimes useful to narrow down the set of beans that can be obtained by programmatic lookup via `javax.enterprise.inject.Instance`.\n"
+"Typically, a user needs to choose the appropriate implementation of an interface based on a runtime configuration property."
+msgstr "A veces resulta útil acotar el conjunto de beans que pueden obtenerse mediante búsqueda programática a través de `javax.enterprise.inject.Instance` . Normalmente, un usuario necesita elegir la implementación adecuada de una interfaz basándose en una propiedad de configuración en tiempo de ejecución."
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:908
-msgid "Imagine that we have two beans implementing the interface `org.acme.Service`.  You can't inject the `org.acme.Service` directly unless your implementations declare a CDI qualifier.  However, you can inject the `Instance<Service>` instead, then iterate over all implementations and choose the correct one manually.  Alternatively, you can use the `@LookupIfProperty` and `@LookupUnlessProperty` annotations.  `@LookupIfProperty` indicates that a bean should only be obtained if a runtime configuration property matches the provided value.  `@LookupUnlessProperty`, on the other hand, indicates that a bean should only be obtained if a runtime configuration property does not match the provided value."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Imagine that we have two beans implementing the interface `org.acme.Service`.\n"
+"You can't inject the `org.acme.Service` directly unless your implementations declare a CDI qualifier.\n"
+"However, you can inject the `Instance<Service>` instead, then iterate over all implementations and choose the correct one manually.\n"
+"Alternatively, you can use the `@LookupIfProperty` and `@LookupUnlessProperty` annotations.\n"
+"`@LookupIfProperty` indicates that a bean should only be obtained if a runtime configuration property matches the provided value.\n"
+"`@LookupUnlessProperty`, on the other hand, indicates that a bean should only be obtained if a runtime configuration property does not match the provided value."
+msgstr "Imaginemos que tenemos dos beans que implementan la interfaz `org.acme.Service` . No puede inyectar directamente la `org.acme.Service` a menos que sus implementaciones declaren un calificador CDI. Sin embargo, puede inyectar la `Instance<Service>` en su lugar, y luego iterar sobre todas las implementaciones y elegir la correcta manualmente. Como alternativa, puede utilizar las anotaciones `@LookupIfProperty` y `@LookupUnlessProperty` . `@LookupIfProperty` indica que un frijol sólo debe obtenerse si una propiedad de configuración en tiempo de ejecución coincide con el valor proporcionado. `@LookupUnlessProperty` , por otro lado, indica que un frijol sólo debe obtenerse si una propiedad de configuración en tiempo de ejecución no coincide con el valor proporcionado."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:909
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`@LookupIfProperty` Example"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:915
-#, no-wrap
-msgid ""
-" interface Service {\n"
-"    String name();\n"
-" }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:919
-#, no-wrap
-msgid ""
-" @LookupIfProperty(name = \"service.foo.enabled\", stringValue = \"true\")\n"
-" @ApplicationScoped\n"
-" class ServiceFoo implements Service {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:924
-#, no-wrap
-msgid ""
-"    public String name() {\n"
-"       return \"foo\";\n"
-"    }\n"
-" }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:927
-#, no-wrap
-msgid ""
-" @ApplicationScoped\n"
-" class ServiceBar implements Service {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:932
-#, no-wrap
-msgid ""
-"    public String name() {\n"
-"       return \"bar\";\n"
-"    }\n"
-" }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:935
-#, no-wrap
-msgid ""
-" @ApplicationScoped\n"
-" class Client {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:938
-#, no-wrap
-msgid ""
-"    @Inject\n"
-"    Instance<Service> service;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:945
-#, no-wrap
-msgid ""
-"    void printServiceName() {\n"
-"       // This will print \"bar\" if the property \"service.foo.enabled\" is NOT set to \"true\"\n"
-"       // If \"service.foo.enabled\" is set to \"true\" then service.get() would result in an AmbiguousResolutionException\n"
-"       System.out.println(service.get().name());\n"
-"    }\n"
-" }\n"
-msgstr ""
+msgstr "`@LookupIfProperty` Ejemplo"
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:947
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Injecting Multiple Bean Instances Intuitively"
-msgstr ""
+msgstr "Inyección de múltiples instancias de frijoles de forma intuitiva"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"In CDI, it's possible to inject multiple bean instances (aka contextual references) via the `javax.enterprise.inject.Instance` which implements `java.lang.Iterable`.\n"
+"However, it's not exactly intuitive.\n"
+"Therefore, a new way was introduced in Quarkus - you can inject a `java.util.List` annotated with the `io.quarkus.arc.All` qualifier.\n"
+"The type of elements in the list is used as the required type when performing the lookup."
+msgstr "En CDI, es posible inyectar múltiples instancias de beans (alias referencias contextuales) a través del `javax.enterprise.inject.Instance` que implementa `java.lang.Iterable` . Sin embargo, no es precisamente intuitivo. Por ello, en Quarkus se introdujo una nueva forma: se puede inyectar un `java.util.List` anotado con el calificador `io.quarkus.arc.All` . El tipo de los elementos de la lista se utiliza como tipo requerido al realizar la búsqueda."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:953
-msgid "In CDI, it's possible to inject multiple bean instances (aka contextual references) via the `javax.enterprise.inject.Instance` which implements `java.lang.Iterable`.  However, it's not exactly intuitive.  Therefore, a new way was introduced in Quarkus - you can inject a `java.util.List` annotated with the `io.quarkus.arc.All` qualifier.  The type of elements in the list is used as the required type when performing the lookup."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:958
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:978
-#, no-wrap
-msgid ""
-"@ApplicationScoped\n"
-"public class Processor {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:963
-#, no-wrap
-msgid ""
-"     @Inject\n"
-"     @All\n"
-"     List<Service> services; <1> <2>\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:965
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The injected instance is an _immutable list_ of the contextual references of the _disambiguated_ beans."
-msgstr ""
+msgstr "La instancia inyectada es una _lista inmutable_ de las referencias contextuales de los beans _desambiguados_."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:966
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "For this injection point the required type is `Service` and no additional qualifiers are declared."
-msgstr ""
+msgstr "Para este punto de inyección el tipo requerido es `Service` y no se declaran calificadores adicionales."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:968
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "The list is sorted by priority as defined by `io.quarkus.arc.InjectableBean#getPriority()`. Higher priority goes first. In general, the `@javax.annotation.Priority` and `@io.quarkus.arc.Priority` annotations can be used to assign the priority to a class bean, producer method or producer field."
-msgstr ""
+msgstr "La lista se ordena por prioridad, tal y como se define en `io.quarkus.arc.InjectableBean#getPriority()` . La prioridad más alta va primero. En general, las anotaciones `@javax.annotation.Priority` y `@io.quarkus.arc.Priority` pueden utilizarse para asignar la prioridad a un frijol de clase, método productor o campo productor."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:970
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "If an injection point declares no other qualifier than `@All` then `@Any` is used, i.e. the behavior is equivalent to `@Inject @Any Instance<Service>`."
-msgstr ""
+msgstr "Si un punto de inyección no declara ningún otro calificador que `@All` entonces se utiliza `@Any`, es decir, el comportamiento es equivalente a `@Inject @Any Instance&amp;lt;Service&amp;gt;`."
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"You can also inject a list of bean instances wrapped in `io.quarkus.arc.InstanceHandle`.\n"
+"This can be useful if you need to inspect the related bean metadata."
+msgstr "También puede inyectar una lista de instancias de bean envueltas en `io.quarkus.arc.InstanceHandle` . Esto puede ser útil si necesita inspeccionar los metadatos del bean relacionado."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:973
-msgid "You can also inject a list of bean instances wrapped in `io.quarkus.arc.InstanceHandle`.  This can be useful if you need to inspect the related bean metadata."
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:982
-#, no-wrap
-msgid ""
-"     @Inject\n"
-"     @All\n"
-"     List<InstanceHandle<Service>> services;\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:992
-#, no-wrap
-msgid ""
-"     public void doSomething() {\n"
-"       for (InstanceHandle<Service> handle : services) {\n"
-"         if (handle.getBean().getScope().equals(Dependent.class)) {\n"
-"           handle.get().process();\n"
-"           break;\n"
-"         }\n"
-"       }\n"
-"     }\n"
-"}\n"
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:995
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "Neither a type variable nor a wildcard is a legal type parameter for an `@All List<>` injection point, i.e. `@Inject @All List<?> all` is not supported and results in a deployment error."
-msgstr ""
+msgstr "Ni una variable de tipo ni un comodín es un parámetro de tipo legal para un punto de inyección `@All List&amp;lt;&amp;gt;`, es decir, `@Inject @All List&amp;lt;?&amp;gt; all` no es compatible y da lugar a un error de implementación."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:997
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "It is also possible to obtain the list of all bean instance handles programmatically via the `Arc.container().listAll()` methods."
-msgstr ""
+msgstr "También es posible obtener la lista de todos los manejadores de las instancias de los frijoles mediante los métodos `Arc.container().listAll()`."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:998
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Ignoring Class-Level Interceptor Bindings for Methods and Constructors"
-msgstr ""
+msgstr "Ignorar los enlaces del interceptor de nivel de clase para los métodos y constructores"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"If a managed bean declares interceptor binding annotations on the class level, the corresponding `@AroundInvoke` interceptors will apply to all business methods.\n"
+"Similarly, the corresponding `@AroundConstruct` interceptors will apply to the bean constructor."
+msgstr "Si un bean gestionado declara anotaciones de vinculación de interceptores a nivel de clase, los interceptores correspondientes de `@AroundInvoke` se aplicarán a todos los métodos de negocio. Del mismo modo, los interceptores correspondientes de `@AroundConstruct` se aplicarán al constructor del bean."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1002
-msgid "If a managed bean declares interceptor binding annotations on the class level, the corresponding `@AroundInvoke` interceptors will apply to all business methods.  Similarly, the corresponding `@AroundConstruct` interceptors will apply to the bean constructor."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1004
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "For example, suppose we have a logging interceptor with the `@Logged` binding annotation and a tracing interceptor with the `@Traced` binding annotation:"
-msgstr ""
+msgstr "Por ejemplo, supongamos que tenemos un interceptor de registro con la anotación de enlace `@Logged` y un interceptor de seguimiento con la anotación de enlace `@Traced`:"
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1013
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@ApplicationScoped\n"
-"@Logged\n"
-"public class MyService {\n"
-"    public void doSomething() {\n"
-"        ...\n"
-"    }\n"
-msgstr ""
+"In this example, both `doSomething` and `doSomethingElse` will be intercepted by the hypothetical logging interceptor.\n"
+"Additionally, the `doSomethingElse` method will be intercepted by the hypothetical tracing interceptor."
+msgstr "En este ejemplo, tanto `doSomething` como `doSomethingElse` serán interceptados por el hipotético interceptor de registro. Además, el método `doSomethingElse` será interceptado por el interceptor de rastreo hipotético."
 
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1019
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"    @Traced\n"
-"    public void doSomethingElse() {\n"
-"        ...\n"
-"    }\n"
-"}\n"
-msgstr ""
+"Now, if that `@Traced` interceptor also performed all the necessary logging, we'd like to skip the `@Logged` interceptor for this method, but keep it for all other methods.\n"
+"To achieve that, you can annotate the method with `@NoClassInterceptors`:"
+msgstr "Ahora bien, si ese interceptor `@Traced` también realizara todo el registro necesario, nos gustaría omitir el interceptor `@Logged` para este método, pero mantenerlo para todos los demás métodos. Para conseguirlo, puede anotar el método con `@NoClassInterceptors` :"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1023
-msgid "In this example, both `doSomething` and `doSomethingElse` will be intercepted by the hypothetical logging interceptor.  Additionally, the `doSomethingElse` method will be intercepted by the hypothetical tracing interceptor."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1026
-msgid "Now, if that `@Traced` interceptor also performed all the necessary logging, we'd like to skip the `@Logged` interceptor for this method, but keep it for all other methods.  To achieve that, you can annotate the method with `@NoClassInterceptors`:"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1034
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid ""
-"@Traced\n"
-"@NoClassInterceptors\n"
-"public void doSomethingElse() {\n"
-"    ...\n"
-"}\n"
-msgstr ""
+"The `@NoClassInterceptors` annotation may be put on methods and constructors and means that all class-level interceptors are ignored for these methods and constructors.\n"
+"In other words, if a method/constructor is annotated `@NoClassInterceptors`, then the only interceptors that will apply to this method/constructor are interceptors declared directly on the method/constructor."
+msgstr "La anotación `@NoClassInterceptors` puede ponerse en métodos y constructores y significa que todos los interceptores a nivel de clase se ignoran para estos métodos y constructores. En otras palabras, si un método/constructor está anotado `@NoClassInterceptors` , entonces los únicos interceptores que se aplicarán a este método/constructor son los interceptores declarados directamente sobre el método/constructor."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1038
-msgid "The `@NoClassInterceptors` annotation may be put on methods and constructors and means that all class-level interceptors are ignored for these methods and constructors.  In other words, if a method/constructor is annotated `@NoClassInterceptors`, then the only interceptors that will apply to this method/constructor are interceptors declared directly on the method/constructor."
-msgstr ""
-
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1040
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "This annotation affects only business method interceptors (`@AroundInvoke`) and constructor lifecycle callback interceptors (`@AroundConstruct`)."
-msgstr ""
+msgstr "Esta anotación sólo afecta a los interceptores de métodos de negocio ( `@AroundInvoke`) y a los interceptores de llamadas de retorno del ciclo de vida del constructor ( `@AroundConstruct`)."
 
 #. type: Title ===
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1041
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Exceptions Thrown By An Asynchronous Observer Method"
-msgstr ""
+msgstr "Excepciones lanzadas por un método observador asíncrono"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1048
-msgid "If an exception is thrown by an asynchronous observer then the `CompletionStage` returned by the `fireAsync()` method completes exceptionally so that the event producer may react appropriately.  However, if the event producer does not care then the exception is ignored silently.  Therefore, Quarkus logs an error message by default.  It is also possible to implement a custom `AsyncObserverExceptionHandler`.  A bean that implements this interface should be `@javax.inject.Singleton` or `@javax.enterprise.context.ApplicationScoped`."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"If an exception is thrown by an asynchronous observer then the `CompletionStage` returned by the `fireAsync()` method completes exceptionally so that the event producer may react appropriately.\n"
+"However, if the event producer does not care then the exception is ignored silently.\n"
+"Therefore, Quarkus logs an error message by default.\n"
+"It is also possible to implement a custom `AsyncObserverExceptionHandler`.\n"
+"A bean that implements this interface should be `@javax.inject.Singleton` or `@javax.enterprise.context.ApplicationScoped`."
+msgstr "Si un observador asíncrono lanza una excepción, entonces el `CompletionStage` devuelto por el método `fireAsync()` se completa excepcionalmente para que el productor del evento pueda reaccionar adecuadamente. Sin embargo, si al productor de eventos no le importa entonces la excepción se ignora silenciosamente. Por lo tanto, Quarkus registra un mensaje de error por defecto. También es posible implementar un `AsyncObserverExceptionHandler` personalizado. Un frijol que implemente esta interfaz debe ser `@javax.inject.Singleton` o `@javax.enterprise.context.ApplicationScoped` ."
 
 #. type: Block title
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1049
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "`NoopAsyncObserverExceptionHandler`"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1054
-#, no-wrap
-msgid ""
-"@Singleton\n"
-"public class NoopAsyncObserverExceptionHandler implements AsyncObserverExceptionHandler {\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1058
-#, no-wrap
-msgid ""
-"  void handle(Throwable throwable, ObserverMethod<?> observerMethod, EventContext<?> eventContext) {\n"
-"    // do nothing\n"
-"  }\n"
-msgstr ""
-
-#. type: delimited block -
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1060
-#, no-wrap
-msgid "}\n"
-msgstr ""
+msgstr "`NoopAsyncObserverExceptionHandler`"
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1063
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Build Time Extensions"
-msgstr ""
+msgstr "Ampliaciones del tiempo de construcción"
 
-#. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1069
-msgid "Quarkus incorporates build-time optimizations in order to provide instant startup and low memory footprint.  The downside of this approach is that CDI Portable Extensions cannot be supported.  Nevertheless, most of the functionality can be achieved using Quarkus xref:writing-extensions.adoc[extensions].  See the xref:cdi-integration.adoc[integration guide] for more information."
-msgstr ""
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid ""
+"Quarkus incorporates build-time optimizations in order to provide instant startup and low memory footprint.\n"
+"The downside of this approach is that CDI Portable Extensions cannot be supported.\n"
+"Nevertheless, most of the functionality can be achieved using Quarkus xref:writing-extensions.adoc[extensions].\n"
+"See the xref:cdi-integration.adoc[integration guide] for more information."
+msgstr "Quarkus incorpora optimizaciones en tiempo de compilación con el fin de proporcionar un arranque instantáneo y una baja huella de memoria. El inconveniente de este enfoque es que las extensiones portátiles CDI no son compatibles. No obstante, la mayor parte de la funcionalidad puede conseguirse utilizando las xref:writing-extensions.adoc[extensiones] de Quarkus. Consulte la xref:cdi-integration.adoc[guía de] integración para obtener más información."
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1070
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "Development Mode"
-msgstr ""
+msgstr "Modo de desarrollo"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1073
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "In the development mode, two special endpoints are registered automatically to provide some basic debug info in the JSON format:"
-msgstr ""
+msgstr "En el modo de desarrollo, se registran automáticamente dos puntos finales especiales para proporcionar información básica de depuración en formato JSON:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1075
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "HTTP GET `/q/arc` - returns the summary; number of beans, config properties, etc."
-msgstr ""
+msgstr "HTTP GET `/q/arc` - devuelve el resumen; número de beans, propiedades de configuración, etc."
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1076
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "HTTP GET `/q/arc/beans` - returns the list of all beans"
-msgstr ""
+msgstr "HTTP GET `/q/arc/beans` - devuelve la lista de todos los frijoles"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1077
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "You can use query params to filter the output:"
-msgstr ""
+msgstr "Puede utilizar parámetros de consulta para filtrar la salida:"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1078
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`scope` - include beans with scope that ends with the given value, i.e. `http://localhost:8080/q/arc/beans?scope=ApplicationScoped`"
-msgstr ""
+msgstr "`scope` - incluyen alubias con un ámbito que termina con el valor dado, es decir `&lt;a href=\"http://localhost:8080/q/arc/beans?scope=ApplicationScoped\" class=\"bare\"&gt;http://localhost:8080/q/arc/beans?scope=ApplicationScoped&lt;/a&gt;`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1079
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`beanClass` - include beans with bean class that starts with the given value, i.e. `http://localhost:8080/q/arc/beans?beanClass=org.acme.Foo`"
-msgstr ""
+msgstr "`beanClass` - incluir frijoles con la clase de frijol que comienza con el valor dado, es decir `&lt;a href=\"http://localhost:8080/q/arc/beans?beanClass=org.acme.Foo\" class=\"bare\"&gt;http://localhost:8080/q/arc/beans?beanClass=org.acme.Foo&lt;/a&gt;`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1080
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "`kind` - include beans of the specified kind (`CLASS`, `PRODUCER_FIELD`, `PRODUCER_METHOD`, `INTERCEPTOR` or `SYNTHETIC`), i.e. `http://localhost:8080/q/arc/beans?kind=PRODUCER_METHOD`"
-msgstr ""
+msgstr "`kind` - incluir frijoles del tipo especificado ( `CLASS`, `PRODUCER_FIELD`, `PRODUCER_METHOD`, `INTERCEPTOR` o `SYNTHETIC`), es decir `&lt;a href=\"http://localhost:8080/q/arc/beans?kind=PRODUCER_METHOD\" class=\"bare\"&gt;http://localhost:8080/q/arc/beans?kind=PRODUCER_METHOD&lt;/a&gt;`"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1081
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "HTTP GET `/q/arc/removed-beans` - returns the list of unused beans removed during build"
-msgstr ""
+msgstr "HTTP GET `/q/arc/removed-beans` - devuelve la lista de beans no utilizados eliminados durante la construcción"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1082
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "HTTP GET `/q/arc/observers` - returns the list of all observer methods"
-msgstr ""
+msgstr "HTTP GET `/q/arc/observers` - devuelve la lista de todos los métodos de observación"
 
 #. type: Plain text
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1084
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
 msgid "These endpoints are only available in the development mode, i.e. when you run your application via `mvn quarkus:dev` (or `./gradlew quarkusDev`)."
-msgstr ""
+msgstr "Estos puntos finales sólo están disponibles en el modo de desarrollo, es decir, cuando se ejecuta la aplicación a través de `mvn quarkus:dev` (o `./gradlew quarkusDev`)."
 
 #. type: Title ==
-#: upstream/_versions/2.13/guides/cdi-reference.adoc:1087
-#, no-wrap
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy, no-wrap
 msgid "ArC Configuration Reference"
-msgstr ""
+msgstr "Referencia de la configuración de ArC"
+
+#: _versions/2.13/guides/cdi-reference.adoc
+#, fuzzy
+msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
+msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"
