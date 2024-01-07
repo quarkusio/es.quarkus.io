@@ -16,21 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. This guide is maintained in the main Quarkus repository
-#. and pull requests should be submitted there:
-#. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Dev Services and UI for OpenID Connect (OIDC)"
-msgstr "Servicios de desarrollo e interfaz de usuario para OpenID Connect (OIDC)"
+msgid "Dev Services and Dev UI for OpenID Connect (OIDC)"
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
 msgid ""
-"This guide covers the Dev Services and UI for OpenID Connect (OIDC) Keycloak provider and explains how to support Dev Services and UI for other OpenID Connect providers.\n"
-"It also describes Dev UI for all OpenID Connect providers which have already been started before Quarkus is launched in a dev mode."
-msgstr "Esta guía cubre los Servicios Dev y la UI para el proveedor Keycloak de OpenID Connect (OIDC) y explica cómo soportar los Servicios Dev y la UI para otros proveedores de OpenID Connect. También describe Dev UI para todos los proveedores OpenID Connect que ya han sido iniciados antes de que Quarkus sea lanzado en modo dev."
+"You can use Dev Services for Keycloak and the Dev UI for the OpenID Connect (OIDC) Keycloak provider and adapt these services for other OpenID Connect providers.\n"
+"You can also use the Dev UI with OpenID Connect providers that have already been started before you run Quarkus in development mode."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -39,23 +33,22 @@ msgid "Introduction"
 msgstr "Introducción"
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
 msgid ""
-"Quarkus provides `Dev Services For Keycloak` feature which is enabled by default when the `quarkus-oidc` extension is started in dev mode and when the integration tests are running in test mode, but only when no `quarkus.oidc.auth-server-url` property is configured.\n"
-"It starts a Keycloak container for both the dev and/or test modes and initializes them by registering the existing Keycloak realm or creating a new realm with the client and users for you to start developing your Quarkus application secured by Keycloak immediately. It will restart the container when the `application.properties` or the realm file changes have been detected."
-msgstr "Quarkus proporciona la característica `Dev Services For Keycloak` que se habilita por defecto cuando se inicia la extensión `quarkus-oidc` en modo dev y cuando se ejecutan las pruebas de integración en modo test, pero sólo cuando no se configura ninguna propiedad `quarkus.oidc.auth-server-url` . Inicia un contenedor Keycloak para los modos dev y/o test y los inicializa registrando el reino Keycloak existente o creando un nuevo reino con el cliente y los usuarios para que pueda empezar a desarrollar su aplicación Quarkus asegurada por Keycloak inmediatamente. Reiniciará el contenedor cuando se hayan detectado los cambios en `application.properties` o en el archivo del reino."
+"Quarkus provides the Dev Services for Keycloak feature, which is enabled by default when the `quarkus-oidc` extension is started in dev mode, the integration tests are running in test mode, and when no `quarkus.oidc.auth-server-url` property is configured.\n"
+"The Dev Services for Keycloak feature starts a Keycloak container for both the dev and test modes.\n"
+"It initializes them by registering the existing Keycloak realm or creating a new realm with the client and users required for you to start developing your Quarkus application secured by Keycloak immediately.\n"
+"The container restarts when the `application.properties` or the realm file changes have been detected."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Additionally, xref:dev-ui.adoc[Dev UI] available at http://localhost:8080/q/dev[/q/dev] complements this feature with a Dev UI page which helps to acquire the tokens from Keycloak and test your Quarkus application."
-msgstr "Además,  link:dev-ui.html[Dev UI] disponible en  link:http://localhost:8080/q/dev[/q/dev] complementa esta característica con una página de Dev UI que ayuda a adquirir los tokens de Keycloak y probar su aplicación Quarkus."
+msgid "Additionally, xref:dev-ui.adoc[Dev UI] available at http://localhost:8080/q/dev[/q/dev] complements this feature with a Dev UI page, which helps to acquire the tokens from Keycloak and test your Quarkus application."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If `quarkus.oidc.auth-server-url` is already set then a generic OpenID Connect Dev Console which can be used with all OpenID Connect providers will be activated, please see xref:dev-ui-all-oidc-providers[Dev UI for all OpenID Connect Providers] for more information."
-msgstr "Si `quarkus.oidc.auth-server-url` ya está configurado, se activará una consola de desarrollo genérica de OpenID Connect que se puede utilizar con todos los proveedores de OpenID Connect; para más información, consulte  link:#dev-ui-all-oidc-providers[Interfaz de desarrollo para todos los proveedores de OpenID Connect]."
+msgid ""
+"If `quarkus.oidc.auth-server-url` is already set, then a generic OpenID Connect Dev Console, which can be used with all OpenID Connect providers, is activated.\n"
+"For more information, see xref:dev-ui-all-oidc-providers[Dev UI for all OpenID Connect providers]."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -63,59 +56,50 @@ msgstr "Si `quarkus.oidc.auth-server-url` ya está configurado, se activará una
 msgid "Dev Services for Keycloak"
 msgstr "Servicios de desarrollo para Keycloak"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Start your application without configuring `quarkus.oidc` properties in `application.properties` with:"
-msgstr "Inicie su aplicación sin configurar las propiedades de `quarkus.oidc` en `application.properties` con:"
+msgid "Start your application without configuring `quarkus.oidc` properties in the `application.properties` file:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You will see in the console something similar to:"
-msgstr "Verás en la consola algo parecido a:"
+msgid "The console displays output similar to this:"
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "When logging in the Keycloak admin console, the username is `admin` and the password is `admin`."
-msgstr "Al entrar en la consola de administración de Keycloak, el nombre de usuario es `admin` y la contraseña es `admin`."
+msgid "When logging in to the Keycloak admin console, the username is `admin`, and the password is `admin`."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Note that by default, `Dev Services for Keycloak` will not start a new container if it finds a container with a `quarkus-dev-service-keycloak` label and connect to it if this label's value matches the value of the `quarkus.keycloak.devservices.service-name` property (default value is `quarkus`). In such cases you will see a slightly different output when running:"
-msgstr "Tenga en cuenta que, por defecto, `Dev Services for Keycloak` no iniciará un nuevo contenedor si encuentra un contenedor con una etiqueta `quarkus-dev-service-keycloak` y se conectará a él si el valor de esta etiqueta coincide con el valor de la propiedad `quarkus.keycloak.devservices.service-name` (el valor por defecto es `quarkus`). En estos casos verá una salida ligeramente diferente al ejecutarse:"
+msgid ""
+"Be aware that Dev Services for Keycloak defaults to not initiating a new container if it detects an existing container labeled `quarkus-dev-service-keycloak`.\n"
+"It connects to this container provided the value of the `quarkus.keycloak.devservices.service-name` property matches the label's value (default `quarkus`).\n"
+"In such cases, expect a slightly altered output when you run the following:"
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "It is possible that the Keycloak container does not become ready before the default timeout of 60 seconds. A simple way to overcome the issue is to increase the time out - for example to 2 minutes - using `quarkus.devservices.timeout=2M`."
-msgstr "Es posible que el contenedor Keycloak no esté listo antes del tiempo de espera predeterminado de 60 segundos. Una forma sencilla de solucionar este problema es aumentar el tiempo de espera, por ejemplo a 2 minutos, utilizando `quarkus.devservices.timeout=2M`."
+msgid ""
+"If the Keycloak container is not ready within the default 60-second timeout, you can resolve this by extending the timeout period.\n"
+"For instance, set it to 2 minutes with `quarkus.devservices.timeout=2M`."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Note that you can disable sharing the containers with `quarkus.keycloak.devservices.shared=false`."
-msgstr "Tenga en cuenta que puede desactivar el uso compartido de los contenedores con `quarkus.keycloak.devservices.shared=false`."
+msgid "You can turn off sharing of the containers by specifying `quarkus.keycloak.devservices.shared=false`."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Now open the main link:http://localhost:8080/q/dev[Dev UI page], and you will see the `OpenID Connect Card` linking to a Keycloak page:"
-msgstr "Ahora abra la  link:http://localhost:8080/q/dev[página] principal  link:http://localhost:8080/q/dev[de Dev UI] y verá el enlace `OpenID Connect Card` a una página `Keycloak`:"
+msgid ""
+"Now, open the main link:http://localhost:8080/q/dev[Dev UI page] and observe the *OpenID Connect* card linking to a Keycloak page.\n"
+"For example:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Click on the `Provider: Keycloak` link, and you will see a Keycloak page which will be presented slightly differently depending on how `Dev Services for Keycloak` feature has been configured."
-msgstr "Haga clic en el enlace `Provider: Keycloak` y verá una página de Keycloak que se presentará de forma ligeramente diferente dependiendo de cómo se haya configurado la función `Dev Services for Keycloak`."
+msgid ""
+"Click the *Keycloak provider* link.\n"
+"This action opens a Keycloak page whose appearance varies depending on how the Dev Services for Keycloak feature is configured."
+msgstr ""
 
-#. type: Title ===
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Developing Service Applications"
-msgstr "Desarrollo de aplicaciones de servicios"
+msgid "Developing service applications"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -123,47 +107,43 @@ msgstr "Desarrollo de aplicaciones de servicios"
 msgid "By default, the Keycloak page can be used to support the development of a xref:security-oidc-bearer-token-authentication.adoc[Quarkus OIDC service application]."
 msgstr "Por defecto, la página de Keycloak puede ser utilizada para apoyar el desarrollo de una  link:security-openid-connect.html[aplicación de servicio OIDC de Quarkus]."
 
-#. type: Title ====
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Authorization Code Grant"
-msgstr "Código de Autorización Subvención"
+msgid "Authorization code grant"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you set `quarkus.oidc.devui.grant.type=code` in `application.properties` (this is a default value) then an `authorization_code` grant will be used to acquire both access and ID tokens. Using this grant is recommended to emulate a typical flow where a `Single Page Application` acquires the tokens and uses them to access Quarkus services."
-msgstr "Si se establece `quarkus.oidc.devui.grant.type=code` en `application.properties` (este es un valor por defecto) entonces se utilizará una concesión `authorization_code` para adquirir tanto los tokens de acceso como los de identificación. Se recomienda utilizar esta concesión para emular un flujo típico en el que un `Single Page Application` adquiere los tokens y los utiliza para acceder a los servicios de Quarkus."
+msgid ""
+"If you set `quarkus.oidc.devui.grant.type=code` in the `application.properties` file (this is a default value), then an `authorization_code` grant is used to acquire both access and ID tokens.\n"
+"Using this grant is recommended to emulate a typical flow where a single page application (SPA) acquires the tokens and uses them to access Quarkus services."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "First you will see an option to `Log into Single Page Application`:"
-msgstr "Primero verá una opción para `Log into Single Page Application`:"
+msgid ""
+"First, you see an option to *Log into Single Page Application*.\n"
+"For example:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Choose Keycloak realm and client id which will be used during the authentication process."
-msgstr "Elija el dominio de Keycloak y el ID de cliente que se utilizará durante el proceso de autenticación."
+msgid "Choose the Keycloak realm and client ID to use during the authentication process."
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "This SPA represents a public OpenId Connect client therefore the client IDs you enter should identify public Keycloak clients which have no secrets. This is because SPA is not a web application and can not securely handle secrets which it will need to complete the authorization code flow if the client secret is also expected to complete the authorization code flow."
-msgstr "Este SPA representa un cliente público de OpenId Connect, por lo que los ID de cliente que introduzca deben identificar a los clientes públicos de Keycloak que no tienen secretos. Esto se debe a que SPA no es una aplicación web y no puede manejar de forma segura los secretos que necesitará para completar el flujo de código de autorización si se espera que el secreto del cliente también complete el flujo de código de autorización."
+msgid ""
+"This SPA represents a public OpenID Connect client; therefore, the client IDs you enter must identify public Keycloak clients that have no secrets.\n"
+"This is because SPA is not a web application and cannot securely handle the secrets it needs to complete the authorization code flow if the client secret is also expected to complete the authorization code flow."
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "The clients requiring secrets can only be supported with this SPA if a default realm has been created or if `quarkus.oidc.credentials.secret` is configued and a single custom realm is used since in these cases the SPA can figure out the client secret it may need to complete the authorization code flow after Keycloak redorected the user back to it."
-msgstr "Los clientes que requieren secretos sólo pueden ser soportados con este SPA si se ha creado un reino por defecto o si se configura `quarkus.oidc.credentials.secret` y se utiliza un único reino personalizado, ya que en estos casos el SPA puede averiguar el secreto del cliente que puede necesitar para completar el flujo de código de autorización después de que Keycloak haya redirigido al usuario hacia él."
+msgid ""
+"The clients requiring secrets can only be supported with this SPA if a default realm has been created or if `quarkus.oidc.credentials.secret` is configured and a single custom realm is used.\n"
+"In both cases, the SPA can figure out the client secret it might need to complete the authorization code flow after Keycloak redirects the user back to it."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Next, after selecting `Log into Single Page Application`, you will be redirected to Keycloak to authenticate, example, as `alice:alice` and then returned to the page representing the SPA:"
-msgstr "A continuación, tras seleccionar esta opción, se le redirigirá a Keycloak para que se autentique, por ejemplo, como `alice:alice` y luego se le devolverá a la página que representa el SPA:"
+msgid ""
+"Next, after selecting *Log into Single Page Application*, you are redirected to Keycloak to authenticate, for example, as `alice:alice`.\n"
+"Then, you are returned to the page representing the SPA:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -171,53 +151,50 @@ msgstr "A continuación, tras seleccionar esta opción, se le redirigirá a Keyc
 msgid "You can view the acquired access and ID tokens, for example:"
 msgstr "Puede ver los tokens de acceso e identificación adquiridos, por ejemplo:"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "This view shows the encoded JWT token on the left-hand side and highlights the headers (red colour), payload/claims (green colour) and signature (blue colour). It also shows the decoded JWT token on the right-hand side where you can see the header and claim names and their values."
-msgstr "Esta vista muestra el token JWT codificado en la parte izquierda y destaca las cabeceras (color rojo), la carga útil/reclamaciones (color verde) y la firma (color azul). También muestra el token JWT descodificado en la parte derecha, donde se pueden ver los nombres de las cabeceras y las reclamaciones y sus valores."
+msgid ""
+"This view shows the encoded JSON Web Token (JWT) token on the left side and highlights the headers in red, payload or claims in green, and signature in blue.\n"
+"It also shows the decoded JWT token on the right side, where you can see the header, claim names, and their values."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Next test the service by entering a relative service path and sending a token. SPA usually sends access tokens to the application endpoint, so choose `Test with Access Token` option, for example:"
-msgstr "A continuación, pruebe el servicio introduciendo una ruta de servicio relativa y enviando un token. SPA suele enviar tokens de acceso al endpoint de la aplicación, así que elige la opción `Test with Access Token`, por ejemplo:"
+msgid ""
+"Next, test the service by entering a relative service path and sending a token.\n"
+"SPA usually sends access tokens to the application endpoint, so choose the *With Access Token* option, for example:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You can use an `eraser` symbol in the right bottom corner to clear the test results area."
-msgstr "Puede utilizar un símbolo `eraser` en la esquina inferior derecha para borrar el área de resultados de la prueba."
+msgid "To clear the test results area, use the eraser icon in the lower right corner."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Sometimes ID tokens are forwarded to the application frontends as bearer tokens as well for the endpoints be aware about the user who is currently logged into SPA or to perform an out-of-band token verification. Choose `Test with ID Token` option in such cases."
-msgstr "A veces, los tokens de identificación se envían a los frontales de la aplicación como tokens de portador para que los puntos finales sepan quién es el usuario que ha iniciado sesión en SPA o para realizar una verificación de tokens fuera de banda. Elija la opción `Test with ID Token` en estos casos."
+msgid ""
+"Sometimes, ID tokens are forwarded to application frontends as bearer tokens.\n"
+"This helps endpoints identify the user logged into SPA or perform out-of-band token verification.\n"
+"Choose the *With ID Token* option in such cases."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Manually entering the service paths is not ideal, so please see the xref:test-with-swagger-graphql[Test with Swagger UI or GraphQL UI] section about enabling Swagger or GraphQL UI for testing the service with the access token already acquired by OIDC Dev UI."
-msgstr "Introducir manualmente las rutas del servicio no es lo ideal, así que por favor vea la sección  link:#test-with-swagger-graphql[Prueba con Swagger UI o GraphQL UI] sobre la habilitación de Swagger o GraphQL UI para probar el servicio con el token de acceso ya adquirido por OIDC Dev UI."
+msgid ""
+"Manually entering the service paths is not ideal.\n"
+"For information about enabling Swagger or GraphQL UI for testing the service with the access token already acquired by the OIDC Dev UI, see the xref:test-with-swagger-graphql[Test with Swagger UI or GraphQL UI] section."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Finally, you can select a `Log Out` image::dev-ui-keycloak-logout.png option if you'd like to log out and authenticate to Keycloak as a different user."
-msgstr "Por último, puede seleccionar la opción `Log Out` image::dev-ui-keycloak-logout.png si desea cerrar la sesión y autenticarse en Keycloak como un usuario diferente."
+msgid "Finally, you can click *Log Out* image::dev-ui-keycloak-logout.png[alt=Dev UI Keycloak - Log Out,role=\"center\"] so you can authenticate to Keycloak as a different user."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Note Keycloak may return an error when you try to `Log into Single Page Application`. For example, `quarkus.oidc.client-id` may not match the client id in the realm imported to Keycloak or the client in this realm is not configured correctly to support the authorization code flow, etc. In such cases Keycloak will return an `error_description` query parameter and `Dev UI` will also show this error description, for example:"
-msgstr "Nota Keycloak puede devolver un error cuando intente `Log into Single Page Application`. Por ejemplo, `quarkus.oidc.client-id` puede no coincidir con el id del cliente en el reino importado a Keycloak o el cliente en este reino no está configurado correctamente para soportar el flujo de código de autorización, etc. En estos casos Keycloak devolverá un parámetro de consulta `error_description` y `Dev UI` también mostrará esta descripción de error, por ejemplo:"
+msgid ""
+"Keycloak might return an error when you try to *Log into Single Page Application*.\n"
+"For example, `quarkus.oidc.client-id` might not match the client ID in the realm imported to Keycloak, or the client in this realm might not be configured correctly to support the authorization code flow.\n"
+"In such cases, Keycloak returns an `error_description` query parameter, and the Dev UI also shows this error description.\n"
+"For example:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If the error occurs then log into Keycloak using the `Keycloak Admin` option and update the realm configuration as necessary and also check the `application.properties`."
-msgstr "Si se produce el error, inicie sesión en Keycloak utilizando la opción `Keycloak Admin` y actualice la configuración del reino según sea necesario y también compruebe el `application.properties`."
+msgid "If the error occurs, log in to Keycloak by using the *Keycloak Admin* option, update the realm configuration as necessary, and check the `application.properties`."
+msgstr ""
 
 #. type: Title =====
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -225,176 +202,143 @@ msgstr "Si se produce el error, inicie sesión en Keycloak utilizando la opción
 msgid "Test with Swagger UI or GraphQL UI"
 msgstr "Pruebas con Swagger UI o GrapghQL UI"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You can avoid manually entering the service paths and test your service with `Swagger UI` or `GraphQL UI` if `quarkus-smallrye-openapi` and/or `quarkus-smallrye-graphql` are used in your project. For example, if you start Quarkus in dev mode with both `quarkus-smallrye-openapi` and `quarkus-smallrye-graphql` dependencies then you will see the following options after logging in into Keycloak:"
-msgstr "Puedes evitar introducir manualmente las rutas de servicio y probar tu servicio con `Swagger UI` o `GraphQL UI` si `quarkus-smallrye-openapi` y/o `quarkus-smallrye-graphql` se utilizan en tu proyecto. Por ejemplo, si inicias Quarkus en modo dev con las dependencias `quarkus-smallrye-openapi` y `quarkus-smallrye-graphql` entonces verás las siguientes opciones después de iniciar sesión en Keycloak:"
-
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
 msgid ""
-"For example, clicking on `Swagger UI` will open `Swagger UI` in a new browser tab where you can test the service using the token acquired by Dev UI for Keycloak.\n"
-"and `Swagger UI` will not try to re-authenticate again. Do not choose a `Swagger UI` `Authorize` option once you are in Swagger UI since OIDC Dev UI has done the authorization and provided the access token for Swagger UI to use for testing."
-msgstr "Por ejemplo, si hace clic en `Swagger UI` se abrirá `Swagger UI` en una nueva pestaña del navegador donde podrá probar el servicio utilizando el token adquirido por Dev UI para Keycloak. y `Swagger UI` no intentará volver a autenticarse. No elija la opción `Swagger UI` `Authorize` una vez que esté en Swagger UI ya que OIDC Dev UI ha realizado la autorización y ha proporcionado el token de acceso para que Swagger UI lo utilice para las pruebas."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Integration with `GraphQL UI` works in a similar way, the access token acquired by Dev UI for Keycloak will be used."
-msgstr "La integración con `GraphQL UI` funciona de forma similar, se utilizará el token de acceso adquirido por Dev UI para Keycloak."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You may need to register a redirect URI for the authorization code flow initiated by Dev UI for Keycloak to work because Keycloak may enforce that the authenticated users are redirected only to the configured redirect URI. It is recommended to do in production to avoid the users being redirected to the wrong endpoints which might happen if the correct `redirect_uri` parameter in the authentication request URI has been manipulated."
-msgstr "Puede ser necesario registrar un URI de redirección para el flujo de código de autorización iniciado por Dev UI para que Keycloak funcione porque Keycloak puede imponer que los usuarios autenticados sean redirigidos sólo al URI de redirección configurado. Se recomienda hacerlo en producción para evitar que los usuarios sean redirigidos a puntos finales erróneos, lo que podría ocurrir si el parámetro correcto `redirect_uri` en la URI de solicitud de autenticación ha sido manipulado."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If Keycloak does enforce it then you will see an authentication error informing you that the `redirect_uri` value is wrong."
-msgstr "Si Keycloak lo aplica, verá un error de autenticación informando que el valor de `redirect_uri` es incorrecto."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "In this case select the `Keycloak Admin` option in the right top corner, login as `admin:admin`, select the test realm and the client which Dev UI for Keycloak is configured with and add `http://localhost:8080/q/dev-ui/io.quarkus.quarkus-oidc/keycloak-provider` to `Valid Redirect URIs`. If you used `-Dquarkus.http.port` when starting Quarkus then change `8080` to the value of `quarkus.http.port`"
-msgstr "En este caso, seleccione la opción `Keycloak Admin` en la esquina superior derecha, inicie sesión como `admin:admin`, seleccione el reino de prueba y el cliente con el que está configurado Dev UI para Keycloak y añada `&lt;a href=\"http://localhost:8080/q/dev/io.quarkus.quarkus-oidc/provider\" class=\"bare\"&gt;http://localhost:8080/q/dev/io.quarkus.quarkus-oidc/provider&lt;/a&gt;` a `Valid Redirect URIs`. Si usaste `-Dquarkus.http.port` al iniciar Quarkus entonces cambia `8080` al valor de `quarkus.http.port`."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If the container is shared between multiple applications running on different ports then you will need to register `redirect_uri` values for each of these applications."
-msgstr "Si el contenedor se comparte entre varias aplicaciones que se ejecutan en diferentes puertos, entonces tendrá que registrar los valores de `redirect_uri` para cada una de estas aplicaciones."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You can set the `redirect_uri` value to `*` only for the test purposes, especially when the containers are shared between multiple applications."
-msgstr "Puede establecer el valor de `redirect_uri` en `*` sólo para las pruebas, especialmente cuando los contenedores se comparten entre varias aplicaciones."
-
-#. type: delimited block =
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "`*` `redirect_uri` value is set by `Dev Services for Keycloak` when it creates a default realm, if no custom realm is imported."
-msgstr "`*` `redirect_uri` es establecido por `Dev Services for Keycloak` cuando crea un dominio por defecto, si no se importa un dominio personalizado."
-
-#. type: Title ====
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Implicit Grant"
-msgstr "Subvención implícita"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you set `quarkus.oidc.devui.grant.type=implicit` in `application.properties` then an `implicit` grant will be used to acquire both access and ID tokens. Use this grant for emulating a `Single Page Application` only if the authorization code grant does not work (for example, a client is configured in Keycloak to support an implicit grant, etc)."
-msgstr "Si se establece `quarkus.oidc.devui.grant.type=implicit` en `application.properties` entonces se utilizará una concesión `implicit` para adquirir tanto los tokens de acceso como los de identificación. Utilice esta concesión para emular un `Single Page Application` sólo si la concesión del código de autorización no funciona (por ejemplo, un cliente está configurado en Keycloak para soportar una concesión implícita, etc)."
-
-#. type: Title ====
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Password Grant"
-msgstr "Concesión de la contraseña"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you set `quarkus.oidc.devui.grant.type=password` in `application.properties` then you will see a screen like this one:"
-msgstr "Si se configura `quarkus.oidc.devui.grant.type=password` en `application.properties` se verá una pantalla como ésta:"
+"You can avoid manually entering the service paths and test your service with Swagger UI or GraphQL UI if `quarkus-smallrye-openapi` or `quarkus-smallrye-graphql` are used in your project.\n"
+"For example, start Quarkus in dev mode with both `quarkus-smallrye-openapi` and `quarkus-smallrye-graphql` dependencies.\n"
+"You can see the following options after logging in to Keycloak:"
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
 msgid ""
-"Select a realm, enter client id and secret, username amd user password, a relative service endpoint path, click on `Test Service` and you will see a status code such as `200`, `403`, `401` or `404` printed.\n"
-"If the username is also set in `quarkus.keycloak.devservices.users` map property containing usernames and passwords then you do not have to set a password when testing the service.\n"
-"But note, you do not have to initialize `quarkus.keycloak.devservices.users` to test the service using the password grant."
-msgstr "Seleccione un dominio, introduzca el id y el secreto del cliente, el nombre de usuario y la contraseña del usuario, una ruta relativa del punto final del servicio, haga clic en `Test Service` y verá impreso un código de estado como `200` , `403` , `401` o `404` . Si el nombre de usuario también se establece en `quarkus.keycloak.devservices.users` propiedad del mapa que contiene los nombres de usuario y contraseñas, entonces usted no tiene que establecer una contraseña al probar el servicio. Pero tenga en cuenta que no tiene que inicializar `quarkus.keycloak.devservices.users` para probar el servicio utilizando la concesión de contraseña."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You will also see in the Dev UI console something similar to:"
-msgstr "También verás en la consola Dev UI algo similar a:"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "A token is acquired from Keycloak using a `password` grant and is sent to the service endpoint."
-msgstr "Se adquiere un token de Keycloak utilizando una concesión de `password` y se envía al punto final del servicio."
-
-#. type: Title ====
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Client Credentials Grant"
-msgstr "Subvención de las credenciales de los clientes"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you set `quarkus.oidc.devui.grant.type=client` then a `client_credentials` grant will be used to acquire a token, with the page showing no `User` field in this case:"
-msgstr "Si se establece `quarkus.oidc.devui.grant.type=client`, se utilizará una subvención de `client_credentials` para adquirir un token, y la página no mostrará el campo `User` en este caso:"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Select a realm, enter the client id and secret, a relative service endpoint path, click on `Test Service` and you will see a status code such as `200`, `403`, `401` or `404` printed."
-msgstr "Seleccione un reino, introduzca el id y el secreto del cliente, una ruta relativa del punto final del servicio, haga clic en `Test Service` y verá impreso un código de estado como `200`, `403`, `401` o `404`."
-
-#. type: Title ===
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Developing OpenID Connect Web App Applications"
-msgstr "Desarrollo de aplicaciones web de OpenID Connect"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you develop a xref:security-oidc-code-flow-authentication.adoc[Quarkus OIDC web-app application], then you should set `quarkus.oidc.application-type=web-app` in `application.properties` before starting the application."
-msgstr "Si usted desarrolla una  link:security-openid-connect-web-authentication.html[aplicación web-app de Quarkus OIDC], entonces debe establecer `quarkus.oidc.application-type=web-app` en `application.properties` antes de iniciar la aplicación."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You will see a screen like this one:"
-msgstr "Verás una pantalla como ésta:"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Set a relative service endpoint path, click on `Sign In To Service` and you will be redirected to Keycloak to enter a username and password in a new browser tab and get a response from the Quarkus application."
-msgstr "Establezca una ruta relativa del punto final del servicio, haga clic en `Sign In To Service` y será redirigido a Keycloak para introducir un nombre de usuario y una contraseña en una nueva pestaña del navegador y obtener una respuesta de la aplicación Quarkus."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Note that in this case Dev UI does not really enrich a dev experience since it is a Quarkus OIDC `web-app` application which controls the authorization code flow and acquires the tokens."
-msgstr "Tenga en cuenta que en este caso Dev UI no enriquece realmente una experiencia de desarrollo ya que es una aplicación Quarkus OIDC `web-app` que controla el flujo de código de autorización y adquiere los tokens."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "To make Dev UI more useful for supporting the development of OIDC `web-app` applications you may want to consider setting profile specific values for `quarkus.oidc.application-type`:"
-msgstr "Para que Dev UI sea más útil para apoyar el desarrollo de aplicaciones OIDC `web-app` puede considerar la posibilidad de establecer valores específicos del perfil para `quarkus.oidc.application-type`:"
+"For example, clicking *Swagger UI* opens the Swagger UI in a new browser tab where you can test the service by using the token acquired by Dev UI for Keycloak.\n"
+"The Swagger UI does not try to re-authenticate again.\n"
+"In the Swagger UI, do not choose a Swagger UI `Authorize` option; the OIDC Dev UI has authorized and provided the access token for Swagger UI to use for testing."
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
+msgid "Integration with GraphQL UI works similarly; the access token acquired by Dev UI for Keycloak is used."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
 msgid ""
-"It will ensure that all Dev UI options described in xref:develop-service-applications[Developing OpenID Connect Service Applications] will be available when your `web-app` application is run in dev mode. The limitation of this approach is that both access and ID tokens returned with the code flow and acquired with Dev UI will be sent to the endpoint as HTTP `Bearer` tokens - which will not work well if your endpoint requires the injection of `IdToken`.\n"
-"However, it will work as expected if your `web-app` application only uses the access token, for example, as a source of roles or to get `UserInfo`, even if it is assumed to be a `service` application in dev mode."
-msgstr "Garantizará que todas las opciones de Dev UI descritas en xref:develop-service-applications[Desarrollo de aplicaciones del servicio OpenID] Connect estén disponibles cuando su aplicación `web-app` se ejecute en modo dev. La limitación de este enfoque es que tanto los tokens de acceso como los de ID devueltos con el flujo de código y adquiridos con Dev UI se enviarán al endpoint como tokens HTTP `Bearer` - lo que no funcionará bien si su endpoint requiere la inyección de `IdToken` . Sin embargo, funcionará como se espera si su aplicación `web-app` sólo utiliza el token de acceso, por ejemplo, como fuente de roles o para obtener `UserInfo` , incluso si se supone que es una aplicación `service` en modo dev."
+"You might need to register a redirect URI for the authorization code flow initiated by Dev UI for Keycloak to work.\n"
+"This is because Keycloak might enforce that the authenticated users are redirected only to the configured redirect URI.\n"
+"It is recommended to do this in production to avoid the users being redirected to the wrong endpoints, which might happen if the correct `redirect_uri` parameter in the authentication request URI has been manipulated."
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Even a better option is to use a `hybrid` application type in dev mode:"
-msgstr "Incluso una opción mejor es utilizar un tipo de aplicación `hybrid` en modo dev:"
+msgid "If Keycloak enforces it, you see an authentication error informing you that the `redirect_uri` value is wrong."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "It will ensure that if you access the application from the browser in dev mode, without using OIDC DevUI, then Quarkus OIDC will also perform the authorization code flow as in the production mode. But OIDC DevUI will also be more useful because `hybrid` applications can accept the bearer access tokens as well."
-msgstr "Esto asegurará que si se accede a la aplicación desde el navegador en modo dev, sin usar OIDC DevUI, entonces Quarkus OIDC también realizará el flujo de código de autorización como en el modo de producción. Pero OIDC DevUI también será más útil porque las aplicaciones de `hybrid` pueden aceptar los tokens de acceso del portador también."
+msgid ""
+"In this case, select the *Keycloak Admin* option in the top right corner, login as `admin:admin`, select the test realm and the client which Dev UI for Keycloak is configured with, and add `http://localhost:8080/q/dev-ui/io.quarkus.quarkus-oidc/keycloak-provider` to `Valid Redirect URIs`.\n"
+"If you used `-Dquarkus.http.port` when starting Quarkus, then change `8080` to the value of `quarkus.http.port`"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "If the container is shared between multiple applications running on different ports, you must register `redirect_uri` values for each application."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "You can set the `redirect_uri` value to `*` only for test purposes, especially when the containers are shared between multiple applications."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "If no custom realm is imported, Dev Services for Keycloak sets the `redirect_uri` value to `*` when it creates a default realm."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Implicit grant"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"If you set `quarkus.oidc.devui.grant.type=implicit` in the `application.properties` file, then an `implicit` grant is used to acquire both access and ID tokens.\n"
+"Use this grant to emulate a single page application only if the authorization code grant does not work; for example, when a client is configured in Keycloak to support an implicit grant."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Password grant"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "If you set `quarkus.oidc.devui.grant.type=password` in the `application.properties` file, then you see a screen similar to this one:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"Select a realm, enter a client ID and secret, user name and password, a relative service endpoint path, and click *Test service*.\n"
+"It returns a status code, such as `200`, `403`, `401`, or `404`.\n"
+"If the username is also set in the `quarkus.keycloak.devservices.users` map property containing usernames and passwords, then you do not have to set a password when testing the service.\n"
+"Be aware that you do not have to initialize `quarkus.keycloak.devservices.users` to test the service by using the `password` grant."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "In the Dev UI console, you can also see output similar to the following:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "A token is acquired from Keycloak by using a `password` grant and is sent to the service endpoint."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Client credentials grant"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "If you set `quarkus.oidc.devui.grant.type=client`, then a `client_credentials` grant is used to acquire a token, with the page showing no *User* field in this case:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"Select a realm, enter the client ID and secret, a relative service endpoint path, and click *Test service*.\n"
+"It returns a status code, such as `200`, `403`, `401`, or `404`."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Developing OpenID Connect web-app applications"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "To develop a xref:security-oidc-code-flow-authentication.adoc[Quarkus OIDC web application], set `quarkus.oidc.application-type=web-app` in the `application.properties` file before starting the application."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Starting the application displays a screen similar to this one:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"Set a relative service endpoint path and click *Log in to your web application*.\n"
+"You are redirected to Keycloak to enter a username and password in a new browser tab before you get a response from the Quarkus application."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "In this case, the Dev UI is not very helpful because the Quarkus OIDC `web-app` application controls the authorization code flow and acquires the tokens."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "To make Dev UI more helpful in supporting the development of OIDC `web-app` applications, consider setting profile-specific values for `quarkus.oidc.application-type`:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"This profile ensures that all Dev UI options described in xref:develop-service-applications[Developing service applications] are available when your `web-app` application is run in dev mode.\n"
+"The limitation of this approach is that both access and ID tokens returned with the code flow and acquired with Dev UI are sent to the endpoint as HTTP `Bearer` tokens - which does not work well if your endpoint requires the injection of `IdToken`.\n"
+"However, it works as expected if your `web-app` application only uses the access token, for example, as a source of roles or to get `UserInfo`, even if it is assumed to be a `service` application in dev mode."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "For dev mode, an even better option is to set the `application-type` property to `hybrid`:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"This type ensures that if you access the application from the browser in dev mode without the OIDC Dev UI, Quarkus OIDC also performs the authorization code flow as in the production mode.\n"
+"The OIDC Dev UI is also more beneficial because hybrid applications can also accept the bearer access tokens."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -409,43 +353,34 @@ msgid "You can run the tests against a Keycloak container started in a test mode
 msgstr "Puede ejecutar las pruebas contra un contenedor Keycloak iniciado en modo de prueba en modo de  link:continuous-testing.html[prueba continua]."
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
 msgid ""
-"It is also recommended to run the integration tests against Keycloak using `Dev Services for Keycloak`.\n"
-"For more information, see xref:security-oidc-bearer-token-authentication.adoc#integration-testing-keycloak-devservices[Testing OpenID onnect Service Applications with Dev Services] and xref:security-oidc-code-flow-authentication.adoc#integration-testing-keycloak-devservices[Testing OpenID Connect WebApp Applications with Dev Services]."
-msgstr "También se recomienda ejecutar las pruebas de integración contra Keycloak utilizando `Dev Services for Keycloak` . Para más información, consulte Pruebas xref:security-oidc-code-flow-authentication.adoc#integration-testing-keycloak-devservices[de aplicaciones] de xref:security-oidc-bearer-token-authentication.adoc#integration-testing-keycloak-devservices[servicio OpenID onnect] xref:security-oidc-code-flow-authentication.adoc#integration-testing-keycloak-devservices[con Dev] Services y xref:security-oidc-code-flow-authentication.adoc#integration-testing-keycloak-devservices[Pruebas de aplicaciones WebApp OpenID Connect con Dev Services] ."
-
-#. type: Title ===
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Keycloak Initialization"
-msgstr "Inicialización de Keycloak"
+"It is also recommended to run the integration tests against Keycloak by using Dev Services for Keycloak.\n"
+"For more information, see xref:security-oidc-bearer-token-authentication.adoc#integration-testing-keycloak-devservices[Testing OpenID Connect Service Applications with Dev Services] and xref:security-oidc-code-flow-authentication.adoc#integration-testing-keycloak-devservices[Testing OpenID Connect WebApp Applications with Dev Services]."
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
+msgid "Keycloak initialization"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
 msgid ""
-"The `quay.io/keycloak/keycloak:23.0.1` image which contains a Keycloak distribution powered by Quarkus is used to start a container by default.\n"
-"`quarkus.keycloak.devservices.image-name` can be used to change the Keycloak image name. For example, set it to `quay.io/keycloak/keycloak:19.0.3-legacy` to use a Keycloak distribution powered by WildFly.\n"
-"Note that only a Quarkus based Keycloak distribution is available starting from Keycloak `20.0.0`."
-msgstr "La imagen `quay.io/keycloak/keycloak:23.0.1` , que contiene una distribución Keycloak impulsada por Quarkus, se utiliza para iniciar un contenedor por defecto. `quarkus.keycloak.devservices.image-name` puede utilizarse para cambiar el nombre de la imagen Keycloak. Por ejemplo, ajústelo a `quay.io/keycloak/keycloak:19.0.3-legacy` para utilizar una distribución Keycloak impulsada por WildFly. Tenga en cuenta que sólo está disponible una distribución Keycloak basada en Quarkus a partir de Keycloak `20.0.0` ."
+"The `quay.io/keycloak/keycloak:23.0.3` image which contains a Keycloak distribution powered by Quarkus is used to start a container by default.\n"
+"`quarkus.keycloak.devservices.image-name` can be used to change the Keycloak image name.\n"
+"For example, set it to `quay.io/keycloak/keycloak:19.0.3-legacy` to use a Keycloak distribution powered by WildFly.\n"
+"Be aware that a Quarkus-based Keycloak distribution is only available starting from Keycloak `20.0.0`."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "`Dev Services for Keycloak` will initialize a launched Keycloak server next."
-msgstr "`Dev Services for Keycloak` inicializará un servidor Keycloak lanzado a continuación."
+msgid "Dev Services for Keycloak initializes a launched Keycloak server next."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "By default, the `quarkus`, `quarkus-app` client with a `secret` password, `alice` and `bob` users (with the passwords matching the names), and `user` and `admin` roles are created, with `alice` given both `admin` and `user` roles and `bob` - the `user` role."
-msgstr "Por defecto, se crea el cliente `quarkus`, `quarkus-app` con una contraseña `secret`, los usuarios `alice` y `bob` (con las contraseñas que coinciden con los nombres), y los roles `user` y `admin`, con `alice` que recibe los roles `admin` y `user` y `bob` - el rol `user`."
+msgid "By default, the `quarkus` and `quarkus-app` client with a `secret` password, `alice` and `bob` users (with the passwords matching the names), and `user` and `admin` roles are created, with `alice` given both `admin` and `user` roles and `bob` - the `user` role."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Usernames, secrets and their roles can be customized with `quarkus.keycloak.devservices.users` (the map which contains usernames and secrets) and `quarkus.keycloak.devservices.roles` (the map which contains usernames and comma separated role values)."
-msgstr "Los nombres de usuario, los secretos y sus roles se pueden personalizar con `quarkus.keycloak.devservices.users` (el mapa que contiene los nombres de usuario y los secretos) y `quarkus.keycloak.devservices.roles` (el mapa que contiene los nombres de usuario y los valores de los roles separados por comas)."
+msgid "Usernames, secrets, and their roles can be customized with `quarkus.keycloak.devservices.users` (the map which contains usernames and secrets) and `quarkus.keycloak.devservices.roles` (the map which contains usernames and comma-separated role values)."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -461,23 +396,19 @@ msgid ""
 " * `john` with a `johnPassword` password and `reader` and `writer` roles"
 msgstr "Esta configuración crea dos usuarios: * `duke` con una contraseña `dukePassword` y un rol `reader` * `john` con una contraseña `johnPassword` y roles `reader` y `writer`"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "`quarkus.oidc.client-id` and `quarkus.oidc.credentials.secret` can be used to customize the client id and secret."
-msgstr "`quarkus.oidc.client-id` y `quarkus.oidc.credentials.secret` se pueden utilizar para personalizar el id y el secreto del cliente."
+msgid "To customize the client ID and secret, you can use the `quarkus.oidc.client-id` and `quarkus.oidc.credentials.secret` properties."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "However, it is likely your Keycloak configuration may be more complex and require setting more properties."
-msgstr "Sin embargo, es probable que la configuración de su Keycloak sea más compleja y requiera establecer más propiedades."
+msgid "However, it is likely that your Keycloak configuration is more complex and requires setting more properties."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "This is why `quarkus.keycloak.devservices.realm-path` is always checked first before trying to initialize Keycloak with the default or configured realm, client, user and roles properties. If the realm file exists on the file system or classpath then only this realm will be used to initialize Keycloak, for example:"
-msgstr "Por ello, siempre se comprueba primero `quarkus.keycloak.devservices.realm-path` antes de intentar inicializar Keycloak con las propiedades de reino, cliente, usuario y roles configurados o por defecto. Si el archivo de dominio existe en el sistema de archivos o en el classpath, entonces sólo se utilizará este dominio para inicializar Keycloak."
+msgid ""
+"This is why `quarkus.keycloak.devservices.realm-path` is always checked before initializing Keycloak with the default or configured realm, client, user, and roles properties.\n"
+"If the realm file exists on the file system or classpath, then only this realm is used to initialize Keycloak, for example:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -490,17 +421,29 @@ msgstr "Puede utilizar `quarkus.keycloak.devservices.realm-path` para inicializa
 msgid "quarkus.keycloak.devservices.realm-path=quarkus-realm1.json,quarkus-realm2.json"
 msgstr "quarkus.keycloak.devservices.realm-path=quarkus-realm1.json,quarkus-realm2.json"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Also, the Keycloak page offers an option to `Sign In To Keycloak To Configure Realms` using a `Keycloak Admin` option in the right top corner:"
-msgstr "También la página de Keycloak ofrece una opción para `Sign In To Keycloak To Configure Realms` usando una opción de `Keycloak Admin` en la esquina superior derecha:"
+msgid "Also, the Keycloak page offers an option to `Sign In To Keycloak To Configure Realms` by using a *Keycloak Admin* option in the right top corner:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Sign in to Keycloak as `admin:admin` in order to further customize the realm properties, create or import a new realm, export the realm."
-msgstr "Inicie sesión en Keycloak como `admin:admin` para personalizar aún más las propiedades del reino, crear o importar un nuevo reino, exportar el reino."
+msgid "Sign in to Keycloak as `admin:admin` to further customize the realm properties, create or import a new realm, or export the realm."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"You can also copy classpath and file system resources to the container.\n"
+"For example, if your application configures Keycloak authorization with link:https://www.keycloak.org/docs/latest/authorization_services/index.html#_policy_js[JavaScript policies] that are deployed to Keycloak in a jar file, then you can configure `Dev Services for Keycloak` to copy this jar to the Keycloak container as follows:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "`policies` alias is created for the classpath `/policies.jar` resource."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid ""
+"Policy jars can also be located in the file system.\n"
+"<2> The policies jar is mapped to the `/opt/keycloak/providers/policies.jar` container location."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -508,48 +451,47 @@ msgstr "Inicie sesión en Keycloak como `admin:admin` para personalizar aún má
 msgid "Disable Dev Services for Keycloak"
 msgstr "Desactivar los servicios de desarrollo para Keycloak"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "`Dev Services For Keycloak` will not be activated if either `quarkus.oidc.auth-server-url` is already initialized or the default OIDC tenant is disabled with `quarkus.oidc.tenant.enabled=false`, irrespectively of whether you work with Keycloak or not."
-msgstr "`Dev Services For Keycloak` no se activará si `quarkus.oidc.auth-server-url` ya está inicializado o si el inquilino OIDC por defecto está desactivado con `quarkus.oidc.tenant.enabled=false`, independientemente de si se trabaja con Keycloak o no."
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you prefer not to have a `Dev Services for Keycloak` container started or do not work with Keycloak then you can also disable this feature with `quarkus.keycloak.devservices.enabled=false` - it will only be necessary if you expect to start `quarkus:dev` without `quarkus.oidc.auth-server-url`."
-msgstr "Si prefiere no tener un contenedor `Dev Services for Keycloak` iniciado o no trabaja con Keycloak, también puede desactivar esta función con `quarkus.keycloak.devservices.enabled=false` - sólo será necesario si espera iniciar `quarkus:dev` sin `quarkus.oidc.auth-server-url`."
+msgid "Dev Services for Keycloak is not activated if either `quarkus.oidc.auth-server-url` is already initialized or the default OIDC tenant is disabled with `quarkus.oidc.tenant.enabled=false`, regardless of whether you work with Keycloak or not."
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
+msgid "If you prefer not to have a Dev Services for Keycloak container started or do not work with Keycloak, then you can also disable this feature with `quarkus.keycloak.devservices.enabled=false` - it is only necessary if you expect to start `quarkus:dev` without `quarkus.oidc.auth-server-url`."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "The main Dev UI page includes an empty *OpenID Connect* card when Dev Services for Keycloak is disabled and the `quarkus.oidc.auth-server-url` property has not been initialized:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
 msgid ""
-"The main Dev UI page will include an empty `OpenID Connect Card` when `Dev Services for Keycloak` is disabled and the `quarkus.oidc.auth-server-url` property\n"
-"has not been initialized:"
-msgstr "La página principal de Dev UI incluirá un `OpenID Connect Card` vacío cuando `Dev Services for Keycloak` esté desactivado y no se haya inicializado la propiedad `quarkus.oidc.auth-server-url` :"
+"If `quarkus.oidc.auth-server-url` is already set, then a generic OpenID Connect Dev Console, which can be used with all OpenID Connect providers, can be activated.\n"
+"For more information, see the xref:dev-ui-all-oidc-providers[Dev UI for all OpenID Connect providers] section."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If `quarkus.oidc.auth-server-url` is already set then a generic OpenID Connect Dev Console which can be used with all OpenID Connect providers may be activated, please see xref:dev-ui-all-oidc-providers[Dev UI for all OpenID Connect Providers] for more information."
-msgstr "Si `quarkus.oidc.auth-server-url` ya está configurado, entonces se puede activar una Consola de Desarrollo de OpenID Connect genérica que se puede utilizar con todos los proveedores de OpenID Connect, por favor, consulte la  link:#dev-ui-all-oidc-providers[Interfaz de Desarrollo para todos los proveedores de OpenID] Connect para obtener más información."
+msgid "Dev UI for all OpenID Connect providers"
+msgstr ""
 
-#. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Dev UI for all OpenID Connect Providers"
-msgstr "Interfaz de usuario para todos los proveedores de OpenID Connect"
+msgid "The Dev UI for all OpenID Connect providers is activated if the following conditions are met:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If `quarkus.oidc.auth-server-url` points to an already started OpenID Connect provider (which can be Keycloak or other provider), `quarkus.oidc.auth-server-url` is set to `service` (which is a default value) or `hybrid` and at least `quarkus.oidc.client-id` is set then `Dev UI for all OpenID Connect Providers` will be activated."
-msgstr "Si `quarkus.oidc.auth-server-url` apunta a un proveedor de OpenID Connect ya iniciado (que puede ser Keycloak u otro proveedor), `quarkus.oidc.auth-server-url` está configurado como `service` (que es un valor por defecto) y al menos `quarkus.oidc.client-id` está configurado, entonces `Dev UI for all OpenID Connect Providers` se activará."
+msgid "The `quarkus.oidc.auth-server-url` points to an already started OpenID Connect provider, which can be Keycloak or other provider."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Setting `quarkus.oidc.credentials.secret` will mostly likely be required for Keycloak and other providers for the authorization code flow initiated from Dev UI to complete, unless the client identified with `quarkus.oidc.client-id` is configured as a public client in your OpenID Connect provider's administration console."
-msgstr "La configuración de `quarkus.oidc.credentials.secret` será probablemente necesaria para Keycloak y otros proveedores para que el flujo de código de autorización iniciado desde Dev UI se complete, a menos que el cliente identificado con `quarkus.oidc.client-id` esté configurado como cliente público en la consola de administración de su proveedor de OpenID Connect."
+msgid "The `quarkus.oidc.auth-server-url` is set to `service`, the default value, or `hybrid`."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "The `quarkus.oidc.client-id` is set."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-dev-services.adoc
+msgid "Setting `quarkus.oidc.credentials.secret` is most likely required for Keycloak and other providers for the authorization code flow initiated from Dev UI to complete unless the client identified with `quarkus.oidc.client-id` is configured as a public client in your OpenID Connect provider's administration console."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
@@ -563,65 +505,61 @@ msgstr "Por ejemplo, puede utilizar Dev UI para probar la autenticación de Goog
 msgid "Run:"
 msgstr "Corre:"
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "And you will see the following message:"
-msgstr "Y verás el siguiente mensaje:"
+msgid "This command outputs a message similar to the following example:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If the provider metadata discovery has been successful then, after you open the main link:http://localhost:8080/q/dev[Dev UI page], you will see the following `OpenID Connect Card` referencing a `Google` provider:"
-msgstr "Si el descubrimiento de los metadatos del proveedor ha sido exitoso, entonces, después de abrir la  link:http://localhost:8080/q/dev[página] principal  link:http://localhost:8080/q/dev[de Dev UI], verá la página `OpenID Connect Card` que enlaza con `Dev Console`:"
+msgid "If the provider metadata discovery has been successful, then after you open the main link:http://localhost:8080/q/dev[Dev UI page], you can see the following *OpenID Connect* card referencing a `Google` provider:"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Follow the link, and you will be able to log in to your provider, get the tokens and test the application. The experience will be the same as described in the xref:keycloak-authorization-code-grant[Authorization Code Grant for Keycloak] section, where `Dev Services for Keycloak` container has been started, especially if you work with Keycloak."
-msgstr "Siga el enlace y podrá acceder a su proveedor, obtener los tokens y probar la aplicación. La experiencia será la misma que se describe en la sección de  link:#keycloak-authorization-code-grant[concesión de códigos de autorización para Keycloak], donde se ha iniciado el contenedor `Dev Services for Keycloak`, especialmente si se trabaja con Keycloak (por favor, preste también atención a una nota de `redirect_uri` en esa sección)."
+msgid ""
+"Follow the link to log in to your provider, get the tokens, and test the application.\n"
+"The experience is the same as described in the xref:keycloak-authorization-code-grant[Authorization code grant for Keycloak] section, where the Dev Services for Keycloak container has been started, especially if you work with Keycloak."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "You will most likely need to configure your OpenId Connect provider to support redirecting back to the `Dev Console`. Add `http://localhost:8080/q/dev-ui/io.quarkus.quarkus-oidc/`providerName`-provider` as one of the supported redirect and logout URLs, where `providerName` will need to be replaced by the name of the provider shown in DevUI, for example, `auth0`."
-msgstr "Lo más probable es que tengas que configurar tu proveedor de OpenId Connect para que admita la redirección de vuelta a `Dev Console`. Añade `&lt;a href=\"http://localhost:8080/q/dev/io.quarkus.quarkus-oidc/provider\" class=\"bare\"&gt;http://localhost:8080/q/dev/io.quarkus.quarkus-oidc/provider&lt;/a&gt;` como una de las URL de redirección y cierre de sesión admitidas."
+msgid ""
+"You likely need to configure your OpenID Connect provider to support redirecting back to the `Dev Console`.\n"
+"You add `http://localhost:8080/q/dev-ui/io.quarkus.quarkus-oidc/<providerName>-provider` as one of the supported redirect and logout URLs, where `<providerName>` must be replaced by the name of the provider shown in the Dev UI, for example, `auth0`."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "If you work with other providers then a Dev UI experience described in the xref:keycloak-authorization-code-grant[Authorization Code Grant for Keycloak] section might differ slightly. For example, an access token may not be in a JWT format, so it won't be possible to show its internal content, though all providers should return an ID Token as JWT."
-msgstr "Si se trabaja con otros proveedores, la experiencia de la interfaz de usuario descrita en la sección de  link:#keycloak-authorization-code-grant[concesión de códigos de autorización para Keycloak] puede diferir ligeramente. Por ejemplo, un token de acceso puede no estar en formato JWT por lo que no será posible mostrar su contenido interno, aunque todos los proveedores deberían devolver un ID Token como JWT."
+msgid ""
+"The Dev UI experience described in the xref:keycloak-authorization-code-grant[Authorization code grant for Keycloak] section might differ slightly if you work with other providers.\n"
+"For example, an access token might not be in JWT format, so it would not be possible to show its internal content.\n"
+"However, all providers should return ID tokens in the JWT format."
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "The current access token is used by default to test the service with `Swagger UI` or `GrapghQL UI`. If the provider (other than Keycloak) returns a binary access token then it will be used with `Swagger UI` or `GrapghQL UI` only if this provider has a token introspection endpoint otherwise an `IdToken` which is always in a JWT format will be passed to `Swagger UI` or `GrapghQL UI`. In such cases you can verify with the manual Dev UI test that `401` will always be returned for the current binary access token. Also note that using `IdToken` as a fallback with either of these UIs is only possible with the authorization code flow."
-msgstr "El token de acceso actual se utiliza por defecto para probar el servicio con `Swagger UI` o `GrapghQL UI`. Si el proveedor (que no sea Keycloak) devuelve un token de acceso binario entonces se utilizará con `Swagger UI` o `GrapghQL UI` sólo si este proveedor tiene un endpoint de introspección de tokens de lo contrario se pasará a `Swagger UI` o `GrapghQL UI` un `IdToken` que siempre está en formato JWT. En estos casos se puede verificar con la prueba manual de Dev UI que siempre se devolverá `401` para el token de acceso binario actual. También hay que tener en cuenta que el uso de `IdToken` como fallback con cualquiera de estas UIs sólo es posible con el flujo de código de autorización."
+msgid ""
+"The current access token is used by default to test the service with Swagger UI or GrapghQL UI.\n"
+"If the provider (other than Keycloak) returns a binary access token, then it is used with Swagger UI or GrapghQL UI only if this provider has a token introspection endpoint; otherwise, an `IdToken`, which is always in a JWT format is passed to Swagger UI or GrapghQL UI.\n"
+"In such cases, you can verify with the manual Dev UI test that `401` is always returned for the current binary access token.\n"
+"Also, note that using `IdToken` as a fallback with either of these user interfaces is only possible with the authorization code flow."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Some providers such as `Auth0` do not support a standard RP initiated logout so the provider specific logout properties will have to be configured for a logout option be visible. For more information, see xref:security-oidc-code-flow-authentication.adoc#user-initiated-logout[OpenID Connect User-Initiated Logout]."
-msgstr "Algunos proveedores, como `Auth0`, no admiten un cierre de sesión estándar iniciado por el RP, por lo que habrá que configurar las propiedades de cierre de sesión específicas del proveedor para que la opción de cierre de sesión sea visible; para obtener más información, consulte  link:security-openid-connect-web-authentication.html#user-initiated-logout[Cierre de sesión iniciado por el usuario de OpenID Connect]."
+msgid ""
+"Some providers, such as `Auth0` do not support a standard RP-initiated logout, so the provider-specific logout properties must be configured for a logout option to be visible.\n"
+"For more information, see xref:security-oidc-code-flow-authentication.adoc#user-initiated-logout[User-initiated logout] section in the \"OpenID Connect authorization code flow mechanism for protecting web applications\" guide."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "Similarly, if you'd like to use a `password` or `client_credentials` grant for Dev UI to acquire the tokens then you may have to configure some extra provider specific properties, for example:"
-msgstr "Del mismo modo, si desea utilizar una subvención de `password` o `client_credentials` para que Dev UI adquiera los tokens, es posible que tenga que configurar algunas propiedades adicionales específicas del proveedor, por ejemplo:"
+msgid "Similarly, if you want to use a `password` or `client_credentials` grant for Dev UI to acquire the tokens, then you might need to configure some extra provider-specific properties, for example:"
+msgstr ""
 
-#. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy, no-wrap
-msgid "Non Application Root Path Considerations"
-msgstr "Consideraciones sobre la ruta raíz de la no aplicación"
+msgid "Non-application root path considerations"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
-#, fuzzy
-msgid "This document refers to the `http://localhost:8080/q/dev-ui` Dev UI URL in several places where `q` is a default non application root path. If you customize `quarkus.http.root-path` and/or `quarkus.http.non-application-root-path` properties then replace `q` accordingly, please see https://quarkus.io/blog/path-resolution-in-quarkus/[Path Resolution in Quarkus] for more information."
-msgstr "Este documento hace referencia a la `&lt;a href=\"http://localhost:8080/q/dev\" class=\"bare\"&gt;http://localhost:8080/q/dev&lt;/a&gt;` Dev UI URL en varios lugares donde `q` es una ruta por defecto que no es la raíz de la aplicación. Si usted personaliza las propiedades de `quarkus.http.root-path` y/o `quarkus.http.non-application-root-path` entonces reemplace `q` en consecuencia, por favor vea  link:https://quarkus.io/blog/path-resolution-in-quarkus/[Resolución de la ruta en Quarkus] para más información."
+msgid ""
+"This document refers to the `http://localhost:8080/q/dev-ui` Dev UI URL in several places where `q` is a default non-application root path.\n"
+"If you customize `quarkus.http.root-path` or `quarkus.http.non-application-root-path` properties, then replace `q` accordingly.\n"
+"For more information, see the https://quarkus.io/blog/path-resolution-in-quarkus/[Path resolution in Quarkus] blog post."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/security-openid-connect-dev-services.adoc
