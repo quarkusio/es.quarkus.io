@@ -1,0 +1,60 @@
+---
+layout: base
+---
+
+<div class="grid-wrapper extensions-page">
+  <div class="grid__item width-12-12">
+    <h1 class="text-caps">{{ page.title }}</h1>
+  </div>
+  <div class="grid__item width-4-12 width-12-12-m toc">
+    <h2>Categoría</h2>
+    <ul>
+    {% for item in site.data.extensions.categories %}
+      <li><a href="#{{ item.cat-id }}">{{ item.category }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="grid__item width-8-12 width-12-12-m">
+<div markdown="1">
+<p>
+Piense en las extensiones de Quarkus como dependencias de su proyecto.
+Las extensiones configuran, lanzan e integran marcos o tecnologías en aplicaciones Quarkus.
+También hace todo el trabajo pesado de proporcionar a GraalVM la información correcta para que su aplicación pueda compilarse de forma nativa.
+</p>
+<p>
+Agregar una extensión es tan fácil como agregar dependencias o usar las herramientas de Quarkus.
+</p>
+  <div class="listingblock">
+    <div class="content">
+      <pre class="highlight"><code class="bash">$ mvn quarkus:list-extensions
+$ mvn quarkus:add-extension -Dextensions="groupId:artifactId"
+
+# Or
+
+$ gradle list-extensions
+# and add the dependency in your dependencies section
+      </code></pre>
+    </div>
+  </div>
+<p>
+Explore la amplia gama de tecnologías con las que se pueden crear aplicaciones Quarkus.
+</p>
+</div>
+    {% for item in site.data.extensions.categories %}
+      <h2 id="{{ item.cat-id }}">{{ item.category }}</h2>
+      <ul class="dashed cat-extensions">
+        {% for extension in item.extensions %}
+          <li class="ext-row">
+            <h3>{{ extension.name }}</h3>
+            {% if extension.description %}
+              <p class="description">{{ extension.description }}</p>
+            {% endif %}
+            {% if extension.groupId %}
+              <p class="text-cyan" title="Maven coordinates">{{ extension.groupId }}:{{ extension.artifactId }}</p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+</div>
