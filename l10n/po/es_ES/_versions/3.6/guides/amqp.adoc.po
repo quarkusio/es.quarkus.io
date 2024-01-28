@@ -15,12 +15,13 @@ msgid "This guide demonstrates how your Quarkus application can utilize SmallRye
 msgstr "Esta guía demuestra cómo su aplicación Quarkus puede utilizar SmallRye Reactive Messaging para interactuar con AMQP 1.0."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "If you want to use RabbitMQ, you should use the xref:rabbitmq.adoc[SmallRye Reactive Messaging RabbitMQ extension].\n"
 "Alternatively, if you want to use RabbitMQ with AMQP 1.0 you need to enable the AMQP 1.0 plugin in the RabbitMQ broker;\n"
 "check the https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.9/amqp/amqp.html#amqp-rabbitmq[connecting to RabbitMQ]\n"
 "documentation."
-msgstr ""
+msgstr "Si desea utilizar RabbitMQ, deberá utilizar la xref:rabbitmq.adoc[extensión SmallRye Reactive Messaging RabbitMQ] . Alternativamente, si desea utilizar RabbitMQ con AMQP 1.0 deberá habilitar el plugin AMQP 1.0 en el broker RabbitMQ; consulte la documentación de link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.9/amqp/amqp.html#amqp-rabbitmq[conexión a RabbitMQ] ."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Prerequisites"
@@ -31,47 +32,52 @@ msgid "Architecture"
 msgstr "Arquitectura"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "In this guide, we are going to develop two applications communicating with an AMQP broker.\n"
 "We will use https://activemq.apache.org/components/artemis/[Artemis], but you can use any AMQP 1.0 broker.\n"
 "The first application sends a _quote request_ to an AMQP queue and consumes messages from the _quote_ queue.\n"
 "The second application receives the _quote request_ and sends a _quote_ back."
-msgstr ""
+msgstr "En esta guía, vamos a desarrollar dos aplicaciones que se comunican con un broker AMQP. Utilizaremos link:https://activemq.apache.org/components/artemis/[Artemis] , pero puede utilizar cualquier broker AMQP 1.0. La primera aplicación envía una solicitud _de_ cotización a una cola AMQP y consume mensajes de la cola de _cotización_ . La segunda aplicación recibe la solicitud de _cotización_ y envía una _cotización_ de vuelta."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "The first application, the `producer`, will let the user request some quotes over an HTTP endpoint.\n"
 "For each quote request, a random identifier is generated and returned to the user, to put the quote request on _pending_.\n"
 "At the same time the generated request id is sent over the `quote-requests` queue."
-msgstr ""
+msgstr "La primera aplicación, la `producer` , permitirá al usuario solicitar algunas cotizaciones a través de un punto final HTTP. Para cada solicitud de cotización, se genera un identificador aleatorio que se devuelve al usuario, para poner la solicitud de cotización en _espera_ . Al mismo tiempo, el identificador de solicitud generado se envía a través de la cola de `quote-requests` ."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "The second application, the `processor`, in turn, will read from the `quote-requests` queue put a random price to the quote, and send it to a queue named `quotes`."
 msgstr "La segunda aplicación, la `processor`, a su vez, leerá de la cola `quote-requests` poner un precio aleatorio a la cotización, y lo enviará a una cola llamada `quotes`."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Lastly, the `producer` will read the quotes and send them to the browser using server-sent events.\n"
 "The user will therefore see the quote price updated from _pending_ to the received price in real-time."
-msgstr ""
+msgstr "Por último, el `producer` leerá las cotizaciones y las enviará al navegador mediante eventos enviados por el servidor. Por tanto, el usuario verá el precio de la cotización actualizado de _pendiente_ al precio recibido en tiempo real."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Solution"
 msgstr "Solución"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create applications step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree las aplicaciones paso a paso. No obstante, puede ir directamente al ejemplo completado."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid "The solution is located in the `amqp-quickstart` link:{quickstarts-tree-url}/amqp-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en el link:{quickstarts-tree-url}/amqp-quickstart[directorio] `amqp-quickstart` ."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Creating the Maven Project"
@@ -114,17 +120,19 @@ msgid "The Quote object"
 msgstr "El objeto Cotización"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "The `Quote` class will be used in both `producer` and `processor` projects.\n"
 "For the sake of simplicity we will duplicate the class.\n"
 "In both projects, create the `src/main/java/org/acme/amqp/model/Quote.java` file, with the following content:"
-msgstr ""
+msgstr "La clase `Quote` se utilizará en los proyectos `producer` y `processor` . En aras de la simplicidad duplicaremos la clase. En ambos proyectos, cree el archivo `src/main/java/org/acme/amqp/model/Quote.java` , con el siguiente contenido:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "JSON representation of `Quote` objects will be used in messages sent to the AMQP queues\n"
 "and also in the server-sent events sent to browser clients."
-msgstr ""
+msgstr "La representación JSON de los objetos `Quote` se utilizará en los mensajes enviados a las colas AMQP y también en los eventos enviados por el servidor a los clientes del navegador."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Quarkus has built-in capabilities to deal with JSON AMQP messages."
@@ -135,19 +143,21 @@ msgid "@RegisterForReflection"
 msgstr "@RegisterForReflection"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "The `@RegisterForReflection` annotation instructs Quarkus to include the class (including fields and methods) when building the native executable.\n"
 "This will be useful later when we run the applications as native executables inside containers.\n"
 "Without, the native compilation would remove the fields and methods during the dead-code elimination phase."
-msgstr ""
+msgstr "La anotación `@RegisterForReflection` indica a Quarkus que incluya la clase (incluidos los campos y métodos) al construir el ejecutable nativo. Esto será útil más adelante cuando ejecutemos las aplicaciones como ejecutables nativos dentro de contenedores. Sin ella, la compilación nativa eliminaría los campos y métodos durante la fase de eliminación del código muerto."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Sending quote request"
 msgstr "Envío de solicitud de presupuesto"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid "Inside the `producer` project locate the generated  `src/main/java/org/acme/amqp/producer/QuotesResource.java` file, and update the content to be:"
-msgstr ""
+msgstr "Dentro del proyecto `producer` localice el archivo `src/main/java/org/acme/amqp/producer/QuotesResource.java` generado, y actualice el contenido para que sea:"
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Inject a Reactive Messaging `Emitter` to send messages to the `quote-requests` channel."
@@ -158,11 +168,12 @@ msgid "On a post request, generate a random UUID and send it to the AMQP queue u
 msgstr "En una solicitud de publicación, genera un UUID aleatorio y lo envía a la cola AMQP utilizando el emisor."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "The `quote-requests` channel is going to be managed as a AMQP queue, as that's the only connector on the classpath.\n"
 "If not indicated otherwise, like in this example, Quarkus uses the channel name as AMQP queue name.\n"
 "So, in this example, the application sends messages to the `quote-requests` queue."
-msgstr ""
+msgstr "El canal `quote-requests` se va a gestionar como una cola AMQP, ya que es el único conector en el classpath. Si no se indica lo contrario, como en este ejemplo, Quarkus utiliza el nombre del canal como nombre de la cola AMQP. Así, en este ejemplo, la aplicación envía mensajes a la cola `quote-requests` ."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "When you have multiple connectors, you would need to indicate which connector you want to use in the application configuration."
@@ -173,10 +184,11 @@ msgid "Processing quote requests"
 msgstr "Tramitación de solicitudes de quota"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Now let's consume the quote request and give out a price.\n"
 "Inside the `processor` project, locate the `src/main/java/org/acme/amqp/processor/QuoteProcessor.java` file and add the following:"
-msgstr ""
+msgstr "Ahora vamos a consumir la solicitud de presupuesto y a dar un precio. Dentro del proyecto `processor` , localice el archivo `src/main/java/org/acme/amqp/processor/QuoteProcessor.java` y añada lo siguiente:"
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Indicates that the method consumes the items from the `requests` channel"
@@ -195,10 +207,11 @@ msgid "The `process` method is called for every AMQP message from the `quote-req
 msgstr "El método `process` es llamado por cada mensaje AMQP de la cola `quote-requests`, y enviará un objeto `Quote` a la cola `quotes`."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Because we want to consume messages from the `quotes-requests` queue into the `requests` channel, we need to configure this association.\n"
 "Open the `src/main/resources/application.properties` file and add:"
-msgstr ""
+msgstr "Como queremos consumir mensajes de la cola `quotes-requests` en el canal `requests` , tenemos que configurar esta asociación. Abra el archivo `src/main/resources/application.properties` y añada:"
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "The configuration keys are structured as follows:"
@@ -217,10 +230,11 @@ msgid "Receiving quotes"
 msgstr "Recepción de presupuestos"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Back to our `producer` project.\n"
 "Let's modify the `QuotesResource` to consume quotes, bind it to an HTTP endpoint to send events to clients:"
-msgstr ""
+msgstr "Volvamos a nuestro proyecto `producer` . Modifiquemos el `QuotesResource` para consumir cotizaciones, vinculémoslo a un endpoint HTTP para enviar eventos a los clientes:"
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Injects the `quotes` channel using the `@Channel` qualifier"
@@ -247,10 +261,11 @@ msgid "Create inside the `producer` project `src/main/resources/META-INF/resourc
 msgstr "Cree dentro del proyecto `producer` el archivo `src/main/resources/META-INF/resources/quotes.html`, con el siguiente contenido:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Nothing spectacular here.\n"
 "On each received quote, it updates the page."
-msgstr ""
+msgstr "Aquí no hay nada espectacular. En cada cita recibida, actualiza la página."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Get it running"
@@ -265,10 +280,11 @@ msgid "And, in a separate terminal:"
 msgstr "Y, en una terminal separada:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Quarkus starts a AMQP broker automatically, configures the application and shares the broker instance between different applications.\n"
 "See xref:amqp-dev-services.adoc[Dev Services for AMQP] for more details."
-msgstr ""
+msgstr "Quarkus inicia un broker AMQP automáticamente, configura la aplicación y comparte la instancia del broker entre diferentes aplicaciones. Consulte xref:amqp-dev-services.adoc[Dev Services for AMQP] para obtener más detalles."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "Open `http://localhost:8080/quotes.html` in your browser and request some quotes by clicking the button."
@@ -279,36 +295,40 @@ msgid "Running in JVM or Native mode"
 msgstr "Ejecución en modo JVM o nativo"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "When not running in dev or test mode, you will need to start your AMQP broker.\n"
 "You can follow the instructions from the https://activemq.apache.org/components/artemis/documentation/latest/using-server.html[Apache ActiveMQ Artemis website] or create a `docker-compose.yaml` file with the following content:"
-msgstr ""
+msgstr "Cuando no esté ejecutando en modo dev o test, necesitará iniciar su broker AMQP. Puede seguir las instrucciones del link:https://activemq.apache.org/components/artemis/documentation/latest/using-server.html[sitio web de Apache ActiveMQ Artemis] o crear un archivo `docker-compose.yaml` con el siguiente contenido:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Note how the AMQP broker location is configured.\n"
 "The `amqp.host` and `amqp.port` (`AMQP_HOST` and `AMQP_PORT` environment variables) properties configure location."
-msgstr ""
+msgstr "Observe cómo se configura la ubicación del agente AMQP. Las propiedades `amqp.host` y `amqp.port` ( `AMQP_HOST` y `AMQP_PORT` variables de entorno) configuran la ubicación."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "First, make sure you stopped the applications, and build both applications in JVM mode with:"
 msgstr "En primer lugar, asegúrese de que ha detenido las aplicaciones, y construya ambas aplicaciones en modo JVM con:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "Once packaged, run `docker compose up --build`.\n"
 "The UI is exposed on http://localhost:8080/quotes.html"
-msgstr ""
+msgstr "Una vez empaquetado, ejecute `docker compose up --build` . La interfaz de usuario se expone en http://localhost:8080/quotes.html ."
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "To run your applications as native, first we need to build the native executables:"
 msgstr "Para ejecutar tus aplicaciones como nativas, primero tenemos que construir los ejecutables nativos:"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.\n"
 "Then, run the system using:"
-msgstr ""
+msgstr "El `-Dquarkus.native.container-build=true` instruye a Quarkus para construir ejecutables nativos de Linux 64bits, que pueden ejecutarse dentro de contenedores. A continuación, ejecute el sistema utilizando:"
 
 #: _versions/3.6/guides/amqp.adoc
 msgid "As before, the UI is exposed on http://localhost:8080/quotes.html"
@@ -319,13 +339,15 @@ msgid "Going further"
 msgstr "Ir más allá"
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "This guide has shown how you can interact with AMQP 1.0 using Quarkus.\n"
 "It utilizes https://smallrye.io/smallrye-reactive-messaging[SmallRye Reactive Messaging] to build data streaming applications."
-msgstr ""
+msgstr "Esta guía ha mostrado cómo se puede interactuar con AMQP 1.0 utilizando Quarkus. Utiliza link:https://smallrye.io/smallrye-reactive-messaging[SmallRye Reactive Messaging] para construir aplicaciones de flujo de datos."
 
 #: _versions/3.6/guides/amqp.adoc
+#, fuzzy
 msgid ""
 "If you did the Kafka quickstart, you have realized that it's the same code.\n"
 "The only difference is the connector configuration and the JSON mapping."
-msgstr ""
+msgstr "Si ha realizado el quickstart de Kafka, se habrá dado cuenta de que se trata del mismo código. La única diferencia es la configuración del conector y el mapeo JSON."
