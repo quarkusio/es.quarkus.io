@@ -477,12 +477,18 @@ msgid ""
 msgstr "Puede que desee incluir más que los argumentos de un método en una clave de caché. Esto puede hacerse implementando la interfaz `io.quarkus.cache.CacheKeyGenerator` y declarando esa implementación en el campo `keyGenerator` de una anotación `@CacheResult` o `@CacheInvalidate` ."
 
 #: _versions/main/guides/cache.adoc
-#, fuzzy
 msgid ""
-"If a CDI scope is declared on a key generator class and if that class has a default qualifier (no qualifier annotation or `@jakarta.enterprise.inject.Default`), then the key generator will be injected as a CDI bean during the cache key computation.\n"
-"Otherwise, the key generator will be instantiated using its default constructor.\n"
-"All CDI scopes supported by Quarkus can be used on a key generator."
-msgstr "Si se declara un ámbito CDI en una clase generadora de claves y si esa clase tiene un calificador por defecto (sin anotación de calificador o `@jakarta.enterprise.inject.Default` ), entonces el generador de claves se inyectará como un frijol CDI durante el cálculo de la clave de caché. En caso contrario, el generador de claves se instanciará utilizando su constructor por defecto. Todos los ámbitos CDI admitidos por Quarkus pueden utilizarse en un generador de claves."
+"The class must either represent a CDI bean or declare a public no-args constructor.\n"
+"If it represents a CDI bean, then the key generator will be injected during the cache key computation.\n"
+"Otherwise, a new instance of the key generator will be created using its default constructor for each cache key computation."
+msgstr ""
+
+#: _versions/main/guides/cache.adoc
+msgid ""
+"In case of CDI, there must be exactly one bean that has the class in its set of bean types, otherwise the build fails.\n"
+"The context associated with the scope of the bean must be active when the `CacheKeyGenerator#generate()` method is invoked.\n"
+"If the scope is `@Dependent` then the bean instance is destroyed when the `CacheKeyGenerator#generate()` method completes."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/cache.adoc
