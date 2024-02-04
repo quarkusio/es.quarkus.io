@@ -2085,12 +2085,20 @@ msgid "Arguments"
 msgstr "Fragmentos"
 
 #: _guides/qute-reference.adoc
-#, fuzzy
 msgid ""
-"Named arguments can be accessed directly in a tag template.\n"
-"The first argument does not have to define a name but can be accessed using the `it` alias.\n"
-"Furthermore, arguments metadata are accessible in a tag using the `_args` alias."
-msgstr "Se puede acceder a los argumentos con nombre directamente en una plantilla de etiquetas. El primer argumento no tiene que definir un nombre, sino que se puede acceder a él utilizando el alias `it` . Además, los metadatos de los argumentos son accesibles en una etiqueta utilizando el alias `_args` ."
+"Named arguments can be accessed directly in the tag template.\n"
+"However, the first argument does not need to define a name and it can be accessed using the `it` alias.\n"
+"Furthermore, if an argument does not have a name defined and the value is a single identifier, such as `foo`, then the name is defaulted to the value identifier, e.g. `{#myTag foo /}` becomes `{#myTag foo=foo /}`.\n"
+"In other words, the argument value `foo` is resolved and can be accessed using `{foo}` in the tag template."
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "If an argument does not have a name and the value is a single word string literal , such as `\"foo\"`, then the name is defaulted and quotation marks are removed, e.g. `{#myTag \"foo\" /}` becomes `{#myTag foo=\"foo\" /}`."
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "`io.quarkus.qute.UserTagSectionHelper.Arguments` metadata are accessible in a tag using the `_args` alias."
+msgstr ""
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
@@ -2098,17 +2106,13 @@ msgstr "Se puede acceder a los argumentos con nombre directamente en una plantil
 msgid "`_args.size` - returns the actual number of arguments passed to a tag"
 msgstr "`size`: Devuelve el número de mapeos clave-valor en un mapa"
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "`_args.empty` - returns `true` if no arguments are passed"
-msgstr "`_args.empty` - devuelve `true` si no se pasan argumentos"
+msgid "`_args.empty`/`_args.isEmpty` - returns `true` if no arguments are passed"
+msgstr ""
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "`_args.get(String name)` - returns the argument value of the given name"
-msgstr "`_args.get(String name)` - devuelve el valor del argumento del nombre dado"
+msgid "`_args.get(String name)` - returns the argument value of the given name or `null`"
+msgstr ""
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
@@ -2116,23 +2120,31 @@ msgstr "`_args.get(String name)` - devuelve el valor del argumento del nombre da
 msgid "`_args.filter(String...)` - returns the arguments matching the given names"
 msgstr "`_args.filter(String…​)` - devuelve los argumentos que coinciden con los nombres dados"
 
+#: _guides/qute-reference.adoc
+msgid "`_args.filterIdenticalKeyValue` - returns the arguments with the name equal to the value; typically `foo` from `{#test foo=\"foo\" bar=true}` or `{#test \"foo\" bar=true /}`"
+msgstr ""
+
 #. type: Plain text
 #: _guides/qute-reference.adoc
 #, fuzzy
 msgid "`_args.skip(String...)` - returns only the arguments that do not match the given names"
 msgstr "`_args.skip(String…​)` - devuelve sólo los argumentos que no coinciden con los nombres dados"
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "`_args.asHtmlAttributes` - renders the arguments as HTML attributes; e.g. `foo=\"true\" bar=\"false\"` (the arguments are sorted by name in alphabetical order)"
-msgstr "`_args.asHtmlAttributes` - representa los argumentos como atributos HTML; por ejemplo, `foo=\"true\" bar=\"false\"` (los argumentos se clasifican por nombre en orden alfabético)"
+msgid "`_args.skipIdenticalKeyValue` - returns only the arguments with the name not equal to the value; typically `bar` from `{#test foo=\"foo\" bar=true /}`"
+msgstr ""
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "`_args` is also iterable: `{#each _args}{it.key}={it.value}{/each}`."
-msgstr "`_args` también es iterable: `{#each _args}{it.key}={it.value}{/each}`."
+msgid "`_args.skipIt` - returns all arguments except for the first unnamed argument; typically `bar` from `{#test foo bar=true /}`"
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "`_args.asHtmlAttributes` - renders the arguments as HTML attributes; e.g. `foo=\"true\" readonly=\"readonly\"`; the arguments are sorted by name in alphabetical order and the `'`, `\"`, `<`, `>`, `&` characters are escaped"
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "`_args` is also iterable of `java.util.Map.Entry`: `{#each _args}{it.key}={it.value}{/each}`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
@@ -4045,11 +4057,20 @@ msgid "Global Variables"
 msgstr "Variables globales"
 
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid ""
-"The `io.quarkus.qute.TemplateGlobal` annotation can be used to denote static fields and methods that supply _global variables_ which are accessible in any template.\n"
-"Internally, each global variable is added to the data map of any `TemplateInstance` via the `TemplateInstance#data(String, Object)` method."
-msgstr "La anotación `io.quarkus.qute.TemplateGlobal` puede utilizarse para denotar campos estáticos y métodos que suministran _variables_ globales accesibles en cualquier plantilla. Internamente, cada variable global se añade al mapa de datos de cualquier `TemplateInstance` a través del método `TemplateInstance#data(String, Object)` ."
+msgid "The `io.quarkus.qute.TemplateGlobal` annotation can be used to denote static fields and methods that supply _global variables_ which are accessible in any template."
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "Global variables are:"
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "added to the data map of any `TemplateInstance` during initialization,"
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "accessible with the `global:` namespace."
+msgstr ""
 
 #. type: Block title
 #: _guides/qute-reference.adoc
@@ -4081,11 +4102,9 @@ msgstr "Una plantilla que accede a las variables globales"
 msgid "`currentUser` resolves to `Globals#user()`."
 msgstr "`currentUser` se resuelve en `Globals#user()`."
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "`age` resolves to `Globals#age`."
-msgstr "`age` se resuelve en `Globals#age`."
+msgid "The `global:` namespace is used; `age` resolves to `Globals#age`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
@@ -4112,12 +4131,11 @@ msgid "Resolving Conflicts"
 msgstr "Resolución de conflictos"
 
 #: _guides/qute-reference.adoc
-#, fuzzy
 msgid ""
-"Global variables may conflict with regular data objects.\n"
+"If not accessed via the `global:` namespace the global variables may conflict with regular data objects.\n"
 "xref:typesafe_templates[Type-safe templates] override the global variables automatically.\n"
 "For example, the following definition overrides the global variable supplied by the `Globals#user()` method:"
-msgstr "Las variables globales pueden entrar en conflicto con los objetos de datos normales. Las xref:typesafe_templates[plantillas de tipo seguro] anulan las variables globales automáticamente. Por ejemplo, la siguiente definición anula la variable global suministrada por el método `Globals#user()` :"
+msgstr ""
 
 #. type: Block title
 #: _guides/qute-reference.adoc
@@ -4230,11 +4248,13 @@ msgstr "Si desea utilizar Qute en su aplicación Jakarta REST, entonces dependie
 msgid "If instead you are using RESTEasy Reactive via the `quarkus-resteasy-reactive` extension, then in your `pom.xml` file, add:"
 msgstr "Si en lugar de ello está utilizando RESTEasy Reactive a través de la extensión `quarkus-resteasy-reactive`, entonces en su archivo `pom.xml`, añada:"
 
-#. type: Plain text
 #: _guides/qute-reference.adoc
-#, fuzzy
-msgid "Both of these extensions register a special `ContainerResponseFilter` implementation which enables resource methods to return a `TemplateInstance`, thus freeing users of having to take care of all necessary internal steps."
-msgstr "Ambas extensiones registran una implementación especial de `ContainerResponseFilter` que permite a los métodos de recursos devolver un `TemplateInstance`, liberando así a los usuarios de tener que ocuparse de todos los pasos internos necesarios."
+msgid "Both of these extensions register a special response filter which enables resource methods to return a `TemplateInstance`, thus freeing users of having to take care of all necessary internal steps."
+msgstr ""
+
+#: _guides/qute-reference.adoc
+msgid "If using RESTEasy Reactive, a resource method that returns `TemplateInstance` is considered non-blocking. You need to annotate the method with `io.smallrye.common.annotation.Blocking` in order to mark the method as blocking. For example if it's also annotated with `@RunOnVirtualThread`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
