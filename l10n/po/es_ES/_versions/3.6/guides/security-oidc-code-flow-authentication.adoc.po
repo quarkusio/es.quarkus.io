@@ -32,7 +32,7 @@ msgid ""
 "The Authorization Code Flow mechanism authenticates users of your web application by redirecting them to an OIDC provider, such as Keycloak, to log in.\n"
 "After authentication, the OIDC provider redirects the user back to the application with an authorization code that confirms that authentication was successful.\n"
 "Then, the application exchanges this code with the OIDC provider for an ID token (which represents the authenticated user), an access token, and a refresh token to authorize the user's access to the application."
-msgstr "El mecanismo de flujo de código de autorización autentica a los usuarios de su aplicación web redirigiéndolos a un proveedor de OIDC, como Keycloak, para que inicien sesión. Tras la autenticación, el proveedor de OIDC redirige al usuario de vuelta a la aplicación con un código de autorización que confirma que la autenticación se ha realizado correctamente. A continuación, la aplicación intercambia este código con el proveedor de OIDC por un token de identificación (que representa al usuario autenticado), un token de acceso y un token de actualización para autorizar el acceso del usuario a la aplicación."
+msgstr "La extensión permite autenticar fácilmente a los usuarios de su aplicación web redirigiéndolos al proveedor de OpenID Connect (por ejemplo: Keycloak) para que inicien sesión y, una vez completada la autenticación, devolverlos con el código que confirma la autenticación exitosa. La extensión solicitará tokens de identificación y acceso al proveedor de OpenID Connect mediante una concesión de código de autorización y verificará estos tokens para autorizar un acceso a la aplicación."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -330,7 +330,7 @@ msgstr "Personalización de las solicitudes de autenticación"
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "By default, only the `response_type` (set to `code`), `scope` (set to 'openid'), `client_id`, `redirect_uri` and `state` properties are passed as HTTP query parameters to the OpenID Connect provider's authorization endpoint when the user is redirected to it to authenticate."
-msgstr "Por defecto, sólo las propiedades `response_type` (establecida como `code` ), `scope` (establecida como 'openid'), `client_id` , `redirect_uri` y `state` se pasan como parámetros de consulta HTTP al punto final de autorización del proveedor OpenID Connect cuando el usuario es redirigido a él para autenticarse."
+msgstr "Por defecto, sólo las propiedades `response_type` (establecida como `code`), `scope` (establecida como 'openid'), `client_id`, `redirect_uri` y `state` se pasan como parámetros de consulta HTTP al extremo de autorización del proveedor OpenID Connect cuando el usuario es redirigido a él para autenticarse."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -413,7 +413,7 @@ msgstr "Tenga en cuenta que `AccessTokenCredential` se utiliza si el token de ac
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Injection of the `JsonWebToken` and `AccessTokenCredential` is supported in both `@RequestScoped` and `@ApplicationScoped` contexts."
-msgstr "Se admite la inyección de los contextos `JsonWebToken` y `AccessTokenCredential` tanto en `@RequestScoped` como en `@ApplicationScoped` ."
+msgstr "La inyección de `JsonWebToken` y `AccessTokenCredential` se admite en los contextos `@RequestScoped` y `@ApplicationScoped`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -445,12 +445,12 @@ msgstr "Acceso a la información de configuración de la OIDC"
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "The current tenant's discovered link:https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata[OpenID Connect Configuration Metadata] is represented by `io.quarkus.oidc.OidcConfigurationMetadata` and can be either injected or accessed as a `SecurityIdentity` `configuration-metadata` attribute."
-msgstr "Los link:https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata[metadatos de configuración de OpenID Connect] descubiertos del arrendatario actual están representados por `io.quarkus.oidc.OidcConfigurationMetadata` y se puede inyectar o acceder a ellos como atributo `SecurityIdentity` `configuration-metadata` ."
+msgstr "Los  link:https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata[metadatos de configuración de OpenID Connect] descubiertos del inquilino actual están representados por `io.quarkus.oidc.OidcConfigurationMetadata` y se puede inyectar o acceder a ellos como atributo `SecurityIdentity` `configuration-metadata` ."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "The default tenant's `OidcConfigurationMetadata` is injected if the endpoint is public."
-msgstr "Se inyecta la dirección `OidcConfigurationMetadata` del arrendatario por defecto si el punto final es público."
+msgstr "La dirección `OidcConfigurationMetadata` del inquilino por defecto se inyecta si el punto final es público."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -644,7 +644,7 @@ msgstr "Para establecer la ruta de la cookie de forma dinámica, configure la pr
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "If `quarkus.oidc.authentication.cookie-path-header` is set but no configured HTTP header is available in the current request then the `quarkus.oidc.authentication.cookie-path` will be checked."
-msgstr "Si `quarkus.oidc.authentication.cookie-path-header` está configurado pero no hay ninguna cabecera HTTP configurada en la solicitud actual, se comprobará `quarkus.oidc.authentication.cookie-path` ."
+msgstr "Si `quarkus.oidc.authentication.cookie-path-header` está configurado pero no hay ninguna cabecera HTTP configurada en la solicitud actual, se comprobará `quarkus.oidc.authentication.cookie-path`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -763,7 +763,7 @@ msgstr "Por defecto `TokenStateManager` encripta los tokens antes de almacenarlo
 msgid ""
 "The token encryption secret must be at least 32 characters long.\n"
 "If this key is not configured then either `quarkus.oidc.credentials.secret` or `quarkus.oidc.credentials.jwt.secret` will be hashed to create an encryption key."
-msgstr "El secreto de encriptación del token debe tener al menos 32 caracteres. Si no se configura esta clave, se realizará un hash de `quarkus.oidc.credentials.secret` o `quarkus.oidc.credentials.jwt.secret` para crear una clave de cifrado."
+msgstr "El secreto de cifrado de los tokens debe tener 32 caracteres. Tenga en cuenta que solo tiene que configurar `quarkus.oidc.token-state-manager.encryption-secret` si prefiere no utilizar `quarkus.oidc.credentials.secret` para cifrar los tokens o si la longitud de `quarkus.oidc.credentials.secret` es inferior a 32 caracteres."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -948,17 +948,17 @@ msgstr "Cierre de sesión iniciado por el usuario"
 msgid ""
 "Users can request a logout by sending a request to the Quarkus endpoint logout path set with a `quarkus.oidc.logout.path` property.\n"
 "For example, if the endpoint address is `https://application.com/webapp` and the `quarkus.oidc.logout.path` is set to \"/logout\" then the logout request has to be sent to `https://application.com/webapp/logout`."
-msgstr "Los usuarios pueden solicitar un cierre de sesión enviando una solicitud a la ruta de cierre de sesión del punto final de Quarkus establecida con una propiedad `quarkus.oidc.logout.path` . Por ejemplo, si la dirección del punto final es `https://application.com/webapp` y la `quarkus.oidc.logout.path` se establece en \"/logout\", entonces la solicitud de cierre de sesión debe enviarse a `https://application.com/webapp/logout` ."
+msgstr "Los usuarios pueden solicitar un cierre de sesión enviando una solicitud a la ruta de cierre de sesión del punto final de Quarkus establecida con una propiedad `quarkus.oidc.logout.path`. Por ejemplo, si la dirección del punto final es `&lt;a href=\"https://application.com/webapp\" class=\"bare\"&gt;https://application.com/webapp&lt;/a&gt;` y el `quarkus.oidc.logout.path` se establece en \"/logout\", entonces la solicitud de cierre de sesión debe enviarse a `&lt;a href=\"https://application.com/webapp/logout\" class=\"bare\"&gt;https://application.com/webapp/logout&lt;/a&gt;`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "This logout request will start an https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[RP-Initiated Logout] and the user will be redirected to the OpenID Connect Provider to logout where a user may be asked to confirm the logout is indeed intended."
-msgstr "Esta solicitud de cierre de sesión iniciará un link:https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[cierre de sesión iniciado por el RP] y el usuario será redirigido al proveedor de OpenID Connect para cerrar la sesión, donde es posible que se le pida al usuario que confirme que el cierre de sesión es realmente intencionado."
+msgstr "Esta solicitud de cierre de sesión iniciará un  link:https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[cierre de sesión iniciado por el RP] y el usuario será redirigido al proveedor de OpenID Connect para cerrar sesión, donde se le puede pedir al usuario que confirme que el cierre de sesión es realmente intencionado."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "The user will be returned to the endpoint post logout page once the logout has been completed if the `quarkus.oidc.logout.post-logout-path` property is set. For example, if the endpoint address is `https://application.com/webapp` and the `quarkus.oidc.logout.post-logout-path` is set to \"/signin\" then the user will be returned to `https://application.com/webapp/signin` (note this URI must be registered as a valid `post_logout_redirect_uri` in the OpenID Connect Provider)."
-msgstr "El usuario será devuelto a la página de post cierre de sesión del endpoint una vez que el cierre de sesión se haya completado si la propiedad `quarkus.oidc.logout.post-logout-path` está establecida. Por ejemplo, si la dirección del endpoint es `https://application.com/webapp` y la `quarkus.oidc.logout.post-logout-path` está configurada como \"/signin\" entonces el usuario será devuelto a `https://application.com/webapp/signin` (tenga en cuenta que este URI debe estar registrado como un `post_logout_redirect_uri` válido en el proveedor OpenID Connect)."
+msgstr "El usuario será devuelto a la página de post cierre de sesión del endpoint una vez que el cierre de sesión se haya completado si la propiedad `quarkus.oidc.logout.post-logout-path` está establecida. Por ejemplo, si la dirección del endpoint es `&lt;a href=\"https://application.com/webapp\" class=\"bare\"&gt;https://application.com/webapp&lt;/a&gt;` y la propiedad `quarkus.oidc.logout.post-logout-path` está configurada como \"/signin\", el usuario será devuelto a la página `&lt;a href=\"https://application.com/webapp/signin\" class=\"bare\"&gt;https://application.com/webapp/signin&lt;/a&gt;` (tenga en cuenta que este URI debe estar registrado como un `post_logout_redirect_uri` válido en el proveedor de OpenID Connect)."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -997,7 +997,7 @@ msgstr "Según la especificación de link:https://openid.net/specs/openid-connec
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "You can use `quarkus.oidc.logout.post-logout-url-param` to work around this issue. You can also request more logout query parameters added with `quarkus.oidc.logout.extra-params`. For example, here is how you can support a logout with `Auth0`:"
-msgstr "Puede utilizar `quarkus.oidc.logout.post-logout-url-param` para solucionar este problema. También puede solicitar más parámetros de consulta de cierre de sesión añadidos con `quarkus.oidc.logout.extra-params` . Por ejemplo, así es como puede apoyar un cierre de sesión con `Auth0` :"
+msgstr "Puede utilizar `quarkus.oidc.logout.post-logout-url-param` para solucionar este problema. También puede solicitar más parámetros de consulta de cierre de sesión añadidos con `quarkus.oidc.logout.extra-params`. Por ejemplo, así es como se puede apoyar un cierre de sesión con `Auth0`:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1305,7 +1305,7 @@ msgstr "Debe asegurarse de que la ruta de devolución de llamada que introduzca 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Listening to important authentication events"
-msgstr "Escuchar los eventos de autenticación importantes"
+msgstr "Escuchar eventos de autenticación importantes"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1420,12 +1420,12 @@ msgstr "Puede hacer que las aplicaciones de Quarkus OIDC `web-app` accedan a *lo
 msgid ""
 "It is super easy to do with https://github.com/quarkiverse[Quarkiverse] https://github.com/quarkiverse/quarkiverse-google-cloud-services[Google Cloud Services], only add\n"
 "the https://github.com/quarkiverse/quarkiverse-google-cloud-services/releases/latest[latest tag] service dependency, for example:"
-msgstr "Es súper fácil de hacer con link:https://github.com/quarkiverse[Quarkiverse] link:https://github.com/quarkiverse/quarkiverse-google-cloud-services[Google Cloud Services] , sólo tiene que añadir la link:https://github.com/quarkiverse/quarkiverse-google-cloud-services/releases/latest[última] dependencia del servicio de link:https://github.com/quarkiverse/quarkiverse-google-cloud-services/releases/latest[etiquetas] , por ejemplo:"
+msgstr "Es súper fácil de hacer con  link:https://github.com/quarkiverse[Quarkiverse]  link:https://github.com/quarkiverse/quarkiverse-google-cloud-services[Google Cloud Services], sólo tiene que añadir la  link:https://github.com/quarkiverse/quarkiverse-google-cloud-services/releases/latest[última] dependencia del servicio de  link:https://github.com/quarkiverse/quarkiverse-google-cloud-services/releases/latest[etiquetas], por ejemplo:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "and configure Google OIDC properties:"
-msgstr "y configure las propiedades de Google OIDC:"
+msgstr "y configurar las propiedades de Google OIDC:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1435,7 +1435,7 @@ msgstr "Ejecución de la aplicación Quarkus detrás de un proxy inverso"
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "OIDC authentication mechanism can be affected if your Quarkus application is running behind a reverse proxy/gateway/firewall when HTTP `Host` header may be reset to the internal IP address, HTTPS connection may be terminated, etc. For example, an authorization code flow `redirect_uri` parameter may be set to the internal host instead of the expected external one."
-msgstr "El mecanismo de autenticación OIDC puede verse afectado si su aplicación Quarkus se ejecuta detrás de un proxy inverso/puerta de enlace/firewall cuando el encabezado HTTP `Host` puede restablecerse a la dirección IP interna, la conexión HTTPS puede finalizar, etc. Por ejemplo, un parámetro de flujo de código de autorización `redirect_uri` puede establecerse en el host interno en lugar del externo esperado."
+msgstr "El mecanismo de autenticación OIDC puede verse afectado si su aplicación Quarkus se ejecuta detrás de un proxy inverso/gateway/firewall cuando el encabezado HTTP `Host` puede ser restablecido a la dirección IP interna, la conexión HTTPS puede ser terminada, etc. Por ejemplo, un parámetro de flujo de código de autorización `redirect_uri` puede establecerse en el host interno en lugar del externo esperado."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1445,7 +1445,7 @@ msgstr "En tales casos será necesario configurar Quarkus para que reconozca las
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "For example, if your Quarkus endpoint runs in a cluster behind Kubernetes Ingress then a redirect from the OpenID Connect Provider back to this endpoint may not work since the calculated `redirect_uri` parameter may point to the internal endpoint address. This problem can be resolved with the following configuration:"
-msgstr "Por ejemplo, si su punto final Quarkus se ejecuta en un clúster detrás de Kubernetes Ingress, entonces una redirección desde el proveedor OpenID Connect de vuelta a este punto final puede no funcionar ya que el parámetro calculado `redirect_uri` puede apuntar a la dirección interna del punto final. Este problema puede resolverse con la siguiente configuración:"
+msgstr "Por ejemplo, si su punto final Quarkus se ejecuta en un clúster detrás de Kubernetes Ingress, entonces una redirección desde el proveedor OpenID Connect de vuelta a este punto final puede no funcionar ya que el parámetro calculado `redirect_uri` puede apuntar a la dirección del punto final interno. Este problema puede resolverse con la siguiente configuración:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1467,14 +1467,14 @@ msgstr "Acceso externo e interno al proveedor de OIDC"
 msgid ""
 "Note that the OpenID Connect Provider externally accessible authorization, logout and other endpoints may have different HTTP(S) URLs compared to the URLs auto-discovered or configured relative to `quarkus.oidc.auth-server-url` internal URL.\n"
 "In such cases an issuer verification failure may be reported by the endpoint and redirects to the externally accessible Connect Provider endpoints may fail."
-msgstr "Tenga en cuenta que los puntos finales de autorización, cierre de sesión y otros puntos finales accesibles externamente del Proveedor Connect de OpenID pueden tener URL HTTP(S) diferentes en comparación con las URL autodescubiertas o configuradas en relación con la URL interna de `quarkus.oidc.auth-server-url` . En tales casos, es posible que el punto final notifique un fallo de verificación del emisor y que fallen las redirecciones a los puntos finales del Proveedor Connect accesibles externamente."
+msgstr "Tenga en cuenta que la autorización accesible externamente del proveedor de OpenID Connect, el cierre de sesión y otros puntos finales pueden tener URL HTTP(S) diferentes en comparación con las URL autodescubiertas o configuradas en relación con la URL interna de `quarkus.oidc.auth-server-url`. En tales casos, es posible que el punto final notifique un error de verificación del emisor y que fallen las redirecciones a los puntos finales del proveedor de Connect accesibles externamente."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
 "In such cases, if you work with Keycloak then please start it with a `KEYCLOAK_FRONTEND_URL` system property set to the externally accessible base URL.\n"
 "If you work with other Openid Connect providers then please check your provider's documentation."
-msgstr "En tales casos, si trabaja con Keycloak entonces por favor inícielo con una propiedad del sistema `KEYCLOAK_FRONTEND_URL` establecida en la URL base accesible externamente. Si trabaja con otros proveedores de Openid Connect, consulte la documentación de su proveedor."
+msgstr "En estos casos, si trabajas con Keycloak, por favor, inícialo con una propiedad del sistema `KEYCLOAK_FRONTEND_URL` establecida en la URL base accesible externamente. Si trabaja con otros proveedores de Openid Connect, consulte la documentación del proveedor."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1570,7 +1570,7 @@ msgstr "Las pruebas suelen ser complicadas cuando se trata de la autentificació
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Start by adding the following dependencies to your test project:"
-msgstr "Comience añadiendo las siguientes dependencias a su proyecto de prueba:"
+msgstr "Comience por añadir las siguientes dependencias a su proyecto de prueba:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1580,32 +1580,32 @@ msgstr "Wiremock"
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Add the following dependency:"
-msgstr "Añada la siguiente dependencia:"
+msgstr "Añade la siguiente dependencia:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Prepare the REST test endpoints, set `application.properties`, for example:"
-msgstr "Prepare los puntos finales de prueba REST, establezca `application.properties` , por ejemplo:"
+msgstr "Prepare los puntos finales de prueba REST, establezca `application.properties`, por ejemplo:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "and finally write the test code, for example:"
-msgstr "y, por último, escriba el código de prueba, por ejemplo:"
+msgstr "y finalmente escribir el código de prueba, por ejemplo:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "`OidcWiremockTestResource` recognizes `alice` and `admin` users. The user `alice` has the `user` role only by default - it can be customized with a `quarkus.test.oidc.token.user-roles` system property. The user `admin` has the `user` and `admin` roles by default - it can be customized with a `quarkus.test.oidc.token.admin-roles` system property."
-msgstr "`OidcWiremockTestResource` reconoce a los usuarios `alice` y `admin` . El usuario `alice` sólo tiene el rol `user` por defecto - puede personalizarse con una propiedad del sistema `quarkus.test.oidc.token.user-roles` . El usuario `admin` tiene los roles `user` y `admin` por defecto - puede personalizarse con una propiedad del sistema `quarkus.test.oidc.token.admin-roles` ."
+msgstr "`OidcWiremockTestResource` reconoce los usuarios `alice` y `admin`. El usuario `alice` sólo tiene el rol `user` por defecto - puede ser personalizado con una propiedad del sistema `quarkus.test.oidc.token.user-roles`. El usuario `admin` tiene los roles `user` y `admin` por defecto - puede ser personalizado con una propiedad del sistema `quarkus.test.oidc.token.admin-roles`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Additionally, `OidcWiremockTestResource` set token issuer and audience to `https://service.example.com` which can be customized with `quarkus.test.oidc.token.issuer` and `quarkus.test.oidc.token.audience` system properties."
-msgstr "Además, `OidcWiremockTestResource` establece el emisor de tokens y la audiencia en `https://service.example.com` que pueden personalizarse con las propiedades del sistema `quarkus.test.oidc.token.issuer` y `quarkus.test.oidc.token.audience` ."
+msgstr "Además, `OidcWiremockTestResource` establece el emisor de tokens y la audiencia en `&lt;a href=\"https://service.example.com\" class=\"bare\"&gt;https://service.example.com&lt;/a&gt;` que pueden personalizarse con las propiedades del sistema `quarkus.test.oidc.token.issuer` y `quarkus.test.oidc.token.audience`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "`OidcWiremockTestResource` can be used to emulate all OpenID Connect providers."
-msgstr "`OidcWiremockTestResource` puede utilizarse para emular a todos los proveedores de OpenID Connect."
+msgstr "`OidcWiremockTestResource` puede utilizarse para emular todos los proveedores de OpenID Connect."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1617,7 +1617,7 @@ msgstr "Servicios de desarrollo para Keycloak"
 msgid ""
 "Using xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak] is recommended for the integration testing against Keycloak.\n"
 "`Dev Services for Keycloak` will launch and initialize a test container: it will create a `quarkus` realm, a `quarkus-app` client (`secret` secret) and add `alice` (`admin` and `user` roles) and `bob` (`user` role) users, where all of these properties can be customized."
-msgstr "Se recomienda utilizar xref:security-openid-connect-dev-services.adoc[Dev Services para Keycloak] para las pruebas de integración contra Keycloak. `Dev Services for Keycloak` lanzará e inicializará un contenedor de pruebas: creará un dominio `quarkus` , un cliente `quarkus-app` ( `secret` secreto) y añadirá usuarios `alice` ( `admin` y `user` roles) y `bob` ( `user` rol), donde todas estas propiedades pueden personalizarse."
+msgstr "Se recomienda el uso de  link:security-openid-connect-dev-services.html[Dev Services para Keycloak] para las pruebas de integración contra Keycloak. `Dev Services for Keycloak` lanzará e inicializará un contenedor de pruebas: creará un dominio `quarkus`, un cliente `quarkus-app` ( `secret` secret) y añadirá usuarios `alice` ( `admin` y `user` roles) y `bob` ( `user` rol), donde todas estas propiedades pueden ser personalizadas."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1627,12 +1627,12 @@ msgstr "En primer lugar, prepare `application.properties` . Puede empezar con un
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "But if you already have all the required `quarkus-oidc` properties configured then you only need to associate `quarkus.oidc.auth-server-url` with the `prod` profile for `Dev Services for Keycloak`to start a container, for example:"
-msgstr "Pero si ya tiene configuradas todas las propiedades necesarias de `quarkus-oidc` , sólo tendrá que asociar `quarkus.oidc.auth-server-url` con el perfil `prod` para `Dev Services for Keycloak` para iniciar un contenedor, por ejemplo:"
+msgstr "Pero si ya tienes configuradas todas las propiedades requeridas de `quarkus-oidc` entonces sólo necesitas asociar `quarkus.oidc.auth-server-url` con el perfil `prod` para `Dev Services for Keycloak` para iniciar un contenedor, por ejemplo:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "If a custom realm file has to be imported into Keycloak before running the tests then you can configure `Dev Services for Keycloak` as follows:"
-msgstr "Si es necesario importar un archivo de dominio personalizado en Keycloak antes de ejecutar las pruebas, puede configurar `Dev Services for Keycloak` del siguiente modo:"
+msgstr "Si es necesario importar un archivo de dominio personalizado en Keycloak antes de ejecutar las pruebas, puede configurar `Dev Services for Keycloak` de la siguiente manera:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1656,7 +1656,7 @@ msgstr "Utilice `KeycloakTestResourceLifecycleManager` para sus pruebas sólo si
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Start with adding the following dependency:"
-msgstr "Comience por añadir la siguiente dependencia:"
+msgstr "Empiece por añadir la siguiente dependencia:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1666,12 +1666,12 @@ msgstr "que proporciona `io.quarkus.test.keycloak.server.KeycloakTestResourceLif
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "And configure the Maven Surefire plugin as follows:"
-msgstr "Y configure el plugin Maven Surefire como sigue:"
+msgstr "Y configura el plugin Maven Surefire como sigue:"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "(and similarly the Maven Failsafe plugin when testing in native image)."
-msgstr "(y de forma similar el plugin Maven Failsafe cuando se realicen pruebas en imagen nativa)."
+msgstr "(y de forma similar el plugin Maven Failsafe al probar en imagen nativa)."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1683,14 +1683,14 @@ msgstr "Y ahora establezca la configuración y escriba el código de prueba de l
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "`KeycloakTestResourceLifecycleManager` registers `alice` and `admin` users. The user `alice` has the `user` role only by default - it can be customized with a `keycloak.token.user-roles` system property. The user `admin` has the `user` and `admin` roles by default - it can be customized with a `keycloak.token.admin-roles` system property."
-msgstr "`KeycloakTestResourceLifecycleManager` registra los usuarios `alice` y `admin` . El usuario `alice` sólo tiene el rol `user` por defecto - puede personalizarse con una propiedad del sistema `keycloak.token.user-roles` . El usuario `admin` tiene los roles `user` y `admin` por defecto - puede personalizarse con una propiedad del sistema `keycloak.token.admin-roles` ."
+msgstr "`KeycloakTestResourceLifecycleManager` registra los usuarios `alice` y `admin`. El usuario `alice` sólo tiene el rol `user` por defecto - puede ser personalizado con una propiedad del sistema `keycloak.token.user-roles`. El usuario `admin` tiene los roles `user` y `admin` por defecto - puede ser personalizado con una propiedad del sistema `keycloak.token.admin-roles`."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
 "By default, `KeycloakTestResourceLifecycleManager` uses HTTPS to initialize a Keycloak instance which can be disabled with `keycloak.use.https=false`.\n"
 "Default realm name is `quarkus` and client id - `quarkus-web-app` - set `keycloak.realm` and `keycloak.web-app.client` system properties to customize the values if needed."
-msgstr "Por defecto, `KeycloakTestResourceLifecycleManager` utiliza HTTPS para inicializar una instancia de Keycloak, lo que puede desactivarse con `keycloak.use.https=false` . El nombre de dominio por defecto es `quarkus` y el id de cliente - `quarkus-web-app` - configure las propiedades del sistema `keycloak.realm` y `keycloak.web-app.client` para personalizar los valores si es necesario."
+msgstr "Por defecto, `KeycloakTestResourceLifecycleManager` utiliza HTTPS para inicializar una instancia de Keycloak, lo que puede desactivarse con `keycloak.use.https=false`. El nombre de dominio por defecto es `quarkus` y el id de cliente - `quarkus-web-app` - configure las propiedades del sistema `keycloak.realm` y `keycloak.web-app.client` para personalizar los valores si es necesario."
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
@@ -1743,7 +1743,7 @@ msgstr "xref:security-openid-connect-client-reference.adoc[Guía de referencia d
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak]"
-msgstr "xref:security-openid-connect-dev-services.adoc[Servicios de desarrollo para Keycloak]"
+msgstr "link:security-openid-connect-dev-services.html[Servicios de desarrollo para Keycloak]"
 
 #: _versions/3.6/guides/security-oidc-code-flow-authentication.adoc
 msgid "xref:security-authentication-mechanisms.adoc#oidc-jwt-oauth2-comparison[Choosing between OpenID Connect, SmallRye JWT, and OAuth2 authentication mechanisms]"
