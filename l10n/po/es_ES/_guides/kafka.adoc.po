@@ -152,11 +152,12 @@ msgid "A minimal configuration for the Kafka connector with an incoming channel 
 msgstr "Una configuración mínima para el conector Kafka con un canal de entrada tiene el siguiente aspecto:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Configure the broker location for the production profile. You can configure it globally or per channel using `mp.messaging.incoming.$channel.bootstrap.servers` property.\n"
 "In dev mode and when running tests, <<kafka-dev-services>> automatically starts a Kafka broker.\n"
 "When not provided this property defaults to `localhost:9092`."
-msgstr ""
+msgstr "Configure la ubicación del corredor para el perfil de producción. Puede configurarlo globalmente o por canal utilizando la propiedad `mp.messaging.incoming.$channel.bootstrap.servers` . En modo dev y al ejecutar pruebas, <<kafka-dev-services>> inicia automáticamente un corredor Kafka. Cuando no se proporciona esta propiedad, el valor por defecto es `localhost:9092` ."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -214,10 +215,11 @@ msgid "Message"
 msgstr "Mensaje"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `Message` type lets the consuming method access the incoming message metadata and handle the acknowledgment manually.\n"
 "We'll explore different acknowledgment strategies in <<commit-strategies>>."
-msgstr ""
+msgstr "El tipo `Message` permite al método consumidor acceder a los metadatos del mensaje entrante y gestionar el acuse de recibo manualmente. Exploraremos diferentes estrategias de acuse de recibo en <<commit-strategies>> ."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -283,11 +285,12 @@ msgid "Following types can be injected as channels:"
 msgstr "Los siguientes tipos pueden ser inyectados como canales:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "As with the previous `Message` example, if your injected channel receives payloads (`Multi<T>`), it acknowledges the message automatically, and support multiple subscribers.\n"
 "If you injected channel receives Message (`Multi<Message<T>>`), you will be responsible for the acknowledgment and broadcasting.\n"
 "We will explore sending broadcast messages in <<broadcasting-messages-on-multiple-consumers>>."
-msgstr ""
+msgstr "Como en el ejemplo anterior de `Message` , si su canal inyectado recibe cargas útiles ( `Multi<T>` ), acusará recibo del mensaje automáticamente y admitirá múltiples suscriptores. Si su canal inyectado recibe mensajes ( `Multi<Message<T>>` ), será responsable del acuse de recibo y de la difusión. Exploraremos el envío de mensajes de difusión en <<broadcasting-messages-on-multiple-consumers>> ."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -447,6 +450,7 @@ msgid ""
 msgstr "`throttled` mantiene un registro de los mensajes recibidos y consigna un desplazamiento del último mensaje acuse de recibo en la secuencia (lo que significa que todos los mensajes anteriores también fueron acuse de recibo). Esta estrategia garantiza la entrega al menos una vez, incluso si el canal realiza un procesamiento asíncrono. El conector realiza un seguimiento de los registros recibidos y periódicamente (periodo especificado por `auto.commit.interval.ms` , por defecto: 5000 ms) consigna el desplazamiento consecutivo más alto. El conector se marcará como no sano si un mensaje asociado a un registro no es reconocido en `throttled.unprocessed-record-max-age.ms` (por defecto: 60000 ms). De hecho, esta estrategia no puede consignar el desfase en cuanto falla el procesamiento de un único registro. Si `throttled.unprocessed-record-max-age.ms` se fija en un valor inferior o igual a `0` , no realiza ninguna verificación de chequeo. Una configuración de este tipo podría llevar a quedarse sin memoria si hay mensajes de \"píldora envenenada\" (que nunca se aceptan). Esta estrategia es la predeterminada si `enable.auto.commit` no se establece explícitamente en true."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "`checkpoint` allows persisting consumer offsets on a **state store**, instead of committing them back to the Kafka broker.\n"
 "Using the `CheckpointMetadata` API, consumer code can persist a _processing state_ with the record offset to mark the progress of a consumer.\n"
@@ -455,7 +459,7 @@ msgid ""
 "The connector will be marked as unhealthy if no processing state is persisted to the state store in `checkpoint.unsynced-state-max-age.ms` (default: 10000).\n"
 "If `checkpoint.unsynced-state-max-age.ms` is set to less than or equal to 0, it does not perform any health check verification.\n"
 "For more information, see <<stateful-processing-checkpointing>>"
-msgstr ""
+msgstr "`checkpoint` permite persistir los desplazamientos de los consumidores en un *almacén de estados* , en lugar de enviarlos de vuelta al corredor de Kafka. Utilizando la API `CheckpointMetadata` , el código del consumidor puede persistir un estado de _procesamiento_ con el desplazamiento de registro para marcar el progreso de un consumidor. Cuando el procesamiento continúa desde un desplazamiento persistido previamente, busca el consumidor Kafka ese desplazamiento y también restaura el estado persistido, continuando el procesamiento con estado desde donde lo dejó. La estrategia de punto de control mantiene localmente el estado de procesamiento asociado al último desplazamiento y lo persiste periódicamente en el almacén de estado (periodo especificado por `auto.commit.interval.ms` (por defecto: 5000)). El conector se marcará como no saludable si no se persiste ningún estado de procesamiento al almacén de estado en `checkpoint.unsynced-state-max-age.ms` (por defecto: 10000). Si `checkpoint.unsynced-state-max-age.ms` es menor o igual a 0, no realiza ninguna verificación de estado. Para más información, consulte <<stateful-processing-checkpointing>>"
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -706,11 +710,12 @@ msgid "*Multiple consumer threads inside a consumer group*"
 msgstr "*Múltiples hilos consumidores dentro de un grupo de consumidores*"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "For a given application instance, the number of consumers inside the consumer group can be configured using `mp.messaging.incoming.$channel.concurrency` property.\n"
 "The partitions of the subscribed topic will be divided among the consumer threads.\n"
 "Note that if the `concurrency` value exceed the number of partitions of the topic, some consumer threads won't be assigned any partitions."
-msgstr ""
+msgstr "Para una instancia de aplicación determinada, el número de consumidores dentro del grupo de consumidores puede configurarse utilizando la propiedad `mp.messaging.incoming.$channel.concurrency` . Las particiones del tema suscrito se dividirán entre los hilos consumidores. Tenga en cuenta que si el valor `concurrency` excede el número de particiones del tema, a algunos hilos consumidores no se les asignará ninguna partición."
 
 #. type: Block title
 #: _guides/kafka.adoc
@@ -719,11 +724,12 @@ msgid "Deprecation"
 msgstr "Depreciación"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The https://smallrye.io/smallrye-reactive-messaging/latest/concepts/incoming-concurrency/[concurrency attribute]\n"
 "provides a connector agnostic way for non-blocking concurrent channels and replaces the Kafka connector specific `partitions` attribute.\n"
 "The `partitions` attribute is therefore deprecated and will be removed in future releases."
-msgstr ""
+msgstr "El atributo de link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/incoming-concurrency/[concurrencia] proporciona una forma agnóstica del conector para canales concurrentes no bloqueantes y sustituye al atributo `partitions` específico del conector Kafka. Por lo tanto, el atributo `partitions` está obsoleto y se eliminará en futuras versiones."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -760,10 +766,11 @@ msgid ""
 msgstr "Un requisito empresarial habitual es consumir y procesar los registros de Kafka en orden. El corredor Kafka conserva el orden de los registros dentro de una partición y no dentro de un tema. Por lo tanto, es importante pensar en cómo se particionan los registros dentro de un tema. El particionador por defecto utiliza el hash de la clave del registro para calcular la partición de un registro, o cuando la clave no está definida, elige una partición aleatoriamente por lote o registros."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "During normal operation, a Kafka consumer preserves the order of records inside each partition assigned to it.\n"
 "Smallrye Reactive Messaging keeps this order for processing, unless `@Blocking(ordered = false)` is used (see <<blocking-processing>>)."
-msgstr ""
+msgstr "Durante el funcionamiento normal, un consumidor Kafka conserva el orden de los registros dentro de cada partición que se le asigna. Smallrye Reactive Messaging mantiene este orden para su procesamiento, a menos que se utilice `@Blocking(ordered = false)` (consulte <<blocking-processing>> )."
 
 #. type: delimited block =
 #: _guides/kafka.adoc
@@ -899,57 +906,69 @@ msgid "If the `group.id` attribute is not set, it defaults the `quarkus.applicat
 msgstr "Si no se establece el atributo `group.id`, se establece por defecto la propiedad de configuración `quarkus.application.name`."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Manual topic-partition assignment"
-msgstr ""
+msgstr "Asignación manual tema-partición"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `assign-seek` channel attribute allows manually assigning topic-partitions to a Kafka incoming channel,\n"
 "and optionally seek to a specified offset in the partition to start consuming records.\n"
 "If `assign-seek` is used, the consumer will not be dynamically subscribed to topics,\n"
 "but instead will statically assign the described partitions.\n"
 "In manual topic-partition rebalancing doesn't happen and therefore rebalance listeners are never called."
-msgstr ""
+msgstr "El atributo de canal `assign-seek` permite asignar manualmente particiones de temas a un canal de entrada Kafka y, opcionalmente, buscar un desplazamiento especificado en la partición para empezar a consumir registros. Si se utiliza `assign-seek` , el consumidor no se suscribirá dinámicamente a los temas, sino que asignará estáticamente las particiones descritas. En el reequilibrio manual de particiones de temas no se produce y, por tanto, nunca se llama a los escuchadores de reequilibrio."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "The attribute takes a list of triplets separated by commas: `<topic>:<partition>:<offset>`."
-msgstr ""
+msgstr "El atributo toma una lista de tripletas separadas por comas: `<topic>:<partition>:<offset>` ."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "For example, the configuration"
-msgstr ""
+msgstr "Por ejemplo, la configuración"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "assigns the consumer to:"
-msgstr ""
+msgstr "asigna al consumidor:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Partition 0 of topic 'topic1', setting the initial position at offset 10."
-msgstr ""
+msgstr "Partición 0 del tema 'tema1', fijando la posición inicial en el offset 10."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Partition 1 of topic 'topic2', setting the initial position at offset 20."
-msgstr ""
+msgstr "Partición 1 del tema 'tema2', fijando la posición inicial en el desplazamiento 20."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "The topic, partition, and offset in each triplet can have the following variations:"
-msgstr ""
+msgstr "El tema, la partición y el desplazamiento en cada tripleta pueden tener las siguientes variaciones:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If the topic is omitted, the configured topic will be used."
-msgstr ""
+msgstr "Si se omite el tema, se utilizará el tema configurado."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If the offset is omitted, partitions are assigned to the consumer but won't be sought to offset."
-msgstr ""
+msgstr "Si se omite el desplazamiento, las particiones se asignarán al consumidor pero no se buscará el desplazamiento."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If offset is 0, it seeks to the beginning of the topic-partition."
-msgstr ""
+msgstr "Si offset es 0, busca al principio del tema-partición."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If offset is -1, it seeks to the end of the topic-partition."
-msgstr ""
+msgstr "Si offset es -1, busca el final del tema-partición."
 
 #. type: Title ===
 #: _guides/kafka.adoc
@@ -1016,13 +1035,14 @@ msgid "The `checkpoint` commit strategy is an experimental feature and can chang
 msgstr "La `KafkaClientService` es una API experimental y puede cambiar en el futuro."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Smallrye Reactive Messaging `checkpoint` commit strategy allows consumer applications to process messages in a stateful manner, while also respecting Kafka consumer scalability.\n"
 "An incoming channel with `checkpoint` commit strategy persists consumer offsets on an external\n"
 "<<state-stores,state store>>, such as a relational database or a key-value store.\n"
 "As a result of processing consumed records, the consumer application can accumulate an internal state for each topic-partition assigned to the Kafka consumer.\n"
 "This local state will be periodically persisted to the state store and will be associated with the offset of the record that produced it."
-msgstr ""
+msgstr "La estrategia de commit de Smallrye Reactive Messaging `checkpoint` permite a las aplicaciones consumidoras procesar los mensajes de forma que se respete el estado, respetando al mismo tiempo la escalabilidad del consumidor Kafka. Un canal entrante con la estrategia de commit `checkpoint` persiste los registros consumidos en un xref:state-stores[almacén de estado] externo, como una base de datos relacional o un almacén de valores clave. Como resultado del procesamiento de los registros consumidos, la aplicación consumidora puede acumular un estado interno para cada tema-partición asignado al consumidor Kafka. Este estado local se persistirá periódicamente en el almacén de estado y se asociará al desplazamiento del registro que lo produjo."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -1139,11 +1159,12 @@ msgid "Configuration for the Kafka connector outgoing channels is similar to tha
 msgstr "La configuración de los canales salientes del conector Kafka es similar a la de los entrantes:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Configure the broker location for the production profile. You can configure it globally or per channel using `mp.messaging.outgoing.$channel.bootstrap.servers` property.\n"
 "In dev mode and when running tests, <<kafka-dev-services>> automatically starts a Kafka broker.\n"
 "When not provided, this property defaults to `localhost:9092`."
-msgstr ""
+msgstr "Configure la ubicación del corredor para el perfil de producción. Puede configurarlo globalmente o por canal utilizando la propiedad `mp.messaging.outgoing.$channel.bootstrap.servers` . En modo dev y al ejecutar pruebas, <<kafka-dev-services>> inicia automáticamente un corredor Kafka. Cuando no se proporciona, esta propiedad es por defecto `localhost:9092` ."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -1421,8 +1442,9 @@ msgid ""
 msgstr "Tenga en cuenta que aunque tener reintentos en un sistema fiable es una buena práctica, el parámetro `max.in.flight.requests.per.connection` por defecto es `5` , lo que significa que el orden de los mensajes no está garantizado. Si el orden de los mensajes es imprescindible para su caso de uso, estableciendo `max.in.flight.requests.per.connection` en `1` se asegurará de que se envía un único lote de mensajes a la vez, a costa de limitar el rendimiento del productor."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "For applying retry mechanism on processing errors, see the section on <<retrying-processing>>."
-msgstr ""
+msgstr "Para aplicar el mecanismo de reintento en los errores de procesamiento, consulte la sección <<retrying-processing>> ."
 
 #. type: Title ===
 #: _guides/kafka.adoc
@@ -1514,8 +1536,9 @@ msgid ""
 msgstr "En el ejemplo anterior, el precio generado se difundirá a ambos canales salientes. El siguiente ejemplo envía mensajes de forma selectiva a varios canales salientes utilizando el objeto contenedor `Targeted` , que contiene key como nombre del canal y value como carga útil del mensaje."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Note that <<serialization-autodetection,the auto-detection for Kafka serializers>> doesn't work for signatures using the `Targeted`."
-msgstr ""
+msgstr "Tenga en cuenta que xref:serialization-autodetection[la autodetección para serializadores Kafka] no funciona para las firmas que utilizan el `Targeted` ."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -1587,8 +1610,9 @@ msgid ""
 msgstr "Tenga en cuenta que en Mensajería Reactiva, la ejecución de los métodos de procesamiento, ya está serializada, a menos que se utilice `@Blocking(ordered = false)` . Si `withTransaction` puede ser llamado concurrentemente, por ejemplo desde un punto final REST, se recomienda limitar la concurrencia de la ejecución. Esto puede hacerse utilizando la anotación `@Bulkhead` de xref:smallrye-fault-tolerance.adoc[Microprofile Fault Tolerance] ."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "An example usage can be found in <<chaining-kafka-transactions-with-hibernate-reactive-transactions>>."
-msgstr ""
+msgstr "Encontrará un ejemplo de uso en <<chaining-kafka-transactions-with-hibernate-reactive-transactions>> ."
 
 #. type: Title ====
 #: _guides/kafka.adoc
@@ -1603,37 +1627,43 @@ msgid "If you'd like to consume records only written and committed inside a Kafk
 msgstr "Si desea consumir registros sólo escritos y consignados dentro de una transacción Kafka, debe configurar la propiedad `isolation.level` en el canal de entrada como tal:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Kafka Request-Reply"
-msgstr ""
+msgstr "Solicitud-Respuesta Kafka"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The Kafka Request-Reply pattern allows to publish a request record to a Kafka topic and then await for a reply record that responds to the initial request.\n"
 "The Kafka connector provides the `KafkaRequestReply` custom emitter that implements the requestor (or the client) of the request-reply pattern for Kafka outbound channels:"
-msgstr ""
+msgstr "El patrón solicitud-respuesta de Kafka permite publicar un registro de solicitud en un tema de Kafka y, a continuación, esperar un registro de respuesta que responda a la solicitud inicial. El conector Kafka proporciona el emisor personalizado `KafkaRequestReply` que implementa el solicitante (o el cliente) del patrón solicitud-respuesta para los canales salientes de Kafka:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "It can be injected as a regular emitter `@Channel`:"
-msgstr ""
+msgstr "Puede inyectarse como un emisor normal `@Channel` :"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The request method publishes the record to the configured target topic of the outgoing channel,\n"
 "and polls a reply topic (by default, the target topic with `-replies` suffix) for a reply record.\n"
 "When the reply is received the returned `Uni` is completed with the record value.\n"
 "The request send operation generates a **correlation id** and sets a header (by default `REPLY_CORRELATION_ID`),\n"
 "which it expects to be sent back in the reply record."
-msgstr ""
+msgstr "El método de solicitud publica el registro en el tema de destino configurado del canal saliente, y sondea un tema de respuesta (por defecto, el tema de destino con sufijo `-replies` ) en busca de un registro de respuesta. Cuando se recibe la respuesta, el `Uni` devuelto se completa con el valor del registro. La operación de envío de la solicitud genera un *id de correlación* y establece una cabecera (por defecto `REPLY_CORRELATION_ID` ), que espera que se devuelva en el registro de respuesta."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "The replier can be implemented using a Reactive Messaging processor (see <<processing-messages>>)."
-msgstr ""
+msgstr "El replicador puede implementarse utilizando un procesador de mensajería reactiva (véase <<processing-messages>> )."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "For more information on Kafka Request Reply feature and advanced configuration options,\n"
 "see the https://smallrye.io/smallrye-reactive-messaging/latest/kafka/request-reply/[Smallrye Reactive Messaging Documentation]."
-msgstr ""
+msgstr "Para obtener más información sobre la función de respuesta a solicitudes de Kafka y las opciones de configuración avanzadas, consulte la link:https://smallrye.io/smallrye-reactive-messaging/latest/kafka/request-reply/[documentación sobre mensajería reactiva de Smallrye] ."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -1766,11 +1796,12 @@ msgid ""
 msgstr "El `Uni` devuelto desde el `KafkaTransactions#withTransaction` producirá un fallo si la transacción falla y es abortada. La aplicación puede elegir manejar el caso de error, pero si se devuelve un `Uni` fallido desde el método `@Incoming` , el canal entrante fallará efectivamente y detendrá el flujo reactivo."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `KafkaTransactions#withTransactionAndAck` method acks and nacks the message but will *not* return a failing `Uni`.\n"
 "Nacked messages will be handled by the failure strategy of the incoming channel, (see <<error-handling>>).\n"
 "Configuring `failure-strategy=ignore` simply resets the Kafka consumer to the last committed offsets and resumes the consumption from there."
-msgstr ""
+msgstr "El método `KafkaTransactions#withTransactionAndAck` acks y nacks el mensaje pero *no* devolverá un fallo `Uni` . Los mensajes nacked serán manejados por la estrategia de fallo del canal entrante, (ver <<error-handling>> ). Configurar `failure-strategy=ignore` simplemente restablece el consumidor Kafka a los últimos desplazamientos comprometidos y reanuda el consumo a partir de ahí."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -1798,10 +1829,11 @@ msgid "You can also get the Kafka configuration injected to your application and
 msgstr "También puede obtener la configuración de Kafka inyectada en su aplicación y crear clientes productores, consumidores y administradores de Kafka directamente:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `default-kafka-broker` configuration map contains all application properties prefixed with `kafka.` or `KAFKA_`.\n"
 "For more configuration options check out <<kafka-configuration-resolution>>."
-msgstr ""
+msgstr "El mapa de configuración `default-kafka-broker` contiene todas las propiedades de la aplicación prefijadas con `kafka.` o `KAFKA_` . Para más opciones de configuración consulte <<kafka-configuration-resolution>> ."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -1846,17 +1878,19 @@ msgid "Serializing via Jackson"
 msgstr "Serialización a través de Jackson"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Quarkus has built-in support for JSON serialization and deserialization based on Jackson.\n"
 "It will also <<serialization-generation,generate>> the serializer and deserializer for you, so you do not have to configure anything.\n"
 "When generation is disabled, you can use the provided `ObjectMapperSerializer` and `ObjectMapperDeserializer` as explained below."
-msgstr ""
+msgstr "Quarkus tiene soporte incorporado para la serialización y deserialización de JSON basado en Jackson. También xref:serialization-generation[generará] el serializador y deserializador por usted, por lo que no tendrá que configurar nada. Cuando la generación está desactivada, puede utilizar los proporcionados `ObjectMapperSerializer` y `ObjectMapperDeserializer` como se explica a continuación."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "There is an existing `ObjectMapperSerializer` that can be used to serialize all data objects via Jackson.\n"
 "You may create an empty subclass if you want to use <<serialization-autodetection>>."
-msgstr ""
+msgstr "Existe un `ObjectMapperSerializer` que puede utilizarse para serializar todos los objetos de datos a través de Jackson. Puede crear una subclase vacía si desea utilizar <<serialization-autodetection>> ."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -1880,10 +1914,11 @@ msgid "Finally, configure your channels to use the Jackson serializer and deseri
 msgstr "Por último, configure sus canales para utilizar el serializador y el deserializador de Jackson."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Now, your Kafka messages will contain a Jackson serialized representation of your `Fruit` data object.\n"
 "In this case, the `deserializer` configuration is not necessary as the <<serialization-autodetection>> is enabled by default."
-msgstr ""
+msgstr "Ahora, sus mensajes Kafka contendrán una representación serializada Jackson de su objeto de datos `Fruit` . En este caso, la configuración de `deserializer` no es necesaria, ya que <<serialization-autodetection>> está activada por defecto."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -1904,10 +1939,11 @@ msgid "First, you need to include the `quarkus-jsonb` extension."
 msgstr "En primer lugar, debe incluir la extensión `quarkus-jsonb`."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "There is an existing `JsonbSerializer` that can be used to serialize all data objects via JSON-B.\n"
 "You may create an empty subclass if you want to use <<serialization-autodetection>>."
-msgstr ""
+msgstr "Existe un `JsonbSerializer` que puede utilizarse para serializar todos los objetos de datos mediante JSON-B. Puede crear una subclase vacía si desea utilizar <<serialization-autodetection>> ."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -1962,12 +1998,14 @@ msgid "This is described in a dedicated guide: xref:kafka-schema-registry-avro.a
 msgstr "Esto se describe en una guía dedicada:  link:kafka-schema-registry-avro.html[Uso de Apache Kafka con Schema Registry y Avro]."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "JSON Schema Serialization"
-msgstr ""
+msgstr "Serialización del esquema JSON"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "This is described in a dedicated guide: xref:kafka-schema-registry-json-schema.adoc[Using Apache Kafka with Schema Registry and JSON Schema]."
-msgstr ""
+msgstr "Esto se describe en una guía dedicada: xref:kafka-schema-registry-json-schema.adoc[Uso de Apache Kafka con Schema Registry y JSON Schema] ."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -2132,8 +2170,9 @@ msgid "see xref:kafka-schema-registry-avro.adoc[Using Apache Kafka with Schema R
 msgstr "Para más información sobre el uso de las librerías Confluent o Apicurio Registry, consulte  link:kafka-schema-registry-avro.html[Uso de Apache Kafka con Schema Registry y Avro]"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "classes for which a subclass of `ObjectMapperSerializer` / `ObjectMapperDeserializer` is present, as described in <<jackson-serialization>>"
-msgstr ""
+msgstr "clases para las que existe una subclase de `ObjectMapperSerializer` / `ObjectMapperDeserializer` , como se describe en <<jackson-serialization>>"
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -2142,8 +2181,9 @@ msgid "it is technically not needed to subclass `ObjectMapperSerializer`, but in
 msgstr "técnicamente no es necesario subclasificar `ObjectMapperSerializer`, pero en tal caso, la autodetección no es posible"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "classes for which a subclass of `JsonbSerializer` / `JsonbDeserializer` is present, as described in <<jsonb-serialization>>"
-msgstr ""
+msgstr "clases para las que existe una subclase de `JsonbSerializer` / `JsonbDeserializer` , como se describe en <<jsonb-serialization>>"
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -2201,10 +2241,11 @@ msgid "This generation can be disabled using:"
 msgstr "Esta generación se puede desactivar mediante:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Generation does not support collections such as `List<Fruit>`.\n"
 "Refer to <<jackson-serialization>> to write your own serializer/deserializer for this case."
-msgstr ""
+msgstr "La generación no admite colecciones como `List<Fruit>` . Consulte <<jackson-serialization>> para escribir su propio serializador/deserializador para este caso."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -2213,10 +2254,11 @@ msgid "Using Schema Registry"
 msgstr "Uso del registro de esquemas"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "This is described in a dedicated guide for Avro: xref:kafka-schema-registry-avro.adoc[Using Apache Kafka with Schema Registry and Avro].\n"
 "And a different one for JSON Schema: xref:kafka-schema-registry-json-schema.adoc[Using Apache Kafka with Schema Registry and JSON Schema]."
-msgstr ""
+msgstr "Esto se describe en una guía dedicada para Avro: xref:kafka-schema-registry-avro.adoc[Uso de Apache Kafka con Schema Registry y] Avro. Y otra diferente para JSON Schema: Uso de Apache Kafka con Schema Registry y xref:kafka-schema-registry-json-schema.adoc[JSON Schema] ."
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -2313,36 +2355,42 @@ msgid ""
 msgstr "Tenga en cuenta que para ello se necesita una _conexión de administrador_ . Puede ajustar el tiempo de espera de las llamadas de verificación de temas al agente mediante la configuración de `health-topic-verification-timeout` ."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Observability"
-msgstr ""
+msgstr "Observabilidad"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "If the xref:opentelemetry.adoc[OpenTelemetry extension] is present,\n"
 "then the Kafka connector channels work out-of-the-box with the OpenTelemetry Tracing.\n"
 "Messages written to Kafka topics propagate the current tracing span.\n"
 "On incoming channels, if a consumed Kafka record contains tracing information the message processing inherits the message span as parent."
-msgstr ""
+msgstr "Si la xref:opentelemetry.adoc[extensión OpenTelemetry] está presente, entonces los canales del conector Kafka funcionan \"out-of-the-box\" con el rastreo OpenTelemetry. Los mensajes escritos en temas Kafka propagan el tramo de rastreo actual. En los canales entrantes, si un registro Kafka consumido contiene información de rastreo, el procesamiento del mensaje hereda el tramo del mensaje como padre."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Tracing can be disabled explicitly per channel:"
-msgstr ""
+msgstr "El rastreo puede desactivarse explícitamente por canal:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "If the xref:telemetry-micrometer.adoc[Micrometer extension] is present,\n"
 "then Kafka producer and consumer clients metrics are exposed as Micrometer meters."
-msgstr ""
+msgstr "Si la xref:telemetry-micrometer.adoc[extensión Micrometer] está presente, las métricas de los clientes productores y consumidores de Kafka se exponen como contadores Micrometer."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Per channel metrics are also exposed as Micrometer meters.\n"
 "The number of messages produced or received per channel, acknowledgments and duration of processing are exposed."
-msgstr ""
+msgstr "Las métricas por canal también se exponen como micromedidores. Se exponen el número de mensajes producidos o recibidos por canal, los acuses de recibo y la duración del procesamiento."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "The messaging meters can be disabled:"
-msgstr ""
+msgstr "Los contadores de mensajes pueden desactivarse:"
 
 #. type: Title ==
 #: _guides/kafka.adoc
@@ -2562,30 +2610,35 @@ msgid ""
 msgstr "Con los canales en memoria pudimos probar el código de la aplicación procesando mensajes sin iniciar un broker de Kafka. Tenga en cuenta que los distintos canales en memoria son independientes y que cambiar el conector de canal a en memoria no simula la entrega de mensajes entre canales configurados para el mismo tema de Kafka."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "Context propagation with InMemoryConnector"
-msgstr ""
+msgstr "Propagación del contexto con InMemoryConnector"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "By default, in-memory channels dispatch messages on the caller thread, which would be the main thread in unit tests."
-msgstr ""
+msgstr "Por defecto, los canales en memoria despachan los mensajes en el hilo de llamada, que sería el hilo principal en las pruebas unitarias."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "The `quarkus-test-vertx` dependency provides the `@io.quarkus.test.vertx.RunOnVertxContext` annotation,\n"
 "which when used on a test method, executes the test on a Vert.x context."
-msgstr ""
+msgstr "La dependencia `quarkus-test-vertx` proporciona la anotación `@io.quarkus.test.vertx.RunOnVertxContext` , que cuando se utiliza en un método de prueba, ejecuta la prueba en un contexto Vert.x."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "However, most of the other connectors handle context propagation dispatching messages on separate duplicated Vert.x contexts."
-msgstr ""
+msgstr "Sin embargo, la mayoría de los demás conectores manejan la propagación de contextos despachando mensajes en contextos Vert.x duplicados por separado."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "If your tests are dependent on context propagation,\n"
 "you can configure the in-memory connector channels with the `run-on-vertx-context` attribute to dispatch events,\n"
 "including messages and acknowledgements, on a Vert.x context.\n"
 "Alternatively you can switch this behaviour using the `InMemorySource#runOnVertxContext` method."
-msgstr ""
+msgstr "Si sus pruebas dependen de la propagación de contextos, puede configurar los canales del conector en memoria con el atributo `run-on-vertx-context` para que envíen eventos, incluidos mensajes y acuses de recibo, en un contexto Vert.x. También puede cambiar este comportamiento utilizando el método `InMemorySource#runOnVertxContext` ."
 
 #. type: Title ===
 #: _guides/kafka.adoc
@@ -2594,11 +2647,12 @@ msgid "Testing using a Kafka broker"
 msgstr "Pruebas con un broker de Kafka"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "If you are using <<kafka-dev-services>>, a Kafka broker will be started and available throughout the tests, unless it is disabled in `%test` profile.\n"
 "While it is possible to connect to this broker using Kafka Clients API,\n"
 "https://smallrye.io/smallrye-reactive-messaging/latest/kafka/test-companion/[Kafka Companion Library] proposes an easier way of interacting with a Kafka broker and, creating consumer, producer and admin actions inside tests."
-msgstr ""
+msgstr "Si está utilizando <<kafka-dev-services>> , un broker de Kafka se iniciará y estará disponible durante todas las pruebas, a menos que esté desactivado en el perfil de `%test` . Aunque es posible conectarse a este broker utilizando la API de clientes de Kafka, link:https://smallrye.io/smallrye-reactive-messaging/latest/kafka/test-companion/[Kafka Companion Library] propone una forma más sencilla de interactuar con un broker de Kafka y, crear acciones de consumidor, productor y administrador dentro de las pruebas."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -2700,11 +2754,12 @@ msgid "Execution model"
 msgstr "Modelo de ejecución"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Reactive Messaging invokes user's methods on an I/O thread.\n"
 "Thus, by default, the methods must not block.\n"
 "As described in <<blocking-processing>>, you need to add the `@Blocking` annotation on the method if this method will block the caller thread."
-msgstr ""
+msgstr "La mensajería reactiva invoca los métodos del usuario en un hilo de E/S. Así, por defecto, los métodos no deben bloquearse. Como se describe en <<blocking-processing>> , es necesario añadir la anotación `@Blocking` en el método si éste va a bloquear el hilo de la llamada."
 
 #. type: Plain text
 #: _guides/kafka.adoc
@@ -3039,8 +3094,9 @@ msgid "To persist objects received from Kafka into a database, you can use Hiber
 msgstr "Para persistir los objetos recibidos de Kafka en una base de datos, puede utilizar Hibernate con Panache."
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If you use Hibernate Reactive, look at <<persisting-kafka-messages-with-hibernate-reactive>>."
-msgstr ""
+msgstr "Si utiliza Hibernate Reactive, consulte <<persisting-kafka-messages-with-hibernate-reactive>> ."
 
 #: _guides/kafka.adoc
 #, fuzzy
@@ -3094,10 +3150,11 @@ msgid "The associated configuration would be:"
 msgstr "La configuración asociada sería:"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid ""
 "Check <<jackson-serialization>> for more detail about the usage of Jackson with Kafka.\n"
 "You can also use Avro."
-msgstr ""
+msgstr "Consulte <<jackson-serialization>> para obtener más detalles sobre el uso de Jackson con Kafka. También puede utilizar Avro."
 
 #. type: Title ===
 #: _guides/kafka.adoc
@@ -3207,8 +3264,9 @@ msgid "You send the entity to a Kafka topic"
 msgstr "Se envía la entidad a un tema Kafka"
 
 #: _guides/kafka.adoc
+#, fuzzy
 msgid "If you use Hibernate Reactive, look at <<writing-entities-managed-by-hibernate-reactive-to-kafka>>."
-msgstr ""
+msgstr "Si utiliza Hibernate Reactive, consulte <<writing-entities-managed-by-hibernate-reactive-to-kafka>> ."
 
 #: _guides/kafka.adoc
 #, fuzzy

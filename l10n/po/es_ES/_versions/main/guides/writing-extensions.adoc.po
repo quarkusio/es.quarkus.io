@@ -307,13 +307,14 @@ msgid "Bean initialization"
 msgstr "Inicialización de los frijoles"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "Some components may require additional initialization based on information collected during augmentation.\n"
 "The most straightforward solution is to obtain a bean instance and call a method directly from a build step.\n"
 "However, it is _illegal_ to obtain a bean instance during the augmentation phase.\n"
 "The reason is that the CDI container is not started yet.\n"
 "It's started during the <<bootstrap-three-phases,Static init bootstrap phase>>."
-msgstr ""
+msgstr "Algunos componentes pueden requerir una inicialización adicional basada en la información recopilada durante la ampliación. La solución más directa es obtener una instancia de bean y llamar a un método directamente desde un paso de construcción. Sin embargo, es _ilegal_ obtener una instancia de bean durante la fase de aumento. La razón es que el contenedor CDI aún no se ha iniciado. Se inicia durante la fase de arranque xref:bootstrap-three-phases[Static init] ."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -322,13 +323,14 @@ msgid "`BUILD_AND_RUN_TIME_FIXED` and `RUN_TIME` config roots can be injected in
 msgstr "`BUILD_AND_RUN_TIME_FIXED` y `RUN_TIME` config roots pueden inyectarse en cualquier bean. Sin embargo, `RUN_TIME` config roots sólo debe inyectarse después del bootstrap."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "It is possible to invoke a bean method from a <<bytecode-recording,recorder method>> though.\n"
 "If you need to access a bean in a `@Record(STATIC_INIT)` build step then is must either depend on the `BeanContainerBuildItem` or wrap the logic in a `BeanContainerListenerBuildItem`.\n"
 "The reason is simple - we need to make sure the CDI container is fully initialized and started.\n"
 "However, it is safe to expect that the CDI container is fully initialized and running in a `@Record(RUNTIME_INIT)` build step.\n"
 "You can obtain a reference to the container via `CDI.current()` or Quarkus-specific `Arc.container()`."
-msgstr ""
+msgstr "Sin embargo, es posible invocar un método bean desde un xref:bytecode-recording[método registrador] . Si necesita acceder a un frijol en un paso de compilación de `@Record(STATIC_INIT)` , entonces debe depender de `BeanContainerBuildItem` o envolver la lógica en un `BeanContainerListenerBuildItem` . La razón es sencilla: necesitamos asegurarnos de que el contenedor CDI está totalmente inicializado e iniciado. Sin embargo, es seguro esperar que el contenedor CDI esté completamente inicializado y en ejecución en un paso de compilación `@Record(RUNTIME_INIT)` . Puede obtener una referencia al contenedor a través de `CDI.current()` o del `Arc.container()` específico de Quarkus."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -337,11 +339,12 @@ msgid "Don't forget to make sure the bean state guarantees the visibility, e.g. 
 msgstr "No olvides asegurarte de que el estado del frijol garantiza la visibilidad, por ejemplo, a través de la palabra clave `volatile`."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "There is one significant drawback of this \"late initialization\" approach.\n"
 "An _uninitialized_ bean may be accessed by other extensions or application components that are instantiated during bootstrap.\n"
 "We'll cover a more robust solution in the <<synthetic_beans>>."
-msgstr ""
+msgstr "Este enfoque de \"inicialización tardía\" tiene un inconveniente importante. Un bean _no inicializado_ puede ser accedido por otras extensiones o componentes de la aplicación que se instancien durante el arranque. Cubriremos una solución más robusta en la página <<synthetic_beans>> ."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -435,10 +438,11 @@ msgid ""
 msgstr "Dado que el contenedor CDI no controla la instanciación de un frijol sintético, la inyección de dependencia y otros servicios (como los interceptores) no están soportados. En otras palabras, depende de la extensión proporcionar todos los servicios necesarios a una instancia de frijol sintético."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "There are several ways to register a <<cdi-integration.adoc#synthetic_beans,synthetic bean>> in Quarkus.\n"
 "In this chapter, we will cover a use case that can be used to initialize extension beans in a safe manner (compared to <<bean_init>>)."
-msgstr ""
+msgstr "Hay varias formas de registrar un xref:cdi-integration.adoc#synthetic_beans[frijol sintético] en Quarkus. En este capítulo, cubriremos un caso de uso que puede utilizarse para inicializar frijoles de extensión de forma segura (en comparación con <<bean_init>> )."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -447,8 +451,9 @@ msgid "The `SyntheticBeanBuildItem` can be used to register a synthetic bean:"
 msgstr "La página `SyntheticBeanBuildItem` puede utilizarse para registrar una judía sintética:"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "whose instance can be easily produced through a <<bytecode-recording,recorder>>,"
-msgstr ""
+msgstr "cuya instancia puede producirse fácilmente a través de una xref:bytecode-recording[grabadora] ,"
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -563,13 +568,14 @@ msgid "Augmentation"
 msgstr "Aumento"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "This is the first phase, and is done by the <<build-step-processors>>. These processors have access to Jandex annotation\n"
 "information and can parse any descriptors and read annotations, but should not attempt to load any application classes. The output of these\n"
 "build steps is some recorded bytecode, using an extension of the ObjectWeb ASM project called Gizmo(ext/gizmo), that is used to actually bootstrap the application at runtime.\n"
 "Depending on the `io.quarkus.deployment.annotations.ExecutionTime` value of the `@io.quarkus.deployment.annotations.Record` annotation associated with the build step,\n"
 "the step may be run in a different JVM based on the following two modes."
-msgstr ""
+msgstr "Esta es la primera fase, y la realiza el <<build-step-processors>> . Estos procesadores tienen acceso a la información de las anotaciones de Jandex y pueden analizar cualquier descriptor y leer las anotaciones, pero no deben intentar cargar ninguna clase de la aplicación. La salida de estos pasos de compilación es algún bytecode grabado, utilizando una extensión del proyecto ObjectWeb ASM llamada Gizmo(ext/gizmo), que se utiliza para arrancar realmente la aplicación en tiempo de ejecución. Dependiendo del valor `io.quarkus.deployment.annotations.ExecutionTime` de la anotación `@io.quarkus.deployment.annotations.Record` asociada al paso de compilación, el paso puede ejecutarse en una JVM diferente según los dos modos siguientes."
 
 #. type: Labeled list
 #: _versions/main/guides/writing-extensions.adoc
@@ -950,17 +956,19 @@ msgid "Build steps"
 msgstr "Construir pasos"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "A _build step_ is a non-static method which is annotated with the `@io.quarkus.deployment.annotations.BuildStep` annotation.\n"
 "Each build step may <<consuming-values,consume>> items that are produced by earlier stages, and <<producing-values,produce>> items that can be consumed by later stages. Build steps are normally only run when they produce a build item that is\n"
 "ultimately consumed by another step."
-msgstr ""
+msgstr "Una etapa de _construcción_ es un método no estático anotado con la anotación `@io.quarkus.deployment.annotations.BuildStep` . Cada paso de construcción puede xref:consuming-values[consumir] elementos producidos por etapas anteriores y xref:producing-values[producir] elementos que pueden ser consumidos por etapas posteriores. Normalmente, los pasos de construcción sólo se ejecutan cuando producen un elemento de construcción que finalmente es consumido por otro paso."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "Build steps are normally placed on plain classes within an extension's deployment module.  The classes are automatically\n"
 "instantiated during the augment process and utilize <<injection,injection>>."
-msgstr ""
+msgstr "Los pasos de construcción se colocan normalmente en clases simples dentro del módulo de despliegue de una extensión. Las clases se instancian automáticamente durante el proceso de ampliación y utilizan xref:injection[la inyección] ."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -969,12 +977,13 @@ msgid "Build items"
 msgstr "Construir elementos"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "Build items are concrete, final subclasses of the abstract `io.quarkus.builder.item.BuildItem` class.  Each build item represents\n"
 "some unit of information that must be passed from one stage to another.  The base `BuildItem` class may not itself be directly\n"
 "subclassed; rather, there are abstract subclasses for each of the kinds of build item subclasses that _may_ be created:\n"
 "<<simple-build-items,simple>>, <<multi-build-items,multi>>, and <<empty-build-items,empty>>."
-msgstr ""
+msgstr "Los elementos de construcción son subclases concretas y finales de la clase abstracta `io.quarkus.builder.item.BuildItem` . Cada elemento de construcción representa alguna unidad de información que debe pasarse de una etapa a otra. La clase base `BuildItem` no puede subclasificarse directamente, sino que existen subclases abstractas para cada uno de los tipos de subclases de elementos de construcción que _pueden_ crearse: xref:simple-build-items[simple] , xref:multi-build-items[múltiple] y xref:empty-build-items[vacío] ."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -1202,20 +1211,24 @@ msgid "The types of values that can be injected include:"
 msgstr "Los tipos de valores que se pueden inyectar incluyen:"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "<<build-items,Build items>> produced by previous build steps"
-msgstr ""
+msgstr "xref:build-items[Elementos de construcción] producidos por pasos de construcción anteriores"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "<<producing-values,Build producers>> to produce items for subsequent build steps"
-msgstr ""
+msgstr "xref:producing-values[Construir productores] para producir artículos para los siguientes pasos de construcción"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "<<configuration,Configuration Mapping>> types"
-msgstr ""
+msgstr "xref:configuration[Configuración] Tipos de xref:configuration[mapeo] "
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "Template objects for <<bytecode-recording,bytecode recording>>"
-msgstr ""
+msgstr "Objetos plantilla para la xref:bytecode-recording[grabación del código de bytes]"
 
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy
@@ -1244,8 +1257,9 @@ msgid "A build step may produce values for subsequent steps in several possible 
 msgstr "Un paso de construcción puede producir valores para los pasos posteriores de varias maneras posibles:"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "By returning a <<simple-build-items,simple build item>> or <<multi-build-items,multi build item>> instance"
-msgstr ""
+msgstr "Devolviendo una instancia de elemento xref:multi-build-items[de] xref:simple-build-items[construcción simple] o de xref:multi-build-items[elemento de construcción] múltiple"
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -1260,10 +1274,11 @@ msgid "By injecting a `BuildProducer` of a simple or multi build item class"
 msgstr "Inyectando un `BuildProducer` de una clase de artículo simple o de construcción múltiple"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "By annotating the method with `@io.quarkus.deployment.annotations.Produce`, giving the class name of an\n"
 "<<empty-build-items,empty build item>>"
-msgstr ""
+msgstr "Anotando el método con `@io.quarkus.deployment.annotations.Produce` , dando el nombre de clase de un xref:empty-build-items[elemento de construcción vacío]"
 
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy
@@ -1295,8 +1310,9 @@ msgid "A build step may consume values from previous steps in the following ways
 msgstr "Un paso de construcción puede consumir valores de pasos anteriores de las siguientes maneras:"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "By injecting a <<simple-build-items,simple build item>>"
-msgstr ""
+msgstr "Inyectando un xref:simple-build-items[simple elemento de construcción]"
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -1305,14 +1321,16 @@ msgid "By injecting an `Optional` of a simple build item class"
 msgstr "Inyectando un `Optional` de una simple clase de elemento de construcción"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "By injecting a `List` of a <<multi-build-items,multi build item>> class"
-msgstr ""
+msgstr "Inyectando un `List` de una clase de xref:multi-build-items[elemento de construcción] múltiple"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "By annotating the method with `@io.quarkus.deployment.annotations.Consume`, giving the class name of an\n"
 "<<empty-build-items,empty build item>>"
-msgstr ""
+msgstr "Anotando el método con `@io.quarkus.deployment.annotations.Consume` , dando el nombre de clase de un xref:empty-build-items[elemento de construcción vacío]"
 
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy
@@ -1386,10 +1404,11 @@ msgid ""
 msgstr "En el ejemplo anterior, `GeneratedClassBuildItem` sólo se produciría si `ExecutorClassBuildItem` es consumido por algún otro paso de compilación."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "Note that when using <<bytecode-recording,bytecode recording>>, the implicitly generated class can be declared to be weak by\n"
 "using the `optional` attribute of the `@io.quarkus.deployment.annotations.Record` annotation."
-msgstr ""
+msgstr "Tenga en cuenta que cuando se utiliza el xref:bytecode-recording[registro de código de bytes] , se puede declarar que la clase generada implícitamente es débil utilizando el atributo `optional` de la anotación `@io.quarkus.deployment.annotations.Record` ."
 
 #. type: Block title
 #: _versions/main/guides/writing-extensions.adoc
@@ -1404,8 +1423,9 @@ msgid "Note the `optional` attribute."
 msgstr "Tenga en cuenta el atributo `optional`."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "This example is using recorder proxies; see the section on <<bytecode-recording,bytecode recording>> for more information."
-msgstr ""
+msgstr "Este ejemplo utiliza proxies grabadores; consulte la sección sobre xref:bytecode-recording[grabación de bytecode] para obtener más información."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -1702,13 +1722,14 @@ msgid "Since `format` is not defined in these properties, the default value from
 msgstr "Como `format` no está definido en estas propiedades, se utilizará el valor por defecto de `@ConfigItem`."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "A configuration mapping name can contain an extra suffix segment for the case where there are configuration\n"
 "mappings for multiple <<config-phases>>. Classes which correspond to the `BUILD_TIME` and `BUILD_AND_RUN_TIME_FIXED`\n"
 "may end with `BuildTimeConfig` or `BuildTimeConfiguration`, classes which correspond to the `RUN_TIME` phase\n"
 "may end with `RuntimeConfig`, `RunTimeConfig`, `RuntimeConfiguration` or `RunTimeConfiguration` while classes which\n"
 "correspond to the `BOOTSTRAP` configuration may end with `BootstrapConfig` or `BootstrapConfiguration`."
-msgstr ""
+msgstr "Un nombre de mapeo de configuración puede contener un segmento sufijo adicional para el caso de que existan mapeos de configuración para múltiples <<config-phases>> . Las clases que corresponden a la fase `BUILD_TIME` y `BUILD_AND_RUN_TIME_FIXED` pueden terminar con `BuildTimeConfig` o `BuildTimeConfiguration` , las clases que corresponden a la fase `RUN_TIME` pueden terminar con `RuntimeConfig` , `RunTimeConfig` , `RuntimeConfiguration` o `RunTimeConfiguration` mientras que las clases que corresponden a la configuración `BOOTSTRAP` pueden terminar con `BootstrapConfig` o `BootstrapConfiguration` ."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -1943,10 +1964,11 @@ msgid ""
 msgstr "Es posible incluir un determinado `@BuildStep` sólo en determinadas condiciones. La anotación `@BuildStep` tiene dos parámetros opcionales: `onlyIf` y `onlyIfNot` . Estos parámetros pueden establecerse en una o varias clases que implementen `BooleanSupplier` . El paso de construcción sólo se incluirá cuando el método devuelva `true` (para `onlyIf` ) o `false` (para `onlyIfNot` )."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "The condition class can inject <<configuration,configuration mappings>> as long as they belong to\n"
 "a build-time phase.  Run time configuration is not available for condition classes."
-msgstr ""
+msgstr "La clase de condición puede inyectar xref:configuration[asignaciones de configuración] siempre que pertenezcan a una fase de tiempo de compilación. La configuración en tiempo de ejecución no está disponible para las clases de condición."
 
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy
@@ -1962,10 +1984,11 @@ msgid "An example of a conditional build step"
 msgstr "Un ejemplo de paso de construcción condicional"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "If you need to make your build step conditional on the presence or absence of another extension, you can\n"
 "use <<capabilities>> for that."
-msgstr ""
+msgstr "Si necesita condicionar su paso de compilación a la presencia o ausencia de otra extensión, puede utilizar <<capabilities>> para ello."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -2233,8 +2256,9 @@ msgid "Quarkus Dev UI"
 msgstr "Quarkus Dev UI"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "You can make your extension support the xref:dev-ui.adoc[Quarkus Dev UI] for a greater developer experience."
-msgstr ""
+msgstr "Puede hacer que su extensión sea compatible con la xref:dev-ui.adoc[Quarkus Dev UI] para una mayor experiencia del desarrollador."
 
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
@@ -2290,10 +2314,11 @@ msgid ""
 msgstr "Las rutas absolutas también influyen en los puntos finales anidados. Si el anterior llamó a `nestedRoute(\"custom-endpoint\", \"/deep\")` , el punto final resultante se encontrará en `/deep` ."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "Refer to the xref:all-config.adoc#quarkus-vertx-http_quarkus-http-non-application-root-path[Quarkus Vertx HTTP configuration reference]\n"
 "for details on how the non-application root path is configured."
-msgstr ""
+msgstr "Consulte la xref:all-config.adoc#quarkus-vertx-http_quarkus-http-non-application-root-path[referencia de configuración HTTP de Quarkus Vertx] para obtener más detalles sobre cómo se configura la ruta raíz no aplicativa."
 
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
@@ -2683,11 +2708,12 @@ msgid "The JSON-B extension will then use the produced build item to register yo
 msgstr "La extensión JSON-B utilizará entonces el elemento de construcción producido para registrar su serializador/deserializador automáticamente."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "If you need more customization capabilities than registering a serializer or a deserializer,\n"
 "you can produce a CDI bean that implements `io.quarkus.jsonb.JsonbConfigCustomizer` via an `AdditionalBeanBuildItem`.\n"
 "More info about customizing JSON-B can be found on the JSON guide xref:rest-json.adoc#json[Configuring JSON support]"
-msgstr ""
+msgstr "Si necesita más capacidades de personalización que registrar un serializador o un deserializador, puede producir un bean CDI que implemente `io.quarkus.jsonb.JsonbConfigCustomizer` a través de un `AdditionalBeanBuildItem` . Encontrará más información sobre la personalización de JSON-B en la guía JSON xref:rest-json.adoc#json[Configuración del soporte JSON]"
 
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
@@ -3223,8 +3249,9 @@ msgid "A list of features installed in the runtime image"
 msgstr "Una lista de funciones instaladas en la imagen de ejecución"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "A feature can be registered in a <<build-step-processors>> method that produces a `FeatureBuildItem`:"
-msgstr ""
+msgstr "Una característica puede registrarse en un método <<build-step-processors>> que produzca un `FeatureBuildItem` :"
 
 #. type: Block title
 #: _versions/main/guides/writing-extensions.adoc
@@ -3264,8 +3291,9 @@ msgid ""
 msgstr "Una _capacidad_ representa una capacidad técnica que puede ser consultada por otras extensiones. Una extensión puede proporcionar múltiples capacidades y múltiples extensiones pueden proporcionar la misma capacidad. Por defecto, las capacidades no se muestran a los usuarios. Las capacidades deben utilizarse cuando se comprueba la presencia de una extensión en lugar de las comprobaciones basadas en rutas de clases."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "Capabilities can be registered in a <<build-step-processors>> method that produces a `CapabilityBuildItem`:"
-msgstr ""
+msgstr "Las capacidades pueden registrarse en un método <<build-step-processors>> que produce un `CapabilityBuildItem` :"
 
 #. type: Block title
 #: _versions/main/guides/writing-extensions.adoc
@@ -3366,8 +3394,9 @@ msgid "If there was no /config.xml resource available in the build environment, 
 msgstr "Si no hubiera ningún recurso /config.xml disponible en el entorno de compilación, se devolvería un `RuntimeServiceBuildItem` nulo y no se ejecutaría ninguna lógica posterior basada en la producción de un `RuntimeServiceBuildItem`."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "Typically, one is loading a configuration to create some runtime component/service as `parseServiceXmlConfig` is doing. We will come back to the rest of the behavior in `parseServiceXmlConfig` in the following <<manage-non-cdi-service>> section."
-msgstr ""
+msgstr "Normalmente, se está cargando una configuración para crear algún componente/servicio en tiempo de ejecución, como hace `parseServiceXmlConfig` . Volveremos sobre el resto del comportamiento en `parseServiceXmlConfig` en la siguiente sección <<manage-non-cdi-service>> ."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -3376,10 +3405,11 @@ msgid "If for some reason you need to parse the config and use it in other build
 msgstr "Si por alguna razón necesitas analizar la configuración y usarla en otros pasos de construcción en un procesador de extensión, necesitarás crear un `XmlConfigBuildItem` para pasar la instancia XmlConfig analizada."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "If you look at the XmlConfig code you will see that it does carry around the JAXB annotations. If you don't want these in the runtime image, you could clone the XmlConfig instance into some POJO object graph and then replace XmlConfig with the POJO class.\n"
 "We will do this in <<replacing-classes-in-native-image>>."
-msgstr ""
+msgstr "Si mira el código de XmlConfig verá que sí lleva las anotaciones JAXB. Si no las quiere en la imagen en tiempo de ejecución, podría clonar la instancia de XmlConfig en algún gráfico de objetos POJO y luego sustituir XmlConfig por la clase POJO. Haremos esto en <<replacing-classes-in-native-image>> ."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -3484,12 +3514,13 @@ msgid "Manage Non-CDI Service"
 msgstr "Gestionar el servicio no CDI"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "A common purpose for an extension is to integrate a non-CDI aware service into the CDI based Quarkus runtime.\n"
 "Step 1 of this task is to load any configuration needed in a STATIC_INIT build step as we did in <<parsing-config-to-objects>>.\n"
 "Now we need to create an instance of the service using the configuration.\n"
 "Let's return to the `TestProcessor#parseServiceXmlConfig` method to see how this can be done."
-msgstr ""
+msgstr "Un propósito común para una extensión es integrar un servicio no consciente de CDI en el tiempo de ejecución de Quarkus basado en CDI. El paso 1 de esta tarea es cargar cualquier configuración necesaria en un paso de compilación STATIC_INIT como hicimos en <<parsing-config-to-objects>> . Ahora necesitamos crear una instancia del servicio utilizando la configuración. Volvamos al método `TestProcessor#parseServiceXmlConfig` para ver cómo hacerlo."
 
 #. type: Block title
 #: _versions/main/guides/writing-extensions.adoc
@@ -3553,8 +3584,9 @@ msgid "Call the runtime recorder to record the service start invocation."
 msgstr "Llama a la grabadora de tiempo de ejecución para grabar la invocación del inicio del servicio."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "Produce a `ServiceStartBuildItem` to indicate the startup of a service. See <<startup-shutdown-events>> for details."
-msgstr ""
+msgstr "Produce un `ServiceStartBuildItem` para indicar el inicio de un servicio. Consulte <<startup-shutdown-events>> para más detalles."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
@@ -3613,12 +3645,13 @@ msgid "Observe a `ShutdownEvent` to be notified when the runtime is going to shu
 msgstr "Observe un `ShutdownEvent` para ser notificado cuando el tiempo de ejecución se va a apagar."
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid ""
 "What is the relevance of startup and shutdown events for extension authors? We have already seen the use of a `ShutdownContext`\n"
 "to register a callback to perform shutdown tasks in the <<starting-service>> section.\n"
 "These shutdown tasks would be called\n"
 "after a `ShutdownEvent` had been sent."
-msgstr ""
+msgstr "¿Cuál es la relevancia de los eventos de inicio y cierre para los autores de extensiones? Ya hemos visto el uso de un `ShutdownContext` para registrar una llamada de retorno para realizar tareas de apagado en la sección <<starting-service>> . Estas tareas de apagado se llamarían después de que se hubiera enviado un `ShutdownEvent` ."
 
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy
@@ -3869,8 +3902,9 @@ msgid "Your extension is published in Maven Central"
 msgstr "Su extensión se publica en Maven Central"
 
 #: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
 msgid "Your extension repository is configured to use the <<ecosystem-ci,Ecosystem CI>>."
-msgstr ""
+msgstr "Su repositorio de extensiones está configurado para utilizar el xref:ecosystem-ci[CI del ecosistema] ."
 
 #. type: Plain text
 #: _versions/main/guides/writing-extensions.adoc
