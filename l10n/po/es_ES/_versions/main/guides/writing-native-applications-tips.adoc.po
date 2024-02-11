@@ -151,7 +151,9 @@ msgstr "Uso de un archivo de configuración"
 #: _versions/main/guides/writing-native-applications-tips.adoc
 msgid ""
 "If globs are not sufficiently precise for your use case and you need to rely on regular expressions, or if you prefer relying on the GraalVM infrastructure,\n"
-"you can also create a `resource-config.json` (the most common location is within `src/main/resources`) JSON file defining which resources should be included."
+"you can also create a `resource-config.json` JSON file defining which resources should be included.\n"
+"Ideally this, and other native image configuration files, should be placed under the `src/main/resources/META-INF/native-image/<group-id>/<artifact-id>` folder.\n"
+"This way they will be automatically parsed by the native build, without additional configuration."
 msgstr ""
 
 #. type: delimited block =
@@ -182,48 +184,6 @@ msgstr "Los patrones son regexps de Java válidos. Aquí incluimos todos los arc
 #, fuzzy
 msgid "For more information about this topic, see the link:https://www.graalvm.org/{graalvm-docs-version}/reference-manual/native-image/dynamic-features/Resources/[GraalVM Accessing Resources in Native Image] guide."
 msgstr "Puedes encontrar más información sobre este tema en  link:https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/Resources.md[la documentación de GraalVM]."
-
-#. type: Plain text
-#: _versions/main/guides/writing-native-applications-tips.adoc
-#, fuzzy
-msgid "The final order of business is to make the configuration file known to the `native-image` executable by adding the proper configuration to `application.properties`:"
-msgstr "El último paso es dar a conocer el archivo de configuración al ejecutable `native-image` añadiendo la configuración adecuada a `application.properties`:"
-
-#: _versions/main/guides/writing-native-applications-tips.adoc
-msgid ""
-"Starting with Mandrel 23.1 and GraalVM for JDK 21, `-H:ResourceConfigurationFiles=resource-config.json` results in a warning being shown unless wrapped in `-H:+UnlockExperimentalVMOptions` and `-H:-UnlockExperimentalVMOptions`.\n"
-"The absence of these options will result in build failures in the future."
-msgstr ""
-
-#: _versions/main/guides/writing-native-applications-tips.adoc
-msgid ""
-"In the previous snippet we were able to simply use `resource-config.json` instead of specifying the entire path of the file simply because it was added to `src/main/resources`.\n"
-"If the file had been added to another directory, the proper file path would have had to be specified manually."
-msgstr ""
-
-#. type: delimited block =
-#: _versions/main/guides/writing-native-applications-tips.adoc
-#, fuzzy
-msgid "Multiple options may be separated by a comma. For example, one could use:"
-msgstr "Se pueden separar varias opciones con una coma. Por ejemplo, se puede utilizar:"
-
-#. type: Plain text
-#: _versions/main/guides/writing-native-applications-tips.adoc
-#, fuzzy
-msgid "in order to ensure that various resources are included and additional reflection is registered."
-msgstr "para garantizar que se incluyan varios recursos y se registre una reflexión adicional."
-
-#. type: delimited block =
-#: _versions/main/guides/writing-native-applications-tips.adoc
-#, fuzzy
-msgid "If for some reason adding the aforementioned configuration to `application.properties` is not desirable, it is possible to configure the build tool to effectively perform the same operation."
-msgstr "Si por alguna razón no se desea añadir la configuración mencionada a `application.properties`, es posible configurar la herramienta de compilación para que realice efectivamente la misma operación."
-
-#. type: delimited block =
-#: _versions/main/guides/writing-native-applications-tips.adoc
-#, fuzzy
-msgid "When using Maven, we could use the following configuration:"
-msgstr "Si utilizamos Maven, podríamos utilizar la siguiente configuración:"
 
 #. type: Title ===
 #: _versions/main/guides/writing-native-applications-tips.adoc
@@ -320,11 +280,47 @@ msgstr ""
 msgid "For more information about the format of this file, see the link:https://www.graalvm.org/{graalvm-docs-version}/reference-manual/native-image/dynamic-features/Reflection/[GraalVM Reflection in Native Image] guide."
 msgstr "Para más detalles sobre el formato de este archivo, consulte  link:https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/Reflection.md[la documentación de GraalVM]."
 
+#. type: Plain text
+#: _versions/main/guides/writing-native-applications-tips.adoc
+#, fuzzy
+msgid "The final order of business is to make the configuration file known to the `native-image` executable by adding the proper configuration to `application.properties`:"
+msgstr "El último paso es dar a conocer el archivo de configuración al ejecutable `native-image` añadiendo la configuración adecuada a `application.properties`:"
+
+#: _versions/main/guides/writing-native-applications-tips.adoc
+msgid ""
+"Starting with Mandrel 23.1 and GraalVM for JDK 21, `-H:ResourceConfigurationFiles=resource-config.json` results in a warning being shown unless wrapped in `-H:+UnlockExperimentalVMOptions` and `-H:-UnlockExperimentalVMOptions`.\n"
+"The absence of these options will result in build failures in the future."
+msgstr ""
+
 #: _versions/main/guides/writing-native-applications-tips.adoc
 msgid ""
 "In the previous snippet we were able to simply use `reflect-config.json` instead of specifying the entire path of the file simply because it was added to `src/main/resources`.\n"
 "If the file had been added to another directory, the proper file path would have had to be specified manually."
 msgstr ""
+
+#. type: delimited block =
+#: _versions/main/guides/writing-native-applications-tips.adoc
+#, fuzzy
+msgid "Multiple options may be separated by a comma. For example, one could use:"
+msgstr "Se pueden separar varias opciones con una coma. Por ejemplo, se puede utilizar:"
+
+#. type: Plain text
+#: _versions/main/guides/writing-native-applications-tips.adoc
+#, fuzzy
+msgid "in order to ensure that various resources are included and additional reflection is registered."
+msgstr "para garantizar que se incluyan varios recursos y se registre una reflexión adicional."
+
+#. type: delimited block =
+#: _versions/main/guides/writing-native-applications-tips.adoc
+#, fuzzy
+msgid "If for some reason adding the aforementioned configuration to `application.properties` is not desirable, it is possible to configure the build tool to effectively perform the same operation."
+msgstr "Si por alguna razón no se desea añadir la configuración mencionada a `application.properties`, es posible configurar la herramienta de compilación para que realice efectivamente la misma operación."
+
+#. type: delimited block =
+#: _versions/main/guides/writing-native-applications-tips.adoc
+#, fuzzy
+msgid "When using Maven, we could use the following configuration:"
+msgstr "Si utilizamos Maven, podríamos utilizar la siguiente configuración:"
 
 #. type: Title ===
 #: _versions/main/guides/writing-native-applications-tips.adoc
