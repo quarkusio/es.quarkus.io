@@ -7,20 +7,23 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Using Apache Kafka with Schema Registry and Avro"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y Avro"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "This guide shows how your Quarkus application can use Apache Kafka, https://avro.apache.org/docs/current/[Avro] serialized\n"
 "records, and connect to a schema registry (such as the https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] or https://www.apicur.io/registry/[Apicurio Registry])."
-msgstr ""
+msgstr "Esta guía muestra cómo su aplicación Quarkus puede utilizar Apache Kafka, registros serializados link:https://avro.apache.org/docs/current/[Avro] y conectarse a un registro de esquemas (como link:https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] o link:https://www.apicur.io/registry/[Apicurio Registry] )."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you are not familiar with Kafka and Kafka in Quarkus in particular, consider\n"
 "first going through the xref:kafka.adoc[Using Apache Kafka with Reactive Messaging] guide."
-msgstr ""
+msgstr "Si no está familiarizado con Kafka y con Kafka en Quarkus en particular, considere la posibilidad de consultar primero la guía xref:kafka.adoc[Using Apache Kafka with Reactive Messaging (Utilización de Apache Kafka con mensajería reactiva] )."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Prerequisites"
@@ -31,42 +34,47 @@ msgid "Architecture"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "In this guide we are going to implement a REST resource, namely `MovieResource`, that\n"
 "will consume movie DTOs and put them in a Kafka topic."
-msgstr ""
+msgstr "En esta guía vamos a implementar un recurso REST, concretamente `MovieResource` , que consumirá DTOs de películas y los colocará en un tema de Kafka."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Then, we will implement a consumer that will consume and collect messages from the same topic.\n"
 "The collected messages will be then exposed by another resource, `ConsumedMovieResource`, via\n"
 "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Server-Sent Events]."
-msgstr ""
+msgstr "A continuación, implementaremos un consumidor que consumirá y recopilará mensajes del mismo tema. A continuación, los mensajes recopilados serán expuestos por otro recurso, `ConsumedMovieResource` , a través de link:https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[eventos enviados por el servidor] ."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "The _Movies_ will be serialized and deserialized using Avro.\n"
 "The schema, describing the _Movie_, is stored in Apicurio Registry.\n"
 "The same concept applies if you are using the Confluent Avro _serde_ and Confluent Schema Registry."
-msgstr ""
+msgstr "Las _Películas_ serán serializadas y deserializadas utilizando Avro. El esquema, que describe la _Película_ , se almacena en Apicurio Registry. El mismo concepto se aplica si utiliza el _serde_ Avro de Confluent y el Registro de Esquemas de Confluent."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Solution"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "The solution is located in the `kafka-avro-schema-quickstart` link:{quickstarts-tree-url}/kafka-avro-schema-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en `kafka-avro-schema-quickstart` {quickstarts-tree-url}/kafka-avro-schema-quickstart[directorio]."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Creating the Maven Project"
@@ -77,239 +85,282 @@ msgid "First, we need a new project. Create a new project with the following com
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you don't need the `quarkus-apicurio-registry-avro` extension.\n"
 "Instead, you need the `quarkus-confluent-registry-avro` extension and a few more dependencies.\n"
 "See <<confluent>> for details."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, no necesita la extensión `quarkus-apicurio-registry-avro` . En su lugar, necesita la extensión `quarkus-confluent-registry-avro` y algunas dependencias más. Consulte <<confluent>> para obtener más detalles."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Avro schema"
-msgstr ""
+msgstr "Esquema Avro"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Apache Avro is a data serialization system. Data structures are described using schemas.\n"
 "The first thing we need to do is to create a schema describing the `Movie` structure.\n"
 "Create a file called `src/main/avro/movie.avsc` with the schema for our record (Kafka message):"
-msgstr ""
+msgstr "Apache Avro es un sistema de serialización de datos. Las estructuras de datos se describen mediante esquemas. Lo primero que tenemos que hacer es crear un esquema que describa la estructura `Movie` . Cree un archivo llamado `src/main/avro/movie.avsc` con el esquema para nuestro registro (mensaje Kafka):"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "If you build the project with:"
-msgstr ""
+msgstr "Si construyes el proyecto con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "the `movies.avsc` will get compiled to a `Movie.java` file\n"
 "placed in the `target/generated-sources/avsc` directory."
-msgstr ""
+msgstr "el `movies.avsc` se compilará en un archivo `Movie.java` colocado en el directorio `target/generated-sources/avsc` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Take a look at the https://avro.apache.org/docs/current/spec.html#schemas[Avro specification] to learn more about\n"
 "the Avro syntax and supported types."
-msgstr ""
+msgstr "Eche un vistazo a la link:https://avro.apache.org/docs/current/spec.html#schemas[especificación Avro] para saber más sobre la sintaxis Avro y los tipos admitidos."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "With Quarkus, there's no need to use a specific Maven plugin to process the Avro schema, this is all done for you by the `quarkus-avro` extension!"
-msgstr ""
+msgstr "Con Quarkus, no es necesario utilizar un plugin específico de Maven para procesar el esquema de Avro, ¡todo esto lo hace por ti la extensión `quarkus-avro`!"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "If you run the project with:"
-msgstr ""
+msgstr "Si ejecuta el proyecto con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "the changes you do to the schema file will be\n"
 "automatically applied to the generated Java files."
-msgstr ""
+msgstr "los cambios que realice en el archivo de esquema se aplicarán automáticamente a los archivos Java generados."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "The `Movie` producer"
-msgstr ""
+msgstr "El productor de `Movie`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Having defined the schema, we can now jump to implementing the `MovieResource`."
-msgstr ""
+msgstr "Una vez definido el esquema, podemos pasar a implementar el `MovieResource`."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Let's open the `MovieResource`, inject an https://quarkus.io/blog/reactive-messaging-emitter/[`Emitter`] of `Movie` DTO and implement a `@POST` method\n"
 "that consumes `Movie` and sends it through the `Emitter`:"
-msgstr ""
+msgstr "Abramos el `MovieResource` , inyectemos un link:https://quarkus.io/blog/reactive-messaging-emitter/[Emitter] de `Movie` DTO e implementemos un método `@POST` que consuma `Movie` y lo envíe a través de `Emitter` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Now, we need to _map_ the `movies` channel (the `Emitter` emits to this channel) to a Kafka topic.\n"
 "To achieve this, edit the `application.properties` file, and add the following content:"
-msgstr ""
+msgstr "Ahora, necesitamos _mapear_ el canal `movies` (el `Emitter` emite a este canal) a un tema Kafka. Para ello, edite el archivo `application.properties` y añada el siguiente contenido:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "You might have noticed that we didn't define the `value.serializer`.\n"
 "That's because Quarkus can xref:kafka.adoc#serialization-autodetection[autodetect] that `io.apicurio.registry.serde.avro.AvroKafkaSerializer` is appropriate here, based on the `@Channel` declaration, structure of the `Movie` type, and presence of the Apicurio Registry libraries.\n"
 "We still have to define the `apicurio.registry.auto-register` property."
-msgstr ""
+msgstr "Habrá notado que no definimos la propiedad `value.serializer` . Eso es porque Quarkus puede xref:kafka.adoc#serialization-autodetection[autodetectar] que `io.apicurio.registry.serde.avro.AvroKafkaSerializer` es apropiada aquí, basándose en la declaración `@Channel` , la estructura del tipo `Movie` y la presencia de las bibliotecas del Registro Apicurio. Aún tenemos que definir la propiedad `apicurio.registry.auto-register` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you don't have to configure `value.serializer` either.\n"
 "It is also detected automatically.\n"
 "The Confluent Schema Registry analogue of `apicurio.registry.auto-register` is called `auto.register.schemas`.\n"
 "It defaults to `true`, so it doesn't have to be configured in this example.\n"
 "It can be explicitly set to `false` if you want to disable automatic schema registration."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, tampoco tendrá que configurar `value.serializer` . Además, se detecta automáticamente. El análogo de Confluent Schema Registry de `apicurio.registry.auto-register` se llama `auto.register.schemas` . Por defecto es `true` , por lo que no es necesario configurarlo en este ejemplo. Puede configurarse explícitamente en `false` si desea desactivar el registro automático de esquemas."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "The `Movie` consumer"
-msgstr ""
+msgstr "El consumidor de `Movie`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "So, we can write records into Kafka containing our `Movie` data.\n"
 "That data is serialized using Avro.\n"
 "Now, it's time to implement a consumer for them."
-msgstr ""
+msgstr "Así, podemos escribir registros en Kafka que contengan nuestros datos de `Movie` . Esos datos se serializan utilizando Avro. Ahora, es el momento de implementar un consumidor para ellos."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Let's create `ConsumedMovieResource` that will consume `Movie` messages\n"
 "from the `movies-from-kafka` channel and will expose it via Server-Sent Events:"
-msgstr ""
+msgstr "Creemos `ConsumedMovieResource` que consumirá mensajes `Movie` del canal `movies-from-kafka` y los expondrá a través de Eventos Enviados por el Servidor:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "The last bit of the application's code is the configuration of the `movies-from-kafka` channel in\n"
 "`application.properties`:"
-msgstr ""
+msgstr "La última parte del código de la aplicación es la configuración del canal `movies-from-kafka` en `application.properties` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "You might have noticed that we didn't define the `value.deserializer`.\n"
 "That's because Quarkus can xref:kafka.adoc#serialization-autodetection[autodetect] that `io.apicurio.registry.serde.avro.AvroKafkaDeserializer` is appropriate here, based on the `@Channel` declaration, structure of the `Movie` type, and presence of the Apicurio Registry libraries.\n"
 "We don't have to define the `apicurio.registry.use-specific-avro-reader` property either, that is also configured automatically."
-msgstr ""
+msgstr "Habrá notado que no definimos la propiedad `value.deserializer` . Eso es porque Quarkus puede xref:kafka.adoc#serialization-autodetection[autodetectar] que `io.apicurio.registry.serde.avro.AvroKafkaDeserializer` es apropiada aquí, basándose en la declaración `@Channel` , la estructura del tipo `Movie` y la presencia de las bibliotecas del Registro Apicurio. Tampoco tenemos que definir la propiedad `apicurio.registry.use-specific-avro-reader` , que también se configura automáticamente."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you don't have to configure `value.deserializer` or `specific.avro.reader` either.\n"
 "They are both detected automatically."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, tampoco tendrá que configurar `value.deserializer` o `specific.avro.reader` . Ambos se detectan automáticamente."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Running the application"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Start the application in dev mode:"
-msgstr ""
+msgstr "Inicie la aplicación en modo de desarrollo:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Kafka broker and Apicurio Registry instance are started automatically thanks to Dev Services.\n"
 "See xref:kafka-dev-services.adoc[Dev Services for Kafka] and xref:apicurio-registry-dev-services.adoc[Dev Services for Apicurio Registry] for more details."
-msgstr ""
+msgstr "El broker Kafka y la instancia de Apicurio Registry se inician automáticamente gracias a Dev Services. Consulte Dev Services xref:kafka-dev-services.adoc[para Kafka] y xref:apicurio-registry-dev-services.adoc[Dev Services para] Apicurio Registry para más detalles."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "You might have noticed that we didn't configure the schema registry URL anywhere.\n"
 "This is because Dev Services for Apicurio Registry configures all Kafka channels in SmallRye Reactive Messaging to use the automatically started registry instance."
-msgstr ""
+msgstr "Se habrá dado cuenta de que no hemos configurado la URL del registro de esquemas en ninguna parte. Esto se debe a que Dev Services for Apicurio Registry configura todos los canales Kafka en SmallRye Reactive Messaging para que utilicen la instancia de registro iniciada automáticamente."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "Apicurio Registry, in addition to its native API, also exposes an endpoint that is API-compatible with Confluent Schema Registry.\n"
 "Therefore, this automatic configuration works both for Apicurio Registry serde and Confluent Schema Registry serde."
-msgstr ""
+msgstr "Apicurio Registry, además de su API nativa, también expone un endpoint que es compatible con la API de Confluent Schema Registry. Por lo tanto, esta configuración automática funciona tanto para Apicurio Registry serde como para Confluent Schema Registry serde."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "However, note that there's no Dev Services support for running Confluent Schema Registry itself.\n"
 "If you want to use a running instance of Confluent Schema Registry, configure its URL, together with the URL of a Kafka broker:"
-msgstr ""
+msgstr "Sin embargo, tenga en cuenta que no hay soporte de Dev Services para ejecutar Confluent Schema Registry por sí mismo. Si desea utilizar una instancia en ejecución de Confluent Schema Registry, configure su URL, junto con la URL de un corredor de Kafka:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "In the second terminal, query the `ConsumedMovieResource` resource with `curl`:"
-msgstr ""
+msgstr "En el segundo terminal, consulte el recurso `ConsumedMovieResource` con `curl`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "In the third one, post a few movies:"
-msgstr ""
+msgstr "En la tercera, publica algunas películas:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Observe what is printed in the second terminal. You should see something along the lines of:"
-msgstr ""
+msgstr "Observe lo que se imprime en la segunda terminal. Debería ver algo parecido a:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "Running in JVM or Native mode"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "When not running in dev or test mode, you will need to start your own Kafka broker and Apicurio Registry.\n"
 "The easiest way to get them running is to use `docker-compose` to start the appropriate containers."
-msgstr ""
+msgstr "Cuando no esté funcionando en modo dev o test, necesitará iniciar su propio broker Kafka y su propio Registro Apicurio. La forma más sencilla de ponerlos en marcha es utilizar `docker-compose` para iniciar los contenedores apropiados."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you already have a Kafka broker and Confluent Schema Registry instance running and configured.\n"
 "You can ignore the `docker-compose` instructions here, as well as the Apicurio Registry configuration."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, ya tiene un broker de Kafka y una instancia de Confluent Schema Registry en funcionamiento y configurada. Puede ignorar las instrucciones de `docker-compose` aquí, así como la configuración de Apicurio Registry."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Create a `docker-compose.yaml` file at the root of the project with the following content:"
-msgstr ""
+msgstr "Cree un archivo `docker-compose.yaml` en la raíz del proyecto con el siguiente contenido:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Before starting the application, let's first start the Kafka broker and Apicurio Registry:"
-msgstr ""
+msgstr "Antes de iniciar la aplicación, vamos a iniciar el broker Kafka y el Registro Apicurio:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "To stop the containers, use `docker-compose down`. You can also clean up\n"
 "the containers with `docker-compose rm`"
-msgstr ""
+msgstr "Para detener los contenedores, utilice `docker-compose down` . También puede limpiar los contenedores con `docker-compose rm`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "You can build the application with:"
-msgstr ""
+msgstr "Puedes construir la aplicación con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "And run it in JVM mode with:"
-msgstr ""
+msgstr "Y ejecutarlo en modo JVM con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "By default, the application tries to connect to a Kafka broker listening at `localhost:9092`.\n"
 "You can configure the bootstrap server using: `java -Dkafka.bootstrap.servers=\\... -jar target/quarkus-app/quarkus-run.jar`"
-msgstr ""
+msgstr "Por defecto, la aplicación intenta conectarse a un broker de Kafka que escucha en `localhost:9092` . Puede configurar el servidor de arranque utilizando: `java -Dkafka.bootstrap.servers=... -jar target/quarkus-app/quarkus-run.jar`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Specifying the registry URL on the command line is not very convenient, so you can add a configuration property only for the `prod` profile:"
-msgstr ""
+msgstr "Especificar la URL del registro en la línea de comandos no es muy conveniente, por lo que puede añadir una propiedad de configuración sólo para el perfil `prod`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "You can build a native executable with:"
-msgstr ""
+msgstr "Puedes construir un ejecutable nativo con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "and run it with:"
-msgstr ""
+msgstr "y ejecutarlo con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Testing the application"
-msgstr ""
+msgstr "Probar la aplicación"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "As mentioned above, Dev Services for Kafka and Apicurio Registry automatically start and configure a Kafka broker and Apicurio Registry instance in dev mode and for tests.\n"
 "Hence, we don't have to set up Kafka and Apicurio Registry ourselves.\n"
 "We can just focus on writing the test."
-msgstr ""
+msgstr "Como se ha mencionado anteriormente, los servicios Dev Services para Kafka y Apicurio Registry inician y configuran automáticamente un broker de Kafka y una instancia de Apicurio Registry en modo dev y para pruebas. Por lo tanto, no tenemos que configurar Kafka y Apicurio Registry nosotros mismos. Sólo tenemos que centrarnos en escribir la prueba."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "First, let's add test dependencies on REST Client and Awaitility to the build file:"
-msgstr ""
+msgstr "En primer lugar, vamos a añadir las dependencias de prueba de REST Client y Awaitility al archivo de compilación:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
 msgid "pom.xml"
@@ -320,153 +371,183 @@ msgid "build.gradle"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "In the test, we will send movies in a loop and check if the `ConsumedMovieResource` returns\n"
 "what we send."
-msgstr ""
+msgstr "En la prueba, enviaremos películas en un bucle y comprobaremos si la `ConsumedMovieResource` devuelve lo que enviamos."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "We modified the `MovieResourceTest` that was generated together with the project. This test class has a\n"
 "subclass, `NativeMovieResourceIT`, that runs the same test against the native executable.\n"
 "To run it, execute:"
-msgstr ""
+msgstr "Modificamos el `MovieResourceTest` que se generó junto con el proyecto. Esta clase de prueba tiene una subclase, `NativeMovieResourceIT` , que ejecuta la misma prueba contra el ejecutable nativo. Para ejecutarla, ejecute"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Manual setup"
-msgstr ""
+msgstr "Configuración manual"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "If we couldn't use Dev Services and wanted to start a Kafka broker and Apicurio Registry instance manually, we would define a xref:getting-started-testing.adoc#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
-msgstr ""
+msgstr "Si no pudiéramos usar Dev Services y quisiéramos iniciar un broker Kafka y una instancia de Apicurio Registry manualmente, definiríamos un  link:getting-started-testing.html#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Using compatible versions of the Apicurio Registry"
-msgstr ""
+msgstr "Utilización de versiones compatibles del Registro Apicurio"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "The `quarkus-apicurio-registry-avro` extension depends on recent versions of Apicurio Registry client,\n"
 "and most versions of Apicurio Registry server and client are backwards compatible.\n"
 "For some you need to make sure that the client used by Serdes is compatible with the server."
-msgstr ""
+msgstr "La extensión `quarkus-apicurio-registry-avro` depende de versiones recientes del cliente Apicurio Registry, y la mayoría de las versiones del servidor y del cliente Apicurio Registry son compatibles con versiones anteriores. Para algunas es necesario asegurarse de que el cliente utilizado por Serdes es compatible con el servidor."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "For example, with Apicurio dev service if you set the image name to use version `2.1.5.Final`:"
-msgstr ""
+msgstr "Por ejemplo, con el servicio Apicurio dev si se establece el nombre de la imagen para utilizar la versión `2.1.5.Final`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "You need to make sure that `apicurio-registry-serdes-avro-serde` dependency\n"
 "and the REST client `apicurio-common-rest-client-vertx` dependency are set to compatible versions:"
-msgstr ""
+msgstr "Debe asegurarse de que la dependencia de `apicurio-registry-serdes-avro-serde` y la del cliente REST `apicurio-common-rest-client-vertx` están configuradas con versiones compatibles:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Known previous compatible versions for `apicurio-registry-client` and `apicurio-common-rest-client-vertx` are the following"
-msgstr ""
+msgstr "Las versiones anteriores compatibles conocidas para `apicurio-registry-client` y `apicurio-common-rest-client-vertx` son las siguientes"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "`apicurio-registry-client` 2.1.5.Final with `apicurio-common-rest-client-vertx` 0.1.5.Final"
-msgstr ""
+msgstr "`apicurio-registry-client` 2.1.5.Final con `apicurio-common-rest-client-vertx` 0.1.5.Final"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "`apicurio-registry-client` 2.3.1.Final with `apicurio-common-rest-client-vertx` 0.1.13.Final"
-msgstr ""
+msgstr "`apicurio-registry-client` 2.3.1.Final con `apicurio-common-rest-client-vertx` 0.1.13.Final"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Using the Confluent Schema Registry"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y Avro"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "If you want to use the Confluent Schema Registry, you need the `quarkus-confluent-registry-avro` extension, instead of the `quarkus-apicurio-registry-avro` extension.\n"
 "Also, you need to add a few dependencies and a custom Maven repository to your `pom.xml` / `build.gradle` file:"
-msgstr ""
+msgstr "Si desea utilizar el registro de esquemas de Confluent, necesita la extensión `quarkus-confluent-registry-avro` , en lugar de la extensión `quarkus-apicurio-registry-avro` . Además, necesita añadir algunas dependencias y un repositorio Maven personalizado a su archivo `pom.xml` / `build.gradle` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "In JVM mode, any version of `io.confluent:kafka-avro-serializer` can be used.\n"
 "In native mode, Quarkus supports the following versions: `6.2.x`, `7.0.x`, `7.1.x`, `7.2.x`, `7.3.x`."
-msgstr ""
+msgstr "En modo JVM, se puede utilizar cualquier versión de `io.confluent:kafka-avro-serializer` . En modo nativo, Quarkus soporta las siguientes versiones: `6.2.x` , `7.0.x` , `7.1.x` , `7.2.x` , `7.3.x` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "For version `7.4.x` and `7.5.x`, due to an issue with the Confluent Schema Serializer, you need to add another dependency:"
-msgstr ""
+msgstr "Para las versiones `7.4.x` y `7.5.x`, debido a un problema con Confluent Schema Serializer, es necesario añadir otra dependencia:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "For any other versions, the native configuration may need to be adjusted."
-msgstr ""
+msgstr "Para cualquier otra versión, puede ser necesario ajustar la configuración nativa."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Avro code generation details"
-msgstr ""
+msgstr "Detalles de la generación del código Avro"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "In this guide we used the Quarkus code generation mechanism to generate Java files\n"
 "from Avro schema."
-msgstr ""
+msgstr "En esta guía utilizamos el mecanismo de generación de código de Quarkus para generar archivos Java a partir del esquema Avro."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Under the hood, the mechanism uses `org.apache.avro:avro-compiler`."
-msgstr ""
+msgstr "Bajo el capó, el mecanismo utiliza `org.apache.avro:avro-compiler`."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "You can use the following configuration properties to alter how it works:"
-msgstr ""
+msgstr "Puede utilizar las siguientes propiedades de configuración para modificar su funcionamiento:"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.[avsc|avdl|avpr].imports` - a list of files or directories that should be compiled first thus making them\n"
 "importable by subsequently compiled schemas. Note that imported files should not reference each other. All paths should be relative\n"
 "to the `src/[main|test]/avro` directory, or `avro` sub-directory in any source directory configured by the build system. Passed as a comma-separated list."
-msgstr ""
+msgstr "`avro.codegen.[avsc|avdl|avpr].imports` - una lista de archivos o directorios que deben compilarse en primer lugar para que puedan ser importados por los esquemas compilados posteriormente. Tenga en cuenta que los archivos importados no deben referenciarse entre sí. Todas las rutas deben ser relativas al directorio `src/[main|test]/avro` , o al subdirectorio `avro` de cualquier directorio fuente configurado por el sistema de compilación. Se pasa como una lista separada por comas."
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.stringType` - the Java type to use for Avro strings. May be one of `CharSequence`, `String` or\n"
 "`Utf8`. Defaults to `String`"
-msgstr ""
+msgstr "`avro.codegen.stringType` - el tipo Java a utilizar para las cadenas Avro. Puede ser uno de `CharSequence` , `String` o `Utf8` . Por defecto es `String`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.createOptionalGetters` - enables generating the `getOptional...`\n"
 "methods that return an Optional of the requested type. Defaults to `false`"
-msgstr ""
+msgstr "`avro.codegen.createOptionalGetters` - permite generar los métodos `getOptional…​` que devuelven un Optional del tipo solicitado. Por defecto `false`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "`avro.codegen.enableDecimalLogicalType` - determines whether to use Java classes for decimal types, defaults to `false`"
-msgstr ""
+msgstr "`avro.codegen.enableDecimalLogicalType` - determina si se utilizan las clases Java para los tipos decimales, por defecto es `false`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.createSetters` - determines whether to create setters for the fields of the record.\n"
 "Defaults to `false`"
-msgstr ""
+msgstr "`avro.codegen.createSetters` - Determina si se deben crear definidores para los campos del registro. Por defecto `false`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.gettersReturnOptional` - enables generating `get...` methods that\n"
 "return an Optional of the requested type. Defaults to `false`"
-msgstr ""
+msgstr "`avro.codegen.gettersReturnOptional` - permite generar métodos `get…​` que devuelvan un Optional del tipo solicitado. Por defecto `false`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "`avro.codegen.optionalGettersForNullableFieldsOnly`, works in conjunction with `gettersReturnOptional` option.\n"
 "If it is set, `Optional` getters will be generated only for fields that are nullable. If the field is mandatory,\n"
 "regular getter will be generated. Defaults to `false`"
-msgstr ""
+msgstr "`avro.codegen.optionalGettersForNullableFieldsOnly` , funciona conjuntamente con la opción `gettersReturnOptional` . Si está activada, se generarán getters `Optional` sólo para los campos que sean anulables. Si el campo es obligatorio, se generarán getters normales. Por defecto `false`"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "Further reading"
-msgstr ""
+msgstr "Más información"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid "link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/kafka/kafka.html[SmallRye Reactive Messaging Kafka] documentation"
-msgstr ""
+msgstr "Documentación de link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.9/kafka/kafka.html[SmallRye Reactive Messaging Kafka]"
 
 #: _versions/3.8/guides/kafka-schema-registry-avro.adoc
+#, fuzzy
 msgid ""
 "link:https://quarkus.io/blog/kafka-avro/[How to Use Kafka, Schema Registry and Avro with Quarkus] - a blog post on which\n"
 "the guide is based. It gives a good introduction to Avro and the concept of schema registry"
-msgstr ""
+msgstr "link:https://quarkus.io/blog/kafka-avro/[Cómo utilizar Kafka, Schema Registry y Avro con Quarkus] - una entrada del blog en la que se basa la guía. Ofrece una buena introducción a Avro y al concepto de registro de esquemas."

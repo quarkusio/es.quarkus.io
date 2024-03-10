@@ -7,20 +7,23 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Using Apache Kafka with Schema Registry and JSON Schema"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y JSON Schema"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "This guide shows how your Quarkus application can use Apache Kafka, https://json-schema.org/[JSON Schema] serialized\n"
 "records, and connect to a schema registry (such as the https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] or https://www.apicur.io/registry/[Apicurio Registry])."
-msgstr ""
+msgstr "Esta guía muestra cómo su aplicación Quarkus puede utilizar Apache Kafka, registros serializados link:https://json-schema.org/[JSON Schema] y conectarse a un registro de esquemas (como link:https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] o link:https://www.apicur.io/registry/[Apicurio Registry] )."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you are not familiar with Kafka and Kafka in Quarkus in particular, consider\n"
 "first going through the xref:kafka.adoc[Using Apache Kafka with Reactive Messaging] guide."
-msgstr ""
+msgstr "Si no está familiarizado con Kafka y con Kafka en Quarkus en particular, considere la posibilidad de consultar primero la guía xref:kafka.adoc[Using Apache Kafka with Reactive Messaging (Utilización de Apache Kafka con mensajería reactiva] )."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Prerequisites"
@@ -31,42 +34,47 @@ msgid "Architecture"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "In this guide we are going to implement a REST resource, namely `MovieResource`, that\n"
 "will consume movie DTOs and put them in a Kafka topic."
-msgstr ""
+msgstr "En esta guía vamos a implementar un recurso REST, concretamente `MovieResource` , que consumirá DTOs de películas y los colocará en un tema de Kafka."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Then, we will implement a consumer that will consume and collect messages from the same topic.\n"
 "The collected messages will be then exposed by another resource, `ConsumedMovieResource`, via\n"
 "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Server-Sent Events]."
-msgstr ""
+msgstr "A continuación, implementaremos un consumidor que consumirá y recopilará mensajes del mismo tema. A continuación, los mensajes recopilados serán expuestos por otro recurso, `ConsumedMovieResource` , a través de link:https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[eventos enviados por el servidor] ."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "The _Movies_ will be serialized and deserialized using JSON Schema.\n"
 "The schema, describing the _Movie_, is stored in Apicurio Registry.\n"
 "The same concept applies if you are using the Confluent JSON Schema _serde_ and Confluent Schema Registry."
-msgstr ""
+msgstr "Las _Películas_ serán serializadas y deserializadas utilizando el Esquema JSON. El esquema, que describe la _Película_ , se almacena en Apicurio Registry. El mismo concepto se aplica si utiliza el _serde_ Confluent JSON Schema y Confluent Schema Registry."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Solution"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "The solution is located in the `kafka-json-schema-quickstart` link:{quickstarts-tree-url}/kafka-json-schema-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en el link:{quickstarts-tree-url}/kafka-json-schema-quickstart[directorio] `kafka-json-schema-quickstart` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Creating the Maven Project"
@@ -77,209 +85,247 @@ msgid "First, we need a new project. Create a new project with the following com
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you don't need the `quarkus-apicurio-registry-json-schema` extension.\n"
 "Instead, you need the `quarkus-confluent-registry-json-schema` extension and a few more dependencies.\n"
 "See <<confluent>> for details."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, no necesita la extensión `quarkus-apicurio-registry-json-schema` . En su lugar, necesita la extensión `quarkus-confluent-registry-json-schema` y algunas dependencias más. Consulte <<confluent>> para obtener más detalles."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Json Schema"
-msgstr ""
+msgstr "Esquema Json"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Json Schema is a data serialization system. Data structures are described using schemas.\n"
 "The first thing we need to do is to create a schema describing the `Movie` structure.\n"
 "Create a file called `src/main/resources/json-schema.json` with the schema for our record (Kafka message):"
-msgstr ""
+msgstr "El esquema Json es un sistema de serialización de datos. Las estructuras de datos se describen mediante esquemas. Lo primero que tenemos que hacer es crear un esquema que describa la estructura `Movie` . Cree un archivo llamado `src/main/resources/json-schema.json` con el esquema para nuestro registro (mensaje Kafka):"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Note that auto-generating the Java class from the JSON Schema definition is not possible. Therefore, you must define the Java class as follows so it can be used by the serialization process:"
-msgstr ""
+msgstr "Tenga en cuenta que no es posible autogenerar la clase Java a partir de la definición del esquema JSON. Por lo tanto, debe definir la clase Java de la siguiente manera para que pueda ser utilizada por el proceso de serialización:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "The `Movie` producer"
-msgstr ""
+msgstr "El productor de `Movie`"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Having defined the schema, we can now jump to implementing the `MovieResource`."
-msgstr ""
+msgstr "Una vez definido el esquema, podemos pasar a implementar el `MovieResource`."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Let's open the `MovieResource`, inject an https://quarkus.io/blog/reactive-messaging-emitter/[`Emitter`] of `Movie` DTO and implement a `@POST` method\n"
 "that consumes `Movie` and sends it through the `Emitter`:"
-msgstr ""
+msgstr "Abramos el `MovieResource` , inyectemos un link:https://quarkus.io/blog/reactive-messaging-emitter/[Emitter] de `Movie` DTO e implementemos un método `@POST` que consuma `Movie` y lo envíe a través de `Emitter` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Now, we need to _map_ the `movies` channel (the `Emitter` emits to this channel) to a Kafka topic and also _map_ the schema to be used on this channel.\n"
 "To achieve this, edit the `application.properties` file, and add the following content:"
-msgstr ""
+msgstr "Ahora, necesitamos _mapear_ el canal `movies` (el `Emitter` emite a este canal) a un tema Kafka y también _mapear_ el esquema que se utilizará en este canal. Para ello, edite el archivo `application.properties` y añada el siguiente contenido:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Note that unlike in the avro serialization, xref:kafka.adoc#serialization-autodetection[autodetect] can't be used with JSON Schema, so we must define the  `value.serializer`.\n"
 "Just like with avro, we still have to define the `apicurio.registry.auto-register` property."
-msgstr ""
+msgstr "Tenga en cuenta que, a diferencia de la serialización avro, xref:kafka.adoc#serialization-autodetection[autodetect] no se puede utilizar con JSON Schema, por lo que debemos definir la propiedad `value.serializer` . Al igual que con avro, tenemos que definir la propiedad `apicurio.registry.auto-register` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, in this case you must define the `value.serializer` as well with the value `io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer`.\n"
 "It is also detected automatically.\n"
 "The Confluent Schema Registry analogue of `apicurio.registry.auto-register` is called `auto.register.schemas`.\n"
 "It defaults to `true`, so it doesn't have to be configured in this example.\n"
 "It can be explicitly set to `false` if you want to disable automatic schema registration."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, en este caso deberá definir también el `value.serializer` con el valor `io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer` . También se detecta automáticamente. El análogo de Confluent Schema Registry de `apicurio.registry.auto-register` se llama `auto.register.schemas` . Su valor por defecto es `true` , por lo que no es necesario configurarlo en este ejemplo. Puede configurarse explícitamente en `false` si desea desactivar el registro automático de esquemas."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "The `Movie` consumer"
-msgstr ""
+msgstr "El consumidor de `Movie`"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "So, we can write records into Kafka containing our `Movie` data.\n"
 "That data is serialized using JSON Schema.\n"
 "Now, it's time to implement a consumer for them."
-msgstr ""
+msgstr "Así, podemos escribir registros en Kafka que contengan nuestros datos de `Movie` . Esos datos se serializan utilizando el esquema JSON. Ahora, es el momento de implementar un consumidor para ellos."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Let's create `ConsumedMovieResource` that will consume `Movie` messages\n"
 "from the `movies-from-kafka` channel and will expose it via Server-Sent Events:"
-msgstr ""
+msgstr "Creemos `ConsumedMovieResource` que consumirá mensajes `Movie` del canal `movies-from-kafka` y los expondrá a través de Eventos Enviados por el Servidor:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "The last bit of the application's code is the configuration of the `movies-from-kafka` channel in\n"
 "`application.properties`:"
-msgstr ""
+msgstr "La última parte del código de la aplicación es la configuración del canal `movies-from-kafka` en `application.properties` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Again, unlike with Avro, we have to define the `value.deserializer`."
-msgstr ""
+msgstr "De nuevo, a diferencia del Avro, tenemos que definir el `value.deserializer` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you must configure `value.deserializer` as well with the value ´io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer´.\n"
 "They are both detected automatically."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, deberá configurar también `value.deserializer` con el valor 'io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer'. Ambos se detectan automáticamente."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Running the application"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Start the application in dev mode:"
-msgstr ""
+msgstr "Inicie la aplicación en modo de desarrollo:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Kafka broker and Apicurio Registry instance are started automatically thanks to Dev Services.\n"
 "See xref:kafka-dev-services.adoc[Dev Services for Kafka] and xref:apicurio-registry-dev-services.adoc[Dev Services for Apicurio Registry] for more details."
-msgstr ""
+msgstr "El broker Kafka y la instancia de Apicurio Registry se inician automáticamente gracias a Dev Services. Consulte Dev Services xref:kafka-dev-services.adoc[para Kafka] y xref:apicurio-registry-dev-services.adoc[Dev Services para] Apicurio Registry para más detalles."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "You might have noticed that we didn't configure the schema registry URL anywhere.\n"
 "This is because Dev Services for Apicurio Registry configures all Kafka channels in SmallRye Reactive Messaging to use the automatically started registry instance."
-msgstr ""
+msgstr "Se habrá dado cuenta de que no hemos configurado la URL del registro de esquemas en ninguna parte. Esto se debe a que Dev Services for Apicurio Registry configura todos los canales Kafka en SmallRye Reactive Messaging para que utilicen la instancia de registro iniciada automáticamente."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "Apicurio Registry, in addition to its native API, also exposes an endpoint that is API-compatible with Confluent Schema Registry.\n"
 "Therefore, this automatic configuration works both for Apicurio Registry serde and Confluent Schema Registry serde."
-msgstr ""
+msgstr "Apicurio Registry, además de su API nativa, también expone un endpoint que es compatible con la API de Confluent Schema Registry. Por lo tanto, esta configuración automática funciona tanto para Apicurio Registry serde como para Confluent Schema Registry serde."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "However, note that there's no Dev Services support for running Confluent Schema Registry itself.\n"
 "If you want to use a running instance of Confluent Schema Registry, configure its URL, together with the URL of a Kafka broker:"
-msgstr ""
+msgstr "Sin embargo, tenga en cuenta que no hay soporte de Dev Services para ejecutar Confluent Schema Registry por sí mismo. Si desea utilizar una instancia en ejecución de Confluent Schema Registry, configure su URL, junto con la URL de un corredor de Kafka:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "In the second terminal, query the `ConsumedMovieResource` resource with `curl`:"
-msgstr ""
+msgstr "En el segundo terminal, consulte el recurso `ConsumedMovieResource` con `curl`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "In the third one, post a few movies:"
-msgstr ""
+msgstr "En la tercera, publica algunas películas:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Observe what is printed in the second terminal. You should see something along the lines of:"
-msgstr ""
+msgstr "Observe lo que se imprime en la segunda terminal. Debería ver algo parecido a:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "Running in JVM or Native mode"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "When not running in dev or test mode, you will need to start your own Kafka broker and Apicurio Registry.\n"
 "The easiest way to get them running is to use `docker-compose` to start the appropriate containers."
-msgstr ""
+msgstr "Cuando no esté funcionando en modo dev o test, necesitará iniciar su propio broker Kafka y su propio Registro Apicurio. La forma más sencilla de ponerlos en marcha es utilizar `docker-compose` para iniciar los contenedores apropiados."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you already have a Kafka broker and Confluent Schema Registry instance running and configured.\n"
 "You can ignore the `docker-compose` instructions here, as well as the Apicurio Registry configuration."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, ya tiene un broker de Kafka y una instancia de Confluent Schema Registry en funcionamiento y configurada. Puede ignorar las instrucciones de `docker-compose` aquí, así como la configuración de Apicurio Registry."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Create a `docker-compose.yaml` file at the root of the project with the following content:"
-msgstr ""
+msgstr "Cree un archivo `docker-compose.yaml` en la raíz del proyecto con el siguiente contenido:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Before starting the application, let's first start the Kafka broker and Apicurio Registry:"
-msgstr ""
+msgstr "Antes de iniciar la aplicación, vamos a iniciar el broker Kafka y el Registro Apicurio:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "To stop the containers, use `docker-compose down`. You can also clean up\n"
 "the containers with `docker-compose rm`"
-msgstr ""
+msgstr "Para detener los contenedores, utilice `docker-compose down` . También puede limpiar los contenedores con `docker-compose rm`"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "You can build the application with:"
-msgstr ""
+msgstr "Puedes construir la aplicación con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "And run it in JVM mode with:"
-msgstr ""
+msgstr "Y ejecutarlo en modo JVM con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "By default, the application tries to connect to a Kafka broker listening at `localhost:9092`.\n"
 "You can configure the bootstrap server using: `java -Dkafka.bootstrap.servers=\\... -jar target/quarkus-app/quarkus-run.jar`"
-msgstr ""
+msgstr "Por defecto, la aplicación intenta conectarse a un broker de Kafka que escucha en `localhost:9092` . Puede configurar el servidor de arranque utilizando: `java -Dkafka.bootstrap.servers=... -jar target/quarkus-app/quarkus-run.jar`"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Specifying the registry URL on the command line is not very convenient, so you can add a configuration property only for the `prod` profile:"
-msgstr ""
+msgstr "Especificar la URL del registro en la línea de comandos no es muy conveniente, por lo que puede añadir una propiedad de configuración sólo para el perfil `prod`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "You can build a native executable with:"
-msgstr ""
+msgstr "Puedes construir un ejecutable nativo con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "and run it with:"
-msgstr ""
+msgstr "y ejecutarlo con:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Testing the application"
-msgstr ""
+msgstr "Probar la aplicación"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "As mentioned above, Dev Services for Kafka and Apicurio Registry automatically start and configure a Kafka broker and Apicurio Registry instance in dev mode and for tests.\n"
 "Hence, we don't have to set up Kafka and Apicurio Registry ourselves.\n"
 "We can just focus on writing the test."
-msgstr ""
+msgstr "Como se ha mencionado anteriormente, los servicios Dev Services para Kafka y Apicurio Registry inician y configuran automáticamente un broker de Kafka y una instancia de Apicurio Registry en modo dev y para pruebas. Por lo tanto, no tenemos que configurar Kafka y Apicurio Registry nosotros mismos. Sólo tenemos que centrarnos en escribir la prueba."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "First, let's add test dependencies on REST Client and Awaitility to the build file:"
-msgstr ""
+msgstr "En primer lugar, vamos a añadir las dependencias de prueba de REST Client y Awaitility al archivo de compilación:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
 msgid "pom.xml"
@@ -290,87 +336,105 @@ msgid "build.gradle"
 msgstr ""
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "In the test, we will send movies in a loop and check if the `ConsumedMovieResource` returns\n"
 "what we send."
-msgstr ""
+msgstr "En la prueba, enviaremos películas en un bucle y comprobaremos si la `ConsumedMovieResource` devuelve lo que enviamos."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "We modified the `MovieResourceTest` that was generated together with the project. This test class has a\n"
 "subclass, `NativeMovieResourceIT`, that runs the same test against the native executable.\n"
 "To run it, execute:"
-msgstr ""
+msgstr "Modificamos el `MovieResourceTest` que se generó junto con el proyecto. Esta clase de prueba tiene una subclase, `NativeMovieResourceIT` , que ejecuta la misma prueba contra el ejecutable nativo. Para ejecutarla, ejecute"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Manual setup"
-msgstr ""
+msgstr "Configuración manual"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "If we couldn't use Dev Services and wanted to start a Kafka broker and Apicurio Registry instance manually, we would define a xref:getting-started-testing.adoc#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
-msgstr ""
+msgstr "Si no pudiéramos usar Dev Services y quisiéramos iniciar un broker Kafka y una instancia de Apicurio Registry manualmente, definiríamos un  link:getting-started-testing.html#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Using compatible versions of the Apicurio Registry"
-msgstr ""
+msgstr "Utilización de versiones compatibles del Registro Apicurio"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "The `quarkus-apicurio-registry-json-schema` extension depends on recent versions of Apicurio Registry client,\n"
 "and most versions of Apicurio Registry server and client are backwards compatible.\n"
 "For some you need to make sure that the client used by Serdes is compatible with the server."
-msgstr ""
+msgstr "La extensión `quarkus-apicurio-registry-json-schema` depende de versiones recientes del cliente Apicurio Registry, y la mayoría de las versiones del servidor y del cliente Apicurio Registry son compatibles con versiones anteriores. Para algunas es necesario asegurarse de que el cliente utilizado por Serdes es compatible con el servidor."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "For example, with Apicurio dev service if you set the image name to use version `2.1.5.Final`:"
-msgstr ""
+msgstr "Por ejemplo, con el servicio Apicurio dev si se establece el nombre de la imagen para utilizar la versión `2.1.5.Final`:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "You need to make sure that `apicurio-registry-serdes-json-schema-serde` dependency\n"
 "and the REST client `apicurio-common-rest-client-vertx` dependency are set to compatible versions:"
-msgstr ""
+msgstr "Debe asegurarse de que la dependencia de `apicurio-registry-serdes-json-schema-serde` y la del cliente REST `apicurio-common-rest-client-vertx` están configuradas con versiones compatibles:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Known previous compatible versions for `apicurio-registry-client` and `apicurio-common-rest-client-vertx` are the following"
-msgstr ""
+msgstr "Las versiones anteriores compatibles conocidas para `apicurio-registry-client` y `apicurio-common-rest-client-vertx` son las siguientes"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "`apicurio-registry-client` 2.1.5.Final with `apicurio-common-rest-client-vertx` 0.1.5.Final"
-msgstr ""
+msgstr "`apicurio-registry-client` 2.1.5.Final con `apicurio-common-rest-client-vertx` 0.1.5.Final"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "`apicurio-registry-client` 2.3.1.Final with `apicurio-common-rest-client-vertx` 0.1.13.Final"
-msgstr ""
+msgstr "`apicurio-registry-client` 2.3.1.Final con `apicurio-common-rest-client-vertx` 0.1.13.Final"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Using the Confluent Schema Registry"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y Avro"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "If you want to use the Confluent Schema Registry, you need the `quarkus-confluent-registry-json-schema` extension, instead of the `quarkus-apicurio-registry-json-schema` extension.\n"
 "Also, you need to add a few dependencies and a custom Maven repository to your `pom.xml` / `build.gradle` file:"
-msgstr ""
+msgstr "Si desea utilizar el registro de esquemas de Confluent, necesita la extensión `quarkus-confluent-registry-json-schema` , en lugar de la extensión `quarkus-apicurio-registry-json-schema` . Además, necesita añadir algunas dependencias y un repositorio Maven personalizado a su archivo `pom.xml` / `build.gradle` :"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid ""
 "In JVM mode, any version of `io.confluent:kafka-json-schema-serializer` can be used.\n"
 "In native mode, Quarkus supports the following versions: `6.2.x`, `7.0.x`, `7.1.x`, `7.2.x`, `7.3.x`."
-msgstr ""
+msgstr "En modo JVM, se puede utilizar cualquier versión de `io.confluent:kafka-json-schema-serializer` . En modo nativo, Quarkus soporta las siguientes versiones: `6.2.x` , `7.0.x` , `7.1.x` , `7.2.x` , `7.3.x` ."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "For version `7.4.x` and `7.5.x`, due to an issue with the Confluent Schema Serializer, you need to add another dependency:"
-msgstr ""
+msgstr "Para las versiones `7.4.x` y `7.5.x`, debido a un problema con Confluent Schema Serializer, es necesario añadir otra dependencia:"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "For any other versions, the native configuration may need to be adjusted."
-msgstr ""
+msgstr "Para cualquier otra versión, puede ser necesario ajustar la configuración nativa."
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "Further reading"
-msgstr ""
+msgstr "Más información"
 
 #: _versions/3.8/guides/kafka-schema-registry-json-schema.adoc
+#, fuzzy
 msgid "link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/kafka/kafka.html[SmallRye Reactive Messaging Kafka] documentation"
-msgstr ""
+msgstr "Documentación de link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.9/kafka/kafka.html[SmallRye Reactive Messaging Kafka]"
