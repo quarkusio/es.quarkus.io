@@ -507,13 +507,17 @@ msgstr "<<tenant-resolver>>"
 
 #: _versions/main/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
-msgid "<<default-tenant-resolver>>"
-msgstr "<<default-tenant-resolver>>"
+msgid "<<annotations-tenant-resolver>>"
+msgstr "<<annotations-tenant-resolver>>"
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "<<configuration-based-tenant-resolver>>"
+msgstr ""
 
 #: _versions/main/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
-msgid "<<annotations-tenant-resolver>>"
-msgstr "<<annotations-tenant-resolver>>"
+msgid "<<default-tenant-resolver>>"
+msgstr "<<default-tenant-resolver>>"
 
 #: _versions/main/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
@@ -543,6 +547,76 @@ msgstr "Puede devolver el id de inquilino de `a` o `b` desde `quarkus.oidc.Tenan
 #, fuzzy
 msgid "In this example, the value of the last request path segment is a tenant id, but if required, you can implement a more complex tenant identifier resolution logic."
 msgstr "En este ejemplo, el valor del último segmento de la ruta de solicitud es un identificador de inquilino, pero si es necesario, puede implementar una lógica de resolución de identificadores de inquilino más compleja."
+
+#. type: Title ===
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy, no-wrap
+msgid "Resolve with annotations"
+msgstr "Resolución de identificadores de inquilinos con anotaciones"
+
+#. type: Plain text
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "You can use the `io.quarkus.oidc.Tenant` annotation for resolving the tenant identifiers as an alternative to using `io.quarkus.oidc.TenantResolver`."
+msgstr "Puede utilizar la anotación `io.quarkus.oidc.Tenant` para resolver los identificadores de inquilino como alternativa al uso de `io.quarkus.oidc.TenantResolver`."
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid ""
+"Proactive HTTP authentication must be disabled (`quarkus.http.auth.proactive=false`) for this to work.\n"
+"For more information, see the xref:security-proactive-authentication.adoc[Proactive authentication] guide."
+msgstr "La autenticación HTTP proactiva debe estar desactivada ( `quarkus.http.auth.proactive=false` ) para que esto funcione. Para más información, consulte la guía de xref:security-proactive-authentication.adoc[autenticación] proactiva."
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid ""
+"Assuming your application supports two OIDC tenants, the `hr` and default tenants, all resource methods and classes carrying `@Tenant(\"hr\")` are authenticated by using the OIDC provider configured by `quarkus.oidc.hr.auth-server-url`.\n"
+"In contrast, all other classes and methods are still authenticated by using the default OIDC provider."
+msgstr "Suponiendo que su aplicación admita dos inquilinos OIDC, el inquilino `hr` y el inquilino por defecto, todos los métodos y clases de recursos que lleven `@Tenant(\"hr\")` se autentican utilizando el proveedor OIDC configurado por `quarkus.oidc.hr.auth-server-url` . Por el contrario, todas las demás clases y métodos se siguen autenticando utilizando el proveedor OIDC por defecto."
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "The `io.quarkus.oidc.Tenant` annotation must be placed on either the resource class or resource method."
+msgstr "La anotación `io.quarkus.oidc.Tenant` debe colocarse en la clase de recurso o en el método de recurso."
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid ""
+"In the example above, authentication of the `sayHello` endpoint is enforced with the `@Authenticated` annotation.\n"
+"Alternatively, if you use an the xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[HTTP Security policy]\n"
+"to secure the endpoint, then, for the `@Tenant` annotation be effective, you must delay this policy's permission check as shown in the example below:"
+msgstr "En el ejemplo anterior, la autenticación del punto final `sayHello` se aplica con la anotación `@Authenticated` . Alternativamente, si utiliza una xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[política de Seguridad HTTP] para asegurar el endpoint, entonces, para que la anotación `@Tenant` sea efectiva, debe retrasar la comprobación de permisos de esta política como se muestra en el ejemplo siguiente:"
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "Tell Quarkus to run the HTTP permission check after the tenant has been selected with the `@Tenant` annotation."
+msgstr "Indique a Quarkus que ejecute la comprobación de permisos HTTP después de que el arrendatario haya sido seleccionado con la anotación `@Tenant` ."
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "Resolve with configuration"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid ""
+"You can use the `quarkus.oidc.tenant-paths` configuration property for resolving the tenant identifier as an alternative to using `io.quarkus.oidc.TenantResolver`.\n"
+"Here is how you can select the `hr` tenant for the `sayHello` endpoint of the `HelloResource` resource used in the previous example:"
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "Same path-matching rules apply as for the `quarkus.http.auth.permission.authenticated.paths=/api/hello` configuration property from the previous example."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "The wildcard placed at the end of the path represents any number of path segments. However the path is less specific than the `/api/hello`, therefore the `hr` tenant will be used to secure the `sayHello` endpoint."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "The wildcard in the `/*/hello` represents exactly one path segment. Nevertheless, the wildcard is less specific than the `api`, therefore the `hr` tenant will be used."
+msgstr ""
+
+#: _versions/main/guides/security-openid-connect-multitenancy.adoc
+msgid "Path-matching mechanism works exactly same as in the xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[Authorization using configuration]."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/security-openid-connect-multitenancy.adoc
@@ -589,50 +663,6 @@ msgid ""
 "Default resolution can also work for Bearer token authentication.\n"
 "Still, it might be less practical because a tenant identifier must always be set as the last path segment value."
 msgstr "La resolución por defecto también puede funcionar para la autenticación con token de portador. Aun así, puede resultar menos práctico porque siempre debe establecerse un identificador de inquilino como último valor del segmento de ruta."
-
-#. type: Title ===
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy, no-wrap
-msgid "Resolve with annotations"
-msgstr "Resolución de identificadores de inquilinos con anotaciones"
-
-#. type: Plain text
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "You can use the `io.quarkus.oidc.Tenant` annotation for resolving the tenant identifiers as an alternative to using `io.quarkus.oidc.TenantResolver`."
-msgstr "Puede utilizar la anotación `io.quarkus.oidc.Tenant` para resolver los identificadores de inquilino como alternativa al uso de `io.quarkus.oidc.TenantResolver`."
-
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid ""
-"Proactive HTTP authentication must be disabled (`quarkus.http.auth.proactive=false`) for this to work.\n"
-"For more information, see the xref:security-proactive-authentication.adoc[Proactive authentication] guide."
-msgstr "La autenticación HTTP proactiva debe estar desactivada ( `quarkus.http.auth.proactive=false` ) para que esto funcione. Para más información, consulte la guía de xref:security-proactive-authentication.adoc[autenticación] proactiva."
-
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid ""
-"Assuming your application supports two OIDC tenants, the `hr` and default tenants, all resource methods and classes carrying `@Tenant(\"hr\")` are authenticated by using the OIDC provider configured by `quarkus.oidc.hr.auth-server-url`.\n"
-"In contrast, all other classes and methods are still authenticated by using the default OIDC provider."
-msgstr "Suponiendo que su aplicación admita dos inquilinos OIDC, el inquilino `hr` y el inquilino por defecto, todos los métodos y clases de recursos que lleven `@Tenant(\"hr\")` se autentican utilizando el proveedor OIDC configurado por `quarkus.oidc.hr.auth-server-url` . Por el contrario, todas las demás clases y métodos se siguen autenticando utilizando el proveedor OIDC por defecto."
-
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "The `io.quarkus.oidc.Tenant` annotation must be placed on either the resource class or resource method."
-msgstr "La anotación `io.quarkus.oidc.Tenant` debe colocarse en la clase de recurso o en el método de recurso."
-
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid ""
-"In the example above, authentication of the `sayHello` endpoint is enforced with the `@Authenticated` annotation.\n"
-"Alternatively, if you use an the xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[HTTP Security policy]\n"
-"to secure the endpoint, then, for the `@Tenant` annotation be effective, you must delay this policy's permission check as shown in the example below:"
-msgstr "En el ejemplo anterior, la autenticación del punto final `sayHello` se aplica con la anotación `@Authenticated` . Alternativamente, si utiliza una xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[política de Seguridad HTTP] para asegurar el endpoint, entonces, para que la anotación `@Tenant` sea efectiva, debe retrasar la comprobación de permisos de esta política como se muestra en el ejemplo siguiente:"
-
-#: _versions/main/guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Tell Quarkus to run the HTTP permission check after the tenant has been selected with the `@Tenant` annotation."
-msgstr "Indique a Quarkus que ejecute la comprobación de permisos HTTP después de que el arrendatario haya sido seleccionado con la anotación `@Tenant` ."
 
 #. type: Title ==
 #: _versions/main/guides/security-openid-connect-multitenancy.adoc

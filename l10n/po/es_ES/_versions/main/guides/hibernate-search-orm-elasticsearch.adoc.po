@@ -16,14 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. This guide is maintained in the main Quarkus repository
-#. and pull requests should be submitted there:
-#. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Hibernate Search guide"
-msgstr "Guía de búsqueda en Hibernate"
+msgid "Use Hibernate Search with Hibernate ORM and Elasticsearch/OpenSearch"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -127,11 +122,9 @@ msgstr "el controlador JDBC de PostgreSQL,"
 msgid "Hibernate Search + Elasticsearch,"
 msgstr "Búsqueda en Hibernate + Elasticsearch,"
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "RESTEasy Reactive and Jackson."
-msgstr "RESTEasy Reactive y Jackson."
+msgid "Quarkus REST (formerly RESTEasy Reactive) and Jackson."
+msgstr ""
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy
@@ -296,99 +289,13 @@ msgid ""
 msgstr "Como puede ver, podemos definir varios campos para la misma propiedad. Aquí definimos un `@KeywordField` con un nombre específico. La principal diferencia es que un campo de palabra clave no está tokenizado (la cadena se mantiene como un único token), pero puede normalizarse (es decir, filtrarse); hablaremos de ello más adelante. Este campo está marcado como clasificable, ya que nuestra intención es utilizarlo para clasificar a nuestros autores."
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
 msgid ""
 "The purpose of `@IndexedEmbedded` is to include the `Book` fields into the `Author` index.\n"
 "In this case, we just use the default configuration: all the fields of the associated `Book` entities are included in the index (i.e. the `title` field).\n"
 "The nice thing with `@IndexedEmbedded` is that it is able to automatically reindex an `Author` if one of its ``Book``s has been updated thanks to the bidirectional relation.\n"
-"`@IndexedEmbedded` also supports nested documents (using the `storage = NESTED` attribute), but we don't need it here.\n"
-"You can also specify the fields you want to include in your parent index using the `includePaths` attribute if you don't want them all."
-msgstr "El propósito de `@IndexedEmbedded` es incluir los campos de `Book` en el índice de `Author` . En este caso, nos limitamos a utilizar la configuración por defecto: todos los campos de las entidades `Book` asociadas se incluyen en el índice (es decir, el campo `title` ). Lo bueno de `@IndexedEmbedded` es que es capaz de reindexar automáticamente un `Author` si uno de sus `Book` s ha sido actualizado gracias a la relación bidireccional. `@IndexedEmbedded` también admite documentos anidados (mediante el atributo `storage = NESTED` ), pero aquí no lo necesitamos. También puede especificar los campos que desea incluir en su índice padre utilizando el atributo `includePaths` si no los quiere todos."
-
-#. type: Title ===
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Programmatic mapping"
-msgstr "Cartografía programática"
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"If, for some reason, adding Hibernate Search annotations to entities is not possible,\n"
-"mapping can be applied programmatically instead.\n"
-"Programmatic mapping is configured through the `ProgrammaticMappingConfigurationContext`\n"
-"that is exposed via a mapping configurer (`HibernateOrmSearchMappingConfigurer`)."
-msgstr "Si, por alguna razón, no es posible añadir anotaciones de búsqueda de Hibernate a las entidades, el mapeo puede aplicarse programáticamente en su lugar. El mapeo programático se configura a través de `ProgrammaticMappingConfigurationContext` que se expone mediante un configurador de mapeo ( `HibernateOrmSearchMappingConfigurer` )."
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"A mapping configurer (`HibernateOrmSearchMappingConfigurer`) allows much more than just programmatic mapping capabilities.\n"
-"It also allows link:{hibernate-search-docs-url}#mapper-orm-mapping-configurer[configuring annotation mapping, bridges, and more]."
-msgstr "Un configurador de mapeo ( `HibernateOrmSearchMappingConfigurer` ) permite mucho más que las capacidades de mapeo programático. También permite configurar el mapeado de link:{hibernate-search-docs-url}#mapper-orm-mapping-configurer[anotaciones, puentes y mucho más] ."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Below is an example of a mapping configurer that applies programmatic mapping:"
-msgstr "A continuación se muestra un ejemplo de configurador de mapeo que aplica mapeo programático:"
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"Annotate the configurer implementation with the `@SearchExtension` qualifier\n"
-"to tell Quarkus it should be used by Hibernate Search in the default persistence unit."
-msgstr "Anote la implementación del configurador con el calificador `@SearchExtension` para indicar a Quarkus que debe ser utilizada por Hibernate Search en la unidad de persistencia predeterminada."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "The annotation can also target a specific persistence unit (`@SearchExtension(persistenceUnit = \"nameOfYourPU\")`)."
-msgstr "La anotación también puede dirigirse a una unidad de persistencia específica ( `@SearchExtension(persistenceUnit = \"nameOfYourPU\")`)."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Access the programmatic mapping context."
-msgstr "Accede al contexto de mapeo programático."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Create mapping step for the `SomeIndexedEntity` entity."
-msgstr "Crear paso de asignación para la entidad `SomeIndexedEntity`."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Define the `SomeIndexedEntity` entity as indexed."
-msgstr "Defina la entidad `SomeIndexedEntity` como indexada."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Provide an index name to be used for the `SomeIndexedEntity` entity."
-msgstr "Proporcione un nombre de índice que se utilizará para la entidad `SomeIndexedEntity`."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Define the document id property."
-msgstr "Definir la propiedad id del documento."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Define a full-text search field for the `text` property."
-msgstr "Defina un campo de búsqueda de texto completo para la propiedad `text`."
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"Alternatively, if for some reason you can't or don't want to annotate your mapping configurer with `@SearchExtension`,\n"
-"you can simply annotate it with `@Dependent @Named(\"myMappingConfigurer\")`\n"
-"and then reference it from configuration properties:"
-msgstr "Alternativamente, si por alguna razón no puede o no quiere anotar su configurador de mapeo con `@SearchExtension` , puede simplemente anotarlo con `@Dependent @Named(\"myMappingConfigurer\")` y luego referenciarlo desde las propiedades de configuración:"
+"`@IndexedEmbedded` also supports nested documents (using the `structure = NESTED` attribute), but we don't need it here.\n"
+"You can also specify the fields you want to embed in your parent index using the `includePaths`/`excludePaths` attributes if you don't want them all."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -545,6 +452,12 @@ msgid ""
 "and then reference it from configuration properties:"
 msgstr "Alternativamente, si por alguna razón no puede o no quiere anotar su configurador de análisis con `@SearchExtension` , puede simplemente anotarlo con `@Dependent @Named(\"myAnalysisConfigurer\")` y luego referenciarlo desde las propiedades de configuración:"
 
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"For more information about configuring analyzers,\n"
+"see link:{hibernate-search-docs-url}#backend-elasticsearch-analysis[this section of the reference documentation]."
+msgstr ""
+
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy, no-wrap
@@ -566,33 +479,17 @@ msgid ""
 "see <<multiple-persistence-units-attaching-cdi>>."
 msgstr "Inyecte una sesión de búsqueda de Hibernate, que depende de la `EntityManager` bajo el capó. Las aplicaciones con varias unidades de persistencia pueden utilizar el calificador CDI `@io.quarkus.hibernate.orm.PersistenceUnit` para seleccionar la adecuada: véase <<multiple-persistence-units-attaching-cdi>> ."
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "And then we can add the following methods (and a few ``import``s):"
-msgstr "Y entonces podemos añadir los siguientes métodos (y algunos `import`s):"
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Important point: we need a transactional context for these methods."
-msgstr "Punto importante: necesitamos un contexto transaccional para estos métodos."
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
 msgid ""
-"As we will import data into the PostgreSQL database using an SQL script, we need to reindex the data at startup.\n"
-"For this, we use Hibernate Search's mass indexer, which allows to index a lot of data efficiently (you can fine tune it for better performances).\n"
-"All the upcoming updates coming through Hibernate ORM operations will be synchronized automatically to the full text index.\n"
-"If you don't import data manually in the database, you don't need that:\n"
-"the mass indexer should then only be used when you change your indexing configuration (adding a new field, changing an analyzer's configuration...) and you want the new configuration to be applied to your existing entities."
-msgstr "Como importaremos datos a la base de datos PostgreSQL mediante un script SQL, necesitamos reindexar los datos al inicio. Para ello, utilizamos el indexador masivo de Hibernate Search, que permite indexar muchos datos de forma eficiente (puede ajustarlo para obtener mejores rendimientos). Todas las próximas actualizaciones que lleguen a través de las operaciones ORM de Hibernate se sincronizarán automáticamente con el índice de texto completo. Si no importa datos manualmente en la base de datos, no lo necesita: el indexador masivo sólo debe utilizarse entonces cuando cambie su configuración de indexación (añadiendo un nuevo campo, cambiando la configuración de un analizador...) y desee que la nueva configuración se aplique a sus entidades existentes."
+"And then the magic begins.\n"
+"When we added annotations to our entities, we made them available for full text search;\n"
+"we can now query the index using the Hibernate Search DSL,\n"
+"simply by adding the following method (and a few ``import``s):"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "This is where the magic begins: just adding the annotations to our entities makes them available for full text search: we can now query the index using the Hibernate Search DSL."
-msgstr "Aquí es donde comienza la magia: el simple hecho de añadir las anotaciones a nuestras entidades las hace disponibles para la búsqueda de texto completo: ahora podemos consultar el índice utilizando el DSL de búsqueda de Hibernate."
+msgid "Important point: we need a transactional context for this method."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -644,6 +541,69 @@ msgid ""
 "link:{hibernate-search-docs-url}#search-dsl-predicate-extensions-elasticsearch-from-json[defining a predicate using JSON directly]."
 msgstr "Cuando esto no sea suficiente, siempre puede recurrir a link:{hibernate-search-docs-url}#search-dsl-predicate-extensions-elasticsearch-from-json[definir un predicado utilizando JSON directamente] ."
 
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Automatic data initialization"
+msgstr ""
+
+#. type: delimited block =
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "For the purpose of this demonstration, let's import an initial dataset."
+msgstr "Para esta demostración, vamos a importar un conjunto de datos inicial."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"Let's create a `src/main/resources/import.sql` file with the following content\n"
+"(we'll reference it in configuration later):"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"Because this data above will be inserted into the database without Hibernate Search's knowledge,\n"
+"it won't be indexed --\n"
+"unlike upcoming updates coming through Hibernate ORM operations,\n"
+"which will be synchronized automatically to the full text index."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"In our existing `LibraryResource`, let's add the following content (and a few ``import``s)\n"
+"to index that initial data:"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"If you don't import data manually in the database, you don't need this:\n"
+"the mass indexer should then only be used when you change your indexing configuration\n"
+"(adding a new field, changing an analyzer's configuration...)\n"
+"and you want the new configuration to be applied to your existing data."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"Inject a Hibernate Search `SearchMapping`,\n"
+"which relies on the `EntityManagerFactory` under the hood.\n"
+"Applications with multiple persistence units can use the CDI qualifier `@io.quarkus.hibernate.orm.PersistenceUnit`\n"
+"to select the right one:\n"
+"see <<multiple-persistence-units-attaching-cdi>>."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Add a method that will get executed on application startup."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Create a \"search scope\" targeting all indexed entity types that extend `Object` -- that is, every single indexed entity types (`Author` and `Book`)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Create an instance of Hibernate Search's mass indexer, which allows indexing a lot of data efficiently (you can fine tune it for better performance)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Start the mass indexer and wait for it to finish."
+msgstr ""
+
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, no-wrap
@@ -674,11 +634,9 @@ msgstr "No usaremos SSL así que lo deshabilitamos para tener un ejecutable nati
 msgid "Let's create a PostgreSQL datasource."
 msgstr "Vamos a crear una fuente de datos PostgreSQL."
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "We load some initial data on startup."
-msgstr "Cargamos algunos datos iniciales."
+msgid "We load some initial data on startup (see <<automatic-import-script>>)."
+msgstr ""
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy
@@ -698,14 +656,13 @@ msgid ""
 msgstr "Esto significa que esperamos a que las entidades se puedan buscar antes de considerar una escritura completa. En una configuración de producción, el valor por defecto `write-sync` proporcionará un mejor rendimiento. El uso de `sync` es especialmente importante cuando se realizan pruebas, ya que se necesita que las entidades puedan buscarse inmediatamente."
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
 msgid ""
 "For development and tests, we rely on <<dev-services,Dev Services>>,\n"
 "which means Quarkus will start a PostgreSQL database and Elasticsearch cluster automatically.\n"
 "In production mode, however,\n"
-"you will want to start a PostgreSQL database and Elasticsearch cluster manually,\n"
+"we will want to start a PostgreSQL database and Elasticsearch cluster manually,\n"
 "which is why we provide Quarkus with this connection info in the `prod` profile (`%prod.` prefix)."
-msgstr "Para el desarrollo y las pruebas, confiamos en xref:dev-services[Dev Services] , lo que significa que Quarkus iniciará una base de datos PostgreSQL y un clúster Elasticsearch automáticamente. En el modo de producción, sin embargo, querrá iniciar una base de datos PostgreSQL y un clúster Elasticsearch manualmente, razón por la cual proporcionamos a Quarkus esta información de conexión en el perfil `prod` ( prefijo `%prod.` )."
+msgstr ""
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy
@@ -729,44 +686,8 @@ msgid "See also <<quarkus-hibernate-search-orm-elasticsearch_quarkus-hibernate-s
 msgstr "Véase también xref:quarkus-hibernate-search-orm-elasticsearch_quarkus-hibernate-search-orm-schema-management-strategy[quarkus.hibernate-search-orm.schema-management.strategy] ."
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "For more information about the Hibernate Search extension configuration please refer to the <<configuration-reference,Configuration Reference>>."
-msgstr "Si desea más información sobre la configuración de la extensión de búsqueda de Hibernate, consulte la xref:configuration-reference[Referencia de configuración] ."
-
-#. type: Title ===
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Dev Services (Configuration Free Databases)"
-msgstr "Servicios de desarrollo (bases de datos libres de configuración)"
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"Quarkus supports a feature called Dev Services that allows you to start various containers without any config.\n"
-"In the case of Elasticsearch this support extends to the default Elasticsearch connection.\n"
-"What that means practically, is that if you have not configured `quarkus.hibernate-search-orm.elasticsearch.hosts` Quarkus will automatically\n"
-"start an Elasticsearch container when running tests or in xref:dev-mode-differences.adoc[dev mode], and automatically configure the connection."
-msgstr "Quarkus soporta una característica llamada Dev Services que le permite iniciar varios contenedores sin ninguna configuración. En el caso de Elasticsearch este soporte se extiende a la conexión por defecto de Elasticsearch. Lo que esto significa en la práctica, es que si no ha configurado `quarkus.hibernate-search-orm.elasticsearch.hosts` Quarkus iniciará automáticamente un contenedor Elasticsearch cuando ejecute pruebas o en xref:dev-mode-differences.adoc[modo dev] , y configurará automáticamente la conexión."
-
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid ""
-"When running the production version of the application, the Elasticsearch connection needs to be configured as normal,\n"
-"so if you want to include a production database config in your `application.properties` and continue to use Dev Services\n"
-"we recommend that you use the `%prod.` profile to define your Elasticsearch settings."
-msgstr "Cuando se ejecuta la versión de producción de la aplicación, la conexión de Elasticsearch debe configurarse con normalidad, por lo que si desea incluir una configuración de base de datos de producción en su `application.properties` y seguir utilizando Dev Services, le recomendamos que utilice el perfil `%prod.` para definir su configuración de Elasticsearch."
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Dev Services for Elasticsearch is currently unable to start multiple clusters concurrently, so it only works with the default backend of the default persistence unit: named persistence units or named backends won't be able to take advantage of Dev Services for Elasticsearch."
-msgstr "Actualmente, Dev Services para Elasticsearch no puede iniciar varios clústeres simultáneamente, por lo que sólo funciona con el backend por defecto de la unidad de persistencia por defecto: las unidades de persistencia con nombre o los backends con nombre no podrán aprovechar Dev Services para Elasticsearch."
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "For more information you can read the xref:elasticsearch-dev-services.adoc[Dev Services for Elasticsearch guide]."
-msgstr "Para obtener más información, puede leer la  link:elasticsearch-dev-services.html[guía Dev Services for Elasticsearch]."
+msgid "For more information about configuration of the Hibernate Search ORM extension, refer to the <<configuration-reference,Configuration Reference>>."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -782,24 +703,6 @@ msgid ""
 "In the `src/main/resources/META-INF/resources` directory, overwrite the existing `index.html` file with the content from this\n"
 "{quickstarts-blob-url}/hibernate-search-orm-elasticsearch-quickstart/src/main/resources/META-INF/resources/index.html[index.html] file."
 msgstr "Ahora vamos a añadir una página web sencilla para interactuar con nuestro `LibraryResource` . Quarkus sirve automáticamente recursos estáticos ubicados en el directorio `META-INF/resources` . En el directorio `src/main/resources/META-INF/resources` , sobrescriba el archivo `index.html` existente con el contenido de este archivo {quickstarts-blob-url}/hibernate-search-orm-elasticsearch-quickstart/src/main/resources/META-INF/resources/index.html[index.html]."
-
-#. type: Title ==
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Automatic import script"
-msgstr "Script de importación automática"
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "For the purpose of this demonstration, let's import an initial dataset."
-msgstr "Para esta demostración, vamos a importar un conjunto de datos inicial."
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Let's create a `src/main/resources/import.sql` file with the following content:"
-msgstr "Vamos a crear un archivo `src/main/resources/import.sql` con el siguiente contenido:"
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -856,6 +759,172 @@ msgstr "crear nuevos autores y libros y buscarlos también"
 #, fuzzy
 msgid "As you can see, all your updates are automatically synchronized to the Elasticsearch cluster."
 msgstr "Como puede ver, todas sus actualizaciones se sincronizan automáticamente con el clúster de Elasticsearch."
+
+#. type: Title ==
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy, no-wrap
+msgid "Building a native executable"
+msgstr "Construir un ejecutable nativo"
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "You can build a native executable with the usual command:"
+msgstr "Puedes construir un ejecutable nativo con el comando habitual:"
+
+#. type: delimited block =
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "As usual with native executable compilation, this operation consumes a lot of memory."
+msgstr "Como es habitual en la compilación de ejecutables nativos, esta operación consume mucha memoria."
+
+#. type: delimited block =
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "It might be safer to stop the two containers while you are building the native executable and start them again once you are done."
+msgstr "Podría ser más seguro detener los dos contenedores mientras se construye el ejecutable nativo y volver a iniciarlos una vez que haya terminado."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Running the native executable is as simple as executing `./target/hibernate-search-orm-elasticsearch-quickstart-1.0.0-SNAPSHOT-runner`."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "You can then point your browser to `http://localhost:8080/` and use your application."
+msgstr "A continuación, puede dirigir su navegador a `&lt;a href=\"http://localhost:8080/\" class=\"bare\"&gt;http://localhost:8080/&lt;/a&gt;` y utilizar su aplicación."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"The startup is a bit slower than usual: it is mostly due to us dropping and recreating the database schema and the Elasticsearch mapping every time at startup.\n"
+"We also inject some data and execute the mass indexer."
+msgstr "El arranque es un poco más lento de lo habitual: se debe sobre todo a que eliminamos y volvemos a crear el esquema de la base de datos y el mapeo de Elasticsearch cada vez en el arranque. También inyectamos algunos datos y ejecutamos el indexador masivo."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "In a real life application, it is obviously something you won't do on every startup."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Dev Services (Configuration Free Datastores)"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Quarkus supports a feature called xref:dev-services.adoc[Dev Services] that allows you to start various containers without any config."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"In the case of Elasticsearch this support extends to the default Elasticsearch connection.\n"
+"What that means practically, is that if you have not configured `quarkus.hibernate-search-orm.elasticsearch.hosts`,\n"
+"Quarkus will automatically start an Elasticsearch container when running tests or in xref:dev-mode-differences.adoc[dev mode],\n"
+"and automatically configure the connection."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"When running the production version of the application, the Elasticsearch connection needs to be configured as normal,\n"
+"so if you want to include a production database config in your `application.properties` and continue to use Dev Services\n"
+"we recommend that you use the `%prod.` profile to define your Elasticsearch settings."
+msgstr "Cuando se ejecuta la versión de producción de la aplicación, la conexión de Elasticsearch debe configurarse con normalidad, por lo que si desea incluir una configuración de base de datos de producción en su `application.properties` y seguir utilizando Dev Services, le recomendamos que utilice el perfil `%prod.` para definir su configuración de Elasticsearch."
+
+#. type: delimited block =
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Dev Services for Elasticsearch is currently unable to start multiple clusters concurrently, so it only works with the default backend of the default persistence unit: named persistence units or named backends won't be able to take advantage of Dev Services for Elasticsearch."
+msgstr "Actualmente, Dev Services para Elasticsearch no puede iniciar varios clústeres simultáneamente, por lo que sólo funciona con el backend por defecto de la unidad de persistencia por defecto: las unidades de persistencia con nombre o los backends con nombre no podrán aprovechar Dev Services para Elasticsearch."
+
+#. type: delimited block =
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "For more information you can read the xref:elasticsearch-dev-services.adoc[Dev Services for Elasticsearch guide]."
+msgstr "Para obtener más información, puede leer la  link:elasticsearch-dev-services.html[guía Dev Services for Elasticsearch]."
+
+#. type: Title ===
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy, no-wrap
+msgid "Programmatic mapping"
+msgstr "Cartografía programática"
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"If, for some reason, adding Hibernate Search annotations to entities is not possible,\n"
+"mapping can be applied programmatically instead.\n"
+"Programmatic mapping is configured through the `ProgrammaticMappingConfigurationContext`\n"
+"that is exposed via a mapping configurer (`HibernateOrmSearchMappingConfigurer`)."
+msgstr "Si, por alguna razón, no es posible añadir anotaciones de búsqueda de Hibernate a las entidades, el mapeo puede aplicarse programáticamente en su lugar. El mapeo programático se configura a través de `ProgrammaticMappingConfigurationContext` que se expone mediante un configurador de mapeo ( `HibernateOrmSearchMappingConfigurer` )."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"A mapping configurer (`HibernateOrmSearchMappingConfigurer`) allows much more than just programmatic mapping capabilities.\n"
+"It also allows link:{hibernate-search-docs-url}#mapper-orm-mapping-configurer[configuring annotation mapping, bridges, and more]."
+msgstr "Un configurador de mapeo ( `HibernateOrmSearchMappingConfigurer` ) permite mucho más que las capacidades de mapeo programático. También permite configurar el mapeado de link:{hibernate-search-docs-url}#mapper-orm-mapping-configurer[anotaciones, puentes y mucho más] ."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Below is an example of a mapping configurer that applies programmatic mapping:"
+msgstr "A continuación se muestra un ejemplo de configurador de mapeo que aplica mapeo programático:"
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"Annotate the configurer implementation with the `@SearchExtension` qualifier\n"
+"to tell Quarkus it should be used by Hibernate Search in the default persistence unit."
+msgstr "Anote la implementación del configurador con el calificador `@SearchExtension` para indicar a Quarkus que debe ser utilizada por Hibernate Search en la unidad de persistencia predeterminada."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "The annotation can also target a specific persistence unit (`@SearchExtension(persistenceUnit = \"nameOfYourPU\")`)."
+msgstr "La anotación también puede dirigirse a una unidad de persistencia específica ( `@SearchExtension(persistenceUnit = \"nameOfYourPU\")`)."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Access the programmatic mapping context."
+msgstr "Accede al contexto de mapeo programático."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Create mapping step for the `SomeIndexedEntity` entity."
+msgstr "Crear paso de asignación para la entidad `SomeIndexedEntity`."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Define the `SomeIndexedEntity` entity as indexed."
+msgstr "Defina la entidad `SomeIndexedEntity` como indexada."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Provide an index name to be used for the `SomeIndexedEntity` entity."
+msgstr "Proporcione un nombre de índice que se utilizará para la entidad `SomeIndexedEntity`."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Define the document id property."
+msgstr "Definir la propiedad id del documento."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid "Define a full-text search field for the `text` property."
+msgstr "Defina un campo de búsqueda de texto completo para la propiedad `text`."
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+#, fuzzy
+msgid ""
+"Alternatively, if for some reason you can't or don't want to annotate your mapping configurer with `@SearchExtension`,\n"
+"you can simply annotate it with `@Dependent @Named(\"myMappingConfigurer\")`\n"
+"and then reference it from configuration properties:"
+msgstr "Alternativamente, si por alguna razón no puede o no quiere anotar su configurador de mapeo con `@SearchExtension` , puede simplemente anotarlo con `@Dependent @Named(\"myMappingConfigurer\")` y luego referenciarlo desde las propiedades de configuración:"
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -991,6 +1060,10 @@ msgstr "Para cada unidad de persistencia, Hibernate Search sólo tendrá en cuen
 msgid "CDI integration"
 msgstr "Integración del CDI"
 
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Injecting entry points"
+msgstr ""
+
 #. type: Plain text
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy
@@ -1022,54 +1095,124 @@ msgstr "Esta es la anotación `@io.quarkus.hibernate.orm.PersistenceUnit`."
 msgid "You can inject the `SearchMapping` of a named persistence unit using the exact same mechanism:"
 msgstr "Puede inyectar el `SearchMapping` de una unidad de persistencia con nombre utilizando exactamente el mismo mecanismo:"
 
-#. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Building a native executable"
-msgstr "Construir un ejecutable nativo"
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "You can build a native executable with the usual command:"
-msgstr "Puedes construir un ejecutable nativo con el comando habitual:"
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "As usual with native executable compilation, this operation consumes a lot of memory."
-msgstr "Como es habitual en la compilación de ejecutables nativos, esta operación consume mucha memoria."
-
-#. type: delimited block =
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "It might be safer to stop the two containers while you are building the native executable and start them again once you are done."
-msgstr "Podría ser más seguro detener los dos contenedores mientras se construye el ejecutable nativo y volver a iniciarlos una vez que haya terminado."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Running it is as simple as executing `./target/hibernate-search-orm-elasticsearch-quickstart-1.0.0-SNAPSHOT-runner`."
-msgstr "Ejecutarlo es tan sencillo como ejecutar `./target/hibernate-search-orm-elasticsearch-quickstart-1.0.0-SNAPSHOT-runner`."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "You can then point your browser to `http://localhost:8080/` and use your application."
-msgstr "A continuación, puede dirigir su navegador a `&lt;a href=\"http://localhost:8080/\" class=\"bare\"&gt;http://localhost:8080/&lt;/a&gt;` y utilizar su aplicación."
+msgid "Plugging in custom components"
+msgstr ""
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
 msgid ""
-"The startup is a bit slower than usual: it is mostly due to us dropping and recreating the database schema and the Elasticsearch mapping every time at startup.\n"
-"We also inject some data and execute the mass indexer."
-msgstr "El arranque es un poco más lento de lo habitual: se debe sobre todo a que eliminamos y volvemos a crear el esquema de la base de datos y el mapeo de Elasticsearch cada vez en el arranque. También inyectamos algunos datos y ejecutamos el indexador masivo."
+"The Quarkus extension for Hibernate Search with Hibernate ORM will automatically\n"
+"inject components annotated with `@SearchExtension` into Hibernate Search."
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "In a real life application, it is obviously something you won't do at startup."
-msgstr "En una aplicación de la vida real, obviamente es algo que no se hará en el arranque."
+msgid ""
+"The annotation can optionally target a specific persistence unit (`@SearchExtension(persistenceUnit = \"nameOfYourPU\")`),\n"
+"backend (`@SearchExtension(backend = \"nameOfYourBackend\")`), index (`@SearchExtension(index = \"nameOfYourIndex\")`),\n"
+"or a combination of those\n"
+"(`@SearchExtension(persistenceUnit = \"nameOfYourPU\", backend = \"nameOfYourBackend\", index = \"nameOfYourIndex\")`),\n"
+"when it makes sense for the type of the component being injected."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "This feature is available for the following component types:"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "`org.hibernate.search.engine.reporting.FailureHandler`"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"A component that should be notified of any failure occurring in a background process\n"
+"(mainly index operations)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Scope: one per persistence unit."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"See link:{hibernate-search-docs-url}#configuration-background-failure-handling[this section of the reference documentation]\n"
+"for more information."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "`org.hibernate.search.mapper.orm.mapping.HibernateOrmSearchMappingConfigurer`"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "A component used to configure the Hibernate Search mapping, in particular programmatically."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Scope: one or more per persistence unit."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "See <<programmatic-mapping,this section of this guide>> for more information."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "`org.hibernate.search.mapper.pojo.work.IndexingPlanSynchronizationStrategy`"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "A component used to configure how to synchronize between application threads and indexing."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"Can also be set to built-in implementations through\n"
+"<<quarkus-hibernate-search-orm-elasticsearch_quarkus-hibernate-search-orm-indexing-plan-synchronization-strategy,`quarkus.hibernate-search-orm.indexing.plan.synchronization.strategy`>>."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"See link:{hibernate-search-docs-url}#indexing-plan-synchronization[this section of the reference documentation]\n"
+"for more information."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "`org.hibernate.search.backend.elasticsearch.analysis.ElasticsearchAnalysisConfigurer`"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "A component used to configure full text analysis (e.g. analyzers, normalizers)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Scope: one or more per backend."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "See <<analysis-configurer,this section of this guide>> for more information."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "`org.hibernate.search.backend.elasticsearch.index.layout.IndexLayoutStrategy`"
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "A component used to configure the Elasticsearch layout: index names, index aliases, ..."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid "Scope: one per backend."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"Can also be set to built-in implementations through\n"
+"<<quarkus-hibernate-search-orm-elasticsearch_quarkus-hibernate-search-orm-elasticsearch-layout-strategy,`quarkus.hibernate-search-orm.elasticsearch.layout.strategy`>>."
+msgstr ""
+
+#: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
+msgid ""
+"See link:{hibernate-search-docs-url}#backend-elasticsearch-indexlayout[this section of the reference documentation]\n"
+"for more information."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -1545,11 +1688,9 @@ msgstr "En el contexto de Quarkus y para construir microservicios, pensamos que 
 msgid "We don't have plans to support the Lucene backend in Quarkus for now."
 msgstr "Por ahora no tenemos planes de soportar el backend Lucene en Quarkus."
 
-#. type: Title ==
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy, no-wrap
-msgid "Hibernate Search Configuration Reference"
-msgstr "Referencia a la configuración de la búsqueda en Hibernate"
+msgid "Configuration Reference for Hibernate Search with Hibernate ORM"
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
@@ -1568,17 +1709,18 @@ msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de
 msgid "About bean references"
 msgstr "Sobre las referencias de las judías"
 
-#. type: delimited block =
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "When referencing beans using a string value in configuration properties, that string is parsed."
-msgstr "Cuando se hace referencia a los beans utilizando un valor de cadena en las propiedades de configuración, esa cadena se analiza."
+msgid ""
+"First, be aware that referencing beans in configuration properties is optional and, in fact, discouraged:\n"
+"you can achieve the same results by annotating your beans with `@SearchExtension`.\n"
+"See <<plugging-in-custom-components,this section>> for more information."
+msgstr ""
 
-#. type: delimited block =
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
-#, fuzzy
-msgid "Here are the most common formats:"
-msgstr "Estos son los formatos más comunes:"
+msgid ""
+"If you really do want to reference beans using a string value in configuration properties\n"
+"know that string is parsed; here are the most common formats:"
+msgstr ""
 
 #: _versions/main/guides/hibernate-search-orm-elasticsearch.adoc
 #, fuzzy
