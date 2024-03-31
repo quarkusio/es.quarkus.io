@@ -7,450 +7,549 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Use OIDC Proxy to integrate OIDC service endpoints with custom GPT"
-msgstr ""
+msgstr "Utilice OIDC Proxy para integrar puntos finales de servicio OIDC con GPT personalizados"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Explain how OIDC Proxy can help to integrate OIDC service endpoints with custom GPT"
-msgstr ""
+msgstr "Explicar cómo OIDC Proxy puede ayudar a integrar los puntos finales del servicio OIDC con GPT personalizados"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
 msgid "Introduction"
 msgstr "Introducción"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] is a new https://github.com/quarkiverse[Quarkiverse] extension which can help to integrate https://quarkus.io/guides/security-oidc-bearer-token-authentication[OIDC service endpoints] with external Single-page applications (SPA)."
-msgstr ""
+msgstr "link:https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] es una nueva extensión link:https://github.com/quarkiverse[de Quarkiverse] que puede ayudar a integrar link:https://quarkus.io/guides/security-oidc-bearer-token-authentication[puntos finales de servicios OIDC] con aplicaciones externas de una sola página (SPA)."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "SPA runs in the browser and uses the https://quarkus.io/guides/security-oidc-code-flow-authentication#overview-of-the-oidc-authorization-code-flow-mechanism[OIDC authorization code flow], but without relying on Quarkus, to authenticate the current user and accesses the Quarkus OIDC service endpoint with the access token on behalf of the authenticated user. Here is a simple diagram showing how this process works, copied to this post from the https://quarkus.io/guides/security-oidc-bearer-token-authentication[OIDC Bearer token guide] for your convenience:"
-msgstr ""
+msgstr "SPA se ejecuta en el navegador y utiliza el link:https://quarkus.io/guides/security-oidc-code-flow-authentication#overview-of-the-oidc-authorization-code-flow-mechanism[flujo de código de autorización OIDC] , pero sin depender de Quarkus, para autenticar al usuario actual y accede al punto final del servicio OIDC de Quarkus con el token de acceso en nombre del usuario autenticado. He aquí un diagrama sencillo que muestra cómo funciona este proceso, copiado a este post de la link:https://quarkus.io/guides/security-oidc-bearer-token-authentication[guía del token de portador] OIDC para su comodidad:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "As illustrated in the picture above, the OIDC provider authenticates the current user. The SPA receives the ID, access, and, possibly, refresh tokens as the outcome of the authorization code flow and uses the access token to access the Quarkus OIDC service endpoint."
-msgstr ""
+msgstr "Como se ilustra en la imagen anterior, el proveedor de OIDC autentica al usuario actual. El SPA recibe el ID, el acceso y, posiblemente, los tokens de actualización como resultado del flujo del código de autorización y utiliza el token de acceso para acceder al punto final del servicio OIDC de Quarkus."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "The SPA interacts with the OIDC provider.\n"
 "Thus, it must know the provider connection details, including the registered OIDC application's client ID and other OIDC-specific details required to complete the authorization code flow successfully.\n"
 "You must also provide a _callback_ URL in your registered OIDC application, which may not always be acceptable."
-msgstr ""
+msgstr "El SPA interactúa con el proveedor de OIDC. Por lo tanto, debe conocer los detalles de la conexión con el proveedor, incluido el ID de cliente de la aplicación OIDC registrada y otros detalles específicos de OIDC necesarios para completar con éxito el flujo del código de autorización. También debe proporcionar una URL de _devolución de llamada_ en la aplicación OIDC registrada, que puede no ser siempre aceptable."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "The https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] extension simplifieds this whole setup.\n"
 "It acts as a proxy between the SPA and Quarkus OIDC service endpoints and delegates to the real OIDC provider to support an authorization code flow.\n"
 "It allows integrating OIDC service endpoints with SPAs without having to expose the internal OIDC connection details to this SPA, and thus, sends all the required details to the user browser."
-msgstr ""
+msgstr "La extensión Quarkus link:https://github.com/quarkiverse/quarkus-oidc-proxy[OIDC Proxy] simplifica toda esta configuración. Actúa como proxy entre la SPA y los puntos finales del servicio OIDC de Quarkus y delega en el proveedor OIDC real para soportar un flujo de código de autorización. Permite integrar los puntos finales del servicio OIDC con las SPA sin tener que exponer los detalles internos de la conexión OIDC a esta SPA y, de este modo, envía todos los detalles necesarios al navegador del usuario."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Another use case for the OIDC Proxy is to support several https://quarkus.io/guides/security-oidc-code-flow-authentication[Quarkus OIDC web-app] endpoints to authenticate users using the same OIDC proxy configuration before accessing the OIDC service endpoint."
-msgstr ""
+msgstr "Otro caso de uso del proxy OIDC es dar soporte a varios puntos finales de link:https://quarkus.io/guides/security-oidc-code-flow-authentication[la aplicación web OIDC de Quarkus] para autenticar a los usuarios utilizando la misma configuración del proxy OIDC antes de acceder al punto final del servicio OIDC."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "How does this OIDC proxy actually work? We are coming to that, but first, let's talk about custom GPT actions."
-msgstr ""
+msgstr "¿Cómo funciona realmente este proxy OIDC? Ya llegaremos a eso, pero antes, hablemos de las acciones GPT personalizadas."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Custom GPT Actions"
-msgstr ""
+msgstr "Acciones GPT personalizadas"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "https://chat.openai.com[ChatGPT] has introduced https://platform.openai.com/docs/actions/introduction[Actions], which can be used to create custom GPTs. For example, you can create a custom GPT which can enhance your ChatGPT conversation experience by connecting it to your API endpoints."
-msgstr ""
+msgstr "link:https://chat.openai.com[ChatGPT] ha introducido link:https://platform.openai.com/docs/actions/introduction[Acciones] , que pueden utilizarse para crear GPT personalizadas. Por ejemplo, puede crear un GPT personalizado que puede mejorar su experiencia de conversación ChatGPT conectándolo a sus puntos finales API."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "One of the challenges when connecting a custom GPTs with your API is the authentication, how your custom GPT can be https://platform.openai.com/docs/actions/authentication[authenticated] to be allowed to access the API.\n"
 "The https://platform.openai.com/docs/actions/authentication/oauth[OAuth] option is the best option when you need a user-specific permission to access the API, and this is what https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] will help you to achieve without exposing all the OIDC/OAuth2 connection details."
-msgstr ""
+msgstr "Uno de los retos a la hora de conectar una GPT personalizada con su API es la autenticación, cómo se puede link:https://platform.openai.com/docs/actions/authentication[autenticar] su GPT personalizada para que se le permita acceder a la API. La opción link:https://platform.openai.com/docs/actions/authentication/oauth[OAuth] es la mejor opción cuando se necesita un permiso específico de usuario para acceder a la API, y esto es lo que link:https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] le ayudará a conseguir sin exponer todos los detalles de la conexión OIDC/OAuth2."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Be aware that at the moment, custom GPT actions can only be created with ChatGPT Plus and Enterprise subscriptions."
-msgstr ""
+msgstr "Tenga en cuenta que, por el momento, las acciones GPT personalizadas sólo pueden crearse con las suscripciones ChatGPT Plus y Enterprise."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Quarkus Fitness Adviser"
-msgstr ""
+msgstr "Quarkus Asesor de fitness"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Ok, let's see how it works more precisely.\n"
 "To illustrate this, we are going to create the `Quarkus Fitness Adviser,` a custom GPT that analyzes activities recorded in Strava and other social providers which track physical exercise."
-msgstr ""
+msgstr "Bien, veamos cómo funciona de forma más precisa. Para ilustrarlo, vamos a crear en `Quarkus Fitness Adviser,` un GPT personalizado que analice las actividades registradas en Strava y otros proveedores sociales que realizan un seguimiento del ejercicio físico."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "We will do it by registering a https://www.strava.com/[Strava] API Application, creating a https://quarkus.io/guides/security-openid-connect-providers#strava[Strava OAuth2] service endpoint, proxying it with https://github.com/quarkiverse/quarkus-oidc-proxy[OIDC Proxy], providing an HTTPS tunnel with <<ngrok, NGrok>> and finally, creating a custom GPT which uses https://github.com/quarkiverse/quarkus-oidc-proxy[OIDC Proxy] to authenticate the GPT users to Strava and use access tokens to access the Quarkus Strava OIDC service endpoint to analyze the recorded activities."
-msgstr ""
+msgstr "Lo haremos registrando una Aplicación API link:https://www.strava.com/[Strava] , creando un endpoint de servicio link:https://quarkus.io/guides/security-openid-connect-providers#strava[Strava OAuth2] , proxyándolo con link:https://github.com/quarkiverse/quarkus-oidc-proxy[OIDC Proxy] , proporcionando un túnel HTTPS con xref:ngrok[NGrok] y, finalmente, creando un GPT personalizado que utilice link:https://github.com/quarkiverse/quarkus-oidc-proxy[OIDC Proxy] para autenticar a los usuarios del GPT en Strava y utilizar tokens de acceso para acceder al endpoint de servicio Quarkus Strava OIDC para analizar las actividades registradas."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 1 - Strava Application Registration"
-msgstr ""
+msgstr "Paso 1 - Registro de la aplicación Strava"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "We will start by registering a new `Quarkus Fitness Adviser` application in Strava:"
-msgstr ""
+msgstr "Comenzaremos registrando una nueva aplicación `Quarkus Fitness Adviser` en Strava:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Note that the `Authorization Callback Domain` points to your free <<ngrok, NGrok>> (or in production, the real) domain representing the domain where OIDC Proxy is available, likely to be the same domain where your Quarkus micro-services are hosted as well. It is an important feature of Quarkus OIDC Proxy as it lets OIDC provider administrators to point to the trusted domain as opposed to a 3rd party domain."
-msgstr ""
+msgstr "Tenga en cuenta que `Authorization Callback Domain` apunta a su dominio xref:ngrok[NGrok] libre (o en producción, el real) que representa el dominio en el que está disponible OIDC Proxy, que probablemente sea también el mismo dominio en el que están alojados sus microservicios Quarkus. Es una característica importante de Quarkus OIDC Proxy ya que permite a los administradores del proveedor OIDC apuntar al dominio de confianza en lugar de a un dominio de terceros."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Also, note that the fact that only a domain is accepted as a callback option is specific to the https://www.strava.com/[Strava] application registration process. Allowing only specific absolute callback URLs is recommended in general, and the Quarkus https://quarkus.io/guides/security-openid-connect-providers#strava[Strava OAuth2] integration enforces that only a single callback URL is allowed."
-msgstr ""
+msgstr "Además, tenga en cuenta que el hecho de que sólo se acepte un dominio como opción de devolución de llamada es específico del proceso de registro de la aplicación link:https://www.strava.com/[Strava] . Permitir solo URL de devolución de llamada absolutas específicas se recomienda en general, y la integración link:https://quarkus.io/guides/security-openid-connect-providers#strava[Strava OAuth2] de Quarkus impone que solo se permita una única URL de devolución de llamada."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "After completing the application registration, write down the generated client id and secret. We will need them later."
-msgstr ""
+msgstr "Tras completar el registro de la solicitud, anote el identificador de cliente y el secreto generados. Los necesitaremos más adelante."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 2 - Quarkus Strava Service"
-msgstr ""
+msgstr "Paso 2 - Servicio Strava de Quarkus"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Quarkus OIDC integrates the https://quarkus.io/guides/security-openid-connect-providers#strava[Strava OAuth2 provider] and encapsulates all the Strava OAuth2 specific details. You just need one line in your configuration file: `quarkus.oidc.provider=strava`."
-msgstr ""
+msgstr "Quarkus OIDC integra el link:https://quarkus.io/guides/security-openid-connect-providers#strava[proveedor Strava OAuth2] y encapsula todos los detalles específicos de Strava OAuth2. Sólo necesita una línea en su archivo de configuración: `quarkus.oidc.provider=strava` ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "The Strava provider is _mostly_ OAuth2-compliant.\n"
 "But, it uses HTTP query parameters to complete the authorization code flow POST token request, while using the form parameters is a usual option.\n"
 "It also uses a comma `,` separator when multiple scopes are requested during the initial redirect to Strava, while space ' ' is the typical separator character."
-msgstr ""
+msgstr "El proveedor Strava es _mayoritariamente_ compatible con OAuth2. Pero, utiliza parámetros de consulta HTTP para completar la solicitud de token POST de flujo de código de autorización, mientras que utilizar los parámetros del formulario es una opción habitual. También utiliza una coma `,` separador cuando se solicitan múltiples ámbitos durante la redirección inicial a Strava, mientras que el espacio ' ' es el carácter separador típico."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "The Quarkus OIDC proxy can handle it because it relies on the Quarkus OIDC knowledge. It should be noted that custom GPT does not support these options with its built-in OAuth authentication option.\n"
 "Fortunately, the proxy is going to handle that for us."
-msgstr ""
+msgstr "El proxy OIDC de Quarkus puede manejarlo porque se basa en el conocimiento de OIDC de Quarkus. Cabe señalar que la GPT personalizada no admite estas opciones con su opción de autenticación OAuth incorporada. Afortunadamente, el proxy va a manejar eso para nosotros."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Alright, it's time to write that application.\n"
 "First, you need to add a few Maven dependencies to your project:"
-msgstr ""
+msgstr "Muy bien, es hora de escribir esa aplicación. En primer lugar, es necesario añadir algunas dependencias de Maven a su proyecto:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You need Quarkus `3.9.0+`."
-msgstr ""
+msgstr "Necesita a Quarkus `3.9.0+` ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Next we create the OIDC configuration:"
-msgstr ""
+msgstr "A continuación creamos la configuración OIDC:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "By default, `quarkus.oidc.provider=strava` enables a Quarkus OIDC `web-app` application type that can support an authorization code flow.\n"
 "But our endpoint acts as a Quarkus OIDC `service` that accepts the bearer access tokens from the custom  GPT.\n"
 "Thus, we override the application type to `service`.\n"
 "Instead, the OIDC Proxy will manage the authorization code flow."
-msgstr ""
+msgstr "Por defecto, `quarkus.oidc.provider=strava` habilita un tipo de aplicación Quarkus OIDC `web-app` que puede admitir un flujo de código de autorización. Pero nuestro punto final actúa como un Quarkus OIDC `service` que acepta los tokens de acceso al portador del GPT personalizado. Así pues, anulamos el tipo de aplicación a `service` . En su lugar, el proxy OIDC gestionará el flujo de código de autorización."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Note how the extra https://developers.strava.com/docs/reference/[Strava API] scopes are added to the scopes which are already enabled by `quarkus.oidc.provider=strava`, instead of overriding them. See https://quarkus.io/guides/security-openid-connect-providers#provider-scope[Provider scopes] for more information."
-msgstr ""
+msgstr "Observe cómo los ámbitos adicionales de link:https://developers.strava.com/docs/reference/[la API de Strava] se añaden a los ámbitos que ya están habilitados por `quarkus.oidc.provider=strava` , en lugar de anularlos. Consulte Ámbitos del link:https://quarkus.io/guides/security-openid-connect-providers#provider-scope[proveedor] para obtener más información."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "The client id, secret and the extra scopes are not really required by the OIDC service endpoint. These properties are set to support OIDC Proxy which needs to know how to correctly handle the OIDC authorization code flow requests from the external SPA."
-msgstr ""
+msgstr "El id de cliente, el secreto y los ámbitos adicionales no son realmente necesarios para el punto final del servicio OIDC. Estas propiedades se establecen para dar soporte al proxy OIDC que necesita saber cómo manejar correctamente las solicitudes de flujo de código de autorización OIDC desde el SPA externo."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "We also add the following properties:"
-msgstr ""
+msgstr "También añadimos las siguientes propiedades:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "First, we configure the REST client to point to the base Strava API endpoint.\n"
 "We then tune a little bit the way https://quarkus.io/guides/openapi-swaggerui[Quarkus generates OpenAPI document] to make it acceptable by a custom GPT configuration process."
-msgstr ""
+msgstr "En primer lugar, configuramos el cliente REST para que apunte al punto final base de la API de Strava. A continuación, afinamos un poco la forma en que link:https://quarkus.io/guides/openapi-swaggerui[Quarkus genera el documento OpenAPI] para que sea aceptable por un proceso de configuración GPT personalizado."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Now that we have tied up the configuration, we need to define the REST client interface calling the Strava API.\n"
 "It automatically https://quarkus.io/guides/security-openid-connect-providers#access-provider-services-with-token-propagation[propagates] the Strava access tokens to access the user-specific Strava data:"
-msgstr ""
+msgstr "Ahora que hemos atado cabos en la configuración, necesitamos definir la interfaz de cliente REST que llama a la API de Strava. link:https://quarkus.io/guides/security-openid-connect-providers#access-provider-services-with-token-propagation[Propaga] automáticamente los tokens de acceso a Strava para acceder a los datos de Strava específicos del usuario:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Now, let's implement the primary endpoint of our application, which exposes the same API as Strava. It accepts the access tokens from a custom GPT and uses the REST client to forward them to Strava:"
-msgstr ""
+msgstr "Ahora, implementemos el punto final primario de nuestra aplicación, que expone la misma API que Strava. Acepta los tokens de acceso de un GPT personalizado y utiliza el cliente REST para reenviarlos a Strava:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Access to the `FitnessAdviserService` endpoint requires a verified access token."
-msgstr ""
+msgstr "El acceso al punto final `FitnessAdviserService` requiere un token de acceso verificado."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Note, to accept binary Strava access tokens, this endpoint verifies them indirectly by requesting `UserInfo` from Strava during the token authentication process, which is enabled by the `quarkus.oidc.provider=strava` declaration.\n"
 "In this case, `UserInfo` represents a Strava athlete profile, which is already available to the endpoint by the time it makes an outbound  REST client call. For example, the `FitnessAdviserService` endpoint passes a `UserInfo` athlete `id` attribute to `StravaClient` to request the current authenticated athlete's stats."
-msgstr ""
+msgstr "Tenga en cuenta que, para aceptar tokens de acceso binarios de Strava, este endpoint los verifica indirectamente solicitando `UserInfo` a Strava durante el proceso de autenticación del token, que se habilita mediante la declaración `quarkus.oidc.provider=strava` . En este caso, `UserInfo` representa un perfil de atleta de Strava, que ya está disponible para el endpoint en el momento en que realiza una llamada de cliente REST saliente. Por ejemplo, el endpoint `FitnessAdviserService` pasa un atributo `UserInfo` athlete `id` a `StravaClient` para solicitar las estadísticas del atleta autenticado actual."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "If it were an access token issued by a provider such as Keycloak or Auth0, then it would be verified locally with the Keycloak or Auth0 public verification keys and https://quarkus.io/guides/security-oidc-bearer-token-authentication#accessing-jwt-claims[injected directly as JsonWebToken]."
-msgstr ""
+msgstr "Si fuera un token de acceso emitido por un proveedor como Keycloak o Auth0, entonces se verificaría localmente con las claves públicas de verificación de Keycloak o Auth0 y se link:https://quarkus.io/guides/security-oidc-bearer-token-authentication#accessing-jwt-claims[inyectaría directamente como JsonWebToken] ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 3 - OIDC Proxy"
-msgstr ""
+msgstr "Paso 3 - Proxy OIDC"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Finally, let's talk about the OIDC Proxy.\n"
 "We have our OIDC Strava service endpoint calling the Stava API.\n"
 "It is time to make it accessible to the external SPA using the OIDC Proxy and an authorization code flow authentication process."
-msgstr ""
+msgstr "Por último, hablemos del proxy OIDC. Tenemos nuestro punto final del servicio OIDC Strava llamando a la API Stava. Es hora de hacerlo accesible al SPA externo utilizando el Proxy OIDC y un proceso de autenticación de flujo de código de autorización."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "All we need to do is adding the following dependency:"
-msgstr ""
+msgstr "Todo lo que tenemos que hacer es añadir la siguiente dependencia:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "It exposes the OIDC `/q/oidc/authorize` endpoint to accept custom GPT authentication redirects and the `/q/oidc/token` endpoint to exchange the authorization code and tokens."
-msgstr ""
+msgstr "Expone el punto final OIDC `/q/oidc/authorize` para aceptar redireccionamientos de autenticación GPT personalizados y el punto final `/q/oidc/token` para intercambiar el código de autorización y los tokens."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Let's now update the application configuration to setup our proxy:"
-msgstr ""
+msgstr "Actualicemos ahora la configuración de la aplicación para configurar nuestro proxy:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Request OIDC Proxy to create an endpoint that will support redirects from the actual OIDC provider. As explained in the <<strava_application_registration>> section, it can be helpful to register the known, trusted domain URL in the OIDC provider's dashboard. This property is already set to `/strava` with the Strava provider by default to restrict the possible callback URLs, as explained in the <<strava_application_registration>> section; this example shows how it can be customized. You do not have to use `quarkus.oidc.authentication.redirect-path`, but please be aware of this property."
-msgstr ""
+msgstr "Solicite a OIDC Proxy que cree un endpoint que admita redireccionamientos desde el proveedor de OIDC real. Como se explica en la sección <<strava_application_registration>> , puede ser útil registrar la URL de dominio conocida y de confianza en el panel del proveedor de OIDC. Esta propiedad ya está configurada por defecto en `/strava` con el proveedor Strava para restringir las posibles URL de devolución de llamada, como se explica en la sección <<strava_application_registration>> ; este ejemplo muestra cómo puede personalizarse. No es necesario que utilice `quarkus.oidc.authentication.redirect-path` , pero tenga en cuenta esta propiedad."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "The external callback URL where OIDC Proxy will redirect the user to after accepting the `quarkus.oidc.authentication.redirect-path` callback."
-msgstr ""
+msgstr "La URL externa de devolución de llamada a la que OIDC Proxy redirigirá al usuario tras aceptar la devolución de llamada de `quarkus.oidc.authentication.redirect-path` ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "<<ngrok, NGrok>> will terminate the HTTPS connection before calling an `HTTP` based endpoint, so the original `HTTPS` scheme must be used for building an external redirect URL."
-msgstr ""
+msgstr "xref:ngrok[NGrok] terminará la conexión HTTPS antes de llamar a un punto final basado en `HTTP` , por lo que debe utilizarse el esquema original de `HTTPS` para construir una URL de redirección externa."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Set the external client id and secret that will be used during the integration with the 3rd party SPA. Use these properties if you do not want to expose\n"
 "the real client id and secret to the SPA."
-msgstr ""
+msgstr "Establezca el id de cliente externo y el secreto que se utilizarán durante la integración con el SPA de terceros. Utilice estas propiedades si no desea exponer el id de cliente real y el secreto al SPA."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "We're done! Let's run it:"
-msgstr ""
+msgstr "¡Hemos terminado! Vamos a ejecutarlo:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "If you prefer to use the Quarkus _dev_ mode, then, to allow the redirects from the external SPA to the OIDC Proxy authorization endpoint, you have to disable the DevUI CORS control:"
-msgstr ""
+msgstr "Si prefiere utilizar el modo _dev_ de Quarkus, entonces, para permitir las redirecciones desde el SPA externo al punto final de autorización OIDC Proxy, tiene que desactivar el control CORS de DevUI:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 4 - NGrok"
-msgstr ""
+msgstr "Paso 4 - NGrok"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "3rd party SPA will most likely require that the OIDC provider endpoints are HTTPS-based, therefore, to make OIDC Proxy endpoints use the HTTPS scheme on the localhost, using https://ngrok.com/[NGrok] is the simplest way to do it."
-msgstr ""
+msgstr "Lo más probable es que los SPA de terceros requieran que los puntos finales del proveedor OIDC estén basados en HTTPS, por lo tanto, para hacer que los puntos finales del proxy OIDC utilicen el esquema HTTPS en el localhost, utilizar link:https://ngrok.com/[NGrok] es la forma más sencilla de hacerlo."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Note that:"
-msgstr ""
+msgstr "Tenga en cuenta que:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "does not prevent the NGrok warning that the website is served for free from NGrok, which confuses the custom GPT's OAuth authorization code flow support.\n"
 "In this case you should enable an HTTP tunnel as described in this https://stackoverflow.com/questions/73017353/how-to-bypass-ngrok-browser-warning[Stack Overflow post], for example:"
-msgstr ""
+msgstr "no evita la advertencia de NGrok de que el sitio web se sirve gratuitamente desde NGrok, lo que confunde el soporte del flujo de código de autorización OAuth de la GPT personalizada. En este caso debe habilitar un túnel HTTP como se describe en este link:https://stackoverflow.com/questions/73017353/how-to-bypass-ngrok-browser-warning[post de Stack Overflow] , por ejemplo:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 5 - Create the custom GPT"
-msgstr ""
+msgstr "Paso 5 - Crear la GPT personalizada"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "As noted in the <<gpt_actions>> section, custom GPT actions can only be created with ChatGPT Plus and Enterprise subscriptions. Please see the <<next-steps>> section below for other suggestions to experiment with OIDC Proxy."
-msgstr ""
+msgstr "Como se indica en la sección <<gpt_actions>> , las acciones GPT personalizadas sólo pueden crearse con las suscripciones ChatGPT Plus y Enterprise. Consulte la sección <<next-steps>> a continuación para obtener otras sugerencias para experimentar con OIDC Proxy."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Login to your ChatGPT account, and choose `Create` in `My GPTs`:"
-msgstr ""
+msgstr "Inicie sesión en su cuenta de ChatGPT y elija `Create` en `My GPTs` :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Name it as `Quarkus Fitness Adviser` and provide its description:"
-msgstr ""
+msgstr "Nómbrelo como `Quarkus Fitness Adviser` y facilite su descripción:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Next, choose an `OAuth` authentication option:"
-msgstr ""
+msgstr "A continuación, elija una opción de autenticación `OAuth` :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "and set the OAuth2 authorize and token endpoint addresses, keeping in mind your free <<ngrok>> domain name and that you have set the OIDC Proxy root address to `/oidc` in the <<oidc_proxy>> section:"
-msgstr ""
+msgstr "y configure las direcciones de los puntos finales de autorización y token OAuth2, teniendo en cuenta su nombre de dominio libre <<ngrok>> y que ha configurado la dirección raíz del proxy OIDC en `/oidc` en la sección <<oidc_proxy>> :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Set the client id and secret to the external client id and external client secret properties which you configured in the <<oidc_proxy>> section."
-msgstr ""
+msgstr "Establezca el id de cliente y el secreto a las propiedades de id de cliente externo y secreto de cliente externo que configuró en la sección <<oidc_proxy>> ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Now you can see that this custom GPT's OAuth setup has been completed without sharing a single detail related to the Strava provider configuration in the Quarkus OIDC service endpoint.\n"
 "You also do not need to set the scopes, OIDC Proxy knows about them from the Quarkus OIDC endpoint configuration."
-msgstr ""
+msgstr "Ahora puede ver que la configuración OAuth de este GPT personalizado se ha completado sin compartir ni un solo detalle relacionado con la configuración del proveedor Strava en el endpoint del servicio OIDC de Quarkus. Tampoco necesita configurar los ámbitos, OIDC Proxy los conoce desde la configuración del endpoint OIDC de Quarkus."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Next, import an OpenAPI schema by choosing an `Import from URL` option and entering `http://<your-free-ngrok-domain>/q/openapi`:"
-msgstr ""
+msgstr "A continuación, importe un esquema OpenAPI eligiendo una opción `Import from URL` e introduciendo `http://<your-free-ngrok-domain>/q/openapi` :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "At this point you are ready to save this GPT and start using it."
-msgstr ""
+msgstr "En este punto ya está listo para guardar esta GPT y empezar a utilizarla."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Note this GPT's callback, this is the external callback URI value you configured in the <<oidc_proxy>> section:"
-msgstr ""
+msgstr "Tenga en cuenta la devolución de llamada de este GPT, se trata del valor URI de devolución de llamada externa que configuró en la sección <<oidc_proxy>> :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You have to decide if you would like to share this GPT. Most likely, after testing it, you will prefer to share it with your team to test it, and eventually, with your customers."
-msgstr ""
+msgstr "Tiene que decidir si desea compartir esta GPT. Lo más probable es que, después de probarla, prefiera compartirla con su equipo para que la pruebe y, finalmente, con sus clientes."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "In this case, the first thing you have to do is to ask ChatGPT for a typical privacy policy text, if you do not already have it, and after modifying it as necessary, save it, for example, in a `privacy.txt` document in the `src/main/resources/META-INF/resources/` of your <<strava_service>> application and link to it in the `Privacy Policy` configuration field as `http://<your-free-ngrok-domain>/privacy.txt`. Finally, publish it using the `Anyone with a link` option."
-msgstr ""
+msgstr "En este caso, lo primero que tiene que hacer es pedir a ChatGPT un texto típico de política de privacidad, si no lo tiene ya, y después de modificarlo como sea necesario, guardarlo, por ejemplo, en un documento `privacy.txt` en el `src/main/resources/META-INF/resources/` de su aplicación <<strava_service>> y enlazarlo en el campo de configuración `Privacy Policy` como `http://<your-free-ngrok-domain>/privacy.txt` . Por último, publíquelo utilizando la opción `Anyone with a link` ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "`Quarkus Fitness Adviser` is now ready:"
-msgstr ""
+msgstr "`Quarkus Fitness Adviser` ya está listo:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Step 6 - Use the custom GPT"
-msgstr ""
+msgstr "Paso 6 - Utilice la GPT personalizada"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Let's start with asking `Quarkus Fitness Adviser` to check the athlete profile:"
-msgstr ""
+msgstr "Empecemos por pedir a `Quarkus Fitness Adviser` que compruebe el perfil del atleta:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "When you ask the GPT the first question, it will attempt to sign you in using the OAuth authentication option. Select the `Sign in` option and you will be redirected to OIDC Proxy which will in turn redirect to Strava to authenticate:"
-msgstr ""
+msgstr "Cuando le haga la primera pregunta, el GPT intentará iniciar sesión utilizando la opción de autenticación OAuth. Seleccione la opción `Sign in` y será redirigido a OIDC Proxy, que a su vez redirigirá a Strava para autenticarse:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Enter your Strava name and password and continue. You will be asked to authenticate again only when the access token acquired with the authorization code flow has expired."
-msgstr ""
+msgstr "Introduzca su nombre y contraseña de Strava y continúe. Se le pedirá que se autentique de nuevo sólo cuando el token de acceso adquirido con el flujo de código de autorización haya caducado."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "After the successful authentication you will be asked to authorize the `Quarkus Fitness Adviser` applicaton which you registered in the <<strava_application_registration>> section:"
-msgstr ""
+msgstr "Tras autenticarse correctamente, se le pedirá que autorice la aplicación `Quarkus Fitness Adviser` que ha registrado en la sección <<strava_application_registration>> :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "The https://developers.strava.com/docs/authentication/#detailsaboutrequestingaccess[Strava API scopes] which have been configured for the <<strava_service>> affect what you will be asked to authorize."
-msgstr ""
+msgstr "Los link:https://developers.strava.com/docs/authentication/#detailsaboutrequestingaccess[ámbitos de la API de Strava] que se han configurado para la <<strava_service>> afectan a lo que se le pedirá que autorice."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "You will now be redirected to the custom GPT with the authorization code which will be exchanged for the access and refresh tokens using OIDC Proxy.\n"
 "The GPT will now want to talk to the Quarkus API and ask you to approve it:"
-msgstr ""
+msgstr "Ahora se le redirigirá a la GPT personalizada con el código de autorización que se intercambiará por los tokens de acceso y actualización mediante OIDC Proxy. La GPT querrá ahora hablar con la API de Quarkus y le pedirá que la apruebe:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Approve it and `Quarkus Fitness Adviser` will provide the first answer:"
-msgstr ""
+msgstr "Apruébelo y `Quarkus Fitness Adviser` le proporcionará la primera respuesta:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "It also provides information about your bike, running shoes, and gives some initial recommendations. You can now ask for some advice on balancing cycling and swimming, running, etc."
-msgstr ""
+msgstr "También le proporciona información sobre su bicicleta, zapatillas de correr y le da algunas recomendaciones iniciales. Ahora puede pedir algunos consejos para equilibrar el ciclismo y la natación, la carrera, etc."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Next, let's ask about the the latest activity:"
-msgstr ""
+msgstr "A continuación, preguntemos por la última actividad:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Ask it to be more specific about the latest activity and provide some advice. Quarkus Fitness Adviser responds:"
-msgstr ""
+msgstr "Pídale que sea más específico sobre la última actividad y que le dé algún consejo. El asesor de fitness de Quarkus responde:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "and concludes with a sound advice to have good rest and recovery."
-msgstr ""
+msgstr "y concluye con un buen consejo para que descanse y se recupere."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Finally, let's ask it to check the profile again and provide more recommendations. `Quarkus Fitness Adviser` is happy to help and provides, in my case, eight personalized recommendations, I will only show the start of the response:"
-msgstr ""
+msgstr "Por último, pidámosle que compruebe de nuevo el perfil y nos proporcione más recomendaciones. `Quarkus Fitness Adviser` está encantado de ayudar y proporciona, en mi caso, ocho recomendaciones personalizadas, sólo mostraré el inicio de la respuesta:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "and the end of it:"
-msgstr ""
+msgstr "y el final de la misma:"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "We will return to this advice later in this post."
-msgstr ""
+msgstr "Volveremos sobre este consejo más adelante en este mismo post."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Let's finish by saying `Thank you`:"
-msgstr ""
+msgstr "Terminemos diciendo `Thank you` :"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
 msgid "Next Steps"
 msgstr "Próximos pasos"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "So far, `Quarkus Fitness Adviser` has helped to analyze the authenticated athlete's profile and activities.\n"
 "Please experiment further by creating a more advanced version of `Quarkus Fitness Adviser` by checking the routes, zones, and other fitness data supported by the https://developers.strava.com/docs/reference/[Strava API]."
-msgstr ""
+msgstr "Hasta ahora, `Quarkus Fitness Adviser` ha ayudado a analizar el perfil y las actividades del atleta autentificado. Por favor, experimente más creando una versión más avanzada de `Quarkus Fitness Adviser` comprobando las rutas, zonas y otros datos de fitness soportados por la link:https://developers.strava.com/docs/reference/[API de Strava] ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Create a new custom GPT with the help of https://quarkus.io/guides/security-openid-connect-providers[any other well-known social provider supported in Quarkus]."
-msgstr ""
+msgstr "Cree un nuevo GPT personalizado con la ayuda de link:https://quarkus.io/guides/security-openid-connect-providers[cualquier otro proveedor social conocido soportado en Quarkus] ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Also note, your Quarkus OIDC service endpoint does not have to propagate the access token. For example, if you use Keycloak or Auth0, then the access tokens in JWT formats issued by these OIDC compliant providers can be verified by Quarkus OIDC to provide a role-based or permission-based access control for custom GPT's requests, with the service endpoint returning data from the database, etc."
-msgstr ""
+msgstr "También tenga en cuenta que su punto final de servicio Quarkus OIDC no tiene que propagar el token de acceso. Por ejemplo, si utiliza Keycloak o Auth0, entonces los tokens de acceso en formatos JWT emitidos por estos proveedores compatibles con OIDC pueden ser verificados por Quarkus OIDC para proporcionar un control de acceso basado en roles o permisos para las solicitudes de GPT personalizadas, con el punto final del servicio devolviendo datos de la base de datos, etc."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You are also encouraged to look closely at the https://github.com/quarkiverse/quarkus-langchain4j[Quarkus LangChain4j] project which provides a top class integration between Quarkus and the https://github.com/langchain4j/langchain4j[LangChain4j] library."
-msgstr ""
+msgstr "También le animamos a que eche un vistazo al proyecto link:https://github.com/langchain4j/langchain4j[LangChain4j] de Quarkus, que proporciona una integración de primera clase entre Quarkus y la biblioteca link:https://github.com/langchain4j/langchain4j[LangChain4j] ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "How about creating a custom GPT which will use OIDC Proxy to authenticate custom GPT users to Keycloak or Auth0 or Azure and access Quarkus OIDC service endpoint powered by https://github.com/quarkiverse/quarkus-langchain4j[Quarkus LangChain4j] ? Give it a try please !"
-msgstr ""
+msgstr "¿Qué tal crear un GPT personalizado que utilizará OIDC Proxy para autenticar usuarios GPT personalizados a Keycloak o Auth0 o Azure y acceder al punto final del servicio OIDC de Quarkus impulsado por link:https://github.com/quarkiverse/quarkus-langchain4j[Quarkus LangChain4j] ? Pruébelo, por favor."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "What if you do not have ChatGPT Plus or Enterprise subscriptions ?"
-msgstr ""
+msgstr "¿Qué ocurre si no dispone de las suscripciones ChatGPT Plus o Enterprise?"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Not a problem, OIDC Proxy will work with any SPA which implements an authorization code flow and prefers to have an OIDC provider neutral integration, please test OIDC Proxy with such SPAs."
-msgstr ""
+msgstr "No hay problema, OIDC Proxy funcionará con cualquier SPA que implemente un flujo de código de autorización y prefiera tener una integración neutral del proveedor OIDC, por favor pruebe OIDC Proxy con tales SPAs."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Alternatively, experiment with configuring Quarkus OIDC `web-app` applications using OIDC Proxy to authenticate users before calling OIDC service endpoints. For example, imagine three different Quarkus OIDC `web-app` applications using the same Keycloak realm to authenticate the users with an authorization code flow and propagating the access tokens to the same OIDC `service` application. Now, instead of setting the Keycloak specific details in all of the OIDC `web-app` applications, you can try to add OIDC Proxy to the OIDC Service endpoint and configure the OIDC `web-app` applications to use OIDC Proxy."
-msgstr ""
+msgstr "Como alternativa, experimente configurando aplicaciones OIDC `web-app` de Quarkus que utilicen OIDC Proxy para autenticar a los usuarios antes de llamar a los puntos finales de servicio de OIDC. Por ejemplo, imagine tres aplicaciones OIDC `web-app` de Quarkus diferentes utilizando el mismo dominio Keycloak para autenticar a los usuarios con un flujo de código de autorización y propagando los tokens de acceso a la misma aplicación OIDC `service` . Ahora, en lugar de configurar los detalles específicos de Keycloak en todas las aplicaciones OIDC `web-app` , puede intentar añadir OIDC Proxy al punto final del servicio OIDC y configurar las aplicaciones OIDC `web-app` para que utilicen OIDC Proxy."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Security Considerations"
-msgstr ""
+msgstr "Consideraciones de seguridad"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You have already seen several OIDC Proxy security features in the <<oidc_proxy>> section."
-msgstr ""
+msgstr "Ya ha visto varias funciones de seguridad del Proxy OIDC en la sección <<oidc_proxy>> ."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "General OIDC Proxy feature is about hiding all the real OIDC provider specific details from the SPA, including all the OAuth2 or OIDC provider specific details, as well as the extra scopes which are requested during the authentication redirect to the provider."
-msgstr ""
+msgstr "La función general del proxy OIDC consiste en ocultar al SPA todos los detalles reales específicos del proveedor OIDC, incluidos todos los detalles específicos del proveedor OAuth2 u OIDC, así como los ámbitos adicionales que se solicitan durante la redirección de autenticación al proveedor."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "OIDC Proxy allows you to set the trusted domain in the allowed callback URI which is registered in the OIDC provider and enables a callback bridge between the real OIDC provider and the external SPA."
-msgstr ""
+msgstr "OIDC Proxy le permite establecer el dominio de confianza en la URI de devolución de llamada permitida que se registra en el proveedor OIDC y habilita un puente de devolución de llamada entre el proveedor OIDC real y el SPA externo."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You can hide the real client id and client secret which OIDC Proxy must use from the external SPA."
-msgstr ""
+msgstr "Puede ocultar al SPA externo el id de cliente real y el secreto de cliente que debe utilizar OIDC Proxy."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "You can request that OIDC Proxy does not return a refresh and/or ID token from the authorization code token exchange to the SPA."
-msgstr ""
+msgstr "Puede solicitar que OIDC Proxy no devuelva un token de actualización y/o de identificación del intercambio de tokens de código de autorización al SPA."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid ""
 "Refresh token is the most powerful token, usually with a long life-span. If an SPA leaks it, alongside the client id and secret, the attacker can\n"
 "refresh and use access tokens to access the API for a long time. Therefore, if you are concerned about SPA, such as a custom GPT, possibly leaking this information, add `quarkus.oidc-proxy.allow-refresh-token=false` to the configuration to request OIDC Proxy to remove the refresh token value from the authorization code flow response which it is about to return to the GPT. It will not block a given custom GPT from using the Quarkus API, it will only require this GPT to re-authenticate the user when the access token has expired, as opposed to refreshing it."
-msgstr ""
+msgstr "El token de refresco es el token más potente, normalmente con una larga vida útil. Si un SPA lo filtra, junto con el id de cliente y el secreto, el atacante puede refrescar y utilizar tokens de acceso para acceder a la API durante mucho tiempo. Por lo tanto, si le preocupa que una SPA, como una GPT personalizada, pueda filtrar esta información, añada `quarkus.oidc-proxy.allow-refresh-token=false` a la configuración para solicitar al proxy OIDC que elimine el valor del token de refresco de la respuesta del flujo del código de autorización que va a devolver a la GPT. Esto no bloqueará que una GPT personalizada determinada utilice la API de Quarkus, sólo requerirá que esta GPT vuelva a autenticar al usuario cuando el token de acceso haya caducado, en lugar de refrescarlo."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "ID token contains information about the currently authenticated user. If you know that the SPA does not need an ID token, such as a custom GPT which only works with the access and refresh tokens, then it is recommended to block returning it with `quarkus.oidc-proxy.allow-id-token=false`"
-msgstr ""
+msgstr "El token ID contiene información sobre el usuario autenticado en ese momento. Si sabe que el SPA no necesita un token de ID, como un GPT personalizado que sólo funciona con los tokens de acceso y actualización, entonces se recomienda bloquear su devolución con `quarkus.oidc-proxy.allow-id-token=false`"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
 #, fuzzy
@@ -458,9 +557,11 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "In this post, we looked at how https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] can help to integrate OIDC service endpoints with SPA without having to expose the internal OIDC connection details. We have built `Quarkus Fitness Adviser`, a https://platform.openai.com/docs/actions/introduction[custom GPT], which uses OIDC Proxy to authenticate users with https://quarkus.io/guides/security-openid-connect-providers#strava[Strava] and provides fitness advice by reading the authenticated user-specific data from the Quarkus OIDC Strava service."
-msgstr ""
+msgstr "En este post, vimos cómo Quarkus OIDC link:https://github.com/quarkiverse/quarkus-oidc-proxy[Proxy] puede ayudar a integrar los puntos finales del servicio OIDC con SPA sin tener que exponer los detalles internos de la conexión OIDC. Hemos construido `Quarkus Fitness Adviser` , un link:https://platform.openai.com/docs/actions/introduction[GPT personalizado] , que utiliza OIDC Proxy para autenticar a los usuarios con link:https://quarkus.io/guides/security-openid-connect-providers#strava[Strava] y proporciona consejos de fitness mediante la lectura de los datos específicos del usuario autenticado desde el servicio Quarkus OIDC Strava."
 
 #: _posts/2024-03-27-oidc-proxy.adoc
+#, fuzzy
 msgid "Enjoy Quarkus, and, as the `Quarkus Fitness Adviser` recommended, enjoy the ride!"
-msgstr ""
+msgstr "Disfrute de Quarkus y, como le recomendó `Quarkus Fitness Adviser` , ¡disfrute del viaje!"
