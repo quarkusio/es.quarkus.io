@@ -42,12 +42,11 @@ msgid ""
 msgstr "Hibernate Reactive no es un sustituto de xref:hibernate-orm-panache.adoc[Hibernate ORM] ni el futuro de Hibernate ORM. Es una pila diferente hecha a medida para casos de uso reactivos en los que se necesita alta concurrencia."
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
 msgid ""
-"Furthermore, using RESTEasy Reactive, our default REST layer, does not require the use of Hibernate Reactive.\n"
-"It is perfectly valid to use RESTEasy Reactive with Hibernate ORM,\n"
+"Furthermore, using Quarkus REST (formerly RESTEasy Reactive), our default REST layer, does not require the use of Hibernate Reactive.\n"
+"It is perfectly valid to use Quarkus REST with Hibernate ORM,\n"
 "and if you do not need high-concurrency, or are not accustomed to the reactive paradigm, it is recommended to use Hibernate ORM."
-msgstr "Además, el uso de RESTEasy Reactive, nuestra capa REST por defecto, no requiere el uso de Hibernate Reactive. Es perfectamente válido utilizar RESTEasy Reactive con Hibernate ORM, y si no necesita alta concurrencia, o no está acostumbrado al paradigma reactivo, se recomienda utilizar Hibernate ORM."
+msgstr ""
 
 #. type: Title ==
 #: _guides/hibernate-reactive-panache.adoc
@@ -382,11 +381,9 @@ msgid ""
 "at the end."
 msgstr "Normalmente, las consultas HQL tienen esta forma: `from EntityName [where …​] [order by …​]` , con elementos opcionales al final."
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "If your select query does not start with `from`, we support the following additional forms:"
-msgstr "Si su consulta de selección no comienza con `from`, admitimos las siguientes formas adicionales:"
+msgid "If your select query does not start with `from`, `select` or `with`, we support the following additional forms:"
+msgstr ""
 
 #. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
@@ -394,11 +391,13 @@ msgstr "Si su consulta de selección no comienza con `from`, admitimos las sigui
 msgid "`order by ...` which will expand to `from EntityName order by ...`"
 msgstr "`order by …​` que se ampliará a `from EntityName order by …​`"
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "`<singleColumnName>` (and single parameter) which will expand to `from EntityName where <singleColumnName> = ?`"
-msgstr "`&amp;lt;singleColumnName&amp;gt;` (y un solo parámetro) que se expandirá a `from EntityName where &amp;lt;singleColumnName&amp;gt; = ?`"
+msgid "`<singleAttribute>` (and single parameter) which will expand to `from EntityName where <singleAttribute> = ?`"
+msgstr ""
+
+#: _guides/hibernate-reactive-panache.adoc
+msgid "`where <query>` will expand to `from EntityName where <query>`"
+msgstr ""
 
 #. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
@@ -412,23 +411,17 @@ msgstr "`&amp;lt;query&amp;gt;` se ampliará a `from EntityName where &amp;lt;qu
 msgid "If your update query does not start with `update`, we support the following additional forms:"
 msgstr "Si su consulta de actualización no comienza con `update`, admitimos las siguientes formas adicionales:"
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "`from EntityName ...` which will expand to `update from EntityName ...`"
-msgstr "`from EntityName …​` que se ampliará a `update from EntityName …​`"
+msgid "`from EntityName ...` which will expand to `update EntityName ...`"
+msgstr ""
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "`set? <singleColumnName>` (and single parameter) which will expand to `update from EntityName set <singleColumnName> = ?`"
-msgstr "`set? &amp;lt;singleColumnName&amp;gt;` (y un solo parámetro) que se expandirá a `update from EntityName set &amp;lt;singleColumnName&amp;gt; = ?`"
+msgid "`set? <singleAttribute>` (and single parameter) which will expand to `update EntityName set <singleAttribute> = ?`"
+msgstr ""
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "`set? <update-query>` will expand to `update from EntityName set <update-query>`"
-msgstr "`set? &amp;lt;update-query&amp;gt;` se ampliará a `update from EntityName set &amp;lt;update-query&amp;gt;`"
+msgid "`set? <update-query>` will expand to `update EntityName set <update-query>`"
+msgstr ""
 
 #. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
@@ -442,11 +435,9 @@ msgstr "Si su consulta de eliminación no empieza por `delete`, admitimos las si
 msgid "`from EntityName ...` which will expand to `delete from EntityName ...`"
 msgstr "`from EntityName …​` que se ampliará a `delete from EntityName …​`"
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "`<singleColumnName>` (and single parameter) which will expand to `delete from EntityName where <singleColumnName> = ?`"
-msgstr "`&amp;lt;singleColumnName&amp;gt;` (y un solo parámetro) que se expandirá a `delete from EntityName where &amp;lt;singleColumnName&amp;gt; = ?`"
+msgid "`<singleAttribute>` (and single parameter) which will expand to `delete from EntityName where <singleAttribute> = ?`"
+msgstr ""
 
 #. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
@@ -581,6 +572,16 @@ msgid "The `ownerName` DTO constructor's parameter will be loaded from the `owne
 msgstr "El parámetro del constructor `ownerName` DTO se cargará desde la propiedad HQL `owner.name`."
 
 #: _guides/hibernate-reactive-panache.adoc
+msgid "In case you want to project an entity in a class with nested classes, you can use the `@NestedProjectedClass` annotation on those nested classes."
+msgstr ""
+
+#: _guides/hibernate-reactive-panache.adoc
+msgid ""
+"This annotation can be used when you want to project `@Embedded` entity or `@ManyToOne`, `@OneToOne` relation.\n"
+"It does not support `@OneToMany` or `@ManyToMany` relation."
+msgstr ""
+
+#: _guides/hibernate-reactive-panache.adoc
 #, fuzzy
 msgid ""
 "It is also possible to specify a HQL query with a select clause. In this case, the projection class must have a constructor\n"
@@ -624,16 +625,15 @@ msgid "Sessions and Transactions"
 msgstr "Transacciones"
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
 msgid ""
 "First of all, most of the methods of a Panache entity must be invoked within the scope of a reactive `Mutiny.Session`.\n"
 "In some cases, the session is opened automatically on demand.\n"
-"For example, if a Panache entity method is invoked in a Jakarta REST resource method in an application that includes the `quarkus-resteasy-reactive` extension.\n"
+"For example, if a Panache entity method is invoked in a Jakarta REST resource method in an application that includes the `quarkus-rest` extension.\n"
 "For other cases, there are both a declarative and a programmatic way to ensure the session is opened.\n"
 "You can annotate a CDI business method that returns `Uni` with the `@WithSession` annotation.\n"
 "The method will be intercepted and the returned `Uni` will be triggered within a scope of a reactive session.\n"
 "Alternatively, you can use the `Panache.withSession()` method to achieve the same effect."
-msgstr "En primer lugar, la mayoría de los métodos de una entidad Panache deben invocarse dentro del ámbito de una sesión reactiva `Mutiny.Session` . En algunos casos, la sesión se abre automáticamente bajo demanda. Por ejemplo, si se invoca un método de entidad Panache en un método de recurso REST Jakarta en una aplicación que incluya la extensión `quarkus-resteasy-reactive` . Para otros casos, existe una forma tanto declarativa como programática de asegurarse de que se abre la sesión. Puede anotar un método de negocio CDI que devuelva `Uni` con la anotación `@WithSession` . El método será interceptado y el `Uni` devuelto se activará dentro del ámbito de una sesión reactiva. Alternativamente, puede utilizar el método `Panache.withSession()` para conseguir el mismo efecto."
+msgstr ""
 
 #. type: delimited block =
 #: _guides/hibernate-reactive-panache.adoc
@@ -985,26 +985,18 @@ msgstr "Eso es todo: con Panache, Hibernate Reactive nunca ha tenido un aspecto 
 msgid "Defining entities in external projects or jars"
 msgstr "Definición de entidades en proyectos o tarros externos"
 
-#. type: Plain text
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "Hibernate Reactive with Panache relies on compile-time bytecode enhancements to your entities."
-msgstr "Hibernate Reactive with Panache se basa en mejoras de código de bytes en tiempo de compilación para sus entidades."
+msgid ""
+"Hibernate Reactive with Panache relies on compile-time bytecode enhancements to your entities. If you define your entities in the\n"
+"same project where you build your Quarkus application, everything will work fine."
+msgstr ""
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
 msgid ""
-"It attempts to identify archives with Panache entities (and consumers of Panache entities)\n"
-"by the presence of the marker file `META-INF/panache-archive.marker`. Panache includes an\n"
-"annotation processor that will automatically create this file in archives that depend on\n"
-"Panache (even indirectly). If you have disabled annotation processors you may need to create\n"
-"this file manually in some cases."
-msgstr "Intenta identificar los archivos con entidades Panache (y los consumidores de entidades Panache) por la presencia del archivo marcador `META-INF/panache-archive.marker` . Panache incluye un procesador de anotaciones que creará automáticamente este archivo en los archivos que dependan de Panache (incluso indirectamente). Si ha desactivado los procesadores de anotación, es posible que tenga que crear este archivo manualmente en algunos casos."
+"If the entities come from external projects\n"
+"or jars, you can make sure that your jar is treated like a Quarkus application library by adding an empty `META-INF/beans.xml` file."
+msgstr ""
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid ""
-"If you include the jpa-modelgen annotation processor this will exclude the Panache\n"
-"annotation processor by default. If you do this you should either create the marker file\n"
-"yourself, or add the `quarkus-panache-common` as well, as shown below:"
-msgstr "Si incluye el procesador de anotaciones jpa-modelgen, éste excluirá por defecto el procesador de anotaciones Panache. Si lo hace, deberá crear usted mismo el archivo de marcadores o añadir también `quarkus-panache-common` , como se muestra a continuación:"
+msgid "This will allow Quarkus to index and enhance your entities as if they were inside the current project."
+msgstr ""

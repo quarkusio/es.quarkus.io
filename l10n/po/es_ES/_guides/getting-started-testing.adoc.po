@@ -1424,11 +1424,20 @@ msgid "We can leverage the Mockito API in a test method to configure the behavio
 msgstr "Podemos aprovechar la API de Mockito en un método de prueba para configurar el comportamiento."
 
 #: _guides/getting-started-testing.adoc
-#, fuzzy
 msgid ""
-"If you need the full control over the `QuarkusComponentTestExtension` configuration then you can use the `@RegisterExtension` annotation and configure the extension programatically.\n"
-"The test above could be rewritten like:"
-msgstr "Si necesita un control total sobre la configuración de `QuarkusComponentTestExtension` , puede utilizar la anotación `@RegisterExtension` y configurar la extensión mediante programación. La prueba anterior podría reescribirse como:"
+"`QuarkusComponentTestExtension` also resolves parameters of test methods and injects matching beans.\n"
+"So the code snippet above can be rewritten as:"
+msgstr ""
+
+#: _guides/getting-started-testing.adoc
+msgid "Parameters annotated with `@io.quarkus.test.component.SkipInject` are never resolved by this extension."
+msgstr ""
+
+#: _guides/getting-started-testing.adoc
+msgid ""
+"Furthermore, if you need the full control over the `QuarkusComponentTestExtension` configuration then you can use the `@RegisterExtension` annotation and configure the extension programatically.\n"
+"The original test could be rewritten like:"
+msgstr ""
 
 #. type: Plain text
 #: _guides/getting-started-testing.adoc
@@ -1453,6 +1462,22 @@ msgid ""
 "Finally, the CDI request context is activated and terminated per each test method."
 msgstr "¿Qué hace exactamente `QuarkusComponentTest` ? Inicia el contenedor CDI y registra un xref:config-reference.adoc[objeto de configuración] dedicado. Si el ciclo de vida de la instancia de prueba es `Lifecycle#PER_METHOD` (por defecto) entonces el contenedor se inicia durante la fase de prueba `before each` y se detiene durante la fase de prueba `after each` . Sin embargo, si el ciclo de vida de la instancia de prueba es `Lifecycle#PER_CLASS` entonces el contenedor se inicia durante la fase de prueba `before all` y se detiene durante la fase de prueba `after all` . Los campos anotados con `@Inject` y `@InjectMock` se inyectan tras la creación de una instancia de prueba. Por último, el contexto de solicitud CDI se activa y finaliza por cada método de prueba."
 
+#: _guides/getting-started-testing.adoc
+msgid "Injection"
+msgstr ""
+
+#: _guides/getting-started-testing.adoc
+msgid ""
+"Test class fields annotated with `@jakarta.inject.Inject` and `@io.quarkus.test.InjectMock` are injected after a test instance is created.\n"
+"Dependent beans injected into these fields are correctly destroyed before a test instance is destroyed.\n"
+"Parameters of a test method for which a matching bean exists are resolved unless annotated with `@io.quarkus.test.component.SkipInject`.\n"
+"Dependent beans injected into the test method arguments are correctly destroyed after the test method completes."
+msgstr ""
+
+#: _guides/getting-started-testing.adoc
+msgid "Arguments of a `@ParameterizedTest` method that are provided by an `ArgumentsProvider`, for example with `@org.junit.jupiter.params.provider.ValueArgumentsProvider`, must be annotated with `@SkipInject`."
+msgstr ""
+
 #. type: Title ===
 #: _guides/getting-started-testing.adoc
 #, fuzzy, no-wrap
@@ -1460,14 +1485,13 @@ msgid "Auto Mocking Unsatisfied Dependencies"
 msgstr "Simulación automática de dependencias no satisfechas"
 
 #: _guides/getting-started-testing.adoc
-#, fuzzy
 msgid ""
 "Unlike in regular CDI environments the test does not fail if a component injects an unsatisfied dependency.\n"
 "Instead, a synthetic bean is registered automatically for each combination of required type and qualifiers of an injection point that resolves to an unsatisfied dependency.\n"
 "The bean has the `@Singleton` scope so it's shared across all injection points with the same required type and qualifiers.\n"
 "The injected reference is an _unconfigured_ Mockito mock.\n"
-"You can inject the mock in your test and leverage the Mockito API to configure the behavior."
-msgstr "A diferencia de los entornos CDI normales, la prueba no falla si un componente inyecta una dependencia no satisfecha. En su lugar, se registra automáticamente un bean sintético para cada combinación de tipo requerido y calificadores de un punto de inyección que resuelva una dependencia no satisfecha. El bean tiene el ámbito `@Singleton` , por lo que se comparte en todos los puntos de inyección con el mismo tipo requerido y los mismos calificadores. La referencia inyectada es un simulacro de Mockito _no configurado_ . Puede inyectar el mock en su prueba y aprovechar la API de Mockito para configurar el comportamiento."
+"You can inject the mock in your test using the `io.quarkus.test.InjectMock` annotation and leverage the Mockito API to configure the behavior."
+msgstr ""
 
 #. type: Title ===
 #: _guides/getting-started-testing.adoc
