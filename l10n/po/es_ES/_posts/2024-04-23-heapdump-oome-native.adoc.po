@@ -7,76 +7,89 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Obtaining heap dump on OutOfMemoryError with Quarkus native"
-msgstr ""
+msgstr "Obtención de volcado de heap en OutOfMemoryError con Quarkus nativo"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Generating and inspecting heap dumps in Quarkus native when `OutOfMemoryError` errors occur"
-msgstr ""
+msgstr "Generación e inspección de volcados de heap en Quarkus nativo cuando se producen errores `OutOfMemoryError` "
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Starting with GraalVM for JDK 21,\n"
 "native executables can run with the `-XX:+HeapDumpOnOutOfMemoryError` option to generate a heap dump when a `java.lang.OutOfMemoryError` is thrown.\n"
 "In this blog post we will explore how to use the flag,\n"
 "we will inspect what a GraalVM Native Image heap dump looks like and how it compares with one produced by HotSpot."
-msgstr ""
+msgstr "A partir de GraalVM para JDK 21, los ejecutables nativos pueden ejecutarse con la opción `-XX:+HeapDumpOnOutOfMemoryError` para generar un volcado de heap cuando se lanza un `java.lang.OutOfMemoryError` . En esta entrada de blog exploraremos cómo utilizar la bandera, inspeccionaremos qué aspecto tiene un volcado de heap de GraalVM Native Image y cómo se compara con uno producido por HotSpot."
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Note: The heap of GraalVM Native Image executables has both read-only and read-write segments.\n"
 "The read-only part is referred to as the \"image heap\" and contains the data pre-initialized during the image build to help speed up start-up time.\n"
 "The read-write part is where allocations at runtime are made.\n"
 "Therefore, heap dumps generated at runtime will contain content from both the \"image heap\" and the read-write heap."
-msgstr ""
+msgstr "Nota: El heap de los ejecutables de imagen nativa de GraalVM tiene segmentos de sólo lectura y de lectura-escritura. La parte de sólo lectura se denomina \"montón de la imagen\" y contiene los datos pre-inicializados durante la construcción de la imagen para ayudar a acelerar el tiempo de arranque. La parte de lectura-escritura es donde se realizan las asignaciones en tiempo de ejecución. Por lo tanto, los volcados de heap generados en tiempo de ejecución contendrán contenido tanto del \"heap de imagen\" como del heap de lectura-escritura."
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "To see this flag in action, we need to manufacture a situation where a Quarkus application runs out of memory.\n"
 "One easy way to achieve this is to configure the application with a garbage collector that doesn't do any memory reclamation,\n"
 "i.e. the Epsilon GC.\n"
 "Once the Quarkus application is running with Epsilon GC,\n"
 "apply some load and within a short space of time it will run out of memory and produce a heap dump."
-msgstr ""
+msgstr "Para ver esta bandera en acción, necesitamos fabricar una situación en la que una aplicación Quarkus se quede sin memoria. Una forma fácil de conseguirlo es configurar la aplicación con un recolector de basura que no haga ninguna recuperación de memoria, es decir, el Epsilon GC. Una vez que la aplicación Quarkus esté funcionando con Epsilon GC, aplíquele alguna carga y en un breve espacio de tiempo se quedará sin memoria y producirá un volcado de heap."
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Let’s do this using a Quarkus application that simply responds to an HTTP endpoint request as a starting point.\n"
 "The sample application can be downloaded from\n"
 "https://code.quarkus.io[code.quarkus.io] using a browser\n"
 "or via the command line:"
-msgstr ""
+msgstr "Hagámoslo utilizando como punto de partida una aplicación de Quarkus que simplemente responde a una solicitud de punto final HTTP. La aplicación de ejemplo se puede descargar desde link:https://code.quarkus.io[code.quarkus.io] utilizando un navegador o a través de la línea de comandos:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Next, build a Quarkus native executable with GraalVM for JDK 21 configuring it to use Epsilon GC:"
-msgstr ""
+msgstr "A continuación, construya un ejecutable nativo Quarkus con GraalVM para JDK 21 configurándolo para utilizar Epsilon GC:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Note: The GC selection needs to be done at build time for Quarkus native applications."
-msgstr ""
+msgstr "Nota: La selección de GC debe hacerse en tiempo de compilación para las aplicaciones nativas de Quarkus."
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "While the Quarkus native executable is being produced you will be able to observe that GC is indeed configured to be EpsilonGC:"
-msgstr ""
+msgstr "Mientras se produce el ejecutable nativo de Quarkus podrá observar que la GC está efectivamente configurada para ser EpsilonGC:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Once the build completes,\n"
 "start Quarkus with `-XX:+HeapDumpOnOutOfMemoryError -XX:+ExitOnOutOfMemoryError`.\n"
 "The latter forces the application to shutdown when an `OutOfMemoryError` occurs rather than leave the process in an indeterminate state:"
-msgstr ""
+msgstr "Una vez finalizada la compilación, inicie Quarkus con `-XX:+HeapDumpOnOutOfMemoryError -XX:+ExitOnOutOfMemoryError` . Esto último obliga a la aplicación a apagarse cuando se produce un `OutOfMemoryError` en lugar de dejar el proceso en un estado indeterminado:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Next, apply some load to the HTTP endpoint exposed by the Quarkus application, for example using `curl` in a bash loop:"
-msgstr ""
+msgstr "A continuación, aplique alguna carga al punto final HTTP expuesto por la aplicación Quarkus, por ejemplo utilizando `curl` en un bucle bash:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Switching to the Quarkus console,\n"
 "an `OutOfMemoryError` would be observed along with some messages indicating that a heap dump is being produced:"
-msgstr ""
+msgstr "Al cambiar a la consola de Quarkus, se observaría un `OutOfMemoryError` junto con algunos mensajes que indican que se está produciendo un volcado de heap:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "Multiple graphical tools exist out there to inspect heap dumps,\n"
 "such as https://visualvm.github.io/[VisualVM],\n"
@@ -84,30 +97,35 @@ msgid ""
 "but some new ones are also available that you can run in the command line to get a quick picture of the heap dump,\n"
 "for example\n"
 "https://github.com/openjdk/jol[Java Object Layout (JOL)]:"
-msgstr ""
+msgstr "Existen múltiples herramientas gráficas para inspeccionar los volcados de heap, como link:https://visualvm.github.io/[VisualVM] , link:https://eclipse.dev/mat/[Eclipse Memory Analyzer (MAT)] , etc., pero también hay algunas nuevas que puede ejecutar en la línea de comandos para obtener una imagen rápida del volcado de heap, por ejemplo link:https://github.com/openjdk/jol[Java Object Layout (JOL)] :"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "The presence of SubstrateVM,\n"
 "the VM that powers native images built with GraalVM,\n"
 "can be clearly observed because of the instances of `com.oracle.svm.core.monitor.JavaMonitor` present in the heap dump.\n"
 "What would the heap dump look like if we repeat exactly the same exercise but instead we use Quarkus JVM mode? Let’s see:"
-msgstr ""
+msgstr "La presencia de SubstrateVM, la VM que alimenta las imágenes nativas construidas con GraalVM, puede observarse claramente debido a las instancias de `com.oracle.svm.core.monitor.JavaMonitor` presentes en el volcado de heap. ¿Qué aspecto tendría el volcado de heap si repitiéramos exactamente el mismo ejercicio pero en lugar de ello utilizáramos el modo JVM de Quarkus? Veámoslo:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "Rebuild the Quarkus app for JVM mode and run it with Epsilon GC:"
-msgstr ""
+msgstr "Reconstruya la aplicación Quarkus para el modo JVM y ejecútela con Epsilon GC:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "After applying the same load, you would observe the heap dump being generated in JVM mode as well:"
-msgstr ""
+msgstr "Tras aplicar la misma carga, observará que el volcado de heap se genera también en modo JVM:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid "And this is what the heap dump looks like with JOL:"
-msgstr ""
+msgstr "Y este es el aspecto del vertedero con JOL:"
 
 #: _posts/2024-04-23-heapdump-oome-native.adoc
+#, fuzzy
 msgid ""
 "As expected, no SubstrateVM classes are present in this heap dump,\n"
 "leaving only Quarkus, Vert.x and OpenJDK types in the heap dump."
-msgstr ""
+msgstr "Como era de esperar, ninguna clase de SubstrateVM está presente en este volcado de heap, dejando sólo clases de Quarkus, Vert.x y OpenJDK en el volcado de heap."
