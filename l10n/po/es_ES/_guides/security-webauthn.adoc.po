@@ -35,6 +35,10 @@ msgstr "Esta guía demuestra cómo su aplicación Quarkus puede utilizar la aute
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
+#: _guides/security-webauthn.adoc
+msgid "A WebAuthn or PassKeys-capable device, or https://developer.chrome.com/docs/devtools/webauthn/[an emulator of those]."
+msgstr ""
+
 #. type: Title ==
 #: _guides/security-webauthn.adoc
 #, fuzzy, no-wrap
@@ -116,6 +120,20 @@ msgstr "En la práctica, es un poco más complejo, porque tiene que haber un apr
 #, fuzzy
 msgid "And also there are a lot more fields to store than just a public key, but we will help you with that."
 msgstr "Y también hay muchos más campos para almacenar que sólo una clave pública, pero le ayudaremos con eso."
+
+#: _guides/security-webauthn.adoc
+msgid ""
+"Just in case you get there wondering what's the relation with https://fidoalliance.org/passkeys/[PassKeys]\n"
+"and whether we support it: sure, yes, PassKeys is a way that your authenticator devices can share and sync\n"
+"their credentials, which you can then use with our WebAuthn authentication."
+msgstr ""
+
+#: _guides/security-webauthn.adoc
+msgid ""
+"The WebAuthn specification requires `https` to be used for communication with the server, though\n"
+"some browsers allow `localhost`. If you must use `https` in `DEV` mode, you can always use the\n"
+"https://docs.quarkiverse.io/quarkus-ngrok/dev/index.html[quarkus-ngrok] extension."
+msgstr ""
 
 #. type: Title ==
 #: _guides/security-webauthn.adoc
@@ -395,11 +413,11 @@ msgid ""
 "form on the right, then pressing the `Register` button:"
 msgstr "Comience por registrar sus credenciales WebAuthn introduciendo un nombre de usuario, nombre y apellidos en el formulario `Register` de la derecha y, a continuación, pulse el botón `Register`:"
 
-#. type: Plain text
 #: _guides/security-webauthn.adoc
-#, fuzzy
-msgid "Your browser will ask you to activate your WebAuthn authenticator:"
-msgstr "Su navegador le pedirá que active su autenticador WebAuthn:"
+msgid ""
+"Your browser will ask you to activate your WebAuthn authenticator (you will need a WebAuthn-capable browser\n"
+"and possibly device, or you can use https://developer.chrome.com/docs/devtools/webauthn/[an emulator of those]):"
+msgstr ""
 
 #. type: Plain text
 #: _guides/security-webauthn.adoc
@@ -455,23 +473,19 @@ msgstr "`POST /q/webauthn/register`: Establecer y obtener un reto de registro"
 msgid "Request"
 msgstr "Solicitar"
 
+#: _guides/security-webauthn.adoc
+msgid "Required"
+msgstr ""
+
+#: _guides/security-webauthn.adoc
+msgid "Optional"
+msgstr ""
+
 #. type: Block title
 #: _guides/security-webauthn.adoc
 #, fuzzy, no-wrap
 msgid "Response"
 msgstr "Respuesta"
-
-#. type: Title ===
-#: _guides/security-webauthn.adoc
-#, fuzzy, no-wrap
-msgid "Obtain a login challenge"
-msgstr "Obtener un desafío de inicio de sesión"
-
-#. type: Plain text
-#: _guides/security-webauthn.adoc
-#, fuzzy
-msgid "`POST /q/webauthn/login`: Set up and obtain a login challenge"
-msgstr "`POST /q/webauthn/login`: Configurar y obtener un desafío de inicio de sesión"
 
 #. type: Title ===
 #: _guides/security-webauthn.adoc
@@ -490,6 +504,18 @@ msgstr "`POST /q/webauthn/callback`: Activar un registro"
 #, fuzzy
 msgid "This returns a 204 with no body."
 msgstr "Devuelve un 204 sin cuerpo."
+
+#. type: Title ===
+#: _guides/security-webauthn.adoc
+#, fuzzy, no-wrap
+msgid "Obtain a login challenge"
+msgstr "Obtener un desafío de inicio de sesión"
+
+#. type: Plain text
+#: _guides/security-webauthn.adoc
+#, fuzzy
+msgid "`POST /q/webauthn/login`: Set up and obtain a login challenge"
+msgstr "`POST /q/webauthn/login`: Configurar y obtener un desafío de inicio de sesión"
 
 #. type: Title ===
 #: _guides/security-webauthn.adoc
@@ -613,12 +639,22 @@ msgid ""
 msgstr "En este caso, puede utilizar los métodos `WebAuthn.loginOnly` y `WebAuthn.registerOnly` de la biblioteca JavaScript, almacenar los datos del autenticador en elementos ocultos del formulario y enviarlos como parte de la carga útil del formulario al servidor a sus puntos finales personalizados de inicio de sesión o registro."
 
 #: _guides/security-webauthn.adoc
-#, fuzzy
 msgid ""
 "If you are storing them in form input elements, you can then use the `WebAuthnLoginResponse` and\n"
 "`WebAuthnRegistrationResponse` classes, mark them as `@BeanParam` and then use the `WebAuthnSecurity.login`\n"
-"and `WebAuthnSecurity.register` methods. For example, here's how you can handle a custom login and register:"
-msgstr "Si los almacena en elementos de entrada de formularios, puede utilizar las clases `WebAuthnLoginResponse` y `WebAuthnRegistrationResponse`, marcarlos como `@BeanParam` y utilizar los métodos `WebAuthnSecurity.login` y `WebAuthnSecurity.register`. Por ejemplo, así es como puedes manejar un inicio de sesión y registro personalizados:"
+"and `WebAuthnSecurity.register` methods to replace the `/q/webauthn/callback` endpoint. This even\n"
+"allows you to create two separate endpoints for handling login and registration at different endpoints."
+msgstr ""
+
+#: _guides/security-webauthn.adoc
+msgid ""
+"In most cases you can keep using the `/q/webauthn/login` and `/q/webauthn/register` challenge-initiating\n"
+"endpoints, because this is not where custom logic is required."
+msgstr ""
+
+#: _guides/security-webauthn.adoc
+msgid "For example, here's how you can handle a custom login and register action:"
+msgstr ""
 
 #: _guides/security-webauthn.adoc
 #, fuzzy
@@ -649,6 +685,16 @@ msgid ""
 "You will have to add the `@Blocking` annotation on your `WebAuthnUserProvider` class in order to tell the\n"
 "Quarkus WebAuthn endpoints to defer those calls to the worker pool."
 msgstr "Tendrá que añadir la anotación `@Blocking` en su clase `WebAuthnUserProvider` para indicar a los puntos finales de Quarkus WebAuthn que difieran esas llamadas al grupo de trabajadores."
+
+#: _guides/security-webauthn.adoc
+msgid "Virtual-Threads version"
+msgstr ""
+
+#: _guides/security-webauthn.adoc
+msgid ""
+"You will have to add the `@RunOnVirtualThread` annotation on your `WebAuthnUserProvider` class in order to tell the\n"
+"Quarkus WebAuthn endpoints to defer those calls to virtual threads."
+msgstr ""
 
 #. type: Title ==
 #: _guides/security-webauthn.adoc
@@ -685,6 +731,13 @@ msgstr "Para esta prueba, ya que estamos probando tanto el punto final de devolu
 #, no-wrap
 msgid "Configuration Reference"
 msgstr "Referencia de configuración"
+
+#: _guides/security-webauthn.adoc
+msgid ""
+"The security encryption key can be set with the\n"
+"link:all-config#quarkus-vertx-http_quarkus.http.auth.session.encryption-key[`quarkus.http.auth.session.encryption-key`]\n"
+"configuration option, as described in the link:security-authentication-mechanisms#form-auth[security guide]."
+msgstr ""
 
 #: _guides/security-webauthn.adoc
 #, fuzzy
