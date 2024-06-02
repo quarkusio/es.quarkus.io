@@ -26,13 +26,12 @@ msgid "Contexts and Dependency Injection"
 msgstr "Contextos e inyección de dependencia"
 
 #: _guides/cdi-reference.adoc
-#, fuzzy
 msgid ""
-"Quarkus DI solution (also called ArC) is based on the https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html[Jakarta Contexts and Dependency Injection 4.0, window=\"_blank\"] specification.\n"
+"Quarkus DI solution (also called ArC) is based on the https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html[Jakarta Contexts and Dependency Injection 4.1, window=\"_blank\"] specification.\n"
 "It implements the CDI Lite specification, with selected improvements on top, and passes the CDI Lite TCK.\n"
 "It does not implement CDI Full.\n"
 "See also <<supported_features_and_limitations,the list of supported features and limitations>>."
-msgstr "La solución Quarkus DI (también llamada ArC) se basa en la especificación link:https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html[Jakarta Contexts and Dependency Injection 4.0] . Implementa la especificación CDI Lite, con mejoras seleccionadas por encima, y pasa el TCK de CDI Lite. No implementa CDI Full. Consulte también xref:supported_features_and_limitations[la lista de características y limitaciones compatibles] ."
+msgstr ""
 
 #. type: Plain text
 #: _guides/cdi-reference.adoc
@@ -53,12 +52,11 @@ msgid "Bean Discovery"
 msgstr "Descubrimiento de las judías"
 
 #: _guides/cdi-reference.adoc
-#, fuzzy
 msgid ""
 "Bean discovery in CDI is a complex process which involves legacy deployment structures and accessibility requirements of the underlying module architecture.\n"
 "However, Quarkus is using a *simplified bean discovery*.\n"
-"There is only single bean archive with the https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html#default_bean_discovery[bean discovery mode `annotated`, window=\"_blank\"] and no visibility boundaries."
-msgstr "El descubrimiento de beans en CDI es un proceso complejo que implica estructuras de despliegue heredadas y requisitos de accesibilidad de la arquitectura de módulos subyacente. Sin embargo, Quarkus utiliza un descubrimiento de beans *simplificado* . Sólo existe un único archivo de beans con el link:https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html#default_bean_discovery[modo de] descubrimiento de beans link:https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html#default_bean_discovery[annotated y sin límites de visibilidad.]"
+"There is only single bean archive with the https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#default_bean_discovery[bean discovery mode `annotated`, window=\"_blank\"] and no visibility boundaries."
+msgstr ""
 
 #. type: Plain text
 #: _guides/cdi-reference.adoc
@@ -97,13 +95,12 @@ msgid "and Quarkus integration code."
 msgstr "y el código de integración de Quarkus."
 
 #: _guides/cdi-reference.adoc
-#, fuzzy
 msgid ""
-"Bean classes that don't have a https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html#bean_defining_annotations[bean defining annotation, window=\"_blank\"] are not discovered.\n"
+"Bean classes that don't have a https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bean_defining_annotations[bean defining annotation, window=\"_blank\"] are not discovered.\n"
 "This behavior is defined by CDI.\n"
 "But producer methods and fields and observer methods are discovered even if the declaring class is not annotated with a bean defining annotation (this behavior is different to what is defined in CDI).\n"
 "In fact, the declaring bean classes are considered annotated with `@Dependent`."
-msgstr "Las clases de frijol que no tienen una link:https://jakarta.ee/specifications/cdi/4.0/jakarta-cdi-spec-4.0.html#bean_defining_annotations[anotación de definición de frijol] no se descubren. Este comportamiento está definido por CDI. Pero los métodos y campos productores y los métodos observadores se descubren aunque la clase declarante no esté anotada con una anotación definidora de judías (este comportamiento es diferente al definido en CDI). De hecho, las clases bean declarantes se consideran anotadas con `@Dependent` ."
+msgstr ""
 
 #. type: Plain text
 #: _guides/cdi-reference.adoc
@@ -390,6 +387,16 @@ msgstr "`@SessionScoped`"
 #, fuzzy
 msgid "Only with the Undertow extension; see xref:cdi.adoc#bean-scope-available[here] for details"
 msgstr "Ámbitos y contextos; consulte  link:cdi.html#bean-scope-available[aquí] los detalles"
+
+#: _guides/cdi-reference.adoc
+msgid ""
+"The _method invokers_ implementation supports asynchronous methods.\n"
+"The following methods are considered asynchronous and `@Dependent` instances are only destroyed when the asynchronous action completes:"
+msgstr ""
+
+#: _guides/cdi-reference.adoc
+msgid "methods that declare a return type of `CompletionStage`, `Uni`, or `Multi`"
+msgstr ""
 
 #. type: Plain text
 #: _guides/cdi-reference.adoc
@@ -1340,6 +1347,28 @@ msgstr "Si un observador asíncrono lanza una excepción, entonces el `Completio
 #, fuzzy, no-wrap
 msgid "`NoopAsyncObserverExceptionHandler`"
 msgstr "`NoopAsyncObserverExceptionHandler`"
+
+#: _guides/cdi-reference.adoc
+msgid "Pitfalls with Reactive Programming"
+msgstr ""
+
+#: _guides/cdi-reference.adoc
+msgid ""
+"CDI is a purely synchronous framework.\n"
+"Its notion of asynchrony is very limited and based solely on thread pools and thread offloading.\n"
+"Therefore, there is a number of pitfalls when using CDI together with reactive programming."
+msgstr ""
+
+#: _guides/cdi-reference.adoc
+msgid "Detecting When Blocking Is Allowed"
+msgstr ""
+
+#: _guides/cdi-reference.adoc
+msgid ""
+"The `io.quarkus.runtime.BlockingOperationControl#isBlockingAllowed()` method can be used to detect whether blocking is allowed on the current thread.\n"
+"When it is not, and you need to perform a blocking operation, you have to offload it to another thread.\n"
+"The easiest way is to use the `Vertx.executeBlocking()` method:"
+msgstr ""
 
 #. type: Title ==
 #: _guides/cdi-reference.adoc
