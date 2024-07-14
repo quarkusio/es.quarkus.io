@@ -197,6 +197,14 @@ msgid "Example `{config-file}`"
 msgstr "Ejemplo `{config-file}`"
 
 #: _versions/main/guides/hibernate-orm.adoc
+msgid "xref:datasource.adoc[Configure the datasource]."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Drop and create the database at startup (use `update` to only update the schema)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
 #, fuzzy
 msgid ""
 "Note that these configuration properties are not the same ones as in your typical Hibernate ORM configuration file.\n"
@@ -383,6 +391,19 @@ msgid "Set the Hibernate ORM dialect."
 msgstr "Establezca el dialecto ORM de Hibernate."
 
 #: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"For built-in dialects, the expected value is one of the names\n"
+"in the link:{hibernate-orm-dialect-docs-url}[official list of dialects], *without* the `Dialect` suffix,\n"
+"for example `Cockroach` for `CockroachDialect`."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"For third-party dialects, the expected value is the fully-qualified class name,\n"
+"for example `com.acme.hibernate.AcmeDbDialect`."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
 #, fuzzy
 msgid ""
 "In that case, keep in mind that the JDBC driver or Hibernate ORM dialect\n"
@@ -408,6 +429,33 @@ msgid ""
 "Set the database version. The Hibernate ORM dialect will target that version.\n"
 "Since we're targeting CockroachDB here, we're passing the CockroachDB version, not the PostgreSQL version."
 msgstr "Establezca la versión de la base de datos. El dialecto ORM de Hibernate se dirigirá a esa versión. Dado que aquí nos dirigimos a CockroachDB, pasaremos la versión de CockroachDB, no la de PostgreSQL."
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Varying database"
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"When enabling <<database-approach,database multi-tenancy>>,\n"
+"Hibernate ORM will use multiple datasources at runtime for the same persistence unit,\n"
+"and by default Quarkus cannot tell which datasource is going to be used,\n"
+"so it will not be able to detect a dialect to use in Hibernate ORM."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"For that reason, when enabling <<database-approach,database multi-tenancy>>,\n"
+"it is recommended to explicitly point the Hibernate ORM configuration to one datasource\n"
+"among those that will be used at runtime, e.g. with `quarkus.hibernate-orm.datasource=base`\n"
+"(`base` being the name of a datasource)."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"When doing so, Quarkus will infer the database version and (if possible) dialect from that datasource.\n"
+"For unsupported databases, you may still need to set the Hibernate ORM dialect explicitly,\n"
+"as explained in <<hibernate-dialect-other-databases,this section>>."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1699,11 +1747,34 @@ msgid "SCHEMA approach"
 msgstr "Enfoque SCHEMA"
 
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
+msgid "The same data source will be used for all tenants and a schema has to be created for every tenant inside that data source."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Some databases like MariaDB/MySQL do not support database schemas. In these cases you have to use the <<database-approach,database approach>>."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
 msgid ""
-"The same data source will be used for all tenants and a schema has to be created for every tenant inside that data source.\n"
-"CAUTION: Some databases like MariaDB/MySQL do not support database schemas. In these cases you have to use the DATABASE approach below."
-msgstr "Se utilizará la misma fuente de datos para todos los arrendatarios y deberá crearse un esquema para cada arrendatario dentro de esa fuente de datos. ATENCIÓN: Algunas bases de datos como MariaDB/MySQL no admiten esquemas de base de datos. En estos casos tendrá que utilizar el método de la BASE DE DATOS que se indica a continuación."
+"Disable schema generation, because it is not supported by Hibernate ORM for schema multi-tenancy.\n"
+"We'll use Flyway instead, see further down."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Enable schema multi-tenancy."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"We use the default datasource here, but could use a named datasource if we wanted to,\n"
+"by following instructions <<multiple-persistence-units,there>>."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"Configure xref:flyway.adoc[Flyway] for database initialization,\n"
+"because schema generation by Hibernate ORM is not supported in this case."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1723,23 +1794,73 @@ msgstr "Enfoque de la base de datos"
 msgid "For every tenant you need to create a named data source with the same identifier that is returned by the `TenantResolver`."
 msgstr "Para cada inquilino es necesario crear una fuente de datos con nombre con el mismo identificador que devuelve el `TenantResolver`."
 
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"With this approach, all datasources used by the same persistence unit\n"
+"are assumed to point to a database of the same vendor (same `db-kind`) and version."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Mismatches will not be detected, and may result in unpredictable behavior."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"Disable schema generation, because it is not supported by Hibernate ORM for database multi-tenancy.\n"
+"We'll use Flyway instead, see further down."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Enable database multi-tenancy."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Select a datasource for the persistence unit."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"This is only to allow Quarkus to determine the Hibernate ORM dialect to use;\n"
+"see <<hibernate-dialect-varying-database,this section>> for details."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "xref:datasource.adoc[Configure the datasource] for one tenant, `base`."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"Configure xref:flyway.adoc[Flyway] for database initialization for tenant `base`,\n"
+"because schema generation by Hibernate ORM is not supported in this case."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "xref:datasource.adoc[Configure the datasource] for another tenant."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "There could be more tenants, but here we're stopping at two."
+msgstr ""
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
+"Configure xref:flyway.adoc[Flyway] for database initialization for tenant `mycompany`,\n"
+"because schema generation by Hibernate ORM is not supported in this case."
+msgstr ""
+
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
 #, fuzzy
 msgid "Following are examples of the Flyway SQL files to be created in the configured folder `src/main/resources/database`."
 msgstr "A continuación se muestran ejemplos de los archivos Flyway SQL que se crearán en la carpeta configurada `src/main/resources/database`."
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Default schema (`src/main/resources/database/default/V1.0.0__create_fruits.sql`):"
-msgstr "Esquema por defecto ( `src/main/resources/database/default/V1.0.0__create_fruits.sql`):"
+msgid "Schema for tenant `base` (`src/main/resources/database/base/V1.0.0__create_fruits.sql`):"
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Mycompany schema (`src/main/resources/database/mycompany/V1.0.0__create_fruits.sql`):"
-msgstr "Esquema de mi empresa ( `src/main/resources/database/mycompany/V1.0.0__create_fruits.sql`):"
+msgid "Schema for tenant `mycompany` (`src/main/resources/database/mycompany/V1.0.0__create_fruits.sql`):"
+msgstr ""
 
 #. type: Title ====
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1752,6 +1873,10 @@ msgstr "Enfoque SCHEMA"
 #, fuzzy
 msgid "The default data source will be used for all tenants. All entities defining a field annotated with `@TenantId` will have that field populated automatically, and will get filtered automatically in queries."
 msgstr "La fuente de datos predeterminada se utilizará para todos los arrendatarios. Todas las entidades que definan un campo anotado con `@TenantId` tendrán ese campo rellenado automáticamente, y se filtrarán automáticamente en las consultas."
+
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "Enable discriminator multi-tenancy."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/hibernate-orm.adoc
