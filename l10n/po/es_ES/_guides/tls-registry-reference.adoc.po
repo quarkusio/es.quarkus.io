@@ -670,297 +670,360 @@ msgid "Reloading Certificates"
 msgstr ""
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The `TlsConfiguration` obtained from the `TLSConfigurationRegistry` includes a mechanism for reloading certificates.\n"
 "The `reload` method refreshes the key stores and trust stores, typically by reloading them from the file system."
-msgstr ""
+msgstr "El `TlsConfiguration` obtenido del `TLSConfigurationRegistry` incluye un mecanismo para recargar certificados. El método `reload` refresca los almacenes de claves y de confianza, normalmente recargándolos desde el sistema de archivos."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "The reload operation is not automatic and must be triggered manually. Additionally, the `TlsConfiguration` implementation must support reloading (which is the case for the configured certificate)."
-msgstr ""
+msgstr "La operación de recarga no es automática y debe activarse manualmente. Además, la implementación de `TlsConfiguration` debe soportar la recarga (que es el caso del certificado configurado)."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The `reload` method returns a `boolean` indicating whether the reload was successful.\n"
 "A value of `true` means the reload operation was successful, not necessarily that there were updates to the certificates."
-msgstr ""
+msgstr "El método `reload` devuelve un `boolean` que indica si la recarga se ha realizado correctamente. Un valor de `true` significa que la operación de recarga ha tenido éxito, no necesariamente que se hayan producido actualizaciones en los certificados."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "After a `TlsConfiguration` has been reloaded, servers and clients using this configuration may need to perform specific actions to apply the new certificates.\n"
 "The recommended approach is to fire a CDI event (`CertificateReloadedEvent`) that servers and clients can listen to and make the necessary changes:"
-msgstr ""
+msgstr "Después de recargar `TlsConfiguration` , es posible que los servidores y clientes que utilicen esta configuración deban realizar acciones específicas para aplicar los nuevos certificados. El enfoque recomendado es disparar un evento CDI ( `CertificateReloadedEvent` ) que los servidores y clientes puedan escuchar y realizar los cambios necesarios:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "These APIs provide a way to implement custom certificate reloading."
-msgstr ""
+msgstr "Estas API proporcionan una forma de implementar la recarga personalizada de certificados."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Periodic reloading"
-msgstr ""
+msgstr "Recarga periódica"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The TLS registry does include a built-in mechanism for periodically checking the file system for changes and reloading the certificates.\n"
 "You can configure periodic reloading of certificates using properties.\n"
 "The `reload-period` property specifies the interval at which certificates are reloaded, and it will emit a `CertificateReloadedEvent`."
-msgstr ""
+msgstr "El registro TLS sí incluye un mecanismo integrado para comprobar periódicamente si se han producido cambios en el sistema de archivos y recargar los certificados. Puede configurar la recarga periódica de certificados mediante propiedades. La propiedad `reload-period` especifica el intervalo en el que se recargan los certificados, y emitirá un mensaje `CertificateReloadedEvent` ."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "For each named configuration, you can set a specific reload period:"
-msgstr ""
+msgstr "Para cada configuración con nombre, puede establecer un periodo de recarga específico:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "Remember that the impacted server and client may need to listen to the `CertificateReloadedEvent` to apply the new certificates.\n"
 "This is automatically done for the Quarkus HTTP server (including the management interface if enabled)."
-msgstr ""
+msgstr "Recuerde que el servidor y el cliente impactados pueden necesitar escuchar la `CertificateReloadedEvent` para aplicar los nuevos certificados. Esto se hace automáticamente para el servidor HTTP de Quarkus (incluida la interfaz de gestión si está activada)."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Using Kubernetes secrets or cert-manager"
-msgstr ""
+msgstr "Uso de secretos de Kubernetes o cert-manager"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "When running in Kubernetes, you can use Kubernetes secrets to store the key stores and trust stores."
-msgstr ""
+msgstr "Cuando se ejecuta en Kubernetes, puede utilizar los secretos de Kubernetes para almacenar los almacenes de claves y de confianza."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Using Kubernetes secrets"
-msgstr ""
+msgstr "Uso de los secretos de Kubernetes"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "To use Kubernetes secrets, you need to create a secret with the key stores and trust stores.\n"
 "Let's take the following secret as an example:"
-msgstr ""
+msgstr "Para utilizar los secretos de Kubernetes, debe crear un secreto con los almacenes de claves y de confianza. Tomemos como ejemplo el siguiente secreto:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "The easiest way to uses these certificates is to mount the secret as a volume in the pod:"
-msgstr ""
+msgstr "La forma más sencilla de utilizar estos certificados es montar el secreto como un volumen en el pod:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Then, you can configure the TLS registry to use the certificates:"
-msgstr ""
+msgstr "A continuación, puede configurar el registro TLS para utilizar los certificados:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "You can combine this with the periodic reloading to automatically reload the certificates when they change."
-msgstr ""
+msgstr "Puede combinar esto con la recarga periódica para recargar automáticamente los certificados cuando cambien."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Using cert-manager"
-msgstr ""
+msgstr "Uso de cert-manager"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "When running in Kubernetes, you can use cert-manager to automatically generate and renew certificates.\n"
 "Cert-manager will produce a secret with the key stores and trust stores.\n"
 "So, configuring the TLS registry is the same as when using Kubernetes secrets.\n"
 "The generated secret uses the following files:"
-msgstr ""
+msgstr "Cuando se ejecuta en Kubernetes, puede utilizar cert-manager para generar y renovar automáticamente los certificados. Cert-manager producirá un secreto con los almacenes de claves y de confianza. Por lo tanto, la configuración del registro TLS es la misma que cuando se utilizan los secretos de Kubernetes. El secreto generado utiliza los siguientes archivos:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`tls.crt` for the certificate"
-msgstr ""
+msgstr "`tls.crt` para el certificado"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`tls.key` for the private key"
-msgstr ""
+msgstr "`tls.key` para la clave privada"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`ca.crt` for the CA certificate (if needed)"
-msgstr ""
+msgstr "`ca.crt` para el certificado CA (si es necesario)"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "To handle the renewal, you can use the periodic reloading mechanism:"
-msgstr ""
+msgstr "Para gestionar la renovación, puede utilizar el mecanismo de recarga periódica:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Quarkus CLI commands and development CA (Certificate Authority)"
-msgstr ""
+msgstr "Comandos CLI de Quarkus y desarrollo CA (Autoridad de Certificación)"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The TLS registry provides CLI commands to generate a development CA and trusted certificates.\n"
 "This avoids having to use self-signed certificates locally."
-msgstr ""
+msgstr "El registro TLS proporciona comandos CLI para generar una CA de desarrollo y certificados de confianza. Esto evita tener que utilizar certificados autofirmados localmente."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "In most cases, you generate the Quarkus Development CA once, and then generate certificates signed by this CA.\n"
 "The Quarkus Development CA is a Certificate Authority that can be used to sign certificates locally.\n"
 "It is only valid for development purposes and only trusted on the local machine.\n"
 "The generated CA is located in `$HOME/.quarkus/quarkus-dev-root-ca.pem`, and installed in the system trust store."
-msgstr ""
+msgstr "En la mayoría de los casos, usted genera la CA de desarrollo de Quarkus una vez, y luego genera certificados firmados por esta CA. La CA de desarrollo de Quarkus es una autoridad de certificación que puede utilizarse para firmar certificados localmente. Sólo es válida para fines de desarrollo y sólo se confía en ella en la máquina local. La CA generada se encuentra en `$HOME/.quarkus/quarkus-dev-root-ca.pem` , y se instala en el almacén de confianza del sistema."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "CA, signed vs. self-signed certificates"
-msgstr ""
+msgstr "CA, certificados firmados frente a certificados autofirmados"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "When developing with TLS, you can use two types of certificates:"
-msgstr ""
+msgstr "Cuando desarrolle con TLS, puede utilizar dos tipos de certificados:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "a self-signed certificate: the certificate is signed by the same entity that uses it. It is not trusted by default. It's generally what we use when we don't have a CA, or don't want to dig too much into TLS. This is not a production setup, and may be used only for development."
-msgstr ""
+msgstr "un certificado autofirmado: el certificado está firmado por la misma entidad que lo utiliza. No es de confianza por defecto. Generalmente es lo que utilizamos cuando no tenemos una CA, o no queremos profundizar demasiado en TLS. No es una configuración de producción, y sólo puede utilizarse para el desarrollo."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "a signed certificate: the certificate is signed by a Certificate Authority (CA). The CA is a trusted entity that signs the certificate. The certificate is trusted by default. This is what we use in production."
-msgstr ""
+msgstr "un certificado firmado: el certificado está firmado por una Autoridad de Certificación (CA). La CA es una entidad de confianza que firma el certificado. El certificado es de confianza por defecto. Esto es lo que utilizamos en producción."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "We could use self-signed certificate when running application locally, but it's not always convenient.\n"
 "Typically, browsers will not trust the certificate, and you will have to import it manually.\n"
 "`curl`, `wget`, `httpie` and other tools will also not trust the certificate."
-msgstr ""
+msgstr "Podríamos utilizar un certificado autofirmado al ejecutar la aplicación localmente, pero no siempre es conveniente. Normalmente, los navegadores no confiarán en el certificado y tendrá que importarlo manualmente. `curl` , `wget` , `httpie` y otras herramientas tampoco confiarán en el certificado."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "To avoid this, we can use a development CA to sign the certificates, and install it into the system trust store.\n"
 "Thus, every certificate signed by this CA will be trusted by the system."
-msgstr ""
+msgstr "Para evitarlo, podemos utilizar una CA de desarrollo para firmar los certificados e instalarla en el almacén de confianza del sistema. Así, cada certificado firmado por esta CA será de confianza para el sistema."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Quarkus makes it easy to generate a development CA and certificates signed by this CA."
-msgstr ""
+msgstr "Quarkus facilita la generación de una CA de desarrollo y de certificados firmados por esta CA."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Generate a development CA"
-msgstr ""
+msgstr "Generar una CA de desarrollo"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The development CA is a Certificate Authority that can be used to sign certificates locally.\n"
 "Note that the generated CA is only valid for development purposes, and only trusted on the local machine."
-msgstr ""
+msgstr "La CA de desarrollo es una autoridad de certificación que puede utilizarse para firmar certificados localmente. Tenga en cuenta que la CA generada sólo es válida para fines de desarrollo y sólo es de confianza en la máquina local."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "To generate a development CA, use the following command:"
-msgstr ""
+msgstr "Para generar una CA de desarrollo, utilice el siguiente comando:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "`--install` installs the CA in the system trust store.\n"
 "Windows, Mac and Linux (Fedora and Ubuntu) are supported.\n"
 "However, depending on your browser, you may need to import the generated CA manually.\n"
 "Refer to the browser documentation for more information.\n"
 "The generated CA is located in `$HOME/.quarkus/quarkus-dev-root-ca.pem`."
-msgstr ""
+msgstr "`--install` instala la CA en el almacén de confianza del sistema. Son compatibles Windows, Mac y Linux (Fedora y Ubuntu). Sin embargo, dependiendo de su navegador, es posible que tenga que importar manualmente la CA generada. Consulte la documentación del navegador para obtener más información. La CA generada se encuentra en `$HOME/.quarkus/quarkus-dev-root-ca.pem` ."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "When installing the certificate, your system may ask for your password to install the certificate in the system trust store, or ask for confirmation in a dialog (on Windows)."
-msgstr ""
+msgstr "Al instalar el certificado, es posible que el sistema le pida su contraseña para instalar el certificado en el almacén de confianza del sistema, o que le pida confirmación en un cuadro de diálogo (en Windows)."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "On Windows, makes sure you run from an elevated terminal (run as administrator) to install the CA in the system trust store."
-msgstr ""
+msgstr "En Windows, asegúrese de ejecutar desde un terminal elevado (ejecutar como administrador) para instalar la CA en el almacén de confianza del sistema."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "`--renew` renews the CA if it already exists.\n"
 "When this option is used, you need to re-generate the certificates that were signed by the CA, as the private key is changed.\n"
 "Note that if the CA expires, it will automatically be renewed (without passing `--renew`)."
-msgstr ""
+msgstr "`--renew` renueva la CA si ya existe. Cuando se utiliza esta opción, es necesario volver a generar los certificados que fueron firmados por la CA, ya que se cambia la clave privada. Tenga en cuenta que si la CA caduca, se renovará automáticamente (sin pasar por `--renew` )."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`--truststore` also generates a PKCS12 trust store containing the CA certificate."
-msgstr ""
+msgstr "`--truststore` también genera un almacén de confianza PKCS12 que contiene el certificado de la CA."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Generate a trusted (signed) certificate"
-msgstr ""
+msgstr "Generar un certificado de confianza (firmado)"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "Once you have installed the Quarkus Development CA, you can generate a trusted certificate.\n"
 "It will be signed by the Quarkus Development CA, and so trusted by your system."
-msgstr ""
+msgstr "Una vez que haya instalado la CA de desarrollo de Quarkus, puede generar un certificado de confianza. Estará firmado por la CA de desarrollo de Quarkus y, por tanto, será de confianza para su sistema."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "This generates a certificate signed by the Quarkus Development CA, and so if properly installed / imported, will be trusted by your system."
-msgstr ""
+msgstr "Esto genera un certificado firmado por la CA de Quarkus Development, por lo que si se instala / importa correctamente, será de confianza para su sistema."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "The certificate is stored in `./.certs/`.\n"
 "Two files are generated:"
-msgstr ""
+msgstr "El certificado se almacena en `./.certs/` . Se generan dos archivos:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`$NAME-keystore.p12` - contains the private key and the certificate. It's password protected."
-msgstr ""
+msgstr "`$NAME-keystore.p12` - contiene la clave privada y el certificado. Está protegido por contraseña."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "`$NAME-truststore.p12` - contains the CA certificate, that you can used as trust store (for test, for instance)."
-msgstr ""
+msgstr "`$NAME-truststore.p12` - contiene el certificado CA, que puede utilizar como almacén de confianza (para pruebas, por ejemplo)."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "More options are available:"
-msgstr ""
+msgstr "Hay más opciones disponibles:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid ""
 "When generating the certificate, a `.env` file is also generated making the Quarkus dev mode aware of these certificates.\n"
 "So, then, if you run your application in dev mode, it will use these certificates:"
-msgstr ""
+msgstr "Al generar el certificado, también se genera un archivo `.env` que hace que el modo dev de Quarkus conozca estos certificados. Así pues, si ejecuta su aplicación en modo dev, utilizará estos certificados:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Now, you can open the Dev UI using HTTPS: `https://localhost:8443/q/dev`, or issue a request using `curl`:"
-msgstr ""
+msgstr "Ahora, puede abrir la Dev UI utilizando HTTPS: `https://localhost:8443/q/dev` , o emitir una solicitud utilizando `curl` :"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "If the Quarkus Development CA is not installed, a self-signed certificate is generated."
-msgstr ""
+msgstr "Si la CA de desarrollo de Quarkus no está instalada, se genera un certificado autofirmado."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Generating a self-signed certificate"
-msgstr ""
+msgstr "Generar un certificado autofirmado"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Even if the Quarkus Development CA is installed, you can generate a self-signed certificate:"
-msgstr ""
+msgstr "Incluso si la CA de desarrollo de Quarkus está instalada, puede generar un certificado autofirmado:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "This generates a self-signed certificate, not signed by the Quarkus Development CA."
-msgstr ""
+msgstr "Esto genera un certificado autofirmado, no firmado por la CA de Quarkus Development."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Uninstalling the Quarkus Development CA"
-msgstr ""
+msgstr "Desinstalación de la CA de desarrollo de Quarkus"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Uninstalling the Quarkus Development CA from your system depends on your OS."
-msgstr ""
+msgstr "La desinstalación de Quarkus Development CA de su sistema depende de su sistema operativo."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Deleting the CA certificate on Windows"
-msgstr ""
+msgstr "Eliminación del certificado CA en Windows"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "To delete the CA certificate on Windows, use the following commands from a Powershell terminal with administrator rights:"
-msgstr ""
+msgstr "Para eliminar el certificado CA en Windows, utilice los siguientes comandos desde un terminal Powershell con derechos de administrador:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Replace `$Serial_Number` with the serial number of the CA certificate."
-msgstr ""
+msgstr "Sustituya `$Serial_Number` por el número de serie del certificado CA."
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Deleting the CA certificate on Linux"
-msgstr ""
+msgstr "Eliminación del certificado CA en Linux"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "On Fedora, you can use the following command:"
-msgstr ""
+msgstr "En Fedora, puede utilizar el siguiente comando:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "On Ubuntu, you can use the following command:"
-msgstr ""
+msgstr "En Ubuntu, puede utilizar el siguiente comando:"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "Deleting the CA certificate on Mac"
-msgstr ""
+msgstr "Eliminación del certificado CA en Mac"
 
 #: _guides/tls-registry-reference.adoc
+#, fuzzy
 msgid "On Mac, you can use the following command:"
-msgstr ""
+msgstr "En Mac, puede utilizar el siguiente comando:"
