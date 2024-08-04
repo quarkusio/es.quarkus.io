@@ -1551,6 +1551,18 @@ msgid ""
 msgstr "Cuando se serialice el resultado del método `userPublic` , el campo `id` no estará contenido en la respuesta ya que la vista `Public` no lo incluye. Sin embargo, el resultado de `userPrivate` incluirá el `id` como se esperaba al serializarlo."
 
 #: _versions/main/guides/rest.adoc
+msgid "Reflection-free Jackson serialization"
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
+msgid "Out-of-the-box Jackson serialization converts objects into their JSON representation by introspecting them through a heavy use of reflection. However, the general Quarkus philosophy is to avoid reflection as much as possible, often replacing it with build time code generation. For this reason it is possible to automatically generate at build time implementations of the Jackson `StdSerializer`, one for each class to be converted in JSON. These generated serializers can be subsequently used by Quarkus at runtime to perform the JSON serialization of the objects returned by a REST endpoint without any use of reflection."
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
+msgid "This feature is turned off by default, but it can be enabled by setting the configuration property `quarkus.rest.jackson.optimization.enable-reflection-free-serializers=true`."
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
 #, fuzzy
 msgid "Completely customized per method serialization/deserialization"
 msgstr "Serialización completamente personalizada por método"
@@ -2024,6 +2036,24 @@ msgstr "Por defecto, los métodos anotados con `@ServerExceptionMapper` *no* eje
 #, fuzzy
 msgid "Users however can opt into interceptors by adding the corresponding annotations to the method."
 msgstr "Sin embargo, los usuarios pueden optar por los interceptores añadiendo las anotaciones correspondientes al método."
+
+#: _versions/main/guides/rest.adoc
+msgid "When mapping an exception to a `@ServerExceptionMapper` method, the cause of the exception normally does not come into play."
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
+msgid ""
+"However, some exception types in Java only serve as wrappers for other exceptions. Often, checked exceptions are wrapped into `RuntimeException` just to not have them declared in method `throws` parameters.\n"
+"Working with `CompletionStage` for example, will require `CompletionException`. There are many such exception types that are just wrappers around the real cause of the exception."
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
+msgid "If you wish to make sure your exception mapper is called for your exception type even when it is wrapped by one of those wrapper exceptions, you can use `@UnwrapException` on the exception wrapper type:"
+msgstr ""
+
+#: _versions/main/guides/rest.adoc
+msgid "If you don't control that exception wrapper type, you can place the annotation on any class and specify the exception wrapper types it applies to as annotation parameter:"
+msgstr ""
 
 #: _versions/main/guides/rest.adoc
 #, fuzzy
