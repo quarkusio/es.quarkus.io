@@ -7,523 +7,644 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Project Leyden"
-msgstr ""
+msgstr "Proyecto Leyden"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Project Leyden: exploring its potential for Quarkus users."
-msgstr ""
+msgstr "Proyecto Leyden: explorando su potencial para los usuarios de Quarkus."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "You might have heard of https://openjdk.org/projects/leyden/[Project Leyden], an initiative within the OpenJDK project with ambitious goals."
-msgstr ""
+msgstr "Es posible que haya oído hablar link:https://openjdk.org/projects/leyden/[del Proyecto Leyden] , una iniciativa dentro del proyecto OpenJDK con objetivos ambiciosos."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "As Quarkus users, you'll be wondering how this project will benefit you and how it's different from GraalVM native images. While we think it's fair to say that Leyden was inspired or at least motivated by some ideas first implemented in GraalVM's native images, Leyden is remarkably different. It's essential to understand how it works: as we will see, Leyden is not a replacement for GraalVM native images but rather a substantial evolution of the JVM, and we expect it to bring some benefits to native images as well."
-msgstr ""
+msgstr "Como usuarios de Quarkus, se preguntarán en qué les beneficiará este proyecto y en qué se diferencia de las imágenes nativas de GraalVM. Aunque creemos que es justo decir que Leyden se inspiró o al menos se motivó en algunas ideas implementadas por primera vez en las imágenes nativas de GraalVM, Leyden es notablemente diferente. Es esencial entender cómo funciona: como veremos, Leyden no es un sustituto de las imágenes nativas de GraalVM, sino más bien una evolución sustancial de la JVM, y esperamos que también aporte algunos beneficios a las imágenes nativas."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "To try to clarify this, unfortunately, this post is unusually long: we wish it could have been a short guide, \"This is how you enable Leyden,\" but this isn't quite the time yet, as we need to understand the different models first. Sometimes, the terminology is also different; for example, \"Ahead of Time (AOT)\" has a very specific meaning in the context of GraalVM native images and has traditionally been associated with \"compilation\", but in the context of Leyden is used more broadly to indicate a variety of aspects of JVM operation; hopefully, after reading this, it will be less confusing."
-msgstr ""
+msgstr "Para intentar aclararlo, por desgracia, este post es inusualmente largo: nos hubiera gustado que fuera una guía breve, \"Así es como se habilita Leyden\", pero aún no es el momento, ya que primero tenemos que entender los distintos modelos. A veces, la terminología también es diferente; por ejemplo, \"Ahead of Time (AOT)\" tiene un significado muy específico en el contexto de las imágenes nativas de GraalVM y se ha asociado tradicionalmente con la \"compilación\", pero en el contexto de Leyden se utiliza más ampliamente para indicar una variedad de aspectos del funcionamiento de la JVM; esperemos que, después de leer esto, sea menos confuso."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Another significant misconception about Leyden is that it's a project to \"improve startup times\"; this statement is not wrong, as improving startup times is one of its goals. Yet the other stated goals of the project offer even more significant potential for our favourite platform, Quarkus, and its users."
-msgstr ""
+msgstr "Otro importante concepto erróneo sobre Leyden es que se trata de un proyecto para \"mejorar los tiempos de arranque\"; esta afirmación no es errónea, ya que mejorar los tiempos de arranque es uno de sus objetivos. Sin embargo, los otros objetivos declarados del proyecto ofrecen un potencial aún más significativo para nuestra plataforma favorita, Quarkus, y sus usuarios."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "So, let's dive in."
-msgstr ""
+msgstr "Así que, vamos a sumergirnos."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "What is Leyden?"
-msgstr ""
+msgstr "¿Qué es Leyden?"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Project Leyden is an initiative from the OpenJDK team. It is an ongoing experiment that is currently being developed by the joint effort of teams from different companies contributing to the project."
-msgstr ""
+msgstr "El Proyecto Leyden es una iniciativa del equipo OpenJDK. Se trata de un experimento en curso que se desarrolla actualmente gracias al esfuerzo conjunto de equipos de distintas empresas que contribuyen al proyecto."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The primary goal of this Project is to improve the startup time, time to peak performance, and footprint of Java programs."
-msgstr ""
+msgstr "El objetivo principal de este proyecto es mejorar el tiempo de arranque, el tiempo hasta alcanzar el rendimiento máximo y la huella de los programas Java."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "-- Project Leyden, first thing on its project page"
-msgstr ""
+msgstr "- Proyecto Leyden, lo primero en su página del proyecto"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Leyden is a general umbrella project to address slow startup and large footprint. It is useful to keep JDK bootstrap times and footprint low. This helps reduce energy consumption, hardware resource use, and, ultimately, monetary costs.\n"
 "However, it's equally as essential to reduce the time to application peak performance, time usually spent loading application classes and executing application code, including JIT compiling methods on hot code paths. Reducing application footprint can have a tremendous impact and this can be achieved by trimming not just application data but also application classes and code. Leyden is addressing ways that the JVM can help developers achieve those goals; in many ways, this is complementary to the techniques offered by Quarkus at the framework level, so we expect some powerful results from them combined."
-msgstr ""
+msgstr "Leyden es un proyecto general para abordar el arranque lento y la gran huella. Es útil para mantener bajos los tiempos de arranque y la huella del JDK. Esto ayuda a reducir el consumo de energía, el uso de recursos de hardware y, en última instancia, los costes monetarios. Sin embargo, es igualmente esencial reducir el tiempo hasta el pico de rendimiento de la aplicación, tiempo que suele emplearse en cargar las clases de la aplicación y ejecutar el código de la aplicación, incluidos los métodos de compilación JIT en rutas de código caliente. La reducción de la huella de la aplicación puede tener un impacto tremendo y esto puede lograrse recortando no sólo los datos de la aplicación, sino también las clases y el código de la aplicación. Leyden está abordando las formas en que la JVM puede ayudar a los desarrolladores a alcanzar esos objetivos; en muchos sentidos, esto es complementario a las técnicas que ofrece Quarkus a nivel de marco, por lo que esperamos unos resultados potentes de su combinación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Note that the project is evolving rapidly: some of the things explained in this article are evolving while this is written. If you plan on getting involved at a more technical level, follow the development in Jira and the https://mail.openjdk.org/mailman/listinfo/leyden-dev[Leyden mailing list]."
-msgstr ""
+msgstr "Tenga en cuenta que el proyecto evoluciona rápidamente: algunas de las cosas que se explican en este artículo están evolucionando mientras se escribe esto. Si piensa implicarse a un nivel más técnico, siga el desarrollo en Jira y en la link:https://mail.openjdk.org/mailman/listinfo/leyden-dev[lista de correo de Leyden] ."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Why it’s interesting to Quarkus"
-msgstr ""
+msgstr "Por qué es interesante para Quarkus"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "From a Quarkus perspective, we've done a fair job on all such metrics but we're constantly on the lookout to improve.\n"
 "That's why Project Leyden got our attention. We're already working with our colleagues from the OpenJDK team at Red Hat, who are directly involved in implementing Leyden with the wider OpenJDK group: this blog post today is a collaboration among engineers from different teams."
-msgstr ""
+msgstr "Desde la perspectiva de Quarkus, hemos hecho un buen trabajo en todas esas métricas, pero estamos constantemente en busca de mejoras. Por eso el Proyecto Leyden llamó nuestra atención. Ya estamos trabajando con nuestros colegas del equipo OpenJDK de Red Hat, que participan directamente en la implementación de Leyden con el grupo OpenJDK más amplio: esta entrada de blog de hoy es una colaboración entre ingenieros de diferentes equipos."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Although Quarkus is already doing a lot of work during the Ahead of Time phase to speed up warmup and response time, the enhancements that Leyden brings to the table are more related to how the JVM behaves. Complementing both approaches, the advantages we can expect from the combination of Quarkus and Leyden are beyond anything you can find with either of them in isolation."
-msgstr ""
+msgstr "Aunque Quarkus ya hace mucho trabajo durante la fase de anticipación para acelerar el calentamiento y el tiempo de respuesta, las mejoras que Leyden pone sobre la mesa están más relacionadas con el comportamiento de la JVM. Complementando ambos enfoques, las ventajas que podemos esperar de la combinación de Quarkus y Leyden van más allá de lo que se puede encontrar con cualquiera de ellos por separado."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Since the potential for such technological collaboration is strong, the Quarkus and OpenJDK teams are working together on various prototypes and anyone in the community is welcome to join as well."
-msgstr ""
+msgstr "Dado que el potencial de esta colaboración tecnológica es fuerte, los equipos de Quarkus y OpenJDK están trabajando juntos en varios prototipos y cualquier persona de la comunidad es bienvenida a unirse también."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Refresher on JVM's bootstrap process"
-msgstr ""
+msgstr "Repaso al proceso de arranque de la JVM"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "To better understand the scope of the potential improvements, we need to take a step back and discuss how the JVM works today, especially how our application is started and iteratively evolves from interpreting our bytecode to its highest performance mode: running native code which is highly optimized, adapted to the particular hardware, the configuration of the day, and the specific workloads it's been asked to perform.\n"
 "No other runtime is able to match the JVM on this."
-msgstr ""
+msgstr "Para comprender mejor el alcance de las posibles mejoras, tenemos que dar un paso atrás y analizar cómo funciona la JVM hoy en día, especialmente cómo se inicia nuestra aplicación y evoluciona iterativamente desde la interpretación de nuestro bytecode hasta su modo de mayor rendimiento: la ejecución de código nativo altamente optimizado, adaptado al hardware concreto, a la configuración del día y a las cargas de trabajo específicas que se le han pedido. Ningún otro runtime es capaz de igualar a la JVM en esto."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "As we all know, a Java runtime does not directly run Java source code. The content of our JAR file is not executable machine code, but Java bytecode generated from Java source code, typically using the javac compiler but in some cases Quarkus will emit directly generated bytecode.\n"
 "A key feature of bytecode is portability, encoding the structure of Java classes and operation of their methods in a machine and operating-system independent format. A Java runtime obeys the type information in the bytecode when laying out Java objects. Execution of a method normally involves interpreting the operations in the method bytecode, although a runtime may also choose to compile method bytecode to equivalent, native machine code and execute the latter directly."
-msgstr ""
+msgstr "Como todos sabemos, un runtime Java no ejecuta directamente el código fuente Java. El contenido de nuestro archivo JAR no es código máquina ejecutable, sino bytecode Java generado a partir de código fuente Java, normalmente utilizando el compilador javac, pero en algunos casos Quarkus emitirá bytecode generado directamente. Una característica clave del código de bytes es la portabilidad, ya que codifica la estructura de las clases Java y el funcionamiento de sus métodos en un formato independiente de la máquina y del sistema operativo. Un tiempo de ejecución de Java obedece a la información de tipos del código de bytes al disponer los objetos Java. La ejecución de un método implica normalmente la interpretación de las operaciones en el bytecode del método, aunque un tiempo de ejecución también puede optar por compilar el bytecode del método a un código máquina nativo equivalente y ejecutar este último directamente."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The unit of delivery for bytecode is a class file, which models a single class. The Java runtime itself provides a host of utility and runtime management classes, as class files embedded in either system jars or jmod files. Applications supplement this with their own class files, usually by appending jars to the classpath or module path."
-msgstr ""
+msgstr "La unidad de entrega del código de bytes es un archivo de clase, que modela una única clase. El propio tiempo de ejecución de Java proporciona una gran cantidad de clases de utilidad y de gestión del tiempo de ejecución, como archivos de clase incrustados en jars del sistema o archivos jmod. Las aplicaciones complementan esto con sus propios archivos de clase, normalmente añadiendo jars al classpath o a la ruta de módulos."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Bytecode is delivered class-at-a-time to allow the runtime to load classes _lazily_: i.e. the runtime will only lookup, verify and consume a class file when that class's definition is required to proceed with execution."
-msgstr ""
+msgstr "El bytecode se entrega clase a clase para permitir que el tiempo de ejecución cargue las clases _perezosamente_ : es decir, el tiempo de ejecución sólo buscará, verificará y consumirá un archivo de clase cuando la definición de esa clase sea necesaria para proceder a la ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Lazy loading is what allows Java to be a dynamic language -- i.e. one where the code that is included in the program can be decided at runtime. That might include loading classes from jars identified at runtime, possibly loaded via the network. Alternatively, it might include generating class bytecode at runtime, as is done with proxy classes or service provider auxiliary classes."
-msgstr ""
+msgstr "La carga perezosa es lo que permite a Java ser un lenguaje dinámico, es decir, uno en el que el código que se incluye en el programa puede decidirse en tiempo de ejecución. Eso podría incluir la carga de clases a partir de frascos identificados en tiempo de ejecución, posiblemente cargados a través de la red. Alternativamente, podría incluir la generación de bytecode de clases en tiempo de ejecución, como se hace con las clases proxy o las clases auxiliares de proveedores de servicios."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Just in Time (JIT) and Ahead of Time (AOT)"
-msgstr ""
+msgstr "Justo a tiempo (JIT) y con antelación (AOT)"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Another name to describe Java's lazy loading is 'Just in Time' (JIT). JIT is a well known term used to describe the operation of Java's runtime compilers. What is less well known is that it has a much wider use.\n"
 "JIT is not limited to compilation: many other operations performed by the JVM are done lazily at runtime or 'Just In Time'."
-msgstr ""
+msgstr "Otro nombre para describir la carga perezosa de Java es 'Just in Time' (JIT). JIT es un término muy conocido que se utiliza para describir el funcionamiento de los compiladores en tiempo de ejecución de Java. Lo que es menos conocido es que tiene un uso mucho más amplio. JIT no se limita a la compilación: muchas otras operaciones realizadas por la JVM se hacen perezosamente en tiempo de ejecución o 'Just in Time'."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "An alternative to doing things 'Just in Time' (JIT) is to do them 'Ahead Of Time' (AOT).\n"
 "For example, GraalVM's Native Image runtime loads and analyses the bytecode of every single class needed by an application, including JDK runtime classes, 'Ahead Of Time' i.e. at image build time. It uses the type and method information encoded in that bytecode to 'Ahead Of Time' compile a complete program that includes code for every method that might possibly be executed by the application."
-msgstr ""
+msgstr "Una alternativa a hacer las cosas 'Just in Time' (JIT) es hacerlas 'Ahead Of Time' (AOT). Por ejemplo, el tiempo de ejecución de imagen nativa de GraalVM carga y analiza el código de bytes de cada una de las clases que necesita una aplicación, incluidas las clases de tiempo de ejecución del JDK, 'Ahead Of Time', es decir, en el momento de compilación de la imagen. Utiliza la información de tipo y método codificada en ese código de bytes para compilar 'Ahead Of Time' un programa completo que incluya código para cada método que posiblemente pueda ejecutar la aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "The approach of GraalVM's native images lies at one extreme: everything is done AOT, while the traditional Java runtime model lies at the other extreme, as much as possible is done JIT.\n"
 "However, it is actually possible to mix and match AOT and JIT models of execution in one runtime: re-balancing that AOT vs JIT mix is the goal of the first EA release of project Leyden."
-msgstr ""
+msgstr "El enfoque de las imágenes nativas de GraalVM se sitúa en un extremo: todo se hace AOT, mientras que el modelo de tiempo de ejecución tradicional de Java se sitúa en el otro extremo: todo lo posible se hace JIT. Sin embargo, en realidad es posible mezclar y combinar los modelos de ejecución AOT y JIT en un mismo tiempo de ejecución: reequilibrar esa mezcla AOT vs JIT es el objetivo de la primera versión EA del proyecto Leyden."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Interestingly, this time-shifting concept is also applied by Quarkus; we called it \"augmentation\" and essentially consists in booting popular frameworks during the build time of the application, to not incur such performance penalties at runtime."
-msgstr ""
+msgstr "Curiosamente, este concepto de desplazamiento en el tiempo también lo aplica Quarkus; nosotros lo llamamos \"aumento\" y consiste esencialmente en arrancar frameworks populares durante el tiempo de compilación de la aplicación, para no incurrir en esas penalizaciones de rendimiento en tiempo de ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "A native image build might also take advantage of Profile Guided Optimisations (PGO), which allows it to leverage some data about what's presumably happening at runtime back into the compilation process, guiding its optimisations.\n"
 "It's essentially peeking into the future - another form of time-shifting.\n"
 "However, it's only peeking into a simulation of runtime metrics, and ultimately, the compiler still needs to make all optimisation tradeoffs Ahead Of Time; this has pros and cons. The primary disadvantage is that any suboptimal decision is cast in stone; luckily there is a fallback mechanism to recover from outright bad decisions, but this mechanism cannot produce new optimal code. The advantage is more decisive for short-lived applications as the tradeoff of carrying all support for JIT optimisations in the runtime is less justifiable when there is barely an opportunity to take advantage of it."
-msgstr ""
+msgstr "Una compilación de imagen nativa también podría aprovechar las optimizaciones guiadas por perfil (PGO), que le permiten aprovechar algunos datos sobre lo que presumiblemente está ocurriendo en tiempo de ejecución de nuevo en el proceso de compilación, guiando sus optimizaciones. En esencia, se trata de echar un vistazo al futuro, otra forma de desplazamiento temporal. Sin embargo, sólo está atisbando una simulación de las métricas en tiempo de ejecución y, en última instancia, el compilador sigue teniendo que realizar todas las compensaciones de optimización con antelación; esto tiene pros y contras. La principal desventaja es que cualquier decisión subóptima está grabada en piedra; por suerte, existe un mecanismo de emergencia para recuperarse de decisiones totalmente erróneas, pero este mecanismo no puede producir un nuevo código óptimo. La ventaja es más decisiva para las aplicaciones de corta duración, ya que el compromiso de llevar todo el soporte para las optimizaciones JIT en el tiempo de ejecución es menos justificable cuando apenas hay oportunidad de aprovecharlo."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "On a default Java compilation and run, we have two distinct phases: First we compile the source code into bytecode. And then we use that bytecode to run the application."
-msgstr ""
+msgstr "En una compilación y ejecución de Java por defecto, tenemos dos fases distintas: Primero compilamos el código fuente en bytecode. Y después utilizamos ese bytecode para ejecutar la aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Class Data Sharing (CDS) as a step to AOT Caching"
-msgstr ""
+msgstr "Compartir datos de clase (CDS) como paso previo al almacenamiento en caché AOT"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Shifting work so it is done AOT is not a wholly new idea as far as the OpenJDK runtime is concerned. OpenJDK has supported a hybrid AOT/JIT class loading model for years with CDS. The observation that led to https://docs.oracle.com/en/java/javase/21/vm/class-data-sharing.html[Class Data Sharing (CDS)] being proposed was that most applications load the same classes every time they run, both JDK classes during JDK bootstrap and application classes during application startup and warmup."
-msgstr ""
+msgstr "Desplazar el trabajo para que se realice AOT no es una idea totalmente nueva en lo que respecta al tiempo de ejecución de OpenJDK. OpenJDK ha soportado un modelo híbrido de carga de clases AOT/JIT durante años con CDS. La observación que llevó a proponer link:https://docs.oracle.com/en/java/javase/21/vm/class-data-sharing.html[el uso compartido de datos de clases (CDS)] fue que la mayoría de las aplicaciones cargan las mismas clases cada vez que se ejecutan, tanto las clases del JDK durante el arranque del JDK como las clases de la aplicación durante el inicio y el calentamiento de la aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Loading requires locating a class bytecode file, possibly calling out to a Java ClassLoader, parsing the bytecode then building a JVM-internal model of the class. This internal model unpacks the information packed into the bytecode into a format that enables fast interpreted or compiled execution. If this loading and unpacking work could be done once and the resulting class model efficiently reused on subsequent runs, then that would save time during startup and warm up."
-msgstr ""
+msgstr "La carga requiere localizar un archivo de bytecode de clase, posiblemente llamar a un Java ClassLoader, analizar el bytecode y luego construir un modelo interno de la JVM de la clase. Este modelo interno desempaqueta la información empaquetada en el bytecode en un formato que permite una rápida ejecución interpretada o compilada. Si este trabajo de carga y desempaquetado pudiera realizarse una vez y el modelo de clase resultante pudiera reutilizarse de forma eficiente en ejecuciones posteriores, se ahorraría tiempo durante el arranque y el calentamiento."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Initially CDS optimized loading for a large set of core JDK classes. It worked by booting the JVM and dumping the class model for all classes loaded during startup into an archive file laid out in memory format. The resulting JDK module, class, field, and method graph can then be quickly remapped into memory next time the JVM runs. Loading a class that is present in the archive involves a simple lookup in the AOT class model. Loading a class not present in the archive requires the normal JIT steps of bytecode lookup, parsing and unpacking i.e. CDS implements a hybrid JIT/AOT execution model."
-msgstr ""
+msgstr "Inicialmente, CDS optimizaba la carga de un gran conjunto de clases básicas del JDK. Funcionaba arrancando la JVM y volcando el modelo de clases para todas las clases cargadas durante el arranque en un fichero de archivo dispuesto en formato de memoria. El gráfico resultante de módulos, clases, campos y métodos del JDK puede entonces reasignarse rápidamente a la memoria la próxima vez que se ejecute la JVM. Cargar una clase que está presente en el archivo implica una simple búsqueda en el modelo de clases AOT. Cargar una clase que no está presente en el archivo requiere los pasos JIT normales de búsqueda, análisis sintáctico y desempaquetado del código byte, es decir, CDS implementa un modelo de ejecución híbrido JIT/AOT."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Static CDS archives are built during the JVM installation and includes classes from the core libraries. This archive can be used to move part of the class loading to AOT when running the application."
-msgstr ""
+msgstr "Los archivos CDS estáticos se construyen durante la instalación de la JVM e incluyen clases de las bibliotecas centrales. Este archivo puede utilizarse para trasladar parte de la carga de clases a AOT al ejecutar la aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "A default CDS archive for JDK runtime classes has been shipped with every JVM release since JDK17, halving JDK startup time. Improvements were made to CDS to allow application classes to be included in a CDS archive after executing a short application training run. The resulting mixed AOT/JIT operation can provide significant improvements to application startup and warmup times, depending on how well the training run exercises application code. So, selective JIT/AOT operation is not some new thing."
-msgstr ""
+msgstr "Se ha incluido un archivo CDS por defecto para las clases en tiempo de ejecución del JDK con cada versión del JVM desde el JDK17, lo que reduce a la mitad el tiempo de inicio del JDK. Se han introducido mejoras en CDS para permitir que las clases de aplicación se incluyan en un archivo CDS después de ejecutar una breve ejecución de entrenamiento de la aplicación. La operación mixta AOT/JIT resultante puede proporcionar mejoras significativas en los tiempos de arranque y calentamiento de la aplicación, dependiendo de lo bien que la ejecución de entrenamiento ejercite el código de la aplicación. Así pues, el funcionamiento JIT/AOT selectivo no es algo nuevo."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "When doing training runs, we create an archive that contains information on how the application runs. This archive includes not only classes from the core libraries, but also classes from our application."
-msgstr ""
+msgstr "Cuando realizamos ejecuciones de entrenamiento, creamos un archivo que contiene información sobre cómo se ejecuta la aplicación. Este archivo incluye no sólo clases de las bibliotecas centrales, sino también clases de nuestra aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Quarkus makes it really easy to generate CDS archives specific to your application code; this feature has been around since some years already: see the https://quarkus.io/guides/appcds[AppCDS guide in Quarkus].\n"
 "As Leyden is coming, we aim to evolve this further and fully automate it for Leyden as well, so to get you even more benefits at no additional hassle."
-msgstr ""
+msgstr "Quarkus facilita enormemente la generación de archivos CDS específicos para el código de su aplicación; esta característica ya existe desde hace algunos años: consulte la link:https://quarkus.io/guides/appcds[guía AppCDS en Quarkus] . Con la llegada de Leyden, pretendemos que esto evolucione aún más y automatizarlo completamente también para Leyden, de modo que pueda obtener aún más ventajas sin molestias adicionales."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "The goal of Project Leyden is extending the AOT vs JIT trade-off from class loading (as done by CDS) to other JIT operations in the JVM; there's a number of operations which could be \"moved in time\" to AOT, such as creation of heap objects to represent constants, gathering execution profile information, and many more.\n"
 "Most importantly, it's moving AOT the lazy linking that normally happens during interpreted execution and the lazy compilation and recompilation that happens when methods have been executed enough times to justify the cost of compilation."
-msgstr ""
+msgstr "El objetivo del proyecto Leyden es ampliar la disyuntiva entre AOT y JIT desde la carga de clases (como hace CDS) a otras operaciones JIT en la JVM; hay una serie de operaciones que podrían \"trasladarse en el tiempo\" a AOT, como la creación de objetos de montón para representar constantes, la recopilación de información del perfil de ejecución y muchas más. Y lo que es más importante, está trasladando a AOT el enlazado perezoso que se produce normalmente durante la ejecución interpretada y la compilación y recompilación perezosa que se produce cuando los métodos se han ejecutado suficientes veces como para justificar el coste de la compilación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "AOT vs JIT Linkage"
-msgstr ""
+msgstr "Enlace AOT vs JIT"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Linking of classes is another operation that the JVM does lazily. When class bytecode is processed the class is directly linked to its owning module and its owned methods and fields. JIT linkage connects elements of each independent, linked class sub-graph into a fully connected graph where elements from different (class or module) files cross-reference each other."
-msgstr ""
+msgstr "La vinculación de clases es otra operación que la JVM realiza perezosamente. Cuando se procesa el código de bytes de la clase, ésta se vincula directamente a su módulo propietario y a sus métodos y campos propios. El enlazado JIT conecta los elementos de cada subgrafo de clase independiente y enlazado en un grafo totalmente conectado en el que los elementos de diferentes archivos (de clase o módulo) hacen referencias cruzadas entre sí."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Loading and linking needs to proceed recursively. As one example, every class (except Object) needs to be linked to its super class. Super linkage cannot complete without ensuring the super class is loaded. Indeed, if the super's bytecode cannot be found or is not valid (say it identifies an interface not a class) then a linkage error may occur. Likewise, a new operation or a field get/put operation occurring in some method's bytecode can only be linked after loading the class (and field) named in the new bytecode."
-msgstr ""
+msgstr "La carga y la vinculación deben realizarse de forma recursiva. Por ejemplo, cada clase (excepto Object) necesita estar vinculada a su superclase. La supervinculación no puede completarse sin asegurarse de que la superclase está cargada. De hecho, si el código de bytes de la super no puede encontrarse o no es válido (digamos que identifica una interfaz y no una clase), puede producirse un error de vinculación. Del mismo modo, una nueva operación o una operación get/put de campo que se produzca en el bytecode de algún método sólo podrá vincularse después de cargar la clase (y el campo) nombrados en el nuevo bytecode."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Linking is sometimes, but not always, done lazily. Indeed, it is necessary to do some linkage lazily in order to allow loading also to be lazy, otherwise the whole class graph would end up being linked and loaded as soon as the main routine was entered. Super linkage is always done eagerly at the point where the subclass has just been loaded. That is because it is not possible to use a subclass to create instances or execute methods without knowing how the superclass is defined. By contrast, field and method linkage is done lazily. In these cases linkage happens as a side-effect of execution. When a method executes a field get/put or method invoke bytecode for the first time the target field or method is looked up via its owner class, loading it if necessary. The field type or method signature is checked for consistency and details of where to find the field or how to call the method are cached, allowing the next execution of the bytecode to bypass the linkage step."
-msgstr ""
+msgstr "La vinculación se realiza a veces, pero no siempre, de forma perezosa. De hecho, es necesario realizar algún enlazado perezosamente para permitir que la carga también sea perezosa, ya que de lo contrario todo el grafo de clases acabaría siendo enlazado y cargado en cuanto se entrara en la rutina principal. La supervinculación se realiza siempre de forma ansiosa en el punto en el que se acaba de cargar la subclase. Esto se debe a que no es posible utilizar una subclase para crear instancias o ejecutar métodos sin saber cómo está definida la superclase. Por el contrario, la vinculación de campos y métodos se realiza de forma perezosa. En estos casos, la vinculación se produce como un efecto secundario de la ejecución. Cuando un método ejecuta un bytecode get/put de campo o invoca un método por primera vez, se busca el campo o método de destino a través de su clase propietaria, cargándolo si es necesario. Se comprueba la coherencia del tipo de campo o la firma del método y se almacenan en caché los detalles de dónde encontrar el campo o cómo llamar al método, lo que permite que la siguiente ejecución del código de bytes se salte el paso de vinculación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "As with lazy loading, this lazy approach results in almost the exact same linkage being established on every run. The time spent stopping and restarting execution to lazily connect the class graph comprises a noticeable percentage of JDK startup, application startup and application warm up (time to peak running). We could speed up startup and, more crucially, warm up time if we could pre-compute this linkage and avoid the need to establish it at runtime."
-msgstr ""
+msgstr "Al igual que con la carga perezosa, este enfoque perezoso hace que se establezca casi exactamente la misma vinculación en cada ejecución. El tiempo empleado en detener y reiniciar la ejecución para conectar perezosamente el grafo de clases comprende un porcentaje notable del arranque del JDK, del arranque de la aplicación y del calentamiento de la aplicación (tiempo hasta el pico de ejecución). Podríamos acelerar el arranque y, lo que es más importante, el tiempo de calentamiento si pudiéramos precalcular esta vinculación y evitar la necesidad de establecerla en tiempo de ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Synergy with Quarkus"
-msgstr ""
+msgstr "Sinergia con Quarkus"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Loading and linking of classes is an important step in the warm up of the application because it involves searching through the whole classpath for all classes and objects referenced by the bytecode the JVM is going to run. By default, this is done as a lazy operation because loading and linking all existing classes in the classpath would not only require a bigger memory footprint, but also a bigger warm up time. This is why the JVM only compiles and links the bytecode that is going to be used."
-msgstr ""
+msgstr "La carga y vinculación de clases es un paso importante en el calentamiento de la aplicación porque implica buscar en todo el classpath todas las clases y objetos referenciados por el código de bytes que la JVM va a ejecutar. Por defecto, esto se hace como una operación perezosa porque cargar y enlazar todas las clases existentes en el classpath no sólo requeriría una mayor huella de memoria, sino también un mayor tiempo de calentamiento. Por ello, la JVM sólo compila y enlaza el bytecode que se va a utilizar."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "This is a process that Quarkus already speeds up by, among other strategies, aggressively reducing the set of classes included in the classpath, so the search for matches is faster. The search for classes is also accelerated by indexes which Quarkus can generate when it fully analyzes the application at build time. But it is still a heavy operation that is difficult to execute ahead of time, before we know what is going to be run and how. Quarkus might be able to provide some additional hints to the linker in the future."
-msgstr ""
+msgstr "Este es un proceso que Quarkus ya acelera, entre otras estrategias, reduciendo agresivamente el conjunto de clases incluidas en el classpath, de modo que la búsqueda de coincidencias es más rápida. La búsqueda de clases también se acelera mediante índices que Quarkus puede generar cuando analiza completamente la aplicación en el momento de la compilación. Pero sigue siendo una operación pesada y difícil de ejecutar con antelación, antes de saber qué se va a ejecutar y cómo. Quarkus podría proporcionar algunas pistas adicionales al enlazador en el futuro."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The first improvement Leyden is offering to improve startup time is to upgrade the AOT model originally developed as part of the CDS project to encompass not just pre-loading of classes but also pre-linking, as described in https://openjdk.org/jeps/8315737[JEP Ahead-of-Time Class Linking]."
-msgstr ""
+msgstr "La primera mejora que Leyden ofrece para mejorar el tiempo de arranque consiste en actualizar el modelo AOT desarrollado originalmente como parte del proyecto CDS para abarcar no sólo la carga previa de clases, sino también la vinculación previa, como se describe en link:https://openjdk.org/jeps/8315737[JEP Ahead-of-Time Class Linking] ."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "An AOT Cache can be generated during a training run that bootstraps the JVM and, optionally, executes application-specific code.\n"
 "As with a CDS archive, the AOT Cache stores a class graph for all classes loaded during the training run in a format that allows it to be quickly remapped on a subsequent run. The stored graph also includes any linkage information established by code executed during the training run. Pre-cached links avoid the need to stop and start execution to perform linkage on subsequent runs."
-msgstr ""
+msgstr "Se puede generar una caché AOT durante una ejecución de entrenamiento que arranque la JVM y, opcionalmente, ejecute código específico de la aplicación. Al igual que con un archivo CDS, la caché AOT almacena un gráfico de clases para todas las clases cargadas durante la ejecución de entrenamiento en un formato que permite reasignarlo rápidamente en una ejecución posterior. El gráfico almacenado también incluye cualquier información de enlace establecida por el código ejecutado durante la ejecución de entrenamiento. Los vínculos prealmacenados evitan la necesidad de detener e iniciar la ejecución para realizar la vinculación en ejecuciones posteriores."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Leyden's AOT Cache contains a lot more pre-generated content that allows us to move part of the load, link, and compiling to AOT, allowing for faster startup and warm up of the application."
-msgstr ""
+msgstr "La caché AOT de Leyden contiene mucho más contenido pregenerado que nos permite trasladar parte de la carga, el enlace y la compilación a AOT, lo que permite un arranque y un calentamiento más rápidos de la aplicación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Remember that the training run enables some of the loading and linking to be done AOT but that anything not trained for will still be performed via the regular JIT process: the AOT approach is not required to be applied comprehensively, so that the JVM can fallback to the regular loading system for the use cases which can not benefit from AOT processing.\n"
 "This ability to fallback to \"regular JIT processing\" is a luxury that GraalVM native images can't use."
-msgstr ""
+msgstr "Recuerde que la ejecución de entrenamiento permite que parte de la carga y el enlace se realicen AOT, pero que todo aquello para lo que no se realice el entrenamiento seguirá realizándose mediante el proceso JIT regular: no se requiere que el enfoque AOT se aplique de forma exhaustiva, de modo que la JVM pueda recurrir al sistema de carga regular para los casos de uso que no puedan beneficiarse del procesamiento AOT. Esta capacidad de recurrir al \"procesamiento JIT regular\" es un lujo que las imágenes nativas de GraalVM no pueden utilizar."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "JIT vs AOT Compilation"
-msgstr ""
+msgstr "Compilación JIT vs AOT"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Another well-known lazy operation the JVM performs is JIT (runtime) compilation. Method bytecode is normally interpreted, but the JVM will lazily translate bytecode to equivalent machine code.\n"
 "Since generating optimal machine code is an expensive operation, it performs this compilation task selectively, only bothering to compile methods that have been invoked quite a few times."
-msgstr ""
+msgstr "Otra conocida operación perezosa que realiza la JVM es la compilación JIT (en tiempo de ejecución). El bytecode de los métodos se interpreta normalmente, pero la JVM traducirá perezosamente el bytecode a un código máquina equivalente. Dado que generar un código máquina óptimo es una operación costosa, realiza esta tarea de compilación de forma selectiva, molestándose únicamente en compilar los métodos que han sido invocados bastantes veces."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "JIT compilation is also 'adaptive' i.e. the JVM will lazily recompile some methods, using different 'tiers' or levels of compilation."
-msgstr ""
+msgstr "La compilación JIT también es 'adaptativa', es decir, la JVM recompilará perezosamente algunos métodos, utilizando diferentes 'tiers' o niveles de compilación."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "A tier 1 compile generates code that is only lightly optimised, based on very limited execution profile data."
-msgstr ""
+msgstr "Una compilación de nivel 1 genera código que sólo está ligeramente optimizado, basándose en datos muy limitados del perfil de ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "A tier 2 compile also generates lightly optimized code but instruments it to profile control flow."
-msgstr ""
+msgstr "Una compilación de nivel 2 también genera código ligeramente optimizado, pero lo instrumenta para perfilar el flujo de control."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Tier 3 compilation adds further instrumentation that records many more details about what gets executed, including with what type of values."
-msgstr ""
+msgstr "La compilación de nivel 3 añade más instrumentación que registra muchos más detalles sobre lo que se ejecuta, incluido con qué tipo de valores."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "A tier 4 compile uses all gathered profile information and performs a great deal of optimization."
-msgstr ""
+msgstr "Una compilación de nivel 4 utiliza toda la información de perfil recopilada y realiza una gran optimización."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Tier 1 - 3 compilations omit many possible optimizations in order to deliver compiled code quickly. A tier 4 compilation can take much longer to complete so it is only attempted for a small subset of very frequently executed methods."
-msgstr ""
+msgstr "Las compilaciones de nivel 1 a 3 omiten muchas optimizaciones posibles con el fin de entregar el código compilado rápidamente. Una compilación de nivel 4 puede tardar mucho más en completarse, por lo que sólo se intenta para un pequeño subconjunto de métodos ejecutados con mucha frecuencia."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "Sometimes, the code is compiled with substantial optimisations based on 'speculative' assumptions extrapolated from the profiling data.\n"
 "In such cases, the compiler will make an optimistic assumption about a condition to be consistently true in the future yet include an efficient check to verify the assumption during execution so that the semantics of the program are not affected in case this educated guess eventually turns out to be false; when this is detected, the code is de-optimised, returning at a previous tier of compilation and the profiling data is adjusted, so that it will eventually be recompiled with better information.\n"
 "Essentially, some parts of code might get recompiled multiple times and occasionally revert to a lower tier: it's an highly dynamic process."
-msgstr ""
+msgstr "A veces, el código se compila con optimizaciones sustanciales basadas en suposiciones \"especulativas\" extrapoladas de los datos de perfilado. En estos casos, el compilador hará una suposición optimista sobre una condición que se cumplirá sistemáticamente en el futuro, pero incluirá una comprobación eficiente para verificar la suposición durante la ejecución, de modo que la semántica del programa no se vea afectada en caso de que esta suposición educada resulte finalmente falsa; cuando se detecta esto, el código se desoptimiza, volviendo a un nivel anterior de compilación y se ajustan los datos de perfilado, de modo que finalmente se recompile con mejor información. Esencialmente, algunas partes del código pueden recompilarse varias veces y volver ocasionalmente a un nivel inferior: es un proceso muy dinámico."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Peak optimization is reached when most of the running code is compiled at the highest tier, and background compilation activities become very rare or, ideally, none at all."
-msgstr ""
+msgstr "El pico de optimización se alcanza cuando la mayor parte del código en ejecución se compila en el nivel más alto, y las actividades de compilación en segundo plano pasan a ser muy escasas o, en el mejor de los casos, nulas."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Compiling code for peak performance also requires quite some resources, so performing this work ahead of time can also save precious CPU cycles during the application bootstrap, and can manifest in substantial memory savings as well: Java developers aren't used to measure the memory costs of the JIT compiler, but the fact that it's hidden doesn't imply it's non-existent; and while this might be a detail for large enterprise servers, it's quite important to be aware of such resource costs when developing microservices or simply aiming for smaller, more power efficient targets."
-msgstr ""
+msgstr "Compilar el código para obtener el máximo rendimiento también requiere bastantes recursos, por lo que realizar este trabajo con antelación también puede ahorrar valiosos ciclos de CPU durante el arranque de la aplicación, y puede manifestarse también en un ahorro sustancial de memoria: Los desarrolladores Java no están acostumbrados a medir los costes de memoria del compilador JIT, pero el hecho de que esté oculto no implica que sea inexistente; y aunque esto puede ser un detalle para los grandes servidores empresariales, es bastante importante ser consciente de estos costes de recursos cuando se desarrollan microservicios o simplemente se aspira a objetivos más pequeños y eficientes desde el punto de vista energético."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "But there are some limitations on what we can optimise before runtime just by examining the bytecode. For example, extensive use of reflection prevents the compiler from predicting which symbols will be loaded, linked, and most used at runtime."
-msgstr ""
+msgstr "Pero existen algunas limitaciones sobre lo que podemos optimizar antes del tiempo de ejecución simplemente examinando el código de bytes. Por ejemplo, el uso extensivo de la reflexión impide al compilador predecir qué símbolos se cargarán, enlazarán y utilizarán más en tiempo de ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The Leyden project has already sucessfully prototyped shifting the work of method compilation from JIT to AOT. Execution and compilation of methods is tracked during the training run. At the end of the run any associated profiling information and compiled code for the method are saved to the AOT Cache, allowing them to be quickly mapped back into memory and reused when the application is next run."
-msgstr ""
+msgstr "El proyecto Leyden ya ha prototipado con éxito el desplazamiento del trabajo de compilación de métodos de JIT a AOT. La ejecución y compilación de los métodos se rastrea durante la ejecución de entrenamiento. Al final de la ejecución, toda la información de perfiles asociada y el código compilado para el método se guardan en la caché AOT, lo que permite volver a asignarlos rápidamente a la memoria y reutilizarlos cuando se ejecute la aplicación de nuevo."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "As with AOT loading and linking, the training run enables some of the work of profiling and compiling to be done AOT but allows anything not trained still to be compiled via the regular JIT compilation process. Note that method code does not need to have been compiled at the highest tier in order to be saved. Also, when code compiled at a lower tier is restored it can still be recompiled at a higher level."
-msgstr ""
+msgstr "Al igual que con la carga y vinculación AOT, la ejecución de entrenamiento permite que parte del trabajo de creación de perfiles y compilación se realice AOT, pero permite que todo lo que no se haya entrenado aún se compile mediante el proceso de compilación JIT normal. Tenga en cuenta que no es necesario que el código del método se haya compilado en el nivel más alto para que se pueda guardar. Además, cuando se restaura el código compilado en un nivel inferior, aún puede recompilarse en un nivel superior."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Compiled code can also be deoptimized and re-optimized to adapt to different runtime conditions, just as with code compiled in the current runtime. So, the use of AOT compilation is fully integrated into OpenJDK's adaptive, dynamic compilation and recompilation model: even if some assumptions made during AOT compilation turn out to be suboptimal, the just-in-time compiler can intervene at runtime and improve the code with the new information."
-msgstr ""
+msgstr "El código compilado también puede ser desoptimizado y reoptimizado para adaptarse a las diferentes condiciones del tiempo de ejecución, al igual que ocurre con el código compilado en el tiempo de ejecución actual. Así pues, el uso de la compilación AOT está plenamente integrado en el modelo adaptativo y dinámico de compilación y recompilación de OpenJDK: incluso si algunas suposiciones realizadas durante la compilación AOT resultan ser subóptimas, el compilador \"justo a tiempo\" puede intervenir en tiempo de ejecución y mejorar el código con la nueva información."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "How to play with it"
-msgstr ""
+msgstr "Cómo jugar con él"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The first step would be to install one of the early Leyden builds that you can find at https://jdk.java.net/leyden/[jdk.java.net/leyden/]."
-msgstr ""
+msgstr "El primer paso sería instalar una de las primeras compilaciones de Leyden que puede encontrar en link:https://jdk.java.net/leyden/[jdk.java.net/leyden/] ."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Make sure that you have installed it correctly by running the following command:"
-msgstr ""
+msgstr "Asegúrese de que lo ha instalado correctamente ejecutando el siguiente comando:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Go to the application you want to test Leyden with and start a first training run:"
-msgstr ""
+msgstr "Vaya a la aplicación con la que desea probar Leyden e inicie una primera ejecución de entrenamiento:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "This will generate the archive files with all the profiling information needed to speed up the production run."
-msgstr ""
+msgstr "Esto generará los ficheros de archivo con toda la información de perfilado necesaria para acelerar la ejecución de la producción."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Now that we have them, we can run our application using the Leyden enhancements:"
-msgstr ""
+msgstr "Ahora que los tenemos, podemos ejecutar nuestra aplicación utilizando las mejoras de Leyden:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Potentially needed workarounds"
-msgstr ""
+msgstr "Soluciones potencialmente necesarias"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Since it’s early days for the Leyden project, there are some known issues. The following instructions shouldn’t be necessary for the final versions but you might need them today."
-msgstr ""
+msgstr "Como es pronto para el proyecto Leyden, hay algunos problemas conocidos. Las siguientes instrucciones no deberían ser necesarias para las versiones finales, pero puede que las necesite hoy."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Force the use of G1GC"
-msgstr ""
+msgstr "Forzar el uso de G1GC"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "To benefit from the natively compiled code in AOT archives, the garbage collector used at runtime needs to match the same garbage collector used when you recorded the AOT archives."
-msgstr ""
+msgstr "Para beneficiarse del código compilado de forma nativa en los archivos AOT, el recolector de basura utilizado en tiempo de ejecución tiene que coincidir con el mismo recolector de basura utilizado cuando grabó los archivos AOT."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Remember that the JVM’s default choice of garbage collector is based on ergonomics; normally this is nice but it can cause some confusion in this case; for example if you build on a large server it will pick G1GC by default, but then when you run the application on a server with constrained memory it would, by default, pick SerialGC."
-msgstr ""
+msgstr "Recuerde que la elección por defecto del recolector de basura por parte de la JVM se basa en la ergonomía; normalmente esto está bien pero puede causar cierta confusión en este caso; por ejemplo si construye en un servidor grande elegirá G1GC por defecto, pero luego cuando ejecute la aplicación en un servidor con memoria restringida elegiría, por defecto, SerialGC."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "To avoid this mismatch it’s best to pick a garbage collector explicitly; and since several AOT related optimisations today only apply to G1, let’s enforce the use of G1GC."
-msgstr ""
+msgstr "Para evitar este desajuste es mejor elegir un recolector de basura explícitamente; y puesto que varias optimizaciones relacionadas con AOT hoy en día sólo se aplican a G1, vamos a imponer el uso de G1GC."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Force using G1GC:"
-msgstr ""
+msgstr "Forzar utilizando G1GC:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "N.B. you need to use this consistently on both the process generating the AOT archives and the runtime."
-msgstr ""
+msgstr "N.B. necesita utilizar esto de forma consistente tanto en el proceso que genera los archivos AOT como en el tiempo de ejecución."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Force the G1 Region sizes"
-msgstr ""
+msgstr "Forzar los tamaños de la región G1"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "As identified and reported by the Quarkus team to our colleagues working on Project Leyden, beyond enforcing a specific garbage collector, one should also ensure that the code stored in AOT archives is being generated with the same G1 region sizes as what’s going to be used at runtime, or one risks segmentation faults caused by it wrongly identifying regions.\n"
 "See https://bugs.openjdk.org/browse/JDK-8335440 for details, or simply set:"
-msgstr ""
+msgstr "Como identificó e informó el equipo de Quarkus a nuestros colegas que trabajan en el Proyecto Leyden, más allá de forzar un recolector de basura específico, también hay que asegurarse de que el código almacenado en los archivos AOT se está generando con los mismos tamaños de región G1 que lo que se va a utilizar en tiempo de ejecución, o se corre el riesgo de que se produzcan fallos de segmentación causados por una identificación errónea de las regiones. link:https://bugs.openjdk.org/browse/JDK-8335440[Consulte https://bugs.openjdk.org/browse/JDK-8335440] para más detalles, o simplemente configure:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Configure G1HeapRegionSize explicitly:"
-msgstr ""
+msgstr "Configure G1HeapRegionSize explícitamente:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Failure to terminate in containers"
-msgstr ""
+msgstr "Falta de terminación en contenedores"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "This issue has already been resolved, but in case you’re using an older version of project Leyden and it fails to exit on regular container termination, you might be affected by https://bugs.openjdk.org/browse/JDK-8333794[JDK-8333794]."
-msgstr ""
+msgstr "Este problema ya ha sido resuelto, pero en caso de que esté utilizando una versión anterior del proyecto Leyden y éste no salga al terminar el contenedor, podría estar afectado por link:https://bugs.openjdk.org/browse/JDK-8333794[JDK-8333794] ."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Workaround for JDK-8333794:"
-msgstr ""
+msgstr "Solución para JDK-8333794:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Current status of Project Leyden"
-msgstr ""
+msgstr "Estado actual del Proyecto Leyden"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "There are already experimental https://jdk.java.net/leyden/[early-access builds of Leyden] that can be tested based on https://openjdk.org/jeps/8315737[this draft JEP about Ahead-of-Time Class Linking]."
-msgstr ""
+msgstr "Ya existen link:https://jdk.java.net/leyden/[compilaciones] experimentales link:https://jdk.java.net/leyden/[de acceso] link:https://openjdk.org/jeps/8315737[anticipado] link:https://jdk.java.net/leyden/[de Leyden] que pueden probarse basándose en link:https://openjdk.org/jeps/8315737[este borrador JEP sobre la vinculación anticipada de clases] ."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "With the Leyden Project, the idea of leveraging a \"training run\" has been extended to a wider range of data structures embedded in the new AOT cache. Now the cache produced by the AOT process contains the following data:"
-msgstr ""
+msgstr "Con el proyecto Leyden, la idea de aprovechar una \"tirada de entrenamiento\" se ha extendido a una gama más amplia de estructuras de datos incrustadas en la nueva caché AOT. Ahora la caché producida por el proceso AOT contiene los siguientes datos:"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Class file events with historical data (Classes loaded and linked, Compilations)"
-msgstr ""
+msgstr "Eventos del archivo de clases con datos históricos (Clases cargadas y enlazadas, Compilaciones)"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Resolution of API points and indy (stored in constant pool images in the AOT archive). If you have lambdas in your code, they are captured here."
-msgstr ""
+msgstr "Resolución de puntos API e indy (almacenados en imágenes de pool constante en el archivo AOT). Si tiene lambdas en su código, se capturan aquí."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Pre-created constant objects in the Java heap (String and Class<?> constants)"
-msgstr ""
+msgstr "Objetos constantes creados previamente en el montón de Java (constantes String y Class<?>)"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Execution profiles and some compiled native code (all tiers)"
-msgstr ""
+msgstr "Perfiles de ejecución y algo de código nativo compilado (todos los niveles)"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Leyden is also a hot topic at the https://openjdk.org/projects/mlvm/jvmlangsummit/agenda.html[JVM Language Summit] this year; as soon as the recordings of the talks about Leyden are publicly available we'll add the links here."
-msgstr ""
+msgstr "Leyden también es un tema candente en la link:https://openjdk.org/projects/mlvm/jvmlangsummit/agenda.html[Cumbre sobre Lenguajes JVM] de este año; en cuanto las grabaciones de las charlas sobre Leyden estén disponibles públicamente añadiremos los enlaces aquí."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Some known limitations"
-msgstr ""
+msgstr "Algunas limitaciones conocidas"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "This is an experimental project being developed by multiple teams having different approaches and focuses. Limitations explained here are being worked on at the time of writing this blog post."
-msgstr ""
+msgstr "Se trata de un proyecto experimental que está siendo desarrollado por múltiples equipos con diferentes enfoques y enfoques. En el momento de escribir esta entrada de blog se está trabajando en las limitaciones que se explican aquí."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "One of the main issues is that functionality is currently only available for x86_64 and AArch64 architectures at the moment."
-msgstr ""
+msgstr "Uno de los principales problemas es que, de momento, la funcionalidad sólo está disponible para las arquitecturas x86_64 y AArch64."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Also, current developments rely on a flat classpath. If the application is using custom classloaders, then it may not benefit as much as it could as it may miss caching many classes."
-msgstr ""
+msgstr "Además, los desarrollos actuales se basan en un classpath plano. Si la aplicación utiliza cargadores de clases personalizados, puede que no se beneficie todo lo que podría, ya que podría perderse el almacenamiento en caché de muchas clases."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The same happens if the application is intensively using reflection. Quarkus avoids reflection whenever possible, preferring to resolve reflective calls at build time as well - so there’s a nice synergy at play."
-msgstr ""
+msgstr "Lo mismo ocurre si la aplicación utiliza intensivamente la reflexión. Quarkus evita la reflexión siempre que sea posible, prefiriendo resolver las llamadas reflexivas en tiempo de compilación también - por lo que hay una agradable sinergia en juego."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "However Quarkus in “fast-jar” mode, which is the default packaging mode, will use a custom classloader which currently would get in the way of some Leyden optimisations. One could use a different packaging mode in Quarkus to get more prominent benefits from Leyden, but doing so would disable other Quarkus optimisations, so the comparison wouldn’t be entirely fair today.\n"
 "We hope to work on improvements in this area to have all possible benefits, combined."
-msgstr ""
+msgstr "Sin embargo, Quarkus en modo \"fast-jar\", que es el modo de empaquetado por defecto, utilizará un cargador de clases personalizado que actualmente se interpondría en el camino de algunas optimizaciones de Leyden. Se podría utilizar un modo de empaquetado diferente en Quarkus para obtener beneficios más destacados de Leyden, pero al hacerlo se desactivarían otras optimizaciones de Quarkus, por lo que la comparación no sería del todo justa en la actualidad. Esperamos trabajar en mejoras en esta área para tener todos los beneficios posibles, combinados."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The focus on these first early releases has been on bootstrap times. There are measurable, significant startup time improvements, due to AOT loading and linking. In some cases, these improvements on startup time have worsened the memory footprint of some applications. That’s an already known issue that is being worked on, and the expected outcome is to improve memory footprint as well, so we would suggest not worrying too much about total memory consumption at this stage."
-msgstr ""
+msgstr "La atención en estas primeras versiones se ha centrado en los tiempos de arranque. Hay mejoras medibles y significativas en el tiempo de arranque, debido a la carga y vinculación de AOT. En algunos casos, estas mejoras en el tiempo de arranque han empeorado la huella de memoria de algunas aplicaciones. Se trata de un problema ya conocido en el que se está trabajando, y el resultado esperado es mejorar también la huella de memoria, por lo que sugeriríamos no preocuparse demasiado por el consumo total de memoria en esta fase."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Since the AOT archives include machine specific optimisations such as the native code generated by the C2 compiler, the training run and the production run must be done on the same type of hardware and JDK versions; it also requires using the same JAR-based classpaths and the same command line options."
-msgstr ""
+msgstr "Dado que los archivos AOT incluyen optimizaciones específicas de la máquina, como el código nativo generado por el compilador C2, la ejecución de entrenamiento y la de producción deben realizarse en el mismo tipo de hardware y versiones de JDK; también es necesario utilizar las mismas rutas de clase basadas en JAR y las mismas opciones de línea de comandos."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Although the training run can use a different Main class to the one used for running the application, for example a test class that simulates usage."
-msgstr ""
+msgstr "Aunque la ejecución de entrenamiento puede utilizar una clase principal diferente a la utilizada para ejecutar la aplicación, por ejemplo una clase de prueba que simule el uso."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "What is on the roadmap for Leyden?"
-msgstr ""
+msgstr "¿Qué hay en la hoja de ruta de Leyden?"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "There’s still work to be done regarding classes that can’t be loaded and linked in AOT with the current implementation. For example, classes loaded using a user-defined class loader. There’s also room to improve the way the training runs are made, maybe allowing the user to tweak the results to influence decisions."
-msgstr ""
+msgstr "Aún queda trabajo por hacer respecto a las clases que no pueden cargarse y enlazarse en AOT con la implementación actual. Por ejemplo, las clases cargadas mediante un cargador de clases definido por el usuario. También hay margen para mejorar la forma en que se realizan las ejecuciones de entrenamiento, tal vez permitiendo al usuario ajustar los resultados para influir en las decisiones."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Currently, the https://bugs.openjdk.org/browse/JDK-8326035[Z Garbage Collector] does not support AOT object archiving. There is an active effort to make sure all Garbage Collectors are compatible with these enhancements."
-msgstr ""
+msgstr "Actualmente, el link:https://bugs.openjdk.org/browse/JDK-8326035[Recolector de Basura Z] no es compatible con el archivado de objetos AOT. Hay un esfuerzo activo para asegurarse de que todos los Recolectores de Basura sean compatibles con estas mejoras."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "There are also other things planned in the roadmap for Leyden, like adding condensers. https://openjdk.org/projects/leyden/notes/03-toward-condensers[Condensers] will be composable transformers of the source code in AOT that modify the source code optimising it. Each developer will be able to define a pipeline of condensers that improves their source code before compiling it into bytecode; this is very interesting to the Quarkus team but condensers aren’t available yet."
-msgstr ""
+msgstr "También hay otras cosas previstas en la hoja de ruta para Leyden, como añadir condensadores. link:https://openjdk.org/projects/leyden/notes/03-toward-condensers[Los condensadores] serán transformadores componibles del código fuente en AOT que modificarán el código fuente optimizándolo. Cada desarrollador podrá definir un pipeline de condensadores que mejore su código fuente antes de compilarlo en bytecode; esto es muy interesante para el equipo de Quarkus, pero los condensadores aún no están disponibles."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The OpenJDK team is actively extending the range of compiled code that can be saved to and restored from the AOT cache. Our colleagues from Red Hat’s OpenJDK team are directly involved in this effort, looking into save and restore of auxiliary code that is normally generated at runtime and used to provide optimized code for 'intrinsic' methods or to link compiled Java method code to the compiled C code that implements the JVM, the interpreter and other compiled C libraries."
-msgstr ""
+msgstr "El equipo de OpenJDK está ampliando activamente la gama de código compilado que puede guardarse y restaurarse desde la caché AOT. Nuestros colegas del equipo OpenJDK de Red Hat están directamente implicados en este esfuerzo, estudiando la posibilidad de guardar y restaurar código auxiliar que normalmente se genera en tiempo de ejecución y se utiliza para proporcionar código optimizado para métodos \"intrínsecos\" o para enlazar código de método Java compilado con el código C compilado que implementa la JVM, el intérprete y otras bibliotecas C compiladas."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Will Leyden replace GraalVM's native-image capabilities?"
-msgstr ""
+msgstr "¿Reemplazará Leyden las capacidades de imagen nativa de GraalVM?"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The short answer is no."
-msgstr ""
+msgstr "La respuesta corta es no."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "If you want the absolute smallest footprint and ensure that absolutely no \"dynamic\" adaptations happen at runtime, GraalVM native images are the way to go. Just think about it: to support the dynamic aspects that the JVM normally provides,\n"
 "even in very minimal form, you would need some code which is able to perform this work, and some memory and some computational resources to run such code and adapt your runtime safely; this is a complex feature and will never be completely free, even in the case Leyden evolved significantly beyond the current plans."
-msgstr ""
+msgstr "Si desea la huella más pequeña absoluta y asegurarse de que no se produce absolutamente ninguna adaptación \"dinámica\" en tiempo de ejecución, las imágenes nativas de GraalVM son el camino a seguir. Piénselo: para soportar los aspectos dinámicos que la JVM proporciona normalmente, incluso de forma muy mínima, necesitaría algún código que sea capaz de realizar este trabajo, y algo de memoria y algunos recursos computacionales para ejecutar dicho código y adaptar su tiempo de ejecución de forma segura; esta es una característica compleja y nunca será completamente gratuita, incluso en el caso de que Leyden evolucionara significativamente más allá de los planes actuales."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The architecture of Quarkus enables developers to define an application in strict \"closed world\" style, and this approach works extremely well in combination with GraalVM native images, but the Quarkus design works indeed very well on the bigger, dynamic JVMs as well."
-msgstr ""
+msgstr "La arquitectura de Quarkus permite a los desarrolladores definir una aplicación en un estricto estilo de \"mundo cerrado\", y este enfoque funciona muy bien en combinación con las imágenes nativas de GraalVM, pero el diseño de Quarkus también funciona muy bien en las JVM más grandes y dinámicas."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The ability that Quarkus offers to create a closed world application doesn't imply that you should necessarily be doing so; in fact there are many applications which could benefit from a bit more dynamism, some more runtime configurability or auto-adaptability, and Quarkus also allows to create such applications while still benefiting from very substantial efficiency improvements over competing architectures, and even over competing runtimes and languages."
-msgstr ""
+msgstr "La capacidad que ofrece Quarkus para crear una aplicación de mundo cerrado no implica que deba hacerlo necesariamente; de hecho, hay muchas aplicaciones que podrían beneficiarse de un poco más de dinamismo, de algo más de configurabilidad en tiempo de ejecución o de autoadaptabilidad, y Quarkus también permite crear tales aplicaciones sin dejar de beneficiarse de mejoras de eficiencia muy sustanciales con respecto a las arquitecturas de la competencia, e incluso con respecto a los tiempos de ejecución y lenguajes de la competencia."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "We're very excited by Project Leyden as it allows to substantially improve bootstrap times, warmup times, and overall costs even for the \"regular\" JVM, so retaining all the benefits of a dynamic runtime and an adaptative JIT compiler, and this will be a fantastic option for all those applications for which a fully AOT native image might not be suitable: you'll get some of the benefits from native-image (not all of them) but essentially for free, at no drawbacks."
-msgstr ""
+msgstr "Estamos muy entusiasmados con el proyecto Leyden, ya que permite mejorar sustancialmente los tiempos de arranque, los tiempos de calentamiento y los costes generales incluso para la JVM \"normal\", conservando así todas las ventajas de un tiempo de ejecución dinámico y un compilador JIT adaptativo, y esto será una opción fantástica para todas aquellas aplicaciones para las que una imagen nativa totalmente AOT podría no ser adecuada: obtendrá algunas de las ventajas de la imagen nativa (no todas) pero esencialmente de forma gratuita, sin ningún inconveniente."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "We also hope it will bring better defined semantics in regards to running certain phases “ahead of time” (or later); there is a very interesting read on this topic by Mark Reinhold: https://openjdk.org/projects/leyden/notes/02-shift-and-constrain[Selectively Shifting and Constraining Computation] ; from a perspective of Quarkus developers, we can confirm that improvements in the language specification in this area would be very welcome, and also improve the quality and maintainability of applications compiled with GraalVM native-image(s)."
-msgstr ""
+msgstr "También esperamos que aporte una semántica mejor definida con respecto a la ejecución de ciertas fases \"antes de tiempo\" (o después); hay una lectura muy interesante sobre este tema de Mark Reinhold: link:https://openjdk.org/projects/leyden/notes/02-shift-and-constrain[Selectively Shifting and Constraining Computation] ; desde la perspectiva de los desarrolladores de Quarkus, podemos confirmar que las mejoras en la especificación del lenguaje en esta área serían muy bienvenidas, y también mejorarían la calidad y mantenibilidad de las aplicaciones compiladas con la(s) imagen(es) nativa(s) de GraalVM."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "For these reasons, Quarkus will definitely not deprecate support for native images; it's more plausible that, eventually, the \"full JVM\" will always be benefiting from Leyden powered improvements, and as usual we'll work to make these benefits work in synergy with our architecture, and at minimal effort for you all."
-msgstr ""
+msgstr "Por estas razones, Quarkus definitivamente no desaprovechará el soporte para imágenes nativas; es más plausible que, con el tiempo, la \"JVM completa\" siempre se beneficie de las mejoras impulsadas por Leyden, y como siempre trabajaremos para que estos beneficios funcionen en sinergia con nuestra arquitectura, y con el mínimo esfuerzo para todos ustedes."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "Essentially both the JVM and the native-image options are bound to benefit from this initiative. It's a great time to be a Java developer!"
-msgstr ""
+msgstr "Esencialmente, tanto la JVM como las opciones de imagen nativa están destinadas a beneficiarse de esta iniciativa. ¡Es un gran momento para ser desarrollador Java!"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "How can I make sure this will work for me?"
-msgstr ""
+msgstr "¿Cómo puedo asegurarme de que esto funcionará para mí?"
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "The best way to make sure your application benefits from Leyden is to start experimenting early and participate in the development. It would be great to add real-world feedback from a perspective of Quarkus users."
-msgstr ""
+msgstr "La mejor manera de asegurarse de que su aplicación se beneficia de Leyden es empezar a experimentar pronto y participar en el desarrollo. Sería estupendo añadir comentarios del mundo real desde la perspectiva de los usuarios de Quarkus."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid "If you spend some time testing your application with the https://jdk.java.net/leyden/[early-access builds of Leyden], and https://bugs.openjdk.org/browse/JDK-8332177?jql=issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20labels%20%3D%20leyden[reporting any bugs] or weird behaviour the developers will take your specificities into account."
-msgstr ""
+msgstr "Si dedica algún tiempo a probar su aplicación con las link:https://jdk.java.net/leyden/[primeras versiones de Leyden] e link:https://bugs.openjdk.org/browse/JDK-8332177?jql=issuetype%20%3D%20Bug%20AND%20status%20%3D%20Open%20AND%20labels%20%3D%20leyden[informa de cualquier fallo] o comportamiento extraño, los desarrolladores tendrán en cuenta sus especificidades."
 
 #: _posts/2024-08-06-quarkus-and-leyden.adoc
+#, fuzzy
 msgid ""
 "The OpenJDK issue tracker isn’t open to everyone, but you’re also very welcome to provide feedback on our https://quarkus.io/discussion/[Quarkus channels]; we can then relay any suggestions to our colleagues who are directly working on project Leyden.\n"
 "You can also use the https://mail.openjdk.org/mailman/listinfo/leyden-dev[Leyden mailing list]."
-msgstr ""
+msgstr "El rastreador de problemas de OpenJDK no está abierto a todo el mundo, pero también es muy bienvenido a proporcionar comentarios en nuestros link:https://quarkus.io/discussion/[canales de Quarkus] ; así podremos transmitir cualquier sugerencia a nuestros colegas que trabajan directamente en el proyecto Leyden. También puede utilizar la link:https://mail.openjdk.org/mailman/listinfo/leyden-dev[lista de correo de Leyden] ."
