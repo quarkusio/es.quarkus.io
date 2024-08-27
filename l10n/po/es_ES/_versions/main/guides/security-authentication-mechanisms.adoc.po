@@ -310,11 +310,37 @@ msgid ""
 "For more information, see the xref:http-reference.adoc#ssl[Supporting secure connections with SSL/TLS] section of the Quarkus \"HTTP reference\" guide."
 msgstr "Para utilizar este método de autenticación, primero debe habilitar SSL/TLS para su aplicación. Para más información, consulte la sección xref:http-reference.adoc#ssl[Soporte de conexiones seguras con SSL/TLS] de la guía \"Referencia HTTP\" de Quarkus."
 
-#. type: Plain text
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "After your application accepts secure connections, the next step is to configure the `quarkus.http.ssl.certificate.trust-store-file` property with the name of that file that holds all the certificates your application trusts. The specified file also includes information about how your application asks for certificates when a client, such as a browser or other service, tries to access one of its protected resources."
-msgstr "Después de que tu aplicación acepte conexiones seguras, el siguiente paso es configurar la propiedad `quarkus.http.ssl.certificate.trust-store-file` con el nombre del archivo que contiene todos los certificados en los que confía tu aplicación. El archivo especificado también incluye información sobre cómo tu aplicación solicita certificados cuando un cliente, como un navegador u otro servicio, intenta acceder a uno de sus recursos protegidos."
+msgid "After your application accepts secure connections, the next step is to configure the `quarkus.http.ssl.certificate.trust-store-file` property with the name of the file that holds all the certificates your application trusts. This file also includes information about how your application requests certificates when a client, such as a browser or another service, tries to access one of its protected resources."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Because JKS is no longer the default keystore and truststore format in Quarkus, the framework makes an educated guess based on the file extension:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`.pem`, `.crt`, and `.key` are read as PEM certificates and keys."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`.jks`, `.keystore`, and `.truststore` are read as JKS keystores and truststores."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`.p12`, `.pkcs12`, and `.pfx` are read as PKCS12 keystores and truststores."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "If your file does not use one of these extensions, you must set the format by using the following properties:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "JKS is becoming less commonly used. Since Java 9, the default keystore format in Java is PKCS12. The most significant difference between JKS and PKCS12 is that JKS is a format specific to Java. In contrast, PKCS12 is a standardized, language-neutral way of storing encrypted private keys and certificates."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Here is an example configuration for enabling mTLS:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-authentication-mechanisms.adoc
@@ -329,31 +355,20 @@ msgid "The truststore from which the trusted certificates are loaded."
 msgstr "El almacén de confianza desde el que se cargan los certificados de confianza."
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid ""
-"With the value set to `required`, the server demands client certificates.\n"
-"Set the value to `REQUEST` to allow the server to accept requests without a certificate.\n"
-"This setting is beneficial when supporting authentication methods besides mTLS."
-msgstr "Con el valor fijado en `required` , el servidor exige certificados de cliente. Establezca el valor en `REQUEST` para permitir que el servidor acepte peticiones sin certificado. Este ajuste es beneficioso cuando se admiten métodos de autenticación distintos de mTLS."
-
-#. type: Plain text
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "Defines a policy where only authenticated users should have access to resources from your application."
-msgstr "Define una política en la que sólo los usuarios autenticados deben tener acceso a los recursos de su aplicación."
+msgid "Setting `quarkus.http.ssl.client-auth` to `required` makes the server demand client certificates. You can set it to `REQUEST` if the server should accept requests without a certificate. This setting is useful when supporting multiple authentication methods besides mTLS."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid ""
-"You can explicitly disable the plain HTTP protocol, thus requiring all requests to use HTTPS.\n"
-"When you set `quarkus.http.ssl.client-auth` to `required`, the system automatically sets `quarkus.http.insecure-requests` to `disabled`."
-msgstr "Puede desactivar explícitamente el protocolo HTTP plano, exigiendo así que todas las peticiones utilicen HTTPS. Cuando establece `quarkus.http.ssl.client-auth` en `required` , el sistema establece automáticamente `quarkus.http.insecure-requests` en `disabled` ."
+msgid "Defines a policy where only authenticated users can access resources from your application."
+msgstr ""
 
-#. type: Plain text
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "When the incoming request matches a valid certificate in the truststore, your application can obtain the subject by injecting a `SecurityIdentity` as follows:"
-msgstr "Cuando la solicitud entrante coincide con un certificado válido en el almacén de confianza, su aplicación puede obtener el asunto inyectando un `SecurityIdentity` como se indica a continuación:"
+msgid "Disables the plain HTTP protocol, requiring all requests to use HTTPS. When you set `quarkus.http.ssl.client-auth` to `required`, `quarkus.http.insecure-requests` is automatically disabled."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "When an incoming request matches a valid certificate in the truststore, your application can obtain the subject by injecting a `SecurityIdentity` as follows:"
+msgstr ""
 
 #. type: Block title
 #: _versions/main/guides/security-authentication-mechanisms.adoc
@@ -396,9 +411,8 @@ msgid "For example, you can update the properties shown in the section which int
 msgstr "Por ejemplo, puede actualizar las propiedades mostradas en la sección que introduce <<mutual-tls>> del siguiente modo:"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "The `cert-role-mappings.properties` classpath resource contains a map of certificate's CN values to roles in the form `CN=role` or `CN=role1,role2`, etc. Let's assume it contains three entries: `alice=user,admin`, `bob=user` and `jdoe=tester`."
-msgstr "El recurso classpath `cert-role-mappings.properties` contiene un mapa de valores CN del certificado a roles de la forma `CN=role` o `CN=role1,role2` , etc. Supongamos que contiene tres entradas: `alice=user,admin` , `bob=user` y `jdoe=tester` ."
+msgid "The `cert-role-mappings.properties` classpath resource contains a map of certificate's CN values to roles in the form `CN=role` or `CN=role1,role2`, etc. Let us assume it contains three entries: `alice=user,admin`, `bob=user` and `jdoe=tester`."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1153,11 +1167,10 @@ msgid "How to combine it with HTTP Security Policy"
 msgstr "Cómo combinarlo con la política de seguridad HTTP"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid ""
 "The easiest way to define roles that are allowed to access individual resources is the `@RolesAllowed` annotation.\n"
-"Nevertheless, it's also possible to use the HTTP Security Policy like in the example below:"
-msgstr "La forma más sencilla de definir los roles a los que se permite acceder a recursos individuales es la anotación `@RolesAllowed` . No obstante, también es posible utilizar la política de seguridad HTTP como en el ejemplo siguiente:"
+"Nevertheless, it is also possible to use the HTTP Security Policy like in the example below:"
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
