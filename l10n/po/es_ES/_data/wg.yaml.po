@@ -18,19 +18,19 @@ msgstr ""
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/30"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/30"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2024-08-26"
-msgstr ""
+msgstr "2024-08-26"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>At the moment, Quarkus tests are invoked using one classloader, and then executed in a different classloader. This mostly works well, but means some use cases don't work: extensions cannot manipulate test classes in the same way that they do normal application classes. For example, anything run via a JUnit @TestTemplate test case will see the un-transformed class.</p>\n"
 "<p>It also means we have extra user-facing complexity, such as the QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
@@ -40,34 +40,41 @@ msgid ""
 "<p>A final benefit is a reduction in the internal complexity of our code. Hopping between classloaders during test execution takes a lot of work, and adds a lot of code! It also is brittle in places. For example, because the hop between classloaders relies on serialization in some cases, it's becoming harder to do as the JVM tightens up security restrictions. We used to rely on xstream, but that stopped working in Java 17. In https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd moved us to use the JBoss Serializer, which works better, but might still be affected by future restrictions on class access.</p>\n"
 "<p>The goal of this working group is to allow test classes to fully participate in the 'quarkification' of classes. The mechanism for this is probably just to load the test classes with the classloader we intend to run them with, so that JUnit sees the 'correct' version of the class.</p>\n"
 msgstr ""
+"<p>Por el momento, las pruebas de Quarkus se invocan utilizando un cargador de clases, y luego se ejecutan en un cargador de clases diferente. Esto funciona bien en su mayor parte, pero significa que algunos casos de uso no funcionan: las extensiones no pueden manipular las clases de prueba del mismo modo que las clases normales de la aplicación. Por ejemplo, cualquier cosa que se ejecute a través de un caso de prueba @TestTemplate de JUnit verá la clase sin transformar.</p>\n"
+"<p>También significa que tenemos una complejidad extra de cara al usuario, como los QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
+"<blockquote>\n"
+"<p>Aunque es posible utilizar las interfaces de devolución de llamada de JUnit Jupiter como BeforeEachCallback, podría encontrarse con problemas de carga de clases porque Quarkus tiene que ejecutar las pruebas en un cargador de clases personalizado del que JUnit no es consciente.</p>\n"
+"</blockquote>\n"
+"<p>Un beneficio final es la reducción de la complejidad interna de nuestro código. Saltar entre cargadores de clases durante la ejecución de las pruebas lleva mucho trabajo, ¡y añade mucho código! También es frágil en algunos puntos. Por ejemplo, debido a que el salto entre cargadores de clase se basa en la serialización en algunos casos, cada vez es más difícil de hacer a medida que la JVM endurece las restricciones de seguridad. Antes dependíamos de xstream, pero eso dejó de funcionar en Java 17. En https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd nos pasó a utilizar el JBoss Serializer, que funciona mejor, pero aún podría verse afectado por futuras restricciones en el acceso a las clases.</p>\n"
+"<p>El objetivo de este grupo de trabajo es permitir que las clases de prueba participen plenamente en la \"quarkificación\" de las clases. El mecanismo para ello probablemente consista simplemente en cargar las clases de prueba con el cargador de clases con el que pretendemos ejecutarlas, de modo que JUnit vea la versión 'correcta' de la clase.</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "The goal of this working group is to rewrite Quarkus's test classloading, so that tests are run in the same classloader as the application under tests, and Quarkus extensions can do \"Quarkus-y\" manipulations of test classes."
-msgstr ""
+msgstr "El objetivo de este grupo de trabajo es reescribir la carga de clases de prueba de Quarkus, de modo que las pruebas se ejecuten en el mismo cargador de clases que la aplicación sometida a pruebas, y que las extensiones de Quarkus puedan realizar manipulaciones \"Quarkus-y\" de las clases de prueba."
 
 #. type: Hash Value: working-groups status
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "on track"
-msgstr ""
+msgstr "por buen camino"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Test classloading"
-msgstr ""
+msgstr "Prueba de carga de clases"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/28"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/28"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>This working group uses a different board:</p>\n"
 "<ul>\n"
@@ -77,103 +84,117 @@ msgid ""
 "<li>The <code>done</code> column means that the issues have been completed</li>\n"
 "</ul>\n"
 msgstr ""
+"<p>Este grupo de trabajo utiliza un tablero diferente:</p>\n"
+"<ul>\n"
+"<li>La columna <code>under discussion</code> contiene las cuestiones que nos gustaría tener en la próxima LTS pero que aún están en estudio.</li>\n"
+"<li>La columna <code>out of scope</code> contiene las cuestiones \"en discusión\" que no se incluirán. La razón puede ser de tiempo o técnica...</li>\n"
+"<li>La <code>in progress</code> significa que el trabajo ha comenzado y debería estar terminado antes de la fecha límite de la TLS</li>\n"
+"<li>La columna <code>done</code> significa que los temas han sido completados</li>\n"
+"</ul>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "This WG focuses on defining the issues we would like to have in the next-to-be LTS (Quarkus 3.14/3.15)"
-msgstr ""
+msgstr "Este GT se centra en definir los temas que nos gustaría tener en la próxima LTS (Quarkus 3.14/3.15)"
 
 #. type: Hash Value: working-groups status
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "at risk"
-msgstr ""
+msgstr "en peligro"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Quarkus 3.15 LTS"
-msgstr ""
+msgstr "Quarkus 3.15 LTS"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/32"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/32"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2024-08-23"
-msgstr ""
+msgstr "2024-08-23"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>Let's define a format for the files containing the config model we will include in the jars for IDE consumption.</p>\n"
 "<p>See https://github.com/quarkusio/quarkus/discussions/42671 for more details.</p>\n"
 "<p><em>Point of contact</em>: @gsmet (Zulip: @_<strong>Guillaume Smet</strong> )</p>\n"
 msgstr ""
+"<p>Definamos un formato para los archivos que contienen el modelo de configuración que incluiremos en los jars para consumo del IDE.</p>\n"
+"<p>Consulte https://github.com/quarkusio/quarkus/discussions/42671 para más detalles.</p>\n"
+"<p><em>Punto de contacto</em>: @gsmet (Zulip: @_Guillaume<strong>Smet</strong> )</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Let's define a format for the files containing the config model we will include in the jars for IDE consumption."
-msgstr ""
+msgstr "Definamos un formato para los archivos que contienen el modelo de configuración que incluiremos en los jars para consumo del IDE."
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Quarkus Config and IDEs"
-msgstr ""
+msgstr "Quarkus Config e IDEs"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/24"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/24"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2024-08-19"
-msgstr ""
+msgstr "2024-08-19"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "We just got an end-to-end let's encrypt demo working!"
-msgstr ""
+msgstr "Acabamos de conseguir que funcione una demostración de encriptación de extremo a extremo."
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>TLS is becoming increasingly common and recommended. However, for years, each Quarkus extension has been doing its own TLS configuration and management. As a result, the configuration looks different everywhere, and many extensions have incomplete configurations.</p>\n"
 "<p>Based on the newly integrated TLS registry, we now have a single place to configure TLS. At runtime, it provides methods to configure Vert.x and &quot;pure&quot; Java clients (using an <code>SSLContext</code>).</p>\n"
 "<p>The goal of this focus group is to continue integrating the TLS registry and improve Quarkus integration with certificate providers (Let's Encrypt, Cert-Manager). In addition, we would like to provide a frictionless local experience around TLS (i.e., without the infamous untrusted certificate screen).</p>\n"
 "<p><em>Point of contact:</em> @cescoffier (@<strong>Clement Escoffier</strong> on Zulip)</p>\n"
 msgstr ""
+"<p>TLS es cada vez más común y recomendado. Sin embargo, durante años, cada extensión de Quarkus ha realizado su propia configuración y gestión de TLS. Como resultado, la configuración parece diferente en todas partes, y muchas extensiones tienen configuraciones incompletas.</p>\n"
+"<p>Basado en el registro TLS recientemente integrado, ahora tenemos un único lugar para configurar TLS. En tiempo de ejecución, proporciona métodos para configurar clientes Vert.x y Java &quot;puro&quot; (utilizando un <code>SSLContext</code>).</p>\n"
+"<p>El objetivo de este grupo de discusión es seguir integrando el registro TLS y mejorar la integración de Quarkus con los proveedores de certificados (Let's Encrypt, Cert-Manager). Además, nos gustaría proporcionar una experiencia local sin fricciones en torno a TLS (es decir, sin la infame pantalla de certificado no fiable).</p>\n"
+"<p><em>Punto de contacto:</em> @cescoffier (@Clement<strong>Escoffier</strong> en Zulip)</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Track the progress around the new TLS configuration centralization and new features (like Let's Encrypt, Cert-Manager, and local experience...)"
-msgstr ""
+msgstr "Siga el progreso en torno a la nueva centralización de la configuración TLS y las nuevas funciones (como Let's Encrypt, Cert-Manager y la experiencia local...)"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Enhanced TLS support"
-msgstr ""
+msgstr "Soporte TLS mejorado"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkiverse/projects/6"
-msgstr ""
+msgstr "https://github.com/orgs/quarkiverse/projects/6"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
@@ -183,13 +204,13 @@ msgstr "2024-08-16"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Good progress so far."
-msgstr ""
+msgstr "Buenos progresos hasta ahora."
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>New initiative to allow Static Site Generation with Quarkus.</p>\n"
 "<p>Quarkus already provides most of the pieces to create great web applications (https://quarkus.io/guides/web).</p>\n"
@@ -207,34 +228,49 @@ msgid ""
 "<p>This effort is now tracked using a &quot;Working Group&quot; project: https://github.com/orgs/quarkiverse/projects/6</p>\n"
 "<p>This is a great opportunity to participate in fun effort and be involved with the Quarkus community, if anyone is interested in being a part of this, please reach out to me 🚀</p>\n"
 msgstr ""
+"<p>Nueva iniciativa para permitir la generación de sitios estáticos con Quarkus.</p>\n"
+"<p>Quarkus ya proporciona la mayoría de las piezas para crear grandes aplicaciones web (https://quarkus.io/guides/web).</p>\n"
+"<p>Recientemente he añadido https://github.com/quarkiverse/quarkus-roq. Permitirá generar un sitio web estático a partir de cualquier aplicación Quarkus (inicia la aplicación, busca todas las páginas y activos configurados, genera un sitio web estático y se detiene), ya funciona pero aún es muy alfa.</p>\n"
+"<p>¿Qué falta? ahora tenemos que añadir de forma incremental el conjunto de herramientas para facilitar el proceso de creación de contenido estático a través de Quarkus:</p>\n"
+"<ul>\n"
+"<li>Datos estáticos</li>\n"
+"<li>Markdown/Asciidoc y frontmatter</li>\n"
+"<li>SEO</li>\n"
+"<li>Procesamiento de imágenes</li>\n"
+"<li>Enrutamiento fácil de configurar</li>\n"
+"</ul>\n"
+"<p>Esto permitirá desarrollar el contenido utilizando Quarkus dev-mode, y luego generar para Github Pages o similar cuando esté listo.</p>\n"
+"<p>Además, todo lo añadido beneficiará a cualquier aplicación &quot;no estática&quot; de Quarkus y cualquier aplicación estática de Quarkus también podría convertirse en no estática.</p>\n"
+"<p>Este esfuerzo es ahora rastreado usando un proyecto de &quot;Grupo de Trabajo&quot;: https://github.com/orgs/quarkiverse/projects/6</p>\n"
+"<p>Esta es una gran oportunidad para participar en un esfuerzo divertido y estar involucrado con la comunidad Quarkus, si alguien está interesado en ser parte de esto, por favor, llegar a mí 🚀</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Allow Static Site Generation with Quarkus."
-msgstr ""
+msgstr "Permitir la generación de sitios estáticos con Quarkus."
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Roq :: Quarkus SSG"
-msgstr ""
+msgstr "Roq :: Quarkus SSG"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/27"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/27"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2024-08-05"
-msgstr ""
+msgstr "2024-08-05"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>At the moment, when you create a Quarkus project (from code.quarkus.io or the CLI), a set of <code>Dockerfiles</code> is generated. However,</p>\n"
 "<ol>\n"
@@ -248,51 +284,65 @@ msgid ""
 "Once completed, this working group will be followed by other initiatives focusing on generating the Github Action and Tekton pipelines.</p>\n"
 "<p><em>Point of contact</em>: @iocanel (<code>Ioannis Canellos</code>on Zulip)</p>\n"
 msgstr ""
+"<p>Por el momento, cuando se crea un proyecto Quarkus (desde code.quarkus.io o la CLI), se genera un conjunto de <code>Dockerfiles</code>. Sin embargo,</p>\n"
+"<ol>\n"
+"<li>No todos estos archivos son utilizados por el usuario</li>\n"
+"<li>Estos archivos quedan obsoletos muy rápidamente</li>\n"
+"<li>No permite a <em>las extensiones</em> personalizar el contenido</li>\n"
+"</ol>\n"
+"<p>Este grupo de trabajo pretende sustituir estos `Dockerfiles' por un comando CLI que genere un Dockerfile actualizado e incluya la personalización de las extensiones.</p>\n"
+"<p>El objetivo no es permitir la actualización de estos archivos una vez generados, sino proporcionar una generación única que el usuario pueda consultar y utilizar. Utilizará la imagen <code>FROM</code> recomendada y actualizada para mejorar la seguridad y, dependiendo de la <em>variante</em> generada (JVM, nativa, nativa-micro...), seguirá las buenas prácticas (como utilizar <code>run-java</code> para la de JVM).</p>\n"
+"<p>Puede encontrar más detalles sobre este grupo de trabajo en <a href=\"https://github.com/quarkusio/quarkus/discussions/41352\">esta discusión</a>.\n"
+"Una vez completado, a este grupo de trabajo le seguirán otras iniciativas centradas en la generación de los pipelines Github Action y Tekton.</p>\n"
+"<p><em>Punto de contacto</em>: @iocanel (<code>Ioannis Canellos</code>en Zulip)</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "A working group focusing on the generation of Dockerfile / ContainerFile"
-msgstr ""
+msgstr "Un grupo de trabajo centrado en la generación de Dockerfile / ContainerFile"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Docker file generation"
-msgstr ""
+msgstr "Generación de archivos Docker"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/26"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/26"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2024-07-24"
-msgstr ""
+msgstr "2024-07-24"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<p>The WebSocket Next <em>focus group</em> aims to improve our WebSocket experience.</p>\n"
 "<p>Recently, we delivered a new approach to dealing with WebSocket (both for the server and client). This was the first step. There are still a few areas to improve, such as documentation, security, observability, and testability. The goal of this focus group is to track these efforts.</p>\n"
 "<p>Point of contact: @mkouba (@<strong>Martin Kouba</strong>  on Zulip)</p>\n"
 msgstr ""
+"<p>El <em>grupo de discusión</em> WebSocket Next tiene como objetivo mejorar nuestra experiencia WebSocket.</p>\n"
+"<p>Recientemente, hemos presentado un nuevo enfoque para tratar con WebSocket (tanto para el servidor como para el cliente). Este fue el primer paso. Aún quedan algunas áreas por mejorar, como la documentación, la seguridad, la observabilidad y la comprobabilidad. El objetivo de este grupo de discusión es hacer un seguimiento de estos esfuerzos.</p>\n"
+"<p>Punto de contacto: @mkouba (@Martin<strong>Kouba</strong> en Zulip)</p>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "WebSocket-Next related tasks"
-msgstr ""
+msgstr "Tareas relacionadas con WebSocket-Next"
 
 #. type: Hash Value: working-groups status
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "staled"
-msgstr ""
+msgstr "estancado"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
