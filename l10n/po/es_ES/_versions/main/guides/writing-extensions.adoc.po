@@ -1624,18 +1624,6 @@ msgstr "Apropiado para cosas que afectan a la construcción y deben ser visibles
 #. type: Table
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
-msgid "BOOTSTRAP"
-msgstr "BOOTSTRAP"
-
-#. type: Table
-#: _versions/main/guides/writing-extensions.adoc
-#, fuzzy, no-wrap
-msgid "Used when runtime configuration needs to be obtained from an external system (like `Consul`), but details of that system need to be configurable (for example Consul's URL). The high level way this works is by using the standard Quarkus config sources (such as properties files, system properties, etc.) and producing `ConfigSourceProvider` objects which are subsequently taken into account by Quarkus when creating the final runtime `Config` object."
-msgstr "Se utiliza cuando la configuración del tiempo de ejecución debe obtenerse de un sistema externo (como `Consul`), pero los detalles de ese sistema deben ser configurables (por ejemplo, la URL de Consul). La forma de alto nivel en que esto funciona es utilizando las fuentes de configuración estándar de Quarkus (como archivos de propiedades, propiedades del sistema, etc.) y produciendo objetos `ConfigSourceProvider` que posteriormente son tenidos en cuenta por Quarkus al crear el objeto final de tiempo de ejecución `Config`."
-
-#. type: Table
-#: _versions/main/guides/writing-extensions.adoc
-#, fuzzy, no-wrap
 msgid "RUN_TIME"
 msgstr "TIEMPO_DE_ORGANIZACIÓN"
 
@@ -1650,12 +1638,6 @@ msgstr "No está disponible en la construcción, se lee al inicio en todos los m
 #, fuzzy
 msgid "For all cases other than the `BUILD_TIME` case, the configuration mapping interface and all the configuration groups and types contained therein must be located in, or reachable from, the extension's run time artifact. Configuration mappings of phase `BUILD_TIME` may be located in or reachable from either of the extension's run time or deployment artifacts."
 msgstr "Para todos los casos que no sean el de `BUILD_TIME`, la clase raíz de configuración y todos los grupos y tipos de configuración contenidos en ella deben estar ubicados en el artefacto en tiempo de ejecución de la extensión o ser accesibles desde él. Las raíces de configuración de la fase `BUILD_TIME` pueden estar ubicadas o ser accesibles desde cualquiera de los artefactos en tiempo de ejecución o de despliegue de la extensión."
-
-#. type: Plain text
-#: _versions/main/guides/writing-extensions.adoc
-#, fuzzy
-msgid "_Bootstrap_ configuration steps are executed during runtime-init *before* any of other runtime steps. This means that code executed as part of this step cannot access anything that gets initialized in runtime init steps (runtime synthetic CDI beans being one such example)."
-msgstr "Los pasos de configuración _del Bootstrap_ se ejecutan durante el runtime-init *antes de* cualquier otro paso del runtime. Esto significa que el código ejecutado como parte de este paso no puede acceder a nada que se inicialice en los pasos de init en tiempo de ejecución (los beans sintéticos CDI en tiempo de ejecución son un ejemplo de ello)."
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -1727,14 +1709,12 @@ msgid "Since `format` is not defined in these properties, the default value from
 msgstr "Como `format` no está definido en estas propiedades, se utilizará el valor por defecto de `@ConfigItem`."
 
 #: _versions/main/guides/writing-extensions.adoc
-#, fuzzy
 msgid ""
 "A configuration mapping name can contain an extra suffix segment for the case where there are configuration\n"
 "mappings for multiple <<config-phases>>. Classes which correspond to the `BUILD_TIME` and `BUILD_AND_RUN_TIME_FIXED`\n"
 "may end with `BuildTimeConfig` or `BuildTimeConfiguration`, classes which correspond to the `RUN_TIME` phase\n"
-"may end with `RuntimeConfig`, `RunTimeConfig`, `RuntimeConfiguration` or `RunTimeConfiguration` while classes which\n"
-"correspond to the `BOOTSTRAP` configuration may end with `BootstrapConfig` or `BootstrapConfiguration`."
-msgstr "Un nombre de mapeo de configuración puede contener un segmento sufijo adicional para el caso de que existan mapeos de configuración para múltiples <<config-phases>> . Las clases que corresponden a la fase `BUILD_TIME` y `BUILD_AND_RUN_TIME_FIXED` pueden terminar con `BuildTimeConfig` o `BuildTimeConfiguration` , las clases que corresponden a la fase `RUN_TIME` pueden terminar con `RuntimeConfig` , `RunTimeConfig` , `RuntimeConfiguration` o `RunTimeConfiguration` mientras que las clases que corresponden a la configuración `BOOTSTRAP` pueden terminar con `BootstrapConfig` o `BootstrapConfiguration` ."
+"may end with `RuntimeConfig`, `RunTimeConfig`, `RuntimeConfiguration` or `RunTimeConfiguration`."
+msgstr ""
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -2025,6 +2005,10 @@ msgstr "El paso principal de construcción sólo se ejecutará en modo dev."
 msgid "The other build step will only be executed in dev mode."
 msgstr "El otro paso de construcción sólo se ejecutará en el modo de desarrollo."
 
+#: _versions/main/guides/writing-extensions.adoc
+msgid "Generating Bytecode"
+msgstr ""
+
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
@@ -2209,19 +2193,6 @@ msgstr "Al llamar a `classProxy` con un nombre de clase totalmente cualificado d
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
-msgid "Runtime Classpath check"
-msgstr "Comprobación de Classpath en tiempo de ejecución"
-
-#: _versions/main/guides/writing-extensions.adoc
-#, fuzzy
-msgid ""
-"Extensions often need a way to determine whether a given class is part of the application's runtime classpath.\n"
-"The proper way for an extension to perform this check is to use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`."
-msgstr "Las extensiones necesitan a menudo una forma de determinar si una clase dada forma parte del classpath en tiempo de ejecución de la aplicación. La forma adecuada de que una extensión realice esta comprobación es utilizar `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime` ."
-
-#. type: Title ====
-#: _versions/main/guides/writing-extensions.adoc
-#, fuzzy, no-wrap
 msgid "Printing step execution time"
 msgstr "Tiempo de ejecución de la etapa de impresión"
 
@@ -2233,12 +2204,39 @@ msgid ""
 "The output will look something like:"
 msgstr "A veces, puede ser útil saber el tiempo exacto que tarda cada tarea de inicio (que es el resultado de cada grabación de bytecode) cuando se ejecuta la aplicación. La forma más sencilla de determinar esta información es iniciar la aplicación Quarkus con la propiedad del sistema `-Dquarkus.debug.print-startup-times=true` . La salida será algo parecido a"
 
+#: _versions/main/guides/writing-extensions.adoc
+msgid "Using Gizmo"
+msgstr ""
+
+#: _versions/main/guides/writing-extensions.adoc
+msgid ""
+"In some scenarios, more significant manipulation of bytecode may be needed.\n"
+"If bytecode recording isn't sufficient, link:https://github.com/quarkusio/gizmo/blob/main/USAGE.adoc[Gizmo] is a convenient alternative to ASM, with a higher-level API."
+msgstr ""
+
+#. type: Title ====
+#: _versions/main/guides/writing-extensions.adoc
+#, fuzzy, no-wrap
+msgid "Runtime Classpath check"
+msgstr "Comprobación de Classpath en tiempo de ejecución"
+
+#: _versions/main/guides/writing-extensions.adoc
+#, fuzzy
+msgid ""
+"Extensions often need a way to determine whether a given class is part of the application's runtime classpath.\n"
+"The proper way for an extension to perform this check is to use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`."
+msgstr "Las extensiones necesitan a menudo una forma de determinar si una clase dada forma parte del classpath en tiempo de ejecución de la aplicación. La forma adecuada de que una extensión realice esta comprobación es utilizar `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime` ."
+
 #. TODO: config integration
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Contexts and Dependency Injection"
 msgstr "Contextos e inyección de dependencia"
+
+#: _versions/main/guides/writing-extensions.adoc
+msgid "The xref:cdi-integration.adoc[CDI integration guide] has more detail on common CDI-related use cases, and example code for solutions."
+msgstr ""
 
 #. type: Title ====
 #: _versions/main/guides/writing-extensions.adoc
@@ -2784,6 +2782,16 @@ msgid ""
 "On startup the `setupHotDeployment` method will be called, and you can use the provided `io.quarkus.dev.spi.HotReplacementContext`\n"
 "to initiate a scan for changed files."
 msgstr "Al iniciarse se llamará al método `setupHotDeployment` , y podrá utilizar el `io.quarkus.dev.spi.HotReplacementContext` proporcionado para iniciar un escaneo en busca de archivos modificados."
+
+#: _versions/main/guides/writing-extensions.adoc
+msgid "Dev Services"
+msgstr ""
+
+#: _versions/main/guides/writing-extensions.adoc
+msgid ""
+"Where extensions use an external service, adding a Dev Service can improve the user experience in development and test modes.\n"
+"See xref:extension-writing-dev-service.adoc[how to write a Dev Service] for more details."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/writing-extensions.adoc
