@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-09-01 08:13+0000\n"
+"POT-Creation-Date: 2024-09-08 08:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,14 +19,72 @@ msgstr ""
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
 #, fuzzy, no-wrap
-msgid "https://github.com/orgs/quarkusio/projects/28"
-msgstr "https://github.com/orgs/quarkusio/projects/28"
+msgid "https://github.com/orgs/quarkusio/projects/30"
+msgstr "https://github.com/orgs/quarkusio/projects/30"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
+#, no-wrap
+msgid "2024-09-06"
+msgstr ""
+
+#. type: Hash Value: working-groups last-update
+#: upstream/_data/wg.yaml:0
+#, no-wrap
+msgid ""
+"Since we don't have a target date, and progress is being made, I can declare this on track, with only a slightly murky conscience. \n"
+"This is a big change, and one which doesn't lend itself well to dividing into smaller chunks. I'm keeping a spreadsheet of build results. In the CI runs, the number of failing jobs was 31 at the last update, and it is now 25. A number of suites, such as `integration-tests/devtools` were failing, and are now passing.\n"
+msgstr ""
+
+#. type: Hash Value: working-groups readme
+#: upstream/_data/wg.yaml:0
 #, fuzzy, no-wrap
-msgid "2024-08-30"
-msgstr "2024-08-30"
+msgid ""
+"<p>At the moment, Quarkus tests are invoked using one classloader, and then executed in a different classloader. This mostly works well, but means some use cases don't work: extensions cannot manipulate test classes in the same way that they do normal application classes. For example, anything run via a JUnit @TestTemplate test case will see the un-transformed class.</p>\n"
+"<p>It also means we have extra user-facing complexity, such as the QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
+"<blockquote>\n"
+"<p>While it is possible to use JUnit Jupiter callback interfaces like BeforeEachCallback, you might run into classloading issues because Quarkus has to run tests in a custom classloader which JUnit is not aware of.</p>\n"
+"</blockquote>\n"
+"<p>A final benefit is a reduction in the internal complexity of our code. Hopping between classloaders during test execution takes a lot of work, and adds a lot of code! It also is brittle in places. For example, because the hop between classloaders relies on serialization in some cases, it's becoming harder to do as the JVM tightens up security restrictions. We used to rely on xstream, but that stopped working in Java 17. In https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd moved us to use the JBoss Serializer, which works better, but might still be affected by future restrictions on class access.</p>\n"
+"<p>The goal of this working group is to allow test classes to fully participate in the 'quarkification' of classes. The mechanism for this is probably just to load the test classes with the classloader we intend to run them with, so that JUnit sees the 'correct' version of the class.</p>\n"
+msgstr ""
+"<p>Por el momento, las pruebas de Quarkus se invocan utilizando un cargador de clases, y luego se ejecutan en un cargador de clases diferente. Esto funciona bien en su mayor parte, pero significa que algunos casos de uso no funcionan: las extensiones no pueden manipular las clases de prueba del mismo modo que las clases normales de la aplicación. Por ejemplo, cualquier cosa que se ejecute a través de un caso de prueba @TestTemplate de JUnit verá la clase sin transformar.</p>\n"
+"<p>También significa que tenemos una complejidad extra de cara al usuario, como los QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
+"<blockquote>\n"
+"<p>Aunque es posible utilizar las interfaces de devolución de llamada de JUnit Jupiter como BeforeEachCallback, podría encontrarse con problemas de carga de clases porque Quarkus tiene que ejecutar las pruebas en un cargador de clases personalizado del que JUnit no es consciente.</p>\n"
+"</blockquote>\n"
+"<p>Un beneficio final es la reducción de la complejidad interna de nuestro código. Saltar entre cargadores de clases durante la ejecución de las pruebas lleva mucho trabajo, ¡y añade mucho código! También es frágil en algunos puntos. Por ejemplo, debido a que el salto entre cargadores de clase se basa en la serialización en algunos casos, cada vez es más difícil de hacer a medida que la JVM endurece las restricciones de seguridad. Antes dependíamos de xstream, pero eso dejó de funcionar en Java 17. En https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd nos pasó a utilizar el JBoss Serializer, que funciona mejor, pero aún podría verse afectado por futuras restricciones en el acceso a las clases.</p>\n"
+"<p>El objetivo de este grupo de trabajo es permitir que las clases de prueba participen plenamente en la \"quarkificación\" de las clases. El mecanismo para ello probablemente consista simplemente en cargar las clases de prueba con el cargador de clases con el que pretendemos ejecutarlas, de modo que JUnit vea la versión 'correcta' de la clase.</p>"
+
+#. type: Hash Value: working-groups short-description
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "The goal of this working group is to rewrite Quarkus's test classloading, so that tests are run in the same classloader as the application under tests, and Quarkus extensions can do \"Quarkus-y\" manipulations of test classes."
+msgstr "El objetivo de este grupo de trabajo es reescribir la carga de clases de prueba de Quarkus, de modo que las pruebas se ejecuten en el mismo cargador de clases que la aplicación sometida a pruebas, y que las extensiones de Quarkus puedan realizar manipulaciones \"Quarkus-y\" de las clases de prueba."
+
+#. type: Hash Value: working-groups status
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "on track"
+msgstr "por buen camino"
+
+#. type: Hash Value: working-groups title
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "Test classloading"
+msgstr "Prueba de carga de clases"
+
+#. type: Hash Value: working-groups board-url
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "https://github.com/orgs/quarkusio/projects/28"
+msgstr "https://github.com/orgs/quarkusio/projects/28"
+
+#. type: Hash Value: working-groups last-update
+#: upstream/_data/wg.yaml:0
+#, no-wrap
+msgid "Work is progressing. Still items that will need to be cleaned. Thus still at risk but managable.\n"
+msgstr ""
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
@@ -74,9 +132,9 @@ msgstr "https://github.com/orgs/quarkusio/projects/24"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "Approaching completion. Watch [Quarkus Insight"
-msgstr "Acercándose a la finalización. Ver [Quarkus Insight"
+#, no-wrap
+msgid "Approaching completion. Watch [Quarkus Insight #177](https://www.youtube.com/watch?v=VP7c9ftFwrQ&list=PLsM3ZE5tGAVatO65JIxgskQh-OKoqM4F2&index=1) to see various demo going from configuration, local TLS, certificate reloading and ACME integration.\n"
+msgstr ""
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
@@ -98,12 +156,6 @@ msgstr ""
 msgid "Track the progress around the new TLS configuration centralization and new features (like Let's Encrypt, Cert-Manager, and local experience...)"
 msgstr "Siga el progreso en torno a la nueva centralización de la configuración TLS y las nuevas funciones (como Let's Encrypt, Cert-Manager y la experiencia local...)"
 
-#. type: Hash Value: working-groups status
-#: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "on track"
-msgstr "por buen camino"
-
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
 #, fuzzy, no-wrap
@@ -116,11 +168,17 @@ msgstr "Soporte TLS mejorado"
 msgid "https://github.com/orgs/quarkusio/projects/26"
 msgstr "https://github.com/orgs/quarkusio/projects/26"
 
+#. type: Hash Value: working-groups last-activity
+#: upstream/_data/wg.yaml:0
+#, no-wrap
+msgid "2024-09-05"
+msgstr ""
+
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "The last outstanding issue is OTel integration. @michalvavrik is working on a [pull request](https://github.com/quarkusio/quarkus/pull/41956). I will meet with Michal and Bruno in the coming weeks. The PR is quite massive and we need to review it carefully."
-msgstr "La última cuestión pendiente es la integración de OTel. @michalvavrik está trabajando en un [pull request](https://github.com/quarkusio/quarkus/pull/41956). Me reuniré con Michal y Bruno en las próximas semanas. El PR es bastante masivo y necesitamos revisarlo cuidadosamente."
+#, no-wrap
+msgid "The last outstanding issue is OTel integration. @michalvavrik is working on a [pull request](https://github.com/quarkusio/quarkus/pull/41956). I will meet with Michal and Bruno in the coming weeks. The PR is quite massive and we need to review it carefully.\n"
+msgstr ""
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
@@ -149,52 +207,18 @@ msgstr "WebSocket Siguiente"
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
 #, fuzzy, no-wrap
-msgid "https://github.com/orgs/quarkusio/projects/30"
-msgstr "https://github.com/orgs/quarkusio/projects/30"
-
-#. type: Hash Value: working-groups readme
-#: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid ""
-"<p>At the moment, Quarkus tests are invoked using one classloader, and then executed in a different classloader. This mostly works well, but means some use cases don't work: extensions cannot manipulate test classes in the same way that they do normal application classes. For example, anything run via a JUnit @TestTemplate test case will see the un-transformed class.</p>\n"
-"<p>It also means we have extra user-facing complexity, such as the QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
-"<blockquote>\n"
-"<p>While it is possible to use JUnit Jupiter callback interfaces like BeforeEachCallback, you might run into classloading issues because Quarkus has to run tests in a custom classloader which JUnit is not aware of.</p>\n"
-"</blockquote>\n"
-"<p>A final benefit is a reduction in the internal complexity of our code. Hopping between classloaders during test execution takes a lot of work, and adds a lot of code! It also is brittle in places. For example, because the hop between classloaders relies on serialization in some cases, it's becoming harder to do as the JVM tightens up security restrictions. We used to rely on xstream, but that stopped working in Java 17. In https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd moved us to use the JBoss Serializer, which works better, but might still be affected by future restrictions on class access.</p>\n"
-"<p>The goal of this working group is to allow test classes to fully participate in the 'quarkification' of classes. The mechanism for this is probably just to load the test classes with the classloader we intend to run them with, so that JUnit sees the 'correct' version of the class.</p>\n"
-msgstr ""
-"<p>Por el momento, las pruebas de Quarkus se invocan utilizando un cargador de clases, y luego se ejecutan en un cargador de clases diferente. Esto funciona bien en su mayor parte, pero significa que algunos casos de uso no funcionan: las extensiones no pueden manipular las clases de prueba del mismo modo que las clases normales de la aplicación. Por ejemplo, cualquier cosa que se ejecute a través de un caso de prueba @TestTemplate de JUnit verá la clase sin transformar.</p>\n"
-"<p>También significa que tenemos una complejidad extra de cara al usuario, como los QuarkusTest*Callbacks](https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback):</p>\n"
-"<blockquote>\n"
-"<p>Aunque es posible utilizar las interfaces de devolución de llamada de JUnit Jupiter como BeforeEachCallback, podría encontrarse con problemas de carga de clases porque Quarkus tiene que ejecutar las pruebas en un cargador de clases personalizado del que JUnit no es consciente.</p>\n"
-"</blockquote>\n"
-"<p>Un beneficio final es la reducción de la complejidad interna de nuestro código. Saltar entre cargadores de clases durante la ejecución de las pruebas lleva mucho trabajo, ¡y añade mucho código! También es frágil en algunos puntos. Por ejemplo, debido a que el salto entre cargadores de clase se basa en la serialización en algunos casos, cada vez es más difícil de hacer a medida que la JVM endurece las restricciones de seguridad. Antes dependíamos de xstream, pero eso dejó de funcionar en Java 17. En https://github.com/quarkusio/quarkus/pull/40601, @dmlloyd nos pasó a utilizar el JBoss Serializer, que funciona mejor, pero aún podría verse afectado por futuras restricciones en el acceso a las clases.</p>\n"
-"<p>El objetivo de este grupo de trabajo es permitir que las clases de prueba participen plenamente en la \"quarkificación\" de las clases. El mecanismo para ello probablemente consista simplemente en cargar las clases de prueba con el cargador de clases con el que pretendemos ejecutarlas, de modo que JUnit vea la versión 'correcta' de la clase.</p>"
-
-#. type: Hash Value: working-groups short-description
-#: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "The goal of this working group is to rewrite Quarkus's test classloading, so that tests are run in the same classloader as the application under tests, and Quarkus extensions can do \"Quarkus-y\" manipulations of test classes."
-msgstr "El objetivo de este grupo de trabajo es reescribir la carga de clases de prueba de Quarkus, de modo que las pruebas se ejecuten en el mismo cargador de clases que la aplicación sometida a pruebas, y que las extensiones de Quarkus puedan realizar manipulaciones \"Quarkus-y\" de las clases de prueba."
-
-#. type: Hash Value: working-groups title
-#: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "Test classloading"
-msgstr "Prueba de carga de clases"
-
-#. type: Hash Value: working-groups board-url
-#: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkiverse/projects/6"
 msgstr "https://github.com/orgs/quarkiverse/projects/6"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, fuzzy, no-wrap
-msgid "Good progress so far."
-msgstr "Buenos progresos hasta ahora."
+#, no-wrap
+msgid ""
+"0.0.3 has been released, it is the MVP version and allowed to publish the Roq blog: https://quarkiverse.io/quarkus-roq/posts/2024-08-29-welcome-to-roq/\n"
+"From now on, we start adding features incrementally, documenting.\n"
+"The target is to have 1.0.0 the 1 October 2024.\n"
+"For 1.0 we need pagination, tags and SEO.\n"
+msgstr ""
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
@@ -249,6 +273,12 @@ msgstr "Roq :: Quarkus SSG"
 #, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/32"
 msgstr "https://github.com/orgs/quarkusio/projects/32"
+
+#. type: Hash Value: working-groups last-activity
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "2024-08-30"
+msgstr "2024-08-30"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
@@ -320,11 +350,29 @@ msgstr ""
 msgid "A working group focusing on the generation of Dockerfile / ContainerFile"
 msgstr "Un grupo de trabajo centrado en la generación de Dockerfile / ContainerFile"
 
+#. type: Hash Value: working-groups status
+#: upstream/_data/wg.yaml:0
+#, fuzzy, no-wrap
+msgid "staled"
+msgstr "estancado"
+
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
 #, fuzzy, no-wrap
 msgid "Docker file generation"
 msgstr "Generación de archivos Docker"
+
+#, fuzzy, no-wrap
+#~ msgid "Approaching completion. Watch [Quarkus Insight"
+#~ msgstr "Acercándose a la finalización. Ver [Quarkus Insight"
+
+#, fuzzy, no-wrap
+#~ msgid "The last outstanding issue is OTel integration. @michalvavrik is working on a [pull request](https://github.com/quarkusio/quarkus/pull/41956). I will meet with Michal and Bruno in the coming weeks. The PR is quite massive and we need to review it carefully."
+#~ msgstr "La última cuestión pendiente es la integración de OTel. @michalvavrik está trabajando en un [pull request](https://github.com/quarkusio/quarkus/pull/41956). Me reuniré con Michal y Bruno en las próximas semanas. El PR es bastante masivo y necesitamos revisarlo cuidadosamente."
+
+#, fuzzy, no-wrap
+#~ msgid "Good progress so far."
+#~ msgstr "Buenos progresos hasta ahora."
 
 #, fuzzy, no-wrap
 #~ msgid "2024-08-26"
@@ -349,7 +397,3 @@ msgstr "Generación de archivos Docker"
 #, fuzzy, no-wrap
 #~ msgid "2024-07-24"
 #~ msgstr "2024-07-24"
-
-#, fuzzy, no-wrap
-#~ msgid "staled"
-#~ msgstr "estancado"
