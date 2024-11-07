@@ -38,11 +38,11 @@ msgid ""
 "usage as the classes etc that are used for processing are not loaded (or even present) in the runtime JVM."
 msgstr "Esto significa que los metadatos sólo se procesan una vez en tiempo de compilación, lo que supone un ahorro tanto en tiempo de arranque como en uso de memoria, ya que las clases, etc. que se utilizan para el procesamiento no se cargan (ni siquiera están presentes) en la JVM en tiempo de ejecución."
 
-#. type: Plain text
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "This is an in-depth documentation, see the xref:building-my-first-extension.adoc[building my first extension] if you need an introduction."
-msgstr "Esta es una documentación en profundidad, vea la  link:building-my-first-extension.html[construcción de mi primera extensión] si necesita una introducción."
+msgid ""
+"This is an in-depth documentation, see the xref:building-my-first-extension.adoc[building my first extension] if you need an introduction,\n"
+"or the xref:extension-faq.adoc[frequently asked questions]."
+msgstr ""
 
 #. type: Title ==
 #: _guides/writing-extensions.adoc
@@ -2006,6 +2006,10 @@ msgstr "El paso principal de construcción sólo se ejecutará en modo dev."
 msgid "The other build step will only be executed in dev mode."
 msgstr "El otro paso de construcción sólo se ejecutará en el modo de desarrollo."
 
+#: _guides/writing-extensions.adoc
+msgid "Generating Bytecode"
+msgstr ""
+
 #. type: Title ===
 #: _guides/writing-extensions.adoc
 #, fuzzy, no-wrap
@@ -2190,19 +2194,6 @@ msgstr "Al llamar a `classProxy` con un nombre de clase totalmente cualificado d
 #. type: Title ====
 #: _guides/writing-extensions.adoc
 #, fuzzy, no-wrap
-msgid "Runtime Classpath check"
-msgstr "Comprobación de Classpath en tiempo de ejecución"
-
-#: _guides/writing-extensions.adoc
-#, fuzzy
-msgid ""
-"Extensions often need a way to determine whether a given class is part of the application's runtime classpath.\n"
-"The proper way for an extension to perform this check is to use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`."
-msgstr "Las extensiones necesitan a menudo una forma de determinar si una clase dada forma parte del classpath en tiempo de ejecución de la aplicación. La forma adecuada de que una extensión realice esta comprobación es utilizar `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime` ."
-
-#. type: Title ====
-#: _guides/writing-extensions.adoc
-#, fuzzy, no-wrap
 msgid "Printing step execution time"
 msgstr "Tiempo de ejecución de la etapa de impresión"
 
@@ -2214,12 +2205,39 @@ msgid ""
 "The output will look something like:"
 msgstr "A veces, puede ser útil saber el tiempo exacto que tarda cada tarea de inicio (que es el resultado de cada grabación de bytecode) cuando se ejecuta la aplicación. La forma más sencilla de determinar esta información es iniciar la aplicación Quarkus con la propiedad del sistema `-Dquarkus.debug.print-startup-times=true` . La salida será algo parecido a"
 
+#: _guides/writing-extensions.adoc
+msgid "Using Gizmo"
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"In some scenarios, more significant manipulation of bytecode may be needed.\n"
+"If bytecode recording isn't sufficient, link:https://github.com/quarkusio/gizmo/blob/main/USAGE.adoc[Gizmo] is a convenient alternative to ASM, with a higher-level API."
+msgstr ""
+
+#. type: Title ====
+#: _guides/writing-extensions.adoc
+#, fuzzy, no-wrap
+msgid "Runtime Classpath check"
+msgstr "Comprobación de Classpath en tiempo de ejecución"
+
+#: _guides/writing-extensions.adoc
+#, fuzzy
+msgid ""
+"Extensions often need a way to determine whether a given class is part of the application's runtime classpath.\n"
+"The proper way for an extension to perform this check is to use `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime`."
+msgstr "Las extensiones necesitan a menudo una forma de determinar si una clase dada forma parte del classpath en tiempo de ejecución de la aplicación. La forma adecuada de que una extensión realice esta comprobación es utilizar `io.quarkus.bootstrap.classloading.QuarkusClassLoader.isClassPresentAtRuntime` ."
+
 #. TODO: config integration
 #. type: Title ===
 #: _guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Contexts and Dependency Injection"
 msgstr "Contextos e inyección de dependencia"
+
+#: _guides/writing-extensions.adoc
+msgid "The xref:cdi-integration.adoc[CDI integration guide] has more detail on common CDI-related use cases, and example code for solutions."
+msgstr ""
 
 #. type: Title ====
 #: _guides/writing-extensions.adoc
@@ -3105,9 +3123,10 @@ msgid ""
 msgstr "Quarkus genera muchas clases durante la fase de construcción y, en muchos casos, también transforma las clases existentes. A menudo resulta extremadamente útil ver el código de bytes generado y las clases transformadas durante el desarrollo de una extensión."
 
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "If you set the `quarkus.package.jar.decompiler.enabled` property to `true` then Quarkus will download and invoke the https://github.com/Vineflower/vineflower[Vineflower decompiler] and dump the result in the `decompiled` directory of the build tool output (`target/decompiled` for Maven for example)."
-msgstr "Si establece la propiedad `quarkus.package.jar.decompiler.enabled` a `true` entonces Quarkus descargará e invocará al link:https://github.com/Vineflower/vineflower[descompilador Vineflower] y volcará el resultado en el directorio `decompiled` de la salida de la herramienta de construcción ( `target/decompiled` para Maven por ejemplo)."
+msgid ""
+"If you set the `quarkus.package.jar.decompiler.enabled` property to `true` then Quarkus will download and invoke the https://github.com/Vineflower/vineflower[Vineflower decompiler] and dump the result in the `decompiled` directory of the build tool output (`target/decompiled` for Maven for example).\n"
+"The output directory can be changed with `quarkus.package.jar.decompiler.output-dir`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/writing-extensions.adoc
@@ -3174,6 +3193,54 @@ msgstr "La propiedad también se respeta al ejecutar las pruebas:"
 #, fuzzy
 msgid "Analogously, you can use the `quarkus.debug.transformed-classes-dir` and `quarkus.debug.generated-sources-dir` properties to dump the relevant output."
 msgstr "Análogamente, puede utilizar las propiedades `quarkus.debug.transformed-classes-dir` y `quarkus.debug.transformed-classes-dir` para volcar la salida correspondiente."
+
+#: _guides/writing-extensions.adoc
+msgid "Inspecting Generated/Transformed Classes in `QuarkusUnitTest`"
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"When <<testing-extensions,using `QuarkusUnitTest`>>,\n"
+"as an alternative to <<dump-the-generated-classes-to-the-file-system,setting `quarkus.debug.*-dir` manually>>,\n"
+"you may simply call `QuarkusUnitTest#debugBytecode`:"
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"This will automatically set up these configuration properties so that classes/sources\n"
+"are dumped to `target/debug`, for that test class only,\n"
+"in a subdirectory that is unique to each test execution.\n"
+"See the javadoc of `QuarkusUnitTest#debugBytecode` for details."
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"This is handy to debug flaky tests that happen only in the CI environment, in particular;\n"
+"for example the GitHub Actions CI at https://github.com/quarkusio/quarkus/\n"
+"is set up so that such `target/debug` directories are\n"
+"collected into build artifacts available for download after each CI run."
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid "Enabling trace logs for a particular test only"
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"When <<testing-extensions,using `QuarkusUnitTest`>>,\n"
+"if you need to enable trace logs for a particular test class,\n"
+"you may simply call `QuarkusUnitTest#traceCategories` and pass the logging categories in argument:"
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid "See the javadoc of `QuarkusUnitTest#traceCategories` for details."
+msgstr ""
+
+#: _guides/writing-extensions.adoc
+msgid ""
+"This is handy to debug flaky tests that happen only in the CI environment, in particular,\n"
+"as this will only increase the verbosity of logs in the particular test where the option is enabled."
+msgstr ""
 
 #. type: Title ====
 #: _guides/writing-extensions.adoc
