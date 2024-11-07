@@ -656,6 +656,7 @@ msgid "Resolution"
 msgstr "Resolución"
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid ""
 "When evaluating expressions a list of registered <<value-resolvers,value resolvers>> is used.\n"
 "The first part of the expression is always resolved against the <<current_context_object,current context object>>.\n"
@@ -663,7 +664,7 @@ msgid ""
 "For an expression that starts with a namespace the current context object is found using all the available ``NamespaceResolver``s.\n"
 "For an expression that does not start with a namespace the current context object is *derived from the position* of the tag.\n"
 "All other parts of an expression are resolved using all ``ValueResolver``s against the result of the previous resolution."
-msgstr ""
+msgstr "Al evaluar las expresiones se utiliza una lista de xref:value-resolvers[resolvedores de valores] registrados. La primera parte de la expresión siempre se resuelve contra el xref:current_context_object[objeto de contexto actual] . Si no se encuentra ningún resultado para la primera parte, se resuelve contra el objeto de contexto padre (si está disponible). Para una expresión que comienza con un espacio de nombres, el objeto de contexto actual se encuentra utilizando todos los `NamespaceResolver` s disponibles. Para una expresión que no comienza con un espacio de nombres, el objeto de contexto actual se *deriva de la posición* de la etiqueta. Todas las demás partes de una expresión se resuelven utilizando todos los `ValueResolver` s contra el resultado de la resolución anterior."
 
 #: _guides/qute-reference.adoc
 #, fuzzy
@@ -2536,17 +2537,19 @@ msgid "Value Resolvers"
 msgstr "Resolvedores de valores"
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid ""
 "Value resolvers are used when evaluating expressions.\n"
 "First the resolvers that apply to the given `EvalContext` are filtered.\n"
 "Then the resolver with _highest priority_ is used to resolve the data.\n"
 "If a `io.quarkus.qute.Results.NotFound` object is returned then the next available resolver is used instead.\n"
 "However, `null` return value is considered a valid result."
-msgstr ""
+msgstr "Los resolutores de valores se utilizan al evaluar expresiones. Primero se filtran los resolutores que se aplican al `EvalContext` dado. A continuación, se utiliza el resolutor con _mayor prioridad_ para resolver los datos. Si se devuelve un objeto `io.quarkus.qute.Results.NotFound` , se utiliza en su lugar el siguiente resolutor disponible. Sin embargo, el valor devuelto `null` se considera un resultado válido."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "A custom `io.quarkus.qute.ValueResolver` can be registered programmatically via `EngineBuilder.addValueResolver()`."
-msgstr ""
+msgstr "Un `io.quarkus.qute.ValueResolver` personalizado puede registrarse mediante programación a través de `EngineBuilder.addValueResolver()` ."
 
 #. type: Block title
 #: _guides/qute-reference.adoc
@@ -2555,12 +2558,14 @@ msgid "`ValueResolver` Builder Example"
 msgstr "`ValueResolver` Ejemplo de constructor"
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "In Quarkus, the <<engine-customization,`@EngineConfiguration`>> annotation can be used to register a `ValueResolver` implemented as a CDI bean."
-msgstr ""
+msgstr "En Quarkus, la anotación xref:engine-customization[@EngineConfiguration] puede utilizarse para registrar un `ValueResolver` implementado como un bean CDI."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "Keep in mind that the reflection-based value resolver has priority `-1` and the max priority value for resolvers generated from <<template_data,`@TemplateData`>> and <<typesafe_expressions,type-safe expressions>> is `10`."
-msgstr ""
+msgstr "Tenga en cuenta que el resolvedor de valores basado en la reflexión tiene prioridad `-1` y que el valor de prioridad máximo para los resolvedores generados a partir de xref:template_data[@TemplateData] y xref:typesafe_expressions[expresiones de tipo seguro] es `10` ."
 
 #. type: Title ====
 #: _guides/qute-reference.adoc
@@ -2828,11 +2833,12 @@ msgid "`@Named @Dependent` beans are shared across all expressions in a template
 msgstr "`@Named @Dependent` se comparten entre todas las expresiones de una plantilla para una única operación de renderizado, y se destruyen una vez finalizado el renderizado."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid ""
 "All expressions with `cdi` and `inject` namespaces are validated during build.\n"
 "For the expression `cdi:personService.findPerson(10).name`, the implementation class of the injected bean must either declare the `findPerson` method or a matching <<template_extension_methods,template extension method>> must exist.\n"
 "For the expression `inject:foo.price`, the implementation class of the injected bean must either have the `price` property (e.g. a `getPrice()` method) or a matching <<template_extension_methods,template extension method>> must exist."
-msgstr ""
+msgstr "Todas las expresiones con espacios de nombres `cdi` y `inject` se validan durante la compilación. Para la expresión `cdi:personService.findPerson(10).name` , la clase de implementación del frijol inyectado debe declarar el método `findPerson` o debe existir un xref:template_extension_methods[método de extensión de plantilla] coincidente. Para la expresión `inject:foo.price` , la clase de implementación del frijol inyectado debe tener la propiedad `price` (por ejemplo, un método `getPrice()` ) o debe existir un xref:template_extension_methods[método de extensión de] plantilla coincidente."
 
 #. type: Plain text
 #: _guides/qute-reference.adoc
@@ -2847,29 +2853,34 @@ msgid "If your application serves xref:http-reference.adoc[HTTP requests] you ca
 msgstr "Si su aplicación sirve  link:http-reference.html[peticiones HTTP], también puede inyectar el `io.vertx.core.http.HttpServerRequest` actual a través del espacio de nombres `inject`, por ejemplo `{inject:vertxRequest.getParam('foo')}`."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid ""
 "Sometimes it may be necessary to access public methods and properties of a CDI bean that is not annotated with `@Named`.\n"
 "However, if you don't control the source of the bean it is not possible to add the `@Named` annotation.\n"
 "Nevertheless, it is possible to create an intermediate CDI bean annotated with `@Named`.\n"
 "This intermediate bean can inject the bean in question and make it accessible.\n"
 "A Java record is a very convenient way to define such an intermediate CDI bean."
-msgstr ""
+msgstr "A veces puede ser necesario acceder a los métodos y propiedades públicos de un bean CDI que no esté anotado con `@Named` . Sin embargo, si no se controla el origen del bean no es posible añadir la anotación `@Named` . No obstante, es posible crear un bean CDI intermedio anotado con `@Named` . Este bean intermedio puede inyectar el bean en cuestión y hacerlo accesible. Un registro Java es una forma muy cómoda de definir un CDI bean intermedio de este tipo."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "If no name is explicitly specified by the `value` member the https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1#default_name[default name is assigned] - the simple name of the bean class, after converting the first character to lower case. In this particular case, the default name is `userData`."
-msgstr ""
+msgstr "Si el miembro `value` no especifica explícitamente ningún nombre, link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1#default_name[se asignará] el link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1#default_name[nombre por] defecto: el nombre simple de la clase del frijol, tras convertir el primer carácter a minúsculas. En este caso concreto, el nombre por defecto es `userData` ."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "The `@Singleton` scope is added automatically."
-msgstr ""
+msgstr "El ámbito `@Singleton` se añade automáticamente."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "All parameters of the canonical constructor are injection points. The accessor methods can be used to obtain the injected bean."
-msgstr ""
+msgstr "Todos los parámetros del constructor canónico son puntos de inyección. Los métodos de acceso pueden utilizarse para obtener el frijol inyectado."
 
 #: _guides/qute-reference.adoc
+#, fuzzy
 msgid "And then in a template you can simply use `{cdi:userData.info}` or `{cdi:userData.username}`."
-msgstr ""
+msgstr "Y luego en una plantilla puede utilizar simplemente `{cdi:userData.info}` o `{cdi:userData.username}` ."
 
 #. type: Title ===
 #: _guides/qute-reference.adoc
