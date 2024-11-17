@@ -7,9 +7,8 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "WebSockets Next extension reference guide"
-msgstr "Guía de referencia de la extensión WebSockets Next"
+msgid "WebSockets Next reference guide"
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -125,14 +124,13 @@ msgid "Endpoints"
 msgstr "Puntos finales"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"Both the server and client APIs allow you to define _endpoints_ that are used to consume and send messages.\n"
+"Both the <<server-api>> and <<client-api>> define _endpoints_ that are used to consume and send messages.\n"
 "The endpoints are implemented as CDI beans and support injection.\n"
 "Endpoints declare <<callback-methods,_callback methods_>> annotated with `@OnTextMessage`, `@OnBinaryMessage`, `@OnPong`, `@OnOpen`, `@OnClose` and `@OnError`.\n"
 "These methods are used to handle various WebSocket events.\n"
 "Typically, a method annotated with `@OnTextMessage` is called when the connected client sends a message to the server and vice versa."
-msgstr "Tanto la API del servidor como la del cliente le permiten definir puntos _finales_ que se utilizan para consumir y enviar mensajes. Los puntos finales se implementan como beans CDI y admiten inyección. Los puntos finales declaran xref:callback-methods[métodos de devolución de llamada] anotados con `@OnTextMessage` , `@OnBinaryMessage` , `@OnPong` , `@OnOpen` , `@OnClose` y `@OnError` . Estos métodos se utilizan para manejar diversos eventos WebSocket. Normalmente, se llama a un método anotado con `@OnTextMessage` cuando el cliente conectado envía un mensaje al servidor y viceversa."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -364,16 +362,14 @@ msgid "Invocation rules"
 msgstr "Normas de invocación"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"When invoking these annotated methods, the _session_ scope linked to the WebSocket connection remains active.\n"
+"When invoking the callback methods, the _session_ scope linked to the WebSocket connection remains active.\n"
 "In addition, the request scope is active until the completion of the method (or until it produces its result for async and reactive methods)."
-msgstr "Al invocar estos métodos anotados, el ámbito de _sesión_ vinculado a la conexión WebSocket permanece activo. Además, el ámbito de la solicitud está activo hasta la finalización del método (o hasta que produzca su resultado para los métodos asíncronos y reactivos)."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Quarkus WebSocket Next supports _blocking_ and _non-blocking_ logic, akin to Quarkus REST, determined by the method signature and additional annotations such as `@Blocking` and `@NonBlocking`."
-msgstr "Quarkus WebSocket Next admite lógica de _bloqueo_ y _de no bloqueo_ , similar a Quarkus REST, determinada por la firma del método y anotaciones adicionales como `@Blocking` y `@NonBlocking` ."
+msgid "WebSocket Next supports _blocking_ and _non-blocking_ logic, akin to Quarkus REST, determined from the return type of the method and additional annotations such as `@Blocking` and `@NonBlocking`."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -381,39 +377,44 @@ msgid "Here are the rules governing execution:"
 msgstr "Estas son las normas que rigen la ejecución:"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Non-blocking methods must execute on the connection's event loop."
-msgstr "Los métodos no bloqueantes deben ejecutarse en el bucle de eventos de la conexión."
+msgid "Methods annotated with `@RunOnVirtualThread`, `@Blocking` or `@Transactional` are considered blocking."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Methods annotated with `@RunOnVirtualThread` are considered blocking and should execute on a virtual thread."
-msgstr "Los métodos anotados con `@RunOnVirtualThread` se consideran bloqueantes y deben ejecutarse en un hilo virtual."
+msgid "Methods annotated with `@NonBlocking` are considered non-blocking."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Blocking methods must execute on a worker thread if not annotated with `@RunOnVirtualThread`."
-msgstr "Los métodos de bloqueo deben ejecutarse en un subproceso trabajador si no están anotados con `@RunOnVirtualThread` ."
+msgid "Methods declared on a class annotated with `@Transactional` are considered blocking unless annotated with `@NonBlocking`."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "When `@RunOnVirtualThread` is employed, each invocation spawns a new virtual thread."
-msgstr "Cuando se emplea `@RunOnVirtualThread` , cada invocación genera un nuevo hilo virtual."
+msgid "If the method does not declare any of the annotations listed above the execution model is derived from the return type:"
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Methods returning `CompletionStage`, `Uni` and `Multi` are considered non-blocking."
-msgstr "Los métodos que devuelven `CompletionStage` , `Uni` y `Multi` se consideran no bloqueantes."
+msgid "Methods returning `Uni` and `Multi` are considered non-blocking."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Methods returning `void` or plain objects are considered blocking."
-msgstr "Los métodos que devuelven `void` u objetos simples se consideran bloqueantes."
+msgid "Methods returning `void` or any other type are considered blocking."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Kotlin `suspend` functions are considered non-blocking."
-msgstr "Las funciones de Kotlin `suspend` se consideran no bloqueantes."
+msgid "Kotlin `suspend` functions are always considered non-blocking and may not be annotated with `@Blocking`, `@NonBlocking` or `@RunOnVirtualThread`."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Non-blocking methods must execute on the connection's event loop thread."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Blocking methods must execute on a worker thread unless annotated with `@RunOnVirtualThread`."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Methods annotated with `@RunOnVirtualThread` must execute on a virtual thread, each invocation spawns a new virtual thread."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1176,13 +1177,12 @@ msgid "Client connectors"
 msgstr "Conectores cliente"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"The `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` is used to configure and create new connections for client endpoints.\n"
-"A CDI bean that implements this interface is provided and can be injected in other beans.\n"
-"The actual type argument is used to determine the client endpoint.\n"
+"A connector can be used to configure and open a new client connection backed by a client endpoint that is used to consume and send messages.\n"
+"Quarkus provides a CDI bean with bean type `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` and default qualifer that can be injected in other beans.\n"
+"The actual type argument of an injection point is used to determine the client endpoint.\n"
 "The type is validated during build - if it does not represent a client endpoint the build fails."
-msgstr "La `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` se utiliza para configurar y crear nuevas conexiones para los puntos finales del cliente. Se proporciona un bean CDI que implementa esta interfaz y que puede inyectarse en otros beans. El argumento tipo real se utiliza para determinar el punto final del cliente. El tipo se valida durante la construcción - si no representa un punto final cliente la construcción falla."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1228,6 +1228,13 @@ msgstr "Utilice la conexión para enviar mensajes, si es necesario."
 #, fuzzy
 msgid "If an application attempts to inject a connector for a missing endpoint, an error is thrown."
 msgstr "Si una aplicación intenta inyectar un conector para un punto final que falta, se produce un error."
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid ""
+"Connectors are not thread-safe and should not be used concurrently.\n"
+"Connectors should also not be reused.\n"
+"If you need to create multiple connections in a row you'll need to obtain a new connetor instance programmatically using `Instance#get()`:"
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
