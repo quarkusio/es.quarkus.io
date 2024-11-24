@@ -563,14 +563,14 @@ msgid "Resolution"
 msgstr "Resolución"
 
 #: _versions/3.15/guides/qute-reference.adoc
-#, fuzzy
 msgid ""
+"When evaluating expressions a list of registered <<value-resolvers,value resolvers>> is used.\n"
 "The first part of the expression is always resolved against the <<current_context_object,current context object>>.\n"
 "If no result is found for the first part, it's resolved against the parent context object (if available).\n"
 "For an expression that starts with a namespace the current context object is found using all the available ``NamespaceResolver``s.\n"
 "For an expression that does not start with a namespace the current context object is *derived from the position* of the tag.\n"
 "All other parts of an expression are resolved using all ``ValueResolver``s against the result of the previous resolution."
-msgstr "La primera parte de la expresión siempre se resuelve contra el objeto de contexto xref:current_context_object[actual] . Si no se encuentra ningún resultado para la primera parte, se resuelve contra el objeto de contexto padre (si está disponible). Para una expresión que comienza con un espacio de nombres, el objeto de contexto actual se encuentra utilizando todos los `NamespaceResolver` s disponibles. Para una expresión que no comienza con un espacio de nombres, el objeto de contexto actual se *deriva de la posición* de la etiqueta. Todas las demás partes de una expresión se resuelven utilizando todos los `ValueResolver` s contra el resultado de la resolución anterior."
+msgstr ""
 
 #: _versions/3.15/guides/qute-reference.adoc
 #, fuzzy
@@ -2197,16 +2197,30 @@ msgid "Value Resolvers"
 msgstr "Resolvedores de valores"
 
 #: _versions/3.15/guides/qute-reference.adoc
-#, fuzzy
 msgid ""
 "Value resolvers are used when evaluating expressions.\n"
-"A custom `io.quarkus.qute.ValueResolver` can be registered programmatically via `EngineBuilder.addValueResolver()`."
-msgstr "Los resolvedores de valores se utilizan al evaluar expresiones. Un `io.quarkus.qute.ValueResolver` personalizado puede registrarse mediante programación a través de `EngineBuilder.addValueResolver()` ."
+"First the resolvers that apply to the given `EvalContext` are filtered.\n"
+"Then the resolver with _highest priority_ is used to resolve the data.\n"
+"If a `io.quarkus.qute.Results.NotFound` object is returned then the next available resolver is used instead.\n"
+"However, `null` return value is considered a valid result."
+msgstr ""
+
+#: _versions/3.15/guides/qute-reference.adoc
+msgid "A custom `io.quarkus.qute.ValueResolver` can be registered programmatically via `EngineBuilder.addValueResolver()`."
+msgstr ""
 
 #: _versions/3.15/guides/qute-reference.adoc
 #, fuzzy
 msgid "`ValueResolver` Builder Example"
 msgstr "`ValueResolver` Ejemplo de constructor"
+
+#: _versions/3.15/guides/qute-reference.adoc
+msgid "In Quarkus, the <<engine-customization,`@EngineConfiguration`>> annotation can be used to register a `ValueResolver` implemented as a CDI bean."
+msgstr ""
+
+#: _versions/3.15/guides/qute-reference.adoc
+msgid "Keep in mind that the reflection-based value resolver has priority `-1` and the max priority value for resolvers generated from <<template_data,`@TemplateData`>> and <<typesafe_expressions,type-safe expressions>> is `10`."
+msgstr ""
 
 #: _versions/3.15/guides/qute-reference.adoc
 #, fuzzy
