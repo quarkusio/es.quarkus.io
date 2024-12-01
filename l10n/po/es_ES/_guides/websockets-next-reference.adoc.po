@@ -7,9 +7,8 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "WebSockets Next extension reference guide"
-msgstr "Guía de referencia de la extensión WebSockets Next"
+msgid "WebSockets Next reference guide"
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 #, fuzzy
@@ -125,14 +124,13 @@ msgid "Endpoints"
 msgstr "Puntos finales"
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"Both the server and client APIs allow you to define _endpoints_ that are used to consume and send messages.\n"
+"Both the <<server-api>> and <<client-api>> define _endpoints_ that are used to consume and send messages.\n"
 "The endpoints are implemented as CDI beans and support injection.\n"
 "Endpoints declare <<callback-methods,_callback methods_>> annotated with `@OnTextMessage`, `@OnBinaryMessage`, `@OnPong`, `@OnOpen`, `@OnClose` and `@OnError`.\n"
 "These methods are used to handle various WebSocket events.\n"
 "Typically, a method annotated with `@OnTextMessage` is called when the connected client sends a message to the server and vice versa."
-msgstr "Tanto la API del servidor como la del cliente le permiten definir puntos _finales_ que se utilizan para consumir y enviar mensajes. Los puntos finales se implementan como beans CDI y admiten inyección. Los puntos finales declaran xref:callback-methods[métodos de devolución de llamada] anotados con `@OnTextMessage` , `@OnBinaryMessage` , `@OnPong` , `@OnOpen` , `@OnClose` y `@OnError` . Estos métodos se utilizan para manejar diversos eventos WebSocket. Normalmente, se llama a un método anotado con `@OnTextMessage` cuando el cliente conectado envía un mensaje al servidor y viceversa."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 #, fuzzy
@@ -237,30 +235,50 @@ msgid ""
 msgstr ""
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "This server endpoint is not shared and is scoped to the session."
-msgstr "Este punto final del servidor no se comparte y está limitado a la sesión."
+msgid "Session context"
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"Each WebSocket connection is associated with its own _session_ context.\n"
-"When the `@OnOpen` method is invoked, a session context corresponding to the WebSocket connection is created.\n"
-"Subsequent calls to `@On[Text|Binary]Message` or `@OnClose` methods utilize this same session context.\n"
-"The session context remains active until the `@OnClose` method completes execution, at which point it is terminated."
-msgstr "Cada conexión WebSocket está asociada a su propio contexto de _sesión_ . Cuando se invoca el método `@OnOpen` , se crea un contexto de sesión correspondiente a la conexión WebSocket. Las llamadas posteriores a los métodos `@On[Text|Binary]Message` o `@OnClose` utilizan este mismo contexto de sesión. El contexto de sesión permanece activo hasta que el método `@OnClose` finaliza su ejecución, momento en el que se termina."
+"If an endpoint is annotated with `@SessionScoped`, or depends directly or indirectly on a `@SessionScoped` bean, then each WebSocket connection is associated with its own _session context_.\n"
+"The session context is active during endpoint callback invocation.\n"
+"Subsequent invocations of <<callback-methods>> within the same connection utilize the same session context.\n"
+"The session context remains active until the connection is closed (usually when the `@OnClose` method completes execution), at which point it is terminated."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
+msgid "It is also possible to set the `quarkus.websockets-next.server.activate-session-context` config property to `always`. In this case, the session context is always activated, no matter if a `@SessionScoped` bean participates in the dependency tree."
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "`@SessionScoped` Endpoint"
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "This server endpoint is not shared and is scoped to the session/connection."
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "Request context"
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
 msgid ""
-"In cases where a WebSocket endpoint does not declare an `@OnOpen` method, the session context is still created.\n"
-"It remains active until the connection terminates, regardless of the presence of an `@OnClose` method."
-msgstr "En los casos en los que un punto final WebSocket no declare un método `@OnOpen` , el contexto de sesión se sigue creando. Permanece activo hasta que finaliza la conexión, independientemente de la presencia de un método `@OnClose` ."
+"If an endpoint is annotated with `@RequestScoped`, or with a security annotation (such as `@RolesAllowed`), or depends directly or indirectly on a `@RequestScoped` bean, or on a bean annotated with a security annotation, then each WebSocket endpoint callback method execution is associated with a new _request context_.\n"
+"The request context is active during endpoint callback invocation."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "Methods annotated with `@OnTextMessage,` `@OnBinaryMessage,` `@OnOpen`, and `@OnClose` also have the request scope activated for the duration of the method execution (until it produced its result)."
-msgstr "Los métodos anotados con `@OnTextMessage,` `@OnBinaryMessage,` `@OnOpen` , y `@OnClose` también tienen activado el ámbito de solicitud mientras dure la ejecución del método (hasta que produzca su resultado)."
+msgid "It is also possible to set the `quarkus.websockets-next.server.activate-request-context` config property to `always`. In this case, the request context is always activated when an endpoint callback is invoked."
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "`@RequestScoped` Endpoint"
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "This server endpoint is instantiated for each callback method execution."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1156,13 +1174,12 @@ msgid "Client connectors"
 msgstr "Conectores cliente"
 
 #: _guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"The `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` is used to configure and create new connections for client endpoints.\n"
-"A CDI bean that implements this interface is provided and can be injected in other beans.\n"
-"The actual type argument is used to determine the client endpoint.\n"
+"A connector can be used to configure and open a new client connection backed by a client endpoint that is used to consume and send messages.\n"
+"Quarkus provides a CDI bean with bean type `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` and default qualifer that can be injected in other beans.\n"
+"The actual type argument of an injection point is used to determine the client endpoint.\n"
 "The type is validated during build - if it does not represent a client endpoint the build fails."
-msgstr "La `io.quarkus.websockets.next.WebSocketConnector<CLIENT>` se utiliza para configurar y crear nuevas conexiones para los puntos finales del cliente. Se proporciona un bean CDI que implementa esta interfaz y que puede inyectarse en otros beans. El argumento tipo real se utiliza para determinar el punto final del cliente. El tipo se valida durante la construcción - si no representa un punto final cliente la construcción falla."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1208,6 +1225,13 @@ msgstr "Utilice la conexión para enviar mensajes, si es necesario."
 #, fuzzy
 msgid "If an application attempts to inject a connector for a missing endpoint, an error is thrown."
 msgstr "Si una aplicación intenta inyectar un conector para un punto final que falta, se produce un error."
+
+#: _guides/websockets-next-reference.adoc
+msgid ""
+"Connectors are not thread-safe and should not be used concurrently.\n"
+"Connectors should also not be reused.\n"
+"If you need to create multiple connections in a row you'll need to obtain a new connetor instance programmatically using `Instance#get()`:"
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1386,6 +1410,20 @@ msgstr "Establezca el número de caracteres de la carga útil de un mensaje de t
 #, fuzzy
 msgid "Enable `DEBUG` level is for the logger `io.quarkus.websockets.next.traffic`."
 msgstr "Habilitar `DEBUG` nivel es para el registrador `io.quarkus.websockets.next.traffic` ."
+
+#: _guides/websockets-next-reference.adoc
+msgid "Telemetry"
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid ""
+"When the OpenTelemetry extension is present, traces for opened and closed WebSocket connections are collected by default.\n"
+"If you do not require WebSocket traces, you can disable collecting of traces like in the example below:"
+msgstr ""
+
+#: _guides/websockets-next-reference.adoc
+msgid "Telemetry for the `BasicWebSocketConnector` is currently not supported."
+msgstr ""
 
 #: _guides/websockets-next-reference.adoc
 msgid "Configuration reference"

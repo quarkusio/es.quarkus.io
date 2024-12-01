@@ -1115,23 +1115,72 @@ msgid "Example of adding the `LibraryPermission` programmatically to `SecurityId
 msgstr "Ejemplo de adición programática de la dirección `LibraryPermission` a la dirección `SecurityIdentity`"
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
-#, fuzzy
 msgid ""
-"The permission `media-library` that was created can perform `read`, `write`, and `list` actions.\n"
+"Add a `media-library` permission that was created can perform `read`, `write`, and `list` actions.\n"
 "Because `MediaLibrary` is the `TvLibrary` class parent, a user with the `admin` role is also permitted to modify `TvLibrary`."
-msgstr "El permiso `media-library` que se creó puede realizar acciones `read` , `write` , y `list` . Dado que `MediaLibrary` es el padre de la clase `TvLibrary` , un usuario con el rol `admin` también tiene permiso para modificar `TvLibrary` ."
-
-#. type: Plain text
-#: _guides/security-authorize-web-endpoints-reference.adoc
-#, fuzzy
-msgid "You can add a permission checker through `io.quarkus.security.runtime.QuarkusSecurityIdentity.Builder#addPermissionChecker`."
-msgstr "Puede añadir un verificador de permisos a través de `io.quarkus.security.runtime.QuarkusSecurityIdentity.Builder#addPermissionChecker`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/security-authorize-web-endpoints-reference.adoc
 #, fuzzy
 msgid "Annotation-based permissions do not work with custom xref:security-customization.adoc#jaxrs-security-context[Jakarta REST SecurityContexts] because there are no permissions in `jakarta.ws.rs.core.SecurityContext`."
 msgstr "Los permisos de anotación no funcionan con el  link:security-customization.html#jaxrs-security-context[JAX-RS SecurityContext] personalizado, ya que no hay permisos en `jakarta.ws.rs.core.SecurityContext`."
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "Create permission checkers"
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid ""
+"By default, `SecurityIdentity` must be configured with permissions which can be used to check if this identity passes `@PermissionAllowed` authorization restrictions.\n"
+"Alternatively, you can use a `@PermissionChecker` annotation to mark any CDI bean method as a permission checker.\n"
+"The `@PermissionChecker` annotation value should match required permission declared by the `@PermissionsAllowed` annotation value.\n"
+"For example, a permission checker can be created like this:"
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "The permission required to access the `ProjectResource#renameProject` is the `rename-project` permission."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "The `ProjectResource#canRenameProject` method authorizes access to the `ProjectResource#renameProject` endpoint."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "The `SecurityIdentity` instance can be injected into any permission checker method."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid ""
+"In this example, the `rename-project` permission checker is declared on the same resource.\n"
+"However, there is no restriction on where this permission checker can be declared as demonstrated in the next example."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid ""
+"Permission checker methods can be declared on a normal scoped CDI bean or on a `@Singleton` bean.\n"
+"The `@Dependent` CDI bean scope is currently not supported."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid ""
+"The permission checker above requires the `SecurityIdentity` instance to authorize the `renameProject` endpoint.\n"
+"Instead of declaring the `rename-project` permission checker directly on the resource, you can declare it on any CDI bean like in this example:"
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "A CDI bean with the permission checker must be either a normal scoped bean or a `@Singleton` bean."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid "The permission checker method must return either `boolean` or `Uni<Boolean>`. Private checker methods are not supported."
+msgstr ""
+
+#: _guides/security-authorize-web-endpoints-reference.adoc
+msgid ""
+"Permission checks run by default on event loops.\n"
+"Annotate a permission checker method with the `io.smallrye.common.annotation.Blocking` annotation if you want to run the check on a worker thread."
+msgstr ""
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
 #, fuzzy
@@ -1164,14 +1213,13 @@ msgid ""
 msgstr "Quarkus puede asignar campos de los parámetros de un método asegurado a los parámetros del constructor de un permiso personalizado. Puede utilizar esta característica para pasar parámetros de `jakarta.ws.rs.BeanParam` a su permiso personalizado. Consideremos el siguiente recurso REST de Jakarta:"
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
-#, fuzzy
 msgid ""
-"The `params` annotation attribute specifies that user principal name should be passed to the `BeanParamPermission` constructor.\n"
-"Other `BeanParamPermission` constructor parameters like `customAuthorizationHeader` and `query` are matched automatically.\n"
-"Quarkus identifies the `BeanParamPermission` constructor parameters among `beanParam` fields and their public accessors.\n"
+"The `params` annotation attribute specifies that user principal name should be passed to the `BeanParamPermissionChecker#canSayHello` method.\n"
+"Other `BeanParamPermissionChecker#canSayHello` method parameters like `customAuthorizationHeader` and `query` are matched automatically.\n"
+"Quarkus identifies the `BeanParamPermissionChecker#canSayHello` method parameters among `beanParam` fields and their public accessors.\n"
 "To avoid ambiguous resolution, automatic detection only works for the `beanParam` fields.\n"
 "For that reason, we had to specify path to the user principal name explicitly."
-msgstr "El atributo de anotación `params` especifica que el nombre de usuario principal debe pasarse al constructor `BeanParamPermission` . Otros parámetros del constructor `BeanParamPermission` como `customAuthorizationHeader` y `query` se emparejan automáticamente. Quarkus identifica los parámetros del constructor `BeanParamPermission` entre los campos `beanParam` y sus accesores públicos. Para evitar una resolución ambigua, la detección automática sólo funciona para los campos `beanParam` . Por esa razón, tuvimos que especificar explícitamente la ruta al nombre principal del usuario."
+msgstr ""
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
 #, fuzzy
@@ -1196,16 +1244,14 @@ msgid ""
 msgstr "El campo `customAuthorizationHeader` no es público, por lo que Quarkus accede a él con el accesor `customAuthorizationHeader` . Eso es particularmente útil con los registros Java, donde los accesores generados no llevan el prefijo `get` ."
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
-#, fuzzy
-msgid "Here is an example of the `BeanParamPermission` permission that checks user principal, custom header and query parameter:"
-msgstr "He aquí un ejemplo del permiso `BeanParamPermission` que comprueba el usuario principal, la cabecera personalizada y el parámetro de consulta:"
+msgid "Here is an example of a `@PermissionChecker` method that checks the `say-hello` permission based on a user principal, custom header and query parameter:"
+msgstr ""
 
 #: _guides/security-authorize-web-endpoints-reference.adoc
-#, fuzzy
 msgid ""
-"You can pass `@BeanParam` directly into a custom permission constructor and access its fields programmatically in the constructor instead.\n"
+"You can pass `@BeanParam` directly into a `@PermissionChecker` method and access its fields programmatically.\n"
 "Ability to reference `@BeanParam` fields with the `@PermissionsAllowed#params` attribute is useful when you have multiple differently structured `@BeanParam` classes."
-msgstr "Puede pasar `@BeanParam` directamente al constructor de un permiso personalizado y acceder a sus campos mediante programación en el constructor en su lugar. La posibilidad de hacer referencia a los campos `@BeanParam` con el atributo `@PermissionsAllowed#params` es útil cuando se tienen varias clases `@BeanParam` estructuradas de forma diferente."
+msgstr ""
 
 #. type: Title ==
 #: _guides/security-authorize-web-endpoints-reference.adoc
