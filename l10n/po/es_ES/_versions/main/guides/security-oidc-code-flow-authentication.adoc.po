@@ -2117,6 +2117,56 @@ msgstr "Las pruebas suelen ser complicadas cuando se trata de la autenticación 
 msgid "Start by adding the following dependencies to your test project:"
 msgstr "Comience por añadir las siguientes dependencias a su proyecto de prueba:"
 
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+#, fuzzy
+msgid "Dev Services for Keycloak"
+msgstr "Servicios de desarrollo para Keycloak"
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid ""
+"For integration testing against Keycloak, use xref:security-openid-connect-dev-services.adoc[Dev services for Keycloak].\n"
+"This service initializes a test container, creates a `quarkus` realm, and configures a `quarkus-app` client with the secret `secret`.\n"
+"It also sets up two users: `alice` with `admin` and `user` roles, and `bob` with the `user` role.\n"
+"All these properties are customizable. For details, see xref:security-openid-connect-dev-services.adoc#keycloak-initialization[Keycloak Initialization]."
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "First, prepare the `application.properties` file."
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "If starting from an empty `application.properties` file, `Dev Services for Keycloak` automatically registers the following properties:"
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "`quarkus.oidc.auth-server-url`, which points to the running test container."
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "`quarkus.oidc.client-id=quarkus-app`."
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "`quarkus.oidc.credentials.secret=secret`."
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid ""
+"If you already have the required `quarkus-oidc` properties configured, associate `quarkus.oidc.auth-server-url` with the `prod` profile.\n"
+"This ensures that `Dev Services for Keycloak` starts the container as expected.\n"
+"For example:"
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid "To import a custom realm file into Keycloak before running the tests, configure `Dev services for Keycloak` as shown:"
+msgstr ""
+
+#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
+msgid ""
+"Finally, write the test code as described in the <<code-flow-integration-testing-wiremock,Wiremock>> section.\n"
+"The only difference is that `@QuarkusTestResource` is no longer required:"
+msgstr ""
+
 #. type: Title ===
 #: _versions/main/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
@@ -2158,45 +2208,6 @@ msgstr "Además, `OidcWiremockTestResource` establece el emisor del token y la a
 #, fuzzy
 msgid "`OidcWiremockTestResource` can be used to emulate all OIDC providers."
 msgstr "`OidcWiremockTestResource` puede utilizarse para emular a todos los proveedores de OIDC."
-
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid "Dev Services for Keycloak"
-msgstr "Servicios de desarrollo para Keycloak"
-
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid ""
-"Using xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak] is recommended for integration testing against Keycloak.\n"
-"`Dev Services for Keycloak` will start and initialize a test container: it will create a `quarkus` realm, a `quarkus-app` client (`secret` secret), and add `alice` (`admin` and `user` roles) and `bob` (`user` role) users, where all of these properties can be customized."
-msgstr "Se recomienda utilizar xref:security-openid-connect-dev-services.adoc[Dev Services para Keycloak] para realizar pruebas de integración contra Keycloak. `Dev Services for Keycloak` arrancará e inicializará un contenedor de pruebas: creará un dominio `quarkus` , un cliente `quarkus-app` ( `secret` secreto), y añadirá usuarios `alice` ( `admin` y `user` roles) y `bob` ( `user` rol), donde todas estas propiedades pueden personalizarse."
-
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid ""
-"First, prepare `application.properties`.\n"
-"You can start with a completely empty `application.properties` file as `Dev Services for Keycloak` will register `quarkus.oidc.auth-server-url` pointing to the running test container as well as `quarkus.oidc.client-id=quarkus-app` and `quarkus.oidc.credentials.secret=secret`."
-msgstr "En primer lugar, prepare `application.properties` . Puede empezar con un archivo `application.properties` completamente vacío, ya que `Dev Services for Keycloak` registrará `quarkus.oidc.auth-server-url` apuntando al contenedor de prueba en ejecución, así como `quarkus.oidc.client-id=quarkus-app` y `quarkus.oidc.credentials.secret=secret` ."
-
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid ""
-"However, if you already have all the required `quarkus-oidc` properties configured, then you only need to associate `quarkus.oidc.auth-server-url` with the `prod` profile for `Dev Services for Keycloak` to start a container.\n"
-"For example:"
-msgstr "Sin embargo, si ya tiene configuradas todas las propiedades necesarias de `quarkus-oidc` , sólo tendrá que asociar `quarkus.oidc.auth-server-url` con el perfil `prod` para que `Dev Services for Keycloak` inicie un contenedor. Por ejemplo:"
-
-#. type: Plain text
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid "If a custom realm file has to be imported into Keycloak before running the tests, then you can configure `Dev Services for Keycloak` as follows:"
-msgstr "Si es necesario importar un archivo de dominio personalizado en Keycloak antes de ejecutar las pruebas, puede configurar `Dev Services for Keycloak` del siguiente modo:"
-
-#: _versions/main/guides/security-oidc-code-flow-authentication.adoc
-#, fuzzy
-msgid ""
-"Finally, write a test code the same way as it is described in the <<code-flow-integration-testing-wiremock,Wiremock>> section.\n"
-"The only difference is that `@QuarkusTestResource` is no longer needed:"
-msgstr "Por último, escriba un código de prueba de la misma forma que se describe en la sección xref:code-flow-integration-testing-wiremock[Wiremock] . La única diferencia es que ya no se necesita `@QuarkusTestResource` :"
 
 #. type: Title ===
 #: _versions/main/guides/security-oidc-code-flow-authentication.adoc
