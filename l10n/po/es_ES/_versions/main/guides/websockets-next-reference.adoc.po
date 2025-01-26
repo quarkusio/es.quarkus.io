@@ -263,9 +263,23 @@ msgid "Request context"
 msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-msgid ""
-"If an endpoint is annotated with `@RequestScoped`, or with a security annotation (such as `@RolesAllowed`), or depends directly or indirectly on a `@RequestScoped` bean, or on a bean annotated with a security annotation, then each WebSocket endpoint callback method execution is associated with a new _request context_.\n"
-"The request context is active during endpoint callback invocation."
+msgid "Each WebSocket endpoint callback method execution is associated with a new CDI _request context_ if the endpoint is:"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Annotated with the `@RequestScoped` annotation."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Has a method annotated with a security annotation such as `@RolesAllowed`."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Depends directly or indirectly on a `@RequestScoped` bean."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Depends directly or indirectly on a CDI beans secured with a standard security annotation."
 msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
@@ -1087,36 +1101,16 @@ msgid "Security"
 msgstr "Seguridad"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"WebSocket endpoint callback methods can be secured with security annotations such as `io.quarkus.security.Authenticated`,\n"
-"`jakarta.annotation.security.RolesAllowed` and other annotations listed in the xref:security-authorize-web-endpoints-reference.adoc#standard-security-annotations[Supported security annotations] documentation."
-msgstr "Los métodos de devolución de llamada del punto final de WebSocket pueden protegerse con anotaciones de seguridad como `io.quarkus.security.Authenticated` , `jakarta.annotation.security.RolesAllowed` y otras anotaciones enumeradas en la documentación xref:security-authorize-web-endpoints-reference.adoc#standard-security-annotations[Anotaciones de seguridad admitidas] ."
+"Security capabilities are provided by the Quarkus Security extension.\n"
+"Any xref:security-identity-providers.adoc[Identity provider] can be used to convert authentication credentials on the initial HTTP request into a `SecurityIdentity` instance.\n"
+"The `SecurityIdentity` is then associated with the websocket connection.\n"
+"Authorization options are demonstrated in following sections."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "For example:"
-msgstr "Por ejemplo:"
-
-#: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "The echo callback method can only be invoked if the current security identity has an `admin` role."
-msgstr "El método de devolución de llamada eco sólo puede invocarse si la identidad de seguridad actual tiene un rol `admin` ."
-
-#: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "The error handler is invoked in case of the authorization failure."
-msgstr "El gestor de errores se invoca en caso de que falle la autorización."
-
-#: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "`SecurityIdentity` is initially created during a secure HTTP upgrade and associated with the websocket connection."
-msgstr "`SecurityIdentity` se crea inicialmente durante una actualización HTTP segura y se asocia a la conexión websocket."
-
-#: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
-msgid "When OpenID Connect extension is used and token expires, Quarkus automatically closes connection."
-msgstr "Cuando se utiliza la extensión OpenID Connect y el token caduca, Quarkus cierra automáticamente la conexión."
+msgid "When an OpenID Connect extension, `quarkus-oidc`, is used and token expires, Quarkus automatically closes connection."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1124,12 +1118,11 @@ msgid "Secure HTTP upgrade"
 msgstr "Actualización HTTP segura"
 
 #: _versions/main/guides/websockets-next-reference.adoc
-#, fuzzy
 msgid ""
-"An HTTP upgrade is secured when standard security annotation is placed on an endpoint class or an HTTP Security policy is defined.\n"
+"An HTTP upgrade is secured when a standard security annotation is placed on an endpoint class or an HTTP Security policy is defined.\n"
 "The advantage of securing HTTP upgrade is less processing, the authorization is performed early and only once.\n"
-"You should always prefer HTTP upgrade security unless, like in th example above, you need to perform action on error."
-msgstr "Una actualización HTTP está asegurada cuando se coloca una anotación de seguridad estándar en una clase de punto final o se define una política de seguridad HTTP. La ventaja de asegurar la actualización HTTP es un menor procesamiento, la autorización se realiza antes y sólo una vez. Siempre debe preferir la seguridad de la actualización HTTP a menos que, como en el ejemplo anterior, necesite realizar una acción en caso de error."
+"You should always prefer HTTP upgrade security unless you need to perform an action on error (see <<secure-callback-methods>>) or a security check based on the payload (see <<secure-endpoints-with-permission-checkers>>)."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
@@ -1155,6 +1148,62 @@ msgstr "La actualización HTTP sólo está asegurada cuando se declara una anota
 #, fuzzy
 msgid "Use HTTP Security policy to secure an HTTP upgrade"
 msgstr "Utilizar la política de seguridad HTTP para asegurar una actualización HTTP"
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Secure WebSocket endpoint callback methods"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+#, fuzzy
+msgid ""
+"WebSocket endpoint callback methods can be secured with security annotations such as `io.quarkus.security.Authenticated`,\n"
+"`jakarta.annotation.security.RolesAllowed` and other annotations listed in the xref:security-authorize-web-endpoints-reference.adoc#standard-security-annotations[Supported security annotations] documentation."
+msgstr "Los métodos de devolución de llamada del punto final de WebSocket pueden protegerse con anotaciones de seguridad como `io.quarkus.security.Authenticated` , `jakarta.annotation.security.RolesAllowed` y otras anotaciones enumeradas en la documentación xref:security-authorize-web-endpoints-reference.adoc#standard-security-annotations[Anotaciones de seguridad admitidas] ."
+
+#: _versions/main/guides/websockets-next-reference.adoc
+#, fuzzy
+msgid "For example:"
+msgstr "Por ejemplo:"
+
+#: _versions/main/guides/websockets-next-reference.adoc
+#, fuzzy
+msgid "The echo callback method can only be invoked if the current security identity has an `admin` role."
+msgstr "El método de devolución de llamada eco sólo puede invocarse si la identidad de seguridad actual tiene un rol `admin` ."
+
+#: _versions/main/guides/websockets-next-reference.adoc
+#, fuzzy
+msgid "The error handler is invoked in case of the authorization failure."
+msgstr "El gestor de errores se invoca en caso de que falle la autorización."
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Secure server endpoints with permission checkers"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid ""
+"WebSocket endpoints can be secured with the xref:security-authorize-web-endpoints-reference.adoc#permission-checker[permission checkers].\n"
+"We recommend to <<secure-http-upgrade>> rather than individual endpoint methods. For example:"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Example of a WebSocket endpoint with secured HTTP upgrade"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "Example of a permission checker authorizing the HTTP upgrade"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "A permission checker authorizing an HTTP upgrade must declare exactly one method parameter, the `SecurityIdentity`."
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "It is also possible to run security checks on every message. For example, a message payload can be accessed like this:"
+msgstr ""
+
+#: _versions/main/guides/websockets-next-reference.adoc
+msgid "The `getProduct` callback method can only be invoked if the current security identity has an `admin` role or the user is allowed to get the product detail."
+msgstr ""
 
 #: _versions/main/guides/websockets-next-reference.adoc
 #, fuzzy
