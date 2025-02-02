@@ -363,6 +363,10 @@ msgstr "Quarkus admite esto permitiéndole inyectar beans CDI en sus pruebas med
 msgid "The `GreetingService` bean will be injected into the test"
 msgstr "La judía `GreetingService` se inyectará en la prueba"
 
+#: _guides/getting-started-testing.adoc
+msgid "If you want to inject/test a `@SessionScoped` bean then it's very likely that the session context is not active and you would receive the `ContextNotActiveException` when a method of the injected bean is invoked. However, it's possible to use the `@io.quarkus.test.ActivateSessionContext` interceptor binding to activate the session context for a specific business method. Please read the javadoc for futher limitations."
+msgstr ""
+
 #. type: Title ==
 #: _guides/getting-started-testing.adoc
 #, fuzzy, no-wrap
@@ -514,19 +518,15 @@ msgid ""
 msgstr "Para evitar esto, Quarkus admite la idea de un perfil de prueba. Si una prueba tiene un perfil diferente al de la prueba ejecutada anteriormente, entonces Quarkus se apagará y se iniciará con el nuevo perfil antes de ejecutar las pruebas. Esto es obviamente un poco más lento, ya que añade un ciclo de apagado/arranque al tiempo de la prueba, pero proporciona una gran flexibilidad."
 
 #: _guides/getting-started-testing.adoc
-#, fuzzy
 msgid ""
 "To reduce the amount of times Quarkus needs to restart, `io.quarkus.test.junit.util.QuarkusTestProfileAwareClassOrderer`\n"
 "is registered as a global `ClassOrderer` as described in the\n"
 "link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-test-execution-order-classes[JUnit 5 User Guide].\n"
-"The behavior of this `ClassOrderer` is configurable via `junit-platform.properties` (see the source code or javadoc for more details).\n"
-"It can also be disabled entirely by setting another `ClassOrderer` that is provided by JUnit 5 or even your own custom one. +\n"
-"Please note that as of JUnit 5.8.2 link:https://github.com/junit-team/junit5/issues/2794[only a single `junit-platform.properties` is picked up and a warning is logged if more than one is found].\n"
-"If you encounter such warnings, you can get rid of them by removing the Quarkus-supplied `junit-platform.properties` from the classpath via an exclusion:"
+"The behavior of this `ClassOrderer` is configurable via `application.properties` using the property\n"
+"`quarkus.test.class-orderer`. The property accepts the FQCN of the `ClassOrderer` to use. If the class cannot be found,\n"
+"it fallbacks to JUnit default behaviour which does not set a `ClassOrderer` at all. It can also be disabled entirely by\n"
+"setting another `ClassOrderer` that is provided by JUnit 5 or even your own custom one."
 msgstr ""
-"Para reducir la cantidad de veces que Quarkus necesita reiniciarse, `io.quarkus.test.junit.util.QuarkusTestProfileAwareClassOrderer` se registra como un `ClassOrderer` global tal y como se describe en la link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-test-execution-order-classes[Guía del Usuario de JUnit 5] . El comportamiento de este `ClassOrderer` es configurable a través de `junit-platform.properties` (consulte el código fuente o javadoc para más detalles). También puede desactivarse por completo configurando otro `ClassOrderer` proporcionado por JUnit 5 o incluso uno propio personalizado.\n"
-"\n"
-" Tenga en cuenta que a partir de JUnit 5.8.2 link:https://github.com/junit-team/junit5/issues/2794[sólo se recoge un único junit-platform.properties y se registra una advertencia si se encuentra más de uno] . Si encuentra este tipo de advertencias, puede deshacerse de ellas eliminando el `junit-platform.properties` proporcionado por Quarkus del classpath mediante una exclusión:"
 
 #. type: Title ===
 #: _guides/getting-started-testing.adoc

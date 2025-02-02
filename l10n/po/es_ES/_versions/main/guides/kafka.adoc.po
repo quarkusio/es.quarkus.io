@@ -3337,14 +3337,11 @@ msgid "If you use Hibernate Reactive, look at <<writing-entities-managed-by-hibe
 msgstr "Si utiliza Hibernate Reactive, consulte <<writing-entities-managed-by-hibernate-reactive-to-kafka>> ."
 
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
 msgid ""
 "Because we write to a database, we must run this method in a transaction.\n"
 "Yet, sending the entity to Kafka happens asynchronously.\n"
-"The operation returns a `CompletionStage` (or a `Uni` if you use a `MutinyEmitter`) reporting when the operation completes.\n"
-"We must be sure that the transaction is still running until the object is written.\n"
-"Otherwise, you may access the object outside the transaction, which is not allowed."
-msgstr "Dado que escribimos en una base de datos, debemos ejecutar este método en una transacción. Sin embargo, el envío de la entidad a Kafka se produce de forma asíncrona. La operación devuelve un `CompletionStage` (o un `Uni` si utiliza un `MutinyEmitter` ) que informa cuando la operación finaliza. Debemos asegurarnos de que la transacción sigue en marcha hasta que se escribe el objeto. De lo contrario, se podría acceder al objeto fuera de la transacción, lo que no está permitido."
+"We can achieve this by using `.sendAndAwait()` or `.sendAndForget()` on the `MutinyEmitter`, or `.send().toCompletableFuture().join()` on the `Emitter`."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/kafka.adoc
@@ -3358,18 +3355,20 @@ msgstr "Para llevar a cabo este proceso, es necesario el siguiente enfoque:"
 msgid "As we are writing to the database, make sure we run inside a transaction"
 msgstr "Como estamos escribiendo en la base de datos, asegúrese de que se ejecuta dentro de una transacción"
 
-#. type: Plain text
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
-msgid "The method receives the fruit instance to persist. It returns a `CompletionStage` which is used for the transaction demarcation. The transaction is committed when the return `CompletionStage` completes. In our case, it's when the message is written to Kafka."
-msgstr "El método recibe la instancia de la fruta a persistir. Devuelve un `CompletionStage` que se utiliza para la demarcación de la transacción. La transacción se compromete cuando se completa el retorno `CompletionStage`. En nuestro caso, es cuando el mensaje se escribe en Kafka."
+msgid "The method receives the fruit instance to persist."
+msgstr ""
 
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
 msgid ""
 "Wrap the managed entity inside a Data transfer object and send it to Kafka.\n"
-"This makes sure that managed entity is not impacted by the Kafka serialization."
-msgstr "Envuelva la entidad gestionada dentro de un objeto de transferencia de datos y envíelo a Kafka. Esto asegura que la entidad gestionada no se vea impactada por la serialización de Kafka."
+"This makes sure that managed entity is not impacted by the Kafka serialization.\n"
+"Then await the completion of the operation before returning."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "You should not return a `CompletionStage` or `Uni` when using `@Transactional`, as all transaction commits will happen on a single thread, which impacts performance."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/kafka.adoc
@@ -3579,12 +3578,6 @@ msgstr "Inyecte el Hibernate Reactive `SessionFactory`."
 #. type: Plain text
 #: _versions/main/guides/kafka.adoc
 #, fuzzy
-msgid "Capture the caller Vert.x context."
-msgstr "Captura el contexto Vert.x de la persona que llama."
-
-#. type: Plain text
-#: _versions/main/guides/kafka.adoc
-#, fuzzy
 msgid "Begin a Hibernate Reactive transaction."
 msgstr "Iniciar una transacción Hibernate Reactive."
 
@@ -3595,11 +3588,38 @@ msgid "Persist the payload and send the entity to Kafka."
 msgstr "Se envía la entidad a un tema Kafka"
 
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
+msgid "Alternatively, you can use the `@WithTransaction` annotation to start a transaction and commit it when the method returns:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Start a Hibernate Reactive transaction and commit it when the method returns."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Chaining Kafka Transactions with Hibernate ORM transactions"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
 msgid ""
-"The Kafka transaction terminates on the Kafka producer sender thread.\n"
-"We need to switch to the Vert.x context previously captured in order to terminate the Hibernate Reactive transaction on the same context we started it."
-msgstr "La transacción Kafka termina en el hilo emisor del productor Kafka. Necesitamos cambiar al contexto Vert.x capturado previamente para terminar la transacción Hibernate Reactive en el mismo contexto en el que la iniciamos."
+"While `KafkaTransactions` provide a reactive API on top of Mutiny to manage Kafka transactions,\n"
+"you can still chain Kafka transactions with blocking Hibernate ORM transactions."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Start a Hibernate ORM transaction. The transaction is committed when the method returns."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Persist the payload."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Send the entity to Kafka inside the Kafka transaction."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Wait on the returned `Uni` for the Kafka transaction to complete."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/kafka.adoc

@@ -451,23 +451,31 @@ msgstr "Para facilitar la configuración, puede utilizar la propiedad `@Register
 msgid "Setting the base URL of the client is **mandatory**, however the REST Client supports per-invocation overrides of the base URL using the `@io.quarkus.rest.client.reactive.Url` annotation."
 msgstr "Establecer la URL base del cliente es *obligatorio* , sin embargo el Cliente REST admite anulaciones por invocación de la URL base utilizando la anotación `@io.quarkus.rest.client.reactive.Url` ."
 
-#. type: Title ===
 #: _guides/rest-client.adoc
-#, fuzzy, no-wrap
-msgid "Disabling Hostname Verification"
-msgstr "Desactivación de la verificación del nombre de host"
+msgid "Trusting all certificates and Disabling SSL hostname verification"
+msgstr ""
 
-#. type: Plain text
 #: _guides/rest-client.adoc
-#, fuzzy
-msgid "To disable the SSL hostname verification for a specific REST client, add the following property to your configuration:"
-msgstr "Para desactivar la verificación del nombre de host SSL para un cliente REST específico, añada la siguiente propiedad a su configuración:"
+msgid "This properties set should not be used in production."
+msgstr ""
 
-#. type: delimited block =
 #: _guides/rest-client.adoc
-#, fuzzy
-msgid "This setting should not be used in production as it will disable the SSL hostname verification."
-msgstr "Esta configuración no debe usarse en producción ya que deshabilitará cualquier tipo de verificación SSL."
+msgid ""
+"You can configure TLS connection of specific REST client to trust all certificates and disable the hostname verification using tls extension.\n"
+"First of all, you should configure tls configuration bucket."
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "To trust all certificates:"
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "To disable SSL hostname verification:"
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "Finally, lets configure our REST client with apropriate tls configuration name:"
+msgstr ""
 
 #: _guides/rest-client.adoc
 #, fuzzy
@@ -1066,6 +1074,35 @@ msgid "Note that you can also use the `@Blocking` annotation when using @ClientE
 msgstr "Tenga en cuenta que también puede utilizar la anotación `@Blocking` cuando utilice @ClientExceptionMapper:"
 
 #: _guides/rest-client.adoc
+msgid "Disabling the default mapper"
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid ""
+"As mandated by the REST Client specification, a default exception mapper is included, that throws an exception when HTTP status code is higher than 400.\n"
+"While this behavior is fine when the client returns a regular object, it is however very unintuitive when the client needs to return a `jakarta.ws.rs.core.Response`\n"
+"(with the intention of allowing the caller to decide how to handle the HTTP status code)."
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "For this reason, the REST Client includes a property named `disable-default-mapper` which can be used to disable the default mapper when using a REST client in a declarative manner."
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "For example, with a client like so:"
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid "The default exception mapper can be disabled by setting `quarkus.rest-client.bar.disable-default-mapper=true` to disable the exception mapper for the REST Client configured with the key `bar`."
+msgstr ""
+
+#: _guides/rest-client.adoc
+msgid ""
+"When using the programmatic approach for creating a REST Client, `QuarkusRestClientBuilder` provides a method named `disableDefaultMapper`\n"
+"that provides the same feature."
+msgstr ""
+
+#: _guides/rest-client.adoc
 #, fuzzy
 msgid "Multipart Form support"
 msgstr "Soporte de formularios multiparte"
@@ -1475,6 +1512,12 @@ msgid "REST Client is logging the traffic with level DEBUG and does not alter lo
 msgstr "REST Client está registrando el tráfico con el nivel DEBUG y no altera las propiedades del registrador. Es posible que tenga que ajustar la configuración de su registrador para utilizar esta función."
 
 #: _guides/rest-client.adoc
+msgid ""
+"These configuration properties work globally for all clients injected by CDI.\n"
+"If you want configure logging for a specific declarative client, you should do it by specifying named \"client\" properties, also known as `quarkus.rest-client.\"client\".logging.*` properties."
+msgstr ""
+
+#: _guides/rest-client.adoc
 #, fuzzy
 msgid "An example logging configuration:"
 msgstr "Un ejemplo de configuración de registro:"
@@ -1679,9 +1722,8 @@ msgid ""
 msgstr ""
 
 #: _guides/rest-client.adoc
-#, fuzzy
-msgid "it is not possible to set `HostnameVerifier` or `SSLContext`"
-msgstr "no es posible establecer `HostnameVerifier` o `SSLContext`"
+msgid "it is not possible to set `SSLContext`"
+msgstr ""
 
 #: _guides/rest-client.adoc
 #, fuzzy
