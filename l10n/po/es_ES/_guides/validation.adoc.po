@@ -543,6 +543,16 @@ msgstr "Si la misma instancia del frijol `ConstraintValidator` puede utilizarse 
 msgid "If the `ConstraintValidator` bean implements the `initialize(A constraintAnnotation)` method and depends on the state of the constraint annotation, use the `@Dependent` scope to make sure each annotation context has a separate and properly configured instance of the `ConstraintValidator` bean."
 msgstr "Sin embargo, en el caso de `ConstraintValidator`s que dependen de los atributos de la anotación de restricción (normalmente cuando se implementa el método `initialize(A constraintAnnotation)` ), utilice el ámbito `@Dependent` para asegurarse de que cada contexto de anotación tiene una instancia separada del bean `ConstraintValidator`."
 
+#: _guides/validation.adoc
+msgid ""
+"When injecting beans relying on the runtime configuration, use `@Inject Instance<..>`. Since constraints are initialized\n"
+"at build time, it is not possible to completely preconfigure the constraint in the `initialize(..)` method,\n"
+"as the runtime information will be missing at that point. The `initialize(..)` method in such scenarios can still be used\n"
+"to read the constraint annotation parameters, and perform any work not relying on the runtime configuration.\n"
+"Hence, it is recommended that any heavy configuration work happens as part of the injected bean initialization\n"
+"and methods used in the `ConstraintValidator#isValid(..)` implementation are as fast as possible:"
+msgstr ""
+
 #. type: Title ===
 #: _guides/validation.adoc
 #, fuzzy, no-wrap
