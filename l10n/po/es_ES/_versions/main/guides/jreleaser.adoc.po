@@ -137,19 +137,23 @@ msgid "Creating the distribution"
 msgstr "Creación de la distribución"
 
 #: _versions/main/guides/jreleaser.adoc
-#, fuzzy
 msgid ""
 "We can leverage the link:http://maven.apache.org/plugins/maven-assembly-plugin/[maven-assembly-plugin] to create such\n"
-"a distribution. We'll also make use of the link:https://github.com/trustin/os-maven-plugin[os-maven-plugin] to properly\n"
+"a distribution. We'll also make use of the link:https://github.com/maveniverse/nisse[Nisse Maven plugin] to properly\n"
 "identify the platform on which this executable can run, adding said platform to the distribution's filename."
-msgstr "Podemos aprovechar el link:http://maven.apache.org/plugins/maven-assembly-plugin/[maven-assembly-plugin] para crear una distribución de este tipo. También haremos uso del link:https://github.com/trustin/os-maven-plugin[os-maven-plugin] para identificar correctamente la plataforma en la que puede ejecutarse este ejecutable, añadiendo dicha plataforma al nombre de archivo de la distribución."
+msgstr ""
 
 #: _versions/main/guides/jreleaser.adoc
-#, fuzzy
 msgid ""
-"First, let's add the os-maven-plugin to the `pom.xml`. This plugin works as a Maven extension and as such must be added\n"
+"First, let's add the Nisse Maven plugin to the `pom.xml`. This plugin must be added\n"
 "to the `<build>` section of the file:"
-msgstr "En primer lugar, vamos a añadir el complemento os-maven-plugin a `pom.xml` . Este complemento funciona como una extensión de Maven y, como tal, debe añadirse a la sección `<build>` del archivo:"
+msgstr ""
+
+#: _versions/main/guides/jreleaser.adoc
+msgid ""
+"In order for this plugin to generate the correct properties, we need to make sure the `nisse.compat.osDetector` system\n"
+"property is set. This can be done by adding the following `.mvn/maven.config` file:"
+msgstr ""
 
 #: _versions/main/guides/jreleaser.adoc
 #, fuzzy
@@ -161,14 +165,13 @@ msgid ""
 msgstr "A continuación, los ejecutables nativos de las plataformas Linux y macOS no suelen tener extensión de archivo, pero los de Windows sí, por lo que debemos tenerlo en cuenta al cambiar el nombre del ejecutable generado. También podemos colocar las distribuciones generadas en su propio directorio para evitar abarrotar el directorio `target` . Así pues, añadamos un par de propiedades a la sección `<properties>` existente en el directorio `pom.xml` :"
 
 #: _versions/main/guides/jreleaser.adoc
-#, fuzzy
 msgid ""
 "Now we configure the maven-assembly-plugin to create a Zip and a Tar file containing the executable and any supporting files\n"
 "it may need to perform its job. Take special note on the name of the distribution, this is where we make use of the platform\n"
-"properties detected by the os-maven-plugin. This plugin is configured in its own profile with the `single` goal bound to\n"
+"properties detected by the os-detector-maven-plugin. This plugin is configured in its own profile with the `single` goal bound to\n"
 "the `package` phase. It's done this way to avoid rebuilding the distribution every single time the build is invoked, as we\n"
 "only needed when we're ready for a release."
-msgstr "Ahora configuramos el maven-assembly-plugin para que cree un archivo Zip y otro Tar que contengan el ejecutable y los archivos de apoyo que pueda necesitar para realizar su trabajo. Preste especial atención al nombre de la distribución, aquí es donde hacemos uso de las propiedades de la plataforma detectadas por el plugin os-maven. Este plugin está configurado en su propio perfil con el objetivo `single` ligado a la fase `package` . Se hace de esta manera para evitar reconstruir la distribución cada vez que se invoca la compilación, ya que sólo lo necesitamos cuando estamos listos para un lanzamiento."
+msgstr ""
 
 #: _versions/main/guides/jreleaser.adoc
 #, fuzzy
