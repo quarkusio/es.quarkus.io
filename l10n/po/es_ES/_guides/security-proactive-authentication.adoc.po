@@ -30,12 +30,13 @@ msgid ""
 msgstr "Aprenda a gestionar la autenticación proactiva en Quarkus, incluyendo la personalización de los ajustes y el manejo de las excepciones. Obtenga conocimientos prácticos y estrategias para diversos escenarios de aplicación."
 
 #: _guides/security-proactive-authentication.adoc
+#, fuzzy
 msgid ""
 "Proactive authentication is enabled in Quarkus by default.\n"
 "It ensures that all incoming requests with credentials are authenticated, even if the target page does not require authentication.\n"
 "As a result, requests with invalid credentials are rejected, even if the target page is public.\n"
 "Requests without credentials are not rejected, because anonymous requests are allowed."
-msgstr ""
+msgstr "La autenticación proactiva está activada en Quarkus por defecto. Garantiza que todas las solicitudes entrantes con credenciales se autentiquen, incluso si la página de destino no requiere autenticación. Como resultado, las solicitudes con credenciales no válidas son rechazadas, incluso si la página de destino es pública. Las solicitudes sin credenciales no se rechazan, porque se permiten las solicitudes anónimas."
 
 #: _guides/security-proactive-authentication.adoc
 #, fuzzy
@@ -52,6 +53,7 @@ msgid ""
 msgstr "Si desactiva la autenticación proactiva, el proceso de autenticación sólo se ejecuta cuando se solicita una identidad. Una identidad puede ser solicitada debido a reglas de seguridad que requieren que el usuario se autentique o porque se requiere acceso programático a la identidad actual."
 
 #: _guides/security-proactive-authentication.adoc
+#, fuzzy
 msgid ""
 "If proactive authentication is not used, accessing `SecurityIdentity` is a blocking operation.\n"
 "This is because authentication might have yet to happen, and accessing `SecurityIdentity` might require calls to external systems, such as databases, that might block the operation.\n"
@@ -59,7 +61,7 @@ msgid ""
 "However, if you have disabled authentication in a reactive application, this fails because you cannot do blocking operations on the I/O thread.\n"
 "To work around this, you need to `@Inject` an instance of `io.quarkus.security.identity.CurrentIdentityAssociation` and call the `Uni<SecurityIdentity> getDeferredIdentity();` method.\n"
 "Then, you can subscribe to the resulting `Uni` to be notified when authentication is complete and the identity is available."
-msgstr ""
+msgstr "Si no se utiliza la autenticación proactiva, acceder a `SecurityIdentity` es una operación de bloqueo. Esto se debe a que es posible que la autenticación aún no se haya producido, y acceder a `SecurityIdentity` podría requerir llamadas a sistemas externos, como bases de datos, que podrían bloquear la operación. Para las aplicaciones de bloqueo, esto no supone ningún problema. Sin embargo, si ha desactivado la autenticación en una aplicación reactiva, esto falla porque no puede realizar operaciones de bloqueo en el hilo de E/S. Para solucionarlo, necesita `@Inject` una instancia de `io.quarkus.security.identity.CurrentIdentityAssociation` y llamar al método `Uni<SecurityIdentity> getDeferredIdentity();` . A continuación, puede suscribirse al `Uni` resultante para recibir una notificación cuando la autenticación se haya completado y la identidad esté disponible."
 
 #: _guides/security-proactive-authentication.adoc
 #, fuzzy
@@ -108,10 +110,12 @@ msgid ""
 msgstr "Mueva la anotación `@RolesAllowed` al endpoint. Esta podría ser una de las formas más seguras, ya que acceder a `SecurityIdentity` desde los métodos del punto final nunca es una operación de bloqueo."
 
 #: _guides/security-proactive-authentication.adoc
+#, fuzzy
 msgid "Activating the CDI request context"
-msgstr ""
+msgstr "Activación del contexto de solicitud CDI"
 
 #: _guides/security-proactive-authentication.adoc
+#, fuzzy
 msgid ""
 "You may need to inject `@RequestScoped` beans during authentication and authorization.\n"
 "A good example of this is accessing a database during a `SecurityIdentity` augmentation,\n"
@@ -119,13 +123,14 @@ msgid ""
 "If authentication or authorization fails with the `jakarta.enterprise.context.ContextNotActiveException`, disabling proactive authentication is most often the best solution.\n"
 "Users can also activate xref:cdi-reference.adoc#request-context-lifecycle[CDI request context], for example, by using the `@ActivateRequestContext` annotation.\n"
 "However, some CDI beans may not be ready for use."
-msgstr ""
+msgstr "Puede que necesite inyectar beans `@RequestScoped` durante la autenticación y la autorización. Un buen ejemplo de ello es el acceso a una base de datos durante un aumento de `SecurityIdentity` , que se describe en la sección xref:security-customization.adoc#security-identity-customization[Personalización de la identidad de seguridad] de la guía \"Trucos y consejos de seguridad\". Si la autenticación o la autorización fallan con `jakarta.enterprise.context.ContextNotActiveException` , la mejor solución suele ser desactivar la autenticación proactiva. Los usuarios también pueden activar xref:cdi-reference.adoc#request-context-lifecycle[el contexto de solicitud CDI] , por ejemplo, utilizando la anotación `@ActivateRequestContext` . Sin embargo, es posible que algunos beans CDI no estén listos para su uso."
 
 #: _guides/security-proactive-authentication.adoc
+#, fuzzy
 msgid ""
 "One exception to this solution is a situation when application endpoints are secured with the xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[Authorization using configuration].\n"
 "For more information, see the xref:security-authorize-web-endpoints-reference.adoc#policy-active-cdi-request-context[Inject RequestScoped beans into HttpSecurityPolicy] section of the \"Authorization of Web endpoints\" guide for more information."
-msgstr ""
+msgstr "Una excepción a esta solución es una situación en la que los puntos finales de la aplicación estén asegurados con la xref:security-authorize-web-endpoints-reference.adoc#authorization-using-configuration[configuración Autorización mediante] . Para más información, consulte la sección xref:security-authorize-web-endpoints-reference.adoc#policy-active-cdi-request-context[Inyectar beans RequestScoped en HttpSecurityPolicy] de la guía \"Autorización de puntos finales web\"."
 
 #. type: Title ==
 #: _guides/security-proactive-authentication.adoc

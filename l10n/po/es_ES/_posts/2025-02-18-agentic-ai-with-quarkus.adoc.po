@@ -7,187 +7,231 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Agentic AI with Quarkus - part 1"
-msgstr ""
+msgstr "IA Agentica con Quarkus - parte 1"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Although there is no universally agreed definition of an AI agent, several emerging patterns demonstrate how to coordinate and combine the capabilities of multiple AI services to create AI-infused applications that can accomplish more complex tasks."
-msgstr ""
+msgstr "Aunque no existe una definición universalmente acordada de un agente de IA, varios patrones emergentes demuestran cómo coordinar y combinar las capacidades de múltiples servicios de IA para crear aplicaciones infundidas de IA que puedan realizar tareas más complejas."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "According to a https://www.anthropic.com/research/building-effective-agents[recent article published by Antropic researchers], these _Agentic System architectures_ can be grouped into two main categories:"
-msgstr ""
+msgstr "Según un link:https://www.anthropic.com/research/building-effective-agents[reciente artículo publicado por los investigadores de Antropic] , estas _arquitecturas de sistemas agénticos_ pueden agruparse en dos categorías principales:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "**workflows**: LLMs and tools are orchestrated through predefined code paths,"
-msgstr ""
+msgstr "*flujos de trabajo* : Los LLM y las herramientas se orquestan a través de rutas de código predefinidas,"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "**agents**: LLMs dynamically direct their processes and tool usage, maintaining control over how they execute tasks."
-msgstr ""
+msgstr "*agentes* : Los LLM dirigen dinámicamente sus procesos y el uso de herramientas, manteniendo el control sobre cómo ejecutan las tareas."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The goal of this series of articles is to discuss the most common workflow and agentic AI patterns and architectures, with the practical aid of https://github.com/mariofusco/quarkus-agentic-ai[this project] that demonstrates for each of them an example of how they can be implemented through Quarkus and its LangChain4j integration. Of course, a real-world application may use and combine these patterns in multiple ways to implement a complex behavior."
-msgstr ""
+msgstr "El objetivo de esta serie de artículos es discutir los patrones y arquitecturas más comunes del flujo de trabajo y la IA agéntica, con la ayuda práctica de link:https://github.com/mariofusco/quarkus-agentic-ai[este proyecto] que demuestra para cada uno de ellos un ejemplo de cómo pueden implementarse a través de Quarkus y su integración LangChain4j. Por supuesto, una aplicación del mundo real puede utilizar y combinar estos patrones de múltiples formas para implementar un comportamiento complejo."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "This first article focuses on the _workflow_ patterns. A second article will cover the _agent_ patterns."
-msgstr ""
+msgstr "Este primer artículo se centra en los patrones de _flujo de trabajo_ . Un segundo artículo cubrirá los patrones de _agente_ ."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "All the demos in that project run the LLMs inference locally through an https://ollama.com/[ollama] server. In particular the demos in the workflow section use a llama3.2 model, while the ones relative to the pure agents one employ qwen2.5 since this last model empirically demonstrated of working better when multiple tool callings are required."
-msgstr ""
+msgstr "Todas las demos de ese proyecto ejecutan la inferencia de los LLM localmente a través de un servidor link:https://ollama.com/[ollama] . En particular, las demos de la sección de flujo de trabajo utilizan un modelo llama3.2, mientras que las relativas a los agentes puros emplean qwen2.5, ya que este último modelo demostró empíricamente funcionar mejor cuando se requieren múltiples llamadas a la herramienta."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Workflow patterns"
-msgstr ""
+msgstr "Patrones de flujo de trabajo"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid ""
 "AI workflows are patterns in which different LLM-based services (_AI services_ in the Quarkus vocabulary) are coordinated **programmatically** in a predetermined manner.\n"
 "This article introduces three base patterns, namely:"
-msgstr ""
+msgstr "Los flujos de trabajo de IA son patrones en los que diferentes servicios basados en LLM _(servicios de IA_ en el vocabulario de Quarkus) se coordinan *programáticamente* de una manera predeterminada. Este artículo presenta tres patrones base, a saber:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "xref:#prompt-chaining[the prompt chaining pattern]"
-msgstr ""
+msgstr "xref:prompt-chaining[el patrón de encadenamiento de avisos]"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "xref:#parallelization[the parallelization pattern]"
-msgstr ""
+msgstr "xref:parallelization[el patrón de paralelización]"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "xref:#routing[the routing pattern]"
-msgstr ""
+msgstr "xref:routing[el patrón de enrutamiento]"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Prompt chaining"
-msgstr ""
+msgstr "Encadenamiento de avisos"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Prompt chaining is, without a doubt, the simplest yet powerful and effective technique in agentic AI workflows. In this technique, the output of one prompt (the response from an LLM) becomes the input of the next, enabling complex, multi-step reasoning or task execution. It is ideal for situations with a straightforward way to decompose a complex task into smaller and better-delimited steps, thus reducing the possibility of hallucinations or other LLMs misbehaving."
-msgstr ""
+msgstr "El encadenamiento de instrucciones es, sin duda, la técnica más sencilla pero potente y eficaz en los flujos de trabajo de la IA agéntica. En esta técnica, la salida de una instrucción (la respuesta de un LLM) se convierte en la entrada de la siguiente, lo que permite un razonamiento complejo de varios pasos o la ejecución de una tarea. Es ideal para situaciones con una forma sencilla de descomponer una tarea compleja en pasos más pequeños y mejor delimitados, reduciendo así la posibilidad de alucinaciones u otros LLM que se comporten mal."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Understanding that each coordinated call to LLM may rely on different models and system messages is essential. Thus, each step can be implemented using a more specialized model and system message."
-msgstr ""
+msgstr "Es esencial comprender que cada llamada coordinada al LLM puede depender de diferentes modelos y mensajes del sistema. Así, cada paso puede implementarse utilizando un modelo y un mensaje de sistema más especializados."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "A typical use case for applying this technique is content creation, like advertising or novel writing. For instance, this https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining[first example] leverages this pattern to implement a creative writing and editing workflow, where the https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/CreativeWriter.java[first AI service] is the following:"
-msgstr ""
+msgstr "Un caso de uso típico para aplicar esta técnica es la creación de contenidos, como la publicidad o la escritura de novelas. Por ejemplo, este link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining[primer ejemplo] aprovecha este patrón para implementar un flujo de trabajo de redacción y edición creativa, en el que el link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/CreativeWriter.java[primer servicio de IA] es el siguiente:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "It generates a story draft on a topic provided by the user. In contrast, two more services, implemented very similarly to this one, subsequently modify the outcome of the first one. In particular, a https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/StyleEditor.java[second service] rewrites the draft to make it more coherent with a determined style, while a https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/AudienceEditor.java[third one] executes a final edit to make it a good fit for the required audience."
-msgstr ""
+msgstr "Genera un borrador de historia sobre un tema proporcionado por el usuario. En cambio, otros dos servicios, implementados de forma muy similar a éste, modifican posteriormente el resultado del primero. En concreto, un link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/StyleEditor.java[segundo servicio] reescribe el borrador para hacerlo más coherente con un estilo determinado, mientras que un link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/AudienceEditor.java[tercero] ejecuta una edición final para que se adapte bien a la audiencia requerida."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "It is also worth to be noted that all these three AI services are intended to be used through one-shot calls in a completely stateless way, so they are configured to not have any https://docs.langchain4j.dev/tutorials/chat-memory/[chat memory]. Regardless of this configuration, each AI service has its own chat memory, confined to the single service, and this is why it is necessary to explicitly pass to each of them the output produced by the former LLM in the chain."
-msgstr ""
+msgstr "También hay que señalar que estos tres servicios de IA están pensados para ser utilizados mediante llamadas únicas de forma completamente apátrida, por lo que están configurados para no tener ninguna link:https://docs.langchain4j.dev/tutorials/chat-memory/[memoria de chat] . Independientemente de esta configuración, cada servicio de IA tiene su propia memoria de chat, confinada al servicio único, y por eso es necesario pasar explícitamente a cada uno de ellos la salida producida por el LLM anterior de la cadena."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Prompt chaining pattern"
-msgstr ""
+msgstr "Patrón de encadenamiento de avisos"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "In this case, it is pretty straightforward to expose this service through a https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/WriterResource.java[HTTP endpoint] that invokes these AI services one after the other, making the editors rewrite or refine the content produced by the first creative writer:"
-msgstr ""
+msgstr "En este caso, es bastante sencillo exponer este servicio a través de un link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/promptchaining/WriterResource.java[punto final HTTP] que invoque estos servicios de IA uno tras otro, haciendo que los redactores reescriban o perfeccionen el contenido producido por el primer redactor creativo:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The HTTP endpoint allows us to define a topic, style, and audience of the novel to be produced; so, for example, running the project locally, it would be possible to obtain a drama about dogs having kids as the target audience by calling this URL:"
-msgstr ""
+msgstr "El punto final HTTP nos permite definir el tema, el estilo y el público de la novela a producir; así, por ejemplo, ejecutando el proyecto localmente, sería posible obtener un drama sobre perros que tienen hijos como público objetivo llamando a esta URL:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "As an example, it generates a result like https://github.com/mariofusco/quarkus-agentic-ai/blob/main/text/dogs-novel.txt[this]. Since this project integrates the observability capabilities provided by Quarkus out-of-the-box, it is also possible to look at the tracing of the flow of invocations performed to fulfill this request, which, of course, puts in evidence of the sequential nature of this pattern."
-msgstr ""
+msgstr "Como ejemplo, genera un resultado como link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/text/dogs-novel.txt[éste] . Dado que este proyecto integra las capacidades de observabilidad proporcionadas por Quarkus out-of-the-box, también es posible observar el trazado del flujo de invocaciones realizadas para satisfacer esta solicitud, lo que, por supuesto, pone en evidencia la naturaleza secuencial de este patrón."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Tracing sequential execution of the prompt chaining pattern"
-msgstr ""
+msgstr "Seguimiento de la ejecución secuencial del patrón de encadenamiento de avisos"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Parallelization"
-msgstr ""
+msgstr "Paralelización"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "This second pattern also orchestrates multiple calls to LLMs. However, unlike the prompt chaining pattern, the calls are independent and do not require the output of one call to be used as the input of another. In these situations, those calls can be performed in parallel, followed by an aggregator that combines their outcomes."
-msgstr ""
+msgstr "Este segundo patrón también orquesta múltiples llamadas a los LLM. Sin embargo, a diferencia del patrón de encadenamiento de llamadas, éstas son independientes y no requieren que el resultado de una llamada se utilice como entrada de otra. En estas situaciones, esas llamadas pueden realizarse en paralelo, seguidas de un agregador que combine sus resultados."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "To demonstrate how this works, let's consider this https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization[second example]. This code recommends a plan for a lovely evening with a specific mood, combining a movie and a meal that matches that mood. The https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/EveningPlannerResource.java[HTTP endpoint] implements this goal by invoking two different AI services **in parallel** and then combining their outcome, putting together the three different suggestions of the two different LLM-based experts."
-msgstr ""
+msgstr "Para demostrar cómo funciona, consideremos este link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization[segundo ejemplo] . Este código recomienda un plan para una velada encantadora con un estado de ánimo específico, combinando una película y una comida que coincida con ese estado de ánimo. El link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/EveningPlannerResource.java[punto final HTTP] implementa este objetivo invocando dos servicios de IA diferentes *en paralelo* y luego combinando su resultado, juntando las tres sugerencias diferentes de los dos expertos diferentes basados en LLM."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/MovieExpert.java[first LLM] is an AI service asked to provide three titles of movies matching the given mood."
-msgstr ""
+msgstr "El link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/MovieExpert.java[primer LLM] es un servicio de IA al que se le pide que proporcione tres títulos de películas que coincidan con el estado de ánimo dado."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/FoodExpert.java[second one], with a very similar implementation is asked to provide three meals. When these LLM calls are complete, the results (3 lists of 3 items each) are aggregated to create a list of 3 fantastic evening plans with a suggested movie and meal each."
-msgstr ""
+msgstr "A la link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/parallelization/FoodExpert.java[segunda] , con una ejecución muy similar, se le piden tres comidas. Una vez completadas estas llamadas LLM, los resultados (3 listas de 3 elementos cada una) se agregan para crear una lista de 3 fantásticos planes nocturnos con una película y una comida sugeridas cada uno."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The parallelization pattern"
-msgstr ""
+msgstr "El patrón de paralelización"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "For instance asking that endpoint to provide evening plans for a romantic mood:"
-msgstr ""
+msgstr "Por ejemplo, pidiéndole a ese punto final que le proporcione planes para una velada romántica:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The outcome is something like:"
-msgstr ""
+msgstr "El resultado es algo así"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid ""
 "[\n"
 "  EveningPlan[movie=1. The Notebook, meal=1. Candlelit Chicken Piccata],\n"
 "  EveningPlan[movie=2. La La Land, meal=2. Rose Petal Risotto],\n"
 "  EveningPlan[movie=3. Crazy, Stupid, Love., meal=3. Sunset Seared Scallops]\n"
 "]"
-msgstr ""
+msgstr "[ EveningPlan[película=1. El diario de Noa, comida=1. Piccata de pollo a la luz de las velas], EveningPlan[película=2. La La Land, comida=2. Risotto de pétalos de rosa], EveningPlan[película=3. Crazy, Stupid, Love., comida=3. Vieiras a la plancha al atardecer] ]"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "In this case, the tracing of the flow of invocations performed to fulfill this request shows, as expected, that the two LLM invocations are performed in parallel."
-msgstr ""
+msgstr "En este caso, el trazado del flujo de invocaciones realizadas para satisfacer esta petición muestra, como era de esperar, que las dos invocaciones LLM se realizan en paralelo."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Tracing parallel LLMs invocation"
-msgstr ""
+msgstr "Rastreo de la invocación de LLMs paralelos"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Routing"
-msgstr ""
+msgstr "Enrutamiento"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Another common situation is the need to direct tasks requiring specific handling to specialized models, tools, or processes based on determined criteria. In these cases, the routing workflow allows the dynamic allocation of tasks to the most suitable AI service."
-msgstr ""
+msgstr "Otra situación habitual es la necesidad de dirigir las tareas que requieren un tratamiento específico a modelos, herramientas o procesos especializados en función de determinados criterios. En estos casos, el flujo de trabajo de enrutamiento permite la asignación dinámica de tareas al servicio de IA más adecuado."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing[This example] shows how this pattern can be applied in a simple scenario where a user asks a question that has to be redirected to a https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/LegalExpert.java[legal], https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/MedicalExpert.java[medical] or https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/TechnicalExpert.java[technical] expert to be answered most accurately, where any of these experts are an AI service implemented for instance as follows:"
-msgstr ""
+msgstr "link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing[Este ejemplo] muestra cómo puede aplicarse este patrón en un escenario sencillo en el que un usuario formula una pregunta que debe ser redirigida a un experto link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/LegalExpert.java[jurídico] , link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/MedicalExpert.java[médico] o link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/TechnicalExpert.java[técnico] para que la responda con la mayor precisión, donde cualquiera de estos expertos es un servicio de IA implementado, por ejemplo, de la siguiente forma:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The categorization of the user's request is performed by https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/CategoryRouter.java[another LLM service]"
-msgstr ""
+msgstr "La categorización de la solicitud del usuario la realiza link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/CategoryRouter.java[otro servicio LLM]"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "that returns one of the possible categories of the user's request, encoded in this enumeration:"
-msgstr ""
+msgstr "que devuelve una de las posibles categorías de la solicitud del usuario, codificada en esta enumeración:"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Thus, the https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/RouterService.java[router service] can send the question to the right expert."
-msgstr ""
+msgstr "Así, el link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/RouterService.java[servicio de encaminamiento] puede enviar la pregunta al experto adecuado."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "Routing pattern"
-msgstr ""
+msgstr "Patrón de enrutamiento"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "In this way, when the user calls the https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/ExpertAssistanceResource.java[HTTP endpoint], exposing this service writing something like: \"I broke my leg what should I do\":"
-msgstr ""
+msgstr "De esta forma, cuando el usuario llama al link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/src/main/java/org/agenticai/routing/ExpertAssistanceResource.java[punto final HTTP] , exponiendo este servicio escribiendo algo como: \"Me he roto la pierna, ¿qué debo hacer?"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The first LLM categorizes this request as a medical one, and the router forwards it to the medical expert LLM, thus generating a result like https://github.com/mariofusco/quarkus-agentic-ai/blob/main/text/expert-response.txt[this]."
-msgstr ""
+msgstr "El primer LLM categoriza esta solicitud como médica y el enrutador la reenvía al LLM experto en medicina, generando así un resultado como link:https://github.com/mariofusco/quarkus-agentic-ai/blob/main/text/expert-response.txt[éste] ."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
 #, fuzzy
@@ -195,11 +239,13 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid ""
 "This article demonstrated how you can implement _workflow patterns_ with Quarkus Langchain4J.\n"
 "Quarkus Langchain4J provides a powerful and flexible way to implement these patterns, allowing you to orchestrate multiple AI services in a way that is both efficient and easy to understand."
-msgstr ""
+msgstr "Este artículo demostró cómo puede implementar _patrones de flujo de trabajo_ con Quarkus Langchain4J. Quarkus Langchain4J proporciona una manera potente y flexible de implementar estos patrones, lo que le permite orquestar múltiples servicios de IA de una manera que es a la vez eficiente y fácil de entender."
 
 #: _posts/2025-02-18-agentic-ai-with-quarkus.adoc
+#, fuzzy
 msgid "The next article will cover the _agent patterns_. So, stay tuned!"
-msgstr ""
+msgstr "El próximo artículo cubrirá los _patrones de los agentes_ . Así que, ¡manténgase al tanto!"

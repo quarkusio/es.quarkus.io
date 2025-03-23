@@ -7,413 +7,491 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Strengthening the Release Process for Quarkiverse and SmallRye"
-msgstr ""
+msgstr "Fortalecimiento del proceso de liberación de Quarkiverse y SmallRye"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "A description of the new Quarkiverse and SmallRye release process."
-msgstr ""
+msgstr "Una descripción del nuevo proceso de liberación de Quarkiverse y SmallRye."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "In May, we were alerted about a potential leak in the https://smallrye.io/[SmallRye] release process.\n"
 "We acted swiftly to mitigate the issue; fortunately, no damage was done.\n"
 "Even if Quarkiverse has no reported leak, during our investigation, we uncovered a deeper flaw that affected not only SmallRye but also Quarkiverse."
-msgstr ""
+msgstr "En mayo, nos alertaron de una posible fuga en el proceso de liberación de link:https://smallrye.io/[SmallRye] . Actuamos rápidamente para mitigar el problema; afortunadamente, no se produjo ningún daño. Aunque no se ha informado de ninguna fuga en Quarkiverse, durante nuestra investigación descubrimos un fallo más profundo que afectaba no sólo a SmallRye, sino también a Quarkiverse."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "In this blog post, we’ll explain the vulnerability we discovered and introduce a more secure release pipeline for both Quarkiverse and SmallRye repositories."
-msgstr ""
+msgstr "En esta entrada del blog, explicaremos la vulnerabilidad que descubrimos e introduciremos un proceso de publicación más seguro para los repositorios de Quarkiverse y SmallRye."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "**TL;DR:** We’ve uncovered a security flaw in the release process for Quarkiverse and SmallRye that could have allowed malicious actors to impersonate projects and publish compromised artifacts.\n"
 "We’ve implemented a new, more secure release pipeline to address this.\n"
 "If you’re a maintainer, you’ve received a pull request to migrate to the new process.\n"
 "Quarkus itself is not affected by this issue, only SmallRye and Quarkiverse."
-msgstr ""
+msgstr "*TL;DR:* Hemos descubierto un fallo de seguridad en el proceso de liberación de Quarkiverse y SmallRye que podría haber permitido a actores maliciosos suplantar proyectos y publicar artefactos comprometidos. Hemos implementado un nuevo proceso de publicación más seguro para solucionarlo. Si usted es un mantenedor, ha recibido un pull request para migrar al nuevo proceso. Quarkus en sí no se ve afectado por este problema, sólo SmallRye y Quarkiverse."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Please act immediately, as the old release process will be retired by October 16th, 2024.\n"
 "So make sure to merge the pull request before then to avoid any disruptions in your releases.\n"
 "If you have any questions or concerns, please contact us on https://quarkusio.zulipchat.com/#narrow/stream/187038-dev[Zulip] or https://github.com/quarkusio/quarkus/discussions[GitHub Discussions].\n"
 "Details on this change are <<Call for action: Migrating to the new release process, below>>."
-msgstr ""
+msgstr "Por favor, actúe de inmediato, ya que el antiguo proceso de liberación será retirado el 16 de octubre de 2024. Así que asegúrese de fusionar el pull request antes de esa fecha para evitar cualquier interrupción en sus lanzamientos. Si tiene alguna pregunta o duda, póngase en contacto con nosotros en link:https://quarkusio.zulipchat.com/#narrow/stream/187038-dev[Zulip] o en link:https://github.com/quarkusio/quarkus/discussions[GitHub Discussions] . Los detalles de este cambio se encuentran xref:Call for action: Migrating to the new release process[a continuación] ."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "For more details on the issue, the solution, and how to adapt, read on!"
-msgstr ""
+msgstr "Para más detalles sobre el problema, la solución y cómo adaptarse, ¡siga leyendo!"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The Flaw: A Closer Look at the Release Process"
-msgstr ""
+msgstr "El fallo: una mirada más atenta al proceso de liberación"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "To understand the flaw, it’s important to outline the release process Quarkiverse and SmallRye used first.\n"
 "Quarkiverse and SmallRye offer development facilities to ease the development of Quarkus extensions and SmallRye projects used in Quarkus, respectively.\n"
 "There is no central supervision of all these repositories; they evolve at their own pace, individually."
-msgstr ""
+msgstr "Para entender el fallo, es importante esbozar primero el proceso de lanzamiento que utilizaron Quarkiverse y SmallRye. Quarkiverse y SmallRye ofrecen facilidades de desarrollo para facilitar el desarrollo de las extensiones de Quarkus y los proyectos de SmallRye utilizados en Quarkus, respectivamente. No existe una supervisión central de todos estos repositorios; evolucionan a su propio ritmo, individualmente."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Both organizations use GitHub repositories and GitHub Actions as CI and automation framework.\n"
 "Here’s how the release project worked:"
-msgstr ""
+msgstr "Ambas organizaciones utilizan repositorios de GitHub y Acciones de GitHub como marco de trabajo de CI y automatización. He aquí cómo funcionó el proyecto de lanzamiento:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "A developer opens a pull request in the repository, updating the version number in the project’s `project.yaml` file (See https://github.com/quarkiverse/quarkus-langchain4j/pull/904[this PR] as an example)."
-msgstr ""
+msgstr "Un desarrollador abre una pull request en el repositorio, actualizando el número de versión en el archivo `project.yaml` del proyecto (Vea link:https://github.com/quarkiverse/quarkus-langchain4j/pull/904[este PR] como ejemplo)."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The regular build workflow runs to ensure it builds successfully.\n"
 "A specific pre-release flow also runs to verify that the YAML file is correctly formatted."
-msgstr ""
+msgstr "El flujo de trabajo de compilación regular se ejecuta para garantizar que se compila correctamente. También se ejecuta un flujo específico de precompilación para verificar que el archivo YAML está correctamente formateado."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Once the pull request is merged, a release workflow is triggered."
-msgstr ""
+msgstr "Una vez fusionada la pull request, se activa un flujo de trabajo de publicación."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The release workflow starts by _preparing_ the release.\n"
 "It sets the project's version to the configured version and creates a tag with the new updated code.\n"
 "It also updates the main branch (or the source branch of the pull request) to the next development version and commits this change to the branch."
-msgstr ""
+msgstr "El flujo de trabajo de liberación comienza _preparando_ la liberación. Establece la versión del proyecto en la versión configurada y crea una etiqueta con el nuevo código actualizado. También actualiza la rama principal (o la rama fuente del pull request) a la siguiente versión de desarrollo y confirma este cambio en la rama."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Once the preparation step is complete, the tag is checked out, and the release artifacts are created.\n"
 "This phase is called _release perform_.\n"
 "During that phase, binary artifacts are created from the tagged sources.\n"
 "The artifacts are signed and pushed to Maven Central."
-msgstr ""
+msgstr "Una vez finalizada la fase de preparación, se comprueba la etiqueta y se crean los artefactos de liberación. Esta fase se denomina _ejecución de la liberación_ . Durante esa fase, los artefactos binarios se crean a partir de las fuentes etiquetadas. Los artefactos son firmados y empujado a Maven Central."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The last step, the _release perform_, is where the flaw exists. Here’s why:"
-msgstr ""
+msgstr "En el último paso, el de _la liberación_ , es donde existe el fallo. He aquí por qué:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "To sign the artifacts, the workflow uses an organization-wide GPG key"
-msgstr ""
+msgstr "Para firmar los artefactos, el flujo de trabajo utiliza una clave GPG para toda la organización"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "To publish the artifacts, the workflow uses organization-wide credentials"
-msgstr ""
+msgstr "Para publicar los artefactos, el flujo de trabajo utiliza las credenciales de toda la organización"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The GPG passphrase and the Maven Central credential are stored as secrets in the project’s GitHub repository but shared across the entire organization.\n"
 "They are not freely accessible.\n"
 "You cannot print them in the log (without a bit of magic), and cannot be accessed from forks."
-msgstr ""
+msgstr "La frase de contraseña GPG y la credencial de Maven Central se almacenan como secretos en el repositorio GitHub del proyecto, pero se comparten en toda la organización. No son de libre acceso. No se pueden imprimir en el registro (sin un poco de magia), y no se puede acceder a ellos desde bifurcaciones."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "At this point, everything seems fine.\n"
 "Both SmallRye and Quarkiverse provide maintainers with great freedom to customize GitHub Action workflows to fit their needs.\n"
 "This flexibility, while empowering, also introduces risks.\n"
 "And ... here we go...."
-msgstr ""
+msgstr "En este punto, todo parece ir bien. Tanto SmallRye como Quarkiverse proporcionan a los mantenedores una gran libertad para personalizar los flujos de trabajo de GitHub Action para adaptarlos a sus necesidades. Esta flexibilidad, a la vez que potencia, también introduce riesgos. Y ... allá vamos...."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The Problem: A Risk of Credential Exposure (and Impersonification)"
-msgstr ""
+msgstr "El problema: riesgo de exposición de credenciales (y suplantación de identidad)"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "We said that secrets are not freely accessible.\n"
 "That’s true, except for one case.\n"
 "GitHub Actions (see Github Action Security overview) running in the project itself can access them.\n"
 "Even tests can access them.\n"
 "Anything running during the workflow (actions, scripts...) can access these secrets... and leak them."
-msgstr ""
+msgstr "Hemos dicho que los secretos no son de libre acceso. Eso es cierto, excepto en un caso. Las acciones de GitHub (véase la descripción general de la seguridad de las acciones de GitHub) que se ejecutan en el propio proyecto pueden acceder a ellos. Incluso las pruebas pueden acceder a ellos. Cualquier cosa que se ejecute durante el flujo de trabajo (acciones, scripts...) puede acceder a estos secretos... y filtrarlos."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "When a developer includes an external or third-party GitHub Action, Maven / Gradle plugin, or Junit Extension...  in their workflow, that code gains access to the organization-wide credentials.\n"
 "Any code running during the workflow on the repository — not a fork — can potentially expose these secrets.\n"
 "The ramifications are severe:"
-msgstr ""
+msgstr "Cuando un desarrollador incluye una acción GitHub externa o de terceros, un plugin Maven / Gradle, o una extensión Junit... en su flujo de trabajo, ese código obtiene acceso a las credenciales de toda la organización. Cualquier código que se ejecute durante el flujo de trabajo en el repositorio - no un fork - puede potencialmente exponer estos secretos. Las ramificaciones son graves:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "An attacker could release compromised yet legitimate-looking project versions signed with the organization’s GPG key to Maven Central."
-msgstr ""
+msgstr "Un atacante podría liberar en Maven Central versiones del proyecto comprometidas pero de apariencia legítima, firmadas con la clave GPG de la organización."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Worse still, they could push malicious artifacts to Maven Central under the Quarkiverse or SmallRye banner, impersonating the entire organization."
-msgstr ""
+msgstr "Peor aún, podrían enviar artefactos maliciosos a Maven Central bajo la bandera de Quarkiverse o SmallRye, suplantando la identidad de toda la organización."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "In short, with access to these credentials, an attacker could impersonate Quarkiverse or SmallRye, bypassing typical protections like signed commits or branch protection.\n"
 "The vulnerability arises from the fact that these credentials are shared and available to any code running during the workflow."
-msgstr ""
+msgstr "En resumen, con acceso a estas credenciales, un atacante podría hacerse pasar por Quarkiverse o SmallRye, eludiendo protecciones típicas como los commits firmados o la protección de ramas. La vulnerabilidad surge del hecho de que estas credenciales son compartidas y están disponibles para cualquier código que se ejecute durante el flujo de trabajo."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Despite quickly mitigating the initial SmallRye leak, discovering this larger flaw prompted us to reevaluate our release process.\n"
 "It became clear that we needed a more secure and resilient approach to prevent such risks in the future."
-msgstr ""
+msgstr "A pesar de haber mitigado rápidamente la filtración inicial de SmallRye, el descubrimiento de este fallo de mayor envergadura nos llevó a reevaluar nuestro proceso de publicación. Quedó claro que necesitábamos un enfoque más seguro y resistente para prevenir este tipo de riesgos en el futuro."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The Solution: A new release process"
-msgstr ""
+msgstr "La solución: Un nuevo proceso de liberación"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "After careful consideration, we concluded that relying on organization-wide secrets for releases was no longer viable.\n"
 "We needed a more secure approach."
-msgstr ""
+msgstr "Tras considerarlo detenidamente, llegamos a la conclusión de que confiar en los secretos de toda la organización para las liberaciones ya no era viable. Necesitábamos un enfoque más seguro."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "At first, we explored the idea of using repository-specific credentials.\n"
 "While this would limit the blast radius in case of a leak, it would be difficult to manage at scale and slow down the onboarding process.\n"
 "Additionally, an individual repository could still be compromised and impersonated even with this approach.\n"
 "Therefore, we decided against this solution."
-msgstr ""
+msgstr "Al principio, exploramos la idea de utilizar credenciales específicas para cada repositorio. Aunque esto limitaría el radio de explosión en caso de fuga, sería difícil de gestionar a escala y ralentizaría el proceso de incorporación. Además, un repositorio individual aún podría verse comprometido y suplantado incluso con este enfoque. Por lo tanto, nos decidimos en contra de esta solución."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Instead, we devised a more robust and secure solution involving two repositories: one for the code being released and a separate one for executing the release perform phase itself.\n"
 "Crucially, the repository with the source code no longer has access to organization-wide credentials—only the second repository does."
-msgstr ""
+msgstr "En su lugar, ideamos una solución más sólida y segura que implicaba dos repositorios: uno para el código que se iba a liberar y otro independiente para ejecutar la fase de ejecución de la liberación propiamente dicha. Lo más importante es que el repositorio con el código fuente ya no tiene acceso a las credenciales de toda la organización, sólo el segundo repositorio."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "When the second workflow (red) is complete, it unblocks the first one (blue).\n"
 "Thus, you know when the second workflow is completed and if it was successful."
-msgstr ""
+msgstr "Cuando el segundo flujo de trabajo (rojo) se completa, desbloquea el primero (azul). De este modo, sabrá cuándo se ha completado el segundo flujo de trabajo y si ha tenido éxito."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "How It Works: A Step-by-Step Breakdown"
-msgstr ""
+msgstr "Cómo funciona: Un desglose paso a paso"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "With this new approach, the initial stages of the release process remain unchanged.\n"
 "Here’s what happens now:"
-msgstr ""
+msgstr "Con este nuevo enfoque, las etapas iniciales del proceso de liberación permanecen inalteradas. Esto es lo que ocurre ahora"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "A developer opens a pull request, updating the version number in the `project.yaml` file."
-msgstr ""
+msgstr "Un desarrollador abre una pull request, actualizando el número de versión en el archivo `project.yaml` ."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The pre-release workflow is triggered within the repository, ensuring the build is correct and the version is appropriately updated."
-msgstr ""
+msgstr "El flujo de trabajo previo al lanzamiento se activa dentro del repositorio, lo que garantiza que la compilación es correcta y que la versión se actualiza adecuadamente."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Once the pull request is merged, the release process diverges from the previous approach:"
-msgstr ""
+msgstr "Una vez fusionada la pull request, el proceso de liberación diverge del enfoque anterior:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The first repository executes the preparation steps, such as version updates, tag creation, and setting the next development version."
-msgstr ""
+msgstr "El primer repositorio ejecuta los pasos de preparación, como la actualización de versiones, la creación de etiquetas y el establecimiento de la siguiente versión de desarrollo."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The release artifacts are generated but not signed or pushed to Maven Central."
-msgstr ""
+msgstr "Los artefactos de lanzamiento se generan pero no se firman ni se envían a Maven Central."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "At this point, a second workflow is triggered in a separate repository.\n"
 "This is where the critical actions happen:"
-msgstr ""
+msgstr "En este punto, se desencadena un segundo flujo de trabajo en un repositorio independiente. Aquí es donde se producen las acciones críticas:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The second repository, which contains the necessary credentials (Maven Central credentials and GPG passphrase), downloads the release artifacts."
-msgstr ""
+msgstr "El segundo repositorio, que contiene las credenciales necesarias (credenciales de Maven Central y frase de contraseña GPG), descarga los artefactos de lanzamiento."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "It verifies the integrity of the artifacts using attestations."
-msgstr ""
+msgstr "Verifica la integridad de los artefactos mediante atestados."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "The artifacts are then signed and pushed to Maven Central."
-msgstr ""
+msgstr "Los artefactos son entonces firmados y empujados a Maven Central."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "This second repository is crucial for security.\n"
 "It’s locked down and non-modifiable, meaning no developer can customize the workflow or inadvertently introduce a vulnerability.\n"
 "By isolating the sensitive release steps in this secured environment, we’ve significantly reduced the risk of leaks or unauthorized access."
-msgstr ""
+msgstr "Este segundo repositorio es crucial para la seguridad. Está bloqueado y no es modificable, lo que significa que ningún desarrollador puede personalizar el flujo de trabajo o introducir inadvertidamente una vulnerabilidad. Al aislar los pasos sensibles de lanzamiento en este entorno seguro, hemos reducido significativamente el riesgo de fugas o accesos no autorizados."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "This new process provides a much-needed layer of separation, ensuring that the credentials remain protected and that the possibility of a leak is greatly diminished."
-msgstr ""
+msgstr "Este nuevo proceso proporciona una capa de separación muy necesaria, garantizando que las credenciales permanezcan protegidas y que la posibilidad de una fuga disminuya considerablemente."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Balancing Security with Developer Freedom"
-msgstr ""
+msgstr "Equilibrar la seguridad con la libertad del desarrollador"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "As highlighted earlier, both Quarkiverse and SmallRye strongly emphasize empowering developers by minimizing the overhead of maintaining open-source components.\n"
 "Our new release process maintains this philosophy, ensuring developers still have the flexibility to adjust workflows in their component repositories as needed."
-msgstr ""
+msgstr "Como se ha destacado anteriormente, tanto Quarkiverse como SmallRye hacen especial hincapié en capacitar a los desarrolladores minimizando la sobrecarga que supone el mantenimiento de los componentes de código abierto. Nuestro nuevo proceso de lanzamiento mantiene esta filosofía, asegurando que los desarrolladores sigan teniendo la flexibilidad de ajustar los flujos de trabajo en sus repositorios de componentes según sea necesario."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Developers and maintainers can continue to modify workflows, introduce custom CI steps, and tailor their processes to meet specific project needs.\n"
 "The only significant change is that part of the release process—the critical signing and publishing steps—now occurs in a separate, secured repository."
-msgstr ""
+msgstr "Los desarrolladores y mantenedores pueden seguir modificando los flujos de trabajo, introducir pasos de CI personalizados y adaptar sus procesos para satisfacer las necesidades específicas de cada proyecto. El único cambio significativo es que parte del proceso de lanzamiento -los pasos críticos de firma y publicación- se produce ahora en un repositorio separado y seguro."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Importantly, maintainers retain the ability to trigger a release at any time, from any branch, just as they could before.\n"
 "The handoff to the second repository happens seamlessly, so the developer experience remains largely the same."
-msgstr ""
+msgstr "Y lo que es más importante, los mantenedores conservan la capacidad de lanzar una versión en cualquier momento, desde cualquier rama, tal y como podían hacerlo antes. El traspaso al segundo repositorio se produce sin problemas, por lo que la experiencia del desarrollador sigue siendo prácticamente la misma."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "This flexibility remains intact for projects that have heavily customized their release pipelines (for example, incorporating pre-release validations or automating tasks like website updates, release note generation, or breaking change detection).\n"
 "These projects can still trigger:"
-msgstr ""
+msgstr "Esta flexibilidad se mantiene intacta para los proyectos que han personalizado en gran medida sus pipelines de lanzamiento (por ejemplo, incorporando validaciones previas al lanzamiento o automatizando tareas como las actualizaciones del sitio web, la generación de notas de lanzamiento o la detección de cambios de última hora). Estos proyectos pueden seguir lanzando:"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Validation workflows when the `project.yaml` file is updated via a pull request."
-msgstr ""
+msgstr "Flujos de trabajo de validación cuando el archivo `project.yaml` se actualiza a través de una pull request."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Post-release workflows, triggered when a new tag is created, allow tasks such as documentation updates or notifications to continue unhindered."
-msgstr ""
+msgstr "Los flujos de trabajo posteriores al lanzamiento, que se activan cuando se crea una nueva etiqueta, permiten que tareas como las actualizaciones de la documentación o las notificaciones continúen sin obstáculos."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "By preserving this level of freedom, we ensure that developers can adapt their workflows to the needs of their projects while benefiting from a more secure release pipeline."
-msgstr ""
+msgstr "Al preservar este nivel de libertad, nos aseguramos de que los desarrolladores puedan adaptar sus flujos de trabajo a las necesidades de sus proyectos al tiempo que se benefician de un proceso de publicación más seguro."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Resilience: Preparing for the Unexpected"
-msgstr ""
+msgstr "Resiliencia: Prepararse para lo inesperado"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The release process, by its nature, is a complex and multi-step operation where things can occasionally go wrong.\n"
 "While the new release pipeline adds another layer of complexity due to its split-repository design, we have built resilience into the system to mitigate potential issues."
-msgstr ""
+msgstr "El proceso de liberación, por su naturaleza, es una operación compleja y de varios pasos en la que las cosas pueden salir mal ocasionalmente. Aunque el nuevo proceso de liberación añade otra capa de complejidad debido a su diseño de repositorio dividido, hemos incorporado resistencia al sistema para mitigar los posibles problemas."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "To address this, we’ve ensured that the new process is idempotent, meaning it can be safely retried without causing inconsistencies or errors.\n"
 "If a failure occurs at any point during the release — whether due to network issues, build failures, or artifact verification problems — the process can be restarted from the failed workflow.\n"
 "This allows the release to proceed without needing to repeat previous steps unnecessarily."
-msgstr ""
+msgstr "Para solucionar esto, nos hemos asegurado de que el nuevo proceso sea idempotente, lo que significa que puede volver a intentarse de forma segura sin causar incoherencias o errores. Si se produce un fallo en cualquier momento de la liberación -ya sea debido a problemas de red, fallos de compilación o problemas de verificación de artefactos-, el proceso puede reiniciarse desde el flujo de trabajo fallido. Esto permite que la liberación prosiga sin necesidad de repetir innecesariamente los pasos anteriores."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Additionally, we have built in various checks and verifications at key stages of the release process, such as verifying artifact integrity (using attestation) are completed before moving on to the next stage.\n"
 "These safeguards help reduce the risk of an incomplete or erroneous release."
-msgstr ""
+msgstr "Además, hemos incorporado varias comprobaciones y verificaciones en etapas clave del proceso de liberación, como la comprobación de la integridad de los artefactos (mediante atestación) se completan antes de pasar a la siguiente etapa. Estas salvaguardas ayudan a reducir el riesgo de una liberación incompleta o errónea."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Should any unexpected issues arise, both the component repository and the secured release repository provide detailed logs, allowing developers to diagnose and resolve problems quickly.\n"
 "This transparency ensures that maintainers remain in control, even when things don’t go as planned."
-msgstr ""
+msgstr "En caso de que surja algún problema inesperado, tanto el repositorio de componentes como el de versiones seguras proporcionan registros detallados, lo que permite a los desarrolladores diagnosticar y resolver los problemas rápidamente. Esta transparencia garantiza que los mantenedores mantengan el control, incluso cuando las cosas no salen según lo previsto."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "These measures aim to provide a more resilient, fault-tolerant release process that doesn’t compromise on security or developer experience."
-msgstr ""
+msgstr "Estas medidas pretenden ofrecer un proceso de liberación más resistente y tolerante a fallos que no comprometa la seguridad ni la experiencia de los desarrolladores."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Call for action: Migrating to the new release process"
-msgstr ""
+msgstr "Llamamiento a la acción: Migrar al nuevo proceso de liberación"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "If you are a Quarkiverse or SmallRye project maintainer, you’ve received a pull request that updates your project to the new, more secure release process.\n"
 "For most maintainers, this update will be seamless and require no other changes."
-msgstr ""
+msgstr "Si usted es mantenedor de un proyecto Quarkiverse o SmallRye, ha recibido un pull request que actualiza su proyecto al nuevo proceso de liberación, más seguro. Para la mayoría de los mantenedores, esta actualización será fluida y no requerirá ningún otro cambio."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "However, as mentioned earlier, if your project uses a customized or more sophisticated release pipeline, you may need to make a few adjustments to ensure compatibility with the new system.\n"
 "This could involve updating custom workflows that handle pre-validation steps, website publishing, or release note generation.\n"
 "Please take the time to review and test the changes in your repository to ensure everything works as expected."
-msgstr ""
+msgstr "Sin embargo, como ya se ha mencionado, si su proyecto utiliza un proceso de publicación personalizado o más sofisticado, es posible que deba realizar algunos ajustes para garantizar la compatibilidad con el nuevo sistema. Esto podría implicar la actualización de los flujos de trabajo personalizados que gestionan los pasos previos a la validación, la publicación en el sitio web o la generación de notas de publicación. Por favor, tómese su tiempo para revisar y probar los cambios en su repositorio para asegurarse de que todo funciona como se espera."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Important Timeline: Deprecation of the Old Release Process"
-msgstr ""
+msgstr "Calendario importante: Supresión del antiguo proceso de liberación"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The previous release process has now been deprecated and will be fully blocked by October 16th, 2024.\n"
 "After this date, releasing your project using the old pipeline will no longer be possible.\n"
 "Thus, you must adopt the new release process pull request before this deadline to avoid disrupting your project’s release cycle."
-msgstr ""
+msgstr "El proceso de liberación anterior ha quedado obsoleto y quedará totalmente bloqueado el 16 de octubre de 2024. Después de esta fecha, ya no será posible liberar su proyecto utilizando el proceso antiguo. Por lo tanto, debe adoptar el pull request del nuevo proceso de liberación antes de esta fecha límite para evitar interrumpir el ciclo de liberación de su proyecto."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "For maintainers with more complex setups, we encourage you to start the migration as soon as possible to ensure a smooth transition.\n"
 "Roberto Cortez, George Gastaldi, and the rest of the Quarkus and SmallRye teams are here to help if you need assistance."
-msgstr ""
+msgstr "A los mantenedores con configuraciones más complejas, les animamos a que inicien la migración lo antes posible para garantizar una transición sin problemas. Roberto Cortez, George Gastaldi y el resto de los equipos de Quarkus y SmallRye están a su disposición si necesitan ayuda."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "__Next Steps:__"
-msgstr ""
+msgstr "_Próximos pasos:_"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Review the Pull Request: Check the automated pull request in your repository and verify that it updates your release process to the new system."
-msgstr ""
+msgstr "Revise la Pull Request: Revise el pull request automatizado en su repositorio y compruebe que actualiza su proceso de liberación al nuevo sistema."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Merge the Changes: Merge the changes before the deprecation date to avoid release interruptions."
-msgstr ""
+msgstr "Fusione los cambios: Fusione los cambios antes de la fecha de depreciación para evitar interrupciones en la publicación."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Test Your Workflow: If you’ve customized your release process, run tests to ensure everything still functions as expected under the new pipeline."
-msgstr ""
+msgstr "Pruebe su flujo de trabajo: Si ha personalizado su proceso de lanzamiento, realice pruebas para asegurarse de que todo sigue funcionando como se espera con la nueva canalización."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Reach Out for Support: If you have any questions or need help with the migration, please contact us on https://quarkusio.zulipchat.com/#narrow/stream/187038-dev[Zulip] or https://github.com/quarkusio/quarkus/discussions[GitHub Discussions]."
-msgstr ""
+msgstr "Solicite ayuda: Si tiene alguna pregunta o necesita ayuda con la migración, póngase en contacto con nosotros en link:https://quarkusio.zulipchat.com/#narrow/stream/187038-dev[Zulip] o en link:https://github.com/quarkusio/quarkus/discussions[GitHub Discussions] ."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "This new release process is a vital step in improving the security of Quarkiverse and SmallRye, and your swift action in migrating will help us ensure the integrity of these projects moving forward."
-msgstr ""
+msgstr "Este nuevo proceso de liberación es un paso vital para mejorar la seguridad de Quarkiverse y SmallRye, y su rápida acción en la migración nos ayudará a garantizar la integridad de estos proyectos de cara al futuro."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "Summary: Nothing Changes for You — It’s Just More Secure"
-msgstr ""
+msgstr "Resumen: Nada cambia para usted, sólo es más seguro"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "From a Smallrye and Quarkiverse developer’s perspective, the release process for Quarkiverse and SmallRye remains essentially the same.\n"
 "You still have the freedom to modify workflows, customize release steps, and trigger releases as needed.\n"
 "The flexibility and control you’ve come to rely on haven’t changed."
-msgstr ""
+msgstr "Desde la perspectiva de un desarrollador de Smallrye y Quarkiverse, el proceso de liberación para Quarkiverse y SmallRye sigue siendo esencialmente el mismo. Sigue teniendo la libertad de modificar los flujos de trabajo, personalizar los pasos de liberación y activar las liberaciones según sea necesario. La flexibilidad y el control en los que ha llegado a confiar no han cambiado."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "The main difference is behind the scenes: a separate, secured repository now handles the critical steps of signing and publishing your release.\n"
 "This means the process is more robust, with sensitive credentials locked down, and the risk of leaks or impersonation significantly reduced."
-msgstr ""
+msgstr "La principal diferencia está entre bastidores: un repositorio independiente y seguro se encarga ahora de los pasos críticos de la firma y publicación de su comunicado. Esto significa que el proceso es más robusto, con las credenciales sensibles bloqueadas, y el riesgo de filtraciones o suplantación de identidad significativamente reducido."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "In short, while we’ve enhanced the security of the release pipeline, we’ve done so in a way that minimizes disruption.\n"
 "You’ll still enjoy the same developer experience — only now, with the added peace of mind that your releases are more secure than ever."
-msgstr ""
+msgstr "En resumen, aunque hemos mejorado la seguridad de la canalización de versiones, lo hemos hecho de una forma que minimiza las interrupciones. Seguirá disfrutando de la misma experiencia como desarrollador, sólo que ahora con la tranquilidad añadida de que sus versiones son más seguras que nunca."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid "A Special Thank You"
-msgstr ""
+msgstr "Un agradecimiento especial"
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "Redefining a more secure and reliable release process was no small feat, and it certainly wasn’t something we could accomplish without some dedicated and enthusiastic developers.\n"
 "I’d like to extend our heartfelt thanks to George Gastaldi and Roberto Cortez for carrying out much of the heavy lifting throughout this process.\n"
 "Your dedication and expertise were invaluable."
-msgstr ""
+msgstr "Redefinir un proceso de liberación más seguro y fiable no fue una hazaña pequeña, y ciertamente no era algo que pudiéramos lograr sin algunos desarrolladores dedicados y entusiastas. Me gustaría extender nuestro más sincero agradecimiento a George Gastaldi y Roberto Cortez por llevar a cabo gran parte del trabajo pesado a lo largo de este proceso. Su dedicación y experiencia fueron inestimables."
 
 #: _posts/2024-10-16-quarkiverse-and-smallrye-new-release-process.adoc
+#, fuzzy
 msgid ""
 "I’d also like to give a special shoutout to Andres Almiray, whose support with JReleaser was absolutely instrumental.\n"
 "The new release process simply wouldn’t have been possible without his reactivity and guidance."
-msgstr ""
+msgstr "También me gustaría agradecer especialmente a Andrés Almiray, cuyo apoyo con JReleaser fue absolutamente decisivo. El proceso de la nueva versión simplemente no habría sido posible sin su reactividad y orientación."
