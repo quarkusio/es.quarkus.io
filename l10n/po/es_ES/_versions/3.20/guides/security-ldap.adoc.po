@@ -7,12 +7,14 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Using Security with an LDAP Realm"
-msgstr ""
+msgstr "Uso de la seguridad con un dominio LDAP"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "This guide demonstrates how your Quarkus application can use an LDAP server to authenticate and authorize your user identities."
-msgstr ""
+msgstr "Esta guía demuestra cómo su aplicación Quarkus puede utilizar un servidor LDAP para autenticar y autorizar sus identidades de usuario."
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "Prerequisites"
@@ -23,51 +25,59 @@ msgid "Architecture"
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "In this example, we build a very simple microservice which offers three endpoints:"
-msgstr ""
+msgstr "En este ejemplo, construimos un microservicio muy sencillo que ofrece tres puntos finales:"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "`/api/public`"
-msgstr ""
+msgstr "`/api/public`"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "`/api/users/me`"
-msgstr ""
+msgstr "`/api/users/me`"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "`/api/admin`"
-msgstr ""
+msgstr "`/api/admin`"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "The `/api/public` endpoint can be accessed anonymously.\n"
 "The `/api/admin` endpoint is protected with RBAC (Role-Based Access Control) where only users granted with the `adminRole` role can access. At this endpoint, we use the `@RolesAllowed` annotation to declaratively enforce the access constraint.\n"
 "The `/api/users/me` endpoint is also protected with RBAC (Role-Based Access Control) where only users granted with the `standardRole` role can access. As a response, it returns a JSON document with details about the user."
-msgstr ""
+msgstr "Se puede acceder al endpoint `/api/public` de forma anónima. El punto final `/api/admin` está protegido con RBAC (control de acceso basado en roles), al que sólo pueden acceder los usuarios a los que se les haya concedido el rol `adminRole` . En este punto final, utilizamos la anotación `@RolesAllowed` para aplicar declarativamente la restricción de acceso. El punto final `/api/users/me` también está protegido con RBAC (Control de Acceso Basado en Roles) donde sólo los usuarios a los que se les ha concedido el rol `standardRole` pueden acceder. Como respuesta, devuelve un documento JSON con detalles sobre el usuario."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "By default, Quarkus will restrict the use of JNDI within an application, as a precaution to try and mitigate any future vulnerabilities similar to Log4Shell. Because LDAP based auth requires JNDI\n"
 "this protection will be automatically disabled."
-msgstr ""
+msgstr "Por defecto, Quarkus restringirá el uso de JNDI dentro de una aplicación, como precaución para intentar mitigar cualquier vulnerabilidad futura similar a Log4Shell. Dado que la autenticación basada en LDAP requiere JNDI, esta protección se desactivará automáticamente."
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "Solution"
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can go right to the completed example."
-msgstr ""
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede ir directamente al ejemplo completado."
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The solution is located in the `security-ldap-quickstart` link:{quickstarts-tree-url}/security-ldap-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en el `security-ldap-quickstart` {quickstarts-tree-url}/security-ldap-quickstart[directorio]."
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "Creating the Maven Project"
@@ -78,16 +88,18 @@ msgid "First, we need a new project. Create a new project with the following com
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "This command generates a project, importing the `elytron-security-ldap` extension\n"
 "which is a `wildfly-elytron-realm-ldap` adapter for Quarkus applications."
-msgstr ""
+msgstr "Este comando genera un proyecto, importando la extensión `elytron-security-ldap` que es un adaptador `wildfly-elytron-realm-ldap` para aplicaciones Quarkus."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "If you already have your Quarkus project configured, you can add the `elytron-security-ldap` extension\n"
 "to your project by running the following command in your project base directory:"
-msgstr ""
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `elytron-security-ldap` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "This will add the following to your build file:"
@@ -102,117 +114,142 @@ msgid "build.gradle"
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Writing the application"
-msgstr ""
+msgstr "Escribir la aplicación"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Let's start by implementing the `/api/public` endpoint. As you can see from the source code below, it is just a regular Jakarta REST resource:"
-msgstr ""
+msgstr "Empecemos implementando el endpoint `/api/public`. Como se puede ver en el código fuente a continuación, es sólo un recurso REST Jakarta regular:"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The source code for the `/api/admin` endpoint is also very simple. The main difference here is that we are using a `@RolesAllowed` annotation to make sure that only users granted with the `adminRole` role can access the endpoint:"
-msgstr ""
+msgstr "El código fuente del endpoint `/api/admin` también es muy sencillo. La principal diferencia aquí es que estamos usando una anotación `@RolesAllowed` para asegurarnos de que sólo los usuarios con el rol `adminRole` pueden acceder al endpoint:"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "Finally, let's consider the `/api/users/me` endpoint. As you can see from the source code below, we are trusting only users with the `standardRole` role.\n"
 "We are using `SecurityContext` to get access to the current authenticated Principal, and we return the user's name. This information is loaded from the LDAP server."
-msgstr ""
+msgstr "Por último, consideremos el punto final `/api/users/me` . Como puede ver en el código fuente a continuación, estamos confiando sólo en los usuarios con el rol `standardRole` . Estamos utilizando `SecurityContext` para obtener acceso al Principal autenticado actual, y devolvemos el nombre del usuario. Esta información se carga desde el servidor LDAP."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Configuring the Application"
-msgstr ""
+msgstr "Configuración de la aplicación"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "You need to provide the URL to an LDAP server. This example requires the LDAP server to have imported link:{quarkus-blob-url}/test-framework/ldap/src/main/resources/quarkus-io.ldif[this LDIF file]."
-msgstr ""
+msgstr "Es necesario proporcionar la URL de un servidor LDAP. Este ejemplo requiere que el servidor LDAP haya importado {quarkus-blob-url}/test-framework/ldap/src/main/resources/quarkus-io.ldif[este archivo LDIF]."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The URL used by our test resource. Tests may leverage `LdapServerTestResource` provided by Quarkus as link:{quickstarts-blob-url}/security-ldap-quickstart/src/test/java/org/acme/elytron/security/ldap/ElytronLdapExtensionTestResources.java[we do] in the test coverage of the example application."
-msgstr ""
+msgstr "La URL utilizada por nuestro recurso de prueba. Las pruebas pueden aprovechar `LdapServerTestResource` proporcionada por Quarkus como {quickstarts-blob-url}/security-ldap-quickstart/src/test/java/org/acme/elytron/security/ldap/ElytronLdapExtensionTestResources.java[lo hacemos] en la cobertura de pruebas de la aplicación de ejemplo."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "`{0}` is substituted by the `uid`."
-msgstr ""
+msgstr "`{0}` se sustituye por el `uid`."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The `quarkus-elytron-security-ldap` extension requires a dir-context and an identity-mapping with at least one attribute-mapping to authenticate the user and its identity."
-msgstr ""
+msgstr "La extensión `quarkus-elytron-security-ldap` requiere un dir-context y un identity-mapping con al menos un attribute-mapping para autenticar al usuario y su identidad."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "By default, Quarkus doesn't cache the credentials obtained from the LDAP directory.\n"
 "Every request to your service will cause an additional roundtrip to the LDAP server."
-msgstr ""
+msgstr "Por defecto, Quarkus no almacena en caché las credenciales obtenidas del directorio LDAP. Cada solicitud a su servicio provocará un viaje de ida y vuelta adicional al servidor LDAP."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "It is a common practice to cache these results to improve performance, but the tradeoff is that there will be a delay before the changes in the LDAP get effective in your service."
-msgstr ""
+msgstr "Es una práctica común almacenar en caché estos resultados para mejorar el rendimiento, pero la contrapartida es que habrá un retraso antes de que los cambios en el LDAP se hagan efectivos en su servicio."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "To enable the cache, set `quarkus.security.ldap.cache.enabled=true` in your configuration file."
-msgstr ""
+msgstr "Para activar la caché, configure `quarkus.security.ldap.cache.enabled=true` en su archivo de configuración."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "The default cache max-age is `60s`.\n"
 "It can be configured by setting `quarkus.security.ldap.cache.max-age`."
-msgstr ""
+msgstr "La edad máxima predeterminada de la caché es `60s` . Puede configurarse ajustando `quarkus.security.ldap.cache.max-age` ."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The number of cache entries is limited by `quarkus.security.ldap.cache.size`, which defaults to `100`."
-msgstr ""
+msgstr "El número de entradas de la caché está limitado por `quarkus.security.ldap.cache.size` , que por defecto es `100` ."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Map LDAP groups to `SecurityIdentity` roles"
-msgstr ""
+msgstr "Asigne grupos LDAP a roles `SecurityIdentity` "
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "Previously described application configuration showed how to map `CN` attribute of the LDAP Distinguished Name group to a Quarkus `SecurityIdentity` role.\n"
 "More specifically, the `standardRole` CN was mapped to a `SecurityIdentity` role and thus allowed access to the `UserResource#me` endpoint.\n"
 "However, required `SecurityIdentity` roles may differ between applications and you may need to map LDAP groups to local `SecurityIdentity` roles like in the example below:"
-msgstr ""
+msgstr "La configuración de la aplicación descrita anteriormente mostraba cómo mapear el atributo `CN` del grupo de Nombres Distinguidos LDAP a un rol `SecurityIdentity` de Quarkus. Más concretamente, el CN `standardRole` se mapeó a un rol `SecurityIdentity` y permitió así el acceso al punto final `UserResource#me` . Sin embargo, los roles `SecurityIdentity` requeridos pueden diferir entre aplicaciones y puede que necesite mapear grupos LDAP a roles `SecurityIdentity` locales como en el ejemplo siguiente:"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Map the `standardRole` role to the application-specific `SecurityIdentity` role `user`."
-msgstr ""
+msgstr "Asigne el rol `standardRole` al rol específico de la aplicación `SecurityIdentity` `user` ."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Testing the Application"
-msgstr ""
+msgstr "Probar la aplicación"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "The application is now protected and the identities are provided by our LDAP server.\n"
 "Let's start the application in dev mode:"
-msgstr ""
+msgstr "La aplicación está ahora protegida y las identidades son proporcionadas por nuestro servidor LDAP. Iniciemos la aplicación en modo dev:"
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The very first thing to check is to ensure the anonymous access works."
-msgstr ""
+msgstr "Lo primero que hay que comprobar es que el acceso anónimo funcione."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Now, let's try to hit a protected resource anonymously."
-msgstr ""
+msgstr "Ahora, intentemos atacar un recurso protegido de forma anónima."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "So far so good, now let's try with an allowed user."
-msgstr ""
+msgstr "Hasta aquí todo bien, ahora probemos con un usuario permitido."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid ""
 "By providing the `adminUser:adminUserPassword` credentials, the extension authenticated the user and loaded their roles.\n"
 "The `adminUser` user is authorized to access to the protected resources."
-msgstr ""
+msgstr "Al proporcionar las credenciales de `adminUser:adminUserPassword` , la extensión autentica al usuario y carga sus roles. El usuario de `adminUser` está autorizado a acceder a los recursos protegidos."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "The user `adminUser` should be forbidden to access a resource protected with `@RolesAllowed(\"standardRole\")` because it doesn't have this role."
-msgstr ""
+msgstr "El usuario `adminUser` debería tener prohibido el acceso a un recurso protegido con `@RolesAllowed(\"standardRole\")` porque no tiene este rol."
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "Finally, using the user `standardUser` works and the security context contains the principal details (username for instance)."
-msgstr ""
+msgstr "Por último, el uso del usuario `standardUser` funciona y el contexto de seguridad contiene los detalles principales (nombre de usuario, por ejemplo)."
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "Configuration Reference"
@@ -227,8 +264,9 @@ msgid "References"
 msgstr ""
 
 #: _versions/3.20/guides/security-ldap.adoc
+#, fuzzy
 msgid "https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol[LDAP]"
-msgstr ""
+msgstr "link:https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol[LDAP]"
 
 #: _versions/3.20/guides/security-ldap.adoc
 msgid "xref:security-overview.adoc[Quarkus Security overview]"
