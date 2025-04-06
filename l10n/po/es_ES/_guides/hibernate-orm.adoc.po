@@ -1889,6 +1889,12 @@ msgid "Mismatches will not be detected, and may result in unpredictable behavior
 msgstr "Los desajustes no se detectarán y pueden dar lugar a un comportamiento impredecible."
 
 #: _guides/hibernate-orm.adoc
+msgid ""
+"The list of datasources is defined at build time, so with this approach the **list** of tenants is **fixed at build time**.\n"
+"If the list of tenants needs to change at runtime, you must <<programmatically-resolving-tenants-connections,resolve the tenant connections programmatically>>."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
 #, fuzzy
 msgid ""
 "Disable schema generation, because it is not supported by Hibernate ORM for database multi-tenancy.\n"
@@ -1990,6 +1996,16 @@ msgid ""
 "will replace the current Quarkus default implementation `io.quarkus.hibernate.orm.runtime.tenant.DataSourceTenantConnectionResolver`.\n"
 "Your custom connection resolver would allow for example to read tenant information from a database and create a connection per tenant at runtime based on it."
 msgstr "Si necesita una configuración más dinámica para los diferentes inquilinos a los que desea dar soporte y no quiere acabar con múltiples entradas en su archivo de configuración, puede utilizar la interfaz `io.quarkus.hibernate.orm.runtime.tenant.TenantConnectionResolver` para implementar su propia lógica para recuperar una conexión. Si crea un frijol de ámbito de aplicación que implemente esta interfaz y lo anota con `@PersistenceUnitExtension` (o `@PersistenceUnitExtension(\"nameOfYourPU\")` para una xref:multiple-persistence-units[unidad de persistencia con nombre] ) sustituirá la implementación actual por defecto de Quarkus `io.quarkus.hibernate.orm.runtime.tenant.DataSourceTenantConnectionResolver` . Su resolvedor de conexiones personalizado permitiría, por ejemplo, leer la información de los arrendatarios de una base de datos y crear una conexión por arrendatario en tiempo de ejecución basándose en ella."
+
+#: _guides/hibernate-orm.adoc
+msgid ""
+"<<automatic-integration,Automatic integrations>> will **not** work with programmatically-created `ConnectionProvider`.\n"
+"This implies all these integrations, including those from other Quarkus modules (e.g. xref:smallrye-health.adoc[SmallRye Health]) must be done manually."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Here is an implementation example of a `TenantConnectionResolver` implementation using standard Quarkus technologies – Agroal for pooling and Narayana for transactions:"
+msgstr ""
 
 #. type: Title ==
 #: _guides/hibernate-orm.adoc
