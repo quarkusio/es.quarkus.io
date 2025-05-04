@@ -7,18 +7,22 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "The internals (and a few externals) of Quarkus test classloading have changed"
-msgstr ""
+msgstr "Los aspectos internos (y algunos externos) de la carga de clases de prueba de Quarkus han cambiado"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "The way that Quarkus loads test classes has been updated. Most tests will not need to change, but here are some things to watch out for."
-msgstr ""
+msgstr "Se ha actualizado la forma en que Quarkus carga las clases de prueba. La mayoría de las pruebas no tendrán que cambiar, pero aquí hay algunas cosas a tener en cuenta."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "What's changing?"
-msgstr ""
+msgstr "¿Qué está cambiando?"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "The internals of Quarkus test classloading have been rewritten in 3.22.\n"
 "It does not affect production and dev modes, or some Quarkus test modes, such as `@QuarkusIntegrationTest`, `@QuarkusComponentTest`.\n"
@@ -27,111 +31,133 @@ msgid ""
 "It will also allow us to improve the integration with test frameworks such as Pact.\n"
 "However, it did introduce a few bugs we know about, and most likely also some bugs we don't yet know about.\n"
 "We're keen to get feedback from the community so that we can get fixing."
-msgstr ""
+msgstr "Los aspectos internos de la carga de clases de prueba de Quarkus se han reescrito en la versión 3.22. No afecta a los modos de producción y dev, ni a algunos modos de prueba de Quarkus, como `@QuarkusIntegrationTest` , `@QuarkusComponentTest` . Sin embargo, `@QuarkusTest` ha cambiado. Este cambio debería hacer que las pruebas de Quarkus funcionen mejor, y nos ha permitido arreglar un montón de errores que venían de lejos. También nos permitirá mejorar la integración con marcos de pruebas como Pact. Sin embargo, introdujo algunos errores que ya conocemos, y muy probablemente también otros que aún desconocemos. Estamos deseando recibir comentarios de la comunidad para poder ir corrigiéndolos."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "Why?"
-msgstr ""
+msgstr "¿Por qué?"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "In previous versions, Quarkus tests were invoked using the default JUnit classloader, and then executed in a different, Quarkus-aware, classloader."
-msgstr ""
+msgstr "En versiones anteriores, las pruebas de Quarkus se invocaban utilizando el cargador de clases predeterminado de JUnit, y luego se ejecutaban en un cargador de clases diferente, compatible con Quarkus."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "This mostly worked very well, and meant that `QuarkusTest` tests mostly behaved as if they were part of the same application as the code under test.\n"
 "The Quarkus test framework could start and stop Quarkus instances at the right point in the test lifecycle, inject CDI dependencies, and do other useful Quarkus bytecode manipulation.\n"
 "However, some use cases didn't work. Tests using advanced JUnit 5 features like `@TestTemplate` and `@ParameterizedTest` sometimes found that the same test code might appear to run in several classloaders in a single test, or that injected dependencies weren't always available."
-msgstr ""
+msgstr "Esto funcionó muy bien en la mayoría de los casos, y significó que las pruebas de `QuarkusTest` se comportaron casi siempre como si formaran parte de la misma aplicación que el código sometido a prueba. El marco de pruebas de Quarkus podía iniciar y detener instancias de Quarkus en el punto adecuado del ciclo de vida de la prueba, inyectar dependencias CDI y realizar otras manipulaciones útiles del código de bytes de Quarkus. Sin embargo, algunos casos de uso no funcionaban. Las pruebas que utilizaban características avanzadas de JUnit 5, como `@TestTemplate` y `@ParameterizedTest` , a veces se encontraban con que el mismo código de prueba podía parecer que se ejecutaba en varios cargadores de clases en una sola prueba, o que las dependencias inyectadas no siempre estaban disponibles."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "While Quarkus extensions can do all sorts of marvellous bytecode manipulation to improve the developer experience, they cannot manipulate test classes with the same freedom that they do normal application classes."
-msgstr ""
+msgstr "Aunque las extensiones de Quarkus pueden hacer todo tipo de manipulaciones maravillosas del código de bytes para mejorar la experiencia del desarrollador, no pueden manipular las clases de prueba con la misma libertad que las clases normales de la aplicación."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "Over time, test-related defects were building up that couldn't be changed without a fundamental rewrite of how Quarkus loads and executes tests.\n"
 "The Quarkus test code itself was also growing ever-more complex as it tried to work around various JUnit edge cases. Moving test instances from one classloader to another involved serializing and deserialization, which is harder to implement on newer JVM versions with tighter class security. For example, Quarkus used to use XStream as the serialization provider, but XStream no longer works with Java 17 and higher, because of reflection restrictions in the newer JVMs."
-msgstr ""
+msgstr "Con el tiempo, se fueron acumulando defectos relacionados con las pruebas que no podían cambiarse sin una reescritura fundamental de cómo Quarkus carga y ejecuta las pruebas. El propio código de prueba de Quarkus también se estaba volviendo cada vez más complejo a medida que intentaba sortear diversos casos extremos de JUnit. Mover instancias de prueba de un cargador de clases a otro implicaba serializar y deserializar, lo que es más difícil de implementar en versiones más recientes de JVM con una seguridad de clases más estricta. Por ejemplo, Quarkus solía utilizar XStream como proveedor de serialización, pero XStream ya no funciona con Java 17 y versiones superiores, debido a las restricciones de reflexión en las JVM más recientes."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "What if, instead, Quarkus tests were simply run in the same classloader used to to load them?"
-msgstr ""
+msgstr "¿Y si, en su lugar, las pruebas de Quarkus se ejecutaran simplemente en el mismo cargador de clases utilizado para cargarlas?"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "What you need to do"
-msgstr ""
+msgstr "Lo que debe hacer"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "From Quarkus 3.22 onwards, this is exactly how `@QuarkusTest` classloading works.\n"
 "What do your tests need to change in order to work with the new architecture?\n"
 "*Nothing* (hopefully!)."
-msgstr ""
+msgstr "A partir de Quarkus 3.22, así es exactamente como funciona la carga de clases `@QuarkusTest` . ¿Qué tienen que cambiar sus pruebas para que funcionen con la nueva arquitectura? *Nada* (¡esperemos!)."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "One of the goals of this change was that the rewrite didn't touch any tests in our test suite, to make sure they'd all continue working without updates.\n"
 "In practice, there have been a few hiccups and we've also discovered some edge cases in the broader ecosystem."
-msgstr ""
+msgstr "Uno de los objetivos de este cambio era que la reescritura no tocara ninguna prueba de nuestro conjunto de pruebas, para asegurarnos de que todas seguirían funcionando sin actualizaciones. En la práctica, ha habido algunos contratiempos y también hemos descubierto algunos casos extremos en el ecosistema más amplio."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "Known regressions"
-msgstr ""
+msgstr "Regresiones conocidas"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Dev services now start in the JUnit discovery phase*. https://quarkus.io/guides/dev-services[Quarkus Dev Services] are currently started during https://quarkus.io/guides/reaugmentation#what-is-augmentation[the augmentation phase], along with bytecode manipulation and other application initialization steps. With the new testing design, all augmentation happens at the beginning of the test run, during the JUnit discovery phase. This means all Dev Services also start at the beginning of the test run. If several test classes with different Dev Service configuration are augmented before any tests are run, multiple differently-configured Dev Services may be running at the same time. This can cause port conflicts and cross-talk on configuration values. We're hoping to have a https://github.com/quarkusio/quarkus/issues/45785[fix] for this in the next release. As a workaround, splitting conflicting tests into separate projects should fix symptoms."
-msgstr ""
+msgstr "Los *servicios Dev se inician ahora en la fase* de *descubrimiento de JUnit* . Actualmente, link:https://quarkus.io/guides/dev-services[los servicios de desarrollo de Quarkus] se inician durante link:https://quarkus.io/guides/reaugmentation#what-is-augmentation[la fase de aumento] , junto con la manipulación del código de bytes y otros pasos de inicialización de la aplicación. Con el nuevo diseño de las pruebas, todo el aumento se produce al principio de la ejecución de la prueba, durante la fase de descubrimiento de JUnit. Esto significa que todos los Dev Services también se inician al principio de la ejecución de la prueba. Si se aumentan varias clases de prueba con diferentes configuraciones de Dev Services antes de que se ejecute ninguna prueba, es posible que se estén ejecutando al mismo tiempo varios Dev Services con configuraciones diferentes. Esto puede causar conflictos de puertos y cruce de valores de configuración. Esperamos tener una link:https://github.com/quarkusio/quarkus/issues/45785[solución] para esto en la próxima versión. Como solución provisional, dividir las pruebas conflictivas en proyectos separados debería solucionar los síntomas."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Config access from JUnit conditions*. Using a `ConfigProvider` from a custom JUnit condition will https://github.com/quarkusio/quarkus/issues/47081[trigger a `ServiceConfigurationError`]. The workaround is to set the thread context classloader to `this.getClass().getClassLoader()` before reading config, and then set it back afterwards."
-msgstr ""
+msgstr "*Acceso a config desde condiciones JUnit* . El uso de un `ConfigProvider` desde una condición JUnit personalizada link:https://github.com/quarkusio/quarkus/issues/47081[provocará un ServiceConfigurationError] . La solución consiste en establecer el cargador de clase del contexto del hilo en `this.getClass().getClassLoader()` antes de leer config, y volver a establecerlo después."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Eclipse support*. Running `QuarkusTest` tests from the Eclipse IDE is https://github.com/quarkusio/quarkus/issues/47656[more challenging]. Right-clicking and running individual test methods works, and running a whole package also works. But running at the class level gives an error."
-msgstr ""
+msgstr "*Compatibilidad con Eclipse* . Ejecutar las pruebas de `QuarkusTest` desde el IDE de Eclipse es link:https://github.com/quarkusio/quarkus/issues/47656[más complicado] . Hacer clic con el botón derecho y ejecutar métodos de prueba individuales funciona, y ejecutar un paquete completo también funciona. Pero ejecutar a nivel de clase da un error."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Increased memory footprint running tests.* For suites using multiple profiles and resources, more heap or metaspace may be needed."
-msgstr ""
+msgstr "*Aumento de la huella de memoria en la ejecución de pruebas.* En el caso de las suites que utilizan varios perfiles y recursos, puede que se necesite más heap o metaespacio."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "Things to watch out for"
-msgstr ""
+msgstr "Cosas a tener en cuenta"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Test order change*. As part of the rewrite, the execution order of some tests has swapped around. Of course, we all know tests should not depend on execution order if they don't set an order explicitly. However, it's easy to not notice that a test requires a certain order... until the order changes. We discovered some tests in our own suite that were sensitive to the execution order, and other people may make similar discoveries."
-msgstr ""
+msgstr "*Cambio del orden de las pruebas* . Como parte de la reescritura, el orden de ejecución de algunas pruebas ha cambiado. Por supuesto, todos sabemos que las pruebas no deben depender del orden de ejecución si no establecen un orden explícitamente. Sin embargo, es fácil no darse cuenta de que una prueba requiere un orden determinado... hasta que el orden cambia. Descubrimos algunas pruebas en nuestro propio conjunto que eran sensibles al orden de ejecución, y otras personas pueden hacer descubrimientos similares."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Test timing change*. We also discovered that the rewrite exposed some timing issues in tests. Because classloading is frontloaded at the beginning of the test run, rather than between test executions, there's less time for asynchronous operations to finish between tests. For example, there may no longer be time for external state to 'reset' before the next test starts. This might expose some heisenbugs in test suites."
-msgstr ""
+msgstr "*Cambio en la temporización de las pruebas* . También descubrimos que la reescritura dejaba al descubierto algunos problemas de sincronización en las pruebas. Dado que la carga de clases se realiza por adelantado al principio de la ejecución de la prueba, en lugar de entre ejecuciones de prueba, hay menos tiempo para que las operaciones asíncronas finalicen entre pruebas. Por ejemplo, puede que ya no haya tiempo para que el estado externo se \"restablezca\" antes de que comience la siguiente prueba. Esto podría exponer algunos heisenbugs en los conjuntos de pruebas."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "Dropped support"
-msgstr ""
+msgstr "Apoyo abandonado"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*`@TestProfile` on `@Nested` tests.* Mixing different test profiles and test resources on `@Nested` tests is no longer supported. By definition, every `@TestProfile` must get its own Quarkus application and classloader. Having multiple classloaders execute one test isn't compatible with loading the test with the classloader used to run it."
-msgstr ""
+msgstr "*<code>@TestProfile</code> en las pruebas de <code>@Nested</code>.* Ya no se admite la mezcla de diferentes perfiles de prueba y recursos de prueba en las pruebas de `@Nested` . Por definición, cada `@TestProfile` debe tener su propia aplicación Quarkus y su propio cargador de clases. Tener varios cargadores de clases para ejecutar una prueba no es compatible con la carga de la prueba con el cargador de clases utilizado para ejecutarla."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid "*Version 2.x of the Maven Surefire plugin*. Versions below 3.x of the Maven Surefire plugin will no longer work with `@QuarkusTest`. Version 3 of the Surefire plugin was released in 2023, so version 2 is now rather old."
-msgstr ""
+msgstr "*Versión 2.x del plugin Maven Surefire* . Las versiones inferiores a la 3.x del plugin Maven Surefire ya no funcionarán con `@QuarkusTest` . La versión 3 del plugin Surefire se publicó en 2023, por lo que la versión 2 es ya bastante antigua."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
 msgid "Next steps"
 msgstr "Próximos pasos"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "The main work of the test classloading rewrite has been delivered in 3.22, and has unlocked a bunch of possible improvements.\n"
 "Some test defects weren't directly fixed by the main change, but the architecture is now in place to enable a fix.\n"
 "More excitingly, test-related extensions, like the Pact extensions, can now add new features to reduce test boilerplate."
-msgstr ""
+msgstr "El trabajo principal de la reescritura de la carga de clases de prueba se ha entregado en 3.22, y ha desbloqueado un montón de posibles mejoras. Algunos defectos de las pruebas no se solucionaron directamente con el cambio principal, pero la arquitectura está ahora en su lugar para permitir una solución. Y lo que es más emocionante, las extensiones relacionadas con las pruebas, como las extensiones Pact, pueden ahora añadir nuevas funciones para reducir la \"boilerplate\" de las pruebas."
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
+#, fuzzy
 msgid ""
 "As always, if you spot issues or oddities, please let us know on https://quarkusio.zulipchat.com/[zulip] or https://github.com/quarkusio/quarkus/issues[raise an issue].\n"
 "The https://github.com/orgs/quarkusio/projects/30[working group for test classloading] is still underway, and welcomes contributions."
-msgstr ""
+msgstr "Como siempre, si detecta problemas o rarezas, háganoslo saber en link:https://quarkusio.zulipchat.com/[zulip] o link:https://github.com/quarkusio/quarkus/issues[plantee una cuestión] . El link:https://github.com/orgs/quarkusio/projects/30[grupo de trabajo para la carga de clases de prueba] sigue en marcha y acepta contribuciones."
