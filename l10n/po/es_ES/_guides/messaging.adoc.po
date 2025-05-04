@@ -667,97 +667,114 @@ msgid ""
 msgstr "Esto crea cuatro copias del canal entrante bajo el capó, cableándolas al mismo método de procesamiento. Dependiendo de la tecnología del corredor, esto puede ser útil para aumentar el rendimiento de la aplicación procesando múltiples mensajes de forma concurrente y preservando al mismo tiempo el orden parcial de los mensajes recibidos en las diferentes copias. Este es el caso, por ejemplo, de Kafka, donde múltiples consumidores pueden consumir diferentes particiones de temas."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Context Propagation"
-msgstr ""
+msgstr "Propagación del contexto"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "In Quarkus Messaging, the default mechanism for propagating context between different processing stages is the\n"
 "link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[message context].\n"
 "This provides a consistent way to pass context information along with the message as it flows through different stages."
-msgstr ""
+msgstr "En Quarkus Messaging, el mecanismo por defecto para propagar el contexto entre las diferentes etapas de procesamiento es el link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[contexto del mensaje] . Esto proporciona una manera coherente de pasar la información de contexto junto con el mensaje a medida que fluye a través de diferentes etapas."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "When integrating with other extensions, notably using Emitters, it relies on the Mutiny context propagation:"
-msgstr ""
+msgstr "Cuando se integra con otras extensiones, en particular utilizando Emisores, se basa en la propagación del contexto Mutiny:"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Interaction with Mutiny and MicroProfile Context Propagation"
-msgstr ""
+msgstr "Interacción con el motín y la propagación del contexto del microperfil"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "Mutiny, which is the foundation of reactive programming in Quarkus, is integrated with the MicroProfile Context Propagation.\n"
 "This integration enables automatic capturing and restoring of context across asynchronous boundaries.\n"
 "To learn more about context propagation in Quarkus and Mutiny, refer to the xref:context-propagation.adoc[Context Propagation] guide."
-msgstr ""
+msgstr "Mutiny, que es la base de la programación reactiva en Quarkus, está integrado con la Propagación de Contexto de MicroProfile. Esta integración permite capturar y restaurar automáticamente el contexto a través de límites asíncronos. Para saber más sobre la propagación del contexto en Quarkus y Mutiny, consulte la guía xref:context-propagation.adoc[Propagación del contexto] ."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "To ensure consistent behavior, Quarkus Messaging disables the propagation of any context during message dispatching through inbound or outbound connectors.\n"
 "This means that context captured through Emitters won't be propagated to the outgoing channel, and incoming channels won't dispatch messages by activating a context (e.g. the request context).\n"
 "This behaviour can be configured using `quarkus.messaging.connector-context-propagation` configuration property, by listing the context types to propagate.\n"
 "For example `quarkus.messaging.connector-context-propagation=CDI` will only propagate the CDI context."
-msgstr ""
+msgstr "Para garantizar un comportamiento coherente, Quarkus Messaging desactiva la propagación de cualquier contexto durante el envío de mensajes a través de conectores de entrada o salida. Esto significa que el contexto capturado a través de Emisores no se propagará al canal saliente, y los canales entrantes no despacharán mensajes activando un contexto (por ejemplo, el contexto de solicitud). Este comportamiento puede configurarse mediante la propiedad de configuración `quarkus.messaging.connector-context-propagation` , listando los tipos de contexto a propagar. Por ejemplo `quarkus.messaging.connector-context-propagation=CDI` sólo propagará el contexto CDI."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "<<internal-channels>> however do propagate the context, as they are part of the same application and the context is not lost."
-msgstr ""
+msgstr "<<internal-channels>> sin embargo sí propagan el contexto, ya que forman parte de la misma aplicación y el contexto no se pierde."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "For example, you might want to propagate the caller context from an incoming HTTP request to the message processing stage.\n"
 "For emitters, it is recommended to use the `MutinyEmitter`, as it exposes methods such as `sendAndAwait` that makes sure to wait until a message processing is terminated."
-msgstr ""
+msgstr "Por ejemplo, es posible que desee propagar el contexto de llamada desde una solicitud HTTP entrante a la etapa de procesamiento de mensajes. Para los emisores, se recomienda utilizar `MutinyEmitter` , ya que expone métodos como `sendAndAwait` que se asegura de esperar hasta que finalice el procesamiento de un mensaje."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "The execution context to which the RequestScoped context is bound, in the previous example the REST call, controls the lifecycle of the context.\n"
 "This means that when the REST call is completed the RequestScoped context is destroyed.\n"
 "Therefore, you need to make sure that your processing or message dispatch is completed before the REST call completes."
-msgstr ""
+msgstr "El contexto de ejecución al que está vinculado el contexto RequestScoped, en el ejemplo anterior la llamada REST, controla el ciclo de vida del contexto. Esto significa que cuando finaliza la llamada REST se destruye el contexto RequestScoped. Por lo tanto, debe asegurarse de que su procesamiento o envío de mensajes finaliza antes de que se complete la llamada REST."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "For more information check the xref:context-propagation.adoc#context-propagation-for-cdi[Context Propagation] guide."
-msgstr ""
+msgstr "Para más información consulte la guía xref:context-propagation.adoc#context-propagation-for-cdi[Propagación del contexto] ."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "For example, let `RequestScopedBean` a request-scoped bean, `MutinyEmitter` can be used to dispatch messages locally through the internal channel `app`:"
-msgstr ""
+msgstr "Por ejemplo, si `RequestScopedBean` es un bean con ámbito de petición, `MutinyEmitter` puede utilizarse para enviar mensajes localmente a través del canal interno `app` :"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Then the request-scoped bean can be accessed in the message processing stage, regardless of the <<execution_model>>:"
-msgstr ""
+msgstr "Entonces se puede acceder al bean con ámbito de petición en la etapa de procesamiento de mensajes, independientemente de la <<execution_model>> :"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "You can use the context propagation annotation `@CurrentThreadContext` to configure the contexts that will be propagated from an _emitter_ method.\n"
 "The annotation configures the contexts that will be captured and propagated from that method,\n"
 "and needs to be present on the propagator method, i.e. the caller of the emitter, not the processing method."
-msgstr ""
+msgstr "Puede utilizar la anotación de propagación de contextos `@CurrentThreadContext` para configurar los contextos que se propagarán desde un método _emisor_ . La anotación configura los contextos que serán capturados y propagados desde ese método, y necesita estar presente en el método propagador, es decir, en el llamador del emisor, no en el método procesador."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "Because Quarkus Messaging dispatches messages on link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[message context],\n"
 "propagation plans with cleared or not propagated contexts can lead to race conditions using emitters in <<internal-channels,internal channels>>.\n"
 "It is recommended to use `ContextualEmitter` to ensure the context propagation plan is applied correctly."
-msgstr ""
+msgstr "Dado que Quarkus Messaging despacha los mensajes según link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[el contexto del mensaje] , los planes de propagación con contextos borrados o no propagados pueden dar lugar a condiciones de carrera utilizando emisores en xref:internal-channels[canales internos] . Se recomienda utilizar `ContextualEmitter` para asegurarse de que el plan de propagación de contextos se aplica correctamente."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "The following example shows how to avoid propagating any context to the message processing stage:"
-msgstr ""
+msgstr "El siguiente ejemplo muestra cómo evitar la propagación de cualquier contexto a la etapa de procesamiento de mensajes:"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Request Context Activation"
-msgstr ""
+msgstr "Solicitar la activación del contexto"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "In some cases, you might need to activate the request context while processing messages consumed from a broker.\n"
 "While using `@ActivateRequestContext` on the `@Incoming` method is an option, its lifecycle does not follow that of a Quarkus Messaging message.\n"
 "For incoming channels, you can enable the request scope activation with the build time property `quarkus.messaging.request-scoped.enabled=true`.\n"
 "This will activate the request context for each message processed by incoming channels, and close the context once the message is processed."
-msgstr ""
+msgstr "En algunos casos, puede que necesite activar el contexto de solicitud mientras procesa mensajes consumidos desde un corredor. Aunque utilizar `@ActivateRequestContext` en el método `@Incoming` es una opción, su ciclo de vida no sigue el de un mensaje de Quarkus Messaging. Para los canales entrantes, puede activar la activación del ámbito de solicitud con la propiedad de tiempo de compilación `quarkus.messaging.request-scoped.enabled=true` . Esto activará el contexto de solicitud para cada mensaje procesado por los canales entrantes, y cerrará el contexto una vez procesado el mensaje."
 
 #: _guides/messaging.adoc
 #, fuzzy
@@ -1066,85 +1083,104 @@ msgid ""
 msgstr "Si sus pruebas dependen de la propagación de contextos, puede configurar los canales del conector en memoria con el atributo `run-on-vertx-context` para que envíen eventos, incluidos mensajes y acuses de recibo, en un contexto Vert.x. También puede cambiar este comportamiento utilizando el método `InMemorySource#runOnVertxContext` ."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Channel Decorators"
-msgstr ""
+msgstr "Decoradores de canales"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "https://smallrye.io/smallrye-reactive-messaging/latest/concepts/decorators/[Channel decorators] is a way to intercept and decorate the reactive streams corresponding to messaging channels.\n"
 "This can be useful for adding custom behavior to the channels, such as logging, metrics, or error handling."
-msgstr ""
+msgstr "link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/decorators/[Los decoradores de canales] son una forma de interceptar y decorar los flujos reactivos correspondientes a los canales de mensajería. Esto puede ser útil para añadir comportamientos personalizados a los canales, como registro, métricas o gestión de errores."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid ""
 "It is therefore possible to implement a bean implementing `PublisherDecorator` for incoming channels, and `SubscriberDecorator` for outgoing channels.\n"
 "Since two APIs are symmetric, you can implement both interfaces in the same bean.\n"
 "These beans are automatically discovered by Quarkus and applied by priority (from the least value to the greatest)."
-msgstr ""
+msgstr "Por lo tanto, es posible implementar un bean que implemente `PublisherDecorator` para los canales entrantes, y `SubscriberDecorator` para los canales salientes. Dado que las dos API son simétricas, puede implementar ambas interfaces en el mismo frijol. Estos beans son descubiertos automáticamente por Quarkus y aplicados por prioridad (del menor valor al mayor)."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Some decorators are included by default by Quarkus extensions."
-msgstr ""
+msgstr "Algunos decoradores son incluidos por defecto por las extensiones de Quarkus."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Incoming channels (PublisherDecorator) in the order of priority:"
-msgstr ""
+msgstr "Canales entrantes (PublisherDecorator) por orden de prioridad:"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.quarkus.smallrye.reactivemessaging.runtime.ConnectorContextPropagationDecorator` (-100): Clears the context propagation for incoming channels"
-msgstr ""
+msgstr "`io.quarkus.smallrye.reactivemessaging.runtime.ConnectorContextPropagationDecorator` (-100): Borra la propagación del contexto para los canales entrantes."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.locals.ContextDecorator` (0): Ensures messages are dispatched on the message context"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.locals.ContextDecorator` (0): Garantiza que los mensajes se envíen en el contexto de mensajes"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.quarkus.smallrye.reactivemessaging.runtime.RequestScopedDecorator` (100): Handles pausable channels"
-msgstr ""
+msgstr "`io.quarkus.smallrye.reactivemessaging.runtime.RequestScopedDecorator` (100): Maneja canales pausables"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.IncomingInterceptorDecorator` (500): Handles `IncomingInterceptor` beans"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.IncomingInterceptorDecorator` (500): Maneja `IncomingInterceptor` frijoles"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.metrics.MetricDecorator` (1000): MicroProfile Metrics support, enabled with `quarkus-smallrye-metrics` extension"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.metrics.MetricDecorator` (1000): Compatibilidad con métricas de microperfiles, habilitada con la extensión `quarkus-smallrye-metrics` "
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.metrics.MicrometerDecorator` (1000): Micrometer Metrics support, enabled with `quarkus-micrometer` extension"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.metrics.MicrometerDecorator` (1000): Soporte de métricas micrométricas, habilitado con la extensión `quarkus-micrometer` "
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.extension.ObservationDecorator` (1000): Message observation support for incoming channels"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.extension.ObservationDecorator` (1000): Soporte de observación de mensajes para canales entrantes"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.extension.PausableChannelDecorator` (1000): Handles pausable channels"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.extension.PausableChannelDecorator` (1000): Maneja canales pausables"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.quarkus.opentelemetry.runtime.tracing.intrumentation.reactivemessaging.ReactiveMessagingTracingIncomingDecorator` (1000): Included with `quarkus-opentelemetry` extension, propagates tracing information"
-msgstr ""
+msgstr "`io.quarkus.opentelemetry.runtime.tracing.intrumentation.reactivemessaging.ReactiveMessagingTracingIncomingDecorator` (1000): Incluido con la extensión `quarkus-opentelemetry` , propaga la información de rastreo"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "Outgoing channels (SubscriberDecorator):"
-msgstr ""
+msgstr "Canales de salida (SubscriberDecorator):"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.quarkus.smallrye.reactivemessaging.runtime.ConnectorContextPropagationDecorator` (-100): Clears the context propagation for outgoing channels"
-msgstr ""
+msgstr "`io.quarkus.smallrye.reactivemessaging.runtime.ConnectorContextPropagationDecorator` (-100): Borra la propagación del contexto para los canales salientes."
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.extension.OutgoingObservationDecorator` (1000): Message observation support for outgoing channels"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.extension.OutgoingObservationDecorator` (1000): Soporte de observación de mensajes para canales salientes"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.quarkus.opentelemetry.runtime.tracing.intrumentation.reactivemessaging.ReactiveMessagingTracingOutgoingDecorator` (1000): Included with `quarkus-opentelemetry` extension, propagates tracing information"
-msgstr ""
+msgstr "`io.quarkus.opentelemetry.runtime.tracing.intrumentation.reactivemessaging.ReactiveMessagingTracingOutgoingDecorator` (1000): Incluido con la extensión `quarkus-opentelemetry` , propaga la información de rastreo"
 
 #: _guides/messaging.adoc
+#, fuzzy
 msgid "`io.smallrye.reactive.messaging.providers.OutgoingInterceptorDecorator` (2000): Handles `OutgoingInterceptor` beans"
-msgstr ""
+msgstr "`io.smallrye.reactive.messaging.providers.OutgoingInterceptorDecorator` (2000): Maneja `OutgoingInterceptor` frijoles"
 
 #: _guides/messaging.adoc
 msgid "Going further"
