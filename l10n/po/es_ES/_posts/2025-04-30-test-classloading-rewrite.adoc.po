@@ -94,14 +94,21 @@ msgid "Known regressions"
 msgstr "Regresiones conocidas"
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
-#, fuzzy
-msgid "*Dev services now start in the JUnit discovery phase*. https://quarkus.io/guides/dev-services[Quarkus Dev Services] are currently started during https://quarkus.io/guides/reaugmentation#what-is-augmentation[the augmentation phase], along with bytecode manipulation and other application initialization steps. With the new testing design, all augmentation happens at the beginning of the test run, during the JUnit discovery phase. This means all Dev Services also start at the beginning of the test run. If several test classes with different Dev Service configuration are augmented before any tests are run, multiple differently-configured Dev Services may be running at the same time. This can cause port conflicts and cross-talk on configuration values. We're hoping to have a https://github.com/quarkusio/quarkus/issues/45785[fix] for this in the next release. As a workaround, splitting conflicting tests into separate projects should fix symptoms."
-msgstr "Los *servicios Dev se inician ahora en la fase* de *descubrimiento de JUnit* . Actualmente, link:https://quarkus.io/guides/dev-services[los servicios de desarrollo de Quarkus] se inician durante link:https://quarkus.io/guides/reaugmentation#what-is-augmentation[la fase de aumento] , junto con la manipulación del código de bytes y otros pasos de inicialización de la aplicación. Con el nuevo diseño de las pruebas, todo el aumento se produce al principio de la ejecución de la prueba, durante la fase de descubrimiento de JUnit. Esto significa que todos los Dev Services también se inician al principio de la ejecución de la prueba. Si se aumentan varias clases de prueba con diferentes configuraciones de Dev Services antes de que se ejecute ninguna prueba, es posible que se estén ejecutando al mismo tiempo varios Dev Services con configuraciones diferentes. Esto puede causar conflictos de puertos y cruce de valores de configuración. Esperamos tener una link:https://github.com/quarkusio/quarkus/issues/45785[solución] para esto en la próxima versión. Como solución provisional, dividir las pruebas conflictivas en proyectos separados debería solucionar los síntomas."
+msgid "*All dev services now start in the JUnit discovery phase*. https://quarkus.io/guides/dev-services[Quarkus Dev Services] are currently started during https://quarkus.io/guides/reaugmentation#what-is-augmentation[the augmentation phase], along with bytecode manipulation and other application initialization steps. With the new testing design, all augmentation happens at the beginning of the test run, during the JUnit discovery phase. This means all Dev Services also start at the beginning of the test run. If several test classes with different Dev Service configuration are augmented before any tests are run, multiple differently-configured Dev Services may be running at the same time. This can cause port conflicts and cross-talk on configuration values. We're hoping to have a https://github.com/quarkusio/quarkus/issues/45785[fix] for this in the next release. As a workaround, splitting conflicting tests into separate projects should fix symptoms."
+msgstr ""
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
 #, fuzzy
 msgid "*Config access from JUnit conditions*. Using a `ConfigProvider` from a custom JUnit condition will https://github.com/quarkusio/quarkus/issues/47081[trigger a `ServiceConfigurationError`]. The workaround is to set the thread context classloader to `this.getClass().getClassLoader()` before reading config, and then set it back afterwards."
 msgstr "*Acceso a config desde condiciones JUnit* . El uso de un `ConfigProvider` desde una condición JUnit personalizada link:https://github.com/quarkusio/quarkus/issues/47081[provocará un ServiceConfigurationError] . La solución consiste en establecer el cargador de clase del contexto del hilo en `this.getClass().getClassLoader()` antes de leer config, y volver a establecerlo después."
+
+#: _posts/2025-04-30-test-classloading-rewrite.adoc
+msgid "*Nested test issues*. If nested `@QuarkusTest` tests are mixed in the same project with plain tests, the plain tests https://github.com/quarkusio/quarkus/issues/47657[will not be able to access Quarkus config], because the thread context classloader does not get correctly reset. As a workaround, you can manually set the thread context classloader to the system classloader in the plain tests. The nested tests also https://github.com/quarkusio/quarkus/issues/47671[have problems in dev mode]."
+msgstr ""
+
+#: _posts/2025-04-30-test-classloading-rewrite.adoc
+msgid "*junit-platform.properties* Including a `junit-platform.properties` in a Gradle project https://github.com/quarkusio/quarkus/issues/47646[causes problems] for `@QuarkusTest`s."
+msgstr ""
 
 #: _posts/2025-04-30-test-classloading-rewrite.adoc
 #, fuzzy
