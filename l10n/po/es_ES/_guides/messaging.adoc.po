@@ -707,16 +707,39 @@ msgid ""
 msgstr "Para garantizar un comportamiento coherente, Quarkus Messaging desactiva la propagación de cualquier contexto durante el envío de mensajes a través de conectores de entrada o salida. Esto significa que el contexto capturado a través de Emisores no se propagará al canal saliente, y los canales entrantes no despacharán mensajes activando un contexto (por ejemplo, el contexto de solicitud). Este comportamiento puede configurarse mediante la propiedad de configuración `quarkus.messaging.connector-context-propagation` , listando los tipos de contexto a propagar. Por ejemplo `quarkus.messaging.connector-context-propagation=CDI` sólo propagará el contexto CDI."
 
 #: _guides/messaging.adoc
-#, fuzzy
-msgid "<<internal-channels>> however do propagate the context, as they are part of the same application and the context is not lost."
-msgstr "<<internal-channels>> sin embargo sí propagan el contexto, ya que forman parte de la misma aplicación y el contexto no se pierde."
+msgid "Context Propagation with Emitters"
+msgstr ""
+
+#: _guides/messaging.adoc
+msgid "When using messaging emitters, the context is not propagated by default."
+msgstr ""
+
+#: _guides/messaging.adoc
+msgid "In some scenarios, you might want to propagate the caller context to the message processing stage, using <<internal-channels,internal channels>>."
+msgstr ""
+
+#: _guides/messaging.adoc
+msgid ""
+"Quarkus provides `ContextualEmitter`, a drop in replacement for `MutinyEmitter` and `Emitter`, that allows you to propagate the context when sending messages.\n"
+"You can use the context propagation annotation `@CurrentThreadContext` to configure the contexts that will be propagated from an _emitter_ method.\n"
+"The annotation configures the contexts that will be captured and propagated from that method,\n"
+"and needs to be present on the propagator method, i.e. the caller of the emitter, not the processing method."
+msgstr ""
+
+#: _guides/messaging.adoc
+msgid "Let `RequestScopedBean` a request-scoped bean, `ContextualEmitter` can be used to dispatch messages locally through the internal channel `app`:"
+msgstr ""
 
 #: _guides/messaging.adoc
 #, fuzzy
+msgid "Then the request-scoped bean can be accessed in the message processing stage, regardless of the <<execution_model>>:"
+msgstr "Entonces se puede acceder al bean con ámbito de petición en la etapa de procesamiento de mensajes, independientemente de la <<execution_model>> :"
+
+#: _guides/messaging.adoc
 msgid ""
-"For example, you might want to propagate the caller context from an incoming HTTP request to the message processing stage.\n"
-"For emitters, it is recommended to use the `MutinyEmitter`, as it exposes methods such as `sendAndAwait` that makes sure to wait until a message processing is terminated."
-msgstr "Por ejemplo, es posible que desee propagar el contexto de llamada desde una solicitud HTTP entrante a la etapa de procesamiento de mensajes. Para los emisores, se recomienda utilizar `MutinyEmitter` , ya que expone métodos como `sendAndAwait` que se asegura de esperar hasta que finalice el procesamiento de un mensaje."
+"You can also use the `@CurrentThreadContext` annotation to control which contexts are propagated.\n"
+"The following example shows how to avoid propagating any context to the message processing stage:"
+msgstr ""
 
 #: _guides/messaging.adoc
 #, fuzzy
@@ -730,37 +753,6 @@ msgstr "El contexto de ejecución al que está vinculado el contexto RequestScop
 #, fuzzy
 msgid "For more information check the xref:context-propagation.adoc#context-propagation-for-cdi[Context Propagation] guide."
 msgstr "Para más información consulte la guía xref:context-propagation.adoc#context-propagation-for-cdi[Propagación del contexto] ."
-
-#: _guides/messaging.adoc
-#, fuzzy
-msgid "For example, let `RequestScopedBean` a request-scoped bean, `MutinyEmitter` can be used to dispatch messages locally through the internal channel `app`:"
-msgstr "Por ejemplo, si `RequestScopedBean` es un bean con ámbito de petición, `MutinyEmitter` puede utilizarse para enviar mensajes localmente a través del canal interno `app` :"
-
-#: _guides/messaging.adoc
-#, fuzzy
-msgid "Then the request-scoped bean can be accessed in the message processing stage, regardless of the <<execution_model>>:"
-msgstr "Entonces se puede acceder al bean con ámbito de petición en la etapa de procesamiento de mensajes, independientemente de la <<execution_model>> :"
-
-#: _guides/messaging.adoc
-#, fuzzy
-msgid ""
-"You can use the context propagation annotation `@CurrentThreadContext` to configure the contexts that will be propagated from an _emitter_ method.\n"
-"The annotation configures the contexts that will be captured and propagated from that method,\n"
-"and needs to be present on the propagator method, i.e. the caller of the emitter, not the processing method."
-msgstr "Puede utilizar la anotación de propagación de contextos `@CurrentThreadContext` para configurar los contextos que se propagarán desde un método _emisor_ . La anotación configura los contextos que serán capturados y propagados desde ese método, y necesita estar presente en el método propagador, es decir, en el llamador del emisor, no en el método procesador."
-
-#: _guides/messaging.adoc
-#, fuzzy
-msgid ""
-"Because Quarkus Messaging dispatches messages on link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[message context],\n"
-"propagation plans with cleared or not propagated contexts can lead to race conditions using emitters in <<internal-channels,internal channels>>.\n"
-"It is recommended to use `ContextualEmitter` to ensure the context propagation plan is applied correctly."
-msgstr "Dado que Quarkus Messaging despacha los mensajes según link:https://smallrye.io/smallrye-reactive-messaging/latest/concepts/message-context[el contexto del mensaje] , los planes de propagación con contextos borrados o no propagados pueden dar lugar a condiciones de carrera utilizando emisores en xref:internal-channels[canales internos] . Se recomienda utilizar `ContextualEmitter` para asegurarse de que el plan de propagación de contextos se aplica correctamente."
-
-#: _guides/messaging.adoc
-#, fuzzy
-msgid "The following example shows how to avoid propagating any context to the message processing stage:"
-msgstr "El siguiente ejemplo muestra cómo evitar la propagación de cualquier contexto a la etapa de procesamiento de mensajes:"
 
 #: _guides/messaging.adoc
 #, fuzzy
