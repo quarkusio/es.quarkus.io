@@ -833,8 +833,9 @@ msgid "Automatically generated metrics"
 msgstr "Métricas generadas automáticamente"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "HTTP server"
-msgstr ""
+msgstr "Servidor HTTP"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
 #, fuzzy
@@ -903,110 +904,136 @@ msgid ""
 msgstr "Por defecto, las métricas se exportan utilizando el formato Prometheus `application/openmetrics-text`, puede volver al formato anterior especificando la cabecera de petición `Accept` a `plain/text` ( `curl -H \"Accept: plain/text\" localhost:8080/q/metrics/`)."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Netty memory management metrics"
-msgstr ""
+msgstr "Métricas de gestión de memoria de Netty"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "https://netty.io/[Netty] memory management metrics are important because Quarkus is built on top of https://vertx.io/[Eclipse Vert.x], which is a framework built on top of Netty to create reactive applications in Java. Even if you use imperative style programing in Quarkus, under the surface it is conveniently handled by Vert.x in a reactive way."
-msgstr ""
+msgstr "Las métricas de gestión de memoria link:https://netty.io/[de Netty] son importantes porque Quarkus está construido sobre link:https://vertx.io/[Eclipse Vert.x] , que es un marco construido sobre Netty para crear aplicaciones reactivas en Java. Incluso si utiliza programación de estilo imperativo en Quarkus, bajo la superficie está convenientemente gestionada por Vert.x de forma reactiva."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid ""
 "In short, Netty provides an _efficient_ memory management system for asynchronous applications.\n"
 "It offers different types of memory allocation strategies, including **heap** (stored in the JVM heap) and direct memory (allocated outside the JVM memory), along with a **buffer pooling mechanism** to optimize allocations and reduce garbage collection (GC) overhead."
-msgstr ""
+msgstr "En resumen, Netty proporciona un sistema _eficaz_ de gestión de memoria para aplicaciones asíncronas. Ofrece distintos tipos de estrategias de asignación de memoria, entre ellas *la heap* (almacenada en la heap de la JVM) y la memoria directa (asignada fuera de la memoria de la JVM), junto con un *mecanismo de agrupación de búferes* para optimizar las asignaciones y reducir la sobrecarga de la recolección de basura (GC)."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Memory Categories in Netty"
-msgstr ""
+msgstr "Categorías de memoria en Netty"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Netty uses two primary memory categories:"
-msgstr ""
+msgstr "Netty utiliza dos categorías principales de memoria:"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Heap Memory**"
-msgstr ""
+msgstr "*Memoria de montón*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Allocated from the JVM heap (`byte[]`)."
-msgstr ""
+msgstr "Asignado desde el heap de la JVM ( `byte[]` )."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Managed by the garbage collector."
-msgstr ""
+msgstr "Gestionado por el recolector de basura."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Slower for I/O operations because it requires copying data to/from direct memory before sending over a socket."
-msgstr ""
+msgstr "Más lento para las operaciones de E/S porque requiere copiar los datos a/desde la memoria directa antes de enviarlos a través de un socket."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Direct Memory**"
-msgstr ""
+msgstr "*Memoria directa*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Allocated outside the JVM heap using `ByteBuffer.allocateDirect()`."
-msgstr ""
+msgstr "Asignado fuera del heap de la JVM utilizando `ByteBuffer.allocateDirect()` ."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Not managed by the garbage collector, reducing GC pressure."
-msgstr ""
+msgstr "No gestionado por el recolector de basura, lo que reduce la presión del GC."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Faster for I/O operations as it avoids unnecessary copying."
-msgstr ""
+msgstr "Más rápido para las operaciones de E/S, ya que evita las copias innecesarias."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Using a very high value for -XX:MaxRAMPercentage (allocating most of the available RAM to the Java heap) is not recommended for Quarkus applications, as it’s important to leave room for Netty's native memory allocations."
-msgstr ""
+msgstr "Utilizar un valor muy alto para -XX:MaxRAMPercentage (asignar la mayor parte de la RAM disponible al montón de Java) no es recomendable para las aplicaciones Quarkus, ya que es importante dejar espacio para las asignaciones de memoria nativa de Netty."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "These Netty metrics help evaluate how much room is needed."
-msgstr ""
+msgstr "Estas métricas de Netty ayudan a evaluar cuánto espacio se necesita."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Pooling Mechanism"
-msgstr ""
+msgstr "Mecanismo de puesta en común"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Netty uses **PooledByteBufAllocator** to reduce memory allocation overhead and fragmentation. It is based on a **jemalloc-style arena system** (see https://github.com/jemalloc/jemalloc[jemalloc/jemalloc]), which includes:"
-msgstr ""
+msgstr "Netty utiliza *PooledByteBufAllocator* para reducir la sobrecarga en la asignación de memoria y la fragmentación. Se basa en un *sistema de arena estilo* link:https://github.com/jemalloc/jemalloc[jemalloc] (véase link:https://github.com/jemalloc/jemalloc[jemalloc/jemalloc] ), que incluye:"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Arenas**: Large memory blocks that manage allocations."
-msgstr ""
+msgstr "*Arenas* : Grandes bloques de memoria que gestionan las asignaciones."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Chunks**: Memory segments within arenas (typically 16MB in size)."
-msgstr ""
+msgstr "*Chunks* : Segmentos de memoria dentro de arenas (normalmente de 16 MB de tamaño)."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Pages**: Fixed-size portions of a chunk (usually 8KB)."
-msgstr ""
+msgstr "*Páginas* : Porciones de tamaño fijo de un chunk (normalmente 8KB)."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Subpages**: Smaller allocations within a page for tiny objects."
-msgstr ""
+msgstr "*Subpáginas* : Asignaciones más pequeñas dentro de una página para objetos diminutos."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**Thread-local Caches**: Per-thread cache for frequently used small buffers, reducing contention."
-msgstr ""
+msgstr "*Cachés locales por hilo* : Caché por hilo para los búferes pequeños de uso frecuente, lo que reduce la contención."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Metrics for Netty Memory Management"
-msgstr ""
+msgstr "Métricas para la gestión de memoria de Netty"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "The Micrometer metrics report key metrics from Netty's allocator, helping monitor memory usage, pinned memory, pooling efficiency, and cache behavior."
-msgstr ""
+msgstr "Las métricas de Micrometer informan de las métricas clave del asignador de Netty, ayudando a supervisar el uso de la memoria, la memoria anclada, la eficiencia de la agrupación y el comportamiento de la caché."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**1. Memory Usage Metrics (Every allocator)**"
-msgstr ""
+msgstr "*1. Métricas de uso de memoria (cada asignador)*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "These metrics track the current memory usage by Netty allocators (in bytes)"
-msgstr ""
+msgstr "Estas métricas rastrean el uso actual de memoria por parte de los asignadores Netty (en bytes)"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
 #, fuzzy
@@ -1027,116 +1054,144 @@ msgid "Tags"
 msgstr "Etiquetas"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.memory.used`"
-msgstr ""
+msgstr "`allocator.memory.used`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Amount of memory currently used by the allocator"
-msgstr ""
+msgstr "Cantidad de memoria utilizada actualmente por el asignador"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Gauge"
-msgstr ""
+msgstr "Calibre"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`memory_type=[heap, direct]`, `name=allocator-name`"
-msgstr ""
+msgstr "`memory_type=[heap, direct]` , `name=allocator-name`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**2. Pooled  Allocator - Pinned Memory Metrics**"
-msgstr ""
+msgstr "*2. Asignador agrupado - Métricas de memoria anclada*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Pinned memory refers to buffers that cannot be recycled due to active references, preventing reuse by the allocator. A _high_ number may indicate some kind of leak (as reference are not released)."
-msgstr ""
+msgstr "La memoria anclada se refiere a los búferes que no pueden reciclarse debido a referencias activas, lo que impide su reutilización por parte del asignador. Un número _elevado_ puede indicar algún tipo de fuga (ya que las referencias no se liberan)."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.memory.pinned`"
-msgstr ""
+msgstr "`allocator.memory.pinned`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Amount of pinned memory that cannot be reused"
-msgstr ""
+msgstr "Cantidad de memoria fija que no se puede reutilizar"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**3. Pooled Allocator - Arena Metrics**"
-msgstr ""
+msgstr "*3. Asignador común - Métricas de la arena*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Arenas (large size of memory) manage memory allocations efficiently by grouping chunks of memory. So this metric is the number of arenas allocated for a given allocator."
-msgstr ""
+msgstr "Las arenas (gran tamaño de la memoria) gestionan las asignaciones de memoria de forma eficiente agrupando trozos de memoria. Así que esta métrica es el número de arenas asignadas para un asignador dado."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.pooled.arenas`"
-msgstr ""
+msgstr "`allocator.pooled.arenas`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Number of arenas handling memory allocation"
-msgstr ""
+msgstr "Número de arenas que gestionan la asignación de memoria"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`memory_type=[heap, direct]`"
-msgstr ""
+msgstr "`memory_type=[heap, direct]`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**4. Cache Size Metrics**"
-msgstr ""
+msgstr "*4. Métricas del tamaño de la caché*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Netty caches small buffers within a given thread to avoid frequent memory allocations and improve performance. If the same thread needs memory, it will first check in its own cache. This is particularly efficient due to the event loop threading model (low number of threads). Note that the tiny caches are now merged into the small ones."
-msgstr ""
+msgstr "Netty almacena en caché pequeños búferes dentro de un hilo determinado para evitar frecuentes asignaciones de memoria y mejorar el rendimiento. Si el mismo hilo necesita memoria, primero comprobará en su propia caché. Esto es especialmente eficiente debido al modelo de roscado de bucle de eventos (bajo número de hilos). Tenga en cuenta que las cachés diminutas se fusionan ahora con las pequeñas."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.pooled.cache.size`"
-msgstr ""
+msgstr "`allocator.pooled.cache.size`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Size of the buffer cache"
-msgstr ""
+msgstr "Tamaño de la caché del búfer"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`cache_type=[small, normal]`"
-msgstr ""
+msgstr "`cache_type=[small, normal]`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**5. Thread-Local Cache Metrics**"
-msgstr ""
+msgstr "*5. Métricas de la caché hilo-local*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "These metrics indicate the number of active thread-local caches used for memory pooling. It complements the cache size metrics (cache being the size, and this being the number of cache)"
-msgstr ""
+msgstr "Esta métrica indica el número de cachés locales de subprocesos activas utilizadas para la agrupación de memoria. Complementa las métricas de tamaño de caché (siendo caché el tamaño, y éste el número de cachés)"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.pooled.threadlocal.caches`"
-msgstr ""
+msgstr "`allocator.pooled.threadlocal.caches`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Number of thread-local caches for buffers"
-msgstr ""
+msgstr "Número de cachés locales de subprocesos para búferes"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "Ninguno"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "**6. Chunk Size Metrics**"
-msgstr ""
+msgstr "*6. Métricas del tamaño de los trozos*"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Chunks are the primary unit of memory allocation in Netty's arenas."
-msgstr ""
+msgstr "Los chunks son la unidad primaria de asignación de memoria en las arenas de Netty."
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "`allocator.pooled.chunk.size`"
-msgstr ""
+msgstr "`allocator.pooled.chunk.size`"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Size of a memory chunk in pooled allocator"
-msgstr ""
+msgstr "Tamaño de un trozo de memoria en el asignador agrupado"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "List of Quarkus core extensions automatically instrumented with Micrometer"
-msgstr ""
+msgstr "Lista de extensiones del núcleo de Quarkus instrumentadas automáticamente con Micrometer"
 
 #. type: Plain text
 #: _versions/main/guides/telemetry-micrometer.adoc
@@ -1488,14 +1543,16 @@ msgid "You can configure the path of each exposed format using:"
 msgstr "Puede configurar la ruta de cada formato expuesto utilizando:"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid "Enable JSON metrics"
-msgstr ""
+msgstr "Habilitar métricas JSON"
 
 #: _versions/main/guides/telemetry-micrometer.adoc
+#, fuzzy
 msgid ""
 "With such a configuration, the JSON metrics will be available from `http://0.0.0.0:9000/q/metrics/json`.\n"
 "The Prometheus metrics will be available from `http://0.0.0.0:9000/q/metrics/prometheus`."
-msgstr ""
+msgstr "Con una configuración de este tipo, las métricas JSON estarán disponibles en `http://0.0.0.0:9000/q/metrics/json` . Las métricas Prometheus estarán disponibles desde `http://0.0.0.0:9000/q/metrics/prometheus` ."
 
 #. type: Plain text
 #: _versions/main/guides/telemetry-micrometer.adoc
