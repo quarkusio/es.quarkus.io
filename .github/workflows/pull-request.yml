@@ -9,10 +9,10 @@ jobs:
     steps:
       - name: Checkout base branch
         # To avoid GitHub Secrets compromise, checkout base branch to get reliable (untainted) build scripts
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+        uses: actions/checkout@v4
       - name: Checkout merged commit to 'merged' dir
         # Checkout merged commit to 'merged' dir
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           path: merged
@@ -23,7 +23,7 @@ jobs:
           cp -r merged/l10n ./
       - name: Cache bundle directory
         # Cache ruby bundle directory to speed up build
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # 4.2.3
+        uses: actions/cache@v4
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
@@ -45,7 +45,7 @@ jobs:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       - name: Add comment
         # Add comment to the pull request to announce the deployed preview site URL.
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # 7.0.1
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
