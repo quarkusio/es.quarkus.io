@@ -36,9 +36,9 @@ msgstr "https://quarkusio.zulipchat.com/#narrow/channel/187038-dev"
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2025-07-18"
-msgstr ""
+msgstr "2025-07-18"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
@@ -260,43 +260,43 @@ msgstr "Prueba de carga de clases"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/orgs/quarkusio/projects/50"
-msgstr ""
+msgstr "https://github.com/orgs/quarkusio/projects/50"
 
 #. type: Hash Value: working-groups discussion
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/WG.20-.20Panache.2ENext/with/529258261"
-msgstr ""
+msgstr "https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/WG.20-.20Panache.2ENext/with/529258261"
 
 #. type: Hash Value: working-groups last-update-date
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2025-07-17"
-msgstr ""
+msgstr "2025-07-17"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Working Group Started.\n"
-msgstr ""
+msgstr "Grupo de trabajo iniciado.\n"
 
 #. type: Hash Value: working-groups point-of-contact
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "@FroMage  (@<strong>Stephane Epardaud</strong>  on Zulip)"
-msgstr ""
+msgstr "@FroMage (@Stephane<strong>Epardaud</strong> en Zulip)"
 
 #. type: Hash Value: working-groups proposal
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "https://github.com/quarkusio/quarkus/discussions/48949"
-msgstr ""
+msgstr "https://github.com/quarkusio/quarkus/discussions/48949"
 
 #. type: Hash Value: working-groups readme
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid ""
 "<h1>Objective</h1>\n"
 "<p>The main objective of this working group is to bring forth the next version of Panache.</p>\n"
@@ -348,18 +348,67 @@ msgid ""
 "<li>Discussion: <a href=\"https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/WG.20-.20Panache.2ENext/with/529258261\">Zulip</a></li>\n"
 "</ul>\n"
 msgstr ""
+"<h1>Objetivo</h1>\n"
+"<p>El principal objetivo de este grupo de trabajo es sacar adelante la próxima versión de Panache.</p>\n"
+"<h1>El problema</h1>\n"
+"<p>Panache es estupendo para muchas cosas, pero con el tiempo nos hemos dado cuenta de las siguientes limitaciones:</p>\n"
+"<ul>\n"
+"<li>Tenemos tres versiones distintas: Hibernate ORM, Hibernate Reactive y Mongo (bloqueante y reactivo)</li>\n"
+"<li>Es imposible utilizar las mismas entidades con Hibernate ORM e Hibernate Reactive</li>\n"
+"<li>No se admiten sesiones sin estado</li>\n"
+"<li>No se soportan las anotaciones de Hibernate Processor ni Jakarta Data</li>\n"
+"<li>Tenemos tipos triplicados como <code>Sort</code> y <code>Order</code> entre Panache, ORM y Jakarta Data</li>\n"
+"<li>Tenemos dos formas de colocar las operaciones de consulta de entidades : en la propia entidad, o en repositorios</li>\n"
+"<li>Las operaciones de consulta de entidades requieren hacks del sistema de tipos, lo que las hace menos seguras en cuanto a tipos de lo que deseamos con <code>var</code> y <code>for-each</code> y especialmente con las operaciones reactivas.</li>\n"
+"</ul>\n"
+"<h1>La solución propuesta</h1>\n"
+"<p>Proponemos una nueva versión de Panache que resolverá todos estos problemas:</p>\n"
+"<ul>\n"
+"<li>Unificar todas las variantes en un único módulo, soportando sesiones bloqueantes, reactivas, sin estado y con estado.</li>\n"
+"<li>Proporcionar una clase toplevel de entidad para cada uno de los 4 modos de funcionamiento, pero permitir el acceso a los demás modos</li>\n"
+"<li>Trasladar todas las operaciones de consulta de entidades de la clase entidad a la clase repositorio</li>\n"
+"<li>Proporcione una clase de nivel superior de repositorio para cada uno de los 4 modos de funcionamiento, pero permita el acceso a los demás modos.</li>\n"
+"<li>Proporcione un acceso sencillo a cualquier tipo de repositorio colocándolos como interfaces anidadas en la clase de entidad, a través de un accesor generado en la clase de metamodelo de entidad</li>\n"
+"<li>Proporcionar accesores out of the box para los repositorios de los 4 modos de funcionamiento en la clase metamodelo de entidad</li>\n"
+"<li>Soportar anotaciones de tipo seguro de Jakarta Data y Hibernate Processor</li>\n"
+"<li>Opcional: Soporte de Mongo a través del próximo soporte ORM JDBC</li>\n"
+"<li>Opcional: proporcionar alternativas de tipo de repositorio JD para los tres modos que faltan</li>\n"
+"<li>Opcional: proporcionar un modo de convertir Panache 1 a Panache.Next</li>\n"
+"</ul>\n"
+"<h1>Definición de Hecho</h1>\n"
+"<ul>\n"
+"<li>Entregar la nueva extensión Panache como un estado <code>stable</code> (después de versiones preliminares/experimentales para obtener comentarios)</li>\n"
+"<li>Pruebas</li>\n"
+"<li>Documentación</li>\n"
+"<li>Codestart</li>\n"
+"<li>Datos REST con soporte Panache</li>\n"
+"<li>Soporte Renarde</li>\n"
+"<li>Quarkus Insights</li>\n"
+"</ul>\n"
+"<h1>Alcance del trabajo</h1>\n"
+"<p>Actualmente está fuera de alcance adaptar esto con los módulos Panache existentes. Será un módulo nuevo sin compatibilidad con versiones anteriores (aunque la mayoría de las operaciones de tipo inseguro continuarán tal cual, por lo que estará familiarizado con ellas).</p>\n"
+"<h1>Organización del trabajo</h1>\n"
+"<h2>Comunicación y transparencia:</h2>\n"
+"<p>Esto se hará a través de temas de GitHub en el proyecto central de Quarkus.</p>\n"
+"<h2>Calendario previsto:</h2>\n"
+"<p>La mayor parte del trabajo de I+D y diseño se ha completado en los últimos dos años. Ahora queda la tarea de fusionarlo, documentarlo, probarlo y retocarlo hasta que esté completo.</p>\n"
+"<ul>\n"
+"<li>Punto de contacto: @FroMage (@Stephane<strong>Epardaud</strong> en Zulip)</li>\n"
+"<li>Propuesta: https://github.com/quarkusio/quarkus/discussions/48949</li>\n"
+"<li>Discusión: <a href=\"https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/WG.20-.20Panache.2ENext/with/529258261\">Zulip</a></li>\n"
+"</ul>\n"
 
 #. type: Hash Value: working-groups short-description
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "The primary objective of this working group is to develop the next version of Panache.\n"
-msgstr ""
+msgstr "El objetivo principal de este grupo de trabajo es desarrollar la próxima versión de Panache.\n"
 
 #. type: Hash Value: working-groups title
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "Panache.Next"
-msgstr ""
+msgstr "Panache.Next"
 
 #. type: Hash Value: working-groups board-url
 #: upstream/_data/wg.yaml:0
@@ -375,9 +424,9 @@ msgstr "https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/Gizmo.2
 
 #. type: Hash Value: working-groups last-activity
 #: upstream/_data/wg.yaml:0
-#, no-wrap
+#, fuzzy, no-wrap
 msgid "2025-07-16"
-msgstr ""
+msgstr "2025-07-16"
 
 #. type: Hash Value: working-groups last-update
 #: upstream/_data/wg.yaml:0
