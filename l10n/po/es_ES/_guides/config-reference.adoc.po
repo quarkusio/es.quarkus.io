@@ -27,11 +27,6 @@ msgstr "Guía de referencia de configuración"
 
 #: _guides/config-reference.adoc
 #, fuzzy
-msgid "The content of this guide has been revised and split into additional topics. Please check the <<additional-information,Additional Information>> section."
-msgstr "El contenido de esta guía ha sido revisado y dividido en temas adicionales. Consulte la sección xref:additional-information[Información] adicional."
-
-#: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
 "In this reference guide we're going to describe various aspects of Quarkus configuration. A Quarkus application and\n"
 "Quarkus itself (core and extensions) are both configured via the same mechanism that leverages\n"
@@ -422,18 +417,104 @@ msgstr "link:spring-cloud-config-client.html[Nube de primavera]"
 msgid "It is also possible to create a xref:config-extending-support.adoc#custom-config-source[Custom Config Source]."
 msgstr "También es posible crear una  link:config-extending-support.html#custom-config-source[fuente de configuración personalizada]."
 
-#. type: Title ==
 #: _guides/config-reference.adoc
-#, fuzzy, no-wrap
-msgid "Inject"
-msgstr "Inyectar"
+msgid "ConfigMapping"
+msgstr ""
 
 #: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
-"Quarkus uses https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations to inject the\n"
+"The recommended way to expose configuration to a Quarkus application is by mapping it with an interface. With\n"
+"https://smallrye.io/smallrye-config/Main/config/mappings/[SmallRye Config Mappings], it is possible to\n"
+"group multiple configuration properties in a single interface that share the same prefix (or namespace). It supports\n"
+"the following set of features:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Automatic conversion of the configuration type, including List, Set, Map, Optional, and primitive types."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Nested Config Mapping groups."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Configuration Properties Naming Strategies"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Integration with Bean Validation"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"A Config Mapping requires an interface with minimal metadata configuration annotated with\n"
+"`@io.smallrye.config.ConfigMapping`:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "A complex object type uses the following rules to map configuration values to their member values:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "A configuration path is built by taking the object type prefix (or namespace) and the mapping member name"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "The member name is converted to its kebab-case format"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"If the member name is represented as a getter, the member name is taken from its property name equivalent, and then\n"
+"converted to its kebab-case format."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "The configuration value is automatically converted to the member type"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "The configuration path is required to exist with a valid configuration value or the mapping will fail."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Kebab-case - the method name is derived by replacing case changes with a dash to map the configuration property."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"The `Server` interface can map configuration properties with the name `server.host` into the `Server.host()`\n"
+"method, `server.port` into `Server.port()` method, and `server.ssl-port` into `Server.sslPort()` method. The\n"
+"configuration property name to look up is constructed from the prefix and the method name (in kebab-case), separated\n"
+"by adot (`.`) character."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "A `@ConfigMapping` can be injected into any CDI aware bean:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"For non-CDI components, use the `io.smallrye.config.SmallRyeConfig#getConfigMapping` API to retrieve the config mapping\n"
+"instance:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"Check the xref:config-mappings.adoc[Mapping configuration to objects] guide for advanced usages with\n"
+"`@ConfigMapping`."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "ConfigProperty"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"While `@ConfigMapping` is the recommended approach, Quarkus also supports\n"
+"https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] annotations to inject the\n"
 "configuration properties in the application."
-msgstr "Quarkus utiliza anotaciones de link:https://microprofile.io/project/eclipse/microprofile-config[MicroProfile Config] para inyectar las propiedades de configuración en la aplicación."
+msgstr ""
 
 #: _guides/config-reference.adoc
 #, fuzzy
@@ -448,11 +529,11 @@ msgstr "Puede utilizar `@Inject @ConfigProperty` o simplemente `@ConfigProperty`
 msgid "If the application attempts to inject a configuration property that is not set, an error is thrown."
 msgstr "Si la aplicación intenta inyectar una propiedad de configuración que no está establecida, se lanza un error."
 
-#. type: Plain text
 #: _guides/config-reference.adoc
-#, fuzzy
-msgid "If you do not provide a value for this property, the application startup fails with `jakarta.enterprise.inject.spi.DeploymentException: No config value of type [class java.lang.String] exists for: greeting.message`."
-msgstr "Si no se proporciona un valor para esta propiedad, el inicio de la aplicación falla con `javax.enterprise.inject.spi.DeploymentException: No config value of type [class java.lang.String] exists for: greeting.message`."
+msgid ""
+"If you do not provide a value for this property, the application startup fails with\n"
+"`io.quarkus.runtime.configuration.ConfigurationException: Failed to load config value of type class java.lang.String for: greeting.messagee`."
+msgstr ""
 
 #. type: Plain text
 #: _guides/config-reference.adoc
@@ -479,14 +560,13 @@ msgid "Default Values"
 msgstr "Valores por defecto"
 
 #: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
-"If a property is associated with a default value (by way of the `defaultValue` attribute), and no configuration value\n"
-"is supplied for the property, then rather than throwing a `jakarta.enterprise.inject.spi.DeploymentException`, the\n"
-"default value will be used. The `defaultValue` value is expressed as a `String`, and uses the same conversion mechanism\n"
-"used to process configuration values. Several Built-in Converters already exist for primitives, boxed primitives, and\n"
-"other classes; for example:"
-msgstr "Si una propiedad está asociada a un valor por defecto (mediante el atributo `defaultValue` ), y no se suministra ningún valor de configuración para la propiedad, en lugar de lanzar un `jakarta.enterprise.inject.spi.DeploymentException` , se utilizará el valor por defecto. El valor `defaultValue` se expresa como un `String` , y utiliza el mismo mecanismo de conversión empleado para procesar los valores de configuración. Ya existen varios conversores incorporados para primitivas, primitivas en caja y otras clases; por ejemplo:"
+"If a configuration is associated with a default value (by way of the `io.smallrye.config.WithDefault` or\n"
+"`org.eclipse.microprofile.config.inject.ConfigProperty.defaultValue`), and no configuration value is supplied for the\n"
+"property, then rather than throwing an exception, the default value will be used. A default value is expressed as a\n"
+"`String`, and uses the same conversion mechanism used to process configuration values. Several Built-in Converters\n"
+"already exist for primitives, boxed primitives, and other classes; for example:"
+msgstr ""
 
 #. type: Plain text
 #: _guides/config-reference.adoc
@@ -544,13 +624,12 @@ msgid "For float and double values the fractional digits must be separated by a 
 msgstr "Para los valores flotantes y dobles, los dígitos fraccionarios deben estar separados por un punto `.`"
 
 #: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
-"Note that when a combination of `Optional*` types and the `defaultValue` attribute are used, the defined `defaultValue`\n"
-"will still be used and if no value is given for the property, the `Optional*` will be present and populated with the\n"
-"converted default value. However, when the property is explicitly empty, the default value is not used and the\n"
-"`Optional` will be empty. Consider this example:"
-msgstr "Tenga en cuenta que cuando se utiliza una combinación de tipos `Optional*` y el atributo `defaultValue` , se seguirá utilizando el `defaultValue` definido y si no se da ningún valor para la propiedad, el `Optional*` estará presente y se rellenará con el valor por defecto convertido. Sin embargo, cuando la propiedad está explícitamente vacía, el valor por defecto no se utiliza y el `Optional` estará vacío. Considere este ejemplo:"
+"Note that when a combination of `Optional*` types and defaults are used, the defined default value will still be used\n"
+"and if no value is given for the property, the `Optional*` will be present and populated with the converted default\n"
+"value. However, when the property is explicitly empty, the default value is not used and the `Optional` will be empty.\n"
+"Consider this example:"
+msgstr ""
 
 #: _guides/config-reference.adoc
 #, fuzzy
@@ -573,12 +652,6 @@ msgid ""
 "startup and the default value will not be assigned."
 msgstr "dará lugar a un `java.util.NoSuchElementException: SRCFG02004: Required property greeting.message not found` en el arranque y no se asignará el valor por defecto."
 
-#. type: Plain text
-#: _guides/config-reference.adoc
-#, fuzzy
-msgid "Below is an example of a Quarkus-supplied converter:"
-msgstr "A continuación se muestra un ejemplo de convertidor suministrado por Quarkus:"
-
 #. type: Title ==
 #: _guides/config-reference.adoc
 #, fuzzy, no-wrap
@@ -586,11 +659,10 @@ msgid "Programmatically access"
 msgstr "Acceder mediante programación a"
 
 #: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
-"The `org.eclipse.microprofile.config.ConfigProvider.getConfig()` API allows to access the Config API programmatically.\n"
+"The `io.smallrye.config.SmallRyeConfig` API allows to access the Config API programmatically.\n"
 "This API is mostly useful in situations where CDI injection is not available."
-msgstr "La API `org.eclipse.microprofile.config.ConfigProvider.getConfig()` permite acceder a la API Config mediante programación. Esta API es útil sobre todo en situaciones en las que la inyección CDI no está disponible."
+msgstr ""
 
 #: _guides/config-reference.adoc
 #, fuzzy
@@ -884,24 +956,6 @@ msgid ""
 "profile and then the `common` profile."
 msgstr "La prioridad de los perfiles múltiples funciona en orden inverso. Con `quarkus.profile=common,dev` , Quarkus comprueba primero el perfil `dev` y después el perfil `common` ."
 
-#. type: Title ===
-#: _guides/config-reference.adoc
-#, fuzzy, no-wrap
-msgid "Default Runtime Profile"
-msgstr "Perfil de tiempo de ejecución por defecto"
-
-#. type: Plain text
-#: _guides/config-reference.adoc
-#, fuzzy
-msgid "The default Quarkus runtime profile is set to the profile used to build the application:"
-msgstr "El perfil de ejecución de Quarkus por defecto se establece en el perfil utilizado para construir la aplicación:"
-
-#. type: Plain text
-#: _guides/config-reference.adoc
-#, fuzzy
-msgid "The command will run with the `prod-aws` profile. This can be overridden using the `quarkus.profile` configuration."
-msgstr "El comando se ejecutará con el perfil `prod-aws`. Esto se puede anular mediante la configuración de `quarkus.profile`."
-
 #. type: Title ==
 #: _guides/config-reference.adoc
 #, fuzzy, no-wrap
@@ -1151,12 +1205,13 @@ msgid "Build Time configuration"
 msgstr "Configuración del tiempo de construcción"
 
 #: _guides/config-reference.adoc
-#, fuzzy
 msgid ""
-"Some Quarkus configurations only take effect during build time, meaning it is not possible to change them at runtime. These\n"
-"configurations are still available at runtime but as read-only and have no effect in Quarkus behaviour. A change to any\n"
-"of these configurations requires a rebuild of the application itself to reflect changes of such properties."
-msgstr "Algunas configuraciones de Quarkus sólo tienen efecto durante el tiempo de compilación, lo que significa que no es posible cambiarlas en tiempo de ejecución. Estas configuraciones siguen estando disponibles en tiempo de ejecución, pero como de sólo lectura y no tienen ningún efecto en el comportamiento de Quarkus. Un cambio en cualquiera de estas configuraciones requiere una reconstrucción de la propia aplicación para reflejar los cambios de dichas propiedades."
+"Some Quarkus configurations only take effect during build time (compile), meaning it is not possible to change it at\n"
+"runtime. These configurations are still available at runtime but as read-only and have no effect in Quarkus\n"
+"behaviour. A change to any of these configurations requires a rebuild of the application itself to reflect changes of\n"
+"such properties. This allows Quarkus to provide optimizations and reduce complexity based on the current build\n"
+"configuration. By default, Quarkus uses the `prod` configuration profile to build the application."
+msgstr ""
 
 #. type: Plain text
 #: _guides/config-reference.adoc
@@ -1172,17 +1227,67 @@ msgid ""
 "application behaviour at runtime."
 msgstr "Sin embargo, algunas extensiones sí definen propiedades _anulables en_ tiempo de ejecución. Un ejemplo sencillo es la URL de la base de datos, el nombre de usuario y la contraseña, que sólo se conocen específicamente en su entorno de destino, por lo que pueden establecerse e influir en el comportamiento de la aplicación en tiempo de ejecución."
 
-#. type: Title ==
+#: _guides/config-reference.adoc
+msgid "Config Recording"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"During the build process, Quarkus proceeds to record the available configuration in the final binary, to ensure it can\n"
+"start successfully in runtime, without missing required configuration. The following sources are excluded from\n"
+"recording:"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "System Properties"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Environment Variables"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "`.env`"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Build System Sources (provided by Maven or Gradle)"
+msgstr ""
+
+#. type: Title ===
 #: _guides/config-reference.adoc
 #, fuzzy, no-wrap
-msgid "Change build time properties after your application has been published"
-msgstr "Cambiar las propiedades del tiempo de compilación después de que su aplicación haya sido publicada"
+msgid "Default Runtime Profile"
+msgstr "Perfil de tiempo de ejecución por defecto"
 
 #. type: Plain text
 #: _guides/config-reference.adoc
 #, fuzzy
-msgid "If you are in the rare situation that you need to change the build time configuration after your application is built, then check out how xref:reaugmentation.adoc[re-augmentation] can be used to rebuild the augmentation output for a different build time configuration."
-msgstr "Si se encuentra en la rara situación de tener que cambiar la configuración del tiempo de compilación después de que su aplicación se haya construido, entonces compruebe cómo se puede utilizar  link:reaugmentation.html[la re-aumentación] para reconstruir la salida de la aumentación para una configuración de tiempo de compilación diferente."
+msgid "The default Quarkus runtime profile is set to the profile used to build the application:"
+msgstr "El perfil de ejecución de Quarkus por defecto se establece en el perfil utilizado para construir la aplicación:"
+
+#. type: Plain text
+#: _guides/config-reference.adoc
+#, fuzzy
+msgid "The command will run with the `prod-aws` profile. This can be overridden using the `quarkus.profile` configuration."
+msgstr "El comando se ejecutará con el perfil `prod-aws`. Esto se puede anular mediante la configuración de `quarkus.profile`."
+
+#: _guides/config-reference.adoc
+msgid ""
+"Using a different configuration profile at runtime from the one used to build the application can lead to unexpected\n"
+"results."
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid "Change configuration after build (Reaugmentation)"
+msgstr ""
+
+#: _guides/config-reference.adoc
+msgid ""
+"If you are in the rare situation that you need to change the build time configuration after your application is built,\n"
+"then check out how xref:reaugmentation.adoc[re-augmentation] can be used to rebuild the augmentation output for a\n"
+"different build time configuration."
+msgstr ""
 
 #. type: Title ==
 #: _guides/config-reference.adoc
