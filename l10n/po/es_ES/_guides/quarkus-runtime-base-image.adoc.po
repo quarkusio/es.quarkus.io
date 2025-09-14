@@ -70,17 +70,19 @@ msgid "Extending the image"
 msgstr "Ampliación de la imagen"
 
 #: _guides/quarkus-runtime-base-image.adoc
-#, fuzzy
 msgid ""
 "Your application may have additional requirements.\n"
-"For example, if you have an application that requires `libfreetype.so`, you need to copy the native libraries to the container.\n"
-"In this case, you need to use a multi-stage `dockerfile` to copy the required libraries:"
-msgstr "Su aplicación puede tener requisitos adicionales. Por ejemplo, si tiene una aplicación que requiere `libfreetype.so` , necesita copiar las bibliotecas nativas al contenedor. En este caso, deberá utilizar un `dockerfile` de varias etapas para copiar las bibliotecas necesarias:"
+"For example, if you have an application that manipulates graphics, images, or PDFs, you likely have Quarkus AWT extension included in the project and your native executable will require some additional libraries to run.\n"
+"In this case, you need to use a multi-stage `dockerfile` to copy the required libraries."
+msgstr ""
 
-#. type: Plain text
 #: _guides/quarkus-runtime-base-image.adoc
-msgid "If you need to have access to the full AWT support, you need more than just `libfreetype.so`, but also the font and font configurations:"
-msgstr "Si necesita tener acceso al soporte completo de AWT, necesita algo más que `libfreetype.so`, sino también la fuente y las configuraciones de fuente:"
+msgid "Copying handpicked libraries makes up for a small container image, yet it is somewhat britte, differs for different base image versions, and it is a subject to change as transitive dependencies of these libraries might change."
+msgstr ""
+
+#: _guides/quarkus-runtime-base-image.adoc
+msgid "Headless graphics, PDF documents, QR code images etc. manipulation is natively supported on amd64/aarch64 Linux only. Neither Windows nor MacOS are supported and require running the application in a Linux container."
+msgstr ""
 
 #. type: Title ==
 #: _guides/quarkus-runtime-base-image.adoc
@@ -100,3 +102,7 @@ msgstr "Si la imagen micro no se ajusta a sus necesidades, puede utilizar link:h
 #: _guides/quarkus-runtime-base-image.adoc
 msgid "To use this base image, use the following `Dockerfile`:"
 msgstr "Para utilizar esta imagen de base, utilice la siguiente dirección `Dockerfile`:"
+
+#: _guides/quarkus-runtime-base-image.adoc
+msgid "To make documents processing, graphics, PDFs, etc. available for the application, you can install the required libraries using `microdnf` without manually copying anything:"
+msgstr ""
