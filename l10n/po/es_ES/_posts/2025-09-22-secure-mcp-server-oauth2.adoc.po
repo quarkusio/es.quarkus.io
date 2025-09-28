@@ -7,120 +7,148 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Use MCP OAuth2 Flow to access Quarkus MCP Server"
-msgstr ""
+msgstr "Utilice el flujo MCP OAuth2 para acceder al servidor MCP de Quarkus"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Explain how MCP OAuth2 Flow can be used to access Quarkus MCP Server"
-msgstr ""
+msgstr "Explicar cómo se puede utilizar MCP OAuth2 Flow para acceder a Quarkus MCP Server"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 msgid "Introduction"
 msgstr "Introducción"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Back in April 2025, in the https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP Server] blog post, we explained how to enforce MCP client authentication with the https://github.com/quarkiverse/quarkus-mcp-server[Quarkus MCP Server] by configuring it to verify bearer access tokens."
-msgstr ""
+msgstr "Allá por abril de 2025, en la entrada del blog link:https://quarkus.io/blog/secure-mcp-sse-server/[Preparándose para un MCP seguro con el Servidor] link:https://github.com/quarkiverse/quarkus-mcp-server[MCP de Quarkus] , explicamos cómo reforzar la autenticación del cliente MCP con el link:https://github.com/quarkiverse/quarkus-mcp-server[Servidor MCP de Quarkus] configurándolo para verificar los tokens de acceso al portador."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "At the time, we worked against the https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization[old 2025-03-26 version of the MCP Authorization specification] that expected compliant MCP servers to manage OAuth2 flows themselves either directly or via the delegation, with that idea being disputed due to its complexity, and with no MCP clients providing the OAuth2 authorization code flow support being available. Therefore, in the https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP Server] blog post, the access tokens were acquired out of band: we used https://quarkus.io/guides/security-openid-connect-dev-services[Keycloak DevUI] to get an access token and copy it to https://quarkus.io/blog/secure-mcp-sse-server/#mcp-server-devui[MCP Server DevUI] to test it in devmode, and did a GitHub login to the Quarkus REST endpoint in order to copy and test a GitHub access token with both https://github.com/modelcontextprotocol/inspector[MCP Inspector] and `curl` in prod mode."
-msgstr ""
+msgstr "En aquel momento, trabajábamos con la link:https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization[antigua versión 2025-03-26 de la especificación de] autorización MCP que esperaba que los servidores MCP conformes gestionaran ellos mismos los flujos OAuth2, ya fuera directamente o a través de la delegación, siendo esta idea discutida debido a su complejidad, y sin que existiera ningún cliente MCP que proporcionara el soporte de flujo de código de autorización OAuth2. Por lo tanto, en la entrada del blog link:https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP] Server, los tokens de acceso se adquirieron fuera de banda: utilizamos link:https://quarkus.io/guides/security-openid-connect-dev-services[Keycloak DevUI] para obtener un token de acceso y copiarlo en link:https://quarkus.io/blog/secure-mcp-sse-server/#mcp-server-devui[MCP Server DevUI] para probarlo en devmode, e hicimos un inicio de sesión de GitHub en el punto final REST de Quarkus para copiar y probar un token de acceso de GitHub tanto con link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] como con `curl` en modo prod."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[latest 2025-03-26 version of the MCP Authorization specification] offers a simpler, better version of how OAuth2 must be supported in MCP. The focus has shifted to MCP clients that are now expected to drive the OAuth2 flows, while MCP servers are only required to support automating such flows by providing https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata], as well as correctly verifying the actual access tokens."
-msgstr ""
+msgstr "La link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[última versión 2025-03-26 de la especificación de Autorización] MCP ofrece una versión más simple y mejorada de cómo OAuth2 debe ser soportado en MCP. El enfoque se ha desplazado hacia los clientes MCP que ahora se espera que impulsen los flujos OAuth2, mientras que los servidores MCP sólo deben apoyar la automatización de dichos flujos proporcionando link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] , así como verificando correctamente los tokens de acceso reales."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In this blog post, we will explain how MCP clients compliant with the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[latest 2025-03-26 version of the MCP Authorization specification] can login users using an OAuth2 authorization code flow, acquire access tokens and use them to access secure Quarkus MCP _Streamable HTTP_ servers on behalf of the logged-in users."
-msgstr ""
+msgstr "En esta entrada de blog, explicaremos cómo los clientes MCP que cumplen con la link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[última versión 2025-03-26 de la especificación de autorización MCP] pueden iniciar sesión de usuarios utilizando un flujo de código de autorización OAuth2, adquirir tokens de acceso y utilizarlos para acceder a servidores _HTTP_ seguros Quarkus MCP _Streamable_ en nombre de los usuarios que han iniciado sesión."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Currently, https://github.com/modelcontextprotocol/inspector[MCP Inspector] offers the most advanced, adaptable, and accessible MCP OAuth2 authorization code flow support, even if somewhat unstable between its different versions, and therefore we will work with it in this post. You are welcome to experiment with other MCP client implementations."
-msgstr ""
+msgstr "Actualmente, link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] ofrece el soporte de flujo de código de autorización MCP OAuth2 más avanzado, adaptable y accesible, aunque algo inestable entre sus diferentes versiones, y por ello trabajaremos con él en este post. Le invitamos a experimentar con otras implementaciones de clientes MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We will demonstrate a great https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#_multiple_server_configurations[Quarkus MCP Server capability to support multiple MCP HTTP configurations], each one with their own unique OAuth2 or OpenId Connect security constraints, effectively allowing for a multi-tenant security control of tools, prompts and resources."
-msgstr ""
+msgstr "Demostraremos una gran link:https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#_multiple_server_configurations[capacidad del Servidor MCP de Quarkus para soportar múltiples configuraciones MCP HTTP] , cada una con sus propias y únicas restricciones de seguridad OAuth2 u OpenId Connect, permitiendo efectivamente un control de seguridad multi-tenant de herramientas, avisos y recursos."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://www.keycloak.org/[Keycloak] will be used to support two distint security realms, with the security of each of the MCP HTTP configurations controlled by its own Keycloak realm. You are welcome to try to secure Quarkus MCP Server with other preferred OAuth2 or OpenID Connect providers by replacing the Keycloak specific configurations."
-msgstr ""
+msgstr "link:https://www.keycloak.org/[Keycloak] se utilizará para soportar dos reinos de seguridad distintos, con la seguridad de cada una de las configuraciones HTTP de MCP controlada por su propio reino Keycloak. Le invitamos a intentar asegurar el servidor MCP de Quarkus con otros proveedores preferidos de OAuth2 u OpenID Connect sustituyendo las configuraciones específicas de Keycloak."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Demo MCP OAuth2 Flow Diagram"
-msgstr ""
+msgstr "Demo MCP OAuth2 Diagrama de flujo"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You can read all about the MCP OAuth2 Authorization Flow in the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#authorization-flow[Authorization Flow section of the latest specification]."
-msgstr ""
+msgstr "Puede leer todo sobre el flujo de autorización MCP OAuth2 en la link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#authorization-flow[sección Flujo de autorización de la última especificación] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In this section, we are going to have a look at a simplified diagram showing how https://github.com/modelcontextprotocol/inspector[MCP Inspector] can use OAuth 2.0 Flow to login a user to Keycloak, get an access token and use it to access a secure Quarkus MCP Server endpoint."
-msgstr ""
+msgstr "En esta sección, vamos a echar un vistazo a un diagrama simplificado que muestra cómo link:https://github.com/modelcontextprotocol/inspector[el Inspector MCP] puede utilizar el Flujo OAuth 2.0 para iniciar la sesión de un usuario en Keycloak, obtener un token de acceso y utilizarlo para acceder a un punto final seguro del Servidor MCP de Quarkus."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "MCP Client such as https://github.com/modelcontextprotocol/inspector[MCP Inspector] requires configuring an MCP _Streamable HTTP_ endpoint URL, OAuth2 Client ID, and optional scopes to access the MCP server securely. And as you can see, a lot happens from the moment you press `Connect` until a valid access token is sent to the MCP server."
-msgstr ""
+msgstr "Un cliente MCP como link:https://github.com/modelcontextprotocol/inspector[MCP] Inspector requiere configurar una URL de punto final _HTTP_ MCP _Streamable_ , un ID de cliente OAuth2 y ámbitos opcionales para acceder al servidor MCP de forma segura. Y como puede ver, suceden muchas cosas desde el momento en que pulsa `Connect` hasta que se envía un token de acceso válido al servidor MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "MCP Client starts by accessing the MCP server without a token and gets back HTTP 401 with a `WWW-Authenticate` `resource_metadata` parameter that links to the MCP server's https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route. The client now fetches a base URL of the Keycloak realm that secures the MCP server as well as the MCP server's resource identifier."
-msgstr ""
+msgstr "El cliente MCP comienza accediendo al servidor MCP sin token y obtiene de vuelta HTTP 401 con un parámetro `WWW-Authenticate` `resource_metadata` que enlaza con la ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] del servidor MCP. El cliente obtiene ahora una URL base del dominio Keycloak que protege al servidor MCP, así como el identificador de recursos del servidor MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Next, MCP Client uses the Keycloak realm's URL to discover this realm's authorization and token endpoint URLs, supported https://www.rfc-editor.org/rfc/rfc7636[Proof Key for Code Exchange] (PKCE) methods, and other metadata properties."
-msgstr ""
+msgstr "A continuación, Cliente MCP utiliza la URL del dominio Keycloak para descubrir las URL de los puntos finales de autorización y de token de este dominio, los métodos de link:https://www.rfc-editor.org/rfc/rfc7636[Prueba de Clave para Intercambio de Código] (PKCE) admitidos y otras propiedades de metadatos."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The user is now redirected to Keycloak to login into the required realm. The Keycloak redirect URL includes the configured OAuth2 client id, scopes, callback URI which points to the `http://localhost:6274/oauth/callback` endpoint managed by the MCP client, as well as the earlier discovered MCP Server's resource identifier as an https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator]. Generated PKCE code challenge and state parameters are also included in the redirect."
-msgstr ""
+msgstr "El usuario es ahora redirigido a Keycloak para iniciar sesión en el dominio requerido. La URL de redirección de Keycloak incluye el id de cliente OAuth2 configurado, los ámbitos, el URI de devolución de llamada que apunta al `http://localhost:6274/oauth/callback` endpoint gestionado por el cliente MCP, así como el identificador de recurso del servidor MCP descubierto anteriormente como link:https://www.rfc-editor.org/rfc/rfc8707.html[indicador de recurso OAuth2] . El desafío de código PKCE generado y los parámetros de estado también se incluyen en la redirección."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The user logs in, is redirected back to the `http://localhost:6274/oauth/callback` endpoint, MCP client exchanges the returned `code` to get ID and access tokens, and uses the access token to access the MCP server, allowing the user to select and run the tool."
-msgstr ""
+msgstr "El usuario se registra, es redirigido de nuevo al `http://localhost:6274/oauth/callback` endpoint, el cliente MCP intercambia el `code` devuelto para obtener el ID y los tokens de acceso, y utiliza el token de acceso para acceder al servidor MCP, lo que permite al usuario seleccionar y ejecutar la herramienta."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization Specification] also recommends that MCP clients support https://datatracker.ietf.org/doc/html/rfc7591[OAuth2 Dynamic Client Registration] and https://github.com/modelcontextprotocol/inspector[MCP Inspector] does support it."
-msgstr ""
+msgstr "link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[La Especificación de Autorización MCP] también recomienda que los clientes MCP soporten link:https://datatracker.ietf.org/doc/html/rfc7591[el Registro Dinámico de Clientes OAuth2] y link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] lo soporta."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In this post, we are only going to look at a case where OAuth2 Client ID is already known in advance, which is likely to be a typical case in production where OIDC client applications are created in advance."
-msgstr ""
+msgstr "En este post, sólo vamos a ver un caso en el que el ID de cliente OAuth2 ya se conoce de antemano, que es probable que sea un caso típico en producción donde las aplicaciones cliente OIDC se crean de antemano."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We will also look at how https://github.com/modelcontextprotocol/inspector[MCP Inspector] does https://datatracker.ietf.org/doc/html/rfc7591[OAuth2 Dynamic Client Registration] in the next post in this MCP Security series."
-msgstr ""
+msgstr "También veremos cómo link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] realiza el link:https://datatracker.ietf.org/doc/html/rfc7591[Registro Dinámico de Clientes OAuth2] en el próximo post de esta serie de Seguridad MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#authorization-flow[MCP Authorization Flow] is rather neatly defined, requiring the use of such OAuth2 specifications as https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata], https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator], and also recommending the use of https://datatracker.ietf.org/doc/html/rfc7591[OAuth2 Dynamic Client Registration]."
-msgstr ""
+msgstr "link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#authorization-flow[El Flujo de Autorización MCP] está definido de forma bastante clara, requiriendo el uso de especificaciones OAuth2 como link:https://datatracker.ietf.org/doc/html/rfc9728[Metadatos de Recursos Protegidos OAuth2] , link:https://www.rfc-editor.org/rfc/rfc8707.html[Indicador de Recursos OAuth2] , y recomendando también el uso del link:https://datatracker.ietf.org/doc/html/rfc7591[Registro Dinámico de Clientes OAuth2] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Please note though that the actual flow is not that unique to the MCP Authorization. It is a typical Single-page application (SPA) OAuth2 authorization code flow in action:"
-msgstr ""
+msgstr "Sin embargo, tenga en cuenta que el flujo real no es tan exclusivo de la autorización MCP. Se trata del típico flujo de código de autorización OAuth2 de una aplicación de una sola página (SPA) en acción:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "SPA uses a provider such as Keycloak to login users and use acquired access tokens to access Quarkus Service on their behalf - typical OAuth2 done at the SPA level. In this diagram, you can replace `SPA` with `MCP Client`, `Quarkus Service` with `MCP Server` and you'll get a close enough match with the demo flow diagram in the previous image."
-msgstr ""
+msgstr "SPA utiliza un proveedor como Keycloak para iniciar la sesión de los usuarios y utilizar los tokens de acceso adquiridos para acceder al servicio Quarkus en su nombre - el típico OAuth2 realizado a nivel de SPA. En este diagrama, puede sustituir `SPA` por `MCP Client` , `Quarkus Service` por `MCP Server` y obtendrá una coincidencia bastante cercana con el diagrama de flujo de demostración de la imagen anterior."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The comparison between the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization] and SPA OAuth2 flows implies that the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization specification] targets generic SPA AI and MCP client applications such as https://github.com/modelcontextprotocol/inspector[MCP Inspector], Claude AI, Cursor, and others that can plugin MCP servers. It does not currently apply to Quarkus MCP Client which typically runs in scope of the higher-level Quarkus LangChain4j server application with its own authentication requirements, you can read more about it in the https://quarkus.io/blog/secure-mcp-client/#demo-architecture[Use Quarkus MCP client to access secure MCP HTTP servers] blog post."
-msgstr ""
+msgstr "La comparación entre los flujos link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization] y SPA OAuth2 implica que la link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[especificación MCP Authorization] se dirige a aplicaciones genéricas SPA AI y MCP Client como link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] , Claude AI, Cursor y otras que pueden complementar servidores MCP. Actualmente no se aplica a Quarkus MCP Client que normalmente se ejecuta en el ámbito de la aplicación de servidor Quarkus LangChain4j de nivel superior con sus propios requisitos de autenticación, puede leer más sobre ello en la entrada de blog link:https://quarkus.io/blog/secure-mcp-client/#demo-architecture[Utilizar Quarkus MCP client para acceder a servidores MCP HTTP seguros] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We are now ready to have a look at how it works in the demo."
-msgstr ""
+msgstr "Ahora estamos preparados para ver cómo funciona en la demostración."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You can find the complete project source in the https://github.com/quarkiverse/quarkus-mcp-server/tree/main/samples/multiple-secure-mcp-http-servers[Multiple Secure Quarkus MCP HTTP Servers sample]."
-msgstr ""
+msgstr "Puede encontrar el código fuente completo del proyecto en la link:https://github.com/quarkiverse/quarkus-mcp-server/tree/main/samples/multiple-secure-mcp-http-servers[muestra Servidores HTTP MCP de Quarkus de seguridad múltiple] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Step 1 - Create and start MCP server with two secure Streamable HTTP endpoints"
-msgstr ""
+msgstr "Paso 1 - Crear e iniciar el servidor MCP con dos puntos finales HTTP seguros Streamable"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "First, let's create a secure Quarkus MCP server and configure two _Streamable HTTP_ endpoints with their own unique security authentication controls."
-msgstr ""
+msgstr "En primer lugar, vamos a crear un servidor MCP seguro de Quarkus y a configurar dos puntos finales _HTTP Streamable_ con sus propios y exclusivos controles de autenticación de seguridad."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 #, fuzzy
@@ -133,12 +161,14 @@ msgid "Add the following dependencies:"
 msgstr "Añada las siguientes dependencias:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "`quarkus-mcp-server-sse` is required to support both MCP Streamable HTTP and SSE transports."
-msgstr ""
+msgstr "`quarkus-mcp-server-sse` es necesario para soportar los transportes MCP Streamable HTTP y SSE."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "`quarkus-oidc` is required to secure access to MCP Server endpoints. Its version is defined in the Quarkus BOM."
-msgstr ""
+msgstr "`quarkus-oidc` es necesario para asegurar el acceso a los puntos finales del Servidor MCP. Su versión se define en la lista de materiales de Quarkus."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 #, fuzzy
@@ -146,208 +176,259 @@ msgid "MCP Server Configuration"
 msgstr "Configuración del servidor MCP"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Let's configure the MCP server:"
-msgstr ""
+msgstr "Vamos a configurar el servidor MCP:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Root path for the default `alpha` MCP server endpoint, with both _Streamable HTTP_ and SSE endpoints available under this path."
-msgstr ""
+msgstr "Ruta raíz para el punto final del servidor MCP por defecto `alpha` , con los puntos finales _Streamable HTTP_ y SSE disponibles bajo esta ruta."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Root path for the `bravo` MCP server endpoint, with both _Streamable HTTP_ and SSE endpoints available under this path."
-msgstr ""
+msgstr "Ruta raíz para el punto final del servidor `bravo` MCP, con los puntos finales _Streamable HTTP_ y SSE disponibles bajo esta ruta."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Require authentication for all requests to the `alpha` and `bravo` MCP server endpoints. This authentication policy is enforced by the matching OIDC tenant configurations."
-msgstr ""
+msgstr "Se requiere autenticación para todas las solicitudes a los puntos finales del servidor MCP de `alpha` y `bravo` . Esta política de autenticación se aplica mediante las configuraciones de inquilinos OIDC correspondientes."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Default OIDC tenant secures the default MCP server `alpha` endpoint, Keycloak DevService inserts a missing `quarkus.oidc.auth-server-url` property that links to the Keycloak `alpha` realm endpoint."
-msgstr ""
+msgstr "El inquilino OIDC por defecto asegura el punto final del servidor MCP por defecto `alpha` , Keycloak DevService inserta una propiedad `quarkus.oidc.auth-server-url` que falta y que enlaza con el punto final del reino Keycloak `alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Require that tokens that are allowed to access the default MCP server `alpha` endpoint must have an audience (`aud`) claim that contains a `quarkus-mcp-alpha` value."
-msgstr ""
+msgstr "Exigir que los tokens a los que se permite acceder al punto final predeterminado del servidor MCP `alpha` tengan una reivindicación de audiencia ( `aud` ) que contenga un valor `quarkus-mcp-alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Enable the https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route for the default OIDC tenant. It will help https://github.com/modelcontextprotocol/inspector[MCP Inspector] to find out about the authorization server that secures the default MCP server `alpha` endpoint."
-msgstr ""
+msgstr "Habilite la ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] para el inquilino OIDC predeterminado. Ayudará a link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] a averiguar el servidor de autorización que asegura el punto final del servidor MCP por defecto `alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "OIDC `bravo` tenant secures the MCP server `bravo` endpoint. Its `quarkus.oidc.bravo.auth-server-url` property links to the Keycloak `bravo` realm endpoint."
-msgstr ""
+msgstr "El arrendatario OIDC `bravo` asegura el punto final del servidor MCP `bravo` . Su propiedad `quarkus.oidc.bravo.auth-server-url` enlaza con el punto final del reino Keycloak `bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Require that tokens that are allowed to access the MCP server `bravo` endpoint must have an audience (`aud`) claim that contains a `quarkus-mcp-bravo` value."
-msgstr ""
+msgstr "Exigir que los tokens a los que se permite acceder al punto final del servidor MCP `bravo` tengan una reivindicación de audiencia ( `aud` ) que contenga un valor `quarkus-mcp-bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Enable the https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route for the OIDC `bravo` tenant. It will help https://github.com/modelcontextprotocol/inspector[MCP Inspector] to find out about the the authorization server that secures the MCP server `bravo` endpoint."
-msgstr ""
+msgstr "Habilite la ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] para el arrendatario OIDC `bravo` . Ayudará a link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] a averiguar el servidor de autorización que asegura el punto final del servidor MCP `bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Customize the relative path for https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route for the OIDC `bravo` tenant. By default, it is `http://localhost:8080/bravo`, however, https://github.com/modelcontextprotocol/inspector[MCP Inspector] can not find this route and expects `http://localhost:8080/bravo/mcp`, so we just tune it a bit to make https://github.com/modelcontextprotocol/inspector[MCP Inspector] happy."
-msgstr ""
+msgstr "Personalice la ruta relativa para la ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] para el arrendatario OIDC `bravo` . Por defecto, es `http://localhost:8080/bravo` , sin embargo, link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] no puede encontrar esta ruta y espera `http://localhost:8080/bravo/mcp` , así que la ajustamos un poco para que link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] esté contento."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Ask Keycloak DevService to upload two realms to the Keycloak container, `alpha-realm.json` and `bravo-realm.json`."
-msgstr ""
+msgstr "Pida a Keycloak DevService que suba dos reinos al contenedor de Keycloak, `alpha-realm.json` y `bravo-realm.json` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Keycloak DevService must set the default OIDC tenant properies, we point to `alpha-realm.json` for Keycloak DevService to use it to set properties such as `quarkus.oidc.auth-server-url`."
-msgstr ""
+msgstr "Keycloak DevService debe establecer las propiedades por defecto del inquilino OIDC, apuntamos a `alpha-realm.json` para que Keycloak DevService lo utilice para establecer propiedades como `quarkus.oidc.auth-server-url` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Ask Keycloak not to add `quarkus.oidc.client-id`. Using the realm verification keys, the configured audience, expiry checks is sufficient to verify Keycloak JWT access tokens; we also plan to deal with dynamically registered OIDC clients in the next blog post."
-msgstr ""
+msgstr "Pida a Keycloak que no añada `quarkus.oidc.client-id` . Utilizar las claves de verificación del reino, el público configurado y las comprobaciones de caducidad es suficiente para verificar los tokens de acceso JWT de Keycloak; también tenemos previsto ocuparnos de los clientes OIDC registrados dinámicamente en la próxima entrada del blog."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Allow https://github.com/modelcontextprotocol/inspector[MCP Inspector] CORS requests."
-msgstr ""
+msgstr "Permitir solicitudes CORS link:https://github.com/modelcontextprotocol/inspector[del inspector MCP] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You can read about how https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] is supported in Quarkus OIDC in the https://quarkus.io/guides/security-oidc-expanded-configuration#resource-metadata-properties[Expanded OpenId Connect Configuration guide]."
-msgstr ""
+msgstr "Puede leer cómo se admiten link:https://datatracker.ietf.org/doc/html/rfc9728[los metadatos de recursos protegidos OAuth2] en Quarkus OIDC en la link:https://quarkus.io/guides/security-oidc-expanded-configuration#resource-metadata-properties[guía de configuración ampliada de OpenId Connect] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The Keycloak `alpha` and `bravo` realms represent unique, non-intersecting security configurations backed up by Keycloak. Both of these realms are represented by default and `bravo` OIDC tenants respectively. Quarkus OIDC uses its https://quarkus.io/guides/security-openid-connect-multitenancy#configure-tenant-paths[path-based tenant resolver] to decide which OIDC tenant should handle the current MCP Server request."
-msgstr ""
+msgstr "Los reinos Keycloak `alpha` y `bravo` representan configuraciones de seguridad únicas y sin intersecciones respaldadas por Keycloak. Ambos reinos están representados por los inquilinos OIDC por defecto y `bravo` respectivamente. Quarkus OIDC utiliza su link:https://quarkus.io/guides/security-openid-connect-multitenancy#configure-tenant-paths[resolvedor de inquilinos basado en rutas] para decidir qué inquilino OIDC debe gestionar la solicitud actual del Servidor MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You are welcome to update the default and `bravo` OIDC tenant configurations to point to your preferred providers instead of Keycloak, for example, to multiple Entra ID or Auth0 tenants, etc."
-msgstr ""
+msgstr "Le invitamos a actualizar las configuraciones de inquilinos por defecto y de `bravo` OIDC para que apunten a sus proveedores preferidos en lugar de a Keycloak, por ejemplo, a múltiples inquilinos Entra ID o Auth0, etc."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Please also check the <<keycloak-vs-github>> section about the reasons behind preferring to use Keycloak in this demo, instead of GitHub that was used in the earlier https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP Server] blog post."
-msgstr ""
+msgstr "Por favor, consulte también la sección <<keycloak-vs-github>> sobre las razones por las que preferimos utilizar Keycloak en esta demostración, en lugar de GitHub que se utilizó en la anterior entrada del blog link:https://quarkus.io/blog/secure-mcp-sse-server/[Preparándose para un MCP seguro con el Servidor MCP de Quarkus] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization specification] https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#token-audience-binding-and-validation[requires] that the token audience is validated. The specification prefers https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicators] to control the token audience."
-msgstr ""
+msgstr "La link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[especificación de autorización MCP] link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#token-audience-binding-and-validation[requiere] que se valide la audiencia del token. La especificación prefiere link:https://www.rfc-editor.org/rfc/rfc8707.html[los Indicadores de Recursos OAuth2] para controlar la audiencia del token."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "For example, by default, the resource identifier of the default MCP server `alpha` endpoint is calculated as `http://localhost:8080` and MCP Inspector includes it as a https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] `resource` parameter in the Keycloak redirect URL. The providers that already support the https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] specification can add the `http://localhost:8080` resource indicator to the access token's audience (`aud`) claim."
-msgstr ""
+msgstr "Por ejemplo, por defecto, el identificador de recurso del servidor MCP predeterminado `alpha` endpoint se calcula como `http://localhost:8080` y MCP Inspector lo incluye como parámetro del link:https://www.rfc-editor.org/rfc/rfc8707.html[indicador de recursos OAuth2] `resource` en la URL de redirección de Keycloak. Los proveedores que ya soportan la especificación del link:https://www.rfc-editor.org/rfc/rfc8707.html[Indicador de Recursos] OAuth2 pueden añadir el `http://localhost:8080` indicador de recurso al reclamo de audiencia del token de acceso ( `aud` )."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Keycloak does not support the https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] specification yet therefore we configure Keycloak to use predefined audience values specific to MCP server `alpha` and `bravo` endpoints. For our demo, the use of the custom audience values is non-ambiguous and sufficient."
-msgstr ""
+msgstr "Keycloak aún no es compatible con la especificación link:https://www.rfc-editor.org/rfc/rfc8707.html[del Indicador de Recursos OAuth2] , por lo que configuramos Keycloak para que utilice valores de audiencia predefinidos específicos para el servidor MCP `alpha` y los puntos finales `bravo` . Para nuestra demostración, el uso de los valores de audiencia personalizados no es ambiguo y es suficiente."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "When your OAuth2 provider start supporting the https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] specification, all you need to do to align with the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[MCP Authorization specification]'s requirement to use resource indicators is to update the OIDC tenant token audience configuration to contain an audience such as `http://localhost:8080`."
-msgstr ""
+msgstr "Cuando su proveedor de OAuth2 comience a soportar la especificación de indicadores de recursos link:https://www.rfc-editor.org/rfc/rfc8707.html[de OAuth2] , todo lo que necesita hacer para alinearse con el requisito de la link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization[especificación de autorización MCP] de utilizar indicadores de recursos es actualizar la configuración de audiencia del token del inquilino de OIDC para que contenga una audiencia como `http://localhost:8080` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You can also harden it by requiring a token to have both a custom audience value such as `quarkus-mcp-alpha` and a resource value such as `http://localhost:8080`."
-msgstr ""
+msgstr "También puede endurecerlo exigiendo que un token tenga tanto un valor de audiencia personalizado como `quarkus-mcp-alpha` y un valor de recurso como `http://localhost:8080` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "MCP User Name Provider tools"
-msgstr ""
+msgstr "MCP Nombre de usuario Herramientas del proveedor"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "MCP Server has two _Streamable HTTP_ endpoints. The MCP and security configuration for each of these endpoints allows to group tools, resources and prompts according to specific deployment requirements."
-msgstr ""
+msgstr "El servidor MCP dispone de dos puntos finales _HTTP Streamable_ . La configuración de MCP y de seguridad para cada uno de estos puntos finales permite agrupar las herramientas, los recursos y los avisos en función de los requisitos específicos de despliegue."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Let's create two tools that can return a name of the current MCP Client user, one per each endpoint:"
-msgstr ""
+msgstr "Vamos a crear dos herramientas que puedan devolver el nombre del usuario actual del Cliente MCP, una por cada punto final:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Capture a security identity represented by the verified access token"
-msgstr ""
+msgstr "Capturar una identidad de seguridad representada por el token de acceso verificado"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `alpha-user-name-provider` tool is accessible via the default _Streamable HTTP_ `alpha` endpoint."
-msgstr ""
+msgstr "Se puede acceder a la herramienta `alpha-user-name-provider` a través del punto final predeterminado _Streamable HTTP_ `alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `bravo-user-name-provider` tool is accessible via the `bravo` _Streamable HTTP_ endpoint."
-msgstr ""
+msgstr "Se puede acceder a la herramienta `bravo-user-name-provider` a través del punto final _HTTP_ `bravo` _Streamable_ ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Both the `alpha-user-name-provider` and `bravo-user-name-provider` tools are very simple tools designed to show that the identities of MCP client users on whose behalf these tools are called by MCP clients is available to tools to perform a user identity specific action, an important element for a secure agentic AI system. Of course, the real world tool implementations will be more interesting."
-msgstr ""
+msgstr "Tanto las herramientas de `alpha-user-name-provider` como las de `bravo-user-name-provider` son herramientas muy sencillas diseñadas para demostrar que las identidades de los usuarios de clientes MCP en cuyo nombre estas herramientas son llamadas por clientes MCP están disponibles para que las herramientas realicen una acción específica de la identidad del usuario, un elemento importante para un sistema de IA agéntica seguro. Por supuesto, las implementaciones de herramientas en el mundo real serán más interesantes."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Keycloak Configuration"
-msgstr ""
+msgstr "Configuración del Keycloak"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The Keycloak configuration has already been prepared in the `alpha-realm.json` and `bravo-realm.json` realm files that Keycloak DevService uploads to Keycloak at the start-up time."
-msgstr ""
+msgstr "La configuración de Keycloak ya ha sido preparada en los archivos de dominio `alpha-realm.json` y `bravo-realm.json` que Keycloak DevService carga en Keycloak en el momento de la puesta en marcha."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Let's have a closer look. Please go to `http://localhost:8080/q/dev-ui` and select an `OpenId Connect` card:"
-msgstr ""
+msgstr "Veámoslo más de cerca. Vaya a `http://localhost:8080/q/dev-ui` y seleccione una tarjeta `OpenId Connect` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Click on `Keycloak Admin`, login as `admin:admin` and check the `alpha` and `bravo` realm configurations."
-msgstr ""
+msgstr "Haga clic en `Keycloak Admin` , inicie sesión como `admin:admin` y compruebe las configuraciones de los reinos `alpha` y `bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `alpha-realm.json` has a single `alpha-client` client and a single user, `alice` with a password `alice`."
-msgstr ""
+msgstr "El `alpha-realm.json` tiene un único cliente `alpha-client` y un único usuario, `alice` con una contraseña `alice` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `alpha-client` is a public client because its `Client authentication` option is disabled:"
-msgstr ""
+msgstr "El `alpha-client` es un cliente público porque su opción `Client authentication` está desactivada:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Typically, public SPA applications work with the public clients, to avoid having to deal with managing the confidential client's secret."
-msgstr ""
+msgstr "Normalmente, las aplicaciones públicas de SPA trabajan con los clientes públicos, para evitar tener que ocuparse de gestionar el secreto del cliente confidencial."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `alpha-client` is configured to support a callback URL provided by https://github.com/modelcontextprotocol/inspector[MCP Inspector]:"
-msgstr ""
+msgstr "El `alpha-client` está configurado para soportar una URL de devolución de llamada proporcionada por link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `alpha-realm.json` also has a custom `quarkus-mcp-alpha` client scope with an audience mapping, and it is assigned to the `alfa-client` client. It was done similarly to how it was done in the https://quarkus.io/blog/secure-mcp-oidc-client/#keycloak-setup[Use Quarkus MCP client to access secure MCP HTTP server from command line] blog post. We start with creating a `quarkus-mcp-server` client scope:"
-msgstr ""
+msgstr "El `alpha-realm.json` también tiene un ámbito de cliente personalizado `quarkus-mcp-alpha` con una asignación de público, y se asigna al cliente `alfa-client` . Se ha hecho de forma similar a como se hizo en la entrada del blog link:https://quarkus.io/blog/secure-mcp-oidc-client/#keycloak-setup[Utilizar el cliente MCP de Quarkus para acceder a un servidor HTTP MCP seguro desde la línea de comandos] . Comenzamos creando un ámbito de cliente `quarkus-mcp-server` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Next, we create an audience mapping for this scope:"
-msgstr ""
+msgstr "A continuación, creamos un mapa de audiencia para este ámbito:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Finally, we assign this client scope as an optional scope to the `alpha-client` client:"
-msgstr ""
+msgstr "Por último, asignamos este ámbito de cliente como ámbito opcional al cliente `alpha-client` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Similarly, the `bravo-realm.json` has a public `bravo-client` client, and a single user, `jdoe` with a password `jdoe`. It also has a custom `quarkus-mcp-bravo` client scope with an audience mapping."
-msgstr ""
+msgstr "Del mismo modo, el `bravo-realm.json` tiene un cliente público `bravo-client` , y un único usuario, `jdoe` con una contraseña `jdoe` . También tiene un ámbito de cliente `quarkus-mcp-bravo` personalizado con una asignación de público."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Both realms have the client scopes with the audience mappings to let users request the correct token audience by configuring a custom scope in the https://github.com/modelcontextprotocol/inspector[MCP Inspector]'s OAuth2 Flow configuration. As implied in the <<mcp-server-configuration>>, it will be no longer necessary once the https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] specification is supported by Keycloak and other providers."
-msgstr ""
+msgstr "Ambos ámbitos tienen los ámbitos de cliente con los mapeos de público para permitir a los usuarios solicitar el público de token correcto configurando un ámbito personalizado en la configuración del flujo OAuth2 del link:https://github.com/modelcontextprotocol/inspector[inspector MCP] . Como se da a entender en el <<mcp-server-configuration>> , ya no será necesario una vez que la especificación link:https://www.rfc-editor.org/rfc/rfc8707.html[del Indicador de Recursos OAuth2] sea soportada por Keycloak y otros proveedores."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Why was Keycloak preferred to GitHub in the demo ?"
-msgstr ""
+msgstr "¿Por qué se prefirió Keycloak a GitHub en la demostración?"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You may be wondering, why did we choose `Keycloak` for this demo, instead of `GitHub` that we used in the earlier https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP Server] blog post ?"
-msgstr ""
+msgstr "Tal vez se pregunte, ¿por qué hemos elegido `Keycloak` para esta demostración, en lugar de `GitHub` que utilizamos en la anterior entrada del blog link:https://quarkus.io/blog/secure-mcp-sse-server/[Getting ready for secure MCP with Quarkus MCP] Server ?"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The main reason behind this is that the access tokens that are targeting MCP servers are expected to be designed to target MCP servers only. It is a good OAuth2 security recommendation. GitHub access tokens are meant to be used to access GitHub API, on behalf of the logged-in user, at the point where the login has happened, not via an MCP server indirection. For example, Claude AI offers a direct GitHub MCP integration."
-msgstr ""
+msgstr "La razón principal es que se espera que los tokens de acceso dirigidos a servidores MCP estén diseñados para dirigirse únicamente a servidores MCP. Es una buena recomendación de seguridad de OAuth2. Los tokens de acceso de GitHub están pensados para ser utilizados para acceder a la API de GitHub, en nombre del usuario que ha iniciado sesión, en el punto en el que se ha producido el inicio de sesión, no a través de una indirección del servidor MCP. Por ejemplo, Claude AI ofrece una integración directa GitHub MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "This consideration applies to other social providers such as Google."
-msgstr ""
+msgstr "Esta consideración se aplica a otros proveedores sociales como Google."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "It is formally expressed in the https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#access-token-privilege-restriction[MCP Authorization Access Token Privilege Restriction section]: `MCP servers MUST only accept tokens specifically intended for themselves...`."
-msgstr ""
+msgstr "Se expresa formalmente en la link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#access-token-privilege-restriction[sección MCP Authorization Access Token Privilege Restriction] : `MCP servers MUST only accept tokens specifically intended for themselves…​` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We also discussed it in the https://quarkus.io/blog/secure-mcp-client/#access-token-delegation-considerations[Access Token Delegation Considerations] section of the https://quarkus.io/blog/secure-mcp-client[Use Quarkus MCP client to access secure MCP HTTP servers] blog post."
-msgstr ""
+msgstr "También hablamos de ello en la sección link:https://quarkus.io/blog/secure-mcp-client/#access-token-delegation-considerations[Consideraciones sobre la delegación de tokens de acceso] de la entrada del blog link:https://quarkus.io/blog/secure-mcp-client[Utilizar el cliente MCP de Quarkus para acceder a servidores HTTP MCP seguros] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "If your MCP server really needs to accept a token that it will not use itself, for example, in order to forward it further downstream, then consider an option of exchanging tokens for the audiences to be correct through the whole distributed token call chain. Please check the https://quarkus.io/blog/secure-mcp-oidc-client/[Use Quarkus MCP client to access secure MCP HTTP server from command line] blog post where we use the standard https://datatracker.ietf.org/doc/html/rfc8693[OAuth2 Token Exchange]."
-msgstr ""
+msgstr "Si su servidor MCP realmente necesita aceptar un token que no utilizará él mismo, por ejemplo, para reenviarlo más adelante, entonces considere una opción de intercambio de tokens para que las audiencias sean correctas a través de toda la cadena distribuida de llamada de token. Por favor, compruebe el link:https://quarkus.io/blog/secure-mcp-oidc-client/[uso Quarkus MCP cliente para acceder a MCP seguro servidor HTTP desde la línea de comandos] entrada de blog donde utilizamos el estándar link:https://datatracker.ietf.org/doc/html/rfc8693[OAuth2 Token Exchange] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 #, fuzzy
@@ -360,144 +441,179 @@ msgid "Now let's start the MCP server in dev mode:"
 msgstr "Ahora vamos a iniciar el servidor MCP en modo dev:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "You can see that default _Streamable HTTP_ and SSE endpoints are available at `http://localhost:8080/mcp` and `http://localhost:8080/mcp/sse` respectively, while the `bravo` _Streamable HTTP_ and SSE endpoints are available at `http://localhost:8080/bravo/mcp` and `http://localhost:8080/bravo/mcp/sse` respectively."
-msgstr ""
+msgstr "Puede ver que los puntos finales _Streamable HTTP_ y SSE por defecto están disponibles en `http://localhost:8080/mcp` y `http://localhost:8080/mcp/sse` respectivamente, mientras que los puntos finales _Streamable HTTP_ y SSE de `bravo` están disponibles en `http://localhost:8080/bravo/mcp` y `http://localhost:8080/bravo/mcp/sse` respectivamente."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Step 2: Use MCP Inspector to access two secure MCP server endpoints"
-msgstr ""
+msgstr "Paso 2: Utilice MCP Inspector para acceder a dos puntos finales de servidor MCP seguros"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Start the MCP Inspector"
-msgstr ""
+msgstr "Inicie el Inspector MCP"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "While https://github.com/modelcontextprotocol/inspector[MCP Inspector] provides a very good OAuth2 Flow support, it is still a very active project and at the moment, you may observe https://github.com/modelcontextprotocol/inspector[MCP Inspector] failing to connect to the OAuth2 provider in some versions."
-msgstr ""
+msgstr "Aunque link:https://github.com/modelcontextprotocol/inspector[MCP] link:https://github.com/modelcontextprotocol/inspector[Inspector] proporciona un soporte muy bueno para el flujo OAuth2, sigue siendo un proyecto muy activo y, por el momento, es posible que observe que link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] no consigue conectarse al proveedor OAuth2 en algunas versiones."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] v0.16.7 has been proven to connect to Keycloak successfully and therefore we recommend you to use this version when working with this blog post."
-msgstr ""
+msgstr "Se ha comprobado que link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] v0.16.7 se conecta con éxito a Keycloak, por lo que le recomendamos que utilice esta versión cuando trabaje con esta entrada del blog."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We are now going to connect to two individual MCP _Streamable HTTP_ endpoints in turn."
-msgstr ""
+msgstr "Ahora vamos a conectarnos sucesivamente a dos puntos finales MCP _Streamable HTTP_ individuales."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "See the <<demo-flow-diagram>> section for an overview of how https://github.com/modelcontextprotocol/inspector[MCP Inspector] performs a `Connect` request."
-msgstr ""
+msgstr "Consulte la sección <<demo-flow-diagram>> para obtener una visión general de cómo link:https://github.com/modelcontextprotocol/inspector[el Inspector MCP] realiza una solicitud `Connect` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Please keep your browser's `Developer Tools Network` tab open if you would like to observe how MCP Inspector probes various MCP server and Keycloak endpoints and eventually succeeds in getting a user logged in and acquiring the access token."
-msgstr ""
+msgstr "Por favor, mantenga abierta la pestaña `Developer Tools Network` de su navegador si desea observar cómo MCP Inspector sondea varios puntos finales del servidor MCP y Keycloak y finalmente consigue que un usuario inicie sesión y adquiera el token de acceso."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Connect to the default MCP Server `alpha` endpoint"
-msgstr ""
+msgstr "Conéctese al punto final predeterminado del servidor MCP `alpha` "
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "If your browser does not show an `OAuth 2.0 Flow` in the `Authentication` view in the loaded https://github.com/modelcontextprotocol/inspector[MCP Inspector] v0.16.7, try latest Firefox."
-msgstr ""
+msgstr "Si su navegador no muestra un `OAuth 2.0 Flow` en la vista `Authentication` en el link:https://github.com/modelcontextprotocol/inspector[Inspector MCP] v0.16.7 cargado, pruebe con la última versión de Firefox."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Set `Transport Type` to `Streamable HTTP`, `URL` to the `http://localhost:8080/mcp` address of the default MCP server `alpha` endpoint."
-msgstr ""
+msgstr "Establezca `Transport Type` en `Streamable HTTP` , `URL` en la `http://localhost:8080/mcp` dirección del servidor MCP por defecto `alpha` endpoint."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In the `OAuth 2.0 Flow` authentication section, set the `Client ID` to `alpha-client`, and `Scope` to `openid quarkus-mcp-alpha`."
-msgstr ""
+msgstr "En la sección de autenticación `OAuth 2.0 Flow` , establezca los valores `Client ID` en `alpha-client` , y `Scope` en `openid quarkus-mcp-alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Requesting an `openid` scope is not strictly necessary in this demo, but OpenId Connect providers will not issue an ID token without it, only the access token, and you'll likely need an SPA MCP Client to have access to the ID token in prod."
-msgstr ""
+msgstr "Solicitar un ámbito `openid` no es estrictamente necesario en esta demostración, pero los proveedores de OpenId Connect no emitirán un token de identificación sin él, sólo el token de acceso, y es probable que necesite un cliente SPA MCP para tener acceso al token de identificación en prod."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Requesting a `quarkus-mcp-alpha` scope is necessary for Keycloak to add a `quarkus-mcp-alpha` audience to the access token, please see how the `quarkus-mcp-alpha` client scope was created in the <<keycloak-configuration>> section."
-msgstr ""
+msgstr "Solicitar un ámbito `quarkus-mcp-alpha` es necesario para que Keycloak añada un público `quarkus-mcp-alpha` al token de acceso, por favor vea cómo se creó el ámbito de cliente `quarkus-mcp-alpha` en la sección <<keycloak-configuration>> ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The `Redirect URI` is preconfigured by https://github.com/modelcontextprotocol/inspector[MCP Inspector] and points to the https://github.com/modelcontextprotocol/inspector[MCP Inspector]-managed `http://localhost:6274/oauth` callback endpoint where Keycloak will redirect the user to after the user login is complete."
-msgstr ""
+msgstr "El `Redirect URI` está preconfigurado por link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] y apunta al punto final de devolución de llamada link:https://github.com/modelcontextprotocol/inspector[gestionado por MCP Inspector] `http://localhost:6274/oauth` callback endpoint al que Keycloak redirigirá al usuario una vez completado el inicio de sesión."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Now press `Connect`."
-msgstr ""
+msgstr "Ahora pulse `Connect` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "As explained in the the <<demo-flow-diagram>> section, https://github.com/modelcontextprotocol/inspector[MCP Inspector] starts by trying to access the default MCP Server _Streamable HTTP_ `alpha` endpoint without a valid token and gets a `401 WWW-Authenticate` challenge, with the `resource_metadata` parameter pointing to the `alpha` endpoint's https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route."
-msgstr ""
+msgstr "Como se explica en la sección <<demo-flow-diagram>> , link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] comienza intentando acceder al punto final _HTTP Streamable_ del servidor MCP por defecto `alpha` sin un token válido y obtiene un desafío `401 WWW-Authenticate` , con el parámetro `resource_metadata` apuntando a la ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] del punto final `alpha` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] fetches the `alpha` endpoint's protected resource metadata and finds out that it is secured by the Keycloak's `alpha` realm."
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[El inspector MCP] obtiene los metadatos del recurso protegido del punto final `alpha` y descubre que está protegido por el dominio `alpha` del Keycloak."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] now discovers the Keycloak `alpha` realm's metadata, and redirects you to Keycloak `alpha` realm's authorization endpoint where you will see a Keycloak `Alpha` realm login challenge:"
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] descubre ahora los metadatos del dominio Keycloak `alpha` y le redirige al punto final de autorización del dominio Keycloak `alpha` , donde verá un desafío de inicio de sesión del dominio Keycloak `Alpha` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Login as `alice:alice`. Keycloak redirects you back to the https://github.com/modelcontextprotocol/inspector[MCP Inspector]'s `http://localhost:6274/oauth` endpoint. https://github.com/modelcontextprotocol/inspector[MCP Inspector] exchanges the returned `code` for tokens and completes the authorization code flow."
-msgstr ""
+msgstr "Inicie sesión como `alice:alice` . Keycloak le redirige de nuevo al link:https://github.com/modelcontextprotocol/inspector[inspector MCP] del `http://localhost:6274/oauth` endpoint. link:https://github.com/modelcontextprotocol/inspector[El Inspector MCP] intercambia el `code` devuelto por tokens y completa el flujo del código de autorización."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The access token with a `quarkus-mcp-alpha` audience is now available, you can capture it using your browser's `Web Developer Tools` and decode in JWT.io:"
-msgstr ""
+msgstr "El token de acceso con una audiencia `quarkus-mcp-alpha` ya está disponible, puede capturarlo utilizando el `Web Developer Tools` de su navegador y descodificarlo en JWT.io:"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] uses this token to let you select and run the `alpha-user-name-provider` tool:"
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[El Inspector MCP] utiliza este token para permitirle seleccionar y ejecutar la herramienta `alpha-user-name-provider` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The way https://github.com/modelcontextprotocol/inspector[MCP Inspector] was able to acquire the access token, knowing only the OAuth2 Client ID and the MCP server's endpoint address was interesting. See the <<demo-flow-diagram>> section for the overview of how the whole OAuth2 flow works."
-msgstr ""
+msgstr "La forma en que link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] fue capaz de adquirir el token de acceso, conociendo únicamente el ID de cliente OAuth2 y la dirección del punto final del servidor MCP fue interesante. Consulte la sección <<demo-flow-diagram>> para obtener una visión general de cómo funciona todo el flujo OAuth2."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Now disconnect MCP Inspector from the MCP Server `alpha` endpoint by pressing a `Disconnect` button."
-msgstr ""
+msgstr "Desconecte ahora MCP Inspector del punto final MCP Server `alpha` pulsando un botón `Disconnect` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Connect to the MCP Server `bravo` endpoint"
-msgstr ""
+msgstr "Conéctese al punto final del servidor MCP `bravo` "
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Connecting to the MCP Server `bravo` endpoint works exactly the same as with the default `alpha` endpoint, as explained in the <<mcp-inspector-connect-to-alpha>> section, we only need to use the MCP Server `bravo` endpoint related properties."
-msgstr ""
+msgstr "La conexión con el punto final del servidor MCP `bravo` funciona exactamente igual que con el punto final predeterminado `alpha` , como se explica en la sección <<mcp-inspector-connect-to-alpha>> , sólo tenemos que utilizar las propiedades relacionadas con el punto final del servidor MCP `bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Set `Transport Type` to `Streamable HTTP`, `URL` to the `http://localhost:8080/bravo/mcp` address of the MCP server `bravo` endpoint."
-msgstr ""
+msgstr "Establezca `Transport Type` en `Streamable HTTP` , `URL` en la `http://localhost:8080/bravo/mcp` dirección del punto final del servidor MCP `bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In the `OAuth 2.0 Flow` authentication section, set the `Client ID` to `bravo-client`, and `Scope` to `openid quarkus-mcp-bravo`."
-msgstr ""
+msgstr "En la sección de autenticación `OAuth 2.0 Flow` , establezca los valores `Client ID` en `bravo-client` , y `Scope` en `openid quarkus-mcp-bravo` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Keep `Redirect URI` set to `http://localhost:6274/oauth`."
-msgstr ""
+msgstr "Mantenga `Redirect URI` ajustado a `http://localhost:6274/oauth` ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] starts by trying to access the MCP Server `bravo` endpoint without a valid token and gets a `401 WWW-Authenticate` challenge, with the `resource_metadata` parameter pointing to the `bravo`'s  https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route."
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] comienza intentando acceder al punto final del servidor MCP `bravo` sin un token válido y obtiene un desafío `401 WWW-Authenticate` , con el parámetro `resource_metadata` apuntando a la ruta `bravo's link:https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector] fetches the `bravo` endpoint's protected resource metadata and finds out that it is secured by the Keycloak's `bravo` realm."
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[El inspector MCP] obtiene los metadatos del recurso protegido del punto final `bravo` y descubre que está protegido por el dominio `bravo` del Keycloak."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "https://github.com/modelcontextprotocol/inspector[MCP Inspector]  now discovers the Keycloak `bravo` realm's metadata, and redirects you to Keycloak `bravo` realm's authorization endpoint where you will see a Keycloak `Bravo` realm login challenge:"
-msgstr ""
+msgstr "link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] descubre ahora los metadatos del dominio Keycloak `bravo` y le redirige al punto final de autorización del dominio Keycloak `bravo` , donde verá un desafío de inicio de sesión del dominio Keycloak `Bravo` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Login as `jdoe:jdoe`. Keycloak redirects you back to the https://github.com/modelcontextprotocol/inspector[MCP Inspector]'s `http://localhost:6274/oauth` endpoint. https://github.com/modelcontextprotocol/inspector[MCP Inspector] exchanges the returned `code` for tokens and completes the authorization code flow."
-msgstr ""
+msgstr "Inicie sesión como `jdoe:jdoe` . Keycloak le redirige de nuevo al link:https://github.com/modelcontextprotocol/inspector[inspector MCP] del `http://localhost:6274/oauth` endpoint. link:https://github.com/modelcontextprotocol/inspector[El Inspector MCP] intercambia el `code` devuelto por tokens y completa el flujo del código de autorización."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The access token with a `quarkus-mcp-bravo` audience is now available. https://github.com/modelcontextprotocol/inspector[MCP Inspector] uses this token to let you select and run the `bravo-user-name-provider` tool:"
-msgstr ""
+msgstr "Ya está disponible el token de acceso con una audiencia de `quarkus-mcp-bravo` . link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] utiliza este token para permitirle seleccionar y ejecutar la herramienta `bravo-user-name-provider` :"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "See the <<mcp-inspector-connect-to-alpha>> section for more explanations of how https://github.com/modelcontextprotocol/inspector[MCP Inspector] manages to connect to the MCP Server endpoint knowing only its URL and the OAuth2 Client ID."
-msgstr ""
+msgstr "Consulte la sección <<mcp-inspector-connect-to-alpha>> para obtener más explicaciones sobre cómo link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] consigue conectarse al punto final del servidor MCP conociendo únicamente su URL y el ID de cliente OAuth2."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 #, fuzzy
@@ -505,20 +621,24 @@ msgid "Security Considerations"
 msgstr "Consideraciones de seguridad"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "The main security consideration for secure Quarkus MCP server deployments is to ensure that access tokens have a correct audience, for the MCP Server to assert that the current token is meant to access this MCP server only. MCP Servers that propagate tokens further should consider exchanging such tokens, for a new token to target the downstream service correctly."
-msgstr ""
+msgstr "La principal consideración de seguridad para los despliegues seguros de servidores MCP de Quarkus es garantizar que los tokens de acceso tengan una audiencia correcta, para que el Servidor MCP afirme que el token actual está destinado a acceder únicamente a este servidor MCP. Los Servidores MCP que propagan tokens más allá deben considerar el intercambio de dichos tokens, para que un nuevo token se dirija correctamente al servicio descendente."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "A token audience claim can have several values, and it must contain an https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2 Resource Indicator] that points to a specific HTTP resource location or a custom audience value or both the resource indicator and the custom audience values."
-msgstr ""
+msgstr "Una reclamación de audiencia de token puede tener varios valores, y debe contener un indicador de recurso link:https://www.rfc-editor.org/rfc/rfc8707.html[OAuth2] que apunte a una ubicación de recurso HTTP específica o un valor de audiencia personalizado o ambos, el indicador de recurso y los valores de audiencia personalizados."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "One should also consider carefully if an MCP server should enable its https://datatracker.ietf.org/doc/html/rfc9728[OAuth2 Protected Resource Metadata] route which allows a public access to the information about the authorization server that secures this MCP Server."
-msgstr ""
+msgstr "También se debe considerar cuidadosamente si un servidor MCP debe habilitar su ruta de link:https://datatracker.ietf.org/doc/html/rfc9728[metadatos de recursos protegidos OAuth2] que permite un acceso público a la información sobre el servidor de autorización que asegura este servidor MCP."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Please keep in mind that it might be considered sensitive information, especially when no SPA MCP Client applications are used, when the provider login themes can be customized to make it less obvious to users what is the actual provider that is used to log them in."
-msgstr ""
+msgstr "Por favor, tenga en cuenta que podría considerarse información sensible, especialmente cuando no se utilizan aplicaciones SPA MCP Client, cuando los temas de inicio de sesión del proveedor pueden personalizarse para que sea menos obvio para los usuarios cuál es el proveedor real que se utiliza para iniciar sesión."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
 #, fuzzy
@@ -526,17 +646,21 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In this blog, we used https://github.com/modelcontextprotocol/inspector[MCP Inspector] to demonstrate how MCP Client can use OAuth2 Flow to login users and access secure Quarkus MCP _Streamable HTTP_ servers, when only an MCP Server address and OAuth2 Client ID can provide enough context for the flow to succeed."
-msgstr ""
+msgstr "En este blog, utilizamos link:https://github.com/modelcontextprotocol/inspector[MCP Inspector] para demostrar cómo MCP Client puede utilizar OAuth2 Flow para iniciar sesión de usuarios y acceder a servidores _HTTP_ seguros Quarkus MCP _Streamable_ , cuando sólo una dirección de servidor MCP y un ID de cliente OAuth2 pueden proporcionar el contexto suficiente para que el flujo tenga éxito."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "We also demonstrated how Quarkus MCP Server can https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#_multiple_server_configurations[support multiple MCP HTTP configurations] with their own unique security constraints supported with the https://quarkus.io/guides/security-openid-connect-multitenancy#configure-tenant-paths[Quarkus OIDC multi-tenancy resolver]."
-msgstr ""
+msgstr "También demostramos cómo Quarkus MCP Server puede link:https://docs.quarkiverse.io/quarkus-mcp-server/dev/index.html#_multiple_server_configurations[soportar múltiples configuraciones MCP HTTP] con sus propias restricciones de seguridad únicas soportadas con el link:https://quarkus.io/guides/security-openid-connect-multitenancy#configure-tenant-paths[resolver multi-tenancy Quarkus OIDC] ."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "In the next blog post in this series, we will look at how https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#access-token-privilege-restriction[MCP Authorization] OAuth2 Flow can use OAuth Dynamic Client Registration and how https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] can play its part in securing Quarkus MCP Servers."
-msgstr ""
+msgstr "En la próxima entrada del blog de esta serie, veremos cómo el Flujo OAuth2 de link:https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization#access-token-privilege-restriction[Autorización MCP] puede utilizar el Registro Dinámico de Clientes OAuth y cómo link:https://github.com/quarkiverse/quarkus-oidc-proxy[Quarkus OIDC Proxy] puede desempeñar su papel en la seguridad de los Servidores MCP de Quarkus."
 
 #: _posts/2025-09-22-secure-mcp-server-oauth2.adoc
+#, fuzzy
 msgid "Enjoy, and stay tuned !"
-msgstr ""
+msgstr "¡Disfrute y permanezca atento !"
