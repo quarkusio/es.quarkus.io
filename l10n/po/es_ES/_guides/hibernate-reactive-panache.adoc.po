@@ -660,11 +660,15 @@ msgstr "recurrir al primer constructor que encuentre, esto podría dar lugar a m
 msgid "Multiple Persistence Units"
 msgstr "Unidades de persistencia múltiple"
 
-#. type: delimited block =
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
-msgid "Hibernate Reactive in Quarkus currently does not support multiple persistence units."
-msgstr "Hibernate Reactive en Quarkus actualmente no soporta múltiples unidades de persistencia."
+msgid ""
+"Hibernate Reactive with Panache supports multiple persistence units.\n"
+"When using multiple persistence units, Panache automatically uses the correct persistence unit based on the entity's configuration."
+msgstr ""
+
+#: _guides/hibernate-reactive-panache.adoc
+msgid "For configuration details on setting up multiple persistence units, refer to the xref:hibernate-orm.adoc#multiple-persistence-units[Multiple Persistence Units] section in the Hibernate ORM guide."
+msgstr ""
 
 #. type: Title ==
 #: _guides/hibernate-reactive-panache.adoc
@@ -673,7 +677,6 @@ msgid "Sessions and Transactions"
 msgstr "Transacciones"
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
 msgid ""
 "First of all, most of the methods of a Panache entity must be invoked within the scope of a reactive `Mutiny.Session`.\n"
 "In some cases, the session is opened automatically on demand.\n"
@@ -681,8 +684,9 @@ msgid ""
 "For other cases, there are both a declarative and a programmatic way to ensure the session is opened.\n"
 "You can annotate a CDI business method that returns `Uni` with the `@WithSession` annotation.\n"
 "The method will be intercepted and the returned `Uni` will be triggered within a scope of a reactive session.\n"
+"If you have multiple persistence units, you can specify which one to use by providing the persistence unit name as the annotation value: `@WithSession(\"my-persistence-unit\")`. If not specified, the default persistence unit is used.\n"
 "Alternatively, you can use the `Panache.withSession()` method to achieve the same effect."
-msgstr "En primer lugar, la mayoría de los métodos de una entidad Panache deben invocarse dentro del ámbito de una sesión reactiva `Mutiny.Session` . En algunos casos, la sesión se abre automáticamente bajo demanda. Por ejemplo, si se invoca un método de entidad Panache en un método de recurso REST Jakarta en una aplicación que incluya la extensión `quarkus-rest` . Para otros casos, existe una forma tanto declarativa como programática de asegurarse de que se abre la sesión. Puede anotar un método de negocio CDI que devuelva `Uni` con la anotación `@WithSession` . El método será interceptado y el `Uni` devuelto se activará dentro del ámbito de una sesión reactiva. Alternativamente, puede utilizar el método `Panache.withSession()` para conseguir el mismo efecto."
+msgstr ""
 
 #. type: delimited block =
 #: _guides/hibernate-reactive-panache.adoc
@@ -691,13 +695,13 @@ msgid "Note that a Panache entity may not be used from a blocking thread. See al
 msgstr "Obsérvese que una entidad Panache no puede utilizarse desde un subproceso de bloqueo. Véase también la guía  link:getting-started-reactive.html[Getting Started With Reactive] que explica los fundamentos de los principios reactivos en Quarkus."
 
 #: _guides/hibernate-reactive-panache.adoc
-#, fuzzy
 msgid ""
 "Also make sure to wrap methods that modify the database or involve multiple queries (e.g. `entity.persist()`) within a transaction.\n"
 "You can annotate a CDI business method that returns `Uni` with the `@WithTransaction` annotation.\n"
 "The method will be intercepted and the returned `Uni` is triggered within a transaction boundary.\n"
+"If you have multiple persistence units, you can specify which one to use by providing the persistence unit name as the annotation value: `@WithTransaction(\"my-persistence-unit\")`. If not specified, the default persistence unit is used.\n"
 "Alternatively, you can use the `Panache.withTransaction()` method for the same effect."
-msgstr "Asegúrese también de envolver los métodos que modifican la base de datos o implican múltiples consultas (por ejemplo, `entity.persist()` ) dentro de una transacción. Puede anotar un método de negocio CDI que devuelva `Uni` con la anotación `@WithTransaction` . El método será interceptado y el `Uni` devuelto se activará dentro del límite de una transacción. Alternativamente, puede utilizar el método `Panache.withTransaction()` para el mismo efecto."
+msgstr ""
 
 #. type: delimited block =
 #: _guides/hibernate-reactive-panache.adoc
