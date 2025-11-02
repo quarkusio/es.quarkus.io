@@ -7,258 +7,321 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "How to Use Your A2A Server Agent in a Distributed or Cloud Native Environment"
-msgstr ""
+msgstr "Cómo utilizar su agente del servidor A2A en un entorno distribuido o nativo de la nube"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "This blog post shows how to configure an A2A server agent to use persistent stores and event queues, in order to get it working for distributed, cloud-native environments."
-msgstr ""
+msgstr "Esta entrada de blog muestra cómo configurar un agente de servidor A2A para que utilice almacenes persistentes y colas de eventos, con el fin de que funcione en entornos distribuidos y nativos de la nube."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The recent https://github.com/a2aproject/a2a-java/tree/v0.3.0.Final[0.3.0.Final] release of the A2A Java SDK, included a bunch of improvements."
-msgstr ""
+msgstr "La reciente versión link:https://github.com/a2aproject/a2a-java/tree/v0.3.0.Final[0.3.0.Final] del SDK Java de A2A, incluye un montón de mejoras."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Farah recently blogged about the https://quarkus.io/blog/quarkus-a2a-java-security/[new security features] in the A2A Java SDK."
-msgstr ""
+msgstr "Farah escribió recientemente en su blog sobre las link:https://quarkus.io/blog/quarkus-a2a-java-security/[nuevas funciones de seguridad] del SDK Java A2A."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "This post will focus on the significant cloud-related enhancements which also are part of this release. These provide the building blocks for running the SDK in a distributed, cloud-native environment. We will demonstrate this with a simple A2A Agent, which simply appending `Artifacts` to a `Task` that contain the name of the pod handling the incoming `Message`s."
-msgstr ""
+msgstr "Este post se centrará en las importantes mejoras relacionadas con la nube que también forman parte de esta versión. Éstas proporcionan los bloques de construcción para ejecutar el SDK en un entorno distribuido y nativo de la nube. Lo demostraremos con un sencillo Agente A2A, que simplemente añade `Artifacts` a un `Task` que contiene el nombre del pod que gestiona el `Mensaje` entrante."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Note that we have done a https://github.com/wildfly-extras/a2a-java-sdk-server-jakarta[0.3.1.Final] release since. The links in the examples will use this very latest release."
-msgstr ""
+msgstr "Tenga en cuenta que desde entonces hemos realizado una versión link:https://github.com/wildfly-extras/a2a-java-sdk-server-jakarta[0.3.1.Final] . Los enlaces de los ejemplos utilizarán esta última versión."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We will cover the following topics:"
-msgstr ""
+msgstr "Cubriremos los siguientes temas:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Initially, we will look at the simple, in-memory components that form the core of the SDK's asynchronous model. These core classes were inspired by the Python version of the SDK, https://github.com/a2aproject/a2a-python[a2a-python]."
-msgstr ""
+msgstr "Inicialmente, examinaremos los componentes simples, en memoria, que forman el núcleo del modelo asíncrono del SDK. Estas clases centrales se inspiraron en la versión Python del SDK, link:https://github.com/a2aproject/a2a-python[a2a-python] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Next, we'll introduce the new, persistent and replicated implementations designed for distributed environments."
-msgstr ""
+msgstr "A continuación, presentaremos las nuevas implementaciones, persistentes y replicadas, diseñadas para entornos distribuidos."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Finally, we'll walk through an https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/README.md[example] that combines these components and deploys an application in a Kubernetes cluster, showing that the components enable us to work in a load-balanced environment."
-msgstr ""
+msgstr "Por último, recorreremos un link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/README.md[ejemplo] que combina estos componentes y despliega una aplicación en un clúster Kubernetes, mostrando que los componentes nos permiten trabajar en un entorno de carga equilibrada."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Core SDK In-Memory Components"
-msgstr ""
+msgstr "Componentes en memoria del Core SDK"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The A2A Java SDK provides the tools to manage asynchronous, long-running processes, which we call Tasks. As described in the https://a2a-protocol.org/latest/topics/key-concepts/[Core Concepts] section of the A2A protocol documentation (as well as the https://a2a-protocol.org/latest/topics/life-of-a-task/[Life of a Task] and https://a2a-protocol.org/latest/topics/streaming-and-async/[Streaming and Asynchronous Operations for Long-Running Tasks] sections), a Task can move through various states."
-msgstr ""
+msgstr "El SDK Java de A2A proporciona las herramientas para gestionar procesos asíncronos de larga duración, a los que llamamos Tareas. Como se describe en la sección link:https://a2a-protocol.org/latest/topics/key-concepts/[Conceptos básicos] de la documentación del protocolo A2A (así como en las secciones link:https://a2a-protocol.org/latest/topics/life-of-a-task/[Vida de una tarea] y link:https://a2a-protocol.org/latest/topics/streaming-and-async/[Operaciones de streaming y asíncronas para tareas de larga duración] ), una tarea puede pasar por varios estados."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "A key design principle is that as long as a Task is in a non-final state, it must be possible to send messages to do more work on it, or re-subscribe to its events."
-msgstr ""
+msgstr "Un principio de diseño clave es que mientras una Tarea se encuentre en un estado no final, debe ser posible enviar mensajes para realizar más trabajo sobre ella, o volver a suscribirse a sus eventos."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "To manage this, the SDK relies on a few core components, and provides simple, default implementations of those:"
-msgstr ""
+msgstr "Para gestionar esto, el SDK se basa en unos pocos componentes básicos y proporciona implementaciones sencillas y predeterminadas de los mismos:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/TaskStore.java[`TaskStore`]: Manages the lifecycle and persistence of https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/spec/src/main/java/io/a2a/spec/Task.java[`Task`] objects. The default implementation is https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/InMemoryTaskStore.java[`InMemoryTaskStore`], which holds all `Task` information in memory."
-msgstr ""
+msgstr "link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/TaskStore.java[TaskStore] : Gestiona el ciclo de vida y la persistencia de link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/spec/src/main/java/io/a2a/spec/Task.java[Task] objetos. La implementación por defecto es link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/InMemoryTaskStore.java[InMemoryTaskStore] que mantiene toda la información de `Task` en memoria."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/PushNotificationConfigStore.java[`PushNotificationConfigStore`]: Stores a client's push notification configurations (like webhook URLs). The default is the https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/InMemoryPushNotificationConfigStore.java[`InMemoryPushNotificationConfigStore`]."
-msgstr ""
+msgstr "link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/PushNotificationConfigStore.java[PushNotificationConfigStore] : Almacena las configuraciones de las notificaciones push de un cliente (como las URL de los webhooks). Por defecto es la dirección link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/tasks/InMemoryPushNotificationConfigStore.java[InMemoryPushNotificationConfigStore] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/events/QueueManager.java[`QueueManager`]: This is central to the asynchronous model. It creates and manages https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/events/EventQueue.java[`EventQueue`]s for tasks. In your A2A applications, you will typically implement an `AgentExecutor`, which takes an incoming message, and then puts events on the `EventQueue` to update the `Task` with the results of the processing. The SDK then listens on this `EventQueue` to update the `Task` in the `TaskStore`, and notify any clients listening for updates. Clients listening for updates are ones that have asked to resubscribe, or ones having sent a message, and are waiting for results."
-msgstr ""
+msgstr "link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/events/QueueManager.java[QueueManager] : Es el elemento central del modelo asíncrono. Crea y gestiona link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/server-common/src/main/java/io/a2a/server/events/EventQueue.java[EventQueue] s para las tareas. En sus aplicaciones A2A, normalmente implementará un `AgentExecutor` , que toma un mensaje entrante, y luego pone eventos en el `EventQueue` para actualizar el `Task` con los resultados del procesamiento. El SDK entonces escucha en este `EventQueue` para actualizar el `Task` en el `TaskStore` , y notificar a cualquier cliente que esté escuchando actualizaciones. Los clientes que están a la escucha de actualizaciones son los que han solicitado volver a suscribirse, o los que han enviado un mensaje y están a la espera de los resultados."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "These in-memory implementations are simple and fast, making them perfect for single-instance deployments, getting started, or testing. However, in a distributed or cloud environment where service instances can be created or destroyed, this in-memory state is lost, which breaks the guarantee for long-running tasks. Also, since all the state is kept in memory, there are overheads associated with this approach."
-msgstr ""
+msgstr "Estas implementaciones en memoria son sencillas y rápidas, lo que las hace perfectas para despliegues de una sola instancia, para empezar o para realizar pruebas. Sin embargo, en un entorno distribuido o en la nube en el que se pueden crear o destruir instancias de servicio, este estado en memoria se pierde, lo que rompe la garantía para las tareas de larga ejecución. Además, dado que todo el estado se mantiene en memoria, existen sobrecargas asociadas a este enfoque."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Distributed and Cloud Ready Implementations"
-msgstr ""
+msgstr "Implementaciones distribuidas y preparadas para la nube"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "To run in a distributed environment, we needed to replace these in-memory components with implementations that could persist state and coordinate across multiple service instances. For this release, we introduced several new components, which you can find in the https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras[`extras/`] directory of the `a2a-java` repository."
-msgstr ""
+msgstr "Para funcionar en un entorno distribuido, necesitábamos sustituir estos componentes en memoria por implementaciones que pudieran persistir el estado y coordinarse a través de múltiples instancias de servicio. Para esta versión, introdujimos varios componentes nuevos, que puede encontrar en el directorio link:https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras[extras/] directorio del repositorio `a2a-java` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Essentially, they are alternative implementations of the `TaskStore`, `PushNotificationConfigStore` and `QueueManager` interfaces. They have been annotated with the `@Alternative` and `@Priority` CDI annotations, so that if their Maven modules is included in your build, these implementations will take precedence over the default, in-memory ones."
-msgstr ""
+msgstr "Esencialmente, son implementaciones alternativas de las interfaces `TaskStore` , `PushNotificationConfigStore` y `QueueManager` . Han sido anotadas con las anotaciones CDI `@Alternative` y `@Priority` , de modo que si se incluyen sus módulos Maven en su compilación, estas implementaciones tendrán prioridad sobre las predeterminadas, en memoria."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Each component has a README, and is fully tested with an integration test for additional information about how to set it up."
-msgstr ""
+msgstr "Cada componente tiene un LÉAME, y está totalmente probado con una prueba de integración para obtener información adicional sobre cómo configurarlo."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "While we are not aiming to provide support for every possible backend in this repository, we hope that the examples given show that it is relatively simple to provide other mechanisms to back the functionality."
-msgstr ""
+msgstr "Aunque no pretendemos ofrecer soporte para todos los posibles backend en este repositorio, esperamos que los ejemplos dados muestren que es relativamente sencillo proporcionar otros mecanismos para respaldar la funcionalidad."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Database-Backed TaskStore and PushNotificationStore"
-msgstr ""
+msgstr "TaskStore y PushNotificationStore basados en bases de datos"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The simplest problem to solve was persistence. We introduced:"
-msgstr ""
+msgstr "El problema más sencillo de resolver era la persistencia. La introdujimos:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras/task-store-database-jpa/src/main/java/io/a2a/extras/taskstore/database/jpa/JpaDatabaseTaskStore.java[`JpaDatabaseTaskStore`]: This persists `Task` state to a relational database using Jakarta JPA. See the https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras/task-store-database-jpa/README.md[README] for more details. The module also contains tests for additional guidance for how to set it up."
-msgstr ""
+msgstr "link:https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras/task-store-database-jpa/src/main/java/io/a2a/extras/taskstore/database/jpa/JpaDatabaseTaskStore.java[JpaDatabaseTaskStore] : Esto persiste `Task` estado a una base de datos relacional utilizando Jakarta JPA. Consulte link:https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/extras/task-store-database-jpa/README.md[el README] para más detalles. El módulo también contiene pruebas para obtener orientación adicional sobre cómo configurarlo."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/push-notification-config-store-database-jpa/src/main/java/io/a2a/extras/pushnotificationconfigstore/database/jpa/JpaDatabasePushNotificationConfigStore.java[`JpaDatabasePushNotificationConfigStore`]: This persists `PushNotificationConfig` instances to a relational database using Jakarta JPA. The https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/push-notification-config-store-database-jpa/README.md[README] and the module's tests contain more details."
-msgstr ""
+msgstr "link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/push-notification-config-store-database-jpa/src/main/java/io/a2a/extras/pushnotificationconfigstore/database/jpa/JpaDatabasePushNotificationConfigStore.java[JpaDatabasePushNotificationConfigStore] : Esto persiste `PushNotificationConfig` instancias a una base de datos relacional utilizando Jakarta JPA. El link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/push-notification-config-store-database-jpa/README.md[README] y las pruebas del módulo contienen más detalles."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Replicated QueueManager"
-msgstr ""
+msgstr "QueueManager replicado"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "As for the `QueueManager`, it doesn't just store state. It also manages active, in-memory message queues. If a client sends a message to a `Task` via one A2A Agent instance, we need to make sure that subscribers to the `Task` on other A2A Agent instances forming part of the cluster, also receive the resulting `EventQueue` messages."
-msgstr ""
+msgstr "En cuanto a la `QueueManager` , no sólo almacena el estado. También gestiona colas de mensajes activas en memoria. Si un cliente envía un mensaje a un `Task` a través de una instancia de Agente A2A, tenemos que asegurarnos de que los suscriptores del `Task` en otras instancias de Agente A2A que formen parte del cluster, también reciban los mensajes `EventQueue` resultantes."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We introduced the https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/core/src/main/java/io/a2a/extras/queuemanager/replicated/core/ReplicatedQueueManager.java[ReplicatedQueueManager] for this. The component is built with a pluggable https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/core/src/main/java/io/a2a/extras/queuemanager/replicated/core/ReplicationStrategy.java[`ReplicationStrategy`] responsible for pushing the events to other nodes in the cluster. It also notifies the other nodes when an `EventQueue` for a `Task` is created, and when it is closed."
-msgstr ""
+msgstr "Para ello hemos introducido el link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/core/src/main/java/io/a2a/extras/queuemanager/replicated/core/ReplicatedQueueManager.java[ReplicatedQueueManager] . El componente link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/core/src/main/java/io/a2a/extras/queuemanager/replicated/core/ReplicationStrategy.java[ReplicationStrategy] responsable de enviar los eventos a otros nodos del cluster. También notifica a los demás nodos cuando se crea un `EventQueue` para un `Task` y cuando se cierra."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We provide one implementation of `ReplicationStrategy`, https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/replication-mp-reactive/src/main/java/io/a2a/extras/queuemanager/replicated/mp_reactive/ReactiveMessagingReplicationStrategy.java[`ReactiveMessagingReplicationStrategy`], which uses MicroProfile Reactive Messaging under the hood to send and receive the replicated `EventQueue` events. The nice thing about MicroProfile Reactive Messaging, is that it is simple to configure alternative providers to do the actual messaging part by changing properties in your `application.properties`. In our tests, and examples we chose Kafka as the provider."
-msgstr ""
+msgstr "Proporcionamos una implementación de `ReplicationStrategy` , link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/replication-mp-reactive/src/main/java/io/a2a/extras/queuemanager/replicated/mp_reactive/ReactiveMessagingReplicationStrategy.java[ReactiveMessagingReplicationStrategy] , que utiliza MicroProfile Reactive Messaging bajo el capó para enviar y recibir los eventos replicados de `EventQueue` . Lo bueno de MicroProfile Reactive Messaging, es que es sencillo configurar proveedores alternativos para hacer la parte de mensajería real cambiando las propiedades en su `application.properties` . En nuestras pruebas y ejemplos elegimos Kafka como proveedor."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "However, you are not stuck with Kafka or MicroProfile Reactive Messaging. It should be possible to plug in whichever mechanism you choose, as long as you provide your own implementation of `ReactiveMessagingReplicationStrategy`."
-msgstr ""
+msgstr "Sin embargo, no está atascado con Kafka o MicroProfile Reactive Messaging. Debería ser posible conectar cualquier mecanismo que elija, siempre que proporcione su propia implementación de `ReactiveMessagingReplicationStrategy` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/README.md[README], and the tests in the module provide more information to help you, whether you want to learn more about how to configure the `ReplicatedQueueManager`, or implement your own `ReactiveMessagingReplicationStrategy`."
-msgstr ""
+msgstr "El link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/extras/queue-manager-replicated/README.md[LÉAME] , y las pruebas del módulo proporcionan más información para ayudarle, tanto si desea saber más sobre cómo configurar el `ReplicatedQueueManager` , como si desea implementar su propio `ReactiveMessagingReplicationStrategy` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Stabilising the Server-Side"
-msgstr ""
+msgstr "Estabilizar el lado del servidor"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Getting the `ReplicatedQueueManager` to work reliably required significant improvements to our server-side request handling. We did a lot of work to ensure that the event `EventQueue` associated with a `Task` is always available for non-final `Task` s, and that they are reliably cleaned up when a `Task` finishes, while ensuring that existing subscribers still get all the events before the `EventQueue` is closed."
-msgstr ""
+msgstr "Conseguir que `ReplicatedQueueManager` funcione de forma fiable requirió mejoras significativas en nuestra gestión de solicitudes del lado del servidor. Hicimos mucho trabajo para garantizar que el evento `EventQueue` asociado a un `Task` esté siempre disponible para los `Task` s no finales, y que se limpien de forma fiable cuando finalice un `Task` , asegurando al mismo tiempo que los suscriptores existentes sigan recibiendo todos los eventos antes de que se cierre el `EventQueue` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "This was the final step needed to get a deployment working reliably on Kubernetes, which is the focus of the next section."
-msgstr ""
+msgstr "Este era el último paso necesario para conseguir que un despliegue funcionara de forma fiable en Kubernetes, que es el tema central de la siguiente sección."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Example: Running on Kubernetes"
-msgstr ""
+msgstr "Ejemplo: Ejecución en Kubernetes"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Now let us see how to combine these new components in a real-world scenario. We have created a new Kubernetes example demonstrating how to run a stateful A2A Java application in a Kubernetes cluster. It focuses on the improved implementations of `TaskStore` and `QueueManager`, and can be found https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/README.md[here]."
-msgstr ""
+msgstr "Veamos ahora cómo combinar estos nuevos componentes en un escenario del mundo real. Hemos creado un nuevo ejemplo de Kubernetes que demuestra cómo ejecutar una aplicación Java A2A con estado en un clúster Kubernetes. Se centra en las implementaciones mejoradas de `TaskStore` y `QueueManager` , y puede encontrarse link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/README.md[aquí] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We will summarise the most important parts here below. We will look at how to set everything up, and run the example, before showing the most important parts of how the A2A Agent server is configured."
-msgstr ""
+msgstr "A continuación resumiremos las partes más importantes. Veremos cómo configurar todo, y ejecutar el ejemplo, antes de mostrar las partes más importantes de cómo se configura el servidor del Agente A2A."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "To run the example, you need to install the following:"
-msgstr ""
+msgstr "Para ejecutar el ejemplo, necesita instalar lo siguiente:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "*Java*: Version 17 or higher"
-msgstr ""
+msgstr "*Java* : Versión 17 o superior"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "*Container runtime*: We have tested with Docker and Podman"
-msgstr ""
+msgstr "*Tiempo de ejecución del contenedor* : Hemos probado con Docker y Podman"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "*Maven*: 3.8.x or higher"
-msgstr ""
+msgstr "*Maven* : 3.8.x o superior"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "*Kind*: For Kubernetes support. Note the example will only work with Kind. Other implementations, such as Minikube, need other tweaks than Kind."
-msgstr ""
+msgstr "*Tipo* : Para la compatibilidad con Kubernetes. Tenga en cuenta que el ejemplo sólo funcionará con Kind. Otras implementaciones, como Minikube, necesitan otros ajustes además de Kind."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "*kubectl*: Kind does not automatically install a kubectl for you."
-msgstr ""
+msgstr "*kubectl* : Kind no instala automáticamente un kubectl por usted."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Deploying and running the example"
-msgstr ""
+msgstr "Despliegue y ejecución del ejemplo"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "From the https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/examples/cloud-deployment/scripts[`scripts\\`] folder, run either:"
-msgstr ""
+msgstr "Desde la carpeta link:https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/examples/cloud-deployment/scripts[scripts\\] carpeta, ejecute"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "`./deploy.sh`: if you use Docker"
-msgstr ""
+msgstr "`./deploy.sh` : si utiliza Docker"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "`./deploy.sh --container-tool podman`: if you use Podman"
-msgstr ""
+msgstr "`./deploy.sh --container-tool podman` : si utiliza Podman"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/scripts/deploy.sh[`deploy.sh`] script will take care of everything for you, and deploy your application. This includes"
-msgstr ""
+msgstr "El script link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/scripts/deploy.sh[deploy.sh] script se encargará de todo por usted y desplegará su aplicación. Esto incluye"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Creating the Kind cluster with fully configured local registry support"
-msgstr ""
+msgstr "Creación del clúster Kind con soporte de registro local totalmente configurado"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Building the A2A Agent application image and pushing it to the registry"
-msgstr ""
+msgstr "Construir la imagen de la aplicación del Agente A2A y enviarla al registro"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Install the Strimzi operator from https://strimzi.io/install/latest?namespace=kafka"
-msgstr ""
+msgstr "Instale el operador Strimzi desde https://strimzi.io/install/latest?namespace=kafka"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Deploy the files in the https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/examples/cloud-deployment/k8s[k8s/] directory ordered by their numerical prefix. These:"
-msgstr ""
+msgstr "Despliegue los archivos en el directorio link:https://github.com/a2aproject/a2a-java/tree/v0.3.1.Final/examples/cloud-deployment/k8s[k8s/] ordenados por su prefijo numérico. Estos:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Configure the `a2a-demo` namespace for our application"
-msgstr ""
+msgstr "Configure el espacio de nombres `a2a-demo` para nuestra aplicación"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Installs PostgreSQL needed for our `JPADatabaseTaskStore`"
-msgstr ""
+msgstr "Instala PostgreSQL necesario para nuestro `JPADatabaseTaskStore`"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Installs Kafka, using the Strimzi operator"
-msgstr ""
+msgstr "Instala Kafka, utilizando el operador Strimzi"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Creates the Kafka topic our A2A Agent applications will use to replicate `EventQueue` events"
-msgstr ""
+msgstr "Crea el tema Kafka que utilizarán nuestras aplicaciones del Agente A2A para replicar los eventos de `EventQueue` "
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Creates a `ConfigMap` containing database connection properties, kafka bootstrap servers and the URL of the Agent"
-msgstr ""
+msgstr "Crea un `ConfigMap` que contiene las propiedades de conexión a la base de datos, los servidores de arranque de kafka y la URL del Agente."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Deploys our A2A Agent application"
-msgstr ""
+msgstr "Despliega nuestra aplicación Agente A2A"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Some of these steps take several minutes, so you need to be patient!"
-msgstr ""
+msgstr "Algunos de estos pasos llevan varios minutos, ¡así que debe tener paciencia!"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Once everything is up and running you will see a message like this:"
-msgstr ""
+msgstr "Una vez que todo esté en marcha, verá un mensaje como éste:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid ""
 "=========================================\n"
 "Deployment completed successfully!\n"
@@ -276,16 +339,21 @@ msgid ""
 "    -Dexec.mainClass=\"io.a2a.examples.cloud.A2ACloudExampleClient\" \\\n"
 "    -Dagent.url=\"http://localhost:8080\""
 msgstr ""
+"\n"
+" ¡Despliegue completado con éxito!\n"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Now that everything is deployed, simply copy the above command and run it:"
-msgstr ""
+msgstr "Ahora que todo está desplegado, simplemente copie el comando anterior y ejecútelo:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "You should now see output like the following"
-msgstr ""
+msgstr "Ahora debería ver una salida como la siguiente"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid ""
 "=============================================\n"
 "A2A Cloud Deployment Example Client\n"
@@ -352,190 +420,238 @@ msgid ""
 "    - Event replication is working (subscriber sees events from all pods)\n"
 "    - Database persistence is working (task state shared across pods)"
 msgstr ""
+"\n"
+" Ejemplo de cliente de despliegue en la nube A2A\n"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The source code for the client can be found in https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/test/java/io/a2a/examples/cloud/A2ACloudExampleClient.java[`A2ACloudExampleClient`]."
-msgstr ""
+msgstr "El código fuente del cliente se encuentra en link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/test/java/io/a2a/examples/cloud/A2ACloudExampleClient.java[A2ACloudExampleClient] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We will not show the full source code here, but in a nutshell what the client does is:"
-msgstr ""
+msgstr "No mostraremos aquí el código fuente completo, pero en pocas palabras lo que hace el cliente es:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Fetch the `AgentCard` of our A2A Agent."
-msgstr ""
+msgstr "Obtenga la dirección `AgentCard` de nuestro Agente A2A."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Send an initial `Message` containing a `TextPart` with the text `create`. We will see in the next section how the server uses this to create a new `Task`. This `Task` is then returned to the client, and on the server side the A2A Java SDK will create an entry in the `JPADatabaseTaskStore` for the `Task`, and also `ReplicatedQueueManager` makes sure that the `EventQueue` for the `Task` remains open since the `Task` is in a non-final state."
-msgstr ""
+msgstr "Envía un `Message` inicial que contiene un `TextPart` con el texto `create` . Veremos en la siguiente sección cómo el servidor utiliza esto para crear un nuevo `Task` . Este `Task` se devuelve entonces al cliente, y en el lado del servidor el SDK Java A2A creará una entrada en el `JPADatabaseTaskStore` para el `Task` , y también `ReplicatedQueueManager` se asegura de que el `EventQueue` para el `Task` permanece abierto ya que el `Task` está en un estado no final."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Calls `resubscribe()` for events to the `Task` we just created. The resulting subscription is kept open until the end TODO step. It does not matter if this call is handled on the same, or a different, node as in the previous step since the `TaskStore` is backed by a database, and `QueueManager` is replicated."
-msgstr ""
+msgstr "Llama a `resubscribe()` para que envíe los eventos a la dirección `Task` que acabamos de crear. La suscripción resultante se mantiene abierta hasta el final del paso TODO. No importa si esta llamada se realiza en el mismo nodo, o en otro diferente, que en el paso anterior, ya que `TaskStore` está respaldado por una base de datos, y `QueueManager` está replicado."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The client then sends several `process` `Message` s to the server. It creates a new connection each time. Since there are two pods, it is not deterministic which pod will handle the request. During the course of the full run, both pods should get invoked. Again, updates to the `Task` should be reflected in the database-backed `TaskStore` and all `Events` are replicated to all nodes.  On the server-side, an `Artifact` is added to the `Task` containing the name of the pod that processed the `Message`."
-msgstr ""
+msgstr "A continuación, el cliente envía varios `process` `Message` s al servidor. Cada vez crea una nueva conexión. Dado que hay dos pods, no es determinista qué pod se encargará de la solicitud. Durante el transcurso de la ejecución completa, ambos pods deberían ser invocados. De nuevo, las actualizaciones de `Task` deben reflejarse en la base de datos `TaskStore` y todos los `Events` se replican en todos los nodos. En el lado del servidor, se añade un `Artifact` al `Task` que contiene el nombre del pod que procesó el `Message` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The subscriber from 3. outputs the messages as they come in, and keeps track of which nodes have been involved in processing `Message` s. The information about which node processed the message, is contained in the `Task` artifacts, as mentioned in the last point."
-msgstr ""
+msgstr "El abonado de 3. emite los mensajes a medida que llegan, y mantiene un registro de los nodos que han participado en el procesamiento de `Message` s. La información sobre qué nodo procesó el mensaje, está contenida en los artefactos de `Task` , como se mencionó en el último punto."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Finally, we send a `complete` `Message` to the A2A Agent, which puts the `Task` in a final state. This causes the `EventQueue` to be closed, which in turn causes the closure of the stream the client subscriber is subscribed to. Note that we receive the `Task` with this `completed` artifact from the server before the stream and subscription end."
-msgstr ""
+msgstr "Por último, enviamos un `complete` `Message` al agente A2A, que pone el `Task` en estado final. Esto provoca el cierre de `EventQueue` , lo que a su vez provoca el cierre del flujo al que está suscrito el suscriptor cliente. Observe que recibimos el `Task` con este artefacto `completed` del servidor antes de que finalicen el flujo y la suscripción."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The important thing to note, is that it does not matter which node the client subscription happens on, nor which nodes the messages are sent on. Since the `TaskStore` is persistent, and the `Event` s replicated, everything is received by the client as if there was only one A2A Agent node involved."
-msgstr ""
+msgstr "Lo importante a tener en cuenta es que no importa en qué nodo se produzca la suscripción del cliente, ni en qué nodos se envíen los mensajes. Dado que el `TaskStore` es persistente, y el `Event` s replicado, todo es recibido por el cliente como si sólo hubiera un nodo del Agente A2A implicado."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The Server Part of the Application"
-msgstr ""
+msgstr "La parte del servidor de la aplicación"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "First let us look briefly at how the application has been written. As usual in an A2A application, you provide implementations of `AgentCard` and `AgentExecutor` via CDI."
-msgstr ""
+msgstr "Primero veamos brevemente cómo se ha escrito la aplicación. Como es habitual en una aplicación A2A, usted proporciona implementaciones de `AgentCard` y `AgentExecutor` a través de CDI."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Our `AgentCard` is provided by https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/main/java/io/a2a/examples/cloud/CloudAgentCardProducer.java[`CloudAgentCardProducer`]. The most important parts are highlighted:"
-msgstr ""
+msgstr "Nuestro `AgentCard` es proporcionado por link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/main/java/io/a2a/examples/cloud/CloudAgentCardProducer.java[CloudAgentCardProducer] . Se destacan las partes más importantes:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The agent url is configurable, and is set by https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L53[`k8s/05-agent-deployment.yaml`] referencing a value from the ConfigMap configured in https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/04-agent-configmap.yaml#L11[`k8s/04-agent-configmap.yaml`]"
-msgstr ""
+msgstr "La url del agente es configurable, y se establece link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L53[k8s/05-agent-deployment.yaml] haciendo referencia a un valor del ConfigMap configurado en link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/04-agent-configmap.yaml#L11[k8s/04-agent-configmap.yaml]"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We have enabled streaming, since this is needed for the `resubscribe()` call done by the client"
-msgstr ""
+msgstr "Hemos habilitado el streaming, ya que es necesario para la llamada a `resubscribe()` realizada por el cliente"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Then we have a brief description of the `start`, `process` and `complete` 'commands' we saw the client send"
-msgstr ""
+msgstr "A continuación tenemos una breve descripción de los \"comandos\" `start` , `process` y `complete` que vimos que el cliente enviaba"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The `AgentExecutor` is provided by https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/main/java/io/a2a/examples/cloud/CloudAgentExecutorProducer.java[`CloudAgentExecutorProducer`] (some code has been removed to keep the example manageable):"
-msgstr ""
+msgstr "La dirección `AgentExecutor` es link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/src/main/java/io/a2a/examples/cloud/CloudAgentExecutorProducer.java[CloudAgentExecutorProducer] (se ha eliminado parte del código para mantener el ejemplo manejable):"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "A TaskUpdater is created with the `RequestContext` and the `EventQueue`. Note that even for new `Task`s, the framework will have created the `EventQueue` for us."
-msgstr ""
+msgstr "Se crea un TaskUpdater con el `RequestContext` y el `EventQueue` . Tenga en cuenta que incluso para los nuevos `Task`s, the framework will have created the `EventQueue` para nosotros."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We get the name of the pod, as configured in https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L29[`k8s/05-agent-deployment.yaml`]"
-msgstr ""
+msgstr "Obtenemos el nombre del pod, tal y como está configurado en link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L29[k8s/05-agent-deployment.yaml]"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The `start` command sent by the client ends up in this block. This makes a few calls to update the state of the `Task` using the `TaskUpdater`, and adds an `Artifact` indicating which pod started the `Task`. The `TaskUpdater` internally puts `Events` on the `EventQueue` after each of the calls on it, and the A2A Java SDK framework 'listens' to the queue, resulting in updates to the `Task` in the `TaskStore`, and sending results to any clients subscribed to the `Task` (or involved in making triggering this request). Since the `EventQueue` is replicated, the events are also pushed to other nodes in the cluster."
-msgstr ""
+msgstr "La orden `start` enviada por el cliente termina en este bloque. Éste realiza unas cuantas llamadas para actualizar el estado del `Task` utilizando el `TaskUpdater` , y añade un `Artifact` indicando qué pod inició el `Task` . El `TaskUpdater` pone internamente `Events` en el `EventQueue` después de cada una de las llamadas sobre él, y el marco A2A Java SDK 'escucha' la cola, dando lugar a actualizaciones del `Task` en el `TaskStore` , y enviando los resultados a cualquier cliente suscrito al `Task` (o implicado en la realización de la activación de esta solicitud). Dado que `EventQueue` está replicado, los eventos también se envían a otros nodos del clúster."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The `process` messages end up in this block, which again add an `Artifact` to the `Task` via the `TaskUpdater`, which adds an `Event` to the queue. The `Event` is handled in the same way as in the above point."
-msgstr ""
+msgstr "Los mensajes `process` terminan en este bloque, que de nuevo añade un `Artifact` al `Task` a través del `TaskUpdater` , que añade un `Event` a la cola. El `Event` se gestiona de la misma forma que en el punto anterior."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "When a `complete` message is received, we add an `Artifact` to the `Task` using the `TaskUpdater`, indicating which pod is completing the `Task`, and finally use the `TaskUpdater` to set the `Task` state to `completed`. This again results in events on the `EventQueue`, which are handled as before. However, the update to a final state causes the `EventQueue` to be closed, which is also replicated to the other nodes."
-msgstr ""
+msgstr "Cuando se recibe un mensaje `complete` , añadimos un `Artifact` al `Task` utilizando el `TaskUpdater` , indicando qué pod está completando el `Task` , y finalmente utilizamos el `TaskUpdater` para establecer el estado `Task` en `completed` . Esto provoca de nuevo eventos en el `EventQueue` , que se gestionan como antes. Sin embargo, la actualización a un estado final provoca el cierre de `EventQueue` , que también se replica a los demás nodos."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Configuring Quarkus for A2A with `ReplicatedQueueManager` and `JPADatabaseTaskStore`"
-msgstr ""
+msgstr "Configuración de Quarkus para A2A con `ReplicatedQueueManager` y `JPADatabaseTaskStore`"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The two main parts involved in configuring our application, are adding dependencies to the POM, and adding configuration via `application.properties.` We will look at the POM first, and then look at the configuration."
-msgstr ""
+msgstr "Las dos partes principales implicadas en la configuración de nuestra aplicación, son la adición de dependencias al POM, y la adición de la configuración a través de `application.properties.` . Veremos primero el POM, y después la configuración."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Pom Dependencies"
-msgstr ""
+msgstr "Dependencias Pom"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The full POM for the example can be found https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/pom.xml[here]. We will talk about the most important dependencies below, step-by-step."
-msgstr ""
+msgstr "El POM completo para el ejemplo puede encontrarse link:https://github.com/a2aproject/a2a-java/blob/v0.3.1.Final/examples/cloud-deployment/server/pom.xml[aquí] . A continuación hablaremos de las dependencias más importantes paso a paso."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Since we are building a Quarkus based server, and for this case we only want the JSONRPC transport, we can include the following dependency which transitively includes everything else we need for our base A2A Agent server:"
-msgstr ""
+msgstr "Como estamos construyendo un servidor basado en Quarkus, y para este caso sólo queremos el transporte JSONRPC, podemos incluir la siguiente dependencia que incluye transitoriamente todo lo demás que necesitamos para nuestro servidor base del Agente A2A:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Then to override the standard `InMemoryTaskStore` with the `JpaDatabaseTaskStore`, and `InMemoryQueueManager` with `ReplicatedQueueManager` we include their modules"
-msgstr ""
+msgstr "Entonces para anular el estándar `InMemoryTaskStore` con el `JpaDatabaseTaskStore` , y `InMemoryQueueManager` con `ReplicatedQueueManager` incluimos sus módulos"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The `ReplicatedQueueManager` needs a `ReplicationStrategy`. Our `ReactiveMessagingReplicationStrategy` is implemented by this module:"
-msgstr ""
+msgstr "El `ReplicatedQueueManager` necesita un `ReplicationStrategy` . Nuestro `ReactiveMessagingReplicationStrategy` es implementado por este módulo:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "We will configure the `ReactiveMessagingReplicationStrategy` to use Kafka later, so we need the dependency to use Kafka with MicroProfile Reactive Messaging:"
-msgstr ""
+msgstr "Configuraremos el `ReactiveMessagingReplicationStrategy` para utilizar Kafka más adelante, por lo que necesitamos la dependencia para utilizar Kafka con MicroProfile Reactive Messaging:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "For the `JpaDatabaseTaskStore`, we need to add Hibernate, which provides the JPA functionality. Since our example uses PostgreSQL, we include its driver:"
-msgstr ""
+msgstr "Para el `JpaDatabaseTaskStore` , necesitamos añadir Hibernate, que proporciona la funcionalidad JPA. Como nuestro ejemplo utiliza PostgreSQL, incluimos su controlador:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Finally, since we will be deploying our A2A agent in Kubernetes, which uses readiness and liveness probes, we add the following dependency:"
-msgstr ""
+msgstr "Por último, dado que desplegaremos nuestro agente A2A en Kubernetes, que utiliza sondas de disponibilidad y liveness, añadimos la siguiente dependencia:"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "That's it for the POM dependencies!"
-msgstr ""
+msgstr "¡Eso es todo para las dependencias POM!"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Additionally, the POM contains the `quarkus-maven-plugin`, used to build the Quarkus server. This has no special configuration, so see the POM for more details."
-msgstr ""
+msgstr "Además, el POM contiene el `quarkus-maven-plugin` , utilizado para construir el servidor Quarkus. Esto no tiene ninguna configuración especial, así que consulte el POM para más detalles."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Configuration in application.properties"
-msgstr ""
+msgstr "Configuración en application.properties"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The final piece of the puzzle is configuring the A2A Agent Quarkus application in its https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/server/src/main/resources/application.properties[`application.properties`]. Again, let's discuss the contents in chunks."
-msgstr ""
+msgstr "La última pieza del rompecabezas es configurar la aplicación A2A Agent Quarkus en su link:https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/server/src/main/resources/application.properties[application.properties] . De nuevo, vamos a discutir el contenido por partes."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "First we have some simple properties, setting the `agent.url` to use in the `CloudAgentCardProducer`. We also define the location of the health endpoint."
-msgstr ""
+msgstr "En primer lugar tenemos algunas propiedades simples, estableciendo el `agent.url` a utilizar en el `CloudAgentCardProducer` . También definimos la ubicación del punto final de salud."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "`AGENT_URL` comes from https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L53[`05-agent-deployment.yaml`], which in turn references the value defined in https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/04-agent-configmap.yaml#L11[`04-agent-configmap.yaml`]."
-msgstr ""
+msgstr "`AGENT_URL` procede de link:https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L53[05-agent-deployment.yaml] que a su vez hace referencia al valor definido en link:https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/04-agent-configmap.yaml#L11[04-agent-configmap.yaml] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The endpoint matches what is expected by the readiness and liveness probes in https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L65-L80[`05-agent-deployment.yaml`]."
-msgstr ""
+msgstr "El punto final coincide con lo esperado por las sondas de disponibilidad y liveness en link:https://github.com/a2aproject/a2a-java/blob/main/examples/cloud-deployment/k8s/05-agent-deployment.yaml#L65-L80[05-agent-deployment.yaml] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Now we define the database used by our `JpaDatabaseTaskStore`:"
-msgstr ""
+msgstr "Ahora definimos la base de datos utilizada por nuestro `JpaDatabaseTaskStore` :"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The `DATABASE_URL`, `DATABASE_USER` and `DATABASE_PASSWORD` environment variables used are defined in `04-agent-configmap.yaml` and exposed to the application via `05-agent-deployment.yaml`."
-msgstr ""
+msgstr "Las variables de entorno utilizadas `DATABASE_URL` , `DATABASE_USER` y `DATABASE_PASSWORD` se definen en `04-agent-configmap.yaml` y se exponen a la aplicación a través de `05-agent-deployment.yaml` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Next we have the configuration of the `a2a-java` JPA persistence unit, which is used by `JpaDatabaseTaskStore` and `JpaPushNotificationConfigStore`."
-msgstr ""
+msgstr "A continuación tenemos la configuración de la unidad de persistencia JPA de `a2a-java` , que es utilizada por `JpaDatabaseTaskStore` y `JpaPushNotificationConfigStore` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Finally, we have the MicroProfile Reactive Messaging configuration, which maps our channels to Kafka. For more information about how MicroProfile Reactive Messaging works in Quarkus, see this https://quarkus.io/guides/kafka-getting-started[guide]."
-msgstr ""
+msgstr "Por último, tenemos la configuración de MicroProfile Reactive Messaging, que asigna nuestros canales a Kafka. Para más información sobre cómo funciona MicroProfile Reactive Messaging en Quarkus, consulte esta link:https://quarkus.io/guides/kafka-getting-started[guía] ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Under the hood, the `ReactiveMessagingReplicationStrategy` uses MicroProfile Reactive Messaging. It uses an `Emitter` writing to a channel called `replicated-events-out`, and has an `@Incoming` annotated method receiving events from a channel called `replicated-events-in`."
-msgstr ""
+msgstr "Bajo el capó, el `ReactiveMessagingReplicationStrategy` utiliza Mensajería Reactiva MicroProfile. Utiliza un `Emitter` que escribe en un canal llamado `replicated-events-out` , y tiene un método anotado `@Incoming` que recibe eventos de un canal llamado `replicated-events-in` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "`KAFKA_BOOTSTRAP_SERVERS` is defined in `04-agent-configmap.yaml` and exposed to the application via `05-agent-deployment.yaml`."
-msgstr ""
+msgstr "`KAFKA_BOOTSTRAP_SERVERS` se define en `04-agent-configmap.yaml` y se expone a la aplicación a través de `05-agent-deployment.yaml` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "Both the `replicated-events-out` and `replicated-events-in` channels use the Kafka connector, send/receive on the same Kafka topic, and (de)serialize `String`."
-msgstr ""
+msgstr "Tanto el canal `replicated-events-out` como `replicated-events-in` utilizan el conector Kafka, envían/reciben en el mismo tema Kafka y (de)serializan `String` ."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "`POD_NAME` is exposed to the application in `05-agent-deployment.yaml`, which obtains it from the Kubernetes metadata. This has the effect of setting a unique groupId, so that all pods in the cluster receive the replicated events."
-msgstr ""
+msgstr "`POD_NAME` se expone a la aplicación en `05-agent-deployment.yaml` , que lo obtiene de los metadatos de Kubernetes. Esto tiene el efecto de establecer un groupId único, para que todos los pods del clúster reciban los eventos replicados."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
 #, fuzzy
@@ -543,8 +659,9 @@ msgid "Conclusion"
 msgstr "Conclusión"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "The simple in-memory of the components shown are great for getting up and running fast. However, to work in an enterprise, distributed, or cloud environment we need to replace these components to use shared state, in order to survive server reboots and have replication between A2A Agent instances."
-msgstr ""
+msgstr "La simple in-memory de los componentes mostrados es estupenda para ponerse en marcha rápidamente. Sin embargo, para trabajar en un entorno empresarial, distribuido o en la nube necesitamos reemplazar estos componentes para utilizar estado compartido, con el fin de sobrevivir a los reinicios del servidor y tener replicación entre instancias del Agente A2A."
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
 #, fuzzy
@@ -562,8 +679,9 @@ msgid "https://quarkus.io/blog/quarkus-a2a-java-0-3-0-beta-release/[A2A Java SDK
 msgstr "link:https://quarkus.io/blog/quarkus-a2a-java-0-3-0-beta-release/[A2A Java SDK: Ya está aquí el soporte para el transporte REST]"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
+#, fuzzy
 msgid "https://quarkus.io/blog/quarkus-a2a-java-grpc/[Getting Started with A2A Java SDK and gRPC]"
-msgstr ""
+msgstr "link:https://quarkus.io/blog/quarkus-a2a-java-grpc/[Primeros pasos con A2A Java SDK y gRPC]"
 
 #: _posts/2025-10-31-quarkus-a2a-cloud-enhancements.adoc
 #, fuzzy
