@@ -987,11 +987,10 @@ msgid "The following snippet shows how to create a transaction executing two rel
 msgstr "El siguiente fragmento muestra cómo crear una transacción que ejecute dos _escrituras_ relacionadas:"
 
 #: _versions/3.27/guides/redis-reference.adoc
-#, fuzzy
 msgid ""
-"The received `tx` object can also be used to _discard_ the transaction, using: `tx.discard();`.\n"
+"The received `tx` object can also be used to _discard_ the transaction, using `tx.discard()`.\n"
 "The returned `TransactionResult` lets you retrieve the result of each command."
-msgstr "El objeto `tx` recibido también puede utilizarse para _descartar_ la transacción, utilizando: `tx.discard();` . El objeto devuelto `TransactionResult` permite recuperar el resultado de cada comando."
+msgstr ""
 
 #: _versions/3.27/guides/redis-reference.adoc
 #, fuzzy
@@ -999,12 +998,11 @@ msgid "When using the reactive variant of the data source, the passed callback i
 msgstr "Cuando se utiliza la variante reactiva de la fuente de datos, la devolución de llamada pasada es un `Function&amp;lt;ReactiveTransactionalRedisDataSource, Uni&amp;lt;Void&amp;gt;&amp;gt;`:"
 
 #: _versions/3.27/guides/redis-reference.adoc
-#, fuzzy
 msgid ""
 "Transaction execution can be conditioned by _keys_.\n"
 "When a passed key gets modified during the execution of a transaction, the transaction is discarded.\n"
-"The keys are passed as `String` as a second parameter to the `withTransaction` method:"
-msgstr "La ejecución de una transacción puede estar condicionada por _claves_ . Cuando una clave pasada se modifica durante la ejecución de una transacción, ésta se descarta. Las claves se pasan como `String` como segundo parámetro al método `withTransaction` :"
+"The keys are passed as ``String``s to the second, vararg parameter of the `withTransaction` method:"
+msgstr ""
 
 #: _versions/3.27/guides/redis-reference.adoc
 #, fuzzy
@@ -1017,11 +1015,10 @@ msgid "Implement the optimistic locking pattern"
 msgstr "Implementar el patrón de bloqueo optimista"
 
 #: _versions/3.27/guides/redis-reference.adoc
-#, fuzzy
 msgid ""
-"To use optimistic locking, you need to use a variant of the `withTransaction` method, allowing the execution of code before the transaction starts.\n"
+"To use optimistic locking, you need to use a variant of the `withTransaction` method allowing execution of code before the transaction starts.\n"
 "In other words, it will be executed as follows:"
-msgstr "Para utilizar el bloqueo optimista, es necesario utilizar una variante del método `withTransaction` , que permite la ejecución de código antes de que se inicie la transacción. En otras palabras, se ejecutará de la siguiente manera:"
+msgstr ""
 
 #: _versions/3.27/guides/redis-reference.adoc
 #, fuzzy
@@ -1047,9 +1044,52 @@ msgid ""
 msgstr "Los bloques pretransaccional y transaccional se invocan en la misma conexión Redis. En consecuencia, el bloque pretransaccional debe utilizar la fuente de datos pasada para ejecutar los comandos. Así, los comandos se emiten desde esa conexión. Estos comandos no deben modificar las claves vigiladas."
 
 #: _versions/3.27/guides/redis-reference.adoc
-#, fuzzy
-msgid "The transaction is aborted if the pre-transaction block throws an exception (or produces a failure when using the reactive API)."
-msgstr "La transacción se cancela si el bloque de pretransacción lanza una excepción (o produce un fallo cuando se utiliza la API reactiva)."
+msgid "Error handling"
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid ""
+"If the transaction block returns successfully (or completes with an item in case of the reactive API), the transaction is executed.\n"
+"Note that in this case, some transaction commands may succeed and some may fail; this is standard Redis behavior.\n"
+"The `TransactionResult.hasErrors()` method indicates whether at least one command failed.\n"
+"Results of failed commands in the `TransactionResult` are represented as ``Throwable``s.\n"
+"If the transaction block throws an exception (or completes with a failure in case of the reactive API), the transaction is discarded automatically and the exception is rethrown (or the resulting `Uni` completes with the same failure in case of the reactive API)."
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid ""
+"In case of the optimistic locking API, if the pre-transaction block returns successfully (or completes with an item in case of the reactive API), the transaction is started and execution proceeds to the transaction block.\n"
+"If the pre-transaction block throws an exception (or completes with a failure in case of the reactive API), all watched keys are ``UNWATCH``ed automatically and the exception is rethrown (or the resulting `Uni` completes with the same failure in case of the reactive API).\n"
+"In this case, the transaction is not started and the transaction block is not executed."
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid "Transactions in Redis Cluster"
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid "In the cluster mode, transaction commands (`MULTI`, `EXEC`, `DISCARD`, `WATCH`, `UNWATCH`) are handled specially."
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid "By default, transactions in cluster are disabled and transaction commands immediately fail."
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid ""
+"It is however possible to enable single-node transactions by setting `quarkus.redis.cluster-transactions` to `single-node`.\n"
+"Note that this setting only makes sense in the cluster mode and is ignored otherwise."
+msgstr ""
+
+#: _versions/3.27/guides/redis-reference.adoc
+msgid ""
+"In this mode, the `MULTI` command is queued and is only issued when the next command is executed.\n"
+"This next command binds the connection to the corresponding node of the Redis cluster (so it should have keys, otherwise the target node is random).\n"
+"All subsequent commands are targeted to that node.\n"
+"If some of the subsequent commands have a key that belongs to another node, the command fails on the server side.\n"
+"If `WATCH` is used before `MULTI`, its key(s) determine to which node the connection is bound and the subsequent `MULTI` is not queued.\n"
+"If `WATCH` keys belong to multiple nodes, the command fails on the client side."
+msgstr ""
 
 #: _versions/3.27/guides/redis-reference.adoc
 #, fuzzy
@@ -1190,11 +1230,10 @@ msgid "Configure Redis hosts programmatically"
 msgstr "Proporcionar hosts de Redis mediante un programa"
 
 #: _versions/3.27/guides/redis-reference.adoc
-#, fuzzy
 msgid ""
-"The `RedisHostsProvider` programmatically provides redis hosts.\n"
-"This allows for configuration of properties like redis connection password coming from other sources."
-msgstr "La página `RedisHostsProvider` proporciona mediante programación los hosts de redis. Esto permite configurar propiedades como la contraseña de conexión a redis procedentes de otras fuentes."
+"The `RedisHostsProvider` programmatically provides Redis hosts.\n"
+"This allows for configuration of properties like Redis connection password coming from other sources."
+msgstr ""
 
 #: _versions/3.27/guides/redis-reference.adoc
 #, fuzzy
