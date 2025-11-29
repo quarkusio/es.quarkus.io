@@ -13,7 +13,7 @@ El texto extraído se almacena en el [directorio l10n](l10n) como un archivo .po
 ## Contribución a la traducción
 
 Si desea contribuir a la traducción, clone este repositorio localmente, edite el archivo .po en [directorio l10n](l10n) y envíe un Pull-Request.
-Puede consultar el estado de traducción de cada archivo desde [aquí](l10n/stats/translation.csv).
+Puede consultar el estado de traducción en los archivos más recientes del directorio [l10n/stats](l10n/stats), como [latest-guides-translation.csv](l10n/stats/latest-guides-translation.csv) y [main-guides-translation.csv](l10n/stats/main-guides-translation.csv).
 
 ## Declaración para iniciar la traducción
 
