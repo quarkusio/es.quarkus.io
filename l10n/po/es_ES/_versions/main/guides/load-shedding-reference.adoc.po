@@ -12,12 +12,13 @@ msgid "Load Shedding reference guide"
 msgstr "Guía de referencia sobre el deslastre de cargas"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "Load shedding is the practice of detecting service overload and rejecting requests.\n"
 "By rejecting requests when overloaded, load shedding keeps the application alive.\n"
 "With priority load shedding, the application even keeps working, albeit in a degraded state: only a fraction of requests is handled, others are rejected early.\n"
 "You should consider using it if your application runs in a dynamic environment with a real risk of getting overloaded and is not fronted by another service that sheds load already."
-msgstr ""
+msgstr "La eliminación de la carga es la práctica de detectar la sobrecarga del servicio y rechazar las solicitudes. Al rechazar las solicitudes cuando están sobrecargadas, la eliminación de la carga mantiene viva la aplicación. Con la eliminación prioritaria de la carga, la aplicación incluso sigue funcionando, aunque en un estado degradado: sólo se gestiona una fracción de las solicitudes, las demás se rechazan antes de tiempo. Debería considerar su uso si su aplicación se ejecuta en un entorno dinámico con un riesgo real de sobrecargarse y no está liderada por otro servicio que ya realiza el desprendimiento de carga."
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -43,35 +44,41 @@ msgid "build.gradle"
 msgstr "build.gradle"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "When added, load shedding is enabled.\n"
 "It can be disabled by setting `quarkus.load-shedding.enabled` to `false`."
-msgstr ""
+msgstr "Cuando se añade, se activa el deslastre de carga. Se puede desactivar ajustando `quarkus.load-shedding.enabled` a `false` ."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "There are 2 variants of load shedding: pure and priority-based.\n"
 "Pure load shedding rejects all requests when overload is detected.\n"
 "Priority load shedding only rejects a fraction of requests even if overload is detected, based on application-defined criteria.\n"
 "By default, priority load shedding is enabled.\n"
 "It can be disabled by setting `quarkus.load-shedding.priority.enabled` to `false.`"
-msgstr ""
+msgstr "Existen 2 variantes de desconexión de la carga: pura y basada en la prioridad. La desconexión de carga pura rechaza todas las solicitudes cuando se detecta una sobrecarga. El deslastre de carga prioritario sólo rechaza una fracción de las solicitudes aunque se detecte sobrecarga, basándose en criterios definidos por la aplicación. Por defecto, la eliminación de carga prioritaria está activada. Puede desactivarse ajustando `quarkus.load-shedding.priority.enabled` a `false.`"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "There are 2 ways of customizing priority load shedding:"
-msgstr ""
+msgstr "Hay 2 formas de personalizar la eliminación prioritaria de la carga:"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "By implementing `io.quarkus.load.shedding.RequestPrioritizer`, the application can decide which requests can be rejected early on and which requests can only be rejected when there's no other choice."
-msgstr ""
+msgstr "Mediante la implementación de `io.quarkus.load.shedding.RequestPrioritizer` , la aplicación puede decidir qué solicitudes pueden rechazarse antes de tiempo y cuáles sólo cuando no haya más remedio."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "By implementing `io.quarkus.load.shedding.RequestClassifier`, the application can classify requests into cohorts which are rejected independently."
-msgstr ""
+msgstr "Mediante la implementación de `io.quarkus.load.shedding.RequestClassifier` , la aplicación puede clasificar las solicitudes en cohortes que se rechazan de forma independiente."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "Other configuration options are described below, although they should typically be left untouched."
-msgstr ""
+msgstr "A continuación se describen otras opciones de configuración, aunque normalmente deben dejarse intactas."
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -104,23 +111,26 @@ msgid "To detect whether the current service is overloaded, an adaptation of TCP
 msgstr "Para detectar si el servicio actual está sobrecargado, se utiliza una adaptación de TCP Vegas."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "This algorithm starts with a configurable limit of in-flight requests, by default 100.\n"
 "If the current number of concurrent in-flight requests reaches the limit, overload situation is signalled."
-msgstr ""
+msgstr "Este algoritmo comienza con un límite configurable de solicitudes en vuelo, por defecto 100. Si el número actual de solicitudes concurrentes en vuelo alcanza el límite, se señaliza una situación de sobrecarga."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "That is not very interesting, but the algorithm dynamically adjusts the limit based on the size of the request queue.\n"
 "If the queue is short, more requests can be handled and the limit increases; if the queue is long, fewer requests can be handled and the limit decreases.\n"
 "The limit cannot be increased indefinitely; there's a configurable maximum, by default 1000."
-msgstr ""
+msgstr "Eso no es muy interesante, pero el algoritmo ajusta dinámicamente el límite en función del tamaño de la cola de solicitudes. Si la cola es corta, se pueden atender más solicitudes y el límite aumenta; si la cola es larga, se pueden atender menos solicitudes y el límite disminuye. El límite no puede aumentarse indefinidamente; hay un máximo configurable, por defecto 1000."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "There's no actual queue of requests that we could monitor, though, so the algorithm estimates the current length of a request queue based on previously seen response times.\n"
 "The longer recent requests take, compared to the recent lowest response time, the longer the queue is supposed to be."
-msgstr ""
+msgstr "Sin embargo, no existe una cola real de solicitudes que podamos supervisar, por lo que el algoritmo estima la longitud actual de una cola de solicitudes basándose en los tiempos de respuesta vistos anteriormente. Cuanto más tiempo tarden las solicitudes recientes, en comparación con el tiempo de respuesta más bajo reciente, más larga se supone que es la cola."
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -133,20 +143,23 @@ msgid "If an overload situation is signalled, priority load shedding is invoked.
 msgstr "Si se señala una situación de sobrecarga, se invoca el desacoplamiento prioritario de la carga."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "If priority load shedding is disabled, there's nothing to do and all requests are rejected immediately.\n"
 "However, by default, priority load shedding is enabled, which means a request is only rejected if the current CPU load is high enough."
-msgstr ""
+msgstr "Si la eliminación de carga prioritaria está desactivada, no hay nada que hacer y todas las solicitudes se rechazan inmediatamente. Sin embargo, por defecto, la eliminación de carga prioritaria está activada, lo que significa que una solicitud sólo se rechaza si la carga actual de la CPU es lo suficientemente alta."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "Priority load shedding is currently always based on CPU load.\n"
 "Other mechanisms are possible (such as network utilization), but currently not implemented."
-msgstr ""
+msgstr "Actualmente, la eliminación de la carga prioritaria se basa siempre en la carga de la CPU. Otros mecanismos son posibles (como la utilización de la red), pero actualmente no están implementados."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "To determine whether a request should be rejected, 2 attributes are considered:"
-msgstr ""
+msgstr "Para determinar si una solicitud debe ser rechazada, se tienen en cuenta 2 atributos:"
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -164,17 +177,19 @@ msgid "There are 5 statically defined priorities and 128 cohorts, which amounts 
 msgstr "Hay 5 prioridades definidas estáticamente y 128 cohortes, lo que supone 640 grupos de solicitudes en total."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "After both priority and cohort are assigned to a request, a request group number is computed.\n"
 "The group number is smaller for higher priority requests and higher for lower priority requests.\n"
 "If the group number is higher that the current CPU load, the request is rejected, otherwise it is allowed even in an overload situation."
-msgstr ""
+msgstr "Después de asignar tanto la prioridad como la cohorte a una solicitud, se calcula un número de grupo de solicitud. El número de grupo es menor para las solicitudes de mayor prioridad y mayor para las de menor prioridad. Si el número de grupo es superior a la carga actual de la CPU, la solicitud se rechaza, de lo contrario se permite incluso en una situación de sobrecarga."
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid ""
 "The group number is actually not compared to the CPU load directly; instead, it is compared to a function of CPU load.\n"
 "The function is `(1 - load^3) * 640`, where `load` is the CPU load as a number between 0.0 and 1.0, and 640 is a number of requests group as mentioned above."
-msgstr ""
+msgstr "En realidad, el número de grupo no se compara con la carga de la CPU directamente, sino con una función de la carga de la CPU. La función es `(1 - load^3) * 640` , donde `load` es la carga de la CPU como un número entre 0,0 y 1,0, y 640 es un número de grupo de peticiones como se mencionó anteriormente."
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -285,8 +300,9 @@ msgid "https://netflixtechblog.com/keeping-netflix-reliable-using-prioritized-lo
 msgstr "link:https://netflixtechblog.com/keeping-netflix-reliable-using-prioritized-load-shedding-6cc827b02f94[Mantener la fiabilidad de Netflix mediante la reducción prioritaria de la carga]"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "https://netflixtechblog.com/enhancing-netflix-reliability-with-service-level-prioritized-load-shedding-e735e6ce8f7d[Enhancing Netflix Reliability with Service-Level Prioritized Load Shedding]"
-msgstr ""
+msgstr "link:https://netflixtechblog.com/enhancing-netflix-reliability-with-service-level-prioritized-load-shedding-e735e6ce8f7d[Mejora de la fiabilidad de Netflix con el corte de carga priorizado a nivel de servicio]"
 
 #: _versions/main/guides/load-shedding-reference.adoc
 #, fuzzy
@@ -339,13 +355,16 @@ msgid "https://www.codereliant.io/load-shedding/[Load Shedding for High Traffic 
 msgstr "link:https://www.codereliant.io/load-shedding/[Reducción de carga para sistemas de alto tráfico]"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "TCP Vegas:"
-msgstr ""
+msgstr "TCP Vegas:"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "https://www.geeksforgeeks.org/computer-networks/basic-concept-of-tcp-vegas/[Basic concept of TCP-Vegas]"
-msgstr ""
+msgstr "link:https://www.geeksforgeeks.org/computer-networks/basic-concept-of-tcp-vegas/[Concepto básico de TCP-Vegas]"
 
 #: _versions/main/guides/load-shedding-reference.adoc
+#, fuzzy
 msgid "TCP Congestion Control: A Systems Approach, https://tcpcc.systemsapproach.org/avoidance.html[Chapter 5: Avoidance-Based Algorithms]"
-msgstr ""
+msgstr "Control de la congestión TCP: A Systems Approach, link:https://tcpcc.systemsapproach.org/avoidance.html[Capítulo 5: Algoritmos basados en la evasión]"
