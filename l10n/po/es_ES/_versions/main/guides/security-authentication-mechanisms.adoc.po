@@ -1199,11 +1199,24 @@ msgstr "Utilice la política de seguridad HTTP para activar la autenticación ba
 msgid "The following configuration example demonstrates how you can enforce a single selectable authentication mechanism for a given request path:"
 msgstr "Puede imponer que sólo se seleccione un único mecanismo de autenticación para una ruta de solicitud determinada, por ejemplo:"
 
-#. type: Plain text
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
-msgid "Ensure that the value of the `auth-mechanism` property matches the authentication scheme supported by `HttpAuthenticationMechanism`, for example, `basic`, `bearer`, or `form`."
-msgstr "El valor de la propiedad `auth-mechanism` debe coincidir con el esquema de autenticación soportado por HttpAuthenticationMechanism como `basic` o `bearer` o `form`, etc."
+msgid "The REST endpoint `/hello/basic` can only ever be accessed by using the <<basic-auth>>."
+msgstr "Sólo se puede acceder al punto final REST `/hello/basic` utilizando la dirección <<basic-auth>> ."
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The REST endpoint `/hello/bearer` can only ever be accessed by using the xref:security-oidc-bearer-token-authentication.adoc[OIDC bearer token authentication mechanism]."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The REST endpoint `/hello/custom` can only ever be accessed by using a custom `HttpAuthenticationMechanism` with a `custom` authentication scheme."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"Ensure that the value of the `auth-mechanism` property matches the authentication scheme supported by `HttpAuthenticationMechanism`, for example, `basic`, `bearer` or `custom`.\n"
+"For example, for the `quarkus.http.auth.permission.custom.auth-mechanism=custom` expression to be effective, a custom `HttpAuthenticationMechanism` implementation must set its authentication scheme to `custom` in its `HttpAuthenticationMechanism#getCredentialTransport` method implementation."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1220,14 +1233,8 @@ msgid ""
 msgstr "Es posible utilizar anotaciones para seleccionar un mecanismo de autenticación específico para cada punto final REST de Jakarta. Esta función sólo está habilitada cuando <<proactive-auth>> está deshabilitada debido a que las anotaciones sólo pueden utilizarse para seleccionar mecanismos de autenticación después de que un punto final REST haya sido emparejado. A continuación se explica cómo puede seleccionar un mecanismo de autenticación por punto final REST:"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "The REST endpoint `/hello/basic` can only ever be accessed by using the <<basic-auth>>."
-msgstr "Sólo se puede acceder al punto final REST `/hello/basic` utilizando la dirección <<basic-auth>> ."
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "This endpoint requires authentication, because when no standard security annotation accompanies the `@BasicAuthentication` annotation, the `@Authenticated` annotation is added by default."
-msgstr "Este punto final requiere autenticación, ya que cuando ninguna anotación de seguridad estándar acompaña a la anotación `@BasicAuthentication` , la anotación `@Authenticated` se añade por defecto."
+msgid "The `/hello/basic` endpoint requires authentication, because when no standard security annotation accompanies the `@BasicAuthentication` annotation, the `@Authenticated` annotation is added by default."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1238,6 +1245,16 @@ msgstr "La anotación `@AuthorizationCodeFlow` puede combinarse con cualquier ot
 #, fuzzy
 msgid "The REST endpoint `/hello/code-flow` can only ever be accessed by using the xref:security-oidc-code-flow-authentication.adoc[OIDC authorization code flow mechanism]."
 msgstr "Sólo se puede acceder al punto final REST `/hello/code-flow` utilizando el xref:security-oidc-code-flow-authentication.adoc[mecanismo de flujo de código de autorización OIDC] ."
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The `/hello/custom` endpoint requires authentication, because when no standard security annotation accompanies the `@HttpAuthenticationMechanism` annotation, the `@Authenticated` annotation is added by default."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"Ensure that the value of the `@HttpAuthenticationMechanism` annotation matches the authentication scheme supported by `HttpAuthenticationMechanism`.\n"
+"For example, for `@HttpAuthenticationMechanism(\"custom\")` to work, a custom `io.quarkus.vertx.http.runtime.security.HttpAuthenticationMechanism` implementation must set its authentication scheme to `custom` in its `HttpAuthenticationMechanism#getCredentialTransport` method implementation."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
