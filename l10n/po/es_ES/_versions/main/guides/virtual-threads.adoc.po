@@ -326,11 +326,20 @@ msgid ""
 "The platform thread is blocked in this situation, precisely as it would have been in a typical blocking scenario."
 msgstr "La promesa de un \"bloqueo barato\" puede no cumplirse siempre: un hilo virtual puede _bloquear_ a su portador en determinadas ocasiones. El hilo de la plataforma está bloqueado en esta situación, precisamente como lo estaría en un escenario de bloqueo típico."
 
-#. type: Plain text
 #: _versions/main/guides/virtual-threads.adoc
-#, fuzzy
-msgid "According to link:{vthreadjep}[JEP 425] this can happen in two situations:"
-msgstr "Según  link:{vthreadjep}[el PEC 425], esto puede ocurrir en dos situaciones:"
+msgid ""
+"**Java 24+ Improvement:** Starting with Java 24, thanks to link:https://openjdk.org/jeps/491[JEP 491: Synchronize Virtual Threads without Pinning], `synchronized` blocks and methods **no longer cause pinning**.\n"
+"This is a major improvement that eliminates one of the most common pinning scenarios.\n"
+"However, native code interactions can still cause pinning (see below)."
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "According to link:{vthreadjep}[JEP 425], pinning can happen in the following situations:"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "*On Java 21-23:*"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/virtual-threads.adoc
@@ -345,13 +354,19 @@ msgid "when it executes a blocking operation inside a native method or a foreign
 msgstr "cuando ejecuta una operación de bloqueo dentro de un método nativo o una función ajena"
 
 #: _versions/main/guides/virtual-threads.adoc
-#, fuzzy
+msgid "*On Java 24+:*"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "when a virtual thread calls native code (via JNI or the Foreign Function & Memory API) and that native code calls back to Java code that performs a blocking operation"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
 msgid ""
 "It can be reasonably easy to avoid these situations in your code, but verifying every dependency you use is hard.\n"
-"Typically, while experimenting with virtual threads, we realized that versions older than 42.6.0 of the link:{pgsql-driver}[postgresql-JDBC driver] result in frequent pinning.\n"
-"Most JDBC drivers still pin the carrier thread.\n"
-"Even worse, many libraries require code changes."
-msgstr "Puede ser razonablemente fácil evitar estas situaciones en su código, pero verificar cada dependencia que utiliza es difícil. Por lo general, mientras experimentábamos con hilos virtuales, nos dimos cuenta de que las versiones anteriores a la 42.6.0 del link:{pgsql-driver}[controlador postgresql-JDBC] provocan un pinning frecuente. La mayoría de los controladores JDBC siguen anclando el hilo portador. Peor aún, muchas librerías requieren cambios en el código."
+"Typically, while experimenting with virtual threads, we realized that versions older than 42.6.0 of the link:{pgsql-driver}[postgresql-JDBC driver] result in frequent pinning on Java 21-23.\n"
+"On Java 24+, most JDBC drivers no longer pin the carrier thread due to the synchronized improvements."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/virtual-threads.adoc
@@ -360,12 +375,11 @@ msgid "For more information, see link:https://quarkus.io/blog/virtual-thread-1/[
 msgstr "Para más información, véase  link:https://quarkus.io/blog/virtual-thread-1/[Cuando Quarkus se encuentra con hilos virtuales]"
 
 #: _versions/main/guides/virtual-threads.adoc
-#, fuzzy
 msgid ""
-"This information about pinning cases applies to PostgreSQL JDBC driver 42.5.4 and earlier.\n"
+"This information about pinning cases applies to PostgreSQL JDBC driver 42.5.4 and earlier on Java 21-23.\n"
 "For PostgreSQL JDBC driver 42.6.0 and later, virtually all synchronized methods have been replaced by reentrant locks.\n"
 "For more information, see the link:https://jdbc.postgresql.org/changelogs/2023-03-17-42.6.0-release/[Notable Changes] for PostgreSQL JDBC driver 42.6.0."
-msgstr "Esta información sobre los casos de bloqueo se aplica al controlador PostgreSQL JDBC 42.5.4 y anteriores. Para el controlador PostgreSQL JDBC 42.6.0 y posteriores, prácticamente todos los métodos sincronizados han sido sustituidos por bloqueos reentrantes. Para más información, consulte los link:https://jdbc.postgresql.org/changelogs/2023-03-17-42.6.0-release/[Cambios notables] para el controlador PostgreSQL JDBC 42.6.0."
+msgstr ""
 
 #. type: Title ====
 #: _versions/main/guides/virtual-threads.adoc
@@ -665,11 +679,26 @@ msgid "Detect pinned thread in tests"
 msgstr "Detectar el hilo fijado en las pruebas"
 
 #: _versions/main/guides/virtual-threads.adoc
-#, fuzzy
+msgid "**Java 24+ Change:** The `-Djdk.tracePinnedThreads` system property is **no longer available starting with Java 24**. This flag has been removed as part of the virtual thread improvements introduced in link:https://openjdk.org/jeps/491[JEP 491]. For Java 24+, use the JFR (Java Flight Recorder) events or the Quarkus testing extensions described below to detect pinning."
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "*For Java 21-23 only:*"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
 msgid ""
-"We recommend to use the following configuration when running tests in application using virtual threads.\n"
-"If would not fail the tests, but at least dump start traces if the code pins the carrier thread:"
-msgstr "Recomendamos utilizar la siguiente configuración cuando ejecute pruebas en aplicaciones que utilicen hilos virtuales. Si no fallaría las pruebas, pero al menos volcaría las trazas de inicio si el código pincha el hilo portador:"
+"We recommend using the following configuration when running tests in applications using virtual threads.\n"
+"It will not fail the tests, but at least dump stack traces if the code pins the carrier thread:"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "*For all Java versions (21+):*"
+msgstr ""
+
+#: _versions/main/guides/virtual-threads.adoc
+msgid "For a more robust approach that works on all Java versions, use the `junit-virtual-threads` extension described in the xref:testing-virtual-thread-applications[Testing virtual thread applications] section below. This extension uses JFR events to detect pinning and works consistently across Java 21, 24, and later versions."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/virtual-threads.adoc

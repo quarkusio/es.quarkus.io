@@ -91,9 +91,14 @@ msgid "2) In the maven-surefire-plugin and maven-failsafe-plugin configurations,
 msgstr "2) En las configuraciones maven-surefire-plugin y maven-failsafe-plugin, añada el siguiente parámetro `argLine` :"
 
 #: _versions/main/guides/rest-virtual-threads.adoc
-#, fuzzy
-msgid "The `-Djdk.tracePinnedThreads` will detect pinned carrier threads while running tests (See xref:./virtual-threads.adoc#pinning[the virtual thread reference guide for details])."
-msgstr "`-Djdk.tracePinnedThreads` detectará los hilos portadores fijados mientras se ejecutan las pruebas (consulte  link:./virtual-threads.html#pinning[la guía de referencia de hilos virtuales para obtener más detalles])."
+msgid ""
+"The `-Djdk.tracePinnedThreads` system property **only works on Java 21-23**.\n"
+"It has been removed in Java 24+. For Java 24+, use the JFR events or Quarkus testing extensions instead (see the xref:./virtual-threads.adoc#testing-virtual-thread-applications[Testing virtual thread applications] section)."
+msgstr ""
+
+#: _versions/main/guides/rest-virtual-threads.adoc
+msgid "The `-Djdk.tracePinnedThreads` will detect pinned carrier threads while running tests on Java 21-23 (See xref:./virtual-threads.adoc#pinning[the virtual thread reference guide for details])."
+msgstr ""
 
 #: _versions/main/guides/rest-virtual-threads.adoc
 #, fuzzy
@@ -237,14 +242,23 @@ msgid ""
 msgstr "La `-Djdk.tracePinnedThreads` vuelca el rastro de pila si un hilo virtual no puede _desmontarse_ sin problemas (lo que significa que bloquea el hilo portador). Es lo que llamamos _pinning_ (más información en xref:./virtual-threads.adoc#pinning[la guía de referencia] de hilos virtuales)."
 
 #: _versions/main/guides/rest-virtual-threads.adoc
-#, fuzzy
+msgid "This flag **only works on Java 21-23** and has been removed in Java 24+. For Java 24+, use the Quarkus `junit-virtual-threads` extension described in xref:./virtual-threads.adoc#testing-virtual-thread-applications[the virtual thread reference guide], which uses JFR events to detect pinning across all Java versions."
+msgstr ""
+
+#: _versions/main/guides/rest-virtual-threads.adoc
 msgid ""
-"We recommend enabling this flag in tests.\n"
+"Starting with Java 24, thanks to link:https://openjdk.org/jeps/491[JEP 491], `synchronized` blocks no longer cause pinning.\n"
+"This means pinning is much less likely to occur on Java 24+, occurring only when native code calls back to Java code that performs blocking operations."
+msgstr ""
+
+#: _versions/main/guides/rest-virtual-threads.adoc
+msgid ""
+"We recommend enabling pinning detection in tests.\n"
 "Thus, you can check that your application behaves correctly when using virtual threads.\n"
 "Just check your log after having run the test.\n"
-"If you see a stack trace... better check what's wrong.\n"
-"If your code (or one of your dependencies) pins, it might be better to use regular worker thread instead."
-msgstr "Le recomendamos activar esta bandera en las pruebas. Así, podrá comprobar que su aplicación se comporta correctamente al utilizar hilos virtuales. Sólo tiene que comprobar su registro después de haber ejecutado la prueba. Si ve un stack trace... mejor compruebe qué es lo que va mal. Si su código (o una de sus dependencias) falla, puede que sea mejor utilizar hilos worker normales en su lugar."
+"If you see a stack trace (on Java 21-23) or pinning events (using the junit-virtual-threads extension), better check what's wrong.\n"
+"If your code (or one of your dependencies) pins, it might be better to use regular worker threads instead."
+msgstr ""
 
 #: _versions/main/guides/rest-virtual-threads.adoc
 #, fuzzy
