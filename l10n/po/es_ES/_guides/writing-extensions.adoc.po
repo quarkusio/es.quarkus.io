@@ -2520,12 +2520,11 @@ msgid "Extension Metrics"
 msgstr "Métricas de extensión"
 
 #: _guides/writing-extensions.adoc
-#, fuzzy
 msgid ""
-"The `quarkus-micrometer` extension and the `quarkus-smallrye-metrics` extension provide support for collecting metrics.\n"
+"The `quarkus-micrometer` extension provide support for collecting metrics.\n"
 "As a compatibility note, the `quarkus-micrometer` extension adapts the MP Metrics API to Micrometer library primitives, so the `quarkus-micrometer` extension can be enabled without breaking code that relies on the MP Metrics API.\n"
 "Note that the metrics emitted by Micrometer are different, see the `quarkus-micrometer` extension documentation for more information."
-msgstr "La extensión `quarkus-micrometer` y la extensión `quarkus-smallrye-metrics` proporcionan soporte para la recogida de métricas. Como nota de compatibilidad, la extensión `quarkus-micrometer` adapta la API de métricas MP a las primitivas de la biblioteca Micrometer, por lo que la extensión `quarkus-micrometer` puede habilitarse sin romper el código que depende de la API de métricas MP. Tenga en cuenta que las métricas emitidas por Micrometer son diferentes, consulte la documentación de la extensión `quarkus-micrometer` para obtener más información."
+msgstr ""
 
 #. type: Plain text
 #: _guides/writing-extensions.adoc
@@ -2545,11 +2544,9 @@ msgstr "Hay dos patrones generales que las extensiones pueden utilizar para inte
 msgid "Consumer pattern: An extension declares a `MetricsFactoryConsumerBuildItem` and uses that to provide a bytecode recorder to the metrics extension. When the metrics extension has initialized, it will iterate over registered consumers to initialize them with a `MetricsFactory`. This factory can be used to declare API-agnostic metrics, which can be a good fit for extensions that provide an instrumentable object for gathering statistics (e.g. Hibernate's `Statistics` class)."
 msgstr "Patrón del consumidor: Una extensión declara un `MetricsFactoryConsumerBuildItem` y lo utiliza para proporcionar un registrador de bytecode a la extensión de métricas. Cuando la extensión de métricas se haya inicializado, iterará sobre los consumidores registrados para inicializarlos con un `MetricsFactory`. Esta fábrica puede utilizarse para declarar métricas agnósticas a la API, lo que puede ser un buen ajuste para las extensiones que proporcionan un objeto instrumentable para recopilar estadísticas (por ejemplo, la clase `Statistics` de Hibernate)."
 
-#. type: Plain text
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "Binder pattern: An extension can opt to use completely different gathering implementations depending on the metrics system. An `Optional<MetricsCapabilityBuildItem> metricsCapability` build step parameter can be used to declare or otherwise initialize API-specific metrics based on the active metrics extension (e.g. \"smallrye-metrics\" or \"micrometer\"). This pattern can be combined with the consumer pattern by using `MetricsFactory::metricsSystemSupported()` to test the active metrics extension within the recorder."
-msgstr "Patrón Binder: Una extensión puede optar por utilizar implementaciones de recopilación completamente diferentes en función del sistema de métricas. Se puede utilizar un parámetro de paso de construcción `Optional&amp;lt;MetricsCapabilityBuildItem&amp;gt; metricsCapability` para declarar o inicializar de otro modo métricas específicas de la API basadas en la extensión de métricas activa (por ejemplo, \"smallrye-metrics\" o \"micrometer\"). Este patrón puede combinarse con el patrón de consumo utilizando `MetricsFactory::metricsSystemSupported()` para probar la extensión de métrica activa dentro del registrador."
+msgid "Binder pattern: An extension can opt to use completely different gathering implementations depending on the metrics system. An `Optional<MetricsCapabilityBuildItem> metricsCapability` build step parameter can be used to declare or otherwise initialize API-specific metrics based on the active metrics extension (e.g. \"micrometer\"). This pattern can be combined with the consumer pattern by using `MetricsFactory::metricsSystemSupported()` to test the active metrics extension within the recorder."
+msgstr ""
 
 #. type: Plain text
 #: _guides/writing-extensions.adoc
@@ -2593,17 +2590,13 @@ msgstr "Caso 1: La biblioteca utiliza directamente una biblioteca de métricas"
 msgid "If the library directly uses a metrics API, there are two options:"
 msgstr "Si la biblioteca utiliza directamente una API de métricas, hay dos opciones:"
 
-#. type: Plain text
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "Use an `Optional<MetricsCapabilityBuildItem> metricsCapability` parameter to test which metrics API is supported (e.g. \"smallrye-metrics\" or \"micrometer\") in your build step, and use that to selectively declare or initialize API-specific beans or build items."
-msgstr "Utiliza un parámetro `Optional&amp;lt;MetricsCapabilityBuildItem&amp;gt; metricsCapability` para comprobar qué API de métricas es compatible (por ejemplo, \"smallrye-metrics\" o \"micrometer\") en tu paso de compilación, y utilízalo para declarar o inicializar selectivamente beans o elementos de compilación específicos de la API."
+msgid "Use an `Optional<MetricsCapabilityBuildItem> metricsCapability` parameter to test which metrics API is supported (e.g. \"micrometer\") in your build step, and use that to selectively declare or initialize API-specific beans or build items."
+msgstr ""
 
-#. type: Plain text
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "Create a separate build step that consumes a `MetricsFactory`, and use the `MetricsFactory::metricsSystemSupported()` method within the bytecode recorder to initialize required resources if the desired metrics API is supported (e.g. \"smallrye-metrics\" or \"micrometer\")."
-msgstr "Cree un paso de construcción separado que consuma un `MetricsFactory`, y utilice el método `MetricsFactory::metricsSystemSupported()` dentro del registrador de bytecode para inicializar los recursos necesarios si la API de métricas deseada es compatible (por ejemplo, \"smallrye-metrics\" o \"micrometer\")."
+msgid "Create a separate build step that consumes a `MetricsFactory`, and use the `MetricsFactory::metricsSystemSupported()` method within the bytecode recorder to initialize required resources if the desired metrics API is supported (e.g. \"micrometer\")."
+msgstr ""
 
 #. type: Plain text
 #: _guides/writing-extensions.adoc
@@ -2949,14 +2942,13 @@ msgid "Testing Extensions"
 msgstr "Probar las extensiones"
 
 #: _guides/writing-extensions.adoc
-#, fuzzy
 msgid ""
-"Testing of Quarkus extensions should be done with the `io.quarkus.test.QuarkusUnitTest` JUnit 5 extension.\n"
+"Testing of Quarkus extensions should be done with the `io.quarkus.test.QuarkusUnitTest` JUnit extension.\n"
 "This extension allows for Arquillian-style tests that test specific functionalities.\n"
 "It is not intended for testing user applications, as this should be done via `io.quarkus.test.junit.QuarkusTest`.\n"
 "The main difference is that `QuarkusTest` simply boots the application once at the start of the run, while `QuarkusUnitTest` deploys a custom\n"
 "Quarkus application for each test class."
-msgstr "Las pruebas de las extensiones de Quarkus deben realizarse con la extensión JUnit 5 de `io.quarkus.test.QuarkusUnitTest` . Esta extensión permite realizar pruebas al estilo Arquillian que comprueban funcionalidades específicas. No está pensada para probar aplicaciones de usuario, ya que esto debe hacerse a través de `io.quarkus.test.junit.QuarkusTest` . La principal diferencia es que `QuarkusTest` simplemente arranca la aplicación una vez al inicio de la ejecución, mientras que `QuarkusUnitTest` despliega una aplicación Quarkus personalizada para cada clase de prueba."
+msgstr ""
 
 #: _guides/writing-extensions.adoc
 #, fuzzy
@@ -2965,11 +2957,9 @@ msgid ""
 "their deployment modules should also be added as test scoped dependencies."
 msgstr "Estas pruebas deben colocarse en el módulo de despliegue, si se requieren módulos adicionales de Quarkus para las pruebas, sus módulos de despliegue también deben añadirse como dependencias con alcance de prueba."
 
-#. type: Plain text
 #: _guides/writing-extensions.adoc
-#, fuzzy
-msgid "Note that `QuarkusUnitTest` is in the `quarkus-junit5-internal` module."
-msgstr "Tenga en cuenta que `QuarkusUnitTest` está en el módulo `quarkus-junit5-internal`."
+msgid "Note that `QuarkusUnitTest` is in the `quarkus-junit-internal` module."
+msgstr ""
 
 #. type: Plain text
 #: _guides/writing-extensions.adoc

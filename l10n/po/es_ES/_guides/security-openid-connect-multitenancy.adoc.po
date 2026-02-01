@@ -272,11 +272,6 @@ msgstr "Para iniciar un servidor Keycloak, puede utilizar Docker y ejecutar el s
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
-msgid "where `keycloak.version` is set to `{keycloak-server-version}` or higher."
-msgstr "donde `keycloak.version` se ajusta a `{keycloak-server-version}` o superior."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
 msgid "Access your Keycloak server at http://localhost:8180[localhost:8180]."
 msgstr "Acceda a su servidor Keycloak en link:http://localhost:8180[localhost:8180] ."
 
@@ -731,13 +726,17 @@ msgstr "<<configure-tenant-paths>>"
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
-msgid "<<default-tenant-resolver>>"
-msgstr "<<default-tenant-resolver>>"
+msgid "<<issuer-based-tenant-resolver>>"
+msgstr "<<issuer-based-tenant-resolver>>"
+
+#: _guides/security-openid-connect-multitenancy.adoc
+msgid "<<header-based-tenant-resolver>>"
+msgstr ""
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
-msgid "<<issuer-based-tenant-resolver>>"
-msgstr "<<issuer-based-tenant-resolver>>"
+msgid "<<default-tenant-resolver>>"
+msgstr "<<default-tenant-resolver>>"
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
@@ -802,6 +801,66 @@ msgstr "El mecanismo de coincidencia de rutas funciona exactamente igual que en 
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
+msgid "Resolve tenants with a token issuer claim"
+msgstr "Resolver las reclamaciones de los arrendatarios con un emisor de fichas"
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid ""
+"OIDC tenants which support Bearer token authentication can be resolved using the access token's issuer.\n"
+"The following conditions must be met for the issuer-based resolution to work:"
+msgstr "Los inquilinos de OIDC que admiten la autenticación mediante token de portador pueden resolverse utilizando el emisor del token de acceso. Deben cumplirse las siguientes condiciones para que funcione la resolución basada en el emisor:"
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "The access token must be in the JWT format and contain an issuer (`iss`) token claim."
+msgstr "El token de acceso debe estar en formato JWT y contener una reivindicación de token de emisor ( `iss` )."
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "Only OIDC tenants with the application type `service` or `hybrid` are considered. These tenants must have a token issuer discovered or configured."
+msgstr "Sólo se tienen en cuenta los arrendatarios OIDC con el tipo de aplicación `service` o `hybrid` . Estos inquilinos deben tener un emisor de tokens descubierto o configurado."
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "The issuer-based resolution is enabled with the `quarkus.oidc.resolve-tenants-with-issuer` property. For example:"
+msgstr "La resolución basada en el emisor se activa con la propiedad `quarkus.oidc.resolve-tenants-with-issuer` . Por ejemplo:"
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "Tenants `tenant-a` and `tenant-b` are resolved using a JWT access token's issuer `iss` claim value."
+msgstr "Los inquilinos `tenant-a` y `tenant-b` se resuelven utilizando el valor de reclamación del emisor `iss` de un token de acceso JWT."
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "Tenant `tenant-a` discovers the `issuer` from the OIDC provider's well-known configuration endpoint."
+msgstr "El arrendatario `tenant-a` descubre el `issuer` desde el punto final de configuración conocido del proveedor de OIDC."
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
+msgid "Tenant `tenant-b` configures the `issuer` because its OIDC provider does not support the discovery."
+msgstr "El arrendatario `tenant-b` configura el `issuer` porque su proveedor de OIDC no admite el descubrimiento."
+
+#: _guides/security-openid-connect-multitenancy.adoc
+msgid "Resolve tenants with a token header name"
+msgstr ""
+
+#: _guides/security-openid-connect-multitenancy.adoc
+msgid ""
+"OIDC tenants that support Bearer token authentication can be resolved using the custom HTTP header that contains the token.\n"
+"Header-based resolution is enabled when the `quarkus.oidc.token.header` property is set to a value other than `Authorization`. For example:"
+msgstr ""
+
+#: _guides/security-openid-connect-multitenancy.adoc
+msgid "Tenant `tenant-a` is resolved when the incoming HTTP request contains the `Custom-Authorization-1` header."
+msgstr ""
+
+#: _guides/security-openid-connect-multitenancy.adoc
+msgid "Tenant `tenant-b` is resolved if the request contains the `Custom-Authorization-2` header."
+msgstr ""
+
+#: _guides/security-openid-connect-multitenancy.adoc
+#, fuzzy
 msgid "Use request path segments to find tenant id"
 msgstr "Utilizar segmentos de la ruta de solicitud para encontrar el id de arrendatario"
 
@@ -847,48 +906,6 @@ msgid ""
 "Default resolution can also work for Bearer token authentication.\n"
 "Still, it might be less practical because a tenant identifier must always be set as the last path segment value."
 msgstr "La resolución por defecto también puede funcionar para la autenticación con token de portador. Aun así, puede resultar menos práctico porque siempre debe establecerse un identificador de inquilino como último valor del segmento de ruta."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Resolve tenants with a token issuer claim"
-msgstr "Resolver las reclamaciones de los arrendatarios con un emisor de fichas"
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid ""
-"OIDC tenants which support Bearer token authentication can be resolved using the access token's issuer.\n"
-"The following conditions must be met for the issuer-based resolution to work:"
-msgstr "Los inquilinos de OIDC que admiten la autenticación mediante token de portador pueden resolverse utilizando el emisor del token de acceso. Deben cumplirse las siguientes condiciones para que funcione la resolución basada en el emisor:"
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "The access token must be in the JWT format and contain an issuer (`iss`) token claim."
-msgstr "El token de acceso debe estar en formato JWT y contener una reivindicación de token de emisor ( `iss` )."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Only OIDC tenants with the application type `service` or `hybrid` are considered. These tenants must have a token issuer discovered or configured."
-msgstr "Sólo se tienen en cuenta los arrendatarios OIDC con el tipo de aplicación `service` o `hybrid` . Estos inquilinos deben tener un emisor de tokens descubierto o configurado."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "The issuer-based resolution is enabled with the `quarkus.oidc.resolve-tenants-with-issuer` property. For example:"
-msgstr "La resolución basada en el emisor se activa con la propiedad `quarkus.oidc.resolve-tenants-with-issuer` . Por ejemplo:"
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Tenants `tenant-a` and `tenant-b` are resolved using a JWT access token's issuer `iss` claim value."
-msgstr "Los inquilinos `tenant-a` y `tenant-b` se resuelven utilizando el valor de reclamación del emisor `iss` de un token de acceso JWT."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Tenant `tenant-a` discovers the `issuer` from the OIDC provider's well-known configuration endpoint."
-msgstr "El arrendatario `tenant-a` descubre el `issuer` desde el punto final de configuración conocido del proveedor de OIDC."
-
-#: _guides/security-openid-connect-multitenancy.adoc
-#, fuzzy
-msgid "Tenant `tenant-b` configures the `issuer` because its OIDC provider does not support the discovery."
-msgstr "El arrendatario `tenant-b` configura el `issuer` porque su proveedor de OIDC no admite el descubrimiento."
 
 #: _guides/security-openid-connect-multitenancy.adoc
 #, fuzzy

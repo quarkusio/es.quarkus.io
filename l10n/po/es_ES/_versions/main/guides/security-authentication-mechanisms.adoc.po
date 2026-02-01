@@ -1121,6 +1121,114 @@ msgid "The authentication process completes as soon as the first `SecurityIdenti
 msgstr "El proceso de autenticación se completa en cuanto uno de los mecanismos de autenticación produce el primer `SecurityIdentity` ."
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Priority of authentication mechanisms"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"Quarkus Security uses a priority system to determine which mechanism gets the first chance to produce `SecurityIdentity`.\n"
+"The authentication mechanism priority affects the order of:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "**Credential Verification:** Mechanisms with a higher priority are asked to verify credentials first. The first one to validate credentials wins."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "**Authentication Challenge:** If the request is unauthenticated, mechanisms with a higher priority are asked to issue a challenge first."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The default priorities can be overridden using the configuration properties listed below."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Priorities of the supported authentication mechanisms"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "Authentication mechanism^"
+msgstr "Mecanismo de autenticación^"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Configuration property^"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Default priority"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "Basic authentication mechanism"
+msgstr "Mecanismo básico de autenticación"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.http.auth.basic.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "2000"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "Form-based authentication mechanism"
+msgstr "Mecanismo de autenticación basado en formularios"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.http.auth.form.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "1000"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "Mutual TLS authentication mechanism"
+msgstr "Mecanismo de autenticación mutua TLS"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.http.auth.mtls.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "1000 by default, 3000 when an inclusive authentication is enabled"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "WebAuthn authentication mechanism"
+msgstr "Mecanismo de autenticación WebAuthn"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.webauthn.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "OIDC authentication mechanism"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.oidc.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "1001"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+#, fuzzy
+msgid "SmallRye JWT authentication mechanism"
+msgstr "Mecanismo de autenticación JWT de SmallRye"
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "`quarkus.smallrye-jwt.priority`"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
 msgid "Inclusive Authentication"
 msgstr "Autenticación inclusiva"
@@ -1150,12 +1258,10 @@ msgid ""
 msgstr "Si la autenticación es inclusiva, entonces `SecurityIdentity` creado por el primer mecanismo de autenticación puede inyectarse en el código de la aplicación. Por ejemplo, si se requieren autenticaciones tanto de <<mutual-tls>> como del mecanismo de autenticación básica, el mecanismo <<mutual-tls>> creará primero `SecurityIdentity` ."
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid ""
-"The <<mutual-tls>> mechanism has the highest priority when inclusive authentication is enabled, to ensure\n"
-"that an injected `SecurityIdentity` always represents <<mutual-tls>> and can be used to get access to `SecurityIdentity`\n"
-"identities provided by other authentication mechanisms."
-msgstr "El mecanismo <<mutual-tls>> tiene la máxima prioridad cuando está activada la autenticación inclusiva, para garantizar que un `SecurityIdentity` inyectado siempre representa a <<mutual-tls>> y puede utilizarse para acceder a `SecurityIdentity` identidades proporcionadas por otros mecanismos de autenticación."
+"When an inclusive authentication is enabled, the <<mutual-tls>> mechanism has the highest priority by default, to reflect on the fact that when it is used, it is enforced early at the transport level, and to ensure that an injected `SecurityIdentity` represents a <<mutual-tls>> authentication.\n"
+"If you need an injected `SecurityIdentity` to represent another authentication mechanism, <<authentication-mechanisms-priority, configure the mechanism priority>>."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1182,6 +1288,24 @@ msgstr "Otros mecanismos de autenticación aplicables realizaron la autenticaci�
 #, fuzzy
 msgid "You cannot combine the Quarkus `quarkus-oidc` Bearer token and `smallrye-jwt` authentication mechanisms because both mechanisms attempt to verify the token extracted from the HTTP Bearer token authentication scheme."
 msgstr "No se pueden combinar los mecanismos de autenticación Quarkus `quarkus-oidc` Bearer token y `smallrye-jwt` porque ambos mecanismos intentan verificar el token extraído del esquema de autenticación HTTP Bearer token."
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Authorization with multiple identities"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Authorization is always performed on the first produced `SecurityIdentity`. For example:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The `deleteEntity` method can only be accessed if the first `SecurityIdentity` has the `admin` role. <<authentication-mechanisms-priority, Configure the mechanism priority>> to impact which authentication mechanism is used to produce the first `SecurityIdentity`."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"If you want to perform authorization on all `SecurityIdentity` instances, you must do it manually.\n"
+"For example, to check if a permission is allowed at least by one of the identities, use a `@PermissionChecker` annotation:"
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1215,11 +1339,41 @@ msgid "The REST endpoint `/hello/custom` can only ever be accessed by using a cu
 msgstr "Sólo se puede acceder al punto final REST `/hello/custom` utilizando un `HttpAuthenticationMechanism` personalizado con un esquema de autenticación `custom` ."
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The REST endpoint `/hello/basic-bearer` can be accessed either by using the xref:security-oidc-bearer-token-authentication.adoc[OIDC bearer token authentication mechanism], or by using the <<basic-auth>>."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
 msgid ""
 "Ensure that the value of the `auth-mechanism` property matches the authentication scheme supported by `HttpAuthenticationMechanism`, for example, `basic`, `bearer` or `custom`.\n"
 "For example, for the `quarkus.http.auth.permission.custom.auth-mechanism=custom` expression to be effective, a custom `HttpAuthenticationMechanism` implementation must set its authentication scheme to `custom` in its `HttpAuthenticationMechanism#getCredentialTransport` method implementation."
 msgstr "Asegúrese de que el valor de la propiedad `auth-mechanism` coincide con el esquema de autenticación admitido por `HttpAuthenticationMechanism` , por ejemplo, `basic` , `bearer` o `custom` . Por ejemplo, para que la expresión `quarkus.http.auth.permission.custom.auth-mechanism=custom` sea efectiva, una implementación personalizada de `HttpAuthenticationMechanism` debe establecer su esquema de autenticación en `custom` en su implementación del método `HttpAuthenticationMechanism#getCredentialTransport` ."
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "Use HTTP Security Policy inclusive path-based authentication"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"When an <<inclusive-authentication, inclusive authentication>> is enabled in a `strict` mode, every selected authentication mechanism must provide the `SecurityIdentity`.\n"
+"For example:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid "The REST endpoint `/hello/basic-bearer` can be accessed only if both the xref:security-oidc-bearer-token-authentication.adoc[OIDC bearer token authentication mechanism] and the <<basic-auth>> have successfully provided `SecurityIdentity`."
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"When an <<inclusive-authentication, inclusive authentication>> is enabled in a `lax` mode, every selected authentication mechanism will have a chance to provide its own `SecurityIdentity`, with at least one of the mechanisms expected to produce `SecurityIdentity`.\n"
+"Consider the following example:"
+msgstr ""
+
+#: _versions/main/guides/security-authentication-mechanisms.adoc
+msgid ""
+"The REST endpoint `/hello/basic-bearer` uses both the xref:security-oidc-bearer-token-authentication.adoc[OIDC bearer token authentication mechanism] and the <<basic-auth>>.\n"
+"Access is granted if at least one of them successfully provides `SecurityIdentity`."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1269,18 +1423,8 @@ msgstr "Anotaciones de mecanismos de autenticación admitidos"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
-msgid "Authentication mechanism^"
-msgstr "Mecanismo de autenticación^"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid "Annotation"
 msgstr "Anotación"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "Basic authentication mechanism"
-msgstr "Mecanismo básico de autenticación"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1289,28 +1433,13 @@ msgstr "`io.quarkus.vertx.http.runtime.security.annotation.BasicAuthentication`"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
-msgid "Form-based authentication mechanism"
-msgstr "Mecanismo de autenticación basado en formularios"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid "`io.quarkus.vertx.http.runtime.security.annotation.FormAuthentication`"
 msgstr "`io.quarkus.vertx.http.runtime.security.annotation.FormAuthentication`"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
-msgid "Mutual TLS authentication mechanism"
-msgstr "Mecanismo de autenticación mutua TLS"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid "`io.quarkus.vertx.http.runtime.security.annotation.MTLSAuthentication`"
 msgstr "`io.quarkus.vertx.http.runtime.security.annotation.MTLSAuthentication`"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "WebAuthn authentication mechanism"
-msgstr "Mecanismo de autenticación WebAuthn"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1331,11 +1460,6 @@ msgstr "Mecanismo de flujo de código de autorización OIDC"
 #, fuzzy
 msgid "`io.quarkus.oidc.AuthorizationCodeFlow`"
 msgstr "`io.quarkus.oidc.AuthorizationCodeFlow`"
-
-#: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
-msgid "SmallRye JWT authentication mechanism"
-msgstr "Mecanismo de autenticación JWT de SmallRye"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy
@@ -1365,12 +1489,11 @@ msgid "Use inclusive authentication to enable path-based authentication"
 msgstr "Utilice la autenticación inclusiva para habilitar la autenticación basada en rutas"
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
-#, fuzzy
 msgid ""
-"By default, Quarkus only supports <<path-based-authentication>> for one authentication mechanism per path.\n"
-"If more than one authentication mechanism must be used for the path-based authentication, you can write a custom `HttpAuthenticationMechanism` as documented in the xref:security-customization.adoc#dealing-with-more-than-one-http-auth-mechanisms[Dealing with more than one HttpAuthenticationMechanism] section of the Security Tips and Tricks guide.\n"
+"By default, Quarkus only supports <<use-annotations-for-path-based-auth>> for one authentication mechanism selected with annotation per REST endpoint.\n"
+"If more than one authentication mechanism must be used for the <<path-based-authentication>>, you can write a custom `HttpAuthenticationMechanism` as documented in the xref:security-customization.adoc#dealing-with-more-than-one-http-auth-mechanisms[Dealing with more than one HttpAuthenticationMechanism] section of the Security Tips and Tricks guide.\n"
 "Another option is to enable <<inclusive-authentication>> in the lax mode and write a custom `HttpSecurityPolicy` or `PermissionChecker` that verifies that all registered HTTP authentication mechanisms created their mechanism-specific `SecurityIdentity`."
-msgstr "Por defecto, Quarkus sólo admite <<path-based-authentication>> para un mecanismo de autenticación por ruta. Si debe utilizarse más de un mecanismo de autenticación para la autenticación basada en la ruta, puede escribir un `HttpAuthenticationMechanism` personalizado como se documenta en la sección xref:security-customization.adoc#dealing-with-more-than-one-http-auth-mechanisms[Cómo tratar con más de un mecanismo de autenticación Http] de la guía Consejos y trucos de seguridad. Otra opción es habilitar <<inclusive-authentication>> en el modo lax y escribir un `HttpSecurityPolicy` o `PermissionChecker` personalizado que verifique que todos los mecanismos de autenticación HTTP registrados crearon su `SecurityIdentity` específico del mecanismo."
+msgstr ""
 
 #: _versions/main/guides/security-authentication-mechanisms.adoc
 #, fuzzy

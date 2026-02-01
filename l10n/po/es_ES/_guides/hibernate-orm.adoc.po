@@ -890,6 +890,18 @@ msgid "See <<programmatically-resolving-tenants-connections>>."
 msgstr "Véase <<programmatically-resolving-tenants-connections>> ."
 
 #: _guides/hibernate-orm.adoc
+msgid "`org.hibernate.boot.model.FunctionContributor`"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "See <<custom-functions-and-types>>."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "`org.hibernate.boot.model.TypeContributor`"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
 #, fuzzy
 msgid "Activate/deactivate persistence units"
 msgstr "Activar/desactivar unidades de persistencia"
@@ -1680,6 +1692,30 @@ msgstr "En este momento la extensión no expone propiedades de configuración ad
 msgid "For more information about Hibernate Envers, see link:https://hibernate.org/orm/envers/[hibernate.org/orm/envers/]."
 msgstr "Para obtener más información sobre Hibernate Envers, consulte  link:https://hibernate.org/orm/envers/[hibernate.org/orm/envers/]."
 
+#: _guides/hibernate-orm.adoc
+msgid "Hibernate Spatial"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "The Spatial extension to Hibernate ORM provides a standardized, cross-database interface to geographic data storage and query functions."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "To use Hibernate Spatial, you simply need to add the dependency to your project:"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Additional dependency to enable Hibernate Spatial"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "The dependency version is managed by Quarkus, so you don't need to specify it explicitly."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "You can find all information about Spatial in the Hibernate user guide: link:{hibernate-orm-docs-url}#spatial[Hibernate ORM Spatial]."
+msgstr ""
+
 #. type: Title ==
 #: _guides/hibernate-orm.adoc
 #, fuzzy, no-wrap
@@ -1687,13 +1723,12 @@ msgid "Metrics"
 msgstr "Métrica"
 
 #: _guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
-"Either xref:telemetry-micrometer.adoc[Micrometer] or xref:smallrye-metrics.adoc[SmallRye Metrics] are\n"
+"xref:telemetry-micrometer.adoc[Micrometer] is\n"
 "capable of exposing metrics that Hibernate ORM collects at runtime. To enable exposure of Hibernate metrics\n"
-"on the `/q/metrics` endpoint, make sure your project depends on a metrics extension and set the configuration property `quarkus.hibernate-orm.metrics.enabled` to `true`.\n"
-"When using xref:smallrye-metrics.adoc[SmallRye Metrics], metrics will be available under the `vendor` scope."
-msgstr "Tanto xref:telemetry-micrometer.adoc[Micrometer] como SmallRye xref:smallrye-metrics.adoc[Metrics] son capaces de exponer las métricas que Hibernate ORM recopila en tiempo de ejecución. Para habilitar la exposición de las métricas de Hibernate en el punto final `/q/metrics` , asegúrese de que su proyecto depende de una extensión de métricas y establezca la propiedad de configuración `quarkus.hibernate-orm.metrics.enabled` en `true` . Si utiliza SmallRye xref:smallrye-metrics.adoc[Metrics] , las métricas estarán disponibles en el ámbito `vendor` ."
+"on the `/q/metrics` endpoint, make sure your project depends on a metrics extension and set the configuration\n"
+"property `quarkus.hibernate-orm.metrics.enabled` to `true`."
+msgstr ""
 
 #. type: Title ==
 #: _guides/hibernate-orm.adoc
@@ -2235,6 +2270,29 @@ msgstr "Las xref:automatic-integration[integraciones automáticas] *no* funciona
 msgid "Here is an implementation example of a `TenantConnectionResolver` implementation using standard Quarkus technologies – Agroal for pooling and Narayana for transactions:"
 msgstr "He aquí un ejemplo de aplicación de `TenantConnectionResolver` utilizando tecnologías estándar de Quarkus: Agroal para la puesta en común y Narayana para las transacciones:"
 
+#: _guides/hibernate-orm.adoc
+msgid "Custom functions, types and mappings"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "To register custom SQL functions or types, in Hibernate ORM, you can implement the standard Hibernate interfaces:"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid ""
+"Creating an application-scoped bean that implements one of these interfaces and annotating it with `@PersistenceUnitExtension`\n"
+"(or `@PersistenceUnitExtension(\"nameOfYourPU\")` for a <<multiple-persistence-units,named persistence unit>>)\n"
+"will automatically register it with the corresponding persistence unit."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Here is an example of a custom function contributor:"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "And here is an example of a custom type contributor that registers a custom `UserType` (e.g. mapping a Boolean to \"Y\"/\"N\"):"
+msgstr ""
+
 #. type: Title ==
 #: _guides/hibernate-orm.adoc
 #, fuzzy, no-wrap
@@ -2577,6 +2635,46 @@ msgid ""
 "and https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0[Jakarta Data]\n"
 "guides to learn what else they have to offer."
 msgstr "Consulte las guías correspondientes de link:https://hibernate.org/repositories/[Hibernate Data Repositories] y link:https://jakarta.ee/specifications/data/1.0/jakarta-data-1.0[Jakarta Data] para saber qué más pueden ofrecerle."
+
+#: _guides/hibernate-orm.adoc
+msgid "Secure Jakarta Data repositories"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Quarkus Security provides an initial support for securing Jakarta Data Repositories with security annotations."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Example Jakarta Data repository with method-level security annotation"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Example Jakarta Data repository with class-level security annotation"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid ""
+"In the example above, only methods directly declared on the `MyRepository` interface are secured.\n"
+"Methods inherited from `CrudRepository`, such as `insert`, are not secured because type-level annotations only affect the type they annotate."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid ""
+"Currently, generic interface methods using type variables or wildcards cannot be secured reliably with standard security annotations.\n"
+"Therefore, you must not attempt to secure such methods and instead use two alternatives described below."
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Example repository with a generic method using a type variable"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Alternative 1: Apply a security annotation to the calling method in your REST layer:"
+msgstr ""
+
+#: _guides/hibernate-orm.adoc
+msgid "Alternative 2: Replace the type variable `T` with a concrete type in the repository interface:"
+msgstr ""
 
 #: _guides/hibernate-orm.adoc
 #, fuzzy
