@@ -7,172 +7,211 @@ msgstr ""
 "X-Generator: jekyll-l10n\n"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Apicurio Registry V3 Migration"
-msgstr ""
+msgstr "Migración Apicurio Registry V3"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Migrating from Apicurio Registry 2.x to 3.x"
-msgstr ""
+msgstr "Migración de Apicurio Registry 2.x a 3.x"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "Apicurio Registry 3.x introduces a **breaking change in schema ID format** from 8-byte (long) to 4-byte (int) identifiers.\n"
 "This affects message compatibility between v2 and v3 producers/consumers."
-msgstr ""
+msgstr "Apicurio Registry 3.x introduce un *cambio de ruptura en el formato de los* identificadores *de esquema* , que pasan de 8 bytes (long) a 4 bytes (int). Esto afecta a la compatibilidad de los mensajes entre productores/consumidores v2 y v3."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Schema ID Format Change"
-msgstr ""
+msgstr "Cambio de formato de ID de esquema"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "Apicurio Registry 3.x changed the schema ID format from **8-byte (long)** to **4-byte (int)** identifiers.\n"
 "This means messages produced with v2 cannot be consumed by v3 applications (and vice versa) without explicit configuration."
-msgstr ""
+msgstr "Apicurio Registry 3.x cambió el formato de los identificadores de esquema de *8 bytes (long)* a *4 bytes (int)* . Esto significa que los mensajes producidos con v2 no pueden ser consumidos por las aplicaciones v3 (y viceversa) sin una configuración explícita."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Migration Scenarios"
-msgstr ""
+msgstr "Escenarios de migración"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**New applications (no existing v2 messages):** No configuration needed. The v3 defaults will be used automatically."
-msgstr ""
+msgstr "*Nuevas aplicaciones (sin mensajes v2 existentes):* No es necesaria ninguna configuración. Se utilizarán automáticamente los valores predeterminados de la v3."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Consuming existing v2 messages:** Configure the `Legacy8ByteIdHandler` for channels that need to read v2-produced messages:"
-msgstr ""
+msgstr "*Consumir mensajes v2 existentes:* Configure la dirección `Legacy8ByteIdHandler` para los canales que necesiten leer mensajes producidos por v2:"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Producing v2-compatible messages:** If downstream consumers still use v2, configure the producer:"
-msgstr ""
+msgstr "*Producir mensajes compatibles con v2:* Si los consumidores posteriores siguen utilizando v2, configure el productor:"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Standard ID Handlers: Fixed Format"
-msgstr ""
+msgstr "Manipuladores de identificación estándar: Formato fijo"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "Both v2 (8-byte) and v3 (4-byte) formats use the same magic byte.\n"
 "The standard ID handlers (`Legacy8ByteIdHandler` and `Default4ByteIdHandler`) read a fixed number of bytes based on configuration—there is no per-message auto-detection."
-msgstr ""
+msgstr "Tanto el formato v2 (8 bytes) como el v3 (4 bytes) utilizan el mismo byte mágico. Los manejadores de ID estándar ( `Legacy8ByteIdHandler` y `Default4ByteIdHandler` ) leen un número fijo de bytes basado en la configuración-no hay autodetección por mensaje."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "If a single topic contains mixed messages (some with 8-byte IDs, some with 4-byte IDs), consumers using standard ID handlers will fail.\n"
 "A consumer configured with `Legacy8ByteIdHandler` always reads 8 bytes; one with `Default4ByteIdHandler` always reads 4 bytes.\n"
 "Mismatches cause corruption or deserialization errors."
-msgstr ""
+msgstr "Si un mismo tema contiene mensajes mezclados (algunos con ID de 8 bytes, otros con ID de 4 bytes), los consumidores que utilicen gestores de ID estándar fallarán. Un consumidor configurado con `Legacy8ByteIdHandler` siempre lee 8 bytes; uno con `Default4ByteIdHandler` siempre lee 4 bytes. Los desajustes provocan corrupción o errores de deserialización."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**With standard ID handlers, gradual migration only works when:**"
-msgstr ""
+msgstr "*Con los manipuladores de ID estándar, la migración gradual sólo funciona cuando:*"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Each topic has messages in ONE format (either v2 or v3, not both)"
-msgstr ""
+msgstr "Cada tema tiene mensajes en UN formato (ya sea v2 o v3, no ambos)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Per-channel configuration routes each topic to the correct ID handler"
-msgstr ""
+msgstr "La configuración por canal dirige cada tema al gestor de ID correcto"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "You can have producers and consumers using both formats in the same Apicurio Registry instance, but not mixing them in the same topic."
-msgstr ""
+msgstr "Puede tener productores y consumidores que utilicen ambos formatos en la misma instancia del Registro de Apicurio, pero no mezclarlos en el mismo tema."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "For topics with mixed v2/v3 messages, consider using the `OptimisticFallbackIdHandler` described in the <<Optimistic Fallback ID Handler>> section."
-msgstr ""
+msgstr "Para temas con mensajes mixtos v2/v3, considere la posibilidad de utilizar el `OptimisticFallbackIdHandler` descrito en la sección <<Optimistic Fallback ID Handler>> ."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Migration Paths for Topics with Existing v2 Messages"
-msgstr ""
+msgstr "Vías de migración para temas con mensajes v2 existentes"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "For topics that already contain v2 messages, valid migration approaches are:"
-msgstr ""
+msgstr "Para los temas que ya contienen mensajes v2, los enfoques de migración válidos son:"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Stop and drain:** Stop producers → drain topic completely → upgrade all services → restart with v3 configuration"
-msgstr ""
+msgstr "*Detener y drenar:* Detener productores → drenar tema completamente → actualizar todos los servicios → reiniciar con configuración v3."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**New topic migration:** Create a new v3 topic and migrate traffic to it"
-msgstr ""
+msgstr "*Migración de un nuevo tema:* Crear un nuevo tema v3 y migrar el tráfico hacia él"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Accept transient failures:** Accept transient failures during the switchover period"
-msgstr ""
+msgstr "*Acepte fallos transitorios:* Aceptar fallos transitorios durante el periodo de conmutación."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Optimistic fallback handler:** Use the `OptimisticFallbackIdHandler` for gradual migration (see below)"
-msgstr ""
+msgstr "*Gestor optimista de retroceso:* Utilice el `OptimisticFallbackIdHandler` para una migración gradual (véase más abajo)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Optimistic Fallback ID Handler"
-msgstr ""
+msgstr "Manejador optimista de ID de Fallback"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "Apicurio Registry provides an `OptimisticFallbackIdHandler` that can help with gradual migration from v2 to v3.\n"
 "This handler:"
-msgstr ""
+msgstr "Apicurio Registry proporciona un `OptimisticFallbackIdHandler` que puede ayudar con la migración gradual de v2 a v3. Este manejador:"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Writes** new messages with 4-byte (v3) IDs"
-msgstr ""
+msgstr "*Escribe* nuevos mensajes con ID de 4 bytes (v3)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "**Reads** both 4-byte (v3) and 8-byte (v2) IDs"
-msgstr ""
+msgstr "*Lee* tanto ID de 4 bytes (v3) como de 8 bytes (v2)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "The `OptimisticFallbackIdHandler` makes the following assumption to distinguish between 4-byte and 8-byte IDs: schema IDs are greater than 0 and smaller than the maximum integer value.\n"
 "This is typically true for most use cases, but you should verify your schema IDs meet this constraint before using this handler."
-msgstr ""
+msgstr "El `OptimisticFallbackIdHandler` hace la siguiente suposición para distinguir entre los ID de 4 y 8 bytes: los ID de esquema son mayores que 0 y menores que el valor entero máximo. Esto suele ser cierto para la mayoría de los casos de uso, pero debe verificar que sus ID de esquema cumplen esta restricción antes de utilizar este manejador."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "This approach enables a gradual migration where:"
-msgstr ""
+msgstr "Este enfoque permite una migración gradual en la que:"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Upgrade consumers first with `OptimisticFallbackIdHandler` (they can read both v2 and v3 messages)"
-msgstr ""
+msgstr "Actualice primero a los consumidores con `OptimisticFallbackIdHandler` (pueden leer tanto los mensajes v2 como los v3)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Then upgrade producers (they start writing v3 format)"
-msgstr ""
+msgstr "A continuación, actualice los productores (empiezan a escribir en formato v3)"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Once all v2 messages are consumed, optionally switch to `Default4ByteIdHandler`"
-msgstr ""
+msgstr "Una vez consumidos todos los mensajes v2, cambie opcionalmente a `Default4ByteIdHandler`"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Compatibility with Apicurio Registry 2.x Server"
-msgstr ""
+msgstr "Compatibilidad con el servidor Apicurio Registry 2.x"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid ""
 "The Apicurio Registry 3.x client libraries continue to work with Apicurio Registry 2.x servers.\n"
 "However, note that Apicurio Registry 2.x is no longer actively maintained."
-msgstr ""
+msgstr "Las librerías cliente de Apicurio Registry 3.x siguen funcionando con los servidores de Apicurio Registry 2.x. Sin embargo, tenga en cuenta que Apicurio Registry 2.x ya no se mantiene activamente."
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "Additional Resources"
-msgstr ""
+msgstr "Recursos adicionales"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html[Apicurio Registry 3.x Documentation]"
-msgstr ""
+msgstr "link:https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html[Documentación de Apicurio Registry 3.x]"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "https://www.apicur.io/registry/docs/apicurio-registry/3.1.x/getting-started/assembly-migrating-registry-v2-v3.html[Apicurio Registry Deployment Migration Guide]"
-msgstr ""
+msgstr "link:https://www.apicur.io/registry/docs/apicurio-registry/3.1.x/getting-started/assembly-migrating-registry-v2-v3.html[Guía de migración del despliegue del Registro Apicurio]"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "https://www.apicur.io/blog/2025/03/30/migrate-registry-2-to-3[Official Apicurio Migration Guide]"
-msgstr ""
+msgstr "link:https://www.apicur.io/blog/2025/03/30/migrate-registry-2-to-3[Guía oficial de migración a Apicurio]"
 
 #: _versions/main/guides/_includes/apicurio-registry-v3-migration.adoc
+#, fuzzy
 msgid "https://www.apicur.io/blog/2025/04/03/evolving-serialization[Apicurio SerDes Evolution Blog Post]"
-msgstr ""
+msgstr "link:https://www.apicur.io/blog/2025/04/03/evolving-serialization[Apicurio SerDes Evolution Blog Post]"
