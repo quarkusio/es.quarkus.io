@@ -1,0 +1,3003 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+
+
+
+
+
+<head>
+  <title>Usando Apache Kafka Streams - 2.16 - Quarkus</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="
+  connect-src 'self' https://dpm.demdex.net https://adobedc.demdex.net https://analytics.ossupstream.org/ https://search.quarkus.io https://smetrics.redhat.com https://ajax.googleapis.com; 
+  script-src 'self' 'unsafe-inline' 'unsafe-eval'
+      
+      https://assets.adobedtm.com
+      js.bizographics.com
+      https://www.redhat.com
+      https://static.redhat.com
+      https://app.requestly.io/
+      jsonip.com
+      https://ajax.googleapis.com
+      https://use.fontawesome.com
+      http://www.youtube.com
+      http://www.googleadservices.com
+      https://googleads.g.doubleclick.net
+      https://giscus.app
+      https://analytics.ossupstream.org/
+      https://app.mailjet.com;
+
+  style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; 
+  img-src 'self' * data:; 
+  media-src 'self'; 
+  frame-src https://redhat.demdex.net https://www.youtube.com https://player.restream.io https://app.mailjet.com http://xy0p2.mjt.lu https://mj.quarkus.io https://giscus.app; 
+  base-uri 'none'; 
+  object-src 'none'; 
+  form-action 'none'; 
+  font-src 'self' https://use.fontawesome.com https://fonts.gstatic.com;" />
+
+  <script id="adobe_dtm" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+  <script src="/assets/javascript/highlight.pack.js" type="text/javascript"></script>
+  <META HTTP-EQUIV='X-XSS-Protection' CONTENT="1; mode=block">
+  <META HTTP-EQUIV='X-Content-Type-Options' CONTENT="nosniff">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quarkus: Supersonic Subatomic Java">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@QuarkusIO"> 
+  <meta name="twitter:creator" content="@QuarkusIO">
+  <meta property="og:url" content="https://quarkus.io/version/2.16/guides/kafka-streams" />
+  <meta property="og:title" content="Usando Apache Kafka Streams - 2.16" />
+  <meta property="og:description" content="Quarkus: Supersonic Subatomic Java" />
+  <meta property="og:image" content="https://quarkus.io/assets/images/quarkus_card.png" />
+  
+  <link rel="canonical" href="https://quarkus.io/guides/kafka-streams">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" >
+  <link rel="stylesheet" href="/guides/stylesheet/config.css" />
+  <link rel="stylesheet" href="/assets/css/main.css?2021-07-29" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml"  href="/feed.xml" title="Quarkus">
+  <script src="/assets/javascript/hl.js" type="text/javascript"></script>
+  
+  
+  
+  
+  <link rel="alternate" hreflang="en" href="https://quarkus.io/version/2.16/guides/kafka-streams" />
+  
+  <link rel="alternate" hreflang="pt-br" href="https://pt.quarkus.io/version/2.16/guides/kafka-streams" />
+  
+  <link rel="alternate" hreflang="es" href="https://es.quarkus.io/version/2.16/guides/kafka-streams" />
+  
+  <link rel="alternate" hreflang="zh" href="https://cn.quarkus.io/version/2.16/guides/kafka-streams" />
+  
+  <link rel="alternate" hreflang="ja" href="https://ja.quarkus.io/version/2.16/guides/kafka-streams" />
+  
+  <link rel="alternate" hreflang="x-default" href="https://quarkus.io/" />  
+  <script src="/assets/javascript/tracking.js"></script>
+  
+  <script src="/assets/javascript/colormode.js" type="text/javascript"></script>
+
+</head>
+
+<body class="guides">
+
+  
+
+
+<div class="grid-wrapper communitysite">
+  <div class="grid__item width-12-12">The <a href="https://quarkus.io/version/2.16/guides/kafka-streams">English version of quarkus.io</a> is the official project site. Translated sites are community supported on a best-effort basis.</div>
+</div>
+
+
+  <div class="nav-wrapper">
+  <div class="grid-wrapper">
+    <div class="width-12-12">
+      <input type="checkbox" id="checkbox" />
+      <nav id="main-nav" class="main-nav">
+        <div class="logo-wrapper">
+           <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_600px_reverse.png" class="project-logo" title="Quarkus"></a>
+        </div>
+    <label class="nav-toggle" for="checkbox"> <i class="fa fa-bars"></i>
+</label>
+    <ul id="menu" class="menu">
+      <li class="dropdown">
+        <span href="#">Why<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/about" class="">¿QUE ES QUARKUS?</a></li>
+          <li><a href="/developer-joy" class="">SATISFACCION DEL DESARROLLADOR</a></li>
+          <li><a href="/performance" class="">PERFORMANCE</a></li>
+          <li><a href="/kubernetes-native" class="">KUBERNETES NATIVE</a></li>
+          <li><a href="/standards" class="">ESTANDARES</a></li>
+          <li><a href="/versatility" class="">VERSATILITY</a></li>
+          <li><a href="/container-first" class="">CONTENEDOR PRIMERO</a></li>
+          <li><a href="/spring" class="">USING SPRING?</a></li>
+          <li class="tertiarydropdown">
+            <span href="#">AI<i class="fas fa-chevron-down"></i></span>
+            <ul class="tertiarymenu">
+              <li><a href="/ai" class="">AI OVERVIEW</a></li>
+              <li><a href="/java-for-ai" class="">JAVA FOR AI</a></li>
+              <li><a href="/quarkus-for-ai" class="">WHY QUARKUS FOR AI</a></li>
+              <li><a href="/ai-blueprints" class="">AI BLUEPRINTS</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Learn<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/get-started" class="">EMPEZAR</a></li>
+          <li><a href="/guides" class="active">DOCUMENTACION</a></li>
+          <li><a href="/userstories/" class="">USER STORIES</a></li>  
+          <li><a href="/qtips" class="">"Q" TIP VIDEOS</a></li>          
+          <li><a href="/books" class="">LIBROS</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Extensions<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          
+          <!-- Note that quarkus.io is hardcoded here, because it is the only url which supports extensions -->
+<li><a href="https://quarkus.io/extensions/" class="">BUSCAR EXTENSIONES</a></li>
+          <li><a href="/faq/#what-is-a-quarkus-extension" class="">USAR
+EXTENSIONES</a></li>
+          <li><a href="/guides/writing-extensions" class="">CREAR
+EXTENSIONES</a></li>
+          <li><a href="https://hub.quarkiverse.io" class="">BUSCAR EXTENSIONES</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Community<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/support/" class="">SOPORTE</a></li>
+          <li><a href="/blog" class="">BLOG</a></li>
+          <li><a href="/discussion" class="">DISCUSIONES</a></li>
+          <li><a href="/working-groups" class="">WORKING GROUPS</a></li>
+          <li><a href="/insights" class="">PODCAST</a></li>
+          <li><a href="/events" class="">EVENTOS</a></li>
+          <li><a href="/newsletter" class="">NEWSLETTER</a></li>
+          <li><a href="https://github.com/orgs/quarkusio/projects/13/views/1" class="">Hoja de ruta</a></li>
+          <li><a href="/benefactors" class="">BENEFACTORS</a></li>
+          </ul>
+      </li>
+      <li>
+        <a href="https://code.quarkus.io" class="button-cta secondary white">Empezar
+a codificar</a>
+      </li>
+      <li class="dropdown">
+        <span href="/language/"><div class="fas fa-globe langicon"></div><i class="fas fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="https://quarkus.io/version/2.16/guides/kafka-streams" >OFFICIAL (ENGLISH)</a></li>
+          <li><a href="https://pt.quarkus.io/version/2.16/guides/kafka-streams">PORTUGUÊS (BR)</a></li>
+          <li><a href="https://es.quarkus.io/version/2.16/guides/kafka-streams">ESPAÑOL</a></li>
+          <li><a href="https://cn.quarkus.io/version/2.16/guides/kafka-streams">简体中文</a></li>
+          <li><a href="https://ja.quarkus.io/version/2.16/guides/kafka-streams">日本語</a></li>
+          </ul>
+      </li>
+      <li>
+        <span href="#" class="modeswitcher" id='theme-toggle'><i class="fas
+fa-sun"></i><i class="fas fa-moon"></i><i class="fas fa-cog"></i></span>
+      </li>
+    </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    
+
+
+
+
+
+
+<section class="full-width-version-bg flexfilterbar guides">
+  <div class="guideflexcontainer">
+    <div class="docslink">
+      <a class="returnlink" href="/version/2.16/guides/"> Volver a las guias</a>
+    </div>
+    <div class="flexlabel">
+      <label>By Version</label>
+    </div>
+    <div class="guidepulldown version">
+    <select id="guide-version-dropdown">
+      
+        
+        
+        <option value="main" >Main - SNAPSHOT</option>
+        
+        
+        
+        <option value="latest" >3.31.4 - Latest</option>
+        
+        
+        
+        <option value="3.27" >3.27</option>
+        
+        
+        
+        <option value="3.20" >3.20</option>
+        
+        
+        
+        <option value="3.15" >3.15</option>
+        
+        
+        
+        <option value="3.8" >3.8</option>
+        </select>
+    </div>
+  </div>
+</section>
+
+<div class="guide">
+  <div class="grid-wrapper">
+    <div class="grid__item width-8-12 width-12-12-m">
+      
+      <h1 class="text-caps">Usando Apache Kafka Streams </h1>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Esta guía demuestra cómo su aplicación Quarkus puede utilizar la API de Apache Kafka Streams para implementar aplicaciones de procesamiento de flujos basadas en Apache Kafka.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Requisitos previos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To complete this guide, you need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Roughly 30 minutes</p>
+</li>
+<li>
+<p>An IDE</p>
+</li>
+<li>
+<p>JDK 11+ installed with <code>JAVA_HOME</code> configured appropriately</p>
+</li>
+<li>
+<p>Apache Maven 3.8.6</p>
+</li>
+<li>
+<p>Docker and Docker Compose or <a href="podman">Podman</a>, and Docker Compose</p>
+</li>
+<li>
+<p>Optionally the <a href="cli-tooling">Quarkus CLI</a> if you want to use it</p>
+</li>
+<li>
+<p>Optionally Mandrel or GraalVM installed and <a href="building-native-image#configuring-graalvm">configured appropriately</a> if you want to build a native executable (or Docker if you use a native container build)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is recommended, that you have read the <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/2.16/kafka-quickstart">Kafka quickstart</a> before.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Quarkus extension for Kafka Streams allows for very fast turnaround times during development by supporting the Quarkus Dev Mode (e.g. via <code>./mvnw compile quarkus:dev</code>).
+After changing the code of your Kafka Streams topology, the application will automatically be reloaded when the next input message arrives.</p>
+</div>
+<div class="paragraph">
+<p>Una configuración de desarrollo recomendada es contar con un productor que genere mensajes de prueba en los tópicos procesados a intervalos fijos, por ejemplo cada segundo, y observar los mensajes en los tópicos de salida de la aplicación de streaming utilizando una herramienta como <code>kafkacat</code>.
+Con el modo de desarrollo, verá al instante los mensajes en los tópicos de salida tal como los produce la última versión de su aplicación de streaming al guardar los cambios.</p>
+</div>
+<div class="paragraph">
+<p>Para obtener la mejor experiencia de desarrollo, recomendamos aplicar las siguientes configuraciones a su corredor de Kafka:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">group.min.session.timeout.ms=250</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Especifique también las siguientes configuraciones en su archivo <code>application.properties</code> de Quarkus:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">kafka-streams.consumer.session.timeout.ms=250
+kafka-streams.consumer.heartbeat.interval.ms=200</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En conjunto, estas configuraciones garantizarán que la aplicación pueda reconectarse muy rápidamente al corredor después de reiniciarse en el Modo de Desarrollo.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="architecture"><a class="anchor" href="#architecture"></a>Arquitectura</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En esta guía, vamos a generar valores de temperatura (aleatorios) en un componente llamado <code>generator</code>.
+Estos valores están asociados a determinadas estaciones meteorológicas y se escriben en un tópico de Kafka ( <code>temperature-values</code> ).
+Otro tópico (<code>weather-stations</code>) contiene únicamente los datos principales de las estaciones meteorológicas (id y nombre).</p>
+</div>
+<div class="paragraph">
+<p>Un segundo componente (<code>aggregator</code>) lee de los dos tópicos de Kafka y los procesa en un flujo de streaming:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>los dos tópicos se combinan según el ID de la estación meteorológica</p>
+</li>
+<li>
+<p>para cada estación meteorológica se determinan la temperatura mínima, máxima y promedio</p>
+</li>
+<li>
+<p>estos datos agregados se escriben en un tercer tópico ( <code>temperatures-aggregated</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Los datos pueden examinarse inspeccionando el tópico de salida.
+Mediante la exposición de una <a href="https://kafka.apache.org/22/documentation/streams/developer-guide/interactive-queries.html">consulta interactiva</a> de Kafka Streams, el último resultado de cada estación meteorológica puede obtenerse alternativamente a través de una sencilla consulta REST.</p>
+</div>
+<div class="paragraph">
+<p>La arquitectura general se ve así:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/kafka-streams-guide-architecture.png" alt="Architecture" width="90%">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solution"><a class="anchor" href="#solution"></a>Solución</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso.
+Sin embargo, también puede ir directamente al ejemplo completo.</p>
+</div>
+<div class="paragraph">
+<p>Clone el repositorio Git: <code>git clone <a href="https://github.com/quarkusio/quarkus-quickstarts.git" class="bare">https://github.com/quarkusio/quarkus-quickstarts.git</a></code> o descargue un <a href="https://github.com/quarkusio/quarkus-quickstarts/archive/2.16.zip">archivo</a>.</p>
+</div>
+<div class="paragraph">
+<p>The solution is located in the <code>kafka-streams-quickstart</code> <a href="https://github.com/quarkusio/quarkus-quickstarts/tree/2.16/kafka-streams-quickstart">directory</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-producer-maven-project"><a class="anchor" href="#creating-the-producer-maven-project"></a>Creación del proyecto Maven del productor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Primero, necesitamos un nuevo proyecto con el productor de valores de temperatura.
+Cree un nuevo proyecto con el siguiente comando:</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus create app org.acme:kafka-streams-quickstart-producer \
+    --stream=2.16 \
+    --extension='kafka' \
+    --no-code
+mv kafka-streams-quickstart-producer producer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>--gradle</code> or <code>--gradle-kotlin-dsl</code> option.</p>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:2.16.12.Final:create \
+    -DplatformVersion=2.16 \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=kafka-streams-quickstart-producer \
+    -Dextensions='kafka' \
+    -DnoCode
+mv kafka-streams-quickstart-producer producer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>-DbuildTool=gradle</code> or <code>-DbuildTool=gradle-kotlin-dsl</code> option.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Este comando genera un proyecto Maven, importando las extensiones de Mensajería Reactiva y el conector de Kafka.</p>
+</div>
+<div class="paragraph">
+<p>If you already have your Quarkus project configured, you can add the <code>smallrye-reactive-messaging-kafka</code> extension
+to your project by running the following command in your project base directory:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus extension add 'quarkus-smallrye-reactive-messaging-kafka'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw quarkus:add-extension -Dextensions='quarkus-smallrye-reactive-messaging-kafka'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew addExtension --extensions='quarkus-smallrye-reactive-messaging-kafka'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto añadirá lo siguiente a su archivo de construcción:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-smallrye-reactive-messaging-kafka&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">implementation("io.quarkus:quarkus-smallrye-reactive-messaging-kafka")</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-temperature-value-producer"><a class="anchor" href="#the-temperature-value-producer"></a>El productor de valores de temperatura</h3>
+<div class="paragraph">
+<p>Cree el archivo <code>producer/src/main/java/org/acme/kafka/streams/producer/generator/ValuesGenerator.java</code>,
+con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.producer.generator;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import javax.enterprise.context.ApplicationScoped;
+
+import io.smallrye.mutiny.Multi;
+import io.smallrye.reactive.messaging.kafka.Record;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import org.jboss.logging.Logger;
+
+/**
+ * A bean producing random temperature data every second.
+ * The values are written to a Kafka topic (temperature-values).
+ * Another topic contains the name of weather stations (weather-stations).
+ * The Kafka configuration is specified in the application configuration.
+ */
+@ApplicationScoped
+public class ValuesGenerator {
+
+    private static final Logger LOG = Logger.getLogger(ValuesGenerator.class);
+
+    private Random random = new Random();
+
+    private List&lt;WeatherStation&gt; stations = List.of(
+                        new WeatherStation(1, "Hamburg", 13),
+                        new WeatherStation(2, "Snowdonia", 5),
+                        new WeatherStation(3, "Boston", 11),
+                        new WeatherStation(4, "Tokio", 16),
+                        new WeatherStation(5, "Cusco", 12),
+                        new WeatherStation(6, "Svalbard", -7),
+                        new WeatherStation(7, "Porthsmouth", 11),
+                        new WeatherStation(8, "Oslo", 7),
+                        new WeatherStation(9, "Marrakesh", 20));
+
+    @Outgoing("temperature-values")                                        <i class="conum" data-value="1"></i><b>(1)</b>
+    public Multi&lt;Record&lt;Integer, String&gt;&gt; generate() {
+        return Multi.createFrom().ticks().every(Duration.ofMillis(500))    <i class="conum" data-value="2"></i><b>(2)</b>
+                .onOverflow().drop()
+                .map(tick -&gt; {
+                    WeatherStation station = stations.get(random.nextInt(stations.size()));
+                    double temperature = BigDecimal.valueOf(random.nextGaussian() * 15 + station.averageTemperature)
+                            .setScale(1, RoundingMode.HALF_UP)
+                            .doubleValue();
+
+                    LOG.infov("station: {0}, temperature: {1}", station.name, temperature);
+                    return Record.of(station.id, Instant.now() + ";" + temperature);
+                });
+    }
+
+    @Outgoing("weather-stations")                                          <i class="conum" data-value="3"></i><b>(3)</b>
+    public Multi&lt;Record&lt;Integer, String&gt;&gt; weatherStations() {
+        return Multi.createFrom().items(stations.stream()
+            .map(s -&gt; Record.of(
+                    s.id,
+                    "{ \"id\" : " + s.id +
+                    ", \"name\" : \"" + s.name + "\" }"))
+        );
+    }
+
+    private static class WeatherStation {
+
+        int id;
+        String name;
+        int averageTemperature;
+
+        public WeatherStation(int id, String name, int averageTemperature) {
+            this.id = id;
+            this.name = name;
+            this.averageTemperature = averageTemperature;
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Indique a Mensajería Reactiva que envíe los elementos de la <code>Multi</code> devuelta a <code>temperature-values</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El método devuelve un <em>flujo</em> Mutiny ( <code>Multi</code>) que emite un valor de temperatura aleatorio cada 0,5 segundos.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Indique a Mensajería Reactiva que envíe los elementos de la <code>Multi</code> devuelta (lista estática de estaciones meteorológicas) a <code>weather-stations</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ambos métodos devuelven un <em>flujo reactivo</em> cuyos elementos se envían a los flujos denominados <code>temperature-values</code> y <code>weather-stations</code>, respectivamente.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="topic-configuration"><a class="anchor" href="#topic-configuration"></a>Configuración de los tópicos</h3>
+<div class="paragraph">
+<p>Los dos canales se asignan a tópicos de Kafka utilizando el archivo de configuración de Quarkus <code>application.properties</code>. 
+Para ello, agregue lo siguiente al archivo <code>producer/src/main/resources/application.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties"># Configure the Kafka broker location
+kafka.bootstrap.servers=localhost:9092
+
+mp.messaging.outgoing.temperature-values.connector=smallrye-kafka
+mp.messaging.outgoing.temperature-values.key.serializer=org.apache.kafka.common.serialization.IntegerSerializer
+mp.messaging.outgoing.temperature-values.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+
+mp.messaging.outgoing.weather-stations.connector=smallrye-kafka
+mp.messaging.outgoing.weather-stations.key.serializer=org.apache.kafka.common.serialization.IntegerSerializer
+mp.messaging.outgoing.weather-stations.value.serializer=org.apache.kafka.common.serialization.StringSerializer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esta configuración define el servidor bootstrap de Kafka, los dos tópicos y los (de)serializadores correspondientes. 
+Más detalles sobre las diferentes opciones de configuración están disponibles en la documentación de Kafka, en las secciones <a href="https://kafka.apache.org/documentation/#producerconfigs">Configuración del productor</a> y <a href="https://kafka.apache.org/documentation/#consumerconfigs">Configuración del consumidor</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-aggregator-maven-project"><a class="anchor" href="#creating-the-aggregator-maven-project"></a>Creación del proyecto Maven del agregador</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Con la aplicación productora en su lugar, es momento de implementar la aplicación agregadora real,
+que ejecutará el flujo de Kafka Streams.
+Cree otro proyecto de la siguiente manera:</p>
+</div>
+<div class="sidebarblock primary asciidoc-tabs-sync-cli">
+<div class="content">
+<div class="title">CLI</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus create app org.acme:kafka-streams-quickstart-aggregator \
+    --stream=2.16 \
+    --extension='kafka-streams,resteasy-reactive-jackson' \
+    --no-code
+mv kafka-streams-quickstart-aggregator aggregator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>--gradle</code> or <code>--gradle-kotlin-dsl</code> option.</p>
+</div>
+<div class="paragraph">
+<p><em>For more information about how to install the Quarkus CLI and use it, please refer to <a href="cli-tooling">the Quarkus CLI guide</a>.</em></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock secondary asciidoc-tabs-sync-maven">
+<div class="content">
+<div class="title">Maven</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn io.quarkus.platform:quarkus-maven-plugin:2.16.12.Final:create \
+    -DplatformVersion=2.16 \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=kafka-streams-quickstart-aggregator \
+    -Dextensions='kafka-streams,resteasy-reactive-jackson' \
+    -DnoCode
+mv kafka-streams-quickstart-aggregator aggregator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a Gradle project, add the <code>-DbuildTool=gradle</code> or <code>-DbuildTool=gradle-kotlin-dsl</code> option.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This creates the <code>aggregator</code> project with the Quarkus extension for Kafka Streams and with the Jackson support for RESTEasy Reactive.</p>
+</div>
+<div class="paragraph">
+<p>Si ya tiene su proyecto Quarkus configurado, puede añadir la extensión <code>kafka-streams</code>
+a su proyecto ejecutando el siguiente comando en el directorio base del proyecto:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus extension add 'kafka-streams'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw quarkus:add-extension -Dextensions='kafka-streams'</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew addExtension --extensions='kafka-streams'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto añadirá lo siguiente a su <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+    &lt;artifactId&gt;quarkus-kafka-streams&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">implementation("io.quarkus:quarkus-kafka-streams")</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-pipeline-implementation"><a class="anchor" href="#the-pipeline-implementation"></a>Implementación del flujo</h3>
+<div class="paragraph">
+<p>Comencemos la implementación de la aplicación de procesamiento de flujos creando
+algunos objetos de valor para representar las mediciones de temperatura, las estaciones meteorológicas y para llevar el registro de los valores agregados.</p>
+</div>
+<div class="paragraph">
+<p>Primero, cree el archivo <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/model/WeatherStation.java</code>,'
+que representa una estación meteorológica, con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.model;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection <i class="conum" data-value="1"></i><b>(1)</b>
+public class WeatherStation {
+
+    public int id;
+    public String name;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>La anotación <code>@RegisterForReflection</code> indica a Quarkus que mantenga la clase y sus miembros durante la compilación nativa. Puede encontrar más detalles sobre la anotación <code>@RegisterForReflection</code> en la página <a href="writing-native-applications-tips.html#registerForReflection">consejos para aplicaciones nativas</a>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Luego, cree el archivo <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/model/TemperatureMeasurement.java</code>,
+que representa las mediciones de temperatura de una estación determinada:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.model;
+
+import java.time.Instant;
+
+public class TemperatureMeasurement {
+
+    public int stationId;
+    public String stationName;
+    public Instant timestamp;
+    public double value;
+
+    public TemperatureMeasurement(int stationId, String stationName, Instant timestamp,
+            double value) {
+        this.stationId = stationId;
+        this.stationName = stationName;
+        this.timestamp = timestamp;
+        this.value = value;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Y finalmente, <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/model/Aggregation.java</code>,
+que se utilizará para llevar el seguimiento de los valores agregados mientras los eventos se procesan en el flujo de transmisión:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.model;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public class Aggregation {
+
+    public int stationId;
+    public String stationName;
+    public double min = Double.MAX_VALUE;
+    public double max = Double.MIN_VALUE;
+    public int count;
+    public double sum;
+    public double avg;
+
+    public Aggregation updateFrom(TemperatureMeasurement measurement) {
+        stationId = measurement.stationId;
+        stationName = measurement.stationName;
+
+        count++;
+        sum += measurement.value;
+        avg = BigDecimal.valueOf(sum / count)
+                .setScale(1, RoundingMode.HALF_UP).doubleValue();
+
+        min = Math.min(min, measurement.value);
+        max = Math.max(max, measurement.value);
+
+        return this;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, vamos a crear la implementación de la consulta de flujo en sí en el archivo <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/streams/TopologyProducer.java</code>.
+Todo lo que necesitamos hacer para ello es declarar un método productor CDI que devuelva la <code>Topology</code> de Kafka Streams;
+la extensión de Quarkus se encargará de configurar, iniciar y detener el motor real de Kafka Streams.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.streams;
+
+import java.time.Instant;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+
+import org.acme.kafka.streams.aggregator.model.Aggregation;
+import org.acme.kafka.streams.aggregator.model.TemperatureMeasurement;
+import org.acme.kafka.streams.aggregator.model.WeatherStation;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.GlobalKTable;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Produced;
+import org.apache.kafka.streams.state.KeyValueBytesStoreSupplier;
+import org.apache.kafka.streams.state.Stores;
+
+import io.quarkus.kafka.client.serialization.ObjectMapperSerde;
+
+@ApplicationScoped
+public class TopologyProducer {
+
+    static final String WEATHER_STATIONS_STORE = "weather-stations-store";
+
+    private static final String WEATHER_STATIONS_TOPIC = "weather-stations";
+    private static final String TEMPERATURE_VALUES_TOPIC = "temperature-values";
+    private static final String TEMPERATURES_AGGREGATED_TOPIC = "temperatures-aggregated";
+
+    @Produces
+    public Topology buildTopology() {
+        StreamsBuilder builder = new StreamsBuilder();
+
+        ObjectMapperSerde&lt;WeatherStation&gt; weatherStationSerde = new ObjectMapperSerde&lt;&gt;(
+                WeatherStation.class);
+        ObjectMapperSerde&lt;Aggregation&gt; aggregationSerde = new ObjectMapperSerde&lt;&gt;(Aggregation.class);
+
+        KeyValueBytesStoreSupplier storeSupplier = Stores.persistentKeyValueStore(
+                WEATHER_STATIONS_STORE);
+
+        GlobalKTable&lt;Integer, WeatherStation&gt; stations = builder.globalTable( <i class="conum" data-value="1"></i><b>(1)</b>
+                WEATHER_STATIONS_TOPIC,
+                Consumed.with(Serdes.Integer(), weatherStationSerde));
+
+        builder.stream(                                                       <i class="conum" data-value="2"></i><b>(2)</b>
+                        TEMPERATURE_VALUES_TOPIC,
+                        Consumed.with(Serdes.Integer(), Serdes.String())
+                )
+                .join(                                                        <i class="conum" data-value="3"></i><b>(3)</b>
+                        stations,
+                        (stationId, timestampAndValue) -&gt; stationId,
+                        (timestampAndValue, station) -&gt; {
+                            String[] parts = timestampAndValue.split(";");
+                            return new TemperatureMeasurement(station.id, station.name,
+                                    Instant.parse(parts[0]), Double.valueOf(parts[1]));
+                        }
+                )
+                .groupByKey()                                                 <i class="conum" data-value="4"></i><b>(4)</b>
+                .aggregate(                                                   <i class="conum" data-value="5"></i><b>(5)</b>
+                        Aggregation::new,
+                        (stationId, value, aggregation) -&gt; aggregation.updateFrom(value),
+                        Materialized.&lt;Integer, Aggregation&gt; as(storeSupplier)
+                            .withKeySerde(Serdes.Integer())
+                            .withValueSerde(aggregationSerde)
+                )
+                .toStream()
+                .to(                                                          <i class="conum" data-value="6"></i><b>(6)</b>
+                        TEMPERATURES_AGGREGATED_TOPIC,
+                        Produced.with(Serdes.Integer(), aggregationSerde)
+                );
+
+        return builder.build();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>La tabla <code>weather-stations</code> se lee en un <code>GlobalKTable</code>, representando el estado actual de cada estación meteorológica</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El tópico <code>temperature-values</code> se lee en un <code>KStream</code>; cada vez que llega un nuevo mensaje a este tópico, el flujo se procesará para esta medición</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>El mensaje del tópico <code>temperature-values</code> se une con la estación meteorológica correspondiente, utilizando la clave del tópico (id de la estación meteorológica); el resultado de la unión contiene los datos de la medición y el mensaje asociado de la estación meteorológica</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Los valores se agrupan por la clave del mensaje (el id de la estación meteorológica)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Dentro de cada grupo, todas las mediciones de esa estación se agregan, manteniendo un registro de los valores mínimos y máximos y calculando el valor promedio de todas las mediciones de esa estación (consulte el tipo <code>Aggregation</code>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Los resultados del flujo se escriben en el tópico <code>temperatures-aggregated</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>La extensión de Kafka Streams se configura mediante el archivo de configuración de Quarkus <code>application.properties</code>.
+Cree el archivo <code>aggregator/src/main/resources/application.properties</code> con el siguiente contenido:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.kafka-streams.bootstrap-servers=localhost:9092
+quarkus.kafka-streams.application-server=${hostname}:8080
+quarkus.kafka-streams.topics=weather-stations,temperature-values
+
+# pass-through options
+kafka-streams.cache.max.bytes.buffering=10240
+kafka-streams.commit.interval.ms=1000
+kafka-streams.metadata.max.age.ms=500
+kafka-streams.auto.offset.reset=earliest
+kafka-streams.metrics.recording.level=DEBUG</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Las opciones con el prefijo <code>quarkus.kafka-streams</code> se pueden cambiar dinámicamente al iniciar la aplicación,
+por ejemplo, mediante variables de entorno o propiedades del sistema.
+<code>bootstrap-servers</code> y <code>application-server</code> se asignan a las propiedades de Kafka Streams <code>bootstrap.servers</code> y <code>application.server</code>, respectivamente.
+<code>topics</code> es específico de Quarkus: la aplicación esperará a que existan todos los tópicos indicados antes de iniciar el motor de Kafka Streams.
+Esto se hace para esperar de manera ordenada la creación de tópicos que aún no existen al iniciar la aplicación.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Como alternativa, puede usar <code>kafka.bootstrap.servers</code> en lugar de <code>quarkus.kafka-streams.bootstrap-servers</code>, tal como se hizo en el proyecto <em>generator</em> mencionado anteriormente.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Todas las propiedades dentro del espacio de nombres <code>kafka-streams</code> se pasan tal cual al motor de Kafka Streams.
+Cambiar sus valores requiere una reconstrucción de la aplicación.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building-and-running-the-applications"><a class="anchor" href="#building-and-running-the-applications"></a>Construcción y ejecución de las aplicaciones</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ahora podemos compilar las aplicaciones <code>producer</code> y <code>aggregator</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package -f producer/pom.xml
+./mvnw clean package -f aggregator/pom.xml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En lugar de ejecutarlas directamente en la máquina host utilizando el modo dev de Quarkus,
+vamos a empaquetarlas en imágenes de contenedor y lanzarlas mediante Docker Compose.
+Esto se hace con el fin de demostrar cómo escalar la agregación del <code>aggregator</code> a múltiples nodos más adelante.</p>
+</div>
+<div class="paragraph">
+<p>El <code>Dockerfile</code> creado por Quarkus por defecto necesita un ajuste para la aplicación <code>aggregator</code> con el fin de ejecutar el flujo de Kafka Streams.
+Para ello, edite el archivo <code>aggregator/src/main/docker/Dockerfile.jvm</code> y reemplace la línea <code>FROM fabric8/java-alpine-openjdk8-jre</code> por <code>FROM fabric8/java-centos-openjdk8-jdk</code>.</p>
+</div>
+<div class="paragraph">
+<p>A continuación, cree un archivo Docker Compose ( <code>docker-compose.yaml</code>) para levantar las dos aplicaciones, así como Apache Kafka y ZooKeeper, de la siguiente manera:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">version: '3.5'
+
+services:
+  zookeeper:
+    image: strimzi/kafka:0.19.0-kafka-2.5.0
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+    networks:
+      - kafkastreams-network
+  kafka:
+    image: strimzi/kafka:0.19.0-kafka-2.5.0
+    command: [
+      "sh", "-c",
+      "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT} --override num.partitions=$${KAFKA_NUM_PARTITIONS}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_NUM_PARTITIONS: 3
+    networks:
+      - kafkastreams-network
+
+  producer:
+    image: quarkus-quickstarts/kafka-streams-producer:1.0
+    build:
+      context: producer
+      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - kafkastreams-network
+
+  aggregator:
+    image: quarkus-quickstarts/kafka-streams-aggregator:1.0
+    build:
+      context: aggregator
+      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    environment:
+      QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - kafkastreams-network
+
+networks:
+  kafkastreams-network:
+    name: ks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para iniciar todos los contenedores, construyendo las imágenes de contenedor <code>producer</code> y <code>aggregator</code>,
+ejecute <code>docker-compose up --build</code>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+En lugar de <code>QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS</code>, puede usar <code>KAFKA_BOOTSTRAP_SERVERS</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Debería ver declaraciones de registro de la aplicación <code>producer</code> sobre los mensajes enviados al tópico "temperature-values".</p>
+</div>
+<div class="paragraph">
+<p>Ahora ejecute una instancia de la imagen <em>debezium/tooling</em>, conectándola a la misma red en la que se ejecutan todos los demás contenedores.
+Esta imagen proporciona varias herramientas útiles, como <em>kafkacat</em> y <em>httpie</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run --tty --rm -i --network ks debezium/tooling:1.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dentro del contenedor de herramientas, ejecute <em>kafkacat</em> para examinar los resultados de la transmisión del flujo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">kafkacat -b kafka:9092 -C -o beginning -q -t temperatures-aggregated
+
+{"avg":34.7,"count":4,"max":49.4,"min":16.8,"stationId":9,"stationName":"Marrakesh","sum":138.8}
+{"avg":15.7,"count":1,"max":15.7,"min":15.7,"stationId":2,"stationName":"Snowdonia","sum":15.7}
+{"avg":12.8,"count":7,"max":25.5,"min":-13.8,"stationId":7,"stationName":"Porthsmouth","sum":89.7}
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Debería ver llegar nuevos valores a medida que el productor continúa emitiendo mediciones de temperatura,
+cada valor en el tópico de salida mostrando los valores mínimo, máximo y promedio de temperatura de la estación meteorológica representada.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="interactive-queries"><a class="anchor" href="#interactive-queries"></a>Consultas interactivas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Suscribirse al tópico <code>temperatures-aggregated</code> es una excelente manera de reaccionar ante cualquier nuevo valor de temperatura.
+Sin embargo, es un poco ineficiente si solo le interesa el último valor agregado de una estación meteorológica específica.
+Aquí es donde las consultas interactivas de Kafka Streams destacan:
+permiten consultar directamente el almacén de estado subyacente del flujo para obtener el valor asociado a una clave determinada.
+Al exponer un endpoint REST simple que consulte el almacén de estado,
+se puede recuperar el resultado de la última agregación sin necesidad de suscribirse a ningún tópico de Kafka.</p>
+</div>
+<div class="paragraph">
+<p>Comencemos creando una nueva clase <code>InteractiveQueries</code> en el archivo <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/streams/InteractiveQueries.java</code>:</p>
+</div>
+<div class="paragraph">
+<p>un método más para la clase <code>KafkaStreamsPipeline</code> que obtiene el estado actual para una clave determinada:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.streams;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import org.acme.kafka.streams.aggregator.model.Aggregation;
+import org.acme.kafka.streams.aggregator.model.WeatherStationData;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.errors.InvalidStateStoreException;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+
+@ApplicationScoped
+public class InteractiveQueries {
+
+    @Inject
+    KafkaStreams streams;
+
+    public GetWeatherStationDataResult getWeatherStationData(int id) {
+        Aggregation result = getWeatherStationStore().get(id);
+
+        if (result != null) {
+            return GetWeatherStationDataResult.found(WeatherStationData.from(result)); <i class="conum" data-value="1"></i><b>(1)</b>
+        }
+        else {
+            return GetWeatherStationDataResult.notFound();                             <i class="conum" data-value="2"></i><b>(2)</b>
+        }
+    }
+
+    private ReadOnlyKeyValueStore&lt;Integer, Aggregation&gt; getWeatherStationStore() {
+        while (true) {
+            try {
+                return streams.store(TopologyProducer.WEATHER_STATIONS_STORE, QueryableStoreTypes.keyValueStore());
+            } catch (InvalidStateStoreException e) {
+                // ignore, store not ready yet
+            }
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Se encontró un valor para la estación indicada, por lo que se devolverá ese valor</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>No se ha encontrado ningún valor, ya sea porque se ha consultado una estación inexistente o porque todavía no existe ninguna medición para la estación indicada</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>También cree el tipo de retorno del método en el archivo <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/streams/GetWeatherStationDataResult.java</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.streams;
+
+import java.util.Optional;
+import java.util.OptionalInt;
+
+import org.acme.kafka.streams.aggregator.model.WeatherStationData;
+
+public class GetWeatherStationDataResult {
+
+    private static GetWeatherStationDataResult NOT_FOUND =
+            new GetWeatherStationDataResult(null);
+
+    private final WeatherStationData result;
+
+    private GetWeatherStationDataResult(WeatherStationData result) {
+        this.result = result;
+    }
+
+    public static GetWeatherStationDataResult found(WeatherStationData data) {
+        return new GetWeatherStationDataResult(data);
+    }
+
+    public static GetWeatherStationDataResult notFound() {
+        return NOT_FOUND;
+    }
+
+    public Optional&lt;WeatherStationData&gt; getResult() {
+        return Optional.ofNullable(result);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También cree <code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/model/WeatherStationData.java</code>,
+que representa el resultado de agregación actual de una estación meteorológica:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.model;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public class WeatherStationData {
+
+    public int stationId;
+    public String stationName;
+    public double min = Double.MAX_VALUE;
+    public double max = Double.MIN_VALUE;
+    public int count;
+    public double avg;
+
+    private WeatherStationData(int stationId, String stationName, double min, double max,
+            int count, double avg) {
+        this.stationId = stationId;
+        this.stationName = stationName;
+        this.min = min;
+        this.max = max;
+        this.count = count;
+        this.avg = avg;
+    }
+
+    public static WeatherStationData from(Aggregation aggregation) {
+        return new WeatherStationData(
+                aggregation.stationId,
+                aggregation.stationName,
+                aggregation.min,
+                aggregation.max,
+                aggregation.count,
+                aggregation.avg);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ahora podemos agregar una ruta REST simple (<code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/rest/WeatherStationEndpoint.java</code>),
+que invoque <code>getWeatherStationData()</code> y devuelva los datos al cliente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.rest;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.acme.kafka.streams.aggregator.streams.GetWeatherStationDataResult;
+import org.acme.kafka.streams.aggregator.streams.KafkaStreamsPipeline;
+
+@ApplicationScoped
+@Path("/weather-stations")
+public class WeatherStationEndpoint {
+
+    @Inject
+    InteractiveQueries interactiveQueries;
+
+    @GET
+    @Path("/data/{id}")
+    public Response getWeatherStationData(int id) {
+        GetWeatherStationDataResult result = interactiveQueries.getWeatherStationData(id);
+
+        if (result.getResult().isPresent()) {  <i class="conum" data-value="1"></i><b>(1)</b>
+            return Response.ok(result.getResult().get()).build();
+        }
+        else {
+            return Response.status(Status.NOT_FOUND.getStatusCode(),
+                    "No data found for weather station " + id).build();
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Dependiendo de si se obtuvo un valor, devuelva ese valor o una respuesta 404</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Con este código en su lugar, es hora de reconstruir la aplicación y el servicio <code>aggregator</code> en Docker Compose:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package -f aggregator/pom.xml
+docker-compose stop aggregator
+docker-compose up --build -d</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto reconstruirá el contenedor <code>aggregator</code> y reiniciará el servicio.
+Una vez completado, puede invocar la API REST del servicio para obtener los datos de temperatura de una de las estaciones existentes.
+Para ello, puede usar <code>httpie</code> en el contenedor de herramientas que se lanzó anteriormente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">http aggregator:8080/weather-stations/data/1
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 85
+Content-Type: application/json
+Date: Tue, 18 Jun 2019 19:29:16 GMT
+
+{
+    "avg": 12.9,
+    "count": 146,
+    "max": 41.0,
+    "min": -25.6,
+    "stationId": 1,
+    "stationName": "Hamburg"
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scaling-out"><a class="anchor" href="#scaling-out"></a>Escalado horizontal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Una característica muy interesante de las aplicaciones Kafka Streams es que pueden escalarse horizontalmente,
+es decir, la carga y el estado pueden distribuirse entre múltiples instancias de la aplicación que ejecutan el mismo flujo.
+Cada nodo contendrá entonces un subconjunto de los resultados de agregación,
+pero Kafka Streams le proporciona <a href="https://kafka.apache.org/22/documentation/streams/developer-guide/interactive-queries.html#querying-remote-state-stores-for-the-entire-app">una API</a> para obtener información sobre qué nodo aloja una clave determinada.
+La aplicación puede entonces recuperar los datos directamente de la otra instancia, o simplemente indicar al cliente la ubicación de ese otro nodo.</p>
+</div>
+<div class="paragraph">
+<p>Lanzar múltiples instancias de la aplicación <code>aggregator</code> hará que la arquitectura general se vea así:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/kafka-streams-guide-architecture-distributed.png" alt="Architecture with multiple aggregator nodes" width="90%">
+</div>
+</div>
+<div class="paragraph">
+<p>La clase <code>InteractiveQueries</code> debe ajustarse ligeramente para adaptarse a esta arquitectura distribuida:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public GetWeatherStationDataResult getWeatherStationData(int id) {
+    StreamsMetadata metadata = streams.metadataForKey(                  <i class="conum" data-value="1"></i><b>(1)</b>
+            TopologyProducer.WEATHER_STATIONS_STORE,
+            id,
+            Serdes.Integer().serializer()
+    );
+
+    if (metadata == null || metadata == StreamsMetadata.NOT_AVAILABLE) {
+        LOG.warn("Found no metadata for key {}", id);
+        return GetWeatherStationDataResult.notFound();
+    }
+    else if (metadata.host().equals(host)) {                            <i class="conum" data-value="2"></i><b>(2)</b>
+        LOG.info("Found data for key {} locally", id);
+        Aggregation result = getWeatherStationStore().get(id);
+
+        if (result != null) {
+            return GetWeatherStationDataResult.found(WeatherStationData.from(result));
+        }
+        else {
+            return GetWeatherStationDataResult.notFound();
+        }
+    }
+    else {                                                              <i class="conum" data-value="3"></i><b>(3)</b>
+        LOG.info(
+            "Found data for key {} on remote host {}:{}",
+            id,
+            metadata.host(),
+            metadata.port()
+        );
+        return GetWeatherStationDataResult.foundRemotely(metadata.host(), metadata.port());
+    }
+}
+
+public List&lt;PipelineMetadata&gt; getMetaData() {                           <i class="conum" data-value="4"></i><b>(4)</b>
+    return streams.allMetadataForStore(TopologyProducer.WEATHER_STATIONS_STORE)
+            .stream()
+            .map(m -&gt; new PipelineMetadata(
+                    m.hostInfo().host() + ":" + m.hostInfo().port(),
+                    m.topicPartitions()
+                        .stream()
+                        .map(TopicPartition::toString)
+                        .collect(Collectors.toSet()))
+            )
+            .collect(Collectors.toList());
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Se obtiene la metadata de los flujos para el id de estación meteorológica dado</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>La clave dada (ID de la estación meteorológica) es gestionada por el nodo de la aplicación local, es decir, puede responder la consulta por sí mismo</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>La clave dada es gestionada por otro nodo de aplicación; en este caso se devolverá la información sobre ese nodo (host y puerto)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>El método <code>getMetaData()</code> es agregado para proporcionar a los clientes una lista de todos los nodos del clúster de la aplicación.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>El tipo <code>GetWeatherStationDataResult</code> debe ajustarse en consecuencia:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.streams;
+
+import java.util.Optional;
+import java.util.OptionalInt;
+
+import org.acme.kafka.streams.aggregator.model.WeatherStationData;
+
+public class GetWeatherStationDataResult {
+
+    private static GetWeatherStationDataResult NOT_FOUND =
+            new GetWeatherStationDataResult(null, null, null);
+
+    private final WeatherStationData result;
+    private final String host;
+    private final Integer port;
+
+    private GetWeatherStationDataResult(WeatherStationData result, String host,
+            Integer port) {
+        this.result = result;
+        this.host = host;
+        this.port = port;
+    }
+
+    public static GetWeatherStationDataResult found(WeatherStationData data) {
+        return new GetWeatherStationDataResult(data, null, null);
+    }
+
+    public static GetWeatherStationDataResult foundRemotely(String host, int port) {
+        return new GetWeatherStationDataResult(null, host, port);
+    }
+
+    public static GetWeatherStationDataResult notFound() {
+        return NOT_FOUND;
+    }
+
+    public Optional&lt;WeatherStationData&gt; getResult() {
+        return Optional.ofNullable(result);
+    }
+
+    public Optional&lt;String&gt; getHost() {
+        return Optional.ofNullable(host);
+    }
+
+    public OptionalInt getPort() {
+        return port != null ? OptionalInt.of(port) : OptionalInt.empty();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Además, se debe definir el tipo de retorno para <code>getMetaData()</code>
+(<code>aggregator/src/main/java/org/acme/kafka/streams/aggregator/streams/PipelineMetadata.java</code> ):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.streams;
+
+import java.util.Set;
+
+public class PipelineMetadata {
+
+    public String host;
+    public Set&lt;String&gt; partitions;
+
+    public PipelineMetadata(String host, Set&lt;String&gt; partitions) {
+        this.host = host;
+        this.partitions = partitions;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Por último, se debe actualizar la clase del endpoint REST:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.kafka.streams.aggregator.rest;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.acme.kafka.streams.aggregator.streams.GetWeatherStationDataResult;
+import org.acme.kafka.streams.aggregator.streams.KafkaStreamsPipeline;
+import org.acme.kafka.streams.aggregator.streams.PipelineMetadata;
+
+@ApplicationScoped
+@Path("/weather-stations")
+public class WeatherStationEndpoint {
+
+    @Inject
+    InteractiveQueries interactiveQueries;
+
+    @GET
+    @Path("/data/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWeatherStationData(int id) {
+        GetWeatherStationDataResult result = interactiveQueries.getWeatherStationData(id);
+
+        if (result.getResult().isPresent()) {                     <i class="conum" data-value="1"></i><b>(1)</b>
+            return Response.ok(result.getResult().get()).build();
+        }
+        else if (result.getHost().isPresent()) {                  <i class="conum" data-value="2"></i><b>(2)</b>
+            URI otherUri = getOtherUri(result.getHost().get(), result.getPort().getAsInt(),
+                    id);
+            return Response.seeOther(otherUri).build();
+        }
+        else {                                                    <i class="conum" data-value="3"></i><b>(3)</b>
+            return Response.status(Status.NOT_FOUND.getStatusCode(),
+                    "No data found for weather station " + id).build();
+        }
+    }
+
+    @GET
+    @Path("/meta-data")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List&lt;PipelineMetadata&gt; getMetaData() {                 <i class="conum" data-value="4"></i><b>(4)</b>
+        return interactiveQueries.getMetaData();
+    }
+
+    private URI getOtherUri(String host, int port, int id) {
+        try {
+            return new URI("http://" + host + ":" + port + "/weather-stations/data/" + id);
+        }
+        catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Los datos se encontraron localmente, por lo que se devuelven</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Los datos son gestionados por otro nodo, por lo que se debe responder con una redirección (código de estado HTTP 303) si los datos de la clave dada están almacenados en uno de los otros nodos.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>No se encontraron datos para el ID de estación meteorológica proporcionado</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Expone información sobre todos los hosts que conforman el cluster de la aplicacion</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ahora detenga de nuevo el servicio <code>aggregator</code> y reconstrúyalo.
+Luego, inicie las tres instancias del mismo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package -f aggregator/pom.xml
+docker-compose stop aggregator
+docker-compose up --build -d --scale aggregator=3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Al invocar la API REST en cualquiera de las tres instancias, puede ocurrir
+que la agregación para el ID de la estación meteorológica solicitada este almacenada localmente en el nodo que recibe la consulta,
+o bien que esté almacenada en uno de los otros dos nodos.</p>
+</div>
+<div class="paragraph">
+<p>Como el balanceador de carga de Docker Compose distribuirá las solicitudes al servicio <code>aggregator</code> de manera round-robin,
+invocaremos los nodos reales directamente.
+La aplicación expone información sobre todos los nombres de host mediante REST:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">http aggregator:8080/weather-stations/meta-data
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 202
+Content-Type: application/json
+Date: Tue, 18 Jun 2019 20:00:23 GMT
+
+[
+    {
+        "host": "2af13fe516a9:8080",
+        "partitions": [
+            "temperature-values-2"
+        ]
+    },
+    {
+        "host": "32cc8309611b:8080",
+        "partitions": [
+            "temperature-values-1"
+        ]
+    },
+    {
+        "host": "1eb39af8d587:8080",
+        "partitions": [
+            "temperature-values-0"
+        ]
+    }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Recupere los datos de uno de los tres hosts mostrados en la respuesta
+(sus nombres de host reales serán diferentes):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">http 2af13fe516a9:8080/weather-stations/data/1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si ese nodo contiene los datos de la clave "1", obtendrás una respuesta como esta:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 74
+Content-Type: application/json
+Date: Tue, 11 Jun 2019 19:16:31 GMT
+
+{
+  "avg": 11.9,
+  "count": 259,
+  "max": 50.0,
+  "min": -30.1,
+  "stationId": 1,
+  "stationName": "Hamburg"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>De lo contrario, el servicio enviará una redirección:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">HTTP/1.1 303 See Other
+Connection: keep-alive
+Content-Length: 0
+Date: Tue, 18 Jun 2019 20:01:03 GMT
+Location: http://1eb39af8d587:8080/weather-stations/data/1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También puede hacer que <em>httpie</em> siga automáticamente la redirección pasando la opción <code>--follow</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http --follow 2af13fe516a9:8080/weather-stations/data/1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-natively"><a class="anchor" href="#running-natively"></a>Ejecución Nativa</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La extensión de Quarkus para Kafka Streams permite la ejecución de aplicaciones de procesamiento de flujos
+de manera nativa mediante GraalVM sin necesidad de configuración adicional.</p>
+</div>
+<div class="paragraph">
+<p>Para ejecutar las aplicaciones <code>producer</code> y <code>aggregator</code> en modo nativo,
+las compilaciones de Maven pueden ejecutarse usando <code>-Dnative</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw clean package -f producer/pom.xml -Dnative -Dnative-image.container-runtime=docker
+./mvnw clean package -f aggregator/pom.xml -Dnative -Dnative-image.container-runtime=docker</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ahora cree una variable de entorno llamada <code>QUARKUS_MODE</code> y con su valor establecido en "native":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export QUARKUS_MODE=native</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto lo utiliza el archivo Docker Compose para emplear el <code>Dockerfile</code> correcto al construir las imágenes de <code>producer</code> y <code>aggregator</code>.
+La aplicación Kafka Streams puede funcionar con menos de 50 MB de RSS en modo nativo.
+Para ello, agregue la opción <code>Xmx</code> al invocar el programa en <code>aggregator/src/main/docker/Dockerfile.native</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-dockerfile hljs" data-lang="dockerfile">CMD ["./application", "-Dquarkus.http.host=0.0.0.0", "-Xmx32m"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ahora inicie Docker Compose como se describió anteriormente
+(no olvide reconstruir las imágenes de los contenedores).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kafka-streams-health-checks"><a class="anchor" href="#kafka-streams-health-checks"></a>Verificación del estado de Kafka Streams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Si está utilizando la extensión <code>quarkus-smallrye-health</code>, <code>quarkus-kafka-streams</code> añadirá automáticamente:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>una comprobación de disponibilidad para validar que se han creado todos los tópicos declarados en la propiedad <code>quarkus.kafka-streams.topics</code>,</p>
+</li>
+<li>
+<p>una comprobación de funcionamiento basada en el estado de Kafka Streams.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Así, cuando acceda a la ruta <code>/q/health</code> de su aplicación, obtendrá información sobre el estado de Kafka Streams y los tópicos disponibles y/o faltantes.</p>
+</div>
+<div class="paragraph">
+<p>Este es un ejemplo de cuando el estado es <code>DOWN</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">curl -i http://aggregator:8080/q/health
+
+HTTP/1.1 503 Service Unavailable
+content-type: application/json; charset=UTF-8
+content-length: 454
+
+{
+    "status": "DOWN",
+    "checks": [
+        {
+            "name": "Kafka Streams state health check",  <i class="conum" data-value="1"></i><b>(1)</b>
+            "status": "DOWN",
+            "data": {
+                "state": "CREATED"
+            }
+        },
+        {
+            "name": "Kafka Streams topics health check",  <i class="conum" data-value="2"></i><b>(2)</b>
+            "status": "DOWN",
+            "data": {
+                "available_topics": "weather-stations,temperature-values",
+                "missing_topics": "hygrometry-values"
+            }
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Comprobación del funcionamiento. También disponible en la ruta <code>/q/health/live</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Comprobación del estado de preparación. También disponible en la ruta <code>/q/health/ready</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Así que, como puede ver, el estado es <code>DOWN</code> cuando falta uno de los <code>quarkus.kafka-streams.topics</code> o el <code>state</code> de Kafka Streams no es <code>RUNNING</code>.</p>
+</div>
+<div class="paragraph">
+<p>Si no hay tópicos disponibles, la clave <code>available_topics</code> no estará presente en el campo <code>data</code> de la <code>comprobación del estado de los tópicos de Kafka Streams</code>.
+Asimismo, si no falta ningún tópico, la clave <code>missing_topics</code> no estará presente en el campo <code>data</code> de la <code>comprobación del estado de los tópicos de Kafka Streams</code>.</p>
+</div>
+<div class="paragraph">
+<p>Por supuesto, puede desactivar la comprobación de estado de la extensión <code>quarkus-kafka-streams</code> estableciendo la propiedad <code>quarkus.kafka-streams.health.enabled</code> en <code>false</code> en su <code>application.properties</code>.</p>
+</div>
+<div class="paragraph">
+<p>Obviamente, puede crear sus sondas de disponibilidad y de preparación basadas en las respectivas rutas <code>/q/health/live</code> y <code>/q/health/ready</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="liveness-health-check"><a class="anchor" href="#liveness-health-check"></a>Comprobación del estado (Liveness)</h3>
+<div class="paragraph">
+<p>Aquí hay un ejemplo de la comprobación de estado (liveness):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">curl -i http://aggregator:8080/q/health/live
+
+HTTP/1.1 503 Service Unavailable
+content-type: application/json; charset=UTF-8
+content-length: 225
+
+{
+    "status": "DOWN",
+    "checks": [
+        {
+            "name": "Kafka Streams state health check",
+            "status": "DOWN",
+            "data": {
+                "state": "CREATED"
+            }
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El <code>state</code> viene del enum <code>KafkaStreams.State</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="readiness-health-check"><a class="anchor" href="#readiness-health-check"></a>Comprobación del estado de preparación (readiness)</h3>
+<div class="paragraph">
+<p>Aquí hay un ejemplo de la comprobación de preparación (readiness):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">curl -i http://aggregator:8080/q/health/ready
+
+HTTP/1.1 503 Service Unavailable
+content-type: application/json; charset=UTF-8
+content-length: 265
+
+{
+    "status": "DOWN",
+    "checks": [
+        {
+            "name": "Kafka Streams topics health check",
+            "status": "DOWN",
+            "data": {
+                "missing_topics": "weather-stations,temperature-values"
+            }
+        }
+    ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="going-further"><a class="anchor" href="#going-further"></a>Ir más allá</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide has shown how you can build stream processing applications using Quarkus and the Kafka Streams APIs,
+both in JVM and native modes.
+For running your KStreams application in production, you could also add health checks and metrics for the data pipeline.
+Refer to the Quarkus guides on <a href="micrometer">Micrometer</a>, <a href="smallrye-metrics">SmallRye Metrics</a>, and <a href="smallrye-health">SmallRye Health</a> to learn more.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration-reference"><a class="anchor" href="#configuration-reference"></a>Referencia de configuración</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fijado en tiempo de compilación"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type="search" id="config-search-0" placeholder="CONFIGURACIÓN DEL FILTRO" disabled></p>
+</div>
+<table class="tableblock frame-all grid-all stretch configuration-reference searchable configuration-reference-all-rows">
+<colgroup>
+<col style="width: 80%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a id="quarkus-kafka-streams_configuration"></a><a href="#quarkus-kafka-streams_configuration">Configuration property</a></p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Tipo</p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Por defecto</p></th>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fixed at build time"></i></span> <a id="quarkus-kafka-streams_quarkus.kafka-streams.health.enabled"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.health.enabled">quarkus.kafka-streams.health.enabled</a></code></p>
+</div>
+<div id="conf-collapsible-desc-1" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Whether a health check is published in case the smallrye-health extension is present (defaults to true).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21326">QUARKUS_KAFKA_STREAMS_HEALTH_ENABLED</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21326" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.application-id"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.application-id">quarkus.kafka-streams.application-id</a></code></p>
+</div>
+<div id="conf-collapsible-desc-2" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>A unique identifier for this Kafka Streams application. If not set, defaults to quarkus.application.name.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21327">QUARKUS_KAFKA_STREAMS_APPLICATION_ID</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21327" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>${quarkus.application.name}</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.bootstrap-servers"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.bootstrap-servers">quarkus.kafka-streams.bootstrap-servers</a></code></p>
+</div>
+<div id="conf-collapsible-desc-3" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>A comma-separated list of host:port pairs identifying the Kafka bootstrap server(s). If not set, fallback to <code>kafka.bootstrap.servers</code>, and if not set either use <code>localhost:9012</code>.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21328">QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21328" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">list of host:port</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>localhost:9012</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.application-server"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.application-server">quarkus.kafka-streams.application-server</a></code></p>
+</div>
+<div id="conf-collapsible-desc-4" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>A unique identifier of this application instance, typically in the form host:port.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21329">QUARKUS_KAFKA_STREAMS_APPLICATION_SERVER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21329" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.topics"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.topics">quarkus.kafka-streams.topics</a></code></p>
+</div>
+<div id="conf-collapsible-desc-5" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>A comma-separated list of topic names. The pipeline will only be started once all these topics are present in the Kafka cluster and <code>ignore.topics</code> is set to false.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21330">QUARKUS_KAFKA_STREAMS_TOPICS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21330" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">list of string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.topics-timeout"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.topics-timeout">quarkus.kafka-streams.topics-timeout</a></code></p>
+</div>
+<div id="conf-collapsible-desc-6" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Timeout to wait for topic names to be returned from admin client. If set to 0 (or negative), <code>topics</code> check is ignored.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21331">QUARKUS_KAFKA_STREAMS_TOPICS_TIMEOUT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21331" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>10S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.schema-registry-key"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.schema-registry-key">quarkus.kafka-streams.schema-registry-key</a></code></p>
+</div>
+<div id="conf-collapsible-desc-7" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The schema registry key. Different schema registry libraries expect a registry URL in different configuration properties. For Apicurio Registry, use <code>apicurio.registry.url</code>. For Confluent schema registry, use <code>schema.registry.url</code>.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21332">QUARKUS_KAFKA_STREAMS_SCHEMA_REGISTRY_KEY</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21332" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>schema.registry.url</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.schema-registry-url"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.schema-registry-url">quarkus.kafka-streams.schema-registry-url</a></code></p>
+</div>
+<div id="conf-collapsible-desc-8" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The schema registry URL.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21333">QUARKUS_KAFKA_STREAMS_SCHEMA_REGISTRY_URL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21333" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.security.protocol"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.security.protocol">quarkus.kafka-streams.security.protocol</a></code></p>
+</div>
+<div id="conf-collapsible-desc-9" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The security protocol to use See <a href="https://docs.confluent.io/current/streams/developer-guide/security.html#security-example" class="bare">https://docs.confluent.io/current/streams/developer-guide/security.html#security-example</a></p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21334">QUARKUS_KAFKA_STREAMS_SECURITY_PROTOCOL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21334" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.mechanism"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.mechanism">quarkus.kafka-streams.sasl.mechanism</a></code></p>
+</div>
+<div id="conf-collapsible-desc-10" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>SASL mechanism used for client connections</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21335">QUARKUS_KAFKA_STREAMS_SASL_MECHANISM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21335" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.jaas-config"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.jaas-config">quarkus.kafka-streams.sasl.jaas-config</a></code></p>
+</div>
+<div id="conf-collapsible-desc-11" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>JAAS login context parameters for SASL connections in the format used by JAAS configuration files</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21336">QUARKUS_KAFKA_STREAMS_SASL_JAAS_CONFIG</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21336" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.client-callback-handler-class"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.client-callback-handler-class">quarkus.kafka-streams.sasl.client-callback-handler-class</a></code></p>
+</div>
+<div id="conf-collapsible-desc-12" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The fully qualified name of a SASL client callback handler class</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21337">QUARKUS_KAFKA_STREAMS_SASL_CLIENT_CALLBACK_HANDLER_CLASS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21337" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-callback-handler-class"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-callback-handler-class">quarkus.kafka-streams.sasl.login-callback-handler-class</a></code></p>
+</div>
+<div id="conf-collapsible-desc-13" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The fully qualified name of a SASL login callback handler class</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21338">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_CALLBACK_HANDLER_CLASS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21338" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-class"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-class">quarkus.kafka-streams.sasl.login-class</a></code></p>
+</div>
+<div id="conf-collapsible-desc-14" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The fully qualified name of a class that implements the Login interface</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21339">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_CLASS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21339" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-service-name"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-service-name">quarkus.kafka-streams.sasl.kerberos-service-name</a></code></p>
+</div>
+<div id="conf-collapsible-desc-15" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The Kerberos principal name that Kafka runs as</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21340">QUARKUS_KAFKA_STREAMS_SASL_KERBEROS_SERVICE_NAME</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21340" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-kinit-cmd"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-kinit-cmd">quarkus.kafka-streams.sasl.kerberos-kinit-cmd</a></code></p>
+</div>
+<div id="conf-collapsible-desc-16" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Kerberos kinit command path</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21341">QUARKUS_KAFKA_STREAMS_SASL_KERBEROS_KINIT_CMD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21341" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-ticket-renew-window-factor"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-ticket-renew-window-factor">quarkus.kafka-streams.sasl.kerberos-ticket-renew-window-factor</a></code></p>
+</div>
+<div id="conf-collapsible-desc-17" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Login thread will sleep until the specified window factor of time from last refresh</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21342">QUARKUS_KAFKA_STREAMS_SASL_KERBEROS_TICKET_RENEW_WINDOW_FACTOR</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21342" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-ticket-renew-jitter"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-ticket-renew-jitter">quarkus.kafka-streams.sasl.kerberos-ticket-renew-jitter</a></code></p>
+</div>
+<div id="conf-collapsible-desc-18" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Percentage of random jitter added to the renewal time</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21343">QUARKUS_KAFKA_STREAMS_SASL_KERBEROS_TICKET_RENEW_JITTER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21343" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-min-time-before-relogin"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.kerberos-min-time-before-relogin">quarkus.kafka-streams.sasl.kerberos-min-time-before-relogin</a></code></p>
+</div>
+<div id="conf-collapsible-desc-19" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Percentage of random jitter added to the renewal time</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21344">QUARKUS_KAFKA_STREAMS_SASL_KERBEROS_MIN_TIME_BEFORE_RELOGIN</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21344" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">long</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-window-factor"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-window-factor">quarkus.kafka-streams.sasl.login-refresh-window-factor</a></code></p>
+</div>
+<div id="conf-collapsible-desc-20" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Login refresh thread will sleep until the specified window factor relative to the credential&#8217;s lifetime has been reached-</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21345">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_REFRESH_WINDOW_FACTOR</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21345" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-window-jitter"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-window-jitter">quarkus.kafka-streams.sasl.login-refresh-window-jitter</a></code></p>
+</div>
+<div id="conf-collapsible-desc-21" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The maximum amount of random jitter relative to the credential&#8217;s lifetime</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21346">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_REFRESH_WINDOW_JITTER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21346" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-min-period"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-min-period">quarkus.kafka-streams.sasl.login-refresh-min-period</a></code></p>
+</div>
+<div id="conf-collapsible-desc-22" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The desired minimum duration for the login refresh thread to wait before refreshing a credential</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21347">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_REFRESH_MIN_PERIOD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21347" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-buffer"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.sasl.login-refresh-buffer">quarkus.kafka-streams.sasl.login-refresh-buffer</a></code></p>
+</div>
+<div id="conf-collapsible-desc-23" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The amount of buffer duration before credential expiration to maintain when refreshing a credential</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21348">QUARKUS_KAFKA_STREAMS_SASL_LOGIN_REFRESH_BUFFER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21348" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.protocol"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.protocol">quarkus.kafka-streams.ssl.protocol</a></code></p>
+</div>
+<div id="conf-collapsible-desc-24" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The SSL protocol used to generate the SSLContext</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21349">QUARKUS_KAFKA_STREAMS_SSL_PROTOCOL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21349" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.provider"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.provider">quarkus.kafka-streams.ssl.provider</a></code></p>
+</div>
+<div id="conf-collapsible-desc-25" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The name of the security provider used for SSL connections</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21350">QUARKUS_KAFKA_STREAMS_SSL_PROVIDER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21350" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.cipher-suites"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.cipher-suites">quarkus.kafka-streams.ssl.cipher-suites</a></code></p>
+</div>
+<div id="conf-collapsible-desc-26" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>A list of cipher suites</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21351">QUARKUS_KAFKA_STREAMS_SSL_CIPHER_SUITES</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21351" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.enabled-protocols"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.enabled-protocols">quarkus.kafka-streams.ssl.enabled-protocols</a></code></p>
+</div>
+<div id="conf-collapsible-desc-27" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The list of protocols enabled for SSL connections</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21352">QUARKUS_KAFKA_STREAMS_SSL_ENABLED_PROTOCOLS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21352" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.type"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.type">quarkus.kafka-streams.ssl.truststore.type</a></code></p>
+</div>
+<div id="conf-collapsible-desc-28" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Trust store type</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21353">QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_TYPE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21353" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.location"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.location">quarkus.kafka-streams.ssl.truststore.location</a></code></p>
+</div>
+<div id="conf-collapsible-desc-29" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Trust store location</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21354">QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_LOCATION</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21354" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.password"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.password">quarkus.kafka-streams.ssl.truststore.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-30" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Trust store password</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21355">QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21355" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.certificates"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.truststore.certificates">quarkus.kafka-streams.ssl.truststore.certificates</a></code></p>
+</div>
+<div id="conf-collapsible-desc-31" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Trust store certificates</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21356">QUARKUS_KAFKA_STREAMS_SSL_TRUSTSTORE_CERTIFICATES</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21356" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.type"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.type">quarkus.kafka-streams.ssl.keystore.type</a></code></p>
+</div>
+<div id="conf-collapsible-desc-32" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Key store type</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21357">QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_TYPE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21357" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.location"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.location">quarkus.kafka-streams.ssl.keystore.location</a></code></p>
+</div>
+<div id="conf-collapsible-desc-33" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Key store location</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21358">QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_LOCATION</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21358" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.password"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.password">quarkus.kafka-streams.ssl.keystore.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-34" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Key store password</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21359">QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21359" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.key"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.key">quarkus.kafka-streams.ssl.keystore.key</a></code></p>
+</div>
+<div id="conf-collapsible-desc-35" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Key store private key</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21360">QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_KEY</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21360" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.certificate-chain"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keystore.certificate-chain">quarkus.kafka-streams.ssl.keystore.certificate-chain</a></code></p>
+</div>
+<div id="conf-collapsible-desc-36" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Key store certificate chain</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21361">QUARKUS_KAFKA_STREAMS_SSL_KEYSTORE_CERTIFICATE_CHAIN</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21361" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.key.password"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.key.password">quarkus.kafka-streams.ssl.key.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-37" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Password of the private key in the key store</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21362">QUARKUS_KAFKA_STREAMS_SSL_KEY_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21362" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.keymanager-algorithm"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.keymanager-algorithm">quarkus.kafka-streams.ssl.keymanager-algorithm</a></code></p>
+</div>
+<div id="conf-collapsible-desc-38" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The algorithm used by key manager factory for SSL connections</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21363">QUARKUS_KAFKA_STREAMS_SSL_KEYMANAGER_ALGORITHM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21363" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.trustmanager-algorithm"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.trustmanager-algorithm">quarkus.kafka-streams.ssl.trustmanager-algorithm</a></code></p>
+</div>
+<div id="conf-collapsible-desc-39" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The algorithm used by trust manager factory for SSL connections</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21364">QUARKUS_KAFKA_STREAMS_SSL_TRUSTMANAGER_ALGORITHM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21364" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.endpoint-identification-algorithm"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.endpoint-identification-algorithm">quarkus.kafka-streams.ssl.endpoint-identification-algorithm</a></code></p>
+</div>
+<div id="conf-collapsible-desc-40" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The endpoint identification algorithm to validate server hostname using server certificate</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21365">QUARKUS_KAFKA_STREAMS_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21365" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>https</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-kafka-streams_quarkus.kafka-streams.ssl.secure-random-implementation"></a><code><a href="#quarkus-kafka-streams_quarkus.kafka-streams.ssl.secure-random-implementation">quarkus.kafka-streams.ssl.secure-random-implementation</a></code></p>
+</div>
+<div id="conf-collapsible-desc-41" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The SecureRandom PRNG implementation to use for SSL cryptography operations</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-21366">QUARKUS_KAFKA_STREAMS_SSL_SECURE_RANDOM_IMPLEMENTATION</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-21366" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+</tbody>
+</table>
+<div id="duration-note-anchor-quarkus-kafka-streams" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">About the Duration format</div>
+<div class="paragraph">
+<p>El formato de las duraciones utiliza el formato estándar <code>java.time.Duration</code>. Puede obtener más información al respecto en <a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-">Duration#parse() javadoc</a>.</p>
+</div>
+<div class="paragraph">
+<p>También puede proporcionar valores de duración que empiecen por un número. En este caso, si el valor consiste sólo en un número, el conversor trata el valor como segundos. En caso contrario, <code>PT</code> se antepone implícitamente al valor para obtener un formato estándar <code>java.time.Duration</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+    </div>
+    <div class="grid__item width-4-12 width-12-12-m tocwrapper">
+      <div class="hide-mobile toc"><ul class="sectlevel1">
+<li><a href="#prerequisites">Requisitos previos</a></li>
+<li><a href="#architecture">Arquitectura</a></li>
+<li><a href="#solution">Solución</a></li>
+<li><a href="#creating-the-producer-maven-project">Creación del proyecto Maven del productor</a>
+<ul class="sectlevel2">
+<li><a href="#the-temperature-value-producer">El productor de valores de temperatura</a></li>
+<li><a href="#topic-configuration">Configuración de los tópicos</a></li>
+</ul>
+</li>
+<li><a href="#creating-the-aggregator-maven-project">Creación del proyecto Maven del agregador</a>
+<ul class="sectlevel2">
+<li><a href="#the-pipeline-implementation">Implementación del flujo</a></li>
+</ul>
+</li>
+<li><a href="#building-and-running-the-applications">Construcción y ejecución de las aplicaciones</a></li>
+<li><a href="#interactive-queries">Consultas interactivas</a></li>
+<li><a href="#scaling-out">Escalado horizontal</a></li>
+<li><a href="#running-natively">Ejecución Nativa</a></li>
+<li><a href="#kafka-streams-health-checks">Verificación del estado de Kafka Streams</a>
+<ul class="sectlevel2">
+<li><a href="#liveness-health-check">Comprobación del estado (Liveness)</a></li>
+<li><a href="#readiness-health-check">Comprobación del estado de preparación (readiness)</a></li>
+</ul>
+</li>
+<li><a href="#going-further">Ir más allá</a></li>
+<li><a href="#configuration-reference">Referencia de configuración</a></li>
+</ul></div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+
+  <div class="content project-footer">
+  <div class="footer-section">
+    <div class="logo-wrapper">
+      <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_reverse.svg" class="project-logo" title="Quarkus"></a>
+    </div>
+  </div>
+  <div class="grid-wrapper">
+    <p class="grid__item width-3-12">Quarkus is open. All dependencies of this project are available under the <a href='https://www.apache.org/licenses/LICENSE-2.0' target='_blank'>Apache Software License 2.0</a> or compatible license. <i class='fab fa-creative-commons'></i><i class='fab fa-creative-commons-by'></i> <a href='https://creativecommons.org/licenses/by/3.0/' target='_blank'>CC by 3.0</a><br /><br />This website was built with <a href='https://jekyllrb.com/' target='_blank'>Jekyll</a>, is hosted on <a href='https://pages.github.com/' target='_blank'>GitHub Pages</a> and is completely open source. If you want to make it better, <a href='https://github.com/quarkusio/quarkusio.github.io' target='_blank'>fork the website</a> and show us what you’ve got.</p>
+
+    
+      <div class="width-1-12 project-links">
+        <span>Navigation</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="/" target="_blank">Home</a></li>
+          
+          
+          
+            <li><a href="/about" target="_blank">About</a></li>
+          
+          
+          
+            <li><a href="/blog" target="_blank">Blog</a></li>
+          
+          
+          
+            <li><a href="/insights" target="_blank">Podcast</a></li>
+          
+          
+          
+            <li><a href="/events" target="_blank">Events</a></li>
+          
+          
+          
+            <li><a href="/newsletter" target="_blank">Boletín de noticias</a></li>
+          
+          
+          
+            <li><a href="/userstories" target="_blank">User Stories</a></li>
+          
+          
+          
+            <li><a href="https://github.com/orgs/quarkusio/projects/13/views/1" target="_blank">Hoja de ruta</a></li>
+          
+          
+          
+            <li><a href="/security" target="_blank">Security&nbsp;policy</a></li>
+          
+          
+          
+            <li><a href="/usage" target="_blank">Uso</a></li>
+          
+          
+          
+            <li><a href="https://github.com/commonhaus/artwork/tree/main/projects/quarkus" target="_blank">Brand</a></li>
+          
+          
+          
+            <li><a href="/desktopwallpapers" target="_blank">Wallpapers</a></li>
+          
+          
+          
+            <li><a href="https://www.redhat.com/en/about/privacy-policy" target="_blank">Privacy Policy</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Follow Us</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="https://x.com/quarkusio" target="_blank">X</a></li>
+          
+          
+          
+            <li><a href="https://bsky.app/profile/quarkus.io" target="_blank">Bluesky</a></li>
+          
+          
+          
+            <li><a rel="me" href="https://fosstodon.org/@quarkusio" target="_blank">Mastodon</a></li>
+            
+          
+          
+            <li><a href="https://www.threads.com/@quarkusio" target="_blank">Threads</a></li>
+          
+          
+          
+            <li><a href="https://www.facebook.com/quarkusio" target="_blank">Facebook</a></li>
+          
+          
+          
+            <li><a href="https://www.linkedin.com/company/quarkusio/" target="_blank">Linkedin</a></li>
+          
+          
+          
+            <li><a href="https://www.youtube.com/channel/UCaW8QG_QoIk_FnjLgr5eOqg" target="_blank">Youtube</a></li>
+          
+          
+          
+            <li><a href="https://github.com/quarkusio" target="_blank">GitHub</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-2-12 project-links">
+        <span>Get Help</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="/support" target="_blank">Support</a></li>
+          
+          
+          
+            <li><a href="/guides" target="_blank">Guías</a></li>
+          
+          
+          
+            <li><a href="/faq" target="_blank">FAQ</a></li>
+          
+          
+          
+            <li><a href="/get-started" target="_blank">Primeros pasos</a></li>
+          
+          
+          
+            <li><a href="https://stackoverflow.com/questions/tagged/quarkus" target="_blank">Stack Overflow</a></li>
+          
+          
+          
+            <li><a href="https://github.com/quarkusio/quarkus/discussions" target="_blank">Discussions</a></li>
+          
+          
+          
+            <li><a href="https://groups.google.com/forum/#!forum/quarkus-dev" target="_blank">Development mailing list</a></li>
+          
+          
+          
+            <li><a href="https://stats.uptimerobot.com/ze1PfweT2p" target="_blank">Quarkus Service Status</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Languages</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="https://quarkus.io/" target="_blank">English</a></li>
+          
+          
+          
+            <li><a href="https://pt.quarkus.io/" target="_blank">Português&nbsp;(Brasileiro)</a></li>
+          
+          
+          
+            <li><a href="https://es.quarkus.io/" target="_blank">Español</a></li>
+          
+          
+          
+            <li><a href="https://cn.quarkus.io/" target="_blank">简体中文</a></li>
+          
+          
+          
+            <li><a href="https://ja.quarkus.io/" target="_blank">日本語</a></li>
+          
+          
+        </ul>
+      </div>
+    
+
+    
+      <div class="width-4-12 more-links">
+        <span>Quarkus is made of community projects</span>
+        <ul class="footer-links">
+          
+            <li><a blah href="https://vertx.io/" target="_blank">Eclipse Vert.x</a></li>
+          
+            <li><a blah href="https://smallrye.io" target="_blank">SmallRye</a></li>
+          
+            <li><a blah href="https://hibernate.org" target="_blank">Hibernate</a></li>
+          
+            <li><a blah href="https://netty.io" target="_blank">Netty</a></li>
+          
+            <li><a blah href="https://resteasy.github.io" target="_blank">RESTEasy</a></li>
+          
+            <li><a blah href="https://camel.apache.org" target="_blank">Apache Camel</a></li>
+          
+            <li><a blah href="https://microprofile.io" target="_blank">Eclipse MicroProfile</a></li>
+          
+            <li><a blah href="https://code.quarkus.io/" target="_blank">And many more...</a></li>
+          
+        </ul>
+      </div>
+    
+  </div>
+</div>
+
+  <div class="content cf-footer">
+  <div class="flexcontainer">
+    <div class="cf-logo">
+      <a class="cf-logo" href="https://www.commonhaus.org/" target="_blank"><img src="https://raw.githubusercontent.com/commonhaus/artwork/main/foundation/brand/svg/CF_logo_horizontal_single_reverse.svg"/></a>
+    </div>
+    <div class="license">
+      Copyright © Quarkus. All rights reserved. For details on our trademarks, please visit our <a href="https://www.commonhaus.org/policies/trademark-policy/">Trademark Policy</a> and <a href="https://www.commonhaus.org/trademarks/">Trademark List</a>. Trademarks of third parties are owned by their respective holders and their mention here does not suggest any endorsement or association.
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/assets/javascript/mobile-nav.js"></script>
+  <script type="text/javascript" src="/assets/javascript/scroll-down.js"></script>
+  <script src="/assets/javascript/satellite.js" type="text/javascript"></script>
+  <script src="/guides/javascript/config.js" type="text/javascript"></script>
+  <script src="/assets/javascript/guides-version-dropdown.js" type="text/javascript"></script>
+  <script src="/assets/javascript/back-to-top.js" type="text/javascript"></script>
+  <script src="/assets/javascript/clipboard.min.js" type="text/javascript"></script>
+  <script src="/assets/javascript/copy.js" type="text/javascript"></script>
+  <script src="/assets/javascript/asciidoc-tabs.js" type="text/javascript"></script>
+  <script src="/assets/javascript/future-date.js" type="text/javascript"></script>
+  <script src="/assets/javascript/randomize.js" type="text/javascript"></script>
+  <script src="/assets/javascript/time.js" type="text/javascript"></script>
+</body>
+
+</html>

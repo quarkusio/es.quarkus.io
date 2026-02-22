@@ -1,0 +1,3180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+
+
+
+
+
+<head>
+  <title>Guía de referencia Vert.x - 2.13 - Quarkus</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="
+  connect-src 'self' https://dpm.demdex.net https://adobedc.demdex.net https://analytics.ossupstream.org/ https://search.quarkus.io https://smetrics.redhat.com https://ajax.googleapis.com; 
+  script-src 'self' 'unsafe-inline' 'unsafe-eval'
+      
+      https://assets.adobedtm.com
+      js.bizographics.com
+      https://www.redhat.com
+      https://static.redhat.com
+      https://app.requestly.io/
+      jsonip.com
+      https://ajax.googleapis.com
+      https://use.fontawesome.com
+      http://www.youtube.com
+      http://www.googleadservices.com
+      https://googleads.g.doubleclick.net
+      https://giscus.app
+      https://analytics.ossupstream.org/
+      https://app.mailjet.com;
+
+  style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; 
+  img-src 'self' * data:; 
+  media-src 'self'; 
+  frame-src https://redhat.demdex.net https://www.youtube.com https://player.restream.io https://app.mailjet.com http://xy0p2.mjt.lu https://mj.quarkus.io https://giscus.app; 
+  base-uri 'none'; 
+  object-src 'none'; 
+  form-action 'none'; 
+  font-src 'self' https://use.fontawesome.com https://fonts.gstatic.com;" />
+
+  <script id="adobe_dtm" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+  <script src="/assets/javascript/highlight.pack.js" type="text/javascript"></script>
+  <META HTTP-EQUIV='X-XSS-Protection' CONTENT="1; mode=block">
+  <META HTTP-EQUIV='X-Content-Type-Options' CONTENT="nosniff">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quarkus: Supersonic Subatomic Java">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@QuarkusIO"> 
+  <meta name="twitter:creator" content="@QuarkusIO">
+  <meta property="og:url" content="https://quarkus.io/version/2.13/guides/vertx-reference" />
+  <meta property="og:title" content="Guía de referencia Vert.x - 2.13" />
+  <meta property="og:description" content="Quarkus: Supersonic Subatomic Java" />
+  <meta property="og:image" content="https://quarkus.io/assets/images/quarkus_card.png" />
+  
+  <link rel="canonical" href="https://quarkus.io/guides/vertx-reference">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" >
+  <link rel="stylesheet" href="/guides/stylesheet/config.css" />
+  <link rel="stylesheet" href="/assets/css/main.css?2021-07-29" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml"  href="/feed.xml" title="Quarkus">
+  <script src="/assets/javascript/hl.js" type="text/javascript"></script>
+  
+  
+  
+  
+  <link rel="alternate" hreflang="en" href="https://quarkus.io/version/2.13/guides/vertx-reference" />
+  
+  <link rel="alternate" hreflang="pt-br" href="https://pt.quarkus.io/version/2.13/guides/vertx-reference" />
+  
+  <link rel="alternate" hreflang="es" href="https://es.quarkus.io/version/2.13/guides/vertx-reference" />
+  
+  <link rel="alternate" hreflang="zh" href="https://cn.quarkus.io/version/2.13/guides/vertx-reference" />
+  
+  <link rel="alternate" hreflang="ja" href="https://ja.quarkus.io/version/2.13/guides/vertx-reference" />
+  
+  <link rel="alternate" hreflang="x-default" href="https://quarkus.io/" />  
+  <script src="/assets/javascript/tracking.js"></script>
+  
+  <script src="/assets/javascript/colormode.js" type="text/javascript"></script>
+
+</head>
+
+<body class="guides">
+
+  
+
+
+<div class="grid-wrapper communitysite">
+  <div class="grid__item width-12-12">The <a href="https://quarkus.io/version/2.13/guides/vertx-reference">English version of quarkus.io</a> is the official project site. Translated sites are community supported on a best-effort basis.</div>
+</div>
+
+
+  <div class="nav-wrapper">
+  <div class="grid-wrapper">
+    <div class="width-12-12">
+      <input type="checkbox" id="checkbox" />
+      <nav id="main-nav" class="main-nav">
+        <div class="logo-wrapper">
+           <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_600px_reverse.png" class="project-logo" title="Quarkus"></a>
+        </div>
+    <label class="nav-toggle" for="checkbox"> <i class="fa fa-bars"></i>
+</label>
+    <ul id="menu" class="menu">
+      <li class="dropdown">
+        <span href="#">Why<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/about" class="">¿QUE ES QUARKUS?</a></li>
+          <li><a href="/developer-joy" class="">SATISFACCION DEL DESARROLLADOR</a></li>
+          <li><a href="/performance" class="">PERFORMANCE</a></li>
+          <li><a href="/kubernetes-native" class="">KUBERNETES NATIVE</a></li>
+          <li><a href="/standards" class="">ESTANDARES</a></li>
+          <li><a href="/versatility" class="">VERSATILITY</a></li>
+          <li><a href="/container-first" class="">CONTENEDOR PRIMERO</a></li>
+          <li><a href="/spring" class="">USING SPRING?</a></li>
+          <li class="tertiarydropdown">
+            <span href="#">AI<i class="fas fa-chevron-down"></i></span>
+            <ul class="tertiarymenu">
+              <li><a href="/ai" class="">AI OVERVIEW</a></li>
+              <li><a href="/java-for-ai" class="">JAVA FOR AI</a></li>
+              <li><a href="/quarkus-for-ai" class="">WHY QUARKUS FOR AI</a></li>
+              <li><a href="/ai-blueprints" class="">AI BLUEPRINTS</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Learn<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/get-started" class="">EMPEZAR</a></li>
+          <li><a href="/guides" class="active">DOCUMENTACION</a></li>
+          <li><a href="/userstories/" class="">USER STORIES</a></li>  
+          <li><a href="/qtips" class="">"Q" TIP VIDEOS</a></li>          
+          <li><a href="/books" class="">LIBROS</a></li>
+          </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Extensions<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          
+          <!-- Note that quarkus.io is hardcoded here, because it is the only url which supports extensions -->
+<li><a href="https://quarkus.io/extensions/" class="">BUSCAR EXTENSIONES</a></li>
+          <li><a href="/faq/#what-is-a-quarkus-extension" class="">USAR
+EXTENSIONES</a></li>
+          <li><a href="/guides/writing-extensions" class="">CREAR
+EXTENSIONES</a></li>
+          <li><a href="https://hub.quarkiverse.io" class="">BUSCAR EXTENSIONES</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <span href="#">Community<i class="fas fa-chevron-down firsti"></i></span>
+        <ul class="submenu">
+          <li><a href="/support/" class="">SOPORTE</a></li>
+          <li><a href="/blog" class="">BLOG</a></li>
+          <li><a href="/discussion" class="">DISCUSIONES</a></li>
+          <li><a href="/working-groups" class="">WORKING GROUPS</a></li>
+          <li><a href="/insights" class="">PODCAST</a></li>
+          <li><a href="/events" class="">EVENTOS</a></li>
+          <li><a href="/newsletter" class="">NEWSLETTER</a></li>
+          <li><a href="https://github.com/orgs/quarkusio/projects/13/views/1" class="">Hoja de ruta</a></li>
+          <li><a href="/benefactors" class="">BENEFACTORS</a></li>
+          </ul>
+      </li>
+      <li>
+        <a href="https://code.quarkus.io" class="button-cta secondary white">Empezar
+a codificar</a>
+      </li>
+      <li class="dropdown">
+        <span href="/language/"><div class="fas fa-globe langicon"></div><i class="fas fa-chevron-down"></i></span>
+        <ul class="submenu">
+          <li><a href="https://quarkus.io/version/2.13/guides/vertx-reference" >OFFICIAL (ENGLISH)</a></li>
+          <li><a href="https://pt.quarkus.io/version/2.13/guides/vertx-reference">PORTUGUÊS (BR)</a></li>
+          <li><a href="https://es.quarkus.io/version/2.13/guides/vertx-reference">ESPAÑOL</a></li>
+          <li><a href="https://cn.quarkus.io/version/2.13/guides/vertx-reference">简体中文</a></li>
+          <li><a href="https://ja.quarkus.io/version/2.13/guides/vertx-reference">日本語</a></li>
+          </ul>
+      </li>
+      <li>
+        <span href="#" class="modeswitcher" id='theme-toggle'><i class="fas
+fa-sun"></i><i class="fas fa-moon"></i><i class="fas fa-cog"></i></span>
+      </li>
+    </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+  <div class="content">
+    
+
+
+
+
+
+
+<section class="full-width-version-bg flexfilterbar guides">
+  <div class="guideflexcontainer">
+    <div class="docslink">
+      <a class="returnlink" href="/version/2.13/guides/"> Volver a las guias</a>
+    </div>
+    <div class="flexlabel">
+      <label>By Version</label>
+    </div>
+    <div class="guidepulldown version">
+    <select id="guide-version-dropdown">
+      
+        
+        
+        <option value="main" >Main - SNAPSHOT</option>
+        
+        
+        
+        <option value="latest" >3.31.4 - Latest</option>
+        
+        
+        
+        <option value="3.27" >3.27</option>
+        
+        
+        
+        <option value="3.20" >3.20</option>
+        
+        
+        
+        <option value="3.15" >3.15</option>
+        
+        
+        
+        <option value="3.8" >3.8</option>
+        </select>
+    </div>
+  </div>
+</section>
+
+<div class="guide">
+  <div class="grid-wrapper">
+    <div class="grid__item width-8-12 width-12-12-m">
+      
+      <h1 class="text-caps">Guía de referencia Vert.x </h1>
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://vertx.io">Vert.x</a> es un conjunto de herramientas para construir aplicaciones reactivas.
+Como se describe en la <a href="quarkus-reactive-architecture">Arquitectura Reactiva de Quarkus</a>, Quarkus utiliza Vert.x por debajo.</p>
+</div>
+<div class="paragraph">
+<p>Esta guía es el complemento de la guía <a href="vertx">Uso de la API Vert.x de Eclipse desde una aplicación Quarkus</a>.
+Proporciona detalles más avanzados sobre el uso y la configuración de la instancia Vert.x utilizada por Quarkus.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vertx-access"><a class="anchor" href="#vertx-access"></a>Accessing the Vert.x instance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To access the managed Vert.x instance, add the <code>quarkus-vertx</code> extension to your project.
+Note that this dependency may already be installed (as a transitive dependency).</p>
+</div>
+<div class="paragraph">
+<p>Con esta extensión, puede recuperar la instancia gestionada de Vert.x utilizando la inyección por campo o constructor:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ApplicationScoped
+public class MyBean {
+// Field injection
+@Inject Vertx vertx;
+
+// Constructor injection
+MyBean(Vertx vertx) {
+    // ...
+}
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Puede inyectar:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>la instancia <code>io.vertx.core.Vertx</code> que expone la API Vert.x <em>bare</em></p>
+</li>
+<li>
+<p>la instancia <code>io.vertx.mutiny.core.Vertx</code> que expone la API <em>Mutiny</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Recomendamos utilizar la variante Mutiny, ya que se integra con las demás APIs reactivas proporcionadas por Quarkus.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Mutiny</div>
+<div class="paragraph">
+<p>Si no está familiarizado con Mutiny, consulte <a href="mutiny-primer">Mutiny - una biblioteca de programación reactiva intuitiva</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>La documentación sobre la variante Vert.x Mutiny está disponible en <a href="https://smallrye.io/smallrye-mutiny-vertx-bindings">smallrye.io</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vertx-config"><a class="anchor" href="#vertx-config"></a>Configuring the Vert.x instance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Puede configurar la instancia Vert.x desde el archivo <code>application.properties</code>.
+La siguiente tabla enumera las propiedades admitidas:</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-lock" title="Fijado en tiempo de compilación"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type="search" id="config-search-0" placeholder="CONFIGURACIÓN DEL FILTRO" disabled></p>
+</div>
+<table class="tableblock frame-all grid-all stretch configuration-reference searchable configuration-reference-all-rows">
+<colgroup>
+<col style="width: 80%;">
+<col style="width: 10%;">
+<col style="width: 10%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a id="quarkus-vertx-core_configuration"></a><a href="#quarkus-vertx-core_configuration">Configuration property</a></p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Tipo</p></th>
+<th class="tableblock halign-left valign-middle"><p class="tableblock">Por defecto</p></th>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.caching"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.caching">quarkus.vertx.caching</a></code></p>
+</div>
+<div id="conf-collapsible-desc-1" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables or disables the Vert.x cache.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15826">QUARKUS_VERTX_CACHING</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15826" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.classpath-resolving"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.classpath-resolving">quarkus.vertx.classpath-resolving</a></code></p>
+</div>
+<div id="conf-collapsible-desc-2" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables or disabled the Vert.x classpath resource resolver.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15827">QUARKUS_VERTX_CLASSPATH_RESOLVING</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15827" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.event-loops-pool-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.event-loops-pool-size">quarkus.vertx.event-loops-pool-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-3" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The number of event loops. By default, it matches the number of CPUs detected on the system.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15828">QUARKUS_VERTX_EVENT_LOOPS_POOL_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15828" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.max-event-loop-execute-time"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.max-event-loop-execute-time">quarkus.vertx.max-event-loop-execute-time</a></code></p>
+</div>
+<div id="conf-collapsible-desc-4" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The maximum amount of time the event loop can be blocked.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15829">QUARKUS_VERTX_MAX_EVENT_LOOP_EXECUTE_TIME</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15829" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>2S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.warning-exception-time"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.warning-exception-time">quarkus.vertx.warning-exception-time</a></code></p>
+</div>
+<div id="conf-collapsible-desc-5" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The amount of time before a warning is displayed if the event loop is blocked.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15830">QUARKUS_VERTX_WARNING_EXCEPTION_TIME</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15830" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>2S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.worker-pool-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.worker-pool-size">quarkus.vertx.worker-pool-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-6" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The size of the worker thread pool.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15831">QUARKUS_VERTX_WORKER_POOL_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15831" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>20</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.max-worker-execute-time"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.max-worker-execute-time">quarkus.vertx.max-worker-execute-time</a></code></p>
+</div>
+<div id="conf-collapsible-desc-7" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The maximum amount of time the worker thread can be blocked.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15832">QUARKUS_VERTX_MAX_WORKER_EXECUTE_TIME</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15832" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>60S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.internal-blocking-pool-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.internal-blocking-pool-size">quarkus.vertx.internal-blocking-pool-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-8" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The size of the internal thread pool (used for the file system).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15833">QUARKUS_VERTX_INTERNAL_BLOCKING_POOL_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15833" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>20</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.queue-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.queue-size">quarkus.vertx.queue-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-9" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The queue size. For most applications this should be unbounded</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15834">QUARKUS_VERTX_QUEUE_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15834" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.growth-resistance"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.growth-resistance">quarkus.vertx.growth-resistance</a></code></p>
+</div>
+<div id="conf-collapsible-desc-10" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The executor growth resistance. A resistance factor applied after the core pool is full; values applied here will cause that fraction of submissions to create new threads when no idle thread is available. A value of <code>0.0f</code> implies that threads beyond the core size should be created as aggressively as threads within it; a value of <code>1.0f</code> implies that threads beyond the core size should never be created.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15835">QUARKUS_VERTX_GROWTH_RESISTANCE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15835" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>0f</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.keep-alive-time"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.keep-alive-time">quarkus.vertx.keep-alive-time</a></code></p>
+</div>
+<div id="conf-collapsible-desc-11" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The amount of time a thread will stay alive with no work.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15836">QUARKUS_VERTX_KEEP_ALIVE_TIME</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15836" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>30S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.prefill"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.prefill">quarkus.vertx.prefill</a></code></p>
+</div>
+<div id="conf-collapsible-desc-12" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Prefill thread pool when creating a new Executor. When io.vertx.core.spi.ExecutorServiceFactory.createExecutor is called, initialise with the number of defined threads at startup</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15837">QUARKUS_VERTX_PREFILL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15837" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.use-async-dns"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.use-async-dns">quarkus.vertx.use-async-dns</a></code></p>
+</div>
+<div id="conf-collapsible-desc-13" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables the async DNS resolver.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15838">QUARKUS_VERTX_USE_ASYNC_DNS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15838" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem">quarkus.vertx.eventbus.key-certificate-pem</a></code></p>
+</div>
+<div id="conf-collapsible-desc-14" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>PEM Key/cert config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15839">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PEM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15839" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem.keys"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem.keys">quarkus.vertx.eventbus.key-certificate-pem.keys</a></code></p>
+</div>
+<div id="conf-collapsible-desc-15" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Comma-separated list of the path to the key files (Pem format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15840">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PEM_KEYS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15840" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">list of string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem.certs"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pem.certs">quarkus.vertx.eventbus.key-certificate-pem.certs</a></code></p>
+</div>
+<div id="conf-collapsible-desc-16" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Comma-separated list of the path to the certificate files (Pem format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15841">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PEM_CERTS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15841" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">list of string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks">quarkus.vertx.eventbus.key-certificate-jks</a></code></p>
+</div>
+<div id="conf-collapsible-desc-17" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>JKS config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15842">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_JKS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15842" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks.path"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks.path">quarkus.vertx.eventbus.key-certificate-jks.path</a></code></p>
+</div>
+<div id="conf-collapsible-desc-18" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Path of the key file (JKS format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15843">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_JKS_PATH</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15843" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks.password"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-jks.password">quarkus.vertx.eventbus.key-certificate-jks.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-19" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Password of the key file.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15844">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_JKS_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15844" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx">quarkus.vertx.eventbus.key-certificate-pfx</a></code></p>
+</div>
+<div id="conf-collapsible-desc-20" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>PFX config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15845">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PFX</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15845" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx.path"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx.path">quarkus.vertx.eventbus.key-certificate-pfx.path</a></code></p>
+</div>
+<div id="conf-collapsible-desc-21" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Path to the key file (PFX format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15846">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PFX_PATH</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15846" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx.password"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.key-certificate-pfx.password">quarkus.vertx.eventbus.key-certificate-pfx.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-22" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Password of the key.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15847">QUARKUS_VERTX_EVENTBUS_KEY_CERTIFICATE_PFX_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15847" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pem"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pem">quarkus.vertx.eventbus.trust-certificate-pem</a></code></p>
+</div>
+<div id="conf-collapsible-desc-23" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>PEM Trust config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15848">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_PEM</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15848" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pem.certs"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pem.certs">quarkus.vertx.eventbus.trust-certificate-pem.certs</a></code></p>
+</div>
+<div id="conf-collapsible-desc-24" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Comma-separated list of the trust certificate files (Pem format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15849">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_PEM_CERTS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15849" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">list of string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks">quarkus.vertx.eventbus.trust-certificate-jks</a></code></p>
+</div>
+<div id="conf-collapsible-desc-25" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>JKS config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15850">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_JKS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15850" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks.path"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks.path">quarkus.vertx.eventbus.trust-certificate-jks.path</a></code></p>
+</div>
+<div id="conf-collapsible-desc-26" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Path of the key file (JKS format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15851">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_JKS_PATH</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15851" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks.password"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-jks.password">quarkus.vertx.eventbus.trust-certificate-jks.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-27" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Password of the key file.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15852">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_JKS_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15852" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx">quarkus.vertx.eventbus.trust-certificate-pfx</a></code></p>
+</div>
+<div id="conf-collapsible-desc-28" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>PFX config is disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15853">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_PFX</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15853" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx.path"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx.path">quarkus.vertx.eventbus.trust-certificate-pfx.path</a></code></p>
+</div>
+<div id="conf-collapsible-desc-29" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Path to the key file (PFX format).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15854">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_PFX_PATH</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15854" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx.password"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-certificate-pfx.password">quarkus.vertx.eventbus.trust-certificate-pfx.password</a></code></p>
+</div>
+<div id="conf-collapsible-desc-30" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Password of the key.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15855">QUARKUS_VERTX_EVENTBUS_TRUST_CERTIFICATE_PFX_PASSWORD</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15855" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.accept-backlog"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.accept-backlog">quarkus.vertx.eventbus.accept-backlog</a></code></p>
+</div>
+<div id="conf-collapsible-desc-31" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The accept backlog.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15856">QUARKUS_VERTX_EVENTBUS_ACCEPT_BACKLOG</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15856" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.client-auth"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.client-auth">quarkus.vertx.eventbus.client-auth</a></code></p>
+</div>
+<div id="conf-collapsible-desc-32" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The client authentication.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15857">QUARKUS_VERTX_EVENTBUS_CLIENT_AUTH</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15857" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>NONE</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.connect-timeout"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.connect-timeout">quarkus.vertx.eventbus.connect-timeout</a></code></p>
+</div>
+<div id="conf-collapsible-desc-33" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The connect timeout.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15858">QUARKUS_VERTX_EVENTBUS_CONNECT_TIMEOUT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15858" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>60S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.idle-timeout"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.idle-timeout">quarkus.vertx.eventbus.idle-timeout</a></code></p>
+</div>
+<div id="conf-collapsible-desc-34" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The idle timeout in milliseconds.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15859">QUARKUS_VERTX_EVENTBUS_IDLE_TIMEOUT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15859" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.receive-buffer-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.receive-buffer-size">quarkus.vertx.eventbus.receive-buffer-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-35" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The receive buffer size.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15860">QUARKUS_VERTX_EVENTBUS_RECEIVE_BUFFER_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15860" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.reconnect-attempts"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.reconnect-attempts">quarkus.vertx.eventbus.reconnect-attempts</a></code></p>
+</div>
+<div id="conf-collapsible-desc-36" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The number of reconnection attempts.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15861">QUARKUS_VERTX_EVENTBUS_RECONNECT_ATTEMPTS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15861" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>0</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.reconnect-interval"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.reconnect-interval">quarkus.vertx.eventbus.reconnect-interval</a></code></p>
+</div>
+<div id="conf-collapsible-desc-37" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The reconnection interval in milliseconds.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15862">QUARKUS_VERTX_EVENTBUS_RECONNECT_INTERVAL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15862" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>1S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.reuse-address"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.reuse-address">quarkus.vertx.eventbus.reuse-address</a></code></p>
+</div>
+<div id="conf-collapsible-desc-38" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Whether to reuse the address.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15863">QUARKUS_VERTX_EVENTBUS_REUSE_ADDRESS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15863" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.reuse-port"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.reuse-port">quarkus.vertx.eventbus.reuse-port</a></code></p>
+</div>
+<div id="conf-collapsible-desc-39" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Whether to reuse the port.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15864">QUARKUS_VERTX_EVENTBUS_REUSE_PORT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15864" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.send-buffer-size"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.send-buffer-size">quarkus.vertx.eventbus.send-buffer-size</a></code></p>
+</div>
+<div id="conf-collapsible-desc-40" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The send buffer size.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15865">QUARKUS_VERTX_EVENTBUS_SEND_BUFFER_SIZE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15865" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.solinger"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.solinger">quarkus.vertx.eventbus.soLinger</a></code></p>
+</div>
+<div id="conf-collapsible-desc-41" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The so linger.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15866">QUARKUS_VERTX_EVENTBUS_SOLINGER</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15866" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.ssl"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.ssl">quarkus.vertx.eventbus.ssl</a></code></p>
+</div>
+<div id="conf-collapsible-desc-42" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables or Disabled SSL.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15867">QUARKUS_VERTX_EVENTBUS_SSL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15867" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.tcp-keep-alive"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.tcp-keep-alive">quarkus.vertx.eventbus.tcp-keep-alive</a></code></p>
+</div>
+<div id="conf-collapsible-desc-43" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Whether to keep the TCP connection opened (keep-alive).</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15868">QUARKUS_VERTX_EVENTBUS_TCP_KEEP_ALIVE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15868" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.tcp-no-delay"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.tcp-no-delay">quarkus.vertx.eventbus.tcp-no-delay</a></code></p>
+</div>
+<div id="conf-collapsible-desc-44" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Configure the TCP no delay.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15869">QUARKUS_VERTX_EVENTBUS_TCP_NO_DELAY</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15869" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.traffic-class"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.traffic-class">quarkus.vertx.eventbus.traffic-class</a></code></p>
+</div>
+<div id="conf-collapsible-desc-45" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Configure the traffic class.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15870">QUARKUS_VERTX_EVENTBUS_TRAFFIC_CLASS</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15870" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.eventbus.trust-all"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.eventbus.trust-all">quarkus.vertx.eventbus.trust-all</a></code></p>
+</div>
+<div id="conf-collapsible-desc-46" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables or disables the trust all parameter.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15871">QUARKUS_VERTX_EVENTBUS_TRUST_ALL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15871" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.host"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.host">quarkus.vertx.cluster.host</a></code></p>
+</div>
+<div id="conf-collapsible-desc-47" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The host name.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15872">QUARKUS_VERTX_CLUSTER_HOST</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15872" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>localhost</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.port"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.port">quarkus.vertx.cluster.port</a></code></p>
+</div>
+<div id="conf-collapsible-desc-48" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The port.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15873">QUARKUS_VERTX_CLUSTER_PORT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15873" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.public-host"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.public-host">quarkus.vertx.cluster.public-host</a></code></p>
+</div>
+<div id="conf-collapsible-desc-49" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The public host name.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15874">QUARKUS_VERTX_CLUSTER_PUBLIC_HOST</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15874" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.public-port"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.public-port">quarkus.vertx.cluster.public-port</a></code></p>
+</div>
+<div id="conf-collapsible-desc-50" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The public port.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15875">QUARKUS_VERTX_CLUSTER_PUBLIC_PORT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15875" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.clustered"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.clustered">quarkus.vertx.cluster.clustered</a></code></p>
+</div>
+<div id="conf-collapsible-desc-51" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enables or disables the clustering.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15876">QUARKUS_VERTX_CLUSTER_CLUSTERED</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15876" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.ping-interval"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.ping-interval">quarkus.vertx.cluster.ping-interval</a></code></p>
+</div>
+<div id="conf-collapsible-desc-52" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The ping interval.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15877">QUARKUS_VERTX_CLUSTER_PING_INTERVAL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15877" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>20S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.cluster.ping-reply-interval"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.cluster.ping-reply-interval">quarkus.vertx.cluster.ping-reply-interval</a></code></p>
+</div>
+<div id="conf-collapsible-desc-53" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The ping reply interval.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15878">QUARKUS_VERTX_CLUSTER_PING_REPLY_INTERVAL</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15878" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>20S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.resolver.cache-max-time-to-live"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.resolver.cache-max-time-to-live">quarkus.vertx.resolver.cache-max-time-to-live</a></code></p>
+</div>
+<div id="conf-collapsible-desc-54" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The maximum amount of time in seconds that a successfully resolved address will be cached.
+If not set explicitly, resolved addresses may be cached forever.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15879">QUARKUS_VERTX_RESOLVER_CACHE_MAX_TIME_TO_LIVE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15879" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>2147483647</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.resolver.cache-min-time-to-live"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.resolver.cache-min-time-to-live">quarkus.vertx.resolver.cache-min-time-to-live</a></code></p>
+</div>
+<div id="conf-collapsible-desc-55" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The minimum amount of time in seconds that a successfully resolved address will be cached.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15880">QUARKUS_VERTX_RESOLVER_CACHE_MIN_TIME_TO_LIVE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15880" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>0</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.resolver.cache-negative-time-to-live"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.resolver.cache-negative-time-to-live">quarkus.vertx.resolver.cache-negative-time-to-live</a></code></p>
+</div>
+<div id="conf-collapsible-desc-56" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The amount of time in seconds that an unsuccessful attempt to resolve an address will be cached.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15881">QUARKUS_VERTX_RESOLVER_CACHE_NEGATIVE_TIME_TO_LIVE</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15881" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>0</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.resolver.max-queries"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.resolver.max-queries">quarkus.vertx.resolver.max-queries</a></code></p>
+</div>
+<div id="conf-collapsible-desc-57" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The maximum number of queries to be sent during a resolution.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15882">QUARKUS_VERTX_RESOLVER_MAX_QUERIES</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15882" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>4</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.resolver.query-timeout"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.resolver.query-timeout">quarkus.vertx.resolver.query-timeout</a></code></p>
+</div>
+<div id="conf-collapsible-desc-58" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>The duration after which a DNS query is considered to be failed.</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15883">QUARKUS_VERTX_RESOLVER_QUERY_TIMEOUT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15883" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>
+  <a href="#duration-note-anchor-{summaryTableId}" title="More information about the Duration format"><span class="icon"><i class="fa fa-question-circle"></i></span></a></p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>5S</code></p></td>
+</tr>
+<tr class="row-collapsible row-collapsed row-with-desc row-hidden odd">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a id="quarkus-vertx-core_quarkus.vertx.prefer-native-transport"></a><code><a href="#quarkus-vertx-core_quarkus.vertx.prefer-native-transport">quarkus.vertx.prefer-native-transport</a></code></p>
+</div>
+<div id="conf-collapsible-desc-59" class="openblock description description-collapsed">
+<div class="content">
+<div class="paragraph">
+<p>Enable or disable native transport</p>
+</div>
+<div class="paragraph">
+<p>Environment variable: <code id="env-var-15884">QUARKUS_VERTX_PREFER_NATIVE_TRANSPORT</code><button class="btn-copy fa fa-clipboard inline-btn-copy" data-clipboard-action="copy" data-clipboard-target="#env-var-15884" title="Copy to clipboard" do-not-collapse="true"></button></p>
+</div>
+</div>
+</div>
+<div class="paragraph description-decoration">
+<p><i class="fa fa-chevron-down"></i><span>Show more</span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-middle"><p class="tableblock"><code>false</code></p></td>
+</tr>
+</tbody>
+</table>
+<div id="duration-note-anchor-quarkus-vertx-core" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">About the Duration format</div>
+<div class="paragraph">
+<p>El formato de las duraciones utiliza el formato estándar <code>java.time.Duration</code>. Puede obtener más información al respecto en <a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-">Duration#parse() javadoc</a>.</p>
+</div>
+<div class="paragraph">
+<p>También puede proporcionar valores de duración que empiecen por un número. En este caso, si el valor consiste sólo en un número, el conversor trata el valor como segundos. En caso contrario, <code>PT</code> se antepone implícitamente al valor para obtener un formato estándar <code>java.time.Duration</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-vertx-clients"><a class="anchor" href="#using-vertx-clients"></a>Using Vert.x clients</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Además del núcleo Vert.x, puede utilizar la mayoría de las bibliotecas del ecosistema Vert.x.
+Algunas extensiones de Quarkus ya envuelven bibliotecas Vert.x.</p>
+</div>
+<div class="sect2">
+<h3 id="available-apis"><a class="anchor" href="#available-apis"></a>APIs disponibles</h3>
+<div class="paragraph">
+<p>The following table lists the most used libraries from the Vert.x ecosystem.
+To access these APIs, add the indicated extension or dependency to your project.
+Refer to the associated documentation to learn how to use them.</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extensión o dependencia</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentación</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente AMQP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-smallrye-reactive-messaging-amqp</code> (extension)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/amqp" class="bare">https://quarkus.io/guides/amqp</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Interruptor automático</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.smallrye.reactive:smallrye-mutiny-vertx-circuit-breaker</code> (dependencia externa)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://vertx.io/docs/vertx-circuit-breaker/java/">vertx.io</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente Consul</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.smallrye.reactive:smallrye-mutiny-vertx-consul-client</code> (dependencia externa)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://vertx.io/docs/vertx-consul-client/java/">vertx.io</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente DB2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-reactive-db2-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/reactive-sql-clients" class="bare">https://quarkus.io/guides/reactive-sql-clients</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente Kafka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-smallrye-reactive-messaging-kafka</code> (extension)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/kafka" class="bare">https://quarkus.io/guides/kafka</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente de correo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-mailer</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/mailer" class="bare">https://quarkus.io/guides/mailer</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente MQTT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-smallrye-reactive-messaging-mqtt</code> (extension)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Todavía no hay guía</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente MS SQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-reactive-mssql-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/reactive-sql-clients" class="bare">https://quarkus.io/guides/reactive-sql-clients</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente MySQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-reactive-mysql-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/reactive-sql-clients" class="bare">https://quarkus.io/guides/reactive-sql-clients</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente Oracle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-reactive-oracle-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/reactive-sql-clients" class="bare">https://quarkus.io/guides/reactive-sql-clients</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente PostgreSQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-reactive-pg-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/reactive-sql-clients" class="bare">https://quarkus.io/guides/reactive-sql-clients</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente RabbitMQ</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.smallrye.reactive:smallrye-mutiny-vertx-rabbitmq-client</code> (dependencia externa)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://vertx.io/docs/vertx-rabbitmq-client/java">vertx.io</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente Redis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.quarkus:quarkus-redis-client</code> (extensión)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://quarkus.io/guides/redis" class="bare">https://quarkus.io/guides/redis</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cliente web</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>io.smallrye.reactive:smallrye-mutiny-vertx-web-client</code> (dependencia externa)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://vertx.io/docs/vertx-web-client/java/">vertx.io</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Para saber más sobre el uso de la API de Vert.x Mutiny, consulte <a href="https://smallrye.io/smallrye-mutiny-vertx-bindings">smallrye.io</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-of-usage"><a class="anchor" href="#example-of-usage"></a>Example of usage</h3>
+<div class="paragraph">
+<p>This section gives an example using the Vert.x <code>WebClient</code> in the context of a RESTEasy Reactive application.
+As indicated in the table above, add the following dependency to your project:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.smallrye.reactive&lt;/groupId&gt;
+    &lt;artifactId&gt;smallrye-mutiny-vertx-web-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">implementation("io.smallrye.reactive:smallrye-mutiny-vertx-web-client")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ahora, en su código, puede crear una instancia de <code>WebClient</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import io.smallrye.mutiny.Uni;
+
+import io.vertx.mutiny.core.Vertx;
+import io.vertx.mutiny.ext.web.client.WebClient;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.client.WebClientOptions;
+
+@Path("/fruit-data")
+public class ResourceUsingWebClient {
+
+    private final WebClient client;
+
+    @Inject
+    VertxResource(Vertx vertx) {
+        this.client = WebClient.create(vertx);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{name}")
+    public Uni&lt;JsonObject&gt; getFruitData(String name) {
+        return client.getAbs("https://.../api/fruit/" + name)
+                .send()
+                .onItem().transform(resp -&gt; {
+                    if (resp.statusCode() == 200) {
+                        return resp.bodyAsJsonObject();
+                    } else {
+                        return new JsonObject()
+                                .put("code", resp.statusCode())
+                                .put("message", resp.bodyAsString());
+                    }
+                });
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este recurso crea un <code>WebClient</code> y, al recibir una petición, utiliza este cliente para invocar una API HTTP remota.
+Dependiendo del resultado, la respuesta se reenvía tal y como se recibió, o crea un objeto JSON que envuelve el error.
+El <code>WebClient</code> es asíncrono (y no bloqueante), por lo que el endpoint devuelve un <code>Uni</code>.</p>
+</div>
+<div class="paragraph">
+<p>La aplicación también puede ejecutarse como un ejecutable nativo.
+Pero, primero, necesitamos instruir a Quarkus para que habilite <em>ssl</em> (si la API remota utiliza HTTPS).
+Abra el <code>src/main/resources/application.properties</code> y añada:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.ssl.native=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Luego, cree el ejecutable nativo con:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-sync-cli">
+<div class="title">CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">quarkus build --native</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-maven">
+<div class="title">Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./mvnw install -Dnative</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-sync-gradle">
+<div class="title">Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew build -Dquarkus.package.type=native</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-vert-x-json"><a class="anchor" href="#using-vert-x-json"></a>Using Vert.x JSON</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Las APIs de Vert.x dependen a menudo de JSON.
+Vert.x proporciona dos clases convenientes para manipular documentos JSON: <code>io.vertx.core.json.JsonObject</code> y <code>io.vertx.core.json.JsonArray</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>JsonObject</code> se puede utilizar para mapear un objeto en su representación JSON y construir un objeto a partir de un documento JSON:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Map an object into JSON
+Person person = ...;
+JsonObject json = JsonObject.mapFrom(person);
+
+// Build an object from JSON
+json = new JsonObject();
+person = json.mapTo(Person.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tenga en cuenta que estas funciones utilizan el mapeador gestionado por la extensión <code>quarkus-jackson</code>.
+Consulte <a href="rest-json#json">configuración de Jackson</a> para personalizar el mapeo.</p>
+</div>
+<div class="paragraph">
+<p>JSON Object and JSON Array are both supported as Quarkus HTTP endpoint requests and response bodies (using classic RESTEasy and RESTEasy Reactive).
+Consider these endpoints:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/hello")
+@Produces(MediaType.APPLICATION_JSON)
+public class VertxJsonResource {
+
+    @GET
+    @Path("{name}/object")
+    public JsonObject jsonObject(String name) {
+        return new JsonObject().put("Hello", name);
+    }
+
+    @GET
+    @Path("{name}/array")
+    public JsonArray jsonArray(String name) {
+        return new JsonArray().add("Hello").add(name);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="http://localhost:8080/hello/Quarkus/object" class="bare">http://localhost:8080/hello/Quarkus/object</a> devuelve:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">{"Hello":"Quarkus"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="http://localhost:8080/hello/Quarkus/array" class="bare">http://localhost:8080/hello/Quarkus/array</a> devuelve:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">["Hello","Quarkus"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esto funciona igualmente bien cuando el contenido JSON es un cuerpo de petición o está envuelto en un <code>Uni</code>, <code>Multi</code>, <code>CompletionStage</code> o <code>Publisher</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-verticles"><a class="anchor" href="#using-verticles"></a>Using verticles</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://vertx.io/docs/vertx-core/java/#<em>verticles">Verticles</a> es "un modelo de despliegue y concurrencia simple, escalable y similar a un actor" proporcionado por _Vert.x</em>.
+Este modelo no pretende ser una implementación estricta del modelo actor, pero comparte similitudes, especialmente en lo que respecta a la concurrencia, el escalado y el despliegue.
+Para utilizar este modelo, usted escribe y <em>despliega</em> vértices, que se comunican mediante el envío de mensajes en el bus de eventos.</p>
+</div>
+<div class="paragraph">
+<p>Puede desplegar <em>vértices</em> en Quarkus.
+Es compatible con:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>vértice <em>bare</em> - clases Java que extienden <code>io.vertx.core.AbstractVerticle</code></p>
+</li>
+<li>
+<p>vértice <em>Mutiny</em> - clases Java que extienden <code>io.smallrye.mutiny.vertx.core.AbstractVerticle</code></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="deploying-verticles"><a class="anchor" href="#deploying-verticles"></a>Deploying verticles</h3>
+<div class="paragraph">
+<p>Para desplegar vértices, utilice el método <code>deployVerticle</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Inject Vertx vertx;
+
+// ...
+vertx.deployVerticle(MyVerticle.class.getName(), ar -&gt; { });
+vertx.deployVerticle(new MyVerticle(), ar -&gt; { });</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si utiliza la variante Mutiny de Vert.x, tenga en cuenta que el método <code>deployVerticle</code> devuelve un <code>Uni</code>, y tendría que activar una suscripción para realizar el despliegue real.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A continuación, un ejemplo que explica cómo desplegar vértices durante la inicialización de la aplicación.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-applicationscoped-beans-as-verticle"><a class="anchor" href="#using-applicationscoped-beans-as-verticle"></a>Using @ApplicationScoped Beans as Verticle</h3>
+<div class="paragraph">
+<p>En general, los vértices Vert.x no son beans CDI.
+Por lo tanto, no pueden utilizar la inyección.
+Sin embargo, en Quarkus, puede desplegar vértices como beans.
+Tenga en cuenta que, en este caso, CDI (Arc en Quarkus) se encarga de crear la instancia.</p>
+</div>
+<div class="paragraph">
+<p>El siguiente fragmento ofrece un ejemplo:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.quarkus.vertx.verticles;
+
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.vertx.core.AbstractVerticle;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class MyBeanVerticle extends AbstractVerticle {
+
+    @ConfigProperty(name = "address") String address;
+
+    @Override
+    public Uni&lt;Void&gt; asyncStart() {
+        return vertx.eventBus().consumer(address)
+                .handler(m -&gt; m.replyAndForget("hello"))
+                .completionHandler();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>No tiene que inyectar la instancia <code>vertx</code>; en su lugar, aproveche el campo protegido de <code>AbstractVerticle</code>.</p>
+</div>
+<div class="paragraph">
+<p>Luego, despliegue las instancias de vértice con:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.quarkus.vertx.verticles;
+
+import io.quarkus.runtime.StartupEvent;
+import io.vertx.mutiny.core.Vertx;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+
+@ApplicationScoped
+public class VerticleDeployer {
+
+    public void init(@Observes StartupEvent e, Vertx vertx, MyBeanVerticle verticle) {
+         vertx.deployVerticle(verticle).await().indefinitely();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si quiere desplegar cada <code>AbstractVerticle</code> expuesto, puede utilizar:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public void init(@Observes StartupEvent e, Vertx vertx, Instance&lt;AbstractVerticle&gt; verticles) {
+    for (AbstractVerticle verticle : verticles) {
+        vertx.deployVerticle(verticle).await().indefinitely();
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-multiple-verticles-instances"><a class="anchor" href="#using-multiple-verticles-instances"></a>Using multiple verticles instances</h3>
+<div class="paragraph">
+<p>Cuando utilice <code>@ApplicationScoped</code>, obtendrá una única instancia para su vértice.
+Tener varias instancias de vértices puede ser útil para repartir la carga entre ellas.
+Cada una de ellas estará asociada a un hilo de E/S diferente (bucle de eventos Vert.x).</p>
+</div>
+<div class="paragraph">
+<p>Para desplegar varias instancias de su vértice, utilice el ámbito <code>@Dependent</code> en lugar de <code>@ApplicationScoped</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.verticle;
+
+import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.vertx.core.AbstractVerticle;
+
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
+@Dependent
+public class MyVerticle extends AbstractVerticle {
+
+    @Override
+    public Uni&lt;Void&gt; asyncStart() {
+        return vertx.eventBus().consumer("address")
+                .handler(m -&gt; m.reply("Hello from " + this))
+                .completionHandler();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, despliegue su vértice de la siguiente manera:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.verticle;
+
+import io.quarkus.runtime.StartupEvent;
+import io.vertx.core.DeploymentOptions;
+import io.vertx.mutiny.core.Vertx;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+@ApplicationScoped
+public class MyApp {
+
+    void init(@Observes StartupEvent ev, Vertx vertx, Instance&lt;MyVerticle&gt; verticles) {
+        vertx
+                .deployVerticle(verticles::get, new DeploymentOptions().setInstances(2))
+                .await().indefinitely();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El método <code>init</code> recibe un <code>Instance&lt;MyVerticle&gt;</code>.
+A continuación, pasa un proveedor al método <code>deployVerticle</code>.
+El proveedor no hace más que llamar al método <code>get()</code>.
+Gracias al ámbito <code>@Dependent</code>, devuelve una nueva instancia en cada llamada.
+Por último, pasa el número deseado de instancias a <code>DeploymentOptions</code>, como dos en el ejemplo anterior.
+Llamará al proveedor dos veces, lo que creará dos instancias de su vértice.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eventbus"><a class="anchor" href="#eventbus"></a>Uso del bus de eventos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vert.x viene con un <a href="https://vertx.io/docs/vertx-core/java/#event_bus">bus de eventos</a> incorporado que puede utilizar desde su aplicación Quarkus.
+De este modo, los componentes de su aplicación (beans CDI, recursos&#8230;&#8203;) pueden interactuar utilizando eventos asíncronos, promoviendo así el acoplamiento débil.</p>
+</div>
+<div class="paragraph">
+<p>Con el bus de eventos, usted envía <em>mensajes</em> a <em>direcciones virtuales</em>.
+El bus de eventos ofrece tres tipos de mecanismos de entrega:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>punto a punto - se envía el mensaje, un consumidor lo recibe. Si varios consumidores escuchan la dirección, se aplica un round-robin;</p>
+</li>
+<li>
+<p>publicar/suscribir - publicar un mensaje; todos los consumidores que escuchan la dirección reciben el mensaje;</p>
+</li>
+<li>
+<p>petición/respuesta - se envía el mensaje y se espera una respuesta. El receptor puede responder al mensaje de forma asíncrona.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Todos estos mecanismos de entrega son no bloqueantes y proporcionan uno de los elementos fundamentales para construir aplicaciones reactivas.</p>
+</div>
+<div class="sect2">
+<h3 id="consuming-events"><a class="anchor" href="#consuming-events"></a>Consuming events</h3>
+<div class="paragraph">
+<p>Aunque puede utilizar la API de Vert.x para registrar consumidores, Quarkus viene con soporte declarativo.
+Para consumir eventos, utilice la anotación <code>io.quarkus.vertx.ConsumeEvent</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.quarkus.vertx.ConsumeEvent;
+
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class GreetingService {
+
+    @ConsumeEvent                           <i class="conum" data-value="1"></i><b>(1)</b>
+    public String consume(String name) {    <i class="conum" data-value="2"></i><b>(2)</b>
+        return name.toUpperCase();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Si no se establece, la dirección es el nombre completo del bean; por ejemplo, en este fragmento, es <code>org.acme.vertx.GreetingService</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>El parámetro del método es el cuerpo del mensaje. Si el método devuelve <em>algo</em>, es la respuesta del mensaje.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-the-address"><a class="anchor" href="#configuring-the-address"></a>Configuring the address</h3>
+<div class="paragraph">
+<p>La anotación <code>@ConsumeEvent</code> se puede configurar para establecer la dirección:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent("greeting")               <i class="conum" data-value="1"></i><b>(1)</b>
+public String consume(String name) {
+    return name.toUpperCase();
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Recibir los mensajes enviados a la dirección <code>greeting</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="asynchronous-processing"><a class="anchor" href="#asynchronous-processing"></a>Asynchronous processing</h3>
+<div class="paragraph">
+<p>Los ejemplos anteriores utilizan el procesamiento síncrono.
+El procesamiento asíncrono también es posible devolviendo un <code>io.smallrye.mutiny.Uni</code> o un <code>java.util.concurrent.CompletionStage</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.quarkus.vertx.ConsumeEvent;
+
+import javax.enterprise.context.ApplicationScoped;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import io.smallrye.mutiny.Uni;
+
+@ApplicationScoped
+public class GreetingService {
+
+    @ConsumeEvent
+    public CompletionStage&lt;String&gt; consume(String name) {
+        // return a CompletionStage completed when the processing is finished.
+        // You can also fail the CompletionStage explicitly
+    }
+
+    @ConsumeEvent
+    public Uni&lt;String&gt; process(String name) {
+        // return an Uni completed when the processing is finished.
+        // You can also fail the Uni explicitly
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Mutiny</div>
+<div class="paragraph">
+<p>El ejemplo anterior utiliza tipos reactivos Mutiny.
+Si no está familiarizado con Mutiny, consulte <a href="mutiny-primer">Mutiny - una biblioteca de programación reactiva intuitiva</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="blocking-processing"><a class="anchor" href="#blocking-processing"></a>Blocking processing</h3>
+<div class="paragraph">
+<p>Por defecto, el código que consume el evento debe ser <em>no bloqueante</em>, ya que se llama en un hilo de E/S.
+Si su procesamiento es bloqueante, utilice la anotación <code>@io.smallrye.common.annotation.Blocking</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent(value = "blocking-consumer")
+@Blocking
+void consumeBlocking(String message) {
+    // Something blocking
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternativamente, puede utilizar el atributo <code>blocking</code> de la anotación <code>@ConsumeEvent</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent(value = "blocking-consumer", blocking = true)
+void consumeBlocking(String message) {
+    // Something blocking
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cuando se utiliza <code>@Blocking</code>, se ignora el valor del atributo <code>blocking</code> de <code>@ConsumeEvent</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="replying-to-messages"><a class="anchor" href="#replying-to-messages"></a>Replying to messages</h3>
+<div class="paragraph">
+<p>El valor de <em>retorno</em> de un método anotado con <code>@ConsumeEvent</code> se utiliza para responder al mensaje entrante.
+Por ejemplo, en el siguiente fragmento, el <code>String</code> devuelto es la respuesta.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent("greeting")
+public String consume(String name) {
+    return name.toUpperCase();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También puede devolver un <code>Uni&lt;T&gt;</code> o un <code>CompletionStage&lt;T&gt;</code> para manejar la respuesta asíncrona:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent("greeting")
+public Uni&lt;String&gt; consume2(String name) {
+    return Uni.createFrom().item(() -&gt; name.toUpperCase()).emitOn(executor);
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Puede inyectar un <code>executor</code> si utiliza la extensión de Propagación de Contexto:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-code hljs" data-lang="code">@Inject Executor executor;</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="implementing-fire-and-forget-interactions"><a class="anchor" href="#implementing-fire-and-forget-interactions"></a>Implementing fire and forget interactions</h3>
+<div class="paragraph">
+<p>No es necesario responder a los mensajes recibidos.
+Normalmente, para una interacción de <em>disparar y olvidar</em>, los mensajes se consumen y el remitente no necesita saberlo.
+Para implementar este patrón, su método consumidor devuelve <code>void</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent("greeting")
+public void consume(String event) {
+    // Do something with the event
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dealing-with-messages"><a class="anchor" href="#dealing-with-messages"></a>Dealing with messages</h3>
+<div class="paragraph">
+<p>A diferencia del ejemplo anterior en el que se utilizaban directamente las <em>cargas útiles</em>, también se puede utilizar directamente <code>Message</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ConsumeEvent("greeting")
+public void consume(Message&lt;String&gt; msg) {
+    System.out.println(msg.address());
+    System.out.println(msg.body());
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handling-failures"><a class="anchor" href="#handling-failures"></a>Handling Failures</h3>
+<div class="paragraph">
+<p>Si un método anotado con <code>@ConsumeEvent</code> lanza una excepción, entonces:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>si se establece un manejador de respuesta, entonces el fallo se propaga de vuelta al remitente a través de un <code>io.vertx.core.eventbus.ReplyException</code> con el código <code>ConsumeEvent#FAILURE_CODE</code> y el mensaje de excepción,</p>
+</li>
+<li>
+<p>if no reply handler is set, then the exception is rethrown (and wrapped in a <code>RuntimeException</code> if necessary) and can be handled by the default exception handler, i.e. <code>io.vertx.core.Vertx#exceptionHandler()</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sending-messages"><a class="anchor" href="#sending-messages"></a>Sending messages</h3>
+<div class="paragraph">
+<p>El envío y la publicación de mensajes utilizan el bus de eventos Vert.x:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.core.eventbus.EventBus;
+import io.vertx.mutiny.core.eventbus.Message;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/async")
+public class EventResource {
+
+    @Inject
+    EventBus bus;                                            <i class="conum" data-value="1"></i><b>(1)</b>
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("{name}")
+    public Uni&lt;String&gt; greeting(String name) {
+        return bus.&lt;String&gt;request("greeting", name)        <i class="conum" data-value="2"></i><b>(2)</b>
+                .onItem().transform(Message::body);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inyectar el bus de eventos</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Envía un mensaje a la dirección <code>greeting</code>. El contenido del mensaje es <code>name</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>El objeto <code>EventBus</code> proporciona métodos para:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>send</code> un mensaje a una dirección específica: un solo consumidor recibe el mensaje.</p>
+</li>
+<li>
+<p><code>publish</code> un mensaje a una dirección específica: todos los consumidores reciben los mensajes.</p>
+</li>
+<li>
+<p><code>request</code> un mensaje y esperar una respuesta</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Case 1
+bus.sendAndForget("greeting", name)
+// Case 2
+bus.publish("greeting", name)
+// Case 3
+Uni&lt;String&gt; response = bus.&lt;String&gt;request("address", "hello, how are you?")
+        .onItem().transform(Message::body);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using-codecs"><a class="anchor" href="#using-codecs"></a>Using codecs</h3>
+<div class="paragraph">
+<p>The <a href="https://vertx.io/docs/vertx-core/java/#event_bus">Vert.x Event Bus</a> uses codecs to <em>serialize</em> and <em>deserialize</em> objects.
+Quarkus provides a default codec for local delivery.
+So you can exchange objects as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GET
+@Produces(MediaType.TEXT_PLAIN)
+@Path("{name}")
+public Uni&lt;String&gt; greeting(String name) {
+    return bus.&lt;String&gt;request("greeting", new MyName(name))
+        .onItem().transform(Message::body);
+}
+
+@ConsumeEvent(value = "greeting")
+Uni&lt;String&gt; greeting(MyName name) {
+    return Uni.createFrom().item(() -&gt; "Hello " + name.getName());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si quiere usar un códec específico, tiene que configurarlo en ambos extremos explícitamente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@GET
+@Produces(MediaType.TEXT_PLAIN)
+@Path("{name}")
+public Uni&lt;String&gt; greeting(String name) {
+    return bus.&lt;String&gt;request("greeting", name,
+        new DeliveryOptions().setCodecName(MyNameCodec.class.getName())) <i class="conum" data-value="1"></i><b>(1)</b>
+        .onItem().transform(Message::body);
+}
+
+@ConsumeEvent(value = "greeting", codec = MyNameCodec.class)            <i class="conum" data-value="2"></i><b>(2)</b>
+Uni&lt;String&gt; greeting(MyName name) {
+    return Uni.createFrom().item(() -&gt; "Hello "+name.getName());
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Establezca el nombre del códec que se utilizará para enviar el mensaje</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Establezca el códec que se utilizará para recibir el mensaje</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="combining-http-and-the-event-bus"><a class="anchor" href="#combining-http-and-the-event-bus"></a>Combining HTTP and the event bus</h3>
+<div class="paragraph">
+<p>Let&#8217;s revisit a greeting HTTP endpoint and use asynchronous message passing to delegate the call to a separated bean.
+It uses the request/reply dispatching mechanism.
+Instead of implementing the business logic inside the JAX-RS endpoint, we are sending a message.
+Another bean consumes this message, and the response is sent using the <em>reply</em> mechanism.</p>
+</div>
+<div class="paragraph">
+<p>En su clase de endpoint HTTP, inyecte el bus de eventos y utilice el método <code>request</code> para enviar un mensaje al bus de eventos y esperar una respuesta:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.core.eventbus.EventBus;
+import io.vertx.mutiny.core.eventbus.Message;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/bus")
+public class EventResource {
+
+    @Inject
+    EventBus bus;
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("{name}")
+    public Uni&lt;String&gt; greeting(String name) {
+        return bus.&lt;String&gt;request("greeting", name)            <i class="conum" data-value="1"></i><b>(1)</b>
+                .onItem().transform(Message::body);            <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>enviar el <code>name</code> a la dirección <code>greeting</code> y solicitar una respuesta</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>cuando obtenemos la respuesta, extraer el cuerpo y enviarlo al usuario</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the HTTP method returns a <code>Uni</code>.
+If you are using RESTEasy Reactive, <code>Uni</code> support is built-in.
+If you are using <em>classic</em> RESTEasy, you need to add the <code>quarkus resteasy-mutiny</code> extension to your project.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Necesitamos un consumidor que escuche en la dirección <code>greeting</code>.
+Este consumidor puede estar en la misma clase o en otro bean como:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.quarkus.vertx.ConsumeEvent;
+
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class GreetingService {
+
+    @ConsumeEvent("greeting")
+    public String greeting(String name) {
+        return "Hello " + name;
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este bean recibe el nombre y devuelve el mensaje de saludo.</p>
+</div>
+<div class="paragraph">
+<p>Con esto en marcha, cada petición HTTP en <code>/bus/quarkus</code> envía un mensaje al bus de eventos, espera una respuesta, y cuando esta llega, escribe la respuesta HTTP:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Hello Quarkus</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Para entenderlo mejor, vamos a detallar cómo se ha gestionado la petición/respuesta HTTP:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>La petición es recibida por el método <code>greeting</code></p>
+</li>
+<li>
+<p>se envía un mensaje con el <em>name</em> al bus de eventos</p>
+</li>
+<li>
+<p>Otro bean recibe este mensaje y calcula la respuesta</p>
+</li>
+<li>
+<p>Esta respuesta se devuelve mediante el mecanismo de respuesta</p>
+</li>
+<li>
+<p>Una vez que el remitente recibe la respuesta, el contenido se escribe en la respuesta HTTP</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bidirectional-communication-with-browsers-using-sockjs"><a class="anchor" href="#bidirectional-communication-with-browsers-using-sockjs"></a>Bidirectional communication with browsers using SockJS</h3>
+<div class="paragraph">
+<p>El puente SockJS proporcionado por Vert.x permite que las aplicaciones del navegador y las aplicaciones de Quarkus se comuniquen utilizando el bus de eventos.
+Conecta ambos lados.
+Así, ambos lados pueden enviar mensajes recibidos en el otro lado.
+Soporta los tres mecanismos de entrega.</p>
+</div>
+<div class="paragraph">
+<p>SockJS negocia el canal de comunicación entre la aplicación Quarkus y el navegador.
+Si se admiten WebSockets, los utiliza; de lo contrario, se degrada a SSE, sondeo largo, etc.</p>
+</div>
+<div class="paragraph">
+<p>Para utilizar SockJS, es necesario configurar el puente, especialmente las direcciones que se utilizarán para comunicarse:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package org.acme.vertx;
+
+import io.vertx.core.Vertx;
+import io.vertx.ext.bridge.PermittedOptions;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
+import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@ApplicationScoped
+public class SockJsExample {
+
+    @Inject
+    Vertx vertx;
+
+    public void init(@Observes Router router) {
+        SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
+        sockJSHandler.bridge(new SockJSBridgeOptions()
+                .addOutboundPermitted(new PermittedOptions().setAddress("ticks")));
+        router.route("/eventbus/*").handler(sockJSHandler);
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Este código configura el puente SockJS para que envíe todos los mensajes dirigidos a la dirección <code>ticks</code> a los navegadores conectados.
+Encontrará explicaciones más detalladas sobre la configuración en <a href="https://vertx.io/docs/vertx-web/java/#_sockjs_event_bus_bridge">la documentación del puente SockJS de Vert.x</a>.</p>
+</div>
+<div class="paragraph">
+<p>El navegador debe utilizar la biblioteca JavaScript <code>vertx-eventbus</code> para consumir el mensaje:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"/&gt;
+    &lt;title&gt;SockJS example - Quarkus&lt;/title&gt;
+    &lt;script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"&gt;&lt;/script&gt;
+    &lt;script type="application/javascript" src="https://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"&gt;&lt;/script&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/vertx3-eventbus-client@3.8.5/vertx-eventbus.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;SockJS Examples&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Last Tick:&lt;/strong&gt; &lt;span id="tick"&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;script&gt;
+    var eb = new EventBus('/eventbus');
+
+    eb.onopen = function () {
+
+        eb.registerHandler('ticks', function (error, message) {
+            $("#tick").html(message.body);
+        });
+    }
+
+&lt;/script&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="native-transport"><a class="anchor" href="#native-transport"></a>Native Transport</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Native transports are not supported in GraalVM produced binaries.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Vert.x is capable of using <a href="https://netty.io/wiki/native-transports.html">Netty&#8217;s native transports</a>, which offers
+performance improvements on specific platforms.To enable them, you must include the appropriate dependency for your
+platform. It&#8217;s usually a good idea to have both to keep your application platform-agnostic. Netty is smart enough
+to use the correct one, that includes none at all on unsupported platforms:</p>
+</div>
+<div class="listingblock primary asciidoc-tabs-target-sync-cli asciidoc-tabs-target-sync-maven">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;io.netty&lt;/groupId&gt;
+  &lt;artifactId&gt;netty-transport-native-epoll&lt;/artifactId&gt;
+  &lt;classifier&gt;linux-x86_64&lt;/classifier&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;io.netty&lt;/groupId&gt;
+  &lt;artifactId&gt;netty-transport-native-kqueue&lt;/artifactId&gt;
+  &lt;classifier&gt;osx-x86_64&lt;/classifier&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock secondary asciidoc-tabs-target-sync-gradle">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">implementation("io.netty:netty-transport-native-epoll::linux-x86_64")
+
+implementation("io.netty:netty-transport-native-kqueue::osx-x86_64")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>También tendrá que configurar explícitamente Vert.x para que utilice el transporte nativo.
+En <code>application.properties</code> añada:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">quarkus.vertx.prefer-native-transport=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O en <code>application.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yml hljs" data-lang="yml">quarkus:
+  vertx:
+    prefer-native-transport: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si todo va bien, Quarkus registrará:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[io.qua.ver.cor.run.VertxCoreRecorder] (main) Vertx tiene habilitado el transporte nativo: true</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="native-linux-transport"><a class="anchor" href="#native-linux-transport"></a>Native Linux Transport</h3>
+<div class="paragraph">
+<p>En Linux puede activar las siguientes opciones de socket:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SO_REUSEPORT</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.so-reuse-port=true</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TCP_QUICKACK</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.tcp-quick-ack=true</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TCP_CORK</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.tcp-cork=true</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>TCP_FASTOPEN</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.tcp-fast-open=true</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="native-macos-transport"><a class="anchor" href="#native-macos-transport"></a>Native macOS Transport</h3>
+<div class="paragraph">
+<p>En macOS Sierra y superior puede habilitar las siguientes opciones de socket:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>SO_REUSEPORT</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.so-reuse-port=true</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="listening-to-a-unix-domain-socket"><a class="anchor" href="#listening-to-a-unix-domain-socket"></a>Listening to a Unix Domain Socket</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Escuchar en un socket de dominio Unix nos permite prescindir de la sobrecarga de TCP
+si la conexión al servicio Quarkus se establece desde el mismo host.
+Esto puede ocurrir si el acceso al servicio se realiza a través de un proxy, lo que suele ser el caso
+si está configurando una malla de servicios con un proxy como Envoy.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Esto solo funcionará en plataformas que admitan <a href="#native-transport">Native Transport</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Habilite el <a href="#native-transport">Native Transport</a> correspondiente y establezca la siguiente propiedad de entorno:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.domain-socket=/var/run/io.quarkus.app.socket
+quarkus.http.domain-socket-enabled=true
+
+quarkus.vertx.prefer-native-transport=true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Por sí mismo esto no desactivará el socket TCP que por defecto se abrirá en
+<code>0.0.0.0:8080</code>. Puede desactivarse explícitamente:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>quarkus.http.host-enabled=false</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Estas propiedades pueden establecerse a través del parámetro de línea de comandos <code>-D</code> de Java o
+en <code>application.properties</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+No olvide añadir la dependencia de transporte nativo.
+Consulte <a href="#native-transport">Native Transport</a> para más detalles.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Asegúrese de que su aplicación tiene los permisos adecuados para escribir en el socket.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="read-only-deployment-environments"><a class="anchor" href="#read-only-deployment-environments"></a>Read only deployment environments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En entornos con sistemas de archivos de solo lectura puede recibir errores de la forma:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">java.lang.IllegalStateException: Failed to create cache dir</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assuming <code>/tmp/</code> is writable this can be fixed by setting the <code>vertx.cacheDirBase</code> property to point to a directory in <code>/tmp/</code> for instance in OpenShift by creating an environment variable <code>JAVA_OPTS</code> with the value <code>-Dvertx.cacheDirBase=/tmp/vertx</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customizing-the-vert-x-configuration"><a class="anchor" href="#customizing-the-vert-x-configuration"></a>Customizing the Vert.x configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La configuración de la instancia Vert.x gestionada puede proporcionarse mediante el archivo <code>application.properties</code>, pero también mediante <em>beans especiales</em>.
+Los beans CDI que exponen la interfaz <code>io.quarkus.vertx.VertxOptionsCustomizer</code> pueden utilizarse para personalizar la configuración de Vert.x.
+Por ejemplo, el siguiente personalizador cambia el directorio base <code>tmp</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ApplicationScoped
+public class MyCustomizer implements VertxOptionsCustomizer {
+
+    @Override
+    public void accept(VertxOptions options) {
+        options.setFileSystemOptions(new FileSystemOptions().setFileCacheDir("target"));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Los beans <em>customizer</em> reciben los <code>VertxOptions</code> (provenientes de la configuración de la aplicación) y pueden modificarlos.</p>
+</div>
+</div>
+</div>
+    </div>
+    <div class="grid__item width-4-12 width-12-12-m tocwrapper">
+      <div class="hide-mobile toc"><ul class="sectlevel1">
+<li><a href="#vertx-access">Accessing the Vert.x instance</a></li>
+<li><a href="#vertx-config">Configuring the Vert.x instance</a></li>
+<li><a href="#using-vertx-clients">Using Vert.x clients</a>
+<ul class="sectlevel2">
+<li><a href="#available-apis">APIs disponibles</a></li>
+<li><a href="#example-of-usage">Example of usage</a></li>
+</ul>
+</li>
+<li><a href="#using-vert-x-json">Using Vert.x JSON</a></li>
+<li><a href="#using-verticles">Using verticles</a>
+<ul class="sectlevel2">
+<li><a href="#deploying-verticles">Deploying verticles</a></li>
+<li><a href="#using-applicationscoped-beans-as-verticle">Using @ApplicationScoped Beans as Verticle</a></li>
+<li><a href="#using-multiple-verticles-instances">Using multiple verticles instances</a></li>
+</ul>
+</li>
+<li><a href="#eventbus">Uso del bus de eventos</a>
+<ul class="sectlevel2">
+<li><a href="#consuming-events">Consuming events</a></li>
+<li><a href="#configuring-the-address">Configuring the address</a></li>
+<li><a href="#asynchronous-processing">Asynchronous processing</a></li>
+<li><a href="#blocking-processing">Blocking processing</a></li>
+<li><a href="#replying-to-messages">Replying to messages</a></li>
+<li><a href="#implementing-fire-and-forget-interactions">Implementing fire and forget interactions</a></li>
+<li><a href="#dealing-with-messages">Dealing with messages</a></li>
+<li><a href="#handling-failures">Handling Failures</a></li>
+<li><a href="#sending-messages">Sending messages</a></li>
+<li><a href="#using-codecs">Using codecs</a></li>
+<li><a href="#combining-http-and-the-event-bus">Combining HTTP and the event bus</a></li>
+<li><a href="#bidirectional-communication-with-browsers-using-sockjs">Bidirectional communication with browsers using SockJS</a></li>
+</ul>
+</li>
+<li><a href="#native-transport">Native Transport</a>
+<ul class="sectlevel2">
+<li><a href="#native-linux-transport">Native Linux Transport</a></li>
+<li><a href="#native-macos-transport">Native macOS Transport</a></li>
+</ul>
+</li>
+<li><a href="#listening-to-a-unix-domain-socket">Listening to a Unix Domain Socket</a></li>
+<li><a href="#read-only-deployment-environments">Read only deployment environments</a></li>
+<li><a href="#customizing-the-vert-x-configuration">Customizing the Vert.x configuration</a></li>
+</ul></div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+
+  <div class="content project-footer">
+  <div class="footer-section">
+    <div class="logo-wrapper">
+      <a href="/"><img src="/assets/images/quarkus_logo_horizontal_rgb_reverse.svg" class="project-logo" title="Quarkus"></a>
+    </div>
+  </div>
+  <div class="grid-wrapper">
+    <p class="grid__item width-3-12">Quarkus is open. All dependencies of this project are available under the <a href='https://www.apache.org/licenses/LICENSE-2.0' target='_blank'>Apache Software License 2.0</a> or compatible license. <i class='fab fa-creative-commons'></i><i class='fab fa-creative-commons-by'></i> <a href='https://creativecommons.org/licenses/by/3.0/' target='_blank'>CC by 3.0</a><br /><br />This website was built with <a href='https://jekyllrb.com/' target='_blank'>Jekyll</a>, is hosted on <a href='https://pages.github.com/' target='_blank'>GitHub Pages</a> and is completely open source. If you want to make it better, <a href='https://github.com/quarkusio/quarkusio.github.io' target='_blank'>fork the website</a> and show us what you’ve got.</p>
+
+    
+      <div class="width-1-12 project-links">
+        <span>Navigation</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="/" target="_blank">Home</a></li>
+          
+          
+          
+            <li><a href="/about" target="_blank">About</a></li>
+          
+          
+          
+            <li><a href="/blog" target="_blank">Blog</a></li>
+          
+          
+          
+            <li><a href="/insights" target="_blank">Podcast</a></li>
+          
+          
+          
+            <li><a href="/events" target="_blank">Events</a></li>
+          
+          
+          
+            <li><a href="/newsletter" target="_blank">Boletín de noticias</a></li>
+          
+          
+          
+            <li><a href="/userstories" target="_blank">User Stories</a></li>
+          
+          
+          
+            <li><a href="https://github.com/orgs/quarkusio/projects/13/views/1" target="_blank">Hoja de ruta</a></li>
+          
+          
+          
+            <li><a href="/security" target="_blank">Security&nbsp;policy</a></li>
+          
+          
+          
+            <li><a href="/usage" target="_blank">Uso</a></li>
+          
+          
+          
+            <li><a href="https://github.com/commonhaus/artwork/tree/main/projects/quarkus" target="_blank">Brand</a></li>
+          
+          
+          
+            <li><a href="/desktopwallpapers" target="_blank">Wallpapers</a></li>
+          
+          
+          
+            <li><a href="https://www.redhat.com/en/about/privacy-policy" target="_blank">Privacy Policy</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Follow Us</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="https://x.com/quarkusio" target="_blank">X</a></li>
+          
+          
+          
+            <li><a href="https://bsky.app/profile/quarkus.io" target="_blank">Bluesky</a></li>
+          
+          
+          
+            <li><a rel="me" href="https://fosstodon.org/@quarkusio" target="_blank">Mastodon</a></li>
+            
+          
+          
+            <li><a href="https://www.threads.com/@quarkusio" target="_blank">Threads</a></li>
+          
+          
+          
+            <li><a href="https://www.facebook.com/quarkusio" target="_blank">Facebook</a></li>
+          
+          
+          
+            <li><a href="https://www.linkedin.com/company/quarkusio/" target="_blank">Linkedin</a></li>
+          
+          
+          
+            <li><a href="https://www.youtube.com/channel/UCaW8QG_QoIk_FnjLgr5eOqg" target="_blank">Youtube</a></li>
+          
+          
+          
+            <li><a href="https://github.com/quarkusio" target="_blank">GitHub</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-2-12 project-links">
+        <span>Get Help</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="/support" target="_blank">Support</a></li>
+          
+          
+          
+            <li><a href="/guides" target="_blank">Guías</a></li>
+          
+          
+          
+            <li><a href="/faq" target="_blank">FAQ</a></li>
+          
+          
+          
+            <li><a href="/get-started" target="_blank">Primeros pasos</a></li>
+          
+          
+          
+            <li><a href="https://stackoverflow.com/questions/tagged/quarkus" target="_blank">Stack Overflow</a></li>
+          
+          
+          
+            <li><a href="https://github.com/quarkusio/quarkus/discussions" target="_blank">Discussions</a></li>
+          
+          
+          
+            <li><a href="https://groups.google.com/forum/#!forum/quarkus-dev" target="_blank">Development mailing list</a></li>
+          
+          
+          
+            <li><a href="https://stats.uptimerobot.com/ze1PfweT2p" target="_blank">Quarkus Service Status</a></li>
+          
+          
+        </ul>
+      </div>
+    
+      <div class="width-1-12 project-links">
+        <span>Languages</span>
+        <ul class="footer-links">
+          
+          
+            <li><a href="https://quarkus.io/" target="_blank">English</a></li>
+          
+          
+          
+            <li><a href="https://pt.quarkus.io/" target="_blank">Português&nbsp;(Brasileiro)</a></li>
+          
+          
+          
+            <li><a href="https://es.quarkus.io/" target="_blank">Español</a></li>
+          
+          
+          
+            <li><a href="https://cn.quarkus.io/" target="_blank">简体中文</a></li>
+          
+          
+          
+            <li><a href="https://ja.quarkus.io/" target="_blank">日本語</a></li>
+          
+          
+        </ul>
+      </div>
+    
+
+    
+      <div class="width-4-12 more-links">
+        <span>Quarkus is made of community projects</span>
+        <ul class="footer-links">
+          
+            <li><a blah href="https://vertx.io/" target="_blank">Eclipse Vert.x</a></li>
+          
+            <li><a blah href="https://smallrye.io" target="_blank">SmallRye</a></li>
+          
+            <li><a blah href="https://hibernate.org" target="_blank">Hibernate</a></li>
+          
+            <li><a blah href="https://netty.io" target="_blank">Netty</a></li>
+          
+            <li><a blah href="https://resteasy.github.io" target="_blank">RESTEasy</a></li>
+          
+            <li><a blah href="https://camel.apache.org" target="_blank">Apache Camel</a></li>
+          
+            <li><a blah href="https://microprofile.io" target="_blank">Eclipse MicroProfile</a></li>
+          
+            <li><a blah href="https://code.quarkus.io/" target="_blank">And many more...</a></li>
+          
+        </ul>
+      </div>
+    
+  </div>
+</div>
+
+  <div class="content cf-footer">
+  <div class="flexcontainer">
+    <div class="cf-logo">
+      <a class="cf-logo" href="https://www.commonhaus.org/" target="_blank"><img src="https://raw.githubusercontent.com/commonhaus/artwork/main/foundation/brand/svg/CF_logo_horizontal_single_reverse.svg"/></a>
+    </div>
+    <div class="license">
+      Copyright © Quarkus. All rights reserved. For details on our trademarks, please visit our <a href="https://www.commonhaus.org/policies/trademark-policy/">Trademark Policy</a> and <a href="https://www.commonhaus.org/trademarks/">Trademark List</a>. Trademarks of third parties are owned by their respective holders and their mention here does not suggest any endorsement or association.
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/assets/javascript/mobile-nav.js"></script>
+  <script type="text/javascript" src="/assets/javascript/scroll-down.js"></script>
+  <script src="/assets/javascript/satellite.js" type="text/javascript"></script>
+  <script src="/guides/javascript/config.js" type="text/javascript"></script>
+  <script src="/assets/javascript/guides-version-dropdown.js" type="text/javascript"></script>
+  <script src="/assets/javascript/back-to-top.js" type="text/javascript"></script>
+  <script src="/assets/javascript/clipboard.min.js" type="text/javascript"></script>
+  <script src="/assets/javascript/copy.js" type="text/javascript"></script>
+  <script src="/assets/javascript/asciidoc-tabs.js" type="text/javascript"></script>
+  <script src="/assets/javascript/future-date.js" type="text/javascript"></script>
+  <script src="/assets/javascript/randomize.js" type="text/javascript"></script>
+  <script src="/assets/javascript/time.js" type="text/javascript"></script>
+</body>
+
+</html>
