@@ -513,16 +513,22 @@ msgid ""
 msgstr "Para evitar esto, Quarkus admite la idea de un perfil de prueba. Si una prueba tiene un perfil diferente al de la prueba ejecutada anteriormente, entonces Quarkus se apagará y se iniciará con el nuevo perfil antes de ejecutar las pruebas. Esto es obviamente un poco más lento, ya que añade un ciclo de apagado/arranque al tiempo de la prueba, pero proporciona una gran flexibilidad."
 
 #: _versions/main/guides/getting-started-testing.adoc
-#, fuzzy
 msgid ""
 "To reduce the amount of times Quarkus needs to restart, `io.quarkus.test.junit.util.QuarkusTestProfileAwareClassOrderer`\n"
 "is registered as a global `ClassOrderer` as described in the\n"
 "link:https://docs.junit.org/current/user-guide/#writing-tests-test-execution-order-classes[JUnit User Guide].\n"
 "The behavior of this `ClassOrderer` is configurable via `application.properties` using the property\n"
-"`quarkus.test.class-orderer`. The property accepts the FQCN of the `ClassOrderer` to use. If the class cannot be found,\n"
-"it fallbacks to JUnit default behaviour which does not set a `ClassOrderer` at all. It can also be disabled entirely by\n"
-"setting another `ClassOrderer` that is provided by JUnit or even your own custom one."
-msgstr "Para reducir la cantidad de veces que Quarkus necesita reiniciarse, `io.quarkus.test.junit.util.QuarkusTestProfileAwareClassOrderer` se registra como un `ClassOrderer` global, tal y como se describe en la link:https://docs.junit.org/current/user-guide/#writing-tests-test-execution-order-classes[Guía del usuario de JUnit] . El comportamiento de este `ClassOrderer` es configurable a través de `application.properties` utilizando la propiedad `quarkus.test.class-orderer` . La propiedad acepta el FQCN del `ClassOrderer` a utilizar. Si no se encuentra la clase, se vuelve al comportamiento por defecto de JUnit, que no establece ningún `ClassOrderer` . También puede desactivarse por completo estableciendo otro `ClassOrderer` proporcionado por JUnit o incluso uno propio personalizado."
+"`quarkus.test.class-orderer`. The Quarkus orderer will attempt to sort according to the secondary orderer, with the constraint that tests which require the same application instance are grouped.\n"
+"The property accepts the FQCN of the `ClassOrderer` to use as a secondary orderer. It can be set to an orderer that is provided by JUnit or even your own custom one.\n"
+"If the class cannot be found,\n"
+"it fallbacks to JUnit default behaviour which does not set a `ClassOrderer` at all."
+msgstr ""
+
+#: _versions/main/guides/getting-started-testing.adoc
+msgid ""
+"The Quarkus orderer can also be disabled entirely by\n"
+"setting another `ClassOrderer` using the JUnit configuration. This is only permitted in cases where all Quarkus tests would run on the same application (that is, the use of test profiles and test resources is limited)."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/getting-started-testing.adoc
