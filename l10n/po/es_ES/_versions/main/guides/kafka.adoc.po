@@ -107,11 +107,9 @@ msgstr "pom.xml"
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: delimited block =
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
-msgid "The extension includes `kafka-clients` version 3.2.1 as a transitive dependency and is compatible with Kafka brokers version 2.x."
-msgstr "La extensión incluye la versión 3.1.0 de `kafka-clients` como dependencia transitiva y es compatible con los brokers de Kafka versión 2.x."
+msgid "The extension includes `kafka-clients` version 4.1.1 as a transitive dependency and is compatible with Kafka brokers version 2.x and above."
+msgstr ""
 
 #: _versions/main/guides/kafka.adoc
 #, fuzzy
@@ -505,11 +503,9 @@ msgstr "SmallRye Reactive Messaging permite implementar estrategias de commit pe
 msgid "Error Handling Strategies"
 msgstr "Estrategias de gestión de errores"
 
-#. type: Plain text
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
-msgid "If a message produced from a Kafka record is nacked, a failure strategy is applied. The Kafka connector supports three strategies:"
-msgstr "Si un mensaje producido a partir de un registro de Kafka es nacked, se aplica una estrategia de fallo. El conector Kafka soporta tres estrategias:"
+msgid "If a message produced from a Kafka record is nacked, a failure strategy is applied. The Kafka connector supports the following strategies:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/kafka.adoc
@@ -528,6 +524,10 @@ msgstr "`ignore`El fallo se registra, pero el procesamiento continúa. Se consig
 #, fuzzy
 msgid "`dead-letter-queue`: the offset of the record that has not been processed correctly is committed, but the record is written to a Kafka dead letter topic."
 msgstr "`dead-letter-queue`: el desplazamiento del registro que no se ha procesado correctamente se consigna, pero el registro se escribe en un tema de letra muerta de Kafka."
+
+#: _versions/main/guides/kafka.adoc
+msgid "`delayed-retry-topic`: the failed record is sent to delayed retry topics for later reprocessing, with configurable delays and maximum retries."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/kafka.adoc
@@ -779,6 +779,18 @@ msgid ""
 "SmallRye Reactive Messaging keeps this order for processing, unless `@Blocking(ordered = false)` is used (see <<blocking-processing>>)."
 msgstr "Durante el funcionamiento normal, un consumidor Kafka conserva el orden de los registros dentro de cada partición que se le asigna. SmallRye Reactive Messaging mantiene este orden para su procesamiento, a menos que se utilice `@Blocking(ordered = false)` (consulte <<blocking-processing>> )."
 
+#: _versions/main/guides/kafka.adoc
+msgid "When using `@Blocking(ordered = false)`, you can still enforce ordering guarantees with the `ordered` channel attribute:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "`ordered=partition`: records from the same partition are processed sequentially, but different partitions can be processed concurrently."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "`ordered=key`: records with the same key are processed sequentially, regardless of partition."
+msgstr ""
+
 #. type: delimited block =
 #: _versions/main/guides/kafka.adoc
 #, fuzzy
@@ -1028,6 +1040,99 @@ msgid ""
 "Quarkus autodetects batch types for incoming channels and sets batch configuration automatically.\n"
 "You can configure batch mode explicitly with `mp.messaging.incoming.$channel.batch` property."
 msgstr "Quarkus autodetecta los tipos de lote para los canales entrantes y establece la configuración de lote automáticamente. Puede configurar el modo por lotes explícitamente con la propiedad `mp.messaging.incoming.$channel.batch` ."
+
+#: _versions/main/guides/kafka.adoc
+msgid "Share Groups (Kafka Queues)"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Kafka Share Groups require Apache Kafka 4.2+ brokers and are an early access feature in Kafka."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"Share Groups (https://cwiki.apache.org/confluence/display/KAFKA/KIP-932[KIP-932]) provide a queue-like consumption model for Kafka topics.\n"
+"Unlike consumer groups, records are distributed across share consumers without explicit partition assignment -- the broker handles distribution of records and acquisition locks automatically.\n"
+"This provides queue-style workloads where records are processed by any available consumer with at-least-once delivery semantics."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Enabling Share Groups"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "To enable share group consumption, set the `share-group` attribute on the incoming channel:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Consuming messages works like any other incoming channel:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Per-record Acknowledgement"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Share groups support three acknowledgement types:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "**ACCEPT**: Record processed successfully (default on ack)."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "**RELEASE**: Record failed processing and is eligible for re-delivery to another consumer."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "**REJECT**: Permanent rejection with no re-delivery."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "You can control the acknowledgement per record using `ShareGroupAcknowledgement` metadata:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Acquisition Lock Renewal"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"Each acquired record has a time-limited acquisition lock managed by the broker.\n"
+"The connector tracks in-processing records and periodically renews their locks to prevent re-delivery.\n"
+"The `share-group.unprocessed-record-max-age.ms` attribute controls this behavior:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"When enabled (default: `60000`), records still in processing are periodically renewed with the broker.\n"
+"If a record exceeds this timeout, the health check reports a failure.\n"
+"Set to `0` to disable monitoring and automatic renewal."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Batch Mode"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"Share groups support batch consumption.\n"
+"Enable it by setting `batch=true` alongside `share-group=true`:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "With per-record acknowledgement control, each record inside a batch can be individually acknowledged using `IncomingKafkaRecordBatchMetadata`:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Incompatible Configuration"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"When `share-group=true`, the following attributes are ignored:\n"
+"`pattern`, `assign-seek`, `partitions`, `commit-strategy`, `failure-strategy`, and `consumer-rebalance-listener.name`."
+msgstr ""
 
 #. type: Title ===
 #: _versions/main/guides/kafka.adoc
@@ -1599,13 +1704,11 @@ msgid "Note that for production use the `transactional.id` must be unique across
 msgstr "Tenga en cuenta que para el uso en producción el `transactional.id` debe ser único en todas las instancias de la aplicación."
 
 #: _versions/main/guides/kafka.adoc
-#, fuzzy
 msgid ""
-"While a normal message emitter would support concurrent calls to `send` methods and consequently queues outgoing messages to be written to Kafka,\n"
-"a `KafkaTransactions` emitter only supports one transaction at a time.\n"
+"By default, a `KafkaTransactions` emitter supports one transaction at a time per producer.\n"
 "A transaction is considered in progress from the call to the `withTransaction` until the returned `Uni` results in success or failure.\n"
-"While a transaction is in progress, subsequent calls to the `withTransaction`, including nested ones inside the given function, will throw `IllegalStateException`."
-msgstr "Mientras que un emisor de mensajes normal soportaría llamadas concurrentes a los métodos de `send` y, en consecuencia, pondría en cola los mensajes salientes para escribirlos en Kafka, un emisor de `KafkaTransactions` sólo soporta una transacción a la vez. Se considera que una transacción está en curso desde la llamada al `withTransaction` hasta que el `Uni` devuelto resulta exitoso o fallido. Mientras una transacción esté en curso, las llamadas posteriores al `withTransaction` , incluidas las anidadas dentro de la función dada, lanzarán `IllegalStateException` ."
+"While a transaction is in progress on the same producer, subsequent calls to the `withTransaction`, including nested ones inside the given function, will throw `IllegalStateException`."
+msgstr ""
 
 #: _versions/main/guides/kafka.adoc
 #, fuzzy
@@ -1619,6 +1722,43 @@ msgstr "Tenga en cuenta que en Mensajería Reactiva, la ejecución de los métod
 #, fuzzy
 msgid "An example usage can be found in <<chaining-kafka-transactions-with-hibernate-reactive-transactions>>."
 msgstr "Encontrará un ejemplo de uso en <<chaining-kafka-transactions-with-hibernate-reactive-transactions>> ."
+
+#: _versions/main/guides/kafka.adoc
+msgid "Concurrent Exactly-Once Processing with Pooled Producers"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"By default, `KafkaTransactions` uses a single producer, so only one transaction can run at a time.\n"
+"The *pooled producer* mode uses a pool of Kafka producers, each with its own `transactional.id`, derived from the configured `transactional.id` (e.g., `my-tx-id-1`, `my-tx-id-2`, etc.).\n"
+"Each transaction reserves a producer from the pool for the duration of the transaction, enabling concurrent exactly-once processing."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "Combined with `@Blocking(ordered = false)` and `ordered=partition` on the incoming channel, records from different partitions can be processed concurrently while maintaining per-partition ordering:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"The `KafkaTransactions` API is the same as for regular exactly-once processing.\n"
+"The outgoing record's partition defaults to the incoming record's partition:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "`@Blocking(ordered = false)` enables concurrent processing across worker threads. With `ordered=partition`, records from the same partition are still processed sequentially. The record payload and metadata are injected directly as method parameters."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "`withTransactionAndAwait` is the synchronous variant that blocks the worker thread until the transaction completes. It accepts `IncomingKafkaRecordMetadata` for managing consumer offset commits within the transaction. Each call acquires a separate producer from the pool."
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"Producers are returned to the pool after commit or abort.\n"
+"On abort, only the partitions involved in that transaction are reset so other concurrent transactions are not affected.\n"
+"By default, the pool grows lazily to match actual concurrency, up to `pooled-producer.max-pool-size` (default 10).\n"
+"Number of producers that are pre-created at startup can be configured with `pooled-producer.initial-pool-size` (default 0)."
+msgstr ""
 
 #. type: Title ====
 #: _versions/main/guides/kafka.adoc
@@ -2474,6 +2614,20 @@ msgstr "En modo JVM, funcionará de forma inmediata. Sin embargo, para compilar 
 #, fuzzy
 msgid "In native mode, Snappy is disabled by default as the use of Snappy requires embedding a native library and unpacking it when the application starts."
 msgstr "En el modo nativo, Snappy está desactivado por defecto, ya que el uso de Snappy requiere incrustar una biblioteca nativa y desempaquetarla cuando se inicia la aplicación."
+
+#: _versions/main/guides/kafka.adoc
+msgid "Disabling JMX MBean registration"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid "To disable JMX MBean registration, set the following property in your `application.properties`:"
+msgstr ""
+
+#: _versions/main/guides/kafka.adoc
+msgid ""
+"When disabled, the `AppInfoParser` skipş the JMX MBean registration and the default value for `kafka.metric.reporters` is set to empty, preventing the `JmxReporter` from being loaded.\n"
+"Kafka client metrics are available through Micrometer when the xref:telemetry-micrometer.adoc[Micrometer extension] is present."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/kafka.adoc
