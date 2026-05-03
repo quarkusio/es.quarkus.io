@@ -6,16 +6,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Leveraging Hibernate Search capabilities in a Quarkus application without a database"
 msgstr "Aprovechamiento de las capacidades de búsqueda de Hibernate en una aplicación Quarkus sin base de datos"
 
+#. type: YAML Front Matter: synopsis
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "This is the second post in the series that dives into the implementation details of the search.quarkus.io application. In this one we are going to discuss how we've leveraged Hibernate Search Standalone Mapper capabilities to index apriori unknown number of entities."
 msgstr "Este es el segundo post de la serie que se sumerge en los detalles de implementación de la aplicación search.quarkus.io. En este vamos a discutir cómo hemos aprovechado las capacidades de Hibernate Search Standalone Mapper para indexar apriori un número desconocido de entidades."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -24,6 +27,7 @@ msgid ""
 "link:https://quarkus.io/guides/[quarkus.io]."
 msgstr "Este es el segundo post de la serie que profundiza en los detalles de implementación de la link:https://github.com/quarkusio/search.quarkus.io[aplicación] que respalda la búsqueda de guías de link:https://quarkus.io/guides/[quarkus.io] ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -32,11 +36,13 @@ msgid ""
 "Hibernate Search than that."
 msgstr "Hibernate Search es conocido principalmente por su link:{quarkus-hibernate-search-docs-url}[integración con Hibernate ORM] , donde puede detectar los cambios de entidad realizados a través de ORM y reflejarlos en los índices de búsqueda. Pero Hibernate Search es mucho más que eso."
 
+#. type: Block title
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Hibernate Search integration with Hibernate ORM"
 msgstr "Integración de Hibernate Search con Hibernate ORM"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -45,6 +51,7 @@ msgid ""
 "What can be done in these scenarios?"
 msgstr "No todas las aplicaciones que requieren capacidades de búsqueda dependen de bases de datos para proporcionar la fuente de los índices de búsqueda. Algunas aplicaciones dependen de un almacén NOSQL en el que Hibernate ORM no es aplicable, o incluso de un almacenamiento en archivos planos. ¿Qué se puede hacer en estos escenarios?"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -54,6 +61,7 @@ msgid ""
 "the Search DSL's power to perform search operations and more."
 msgstr "Ahí es donde el link:{quarkus-hibernate-search-standalone-docs-url}[mapeador Hibernate Search Standalone] puede resultar útil. link:https://quarkus.io/blog/quarkus-3-10-0-released/[Recientemente] se ha incluido como una de las extensiones del núcleo de Quarkus. Este mapeador permite anotar entidades de dominio con anotaciones de Hibernate Search y, a continuación, utiliza la potencia del DSL de búsqueda para realizar operaciones de búsqueda y mucho más."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -64,11 +72,13 @@ msgid ""
 "Please refer to the link:{quarkus-hibernate-search-standalone-docs-url}[guide] for a more in depth review of how to configure and use the mapper."
 msgstr "Con la versión 3.10 de Quarkus, hemos migrado nuestra aplicación Quarkus que respalda la búsqueda de guías de link:https://quarkus.io/guides/[quarkus.io/guides/] al mapeador Standalone y nos gustaría compartir con ustedes cómo utilizar este mapeador para indexar los datos procedentes de archivos y sin conocer el número total de registros a indexar. Consulte la link:{quarkus-hibernate-search-standalone-docs-url}[guía] para conocer más a fondo cómo configurar y utilizar el mapeador."
 
+#. type: Block title
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Hibernate Search Standalone mapper"
 msgstr "Mapeador independiente de búsqueda en Hibernate"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -82,16 +92,19 @@ msgid ""
 "which will create the documents in the search index that we will later use to perform search operations."
 msgstr "Empecemos describiendo la tarea que debe realizar esta aplicación de búsqueda. El objetivo principal de la aplicación es proporcionar capacidades de búsqueda sobre las guías de documentación. Obtiene la información necesaria sobre estas guías a partir de la lectura de varios archivos. Queremos leer los datos una sola vez, comenzar la indexación tan pronto como podamos y mantener en memoria sólo tantos registros como sea estrictamente necesario. También querríamos supervisar el progreso e informar de cualquier excepción que se produzca durante el proceso de indexación. Por lo tanto, querríamos crear un flujo finito de datos que alimentaríamos a un link:{hibernate-search-docs-url}#indexing-massindexer-basics[indexador masivo] , que creará los documentos en el índice de búsqueda que posteriormente utilizaremos para realizar operaciones de búsqueda."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Generally speaking, mass indexing can be as simple as:"
 msgstr "En términos generales, la indexación de masas puede ser tan sencilla como:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Inject `SearchMapping` somewhere in your app so that it can be used to access Hibernate Search capabilities."
 msgstr "Inyecte `SearchMapping` en algún lugar de su aplicación para que pueda utilizarse para acceder a las capacidades de búsqueda de Hibernate."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -99,16 +112,19 @@ msgid ""
 "In this case, all indexed entities should be targeted; hence, the `Object.class` can be used to create the scope."
 msgstr "Cree un ámbito dirigido a las entidades que pensamos reindexar. En este caso, todas las entidades indexadas deben ser objetivo; por lo tanto, se puede utilizar `Object.class` para crear el ámbito."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Create a mass indexer with the default configuration."
 msgstr "Cree un indexador masivo con la configuración por defecto."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Start the indexing process. Starting the process returns a future; the indexing happens in the background."
 msgstr "Inicia el proceso de indexación. El inicio del proceso devuelve un futuro; la indexación se produce en segundo plano."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -118,11 +134,13 @@ msgid ""
 "Since, in our case, we are only interested in the mass indexer, it would be enough only to define the mass loading strategy:"
 msgstr "Para que Hibernate Search realice esta operación, debemos indicarle cómo cargar las entidades indexadas. Para ello utilizaremos un `EntityLoadingBinder` . Se trata de una interfaz sencilla que proporciona acceso al contexto de vinculación en el que podemos definir estrategias de selección-carga (para la búsqueda) y estrategias de carga masiva (para la indexación). Dado que, en nuestro caso, sólo nos interesa el indexador masivo, bastará con definir la estrategia de carga masiva:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Implement the single `bind(..)` method of the `EntityLoadingBinder`."
 msgstr "Implemente el método único `bind(..)` del `EntityLoadingBinder` ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -130,11 +148,13 @@ msgid ""
 "We'll discuss the implementation of the strategy later in this post."
 msgstr "Especifique la estrategia de carga masiva para la entidad de búsqueda `Guide` . Discutiremos la implementación de la estrategia más adelante en este post."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "And then, with the entity loading binder defined, we can simply reference it within the `@SearchEntity` annotation:"
 msgstr "Y luego, con el aglutinante de carga de entidades definido, podemos simplemente referenciarlo dentro de la anotación `@SearchEntity` :"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -144,6 +164,7 @@ msgid ""
 "for example, if the loading binder requires access to some CDI beans and is a CDI bean itself."
 msgstr "Haga referencia a la implementación del aglutinante de carga por el tipo. Al igual que con muchos otros componentes de Hibernate Search, aquí se puede utilizar una referencia a un bean CDI proporcionando el nombre del bean, por ejemplo, si el aglutinante de carga requiere acceso a algunos beans CDI y es un bean CDI en sí mismo."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -152,11 +173,13 @@ msgid ""
 "Let's first review how the mass indexer works on a high level:"
 msgstr "Eso es todo lo que se necesita para atar cabos. La única cuestión abierta es cómo aplicar la estrategia de carga masiva. Repasemos primero cómo funciona el indexador masivo a alto nivel:"
 
+#. type: Block title
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "High level mass indexer flow"
 msgstr "Flujo del indexador de masa de alto nivel"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -171,11 +194,13 @@ msgid ""
 "than just pass through the batch of received \"identifiers\", which are actual entities, to the entity sink."
 msgstr "Implementar la estrategia de carga masiva requiere proporcionar un identificador y cargadores de entidades. Como ya se ha mencionado, en nuestro caso, queremos un flujo de datos que lea la información de los archivos y realice la parte de lectura una sola vez. Por lo tanto, queremos evitar desacoplar los pasos de lectura de identificadores/entidades. Aunque el contrato del cargador de identificadores sugiere que debe proporcionar el lote de identificadores al sumidero, nada nos impide pasar en su lugar un lote de instancia de entidad real. Es aceptable hacerlo en este caso ya que sólo estamos interesados en la carga masiva; no estamos implementando una estrategia de carga de selección que se utilizaría al realizar búsquedas. Ahora bien, si el cargador de identificadores proporciona instancias de entidad reales, el cargador de entidades no tiene nada más que hacer que pasar el lote de \"identificadores\" recibidos, que son entidades reales, al sumidero de entidades."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "With that in mind, the mass-loading strategy may be implemented as:"
 msgstr "Teniendo esto en cuenta, la estrategia de carga masiva puede aplicarse como:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -184,16 +209,19 @@ msgid ""
 "Hence, we would want to take a closer look at it."
 msgstr "Examinaremos la implementación del cargador de identificadores en el siguiente fragmento de código, ya que es algo más complicado que el cargador de entidades de paso. De ahí que queramos echarle un vistazo más de cerca."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "An implementation of the pass-through entity loader."
 msgstr "Una implementación del cargador de entidades de paso."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "As explained above, we treat the search entities as identifiers and simply pass the entities we receive to the sink."
 msgstr "Como se ha explicado anteriormente, tratamos las entidades de búsqueda como identificadores y simplemente pasamos las entidades que recibimos al sumidero."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -201,6 +229,7 @@ msgid ""
 "Hibernate Search will, at some point, provide alternative APIs to achieve this more elegantly: link:https://hibernate.atlassian.net/browse/HSEARCH-5209[HSEARCH-5209]"
 msgstr "Si pasar entidades como identificadores parece un truco, es porque lo es. En algún momento, Hibernate Search proporcionará API alternativas para conseguirlo de forma más elegante: link:https://hibernate.atlassian.net/browse/HSEARCH-5209[HSEARCH-5209]"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -210,16 +239,19 @@ msgid ""
 "These mass loading options provide access to the context objects passed to the mass indexer by the user."
 msgstr "Dado que las entidades de búsqueda de guías se construyen a partir de la información leída de un archivo, tenemos que pasar de alguna manera el flujo de estas guías al cargador de identificadores. Podríamos hacerlo utilizando las opciones de carga masiva `MassLoadingOptions options` . Estas opciones de carga masiva proporcionan acceso a los objetos de contexto pasados al indexador masivo por el usuario."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Inject `SearchMapping` somewhere in your application."
 msgstr "Inyecte `SearchMapping` en algún lugar de su aplicación."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Create a scope, as usual."
 msgstr "Cree un ámbito, como de costumbre."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -228,26 +260,31 @@ msgid ""
 "for an example of how such context can be implemented."
 msgstr "Pase el objeto de contexto al indexador masivo que sabe cómo leer los archivos y es capaz de proporcionar los lotes de entidades de búsqueda de `Guide` . Consulte el siguiente fragmento de código para ver un ejemplo de cómo puede implementarse dicho contexto."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Set any other mass indexer configuration options as needed."
 msgstr "Establezca cualquier otra opción de configuración del indexador de masas según sea necesario."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Create a mass indexer."
 msgstr "Cree un indexador de masas."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Start the indexing process."
 msgstr "Inicie el proceso de indexación."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Get an iterator from the finite data stream of guides."
 msgstr "Obtener un iterador del flujo de datos finito de guías."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -256,6 +293,7 @@ msgid ""
 "and checking the iterator to see if there are any more entities to pull."
 msgstr "Lee el siguiente lote de las guías del iterador. Estamos utilizando el límite de tamaño del lote que recuperaremos de las opciones de carga masiva y comprobando el iterador para ver si hay más entidades que extraer."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -264,6 +302,7 @@ msgid ""
 "can be as easy as:"
 msgstr "Ahora, teniendo la forma de leer las entidades por lotes desde el flujo y sabiendo cómo pasarlo al indexador masivo, implementar el cargador de identificadores puede ser tan fácil como:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -271,6 +310,7 @@ msgid ""
 "(e.g. `.context(GuideLoadingContext.class, guideLoadingContext)`)"
 msgstr "Recupera el contexto de carga de la guía que se espera pasar al indexador de masas. (por ejemplo, `.context(GuideLoadingContext.class, guideLoadingContext)` )"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -278,11 +318,13 @@ msgid ""
 "and completing the indexing, so we'll just pass `0` here."
 msgstr "No sabemos cuántas guías habrá hasta que terminemos de leer todos los archivos y completemos la indexación, así que pasaremos aquí a `0` ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "The information is not critical: it's only used to monitor progress."
 msgstr "La información no es crítica: sólo se utiliza para controlar el progreso."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -290,6 +332,7 @@ msgid ""
 "see https://hibernate.atlassian.net/browse/HSEARCH-5180[one of the improvements we are currently working on]."
 msgstr "Esta es una de las áreas que planeamos mejorar; vea link:https://hibernate.atlassian.net/browse/HSEARCH-5180[una de las mejoras en las que estamos trabajando actualmente] ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -297,6 +340,7 @@ msgid ""
 "for the current mass indexer."
 msgstr "Solicite el siguiente lote de guías. `options.batchSize()` nos proporcionará el valor configurado para el indexador de masas actual."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -304,11 +348,13 @@ msgid ""
 "Hence, we can notify the mass indexing sink that no more items will be provided by calling `.complete()`."
 msgstr "Si el lote está vacío, significa que el iterador de flujo no tiene más guías que devolver. Por lo tanto, podemos notificar al sumidero de indexación masiva que no se proporcionarán más elementos llamando a `.complete()` ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "If there are any guides in the loaded batch, we'll pass them to the sink to be processed."
 msgstr "Si hay guías en el lote cargado, las pasaremos al sumidero para que las procese."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -316,26 +362,31 @@ msgid ""
 "while reading each entity only once, and without relying on lookups by identifier:"
 msgstr "En resumen, he aquí un resumen de los pasos a seguir para indexar un número desconocido de entidades de búsqueda a partir de una fuente de datos, leyendo cada entidad una sola vez y sin depender de las búsquedas por identificador:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Start by creating a loader binder and let Hibernate Search know about it via the `@SearchEntity` annotation."
 msgstr "Comience por crear un binder cargador y deje que Hibernate Search lo conozca a través de la anotación `@SearchEntity` ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "Implement a mass loading strategy (`MassLoadingStrategy`) that includes:"
 msgstr "Implemente una estrategia de carga masiva ( `MassLoadingStrategy` ) que incluya:"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "An identifier loader that does all the heavy lifting and actually constructs entire entities."
 msgstr "Un cargador de identificadores que hace todo el trabajo pesado y construye realmente entidades enteras."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "An entity loader that simply passes through the entities loaded by the identifier loader to the indexing sink."
 msgstr "Un cargador de entidades que simplemente pasa las entidades cargadas por el cargador de identificadores al sumidero de indexación."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -343,11 +394,13 @@ msgid ""
 "And access them in the loaders through `options.context(..);`"
 msgstr "Suministre a través del contexto del indexador masivo cualquier servicio útil, recurso, ayudante, etc., que se utilice para cargar los datos. Y acceda a ellos en los cargadores a través de `options.context(..);`"
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid "With everything in place, run the mass indexing as usual."
 msgstr "Con todo en su sitio, ejecute la indexación masiva como de costumbre."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -355,6 +408,7 @@ msgid ""
 "link:https://github.com/quarkusio/search.quarkus.io[search.quarkus.io on GitHub]."
 msgstr "Si desea ver un ejemplo práctico completo de este enfoque, consulte link:https://github.com/quarkusio/search.quarkus.io[search.quarkus.io en GitHub] ."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""
@@ -367,6 +421,7 @@ msgid ""
 "Feel free to reach out to us to discuss your ideas and suggestions for other improvements, if any."
 msgstr "Tenga en cuenta que algunas de las características tratadas en este post aún se están incubando y pueden cambiar en el futuro. En particular, ya hemos identificado y estamos trabajando en posibles link:https://hibernate.atlassian.net/browse/HSEARCH-5180[mejoras] para la indexación masiva de un flujo de datos finito, en el que el tamaño total de las entidades se desconoce de antemano. Si el enfoque descrito en el post le parece interesante y tiene casos de uso similares, le animamos a que lo pruebe. No dude en ponerse en contacto con nosotros para comentar sus ideas y sugerencias sobre otras mejoras, si las hubiera."
 
+#. type: Plain text
 #: _posts/2024-08-01-search-standalone-mapper.adoc
 #, fuzzy
 msgid ""

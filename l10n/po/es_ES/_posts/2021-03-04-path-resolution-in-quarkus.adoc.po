@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. type: Title =
+#. type: YAML Front Matter: title
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Path resolution in Quarkus"
@@ -34,12 +34,13 @@ msgstr "Navegando por los cambios recientes en la resolución de rutas URI de Qu
 msgid "We have had an unusually bumpy ride the last few weeks. Path resolution can be sneakily complicated, and in trying to make things better, we accidentally made them worse! We've fixed it all now, but you might notice some changes. Hopefully, this post will make clear what those changes are, what they mean, and what you can do to put everything back the way you want it."
 msgstr "Hemos tenido un viaje inusualmente agitado en las últimas semanas. La resolución de las rutas puede ser muy complicada, y al tratar de mejorar las cosas, ¡accidentalmente las empeoramos! Ahora lo hemos arreglado todo, pero puede que notes algunos cambios. Esperamos que este artículo aclare cuáles son esos cambios, qué significan y qué puedes hacer para que todo vuelva a estar como quieres."
 
+#. type: Plain text
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy
 msgid "**TL;DR:** As of `1.11.5.Final` and `1.12.1.Final`, leading slashes matter in config. So if you use `/endpoint`, that endpoint will be served from the absolute root. If you want it relative to some containing bucket, omit that leading slash. For example, `quarkus.http.non-application-root-path` is now `q` by default, which nests it under `quarkus.http.root-path`, matching the original behavior. You can use an absolute path, e.g. `/q`, to serve non-application endpoints from the absolute root (as a sibling of the http root, if that is set). To remove the non-application endpoint behavior entirely, set `quarkus.http.non-application-root-path` to the same value as `quarkus.http.root-path`. The most foolproof way to do this is using a variable: `quarkus.http.non-application-root-path=${quarkus.http.root-path}`."
 msgstr "*TL;DR:* A partir de `1.11.5.Final` y `1.12.1.Final` , las barras iniciales importan en la configuración. Así que si utiliza `/endpoint` , ese punto final se servirá desde la raíz absoluta. Si lo quiere relativo a algún cubo contenedor, omita esa barra inicial. Por ejemplo, `quarkus.http.non-application-root-path` es ahora `q` por defecto, que lo anida bajo `quarkus.http.root-path` , coincidiendo con el comportamiento original. Puede utilizar una ruta absoluta, por ejemplo `/q` , para servir puntos finales no relacionados con la aplicación desde la raíz absoluta (como hermano de la raíz http, si está configurada). Para eliminar por completo el comportamiento de los puntos finales que no son de aplicación, configure `quarkus.http.non-application-root-path` con el mismo valor que `quarkus.http.root-path` . La forma más infalible de hacerlo es utilizando una variable: `quarkus.http.non-application-root-path=${quarkus.http.root-path}` ."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "The long story"
@@ -105,11 +106,13 @@ msgstr "Ahora, sin embargo, nos encontrábamos en la situación de que las rutas
 msgid "While the set of configuration attributes used to configure paths in Quarkus remains unchanged, how configured values are interpreted is different:"
 msgstr "Mientras que el conjunto de atributos de configuración utilizados para configurar las rutas en Quarkus permanece sin cambios, la forma en que se interpretan los valores configurados es diferente:"
 
+#. type: Plain text
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy
 msgid "**Endpoint path configuration defaults are now relative values.** `/q` is now `q`, `/metrics` is now `metrics`, etc. This means that, out of the box, these endpoints will resolve relative to the containing root, which is what JAX-RS does per spec, and is what we believe most users intuitively expect."
 msgstr "Los *valores predeterminados de configuración de la ruta de los puntos finales son ahora valores relativos.* `/q` es ahora `q` , `/metrics` es ahora `metrics` , etc. Esto significa que, fuera de la caja, estos puntos finales se resolverá en relación con la raíz que contiene, que es lo que JAX-RS hace por especificación, y es lo que creemos que la mayoría de los usuarios esperan intuitivamente."
 
+#. type: Plain text
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy
 msgid "**Leading slashes in explicitly configured values matter.** We know some of you want to move endpoints to specific places, and the most consistent way to express that intent is to allow you to specify the exact uri you want an endpoint to use. If you specify `/metrics`, that is where you will find the metrics endpoint."
@@ -127,7 +130,7 @@ msgstr "Estas actualizaciones ya están disponibles y el polvo debería haberse 
 msgid "Note that convenience redirects for non-application endpoints are still present, but they can be disabled by setting `quarkus.http.redirect-to-non-application-root-path` to `false`. That hasn't changed at all."
 msgstr "Tenga en cuenta que las redirecciones de conveniencia para los puntos finales que no son de aplicación siguen estando presentes, pero pueden desactivarse estableciendo `quarkus.http.redirect-to-non-application-root-path` en `false`. Esto no ha cambiado en absoluto."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Resolution of configured paths"
@@ -199,7 +202,7 @@ msgstr "`quarkus.smallrye-health.liveness-path` - La ubicación del punto final 
 msgid "Let's look at what happens when we start pulling levers. In the examples below, pay attention to punctuation in config, as that will be the key to why things behave the way they do."
 msgstr "Veamos qué ocurre cuando empezamos a tirar de las palancas. En los ejemplos siguientes, presta atención a la puntuación en la configuración, ya que será la clave de por qué las cosas se comportan como lo hacen."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Defaults"
@@ -295,7 +298,7 @@ msgstr "Tenga en cuenta que el `quarkus.http.root-path` se esconde en este ejemp
 msgid "There are convenience redirects in this case as `quarkus.http.non-application-root-path` is not the same as `quarkus.http.root-path`. In this configuration, `/metrics` will be redirected to `/q/metrics`."
 msgstr "En este caso hay redireccionamientos de conveniencia ya que `quarkus.http.non-application-root-path` no es lo mismo que `quarkus.http.root-path`. En esta configuración, `/metrics` será redirigido a `/q/metrics`."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Change the Http Root path"
@@ -361,7 +364,7 @@ msgstr "http://localhost:8080/root/q/health/liveness"
 msgid "There are convenience redirects in this case, too, as `quarkus.http.non-application-root-path` is not the same as `quarkus.http.root-path`. In this configuration, `/root/metrics` will be redirected to `/root/q/metrics`. This is consistent with previous behavior, where non-application endpoints were implicitly relative to the HTTP root path."
 msgstr "En este caso también hay redirecciones de conveniencia, ya que `quarkus.http.non-application-root-path` no es lo mismo que `quarkus.http.root-path`. En esta configuración, `/root/metrics` será redirigido a `/root/q/metrics`. Esto es consistente con el comportamiento anterior, donde los puntos finales que no son de aplicación eran implícitamente relativos a la ruta raíz HTTP."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Move the non-application root path (/q)"
@@ -385,7 +388,7 @@ msgstr "`quarkus.http.non-application-root-path=/q`"
 msgid "There are still convenience redirects in this case, as `quarkus.http.non-application-root-path` is not the same as `quarkus.http.root-path`. Redirected URLs are still relative to HTTP root, so `/root/metrics` will be redirected to `/q/metrics`."
 msgstr "En este caso sigue habiendo redirecciones de conveniencia, ya que `quarkus.http.non-application-root-path` no es lo mismo que `quarkus.http.root-path`. Las URL redirigidas siguen siendo relativas a la raíz HTTP, por lo que `/root/metrics` se redirigirá a `/q/metrics`."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Move individual non-application endpoints (/metrics and /liveness)"
@@ -427,7 +430,7 @@ msgstr "http://localhost:8080/liveness"
 msgid "There are still convenience redirects in this case, as `quarkus.http.non-application-root-path` is not the same as `quarkus.http.root-path`. However, these redirects only apply to non-application endpoints controlled by the non-application endpoint root. We've essentially removed the metrics and liveness endpoints from that root, so they won't be redirected. In this configuration, if you request `/root/health`, it will be redirected to `/q/health`. A redirect will not be provided for `/root/health/liveness` or `/root/metrics`."
 msgstr "Todavía hay redirecciones de conveniencia en este caso, ya que `quarkus.http.non-application-root-path` no es lo mismo que `quarkus.http.root-path`. Sin embargo, estas redirecciones sólo se aplican a los puntos finales que no son de aplicación controlados por la raíz de puntos finales que no son de aplicación. Esencialmente hemos eliminado los endpoints de métricas y liveness de esa raíz, por lo que no serán redirigidos. En esta configuración, si se solicita `/root/health`, se redirigirá a `/q/health`. No se proporcionará una redirección para `/root/health/liveness` o `/root/metrics`."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Remove the non-application endpoint root"
@@ -469,7 +472,7 @@ msgstr "http://localhost:8080/root/health/liveness"
 msgid "There are no convenience redirects in this scenario, as the non-application endpoint behavior has been disabled entirely."
 msgstr "No hay redireccionamientos de conveniencia en este escenario, ya que el comportamiento de los puntos finales sin aplicación se ha desactivado por completo."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Knock-on effects"
@@ -493,7 +496,7 @@ msgstr "Es más probable que vea un cambio de comportamiento si ha personalizado
 msgid "Extension writers will see the biggest change. The link:https://quarkus.io/guides/writing-extensions#extension-defined-endpoints[Writing extensions guide] has been updated to describe changes to the build items used to create non-application endpoints. The general rule, however, is to avoid constructing your own endpoint paths, and rely on `NonApplicationRootPathBuildItem` and `HttpRootPathBuildItem` to construct them for you."
 msgstr "Los escritores de extensiones verán el mayor cambio. La  link:https://quarkus.io/guides/writing-extensions#extension-defined-endpoints[guía de] escritura de extensiones ha sido actualizada para describir los cambios en los elementos de construcción utilizados para crear puntos finales no relacionados con la aplicación. La regla general, sin embargo, es evitar la construcción de sus propias rutas de puntos finales, y confiar en `NonApplicationRootPathBuildItem` y `HttpRootPathBuildItem` para construirlos por usted."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-03-04-path-resolution-in-quarkus.adoc
 #, fuzzy, no-wrap
 msgid "Parting thoughts"

@@ -28,6 +28,7 @@ msgstr "Explore una nueva forma de probar componentes CDI en Quarkus"
 msgid "Quarkus 3.2 introduced an experimental feature to ease the testing of CDI components and mocking of their dependencies."
 msgstr "Quarkus 3.2 introdujo una función experimental para facilitar las pruebas de los componentes CDI y la simulación de sus dependencias."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -44,7 +45,7 @@ msgid ""
 "It's a lightweight JUnit 5 extension that does not start a full Quarkus application but merely runs the services needed to make the testing a joyful experience."
 msgstr "El modelo de componentes de Quarkus está construido sobre CDI. Sin embargo, escribir pruebas unitarias para beans sin un contenedor CDI en ejecución suele ser un trabajo tedioso. Sin los servicios del contenedor en marcha, todo el trabajo tiene que hacerse manualmente. En primer lugar, no se realiza ninguna inyección de dependencias. Además, no se disparan eventos ni se notifican observadores. Tampoco se aplican interceptores. En resumen, todo tiene que cablearse a mano. Pero Quarkus puede hacerlo mejor, ¿verdad? ¡Por supuesto que puede! Quarkus 3.2 introdujo una característica experimental para facilitar las pruebas de los componentes CDI y el mocking de sus dependencias. Se trata de una extensión ligera de JUnit 5 que no inicia una aplicación Quarkus completa, sino que se limita a ejecutar los servicios necesarios para que las pruebas sean una experiencia agradable."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "A simple example"
@@ -68,17 +69,19 @@ msgstr "Maven"
 msgid "Gradle"
 msgstr "Gradle"
 
-#. type: delimited block *
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid "Now, imagine that we have a component `Foo` which is an `@ApplicationScoped` CDI bean."
 msgstr "Ahora, imaginemos que tenemos un componente `Foo` que es un bean CDI de `@ApplicationScoped`."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid "`Foo` depends on `Charlie` which declares a method `ping()`."
 msgstr "`Foo` depende de `Charlie` que declara un método `ping()`."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid "`Foo` depends on the config property `bar`."
@@ -126,6 +129,7 @@ msgstr "La prueba también inyecta un mock de `Charlie`, una dependencia para la
 msgid "The Mockito API is used to configure the behavior of the injected mock."
 msgstr "La API de Mockito se utiliza para configurar el comportamiento del mock inyectado."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -134,12 +138,13 @@ msgid ""
 "And the value of the `bar` configuration property is set with the `@TestConfigProperty` annotation."
 msgstr "En esta prueba en particular, el único componente \"real\" sometido a prueba es `org.acme.Foo` . La dependencia `Charlie` es un simulacro que se crea automáticamente. Y el valor de la propiedad de configuración `bar` se establece con la anotación `@TestConfigProperty` ."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "How does it work?"
 msgstr "¿Cómo funciona?"
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -151,12 +156,13 @@ msgid ""
 "Finally, the CDI request context is activated and terminated per each test method."
 msgstr "`QuarkusComponentTestExtension` hace varias cosas durante la fase de prueba de `before all` . Inicia ArC, el contenedor CDI de Quarkus. También registra un objeto de configuración dedicado. A continuación, detiene el contenedor y libera la configuración durante la fase de prueba de `after all` . Los campos anotados con `@Inject` y `@InjectMock` se inyectan después de crear una instancia de prueba. Por último, el contexto de solicitud CDI se activa y finaliza por cada método de prueba."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "Tested components"
 msgstr "Componentes probados"
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -171,12 +177,13 @@ msgstr "Por defecto, los tipos de todos los campos anotados con `@Inject` se con
 msgid "Static nested classed declared on a test class that is annotated with `@QuarkusComponentTest` are excluded from bean discovery when running a regular `@QuarkusTest` in order to prevent unintentional CDI conflicts."
 msgstr "Las clases estáticas anidadas declaradas en una clase de prueba que está anotada con `@QuarkusComponentTest` se excluyen del descubrimiento de beans cuando se ejecuta un `@QuarkusTest` normal para evitar conflictos CDI involuntarios."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "Automatic mocking of unsatisfied dependencies"
 msgstr "Burla automática de dependencias no satisfechas"
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -187,12 +194,13 @@ msgid ""
 "This mock can be injected in the test with `@io.quarkus.test.InjectMock` and configured with the Mockito API."
 msgstr "A diferencia de los entornos CDI normales, la prueba no falla si un componente inyecta una dependencia no satisfecha. En su lugar, se registra automáticamente un bean simulado para cada combinación de tipo requerido y calificadores de un punto de inyección que resuelva una dependencia no satisfecha. El mock bean tiene el ámbito `@Singleton` , por lo que se comparte en todos los puntos de inyección con el mismo tipo requerido y los mismos calificadores. Y la referencia inyectada es un mockito no configurado de Mockito. Este mock puede inyectarse en la prueba con `@io.quarkus.test.InjectMock` y configurarse con la API de Mockito."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, no-wrap
 msgid "Configuration"
 msgstr "Configuración"
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -201,12 +209,13 @@ msgid ""
 "If you need to use the default values for missing config properties, then `@QuarkusComponentTest#useDefaultConfigProperties()` and `QuarkusComponentTestExtension#useDefaultConfigProperties()` might come in useful."
 msgstr "Durante la fase de prueba `before all` se registra un `SmallRyeConfig` específico. Es posible establecer las propiedades de configuración con la anotación `@TestConfigProperty` o mediante programación con el método `QuarkusComponentTestExtension#configProperty(String, String)` . Si necesita utilizar los valores predeterminados para las propiedades de configuración que faltan, entonces `@QuarkusComponentTest#useDefaultConfigProperties()` y `QuarkusComponentTestExtension#useDefaultConfigProperties()` pueden resultarle útiles."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "Advanced features"
 msgstr "Funciones avanzadas"
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -220,6 +229,7 @@ msgstr "Es posible configurar el `QuarkusComponentTestExtension` mediante progra
 msgid "Annotate a `static` field of type `QuarkusComponentTestExtension` with the `@RegisterExtension` annotation and configure the extension programmatically."
 msgstr "Anote un campo `static` de tipo `QuarkusComponentTestExtension` con la anotación `@RegisterExtension` y configure la extensión mediante programación."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -239,7 +249,7 @@ msgstr "El ámbito del frijol burlado es `@Dependent`."
 msgid "Configure the default behavior of the mock."
 msgstr "Configura el comportamiento por defecto del simulador."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "Mocking CDI interceptors"
@@ -251,6 +261,7 @@ msgstr "Interceptores CDI"
 msgid "This feature is only available in Quarkus 3.3+."
 msgstr "Esta función sólo está disponible en Quarkus 3.3+."
 
+#. type: Plain text
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy
 msgid ""
@@ -271,7 +282,7 @@ msgstr "`@SimpleBinding` es un enlace interceptor."
 msgid "The interceptor class is automatically considered a tested component and therefore used during the test execution."
 msgstr "La clase interceptora se considera automáticamente un componente probado y, por lo tanto, se utiliza durante la ejecución de la prueba."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-07-10-quarkus-component-test.adoc
 #, fuzzy, no-wrap
 msgid "Summary"

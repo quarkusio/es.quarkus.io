@@ -28,6 +28,7 @@ msgstr "Cuando Quarkus se encuentra con Hilos Virtuales"
 msgid "What do virtual threads change when building concurrent applications with Quarkus."
 msgstr "Qué cambian los hilos virtuales al crear aplicaciones concurrentes con Quarkus."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -35,6 +36,7 @@ msgid ""
 "For over two years, the Quarkus team explored integrating this new feature to ease the development of distributed applications, including microservices and event-driven applications."
 msgstr "Java 21 ofrece una nueva característica que remodelará el desarrollo de aplicaciones concurrentes en Java. Durante más de dos años, el equipo de Quarkus exploró la integración de esta nueva característica para facilitar el desarrollo de aplicaciones distribuidas, incluidos los microservicios y las aplicaciones basadas en eventos."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -43,11 +45,13 @@ msgid ""
 "But first, let's look at virtual threads, what they change, and what you should know about them."
 msgstr "Esta entrada de blog es la primera parte de una serie de entradas y vídeos que demuestran cómo utilizar hilos virtuales en las aplicaciones Quarkus. La serie cubre REST, mensajería, contenedores, compilación nativa, y nuestros planes para el futuro. Pero primero, echemos un vistazo a los hilos virtuales, lo que cambian, y lo que usted debe saber acerca de ellos."
 
+#. type: Title =
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "The Java world before Java 21"
 msgstr "El mundo Java antes de Java 21"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -59,6 +63,7 @@ msgid ""
 "I used green threads; they did not leave me with a fantastic memory."
 msgstr "Al principio de la época de Java, Java tenía hilos _verdes_ . Los hilos verdes eran hilos a nivel de usuario programados por la máquina virtual Java (JVM) en lugar de hacerlo de forma nativa por el sistema operativo (SO) subyacente. Emulaban entornos multihilo sin depender de las capacidades nativas del SO. Se gestionaban en el espacio de usuario en lugar de en el espacio del núcleo, lo que les permitía funcionar en entornos que no disponían de soporte nativo para hilos. Los hilos verdes estuvieron brevemente disponibles en Java entre 1997 y 2000. Yo utilicé hilos verdes; no me dejaron un recuerdo fantástico."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -69,6 +74,7 @@ msgid ""
 "So, creating a platform thread creates an OS thread, and **blocking a platform thread blocks an OS thread**."
 msgstr "En Java 1.3, publicado en 2000, Java dio un gran paso adelante y empezó a integrar los hilos del sistema operativo. Así, los hilos son gestionados por el sistema operativo. Éste sigue siendo el modelo que utilizamos hoy en día. Cada vez que una aplicación Java crea un hilo, se crea un hilo de plataforma, que envuelve a un hilo del SO. Así, al crear un hilo de plataforma se crea un hilo del SO, y al *bloquear un hilo de plataforma se bloquea un hilo del SO* ."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -81,6 +87,7 @@ msgid ""
 "When this response is received, the processing continues:"
 msgstr "Cuando utiliza un marco de aplicaciones Java, rara vez crea usted mismo los hilos. El marco de trabajo lo hace por usted. Por ejemplo, cuando su aplicación recibe una solicitud HTTP, el marco de trabajo crea o reutiliza un hilo de la plataforma (y por tanto un hilo del SO) y ejecuta el procesamiento en ese hilo. Todo el procesamiento se ejecuta en este hilo, y el hilo no se puede reutilizar hasta que el procesamiento finalice (por lo que se devuelve la respuesta). Cuando el procesamiento ejecuta una operación de E/S bloqueante, como llamar a otro servicio, escribir en el sistema de archivos o interactuar con una base de datos, el hilo se bloquea, esperando la respuesta. Como se ha mencionado anteriormente, el hilo del sistema operativo también se bloquea mientras espera. Cuando se recibe esta respuesta, el procesamiento continúa:"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -92,6 +99,7 @@ msgid ""
 "It follows the sequence diagram from above."
 msgstr "Este modelo tiene la ventaja de ser sencillo de programar. El código sigue un modelo imperativo. El código se ejecuta secuencialmente. Es sencillo de escribir y de razonar. Por ejemplo, el siguiente fragmento muestra cómo se recibe una solicitud HTTP, se llama a otro servicio HTTP y se devuelve una respuesta con Quarkus. Sigue el diagrama secuencial de arriba."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -104,6 +112,7 @@ msgid ""
 "Futhermore, adding more threads may not even improve the concurrency as explained by the https://youtu.be/07V08SB1l8c?t=142[Little Law]."
 msgstr "Pero ese modelo imperativo tiene un límite. Sólo puede manejar _n_ peticiones concurrentemente, siendo _n_ el número de hilos que el framework puede crear. Los hilos del SO son caros. Consumen memoria (alrededor de 1 Mb por hilo), son caros de crear, utilizan CPU para programarlos... Los frameworks utilizan pools de hilos para permitir la reutilización de hilos ociosos, pero cuando el nivel de concurrencia supera su número de hilos, se empiezan a acumular peticiones, aumentando el tiempo de respuesta y, en el peor de los casos, incluso rechazando peticiones. Aumentar el tamaño del pool de hilos y, en consecuencia, engrosar el uso de memoria puede disparar su factura en la nube y la densidad de despliegue. Además, añadir más hilos puede incluso no mejorar la concurrencia, como explica la link:https://youtu.be/07V08SB1l8c?t=142[Ley de Little] ."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -117,6 +126,7 @@ msgid ""
 "This continuation is the code to be invoked when the I/O completes, so basically, the rest of the processing:"
 msgstr "El movimiento reactivo propuso un modelo alternativo para solucionar ese problema. Promueve el uso de E/S no bloqueantes y modelos de desarrollo asíncronos para utilizar los recursos (CPU y memoria) de forma más eficiente. Con el modelo reactivo, *un único hilo puede gestionar múltiples peticiones concurrentes* . Así, en lugar de tener un gran conjunto de hilos, se dispone de un número mínimo de hilos (generalmente igual al número de núcleos de la CPU). Este pequeño número de hilos, a menudo denominados bucles de eventos, gestiona todas sus peticiones. Cuando se recibe una solicitud, se llama al código de procesamiento en uno de estos hilos. Cuando el procesamiento necesita ejecutar una operación de E/S, en lugar de utilizar E/S de bloqueo, programa las operaciones y pasa una *continuación* . Esta continuación es el código que se invocará cuando finalice la E/S, es decir, básicamente, el resto del procesamiento:"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -142,6 +152,7 @@ msgstr "Para ilustrar la diferencia entre el modelo imperativo y el reactivo, el
 msgid "An application with this code handles more concurrent requests and uses less memory than the imperative one, but, the development model is different."
 msgstr "Una aplicación con este código maneja más peticiones concurrentes y utiliza menos memoria que la imperativa, pero, el modelo de desarrollo es diferente."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -151,11 +162,13 @@ msgid ""
 "Check the https://quarkus.io/blog/resteasy-reactive-smart-dispatch/['to block or not to block' article] for more details about this ability."
 msgstr "La mayoría de las veces, los modelos reactivo e imperativo son opuestos. Esto no tiene por qué ser así. Quarkus utiliza un núcleo reactivo y le permite decidir si desea utilizar el modelo reactivo o el imperativo. Consulte el link:https://quarkus.io/blog/resteasy-reactive-smart-dispatch/[artículo \"bloquear o no bloquear\"] para obtener más detalles sobre esta capacidad."
 
+#. type: Title =
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "What do virtual threads change?"
 msgstr "¿Qué cambian los hilos virtuales?"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -163,6 +176,7 @@ msgid ""
 "In Java 21, this API became generally available."
 msgstr "Java 19 introdujo un nuevo tipo de hilo: los hilos virtuales. En Java 21, esta API pasó a estar disponible de forma general."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -171,6 +185,7 @@ msgid ""
 "You get the benefits from the reactive and imperative models without the drawbacks!"
 msgstr "Pero, ¿qué son estos hilos virtuales? Los hilos virtuales reutilizan la idea del paradigma reactivo pero permiten un modelo de desarrollo imperativo. Usted obtiene los beneficios de los modelos reactivo e imperativo ¡sin los inconvenientes!"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -180,6 +195,7 @@ msgid ""
 "Virtual threads are supposed to be disposable entities that we create when we need them; pooling or reusing them for different tasks is discouraged."
 msgstr "Al igual que los hilos verdes, los hilos virtuales son gestionados por la JVM. Los hilos virtuales ocupan menos espacio que los hilos de plataforma en la memoria. Por lo tanto, utilizar más hilos virtuales que hilos de plataforma simultáneamente es posible sin reventar la memoria. Se supone que los hilos virtuales son entidades desechables que creamos cuando los necesitamos; se desaconseja agruparlos o reutilizarlos para diferentes tareas."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -225,11 +241,13 @@ msgstr "Baratas de crear: ya no es necesario ponerlas en común"
 msgid "Cheap to block when using blocking operations - blocking a virtual thread does not block the underlying OS thread when executing I/O operations"
 msgstr "El bloqueo de un subproceso virtual no bloquea el subproceso subyacente del sistema operativo cuando se ejecutan operaciones de E/S."
 
+#. type: Title =
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "How can you use virtual threads in Quarkus?"
 msgstr "¿Cómo puede utilizar hilos virtuales en Quarkus?"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -238,6 +256,7 @@ msgid ""
 "It indicates to Quarkus to invoke the annotated method on a virtual thread instead of a regular platform thread."
 msgstr "Utilizar hilos virtuales en Quarkus es sencillo. Sólo tiene que utilizar la anotación `@RunOnVirtualThread` . Indica a Quarkus que invoque el método anotado en un hilo virtual en lugar de en un hilo normal de la plataforma."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -257,6 +276,7 @@ msgstr "Reescribamos el mismo ejemplo utilizando un hilo virtual (el código com
 msgid "It's the code from the first snippet (the imperative one), but its execution model is closer to the reactive one:"
 msgstr "Es el código del primer fragmento (el imperativo), pero su modelo de ejecución se acerca más al reactivo:"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -268,6 +288,7 @@ msgid ""
 "The code snippet works as described because the Quarkus REST client is virtual-thread-friendly; we will see exceptions in the next section."
 msgstr "Para cada solicitud, se crea un hilo virtual. Cuando un hilo portador está inactivo, el hilo virtual se monta en ese hilo portador y se ejecuta. Cuando el hilo virtual necesita ejecutar la E/S (la llamada al servicio remoto), sólo bloquea el hilo virtual. El hilo portador se libera, y puede montar otro hilo virtual (como el que gestiona la segunda solicitud mientras la E/S del primero está pendiente). Cuando la E/S finaliza, un hilo portador (no necesariamente el mismo) restaura el hilo virtual bloqueado y continúa su ejecución hasta que la respuesta esté lista para ser enviada de vuelta al cliente. El fragmento de código funciona como se describe porque el cliente REST de Quarkus es compatible con los hilos virtuales; veremos las excepciones en la siguiente sección."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -275,6 +296,7 @@ msgid ""
 "The following snippet shows how you can process Kafka/Pulsar/AMQP messages on virtual threads:"
 msgstr "Los hilos virtuales en Quarkus no se limitan a los puntos finales HTTP. El siguiente fragmento muestra cómo puede procesar mensajes Kafka/Pulsar/AMQP en hilos virtuales:"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -283,11 +305,13 @@ msgid ""
 "It's important to understand that for the developer, it's invisible (except the `@RunOnVirtualThread` annotation)."
 msgstr "Los lectores atentos habrán visto que la integración de hilos virtuales se basa en extensiones _reactivas_ . Estas extensiones proporcionan más flexibilidad (como el control sobre qué hilo se ejecuta el procesamiento) para integrar los hilos virtuales de forma adecuada y eficiente. Es importante entender que para el desarrollador son invisibles (excepto la anotación `@RunOnVirtualThread` )."
 
+#. type: Title =
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Five things you need to know before using virtual threads for everything"
 msgstr "Cinco cosas que debe saber antes de utilizar hilos virtuales para todo"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -297,6 +321,7 @@ msgid ""
 "These are the reasons why, currently, there is no global switch to run exclusively on virtual threads in Quarkus."
 msgstr "Probablemente lo vea venir. No hay almuerzo gratis. Necesita saber algunas cosas antes de utilizar hilos virtuales para todo. Estas son las razones por las que, actualmente, no existe un interruptor global para ejecutar exclusivamente en hilos virtuales en Quarkus."
 
+#. type: Title ==
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "1. Pinning"
@@ -304,6 +329,7 @@ msgstr ""
 "\n"
 " Pinning"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -318,6 +344,7 @@ msgstr "Como se ha descrito anteriormente, cuando un hilo virtual ejecuta una op
 msgid "In this case, the carrier thread is blocked, so the OS thread is blocked:"
 msgstr "En este caso, el hilo portador está bloqueado, por lo que el hilo OS está bloqueado:"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -327,6 +354,7 @@ msgid ""
 "It will take time until all the code gets reworked in a more virtual-thread-friendly way."
 msgstr "Desafortunadamente, a día de hoy, muchas librerías Java están pinneando el hilo portador. El equipo de Quarkus y Red Hat, en general, han parcheado muchas bibliotecas (como Narayana (el gestor de transacciones de Quarkus) o Hibernate ORM) para evitar el pinning. Sin embargo, cuando utilice una biblioteca, tenga cuidado. Llevará tiempo hasta que todo el código se reelabore de una forma más respetuosa con los hilos virtuales."
 
+#. type: Title ==
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "2. Monopolization"
@@ -334,6 +362,7 @@ msgstr ""
 "\n"
 " Monopolización"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -350,6 +379,7 @@ msgstr "En cuanto al modelo reactivo, si el hilo virtual ejecuta un cálculo int
 msgid "Using a dedicated platform thread pool might be wiser when executing long computations."
 msgstr "El uso de un grupo de hilos de plataforma dedicado puede ser más prudente cuando se ejecutan cálculos largos."
 
+#. type: Title ==
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "3. Carrier thread pool elasticity"
@@ -363,6 +393,7 @@ msgstr ""
 msgid "When there is pinning or monopolization, the JVM may create new carrier threads (as illustrated on the previous picture) to avoid having too many unscheduled virtual threads."
 msgstr "Cuando hay pinning o monopolización, la JVM puede crear nuevos hilos portadores (como se ilustra en la imagen anterior) para evitar tener demasiados hilos virtuales no programados."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -373,6 +404,7 @@ msgid ""
 "If you don't, in a container with memory constraints, the application can be killed."
 msgstr "Estas creaciones están creando hilos de plataforma/OS. Por lo tanto, es costoso y consume memoria. Debe prestar especial atención al segundo punto. Puede llegar al límite de memoria si ejecuta con pocos recursos y su código no es muy amigable con los hilos virtuales, lo que significa que siempre debe comprobar el anclaje, la monopolización y el uso de memoria. Si no lo hace, en un contenedor con restricciones de memoria, la aplicación puede morir."
 
+#. type: Title ==
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "4. Object pooling"
@@ -380,6 +412,7 @@ msgstr ""
 "\n"
 " Puesta en común de objetos"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -397,6 +430,7 @@ msgid ""
 "You will see many allocations of large objects, as every virtual thread will get its own instance of the object."
 msgstr "Durante años, los hilos fueron recursos escasos. Se recomendaba agruparlos y reutilizarlos. Esta buena práctica ha fomentado el uso de thread locals como mecanismo de agrupación de objetos. Como link:https://github.com/FasterXML/jackson-core/issues/919[Jackson] o Netty, muchas bibliotecas almacenan objetos caros en thread locals. A estos objetos sólo puede acceder el código que se ejecuta en el hilo en el que se almacenan los objetos. Como el número de hilos era limitado, se limitaba el número de creaciones. Además, como los hilos se reutilizaban, los objetos se almacenaban en caché y se reutilizaban. Desgraciadamente, estos dos supuestos no son válidos con los hilos virtuales: Se pueden tener muchos, pero no se reutilizan. Incluso se desaconseja agruparlos. Por lo tanto, las bibliotecas que utilizan estos patrones de agrupación pueden tener un rendimiento inferior al utilizar hilos virtuales. Verá muchas asignaciones de objetos grandes, ya que cada hilo virtual obtendrá su propia instancia del objeto."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -405,6 +439,7 @@ msgid ""
 "Quarkus will implement the SPI to provide a virtual-thread-friendly pool mechanism."
 msgstr "Sustituir este patrón no es tarea fácil. Como ejemplo, este link:https://github.com/FasterXML/jackson-core/pull/1064[PR] de Mario Fusco propone un SPI para Jackson. Quarkus implementará el SPI para proporcionar un mecanismo de pool amigable con los hilos virtuales."
 
+#. type: Title ==
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "5. Stressing thread safety"
@@ -412,6 +447,7 @@ msgstr ""
 "\n"
 " Hacer hincapié en la seguridad del hilo"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -420,6 +456,7 @@ msgid ""
 "You do not have to use asynchronous development models."
 msgstr "Los hilos virtuales proporcionan una nueva forma de crear aplicaciones concurrentes en Java. No está limitado por el número de hilos del pool. No tiene que utilizar modelos de desarrollo asíncronos."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -429,6 +466,7 @@ msgid ""
 "You must be cautious when you have many virtual threads, especially when using the structured concurrency API (still in preview in Java 21)."
 msgstr "Pero, antes de reescribir su aplicación para aprovechar este nuevo mecanismo, asegúrese de que el código es seguro para los hilos. Muchas bibliotecas y marcos de trabajo no permiten el acceso concurrente a algunos objetos. Por ejemplo, no se debe acceder de forma concurrente a las conexiones de bases de datos. Debe tener cuidado cuando tenga muchos hilos virtuales, especialmente cuando utilice la API de concurrencia estructurada (aún en fase de vista previa en Java 21)."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -436,11 +474,13 @@ msgid ""
 "However, you must be absolutely sure that these tasks to not access a shared state which do not support concurrent access:"
 msgstr "Cuando se utiliza la concurrencia estructurada, resulta fácil ejecutar tareas en _paralelo_ . Sin embargo, debe estar absolutamente seguro de que estas tareas no accedan a un estado compartido que no admita el acceso concurrente:"
 
+#. type: Title =
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "Summary and what's next"
 msgstr "Resumen y próximos pasos"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -478,6 +518,7 @@ msgstr "El patrón de sondeo de objetos a nivel local puede tener consecuencias 
 msgid "Virtual threads do not prevent thread safety issues."
 msgstr "Los hilos virtuales no evitan los problemas de seguridad de los hilos."
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid ""
@@ -509,6 +550,7 @@ msgstr "link:https://quarkus.io/blog/virtual-threads-4/[Cómo procesar mensajes 
 msgid "https://quarkus.io/blog/virtual-threads-5/[How to build a native executable when using virtual threads]"
 msgstr "link:https://quarkus.io/blog/virtual-threads-2/[Cómo escribir una aplicación con hilos virtuales]"
 
+#. type: Plain text
 #: _posts/2023-09-19-virtual-thread-1.adoc
 #, fuzzy
 msgid "https://quarkus.io/blog/virtual-threads-6/[How to containerize an application using virtual threads]"

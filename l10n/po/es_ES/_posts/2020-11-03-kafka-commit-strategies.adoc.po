@@ -28,6 +28,7 @@ msgstr "Kafka - ¿Cuándo comprometerse?"
 msgid "Offset commiting strategies in the Kafka connector"
 msgstr "Estrategias de consignación en el conector Kafka"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -38,11 +39,13 @@ msgid ""
 "This post covers the different strategies to commit offsets with the Reactive Messaging Kafka connector."
 msgstr "En una link:https://quarkus.io/blog/kafka-failure-strategy/[entrada anterior del blog] , hemos examinado las estrategias de fallo proporcionadas por el conector Kafka de mensajería reactiva. Pero, imagine que es nuestro día de suerte, y por una vez funcionó. Debemos informar a Kafka de que el procesamiento ha tenido éxito. En la terminología de Kafka, llamamos a esto: _offset commit_ . Este post cubre las diferentes estrategias para commit offsets con el conector Kafka de Mensajería Reactiva."
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "Kafka Consumer Group and Offsets"
 msgstr "Grupo de consumidores Kafka y compensaciones"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -51,6 +54,7 @@ msgid ""
 "So far, nothing out of the ordinary."
 msgstr "Kafka organiza los registros _(es decir_ , los mensajes) en torno a _temas_ . Cada tema tiene un nombre, y las aplicaciones envían registros a los temas y consultan registros de los temas. Hasta aquí, nada fuera de lo común."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -68,6 +72,7 @@ msgstr "Los temas se dividen en particiones. Cada partición es una secuencia or
 msgid "image:/assets/images/posts/kafka-commit-strategies/topics-partitions.png[]"
 msgstr "image:/assets/images/posts/kafka-commit-strategies/topics-partitions.png[alt=topics partitions]"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -77,6 +82,7 @@ msgid ""
 "And that aspect is essential."
 msgstr "Cuando una aplicación consume mensajes de Kafka, utiliza un consumidor de Kafka. Con este consumidor, sondea lotes de mensajes de un tema específico, por ejemplo, `movies` o `actors` . Los mensajes recuperados pertenecen a particiones asignadas a este consumidor. Y este aspecto es esencial."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -91,6 +97,7 @@ msgstr "Los consumidores pertenecen a un grupo de consumidores, identificado con
 msgid "image:/assets/images/posts/kafka-commit-strategies/consumer-groups.png[]"
 msgstr "image:/assets/images/posts/kafka-commit-strategies/consumer-groups.png[alt=consumer groups]"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -103,6 +110,7 @@ msgid ""
 "Consequently (ignore rebalance or other subtilities for now), each record from a topic is only received once per consumer group, by a specific consumer from that group."
 msgstr "Cada grupo de consumidores recibe cada registro de un tema una vez. Para ello, asigna cada consumidor de un grupo a un conjunto de particiones. Por ejemplo, en la imagen anterior, el consumidor de la aplicación A1 recibe los registros de las particiones 0 y 1. A2 recibe los registros de la partición 2. La aplicación B es el único consumidor de su grupo de consumidores. Por lo tanto, recibe los registros de las tres particiones. En consecuencia (ignore por ahora el reequilibrio u otras subutilidades), cada registro de un tema sólo se recibe una vez por grupo de consumidores, por un consumidor específico de ese grupo."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -112,6 +120,7 @@ msgid ""
 "Note that this behavior is configurable."
 msgstr "Para orquestar el progreso de cada grupo de consumidores, cada consumidor informa periódicamente al corredor de su posición actual: el último desplazamiento procesado. Compromete el desplazamiento, indicando que todos los registros anteriores de esa partición han sido procesados. Así, si un consumidor se detiene y vuelve más tarde, vuelve a empezar desde la última posición comprometida (si se asigna de nuevo a esa partición). Tenga en cuenta que este comportamiento es configurable."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -123,11 +132,13 @@ msgid ""
 "But is it really the case?"
 msgstr "Lo que es importante notar es el aspecto periódico del commit. La confirmación del desplazamiento es costosa y, para mejorar el rendimiento, no deberíamos confirmar el desplazamiento después de cada registro procesado. En este sentido, Kafka se comporta de forma diferente a las soluciones de mensajería tradicionales, como JMS, que confirma cada mensaje individualmente. Otra característica importante es el aspecto posicional del commit. Usted consigna la posición indicando que se procesan todos los registros situados antes de esa posición. Pero, ¿es realmente así?"
 
+#. type: Title ==
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "The Kafka default behavior"
 msgstr "El comportamiento por defecto de Kafka"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -135,6 +146,7 @@ msgid ""
 "Applications using such a consumer are structured around a polling loop:"
 msgstr "El consumidor Apache Kafka utiliza por defecto un enfoque auto-commit. Las aplicaciones que utilizan un consumidor de este tipo se estructuran en torno a un bucle de sondeo:"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -142,6 +154,7 @@ msgid ""
 "While calling the `poll` method, the consumer periodically commits the last offset of the previous batches transparently."
 msgstr "Un programa de este tipo sondea un lote de registros, los procesa y, a continuación, sondea el siguiente lote. Mientras llama al método `poll` , el consumidor consigna periódicamente el último desplazamiento de los lotes anteriores de forma transparente."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -152,6 +165,7 @@ msgid ""
 "It may re-process a set of messages (it's the application's responsibility to handle duplicates), but at least nothing is lost."
 msgstr "Bastante bonito, ¿verdad? Si la aplicación no consigue procesar un mensaje, lanza una excepción, que o bien interrumpe el bucle while o bien se gestiona con elegancia (dentro del método `processRetrievedRecords` ). En el primer caso, significa que no se comprometerá más (como ocurre en el método `poll` , al que ya no se llama). Si la aplicación se reinicia, se reanuda desde el último desplazamiento comprometido (o aplica la estrategia `auto.offset.reset` , por defecto `latest` , si aún no hay desplazamientos para este grupo). Puede que vuelva a procesar un conjunto de mensajes (es responsabilidad de la aplicación gestionar los duplicados), pero al menos no se pierde nada."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -159,11 +173,13 @@ msgid ""
 "Looks wonderful... until you add a pinch of asynchrony."
 msgstr "Entonces, ¿hay algo malo en esto? Parece maravilloso... hasta que se añade una pizca de asincronía."
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "What if the message's processing is asynchronous"
 msgstr "¿Y si el procesamiento del mensaje es asíncrono?"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -173,6 +189,7 @@ msgid ""
 "If some processing of previously retrieved records is not completed yet, while this auto commit happens, it may consider the record as processed correctly, but the outcome is unknown at that point."
 msgstr "Si el procesamiento del mensaje es asíncrono (se descarga a otro hilo, se utiliza E/S no bloqueante...), los fallos no interrumpirán el bucle while de arriba. El fallo se produce de forma asíncrona, fuera del hilo de sondeo. Si el método `poll` es llamado de nuevo a pesar de un procesamiento fallido, y _el auto-commit_ sigue habilitado, es posible que commit offsets mientras ocurría algo incorrecto. Si aún no se ha completado algún procesamiento de los registros recuperados anteriormente, mientras se produce este autocommit, puede que se considere que el registro se ha procesado correctamente, pero en ese momento se desconoce el resultado."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -192,6 +209,7 @@ msgstr "Así que para manejar estos casos, podemos desactivar el auto-commit y c
 msgid "What can we do about this?"
 msgstr "¿Qué podemos hacer al respecto?"
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "Kafka connector commit strategies"
@@ -203,6 +221,7 @@ msgstr "Estrategias de confirmación del conector Kafka"
 msgid "When using Reactive Messaging and the Kafka connector, you entered an asynchronous world."
 msgstr "Cuando se utiliza la mensajería reactiva y el conector Kafka, se entra en un mundo asíncrono."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -242,11 +261,13 @@ msgstr "ignorar (por defecto si `enabled.auto.commit=true` está configurado)"
 msgid "This is configured using the `commit-strategy` attribute:"
 msgstr "Esto se configura mediante el atributo `commit-strategy`:"
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "The throttled strategy"
 msgstr "La estrategia estrangulada"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -256,6 +277,7 @@ msgid ""
 "This commit happens periodically to avoid committing too often."
 msgstr "La estrategia \"throttled\" puede verse como una variante asíncrona del comportamiento \"auto-commit\" por defecto descrito anteriormente. Cuando está activada, el conector realiza un seguimiento de cada mensaje recibido y supervisa su acuse de recibo. Cuando el conector descubre que todos los mensajes anteriores a una posición se han procesado con éxito, consigna esa posición. Este commit ocurre periódicamente para evitar comprometer demasiado a menudo."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -263,6 +285,7 @@ msgid ""
 "To enable this strategy configures the channel with:"
 msgstr "Esta estrategia proporciona un rendimiento muy bueno y puede manejar el procesamiento asíncrono. Para habilitar esta estrategia configura el canal con:"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -274,11 +297,13 @@ msgid ""
 "The `throttled.unprocessed-record-max-age.ms` attribute configures the deadline for each message to be acked or nacked before being considered as a poison pill (Default is 1 minute)."
 msgstr "Hay que mencionar un detalle. Si un mensaje antiguo no es ni acked ni nacked, la estrategia ya no podrá comprometer la posición. Pondrá en cola los mensajes para siempre, esperando a que se produzca ese ack que falta. Esto puede provocar que se agote la memoria, ya que el conector nunca podría consignar una posición y despejar la cola. Afortunadamente, la estrategia detecta esta situación e informa de un fallo al conector, marcando la aplicación como no saludable. El atributo `throttled.unprocessed-record-max-age.ms` configura el plazo para que cada mensaje sea acked o nacked antes de ser considerado como una píldora venenosa (por defecto es 1 minuto)."
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "The Ignore strategy"
 msgstr "La estrategia de ignorar"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -300,6 +325,7 @@ msgstr "Puedes activar esta estrategia configurando enabled-auto-commit a true:"
 msgid "Be aware that starting Quarkus 1.9, auto commit is disabled by default. So you need to explicitly enable it."
 msgstr "Ten en cuenta que a partir de Quarkus 1.9, el autocompromiso está desactivado por defecto. Por lo tanto, es necesario habilitarlo explícitamente."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -308,11 +334,13 @@ msgid ""
 "While there are use cases for this, double-check that's what you want. In this case, enable this strategy with:"
 msgstr "Si no activa la función de autocompromiso, el uso de esta estrategia sigue siendo posible, pero nunca comprometerá los desplazamientos. En otras palabras, reiniciaría desde los registros almacenados más antiguos cada vez. Aunque hay casos de uso para esto, compruebe que es lo que quiere. En este caso, active esta estrategia con:"
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "The latest strategy"
 msgstr "La última estrategia"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -327,11 +355,13 @@ msgstr "Esta estrategia consigna el desplazamiento cada vez que se acusa recibo 
 msgid "Enable this strategy with:"
 msgstr "Habilita esta estrategia con:"
 
+#. type: Title =
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""
@@ -341,6 +371,7 @@ msgid ""
 "You can also switch to the `ignore` strategy if the Kafka auto-commit is acceptable for you, or if you want to skip offset commit altogether."
 msgstr "En general, utilice la estrategia `throttled` . Proporciona un alto rendimiento y maneja los casos de uso asíncronos. Esta estrategia se está convirtiendo en la estrategia por defecto en Quarkus 1.10. También puede cambiar a la estrategia `ignore` si el auto-commit de Kafka es aceptable para usted, o si desea omitir por completo el offset commit."
 
+#. type: Plain text
 #: _posts/2020-11-03-kafka-commit-strategies.adoc
 #, fuzzy
 msgid ""

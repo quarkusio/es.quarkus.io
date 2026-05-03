@@ -28,6 +28,7 @@ msgstr "El motín y el Reactiverse"
 msgid "Discover the Mutiny variant of the Vert.x API"
 msgstr "Descubra la variante Mutiny de la API Vert.x"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -39,12 +40,13 @@ msgid ""
 "So, here we are."
 msgstr "Me han preguntado varias veces: ¿cómo puedo utilizar Eclipse Vert.x en Quarkus? Efectivamente, puede utilizar Vert.x en Quarkus. Puede desplegar _verticales_ , comunicarse con el bus de eventos o utilizar cualquier cosa del ecosistema Vert.x. Pero, también puede utilizar la variante Mutiny de Vert.x en Quarkus, y obtener una experiencia sin fisuras con las demás API reactivas que ofrece Quarkus. En varias entradas ya se ha mencionado esto, pero merece una entrada específica en el blog. Así que, aquí estamos."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "Eclipse Vert.x"
 msgstr "Eclipse Vert.x"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -55,6 +57,7 @@ msgid ""
 "That makes Vert.x popular in many areas such as web applications, IoT gateways, banking applications and so on."
 msgstr "Vert. link:https://vertx.io[x] es un conjunto de herramientas para construir aplicaciones reactivas. El ecosistema Vert.x es enorme. Desde HTTP y capacidades de acceso a datos hasta clientes de mensajería pasando por microservicios y facilidades de seguridad, el ecosistema Vert.x es notablemente diverso y versátil. Para comprender esa variedad, basta con consultar la link:https://vertx.io/docs/[documentación] de Vert.x. Eso hace que Vert.x sea popular en muchas áreas, como aplicaciones web, pasarelas IoT, aplicaciones bancarias, etc."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -68,6 +71,7 @@ msgstr "Como ya sabrá, Quarkus se basa en Vert.x. Bajo el capó, hay una instan
 msgid "image:/assets/images/posts/mutiny-vertx/architecture.png[width=50%]"
 msgstr "image:/assets/images/posts/mutiny-vertx/architecture.png[alt=architecture]"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -75,12 +79,13 @@ msgid ""
 "That's also true for messaging, gRPC and almost any I/O."
 msgstr "Cuando Quarkus sirve un punto final HTTP, bajo el capó, hay un servidor HTTP Vert.x manejando la solicitud y la respuesta. Eso también es cierto para la mensajería, gRPC y casi cualquier E/S."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "The Vert.x \"bare\" API and friends"
 msgstr "La API \"desnuda\" de Vert.x y sus amigos"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -88,6 +93,7 @@ msgid ""
 "Let's focus on the \"bare\" one for now."
 msgstr "Vert.x proporciona múltiples API. Centrémonos por ahora en la \"desnuda\"."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -95,6 +101,7 @@ msgid ""
 "These methods are following a syntax convention:"
 msgstr "Siguiendo la naturaleza reactiva de Vert.x, la API contiene principalmente métodos asíncronos. Estos métodos siguen una convención sintáctica:"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -104,6 +111,7 @@ msgid ""
 "So you need to pass a continuation callback, invoked with the outcome."
 msgstr "La parte interesante es el último parámetro. Es una función, una llamada de retorno para ser más precisos, que se llama cuando la operación se completa o falla. De hecho, la naturaleza asíncrona de Vert.x no permite utilizar bloques `try/catch` . Así que tiene que pasar una llamada de retorno de continuación, invocada con el resultado."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -117,6 +125,7 @@ msgstr "`AsyncResult` es una estructura que captura este resultado. Contiene el 
 msgid "Let's take an example:"
 msgstr "Pongamos un ejemplo:"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -126,6 +135,7 @@ msgid ""
 "Vert.x invokes this callback when the operation has either completed or failed."
 msgstr "Este código lee un archivo y, como se trata de una operación asíncrona, invoca la llamada de retorno cuando se lee el archivo. El método `readFile` lee el contenido completo del archivo y lo acumula en un _búfer_ . La llamada de retorno recibe el resultado asíncrono que contiene el contenido del archivo ( `ar.result()` ) o un fallo. Vert.x invoca esta llamada de retorno cuando la operación se ha completado o ha fallado."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -137,6 +147,7 @@ msgid ""
 "These items will be consumed by a `ReadStream`:"
 msgstr "Vert.x también admite flujos de datos gracias a las clases `ReadStream` y `WriteStream` . Un `ReadStream` representa un flujo de datos que puede leer. Así que puede adjuntar una llamada de retorno invocada en cada elemento que atraviesa el flujo. Un `WriteStream` es una fuente de datos. Puede enviar elementos a un `WriteStream.` . Estos elementos serán consumidos por un `ReadStream` :"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -144,6 +155,7 @@ msgid ""
 "Vert.x provides a different back-pressure protocol."
 msgstr "Los flujos Vert.x no implementan flujos reactivos. Vert.x proporciona un protocolo de contrapresión diferente."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -153,6 +165,7 @@ msgid ""
 "It also provides API in Kotlin, API for RX Java, and so on."
 msgstr "¿Por qué son importantes estas reglas de configuración de la API? Vert.x no proporciona una única API. La API \"desnuda\" presentada anteriormente es sólo una de las API propuestas. También proporciona API en Kotlin, API para RX Java, etc."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -167,6 +180,7 @@ msgstr "Estas API se *generan* . Vert.x proporciona un generador de código que 
 msgid "image:/assets/images/posts/mutiny-vertx/generation.png[]"
 msgstr "image:/assets/images/posts/mutiny-vertx/generation.png[alt=generation]"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -174,12 +188,13 @@ msgid ""
 "Asynchronous methods and streams can follow different transformations, so the resulting API uses the right idioms."
 msgstr "El código generado expone una API diferente; cada método delega en la API \"desnuda\". Los métodos asíncronos y los flujos pueden seguir diferentes transformaciones, por lo que la API resultante utiliza los modismos adecuados."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "The Vert.x Mutiny API"
 msgstr "La API de Vert.x Mutiny"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -236,6 +251,7 @@ msgstr "También adapta el protocolo de contrapresión de Vert.x a Reactive Stre
 msgid "For example, the first example from above becomes:"
 msgstr "Por ejemplo, el primer ejemplo de arriba se convierte en:"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -249,12 +265,13 @@ msgstr "Una diferencia entre las dos API está relacionada con la pereza. La API
 msgid "The stream example from above becomes:"
 msgstr "El ejemplo de la corriente de arriba se convierte en:"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "A bit more than this"
 msgstr "Un poco más que esto"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -274,12 +291,13 @@ msgstr "`xAndAwait()` bloquea el hilo de la llamada hasta que se reciba el resul
 msgid "`xAndForget()` methods - triggers the operation, discard the outcome"
 msgstr "`xAndForget()` métodos - desencadena la operación, descarta el resultado"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "Where can we find this API?"
 msgstr "¿Dónde podemos encontrar esta API?"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -287,6 +305,7 @@ msgid ""
 "We are extending the support to cover the full Vert.x stack."
 msgstr "En el momento de escribir estas líneas, sólo proporcionamos el núcleo Vert.x y los clientes Vert.x (MongoDB, Redis, cliente Web, Mqtt, etc.). Estamos ampliando el soporte para cubrir toda la pila Vert.x."
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""
@@ -318,12 +337,13 @@ msgstr "¿Falta algo? Abre una incidencia en  link:https://github.com/smallrye/s
 msgid "The Javadoc is available http://smallrye.io/smallrye-reactive-utils/apidocs/[here]."
 msgstr "El Javadoc está disponible  link:http://smallrye.io/smallrye-reactive-utils/apidocs/[aquí]."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy, no-wrap
 msgid "The road ahead: Vert.x 4!"
 msgstr "El camino por delante: ¡Vert.x 4!"
 
+#. type: Plain text
 #: _posts/2020-11-24-mutiny-vertx.adoc
 #, fuzzy
 msgid ""

@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Using transactions in Quarkus"
@@ -37,6 +37,7 @@ msgstr "La extensión `quarkus-narayana-jta` proporciona un Gestor de Transaccio
 msgid "When discussing Quarkus transactions, this guide refers to Jakarta Transactions transaction style and uses only the term _transaction_ to address them."
 msgstr "Cuando se habla de transacciones de Quarkus, esta guía se refiere al estilo de transacciones de Jakarta Transactions y utiliza sólo el término _transacción_ para referirse a ellas."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -44,12 +45,13 @@ msgid ""
 "This means that models that propagate transaction context, such as link:https://download.oracle.com/otndocs/jcp/7309-jts-1.0-spec-oth-JSpec/[Java Transaction Service] (JTS), REST-AT, WS-Atomic Transaction, and others, are not supported by the `narayana-jta` extension."
 msgstr "Además, Quarkus no admite transacciones distribuidas. Esto significa que los modelos que propagan el contexto de transacción, como link:https://download.oracle.com/otndocs/jcp/7309-jts-1.0-spec-oth-JSpec/[Java Transaction Service] (JTS), REST-AT, WS-Atomic Transaction y otros, no son compatibles con la extensión `narayana-jta` ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Setting it up"
 msgstr "Cómo se prepara"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -57,6 +59,7 @@ msgid ""
 "Hibernate ORM for example will include the transaction manager and set it up properly."
 msgstr "No tendrá que preocuparse de configurarlo la mayoría de las veces, ya que las extensiones que lo necesiten simplemente lo añadirán como dependencia. Hibernate ORM, por ejemplo, incluirá el gestor de transacciones y lo configurará correctamente."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -76,12 +79,13 @@ msgstr "pom.xml"
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Starting and stopping transactions: defining your boundaries"
 msgstr "Iniciar y detener las transacciones: definir los límites"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -89,7 +93,7 @@ msgid ""
 "the JTA `UserTransaction` API directly, however this is less user-friendly than `QuarkusTransaction`."
 msgstr "Puede definir los límites de sus transacciones de forma declarativa con `@Transactional` o de forma programática con `QuarkusTransaction` . También puede utilizar directamente la API JTA `UserTransaction` , aunque es menos fácil de usar que `QuarkusTransaction` ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Declarative approach"
@@ -113,6 +117,7 @@ msgstr "Esta anotación define los límites de su transacción y envolverá esta
 msgid "A `RuntimeException` crossing the transaction boundaries will roll back the transaction."
 msgstr "Un `RuntimeException` que cruce los límites de la transacción revertirá la transacción."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -162,6 +167,7 @@ msgstr "`@Transactional(NOT_SUPPORTED)`Si se ha iniciado una transacción, la su
 msgid "`@Transactional(NEVER)`: if a transaction was started, raises an exception ; otherwise works with no transaction."
 msgstr "`@Transactional(NEVER)`Si se ha iniciado una transacción, lanza una excepción; en caso contrario, funciona sin transacción."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -170,6 +176,7 @@ msgid ""
 "Make sure to check the JavaDoc for the precise semantic."
 msgstr "`REQUIRED` o `NOT_SUPPORTED` son probablemente los más útiles. Así es como se decide si un método debe ejecutarse dentro o fuera de una transacción. Asegúrese de consultar el JavaDoc para conocer la semántica precisa."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -178,6 +185,7 @@ msgid ""
 "You can override whether an exception forces the rollback or not by using `@Transactional(dontRollbackOn=SomeException.class)` (or `rollbackOn`)."
 msgstr "El contexto de la transacción se propaga a todas las llamadas anidadas en el método `@Transactional` como cabría esperar (en este ejemplo `childDAO.addToGiftList()` y `santaDAO.addToSantaTodoList()` ). La transacción se confirmará a menos que una excepción en tiempo de ejecución cruce el límite del método. Puede anular si una excepción fuerza la reversión o no utilizando `@Transactional(dontRollbackOn=SomeException.class)` (o `rollbackOn` )."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -197,7 +205,7 @@ msgstr "Inyectar la `TransactionManager` para poder activar la semántica `setRo
 msgid "Programmatically decide to set the transaction for rollback."
 msgstr "Decide programar la transacción para su reversión."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Transaction configuration"
@@ -215,6 +223,7 @@ msgstr "La configuración avanzada de la transacción es posible con el uso de l
 msgid "The `@TransactionConfiguration` annotation allows to set a timeout property, in seconds, that applies to transactions created within the annotated method."
 msgstr "La anotación `@TransactionConfiguration` permite establecer una propiedad de tiempo de espera, en segundos, que se aplica a las transacciones creadas dentro del método anotado."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -222,6 +231,7 @@ msgid ""
 "Annotated nested methods once a transaction has started will throw an exception."
 msgstr "Esta anotación sólo puede colocarse en el método de nivel superior que delimita la transacción. Los métodos anidados anotados una vez iniciada la transacción lanzarán una excepción."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -229,7 +239,7 @@ msgid ""
 "The configuration defined on a method takes precedence over the configuration defined on a class."
 msgstr "Si se define sobre una clase, equivale a definirla sobre todos los métodos de la clase marcados con `@Transactional` . La configuración definida sobre un método tiene prioridad sobre la configuración definida sobre una clase."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Reactive extensions"
@@ -259,6 +269,7 @@ msgstr "`Publisher` (de Reactive-Streams)"
 msgid "Any type that can be converted to one of the two previous types using Reactive Type Converters"
 msgstr "Cualquier tipo que se pueda convertir en uno de los dos tipos anteriores mediante los convertidores de tipos reactivos"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -268,6 +279,7 @@ msgid ""
 "or rolled-back only at termination of the reactive value."
 msgstr "entonces el comportamiento es un poco diferente, porque la transacción no se terminará hasta que el valor reactivo devuelto se termine. En efecto, el valor reactivo devuelto será escuchado y si termina excepcionalmente la transacción será marcada para rollback, y será cometida o rollback sólo a la terminación del valor reactivo."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -275,6 +287,7 @@ msgid ""
 "work is really done, and not just until the reactive method returns."
 msgstr "Esto permite a sus métodos reactivos seguir trabajando en la transacción de forma asíncrona hasta que su trabajo esté realmente hecho, y no sólo hasta que el método reactivo retorne."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -282,12 +295,13 @@ msgid ""
 "xref:context-propagation.adoc[Context Propagation guide]."
 msgstr "Si necesita propagar el contexto de su transacción a través de su canalización reactiva, consulte la xref:context-propagation.adoc[guía Propagación del contexto] ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Programmatic approach"
 msgstr "Enfoque programático"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -302,6 +316,7 @@ msgstr "Puede utilizar métodos estáticos en `QuarkusTransaction` para definir 
 msgid "The above example shows a few different ways the API can be used."
 msgstr "El ejemplo anterior muestra algunas formas diferentes de utilizar la API."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -312,6 +327,7 @@ msgid ""
 "example in the method calls begin with a timeout option, and then rolls back the transaction."
 msgstr "El primer método simplemente llama a begin, realiza algún trabajo y lo consigna. Esta transacción creada está vinculada al ámbito de la solicitud CDI, por lo que si sigue activa cuando se destruya el ámbito de la solicitud, se revertirá automáticamente. Esto elimina la necesidad de capturar explícitamente las excepciones y llamar a `rollback` , y actúa como una red de seguridad contra fugas inadvertidas de transacciones, sin embargo, significa que esto sólo se puede utilizar cuando el ámbito de la solicitud está activo. El segundo ejemplo en las llamadas al método comienza con una opción de tiempo de espera, y luego hace retroceder la transacción."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -328,12 +344,13 @@ msgstr "El segundo método muestra el uso de transacciones de ámbito lambda con
 msgid "The following semantics are supported:"
 msgstr "Se admiten las siguientes semánticas:"
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "`QuarkusTransaction.disallowingExisting()`/`DISALLOW_EXISTING`"
 msgstr "`QuarkusTransaction.disallowingExisting()`/ `DISALLOW_EXISTING`"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -341,12 +358,13 @@ msgid ""
 "otherwise a new transaction is started, and follows all the normal lifecycle rules."
 msgstr "Si una transacción ya está asociada con el hilo actual se lanzará un `QuarkusTransactionException` , de lo contrario se inicia una nueva transacción, y sigue todas las reglas normales del ciclo de vida."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "`QuarkusTransaction.joiningExisting()`/`JOIN_EXISTING`"
 msgstr "`QuarkusTransaction.joiningExisting()`/ `JOIN_EXISTING`"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -359,12 +377,13 @@ msgid ""
 "`ExceptionResult#COMMIT` will result in no action being taken."
 msgstr "Si no hay ninguna transacción activa, se iniciará una nueva y se confirmará cuando finalice el método. Si se lanza una excepción, se llamará al gestor de excepciones registrado por `#exceptionHandler(Function)` para decidir si la TX debe ser confirmada o revertida. Si hay una transacción activa, el método se ejecutará en el contexto de la transacción existente. Si se lanza una excepción se llamará al manejador de excepciones, sin embargo un resultado de `ExceptionResult#ROLLBACK` resultará en la TX marcada como rollback solamente, mientras que un resultado de `ExceptionResult#COMMIT` resultará en que no se tome ninguna acción."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "`QuarkusTransaction.requiringNew()`/`REQUIRE_NEW`"
 msgstr "`QuarkusTransaction.requiringNew()`/ `REQUIRE_NEW`"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -374,12 +393,13 @@ msgid ""
 "Otherwise, a new transaction is started, and follows all the normal lifecycle rules."
 msgstr "Si una transacción existente ya está asociada al hilo actual, entonces se suspende la transacción, se inicia una nueva transacción que sigue todas las reglas normales del ciclo de vida y, cuando se completa, se reanuda la transacción original. En caso contrario, se inicia una nueva transacción, que sigue todas las reglas normales del ciclo de vida."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "`QuarkusTransaction.suspendingExisting()`/`SUSPEND_EXISTING`"
 msgstr "`QuarkusTransaction.suspendingExisting()`/ `SUSPEND_EXISTING`"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -390,7 +410,7 @@ msgid ""
 "These semantics allows for code to easily be run outside the scope of a transaction."
 msgstr "Si no hay ninguna transacción activa entonces esta semántica es básicamente un no-op. Si hay una transacción activa entonces se suspende, y se reanuda después de que se ejecute la tarea. El manejador de excepciones nunca será consultado cuando estas semánticas estén en uso, especificar tanto un manejador de excepciones como estas semánticas se considera un error. Esta semántica permite que el código se ejecute fácilmente fuera del ámbito de una transacción."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Legacy API approach"
@@ -402,18 +422,19 @@ msgstr "Enfoque de la API heredada"
 msgid "The less easy way is to inject a `UserTransaction` and use the various transaction demarcation methods."
 msgstr "La forma menos fácil es inyectar un `UserTransaction` y utilizar los distintos métodos de demarcación de transacciones."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "You cannot use `UserTransaction` in a method having a transaction started by a `@Transactional` call."
 msgstr "No se puede utilizar `UserTransaction` en un método que tenga una transacción iniciada por una llamada a `@Transactional`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Configuring the transaction timeout"
 msgstr "Configurar el tiempo de espera de la transacción"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "You can configure the default transaction timeout, the timeout that applies to all transactions managed by the transaction manager, via the property <<quarkus-narayana-jta_quarkus-transaction-manager-default-transaction-timeout,`quarkus.transaction-manager.default-transaction-timeout`>>, specified as a duration."
@@ -425,12 +446,13 @@ msgstr "Puede configurar el tiempo de espera de la transacción por defecto, el 
 msgid "The default value is 60 seconds."
 msgstr "El valor por defecto es de 60 segundos."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Configuring transaction node name identifier"
 msgstr "Configuración del identificador del nombre del nodo de la transacción"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -438,6 +460,7 @@ msgid ""
 "This is important if you consider using XA transactions that involve multiple resources."
 msgstr "Narayana, como gestor de transacciones subyacente, tiene un concepto de identificador de nodo único. Esto es importante si se plantea utilizar transacciones XA que impliquen múltiples recursos."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -448,6 +471,7 @@ msgid ""
 "to roll back the transaction counterparts during recovery."
 msgstr "El identificador del nombre del nodo desempeña un papel crucial en la identificación de una transacción. El identificador de nombre de nodo se forja en el identificador de transacción cuando se crea la transacción. Basándose en el identificador de nombre de nodo, el gestor de transacciones es capaz de reconocer las transacciones XA homólogas creadas en la base de datos o en el broker JMS. El identificador hace posible que el gestor de transacciones haga retroceder las transacciones homólogas durante la recuperación."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -455,11 +479,13 @@ msgid ""
 "And the node identifier needs to be stable over the transaction manager restarts."
 msgstr "El identificador del nombre del nodo tiene que ser único por cada despliegue del gestor de transacciones. Y el identificador de nodo necesita ser estable a lo largo de los reinicios del gestor de transacciones."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "The node name identifier may be configured via the property <<quarkus-narayana-jta_quarkus-transaction-manager-node-name,`quarkus.transaction-manager.node-name`>>."
 msgstr "El identificador del nombre del nodo puede configurarse mediante la propiedad xref:quarkus-narayana-jta_quarkus-transaction-manager-node-name[quarkus.transaction-manager.node-name] ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -467,17 +493,19 @@ msgid ""
 "To automatically shorten names longer than 28 bytes, set <<quarkus-narayana-jta_quarkus-transaction-manager-shorten-node-name-if-necessary,`quarkus.transaction-manager.shorten-node-name-if-necessary`>> to `true`."
 msgstr "El nombre del nodo no puede tener más de 28 bytes. Para acortar automáticamente los nombres de más de 28 bytes, configure xref:quarkus-narayana-jta_quarkus-transaction-manager-shorten-node-name-if-necessary[quarkus.transaction-manager.shorten-node-name-if-necessary] a `true` ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "Shortening is implemented by hashing the node name, encoding the hash to Base64 and then truncating the result. As with all hashes, the resulting shortened node name could potentially conflict with another shortened node name, but it is https://github.com/quarkusio/quarkus/issues/30491#issuecomment-1537247764[very unlikely]."
 msgstr "El acortamiento se implementa haciendo un hash del nombre del nodo, codificando el hash en Base64 y luego truncando el resultado. Como ocurre con todos los hashes, el nombre de nodo acortado resultante podría entrar en conflicto con otro nombre de nodo acortado, pero es link:https://github.com/quarkusio/quarkus/issues/30491#issuecomment-1537247764[muy poco probable] ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Using `@TransactionScoped` to bind CDI beans to the transaction lifecycle"
 msgstr "Uso de `@TransactionScoped` para vincular beans CDI al ciclo de vida de la transacción"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -491,6 +519,7 @@ msgstr "Puede definir beans que vivan tanto tiempo como una transacción, y que 
 msgid "Just assign the transaction xref:cdi.adoc#bean-scope[scope] to such beans using the `@TransactionScoped` annotation:"
 msgstr "Basta con asignar el  link:cdi.html#bean-scope[ámbito de] la transacción a dichos beans utilizando la anotación `@TransactionScoped`:"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -505,6 +534,7 @@ msgstr "Alternativamente, si no necesita necesariamente mantener el estado duran
 msgid "The `event` object represents the transaction ID, and defines `toString()`/`equals()`/`hashCode()` accordingly."
 msgstr "El objeto `event` representa el ID de la transacción, y define `toString()`/ `equals()`/ `hashCode()` en consecuencia."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -512,7 +542,7 @@ msgid ""
 "which is a CDI bean and can be ``@Inject``ed."
 msgstr "En los métodos de escucha, puede acceder a más información sobre la transacción en curso accediendo al `TransactionManager` , que es un bean CDI y puede ser `@Inject` ed."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Configure storing of Quarkus transaction logs in a database"
@@ -524,6 +554,7 @@ msgstr "Configuración del identificador del nombre del nodo de la transacción"
 msgid "In cloud environments where persistent storage is not available, such as when application containers are unable to use persistent volumes, you can configure the transaction management to store transaction logs in a database by using a Java Database Connectivity (JDBC) datasource."
 msgstr "En entornos de nube donde el almacenamiento persistente no está disponible, como cuando los contenedores de aplicaciones no pueden utilizar volúmenes persistentes, puede configurar la gestión de transacciones para almacenar registros de transacciones en una base de datos mediante el uso de una fuente de datos JDBC."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -538,6 +569,7 @@ msgstr "Sin embargo, en las aplicaciones nativas de la nube, el uso de una base 
 msgid "Quarkus, after you evaluate whether using a database to store transaction logs is right for you, allows the following JDBC-specific configuration of the object store included in `quarkus.transaction-manager.object-store._<property>_` properties, where _<property>_ can be:"
 msgstr "Quarkus permite la siguiente configuración específica JDBC del almacén de objetos incluida en las propiedades `quarkus.transacion-manager.object-store.&amp;lt;property&amp;gt;`, donde &lt;propiedad&gt; puede ser:"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -545,6 +577,7 @@ msgid ""
 "The default value is `file-system`."
 msgstr "xref:quarkus-narayana-jta_quarkus-transaction-manager-object-store-type[type] _(cadena_ ): Configure esta propiedad a `jdbc` para habilitar el uso de una fuente de datos JDBC de Quarkus para almacenar registros de transacciones. El valor por defecto es `file-system` ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -552,6 +585,7 @@ msgid ""
 "If no value is provided for the `datasource` property, Quarkus uses the xref:datasource.adoc#configure-datasources[default datasource]."
 msgstr "xref:quarkus-narayana-jta_quarkus-transaction-manager-object-store-datasource[datasource] _(cadena_ ): Especifique el nombre de la fuente de datos para el almacenamiento del registro de transacciones. Si no se proporciona ningún valor para la propiedad `datasource` , Quarkus utiliza la xref:datasource.adoc#configure-datasources[fuente de datos por defecto] ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -559,6 +593,7 @@ msgid ""
 "The default value is `false`."
 msgstr "xref:quarkus-narayana-jta_quarkus-transaction-manager-object-store-create-table[create-table] _(booleano_ ): Cuando se establece en `true` , la tabla del registro de transacciones se crea automáticamente si aún no existe. El valor por defecto es `false` ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -566,6 +601,7 @@ msgid ""
 "The default value is `false`."
 msgstr "xref:quarkus-narayana-jta_quarkus-transaction-manager-object-store-drop-table[drop-table] _(booleano_ ): Cuando se establece en `true` , las tablas se descartan al iniciarse si ya existen. El valor por defecto es `false` ."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -609,6 +645,7 @@ msgstr "JDBC datasources es parte de `quarkus-agroal`, y necesita usar `quarkus.
 msgid "ActiveMQ Artemis is part of `quarkus-pooled-jms`, and it needs to use `quarkus.pooled-jms.transaction=XA`."
 msgstr "ActiveMQ Artemis forma parte de `quarkus-pooled-jms`, y necesita utilizar `quarkus.pooled-jms.transaction=XA`."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -617,12 +654,13 @@ msgid ""
 "You can also set it to `false` to explicitly disable recovery even when XA datasources are present."
 msgstr "El servicio de recuperación de transacciones se activa automáticamente cuando se detectan fuentes de datos XA JDBC (es decir, `quarkus.datasource.jdbc.transactions=XA` ). Para otros proveedores de recursos XA como `quarkus-pooled-jms` , establezca xref:quarkus-narayana-jta_quarkus-transaction-manager-enable-recovery[quarkus.transaction-manager.enable-recovery=true] para habilitar la recuperación. También puede establecerlo en `false` para desactivar explícitamente la recuperación incluso cuando estén presentes fuentes de datos XA."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "To work around the current known issue of link:https://issues.redhat.com/browse/AG-209[Agroal having a different view on running transaction checks], set the datasource transaction type for the datasource responsible for writing the transaction logs to `disabled`:"
 msgstr "Para solucionar el problema actual de  link:https://issues.redhat.com/browse/AG-209[Agroal, que tiene una visión diferente de la ejecución de comprobaciones de transacciones], establezca el tipo de transacción de la fuente de datos responsable de escribir los registros de transacciones en `disabled`:"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "quarkus.datasource.TX_LOG.jdbc.transactions=disabled"
@@ -634,18 +672,19 @@ msgstr "quarkus.datasource.TX_LOG.jdbc.transactions=desactivado"
 msgid "This example uses TX_LOG as the datasource name."
 msgstr "Este ejemplo utiliza TX_LOG como nombre de la fuente de datos."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Why always having a transaction manager?"
 msgstr "¿Por qué tener siempre un gestor de transacciones?"
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Does it work everywhere I want to?"
 msgstr "¿Funciona en todos los lugares que quiero?"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -656,12 +695,13 @@ msgid ""
 "What we have is perfectly embeddable and lean."
 msgstr "Sí, funciona en su aplicación Quarkus, en su IDE, en sus pruebas, porque todas ellas son aplicaciones Quarkus. JTA tiene mala prensa para algunas personas. No sé por qué. Digamos que ésta no es la implementación JTA de su abuelo. Lo que tenemos es perfectamente integrable y esbelto."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Does it do 2 Phase Commit and slow down my app?"
 msgstr "¿Hace 2 Phase Commit y ralentiza mi aplicación?"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -669,12 +709,13 @@ msgid ""
 "Let's assume it essentially comes for free and let you scale to more complex cases involving several datasources as needed."
 msgstr "No, esto es un viejo cuento popular. Partamos de la base de que, en esencia, es gratuito y le permite escalar a casos más complejos en los que intervienen varias fuentes de datos, según sea necesario."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "I don't need transaction when I do read only operations, it's faster."
 msgstr "No necesito la transacción cuando hago operaciones de sólo lectura, es más rápido."
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -697,12 +738,13 @@ msgstr ""
 "\n"
 " En tercer lugar, cuando realice varios SELECT, es mejor envolverlos en una única transacción porque todos serán coherentes entre sí. Digamos que su BD representa el salpicadero de su coche, puede ver el número de kilómetros restantes y el nivel del indicador de combustible. Si los lee en una sola transacción, serán coherentes. Si lee uno y otro en dos transacciones diferentes, entonces pueden ser incoherentes. Puede ser más dramático si lee datos relacionados con la gestión de derechos y accesos, por ejemplo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "Why do you prefer JTA vs Hibernate's transaction management API"
 msgstr "¿Por qué prefiere JTA frente a la API de gestión de transacciones de Hibernate?"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -710,12 +752,13 @@ msgid ""
 "Transactions are also about JMS and other database access, so one API makes more sense."
 msgstr "Gestionar las transacciones manualmente a través de `entityManager.getTransaction().begin()` y amigos conduce a un código feo como el culo con toneladas de try catch al final que la gente se equivoca. Las transacciones también tienen que ver con JMS y otros accesos a bases de datos, por lo que una API tiene más sentido."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy, no-wrap
 msgid "It's a mess because I don't know if my Jakarta Persistence persistence unit is using `JTA` or `Resource-level` Transaction"
 msgstr "Es un lío porque no sé si mi unidad de persistencia JPA está usando `JTA` o `Resource-level` Transaction"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid ""
@@ -725,11 +768,13 @@ msgid ""
 "The end result is that the difficulties of running Hibernate ORM + CDI + a transaction manager in Java SE mode are solved by Quarkus."
 msgstr "No es un lío en Quarkus :) El nivel de recursos se introdujo para soportar Jakarta Persistence en un entorno no gestionado. Pero Quarkus es a la vez ligero y un entorno gestionado, por lo que podemos asumir con seguridad que siempre estamos en modo JTA. El resultado final es que las dificultades de ejecutar Hibernate ORM + CDI + un gestor de transacciones en modo Java SE quedan resueltas con Quarkus."
 
+#. type: Title =
 #: _versions/main/guides/transaction.adoc
 #, fuzzy
 msgid "Configuration Reference for Transactions"
 msgstr "Referencia de configuración para transacciones"
 
+#. type: Plain text
 #: _versions/main/guides/transaction.adoc
 msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
 msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"

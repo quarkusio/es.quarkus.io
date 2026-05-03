@@ -28,6 +28,7 @@ msgstr "¿Cómo seleccionar el servicio \"adecuado\" con Stork?"
 msgid "How Stork selects the best service instance and the various built-in stategies."
 msgstr "Cómo selecciona Stork la mejor instancia de servicio y las distintas estrategias incorporadas."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -35,6 +36,7 @@ msgid ""
 "In modern architectures, you often have multiple instances of your service to share the load or improve the resilience by redundancy."
 msgstr "La esencia de los sistemas distribuidos reside en la interacción entre _servicios_ . En las arquitecturas modernas, a menudo se dispone de varias instancias del servicio para compartir la carga o mejorar la capacidad de recuperación mediante la redundancia."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -43,12 +45,13 @@ msgid ""
 "In this post, we will look into some of the load-balancing strategies offered by Stork, so you can decide which one is the best for you."
 msgstr "Pero, cuando se tienen todas estas instancias, ¿cómo se selecciona la _mejor_ ? Ahí es donde Stork le ayuda. Stork es un marco de descubrimiento de servicios y equilibrio de carga. Stork localizará y elegirá la instancia más adecuada para cada llamada. En este post, examinaremos algunas de las estrategias de equilibrio de carga que ofrece Stork, para que pueda decidir cuál es la mejor para usted."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "Playground"
 msgstr "Parque infantil"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -58,6 +61,7 @@ msgid ""
 "That's where Stork load balancing capability comes and selects the instance (4)."
 msgstr "Cuando su aplicación necesita invocar un servicio remoto (2), pide a Stork que localice este servicio (3). Este paso de descubrimiento del servicio recupera las instancias del servicio. Puede tener una única instancia, lo que facilita el proceso de selección, pero también puede tener varias instancias disponibles. Entonces, debe elegir una. Ahí es donde entra la capacidad de equilibrio de carga de Stork y selecciona la instancia (4)."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -107,6 +111,7 @@ msgstr "La aplicación principal contiene un cliente REST configurado para utili
 msgid "The main endpoint delegates the invocation to the client:"
 msgstr "El punto final principal delega la invocación al cliente:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -132,12 +137,13 @@ msgstr "Llamadas concurrentes: emite diez peticiones de forma concurrente. No co
 msgid "Let's now look at the various load-balancing strategies offered by Stork."
 msgstr "Veamos ahora las distintas estrategias de equilibrio de carga que ofrece Stork."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "The round-robin strategy"
 msgstr "La estrategia round-robin"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -145,6 +151,7 @@ msgid ""
 "When you call the service (either sequentially or concurrently), you get something like:"
 msgstr "Stork utiliza un round-robin si no establece ninguna estrategia de equilibrio de carga. Cuando llame al servicio (ya sea de forma secuencial o concurrente), obtendrá algo como:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -153,6 +160,7 @@ msgid ""
 "When the green instance fails (❌), it does not evict the instance, continues the iteration, and picks the blue instance, then the yellow instance, and then the green one again."
 msgstr "Stork itera sobre las instancias disponibles. Así podemos ver 🔵🟡🟢🔵🟡🟢🟡🟢 secuencias. No cambia la estrategia cuando falla la llamada. Cuando falla la instancia verde (❌), no desaloja la instancia, continúa la iteración y elige la instancia azul, luego la amarilla y de nuevo la verde."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -160,12 +168,13 @@ msgid ""
 "When there is a failure, and when a retry is possible, you can use `@Retry` to use the next service instance."
 msgstr "La estrategia round-robin es conveniente para repartir la carga equitativamente entre un conjunto de instancias de servicio. Cuando se produce un fallo, y cuando es posible un reintento, puede utilizar `@Retry` para utilizar la siguiente instancia de servicio."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "The random strategy"
 msgstr "La estrategia aleatoria"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -185,6 +194,7 @@ msgstr "Para utilizar esta estrategia de equilibrio de carga, debe configurar el
 msgid "As you can see in the picture below, it does not follow a pattern. So, the same service instance can be called multiple times consecutively."
 msgstr "Como puede ver en la imagen de abajo, no sigue un patrón. Así, la misma instancia de servicio puede ser llamada varias veces consecutivas."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -194,12 +204,13 @@ msgid ""
 "In that case, it can be convenient to share the load and avoid overloading a specific instance globally."
 msgstr "Esta estrategia no reparte la carga por igual entre las instancias. Puede, en el peor de los casos, elegir una instancia ocupada. Sin embargo, supongamos que el servicio invocado también es utilizado por otras aplicaciones (que también utilizan el equilibrio de carga aleatorio). En ese caso, puede ser conveniente compartir la carga y evitar sobrecargar globalmente una instancia específica."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "Least-Requests"
 msgstr "Menor número de solicitudes"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -227,6 +238,7 @@ msgstr "También debe configurar el equilibrador de carga de su servicio:"
 msgid "If you call the service sequentially, it always picks the same instance:"
 msgstr "Si se llama al servicio de forma secuencial, siempre se elige la misma instancia:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -234,6 +246,7 @@ msgid ""
 "However, when you call the service concurrently, this strategy becomes a lot more relevant:"
 msgstr "De hecho, el número de solicitudes de entrada para el servicio es siempre 0, ya que espera la respuesta antes de llamarlo otra vez. Sin embargo, cuando llama al servicio de forma concurrente, esta estrategia adquiere mucha más relevancia:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -241,6 +254,7 @@ msgid ""
 "Thus, while the blue and yellow services still have inflight calls, the green service is back to 0 and selected."
 msgstr "Como el servicio verde es el más rápido, recibe llamadas con más frecuencia a medida que las solicitudes inflight disminuyen rápidamente. Así, mientras los servicios azul y amarillo siguen teniendo llamadas inflight, el servicio verde vuelve a ser 0 y seleccionado."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -248,6 +262,7 @@ msgid ""
 "For example, you can have endpoints answering quickly and endpoints doing a lot more work, thus taking more time."
 msgstr "Esta estrategia es conveniente cuando tiene servicios con una API que tienen diferentes tiempos de respuesta. Por ejemplo, puede tener puntos finales que respondan rápidamente y puntos finales que realicen mucho más trabajo, por lo que tardarán más tiempo."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -255,12 +270,13 @@ msgid ""
 "If you have many service instances, you need to iterate over the whole set to find the one to pick."
 msgstr "Esta estrategia tiene un inconveniente. Si tiene muchas instancias de servicio, tendrá que iterar sobre todo el conjunto para encontrar la que debe elegir."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "The power of two random choices"
 msgstr "El poder de dos elecciones al azar"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -280,6 +296,7 @@ msgstr "También es necesario configurar el equilibrador de carga para el servic
 msgid "The results are similar to the _least-request_ as we have only three instances:"
 msgstr "Los resultados son similares a los de la _solicitud mínima_, ya que sólo tenemos tres instancias:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -287,12 +304,13 @@ msgid ""
 "In the worst case, it would pick the two most busy instances and select the one with fewer requests."
 msgstr "Sin embargo, esta estrategia es menos costosa cuando se tienen muchas instancias y cuando la iteración lleva demasiado tiempo. En el peor de los casos, elegiría las dos instancias más ocupadas y seleccionaría la que tenga menos peticiones."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "Least response time"
 msgstr "Menor tiempo de respuesta"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -307,6 +325,7 @@ msgstr "El tiempo de respuesta mínimo realiza un seguimiento del tiempo de resp
 msgid "You also need to configure the load-balancer for the service:"
 msgstr "También es necesario configurar el balanceador de carga para el servicio:"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -314,12 +333,13 @@ msgid ""
 "However, due to the chance of failure, it will also pick the other ones once in a while."
 msgstr "Esta estrategia selecciona la instancia verde más a menudo. Sin embargo, debido a la posibilidad de fallo, también elegirá las otras de vez en cuando."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy, no-wrap
 msgid "Summary"
 msgstr "Resumen"
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""
@@ -327,6 +347,7 @@ msgid ""
 "You can find the full list on http://smallrye.io/smallrye-stork/latest[the Stork web site]."
 msgstr "En esta entrada del blog se han presentado las estrategias de equilibrio de carga que ofrece Stork. Puede encontrar la lista completa en link:http://smallrye.io/smallrye-stork/latest[el sitio web de St] ork."
 
+#. type: Plain text
 #: _posts/2022-07-15-stork-load-balancing.adoc
 #, fuzzy
 msgid ""

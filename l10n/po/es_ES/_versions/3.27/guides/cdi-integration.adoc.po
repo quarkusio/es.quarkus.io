@@ -6,11 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "CDI Integration Guide"
 msgstr "Guía de integración CDI"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -20,6 +22,7 @@ msgid ""
 "This guide focuses on the Quarkus-specific extensions API."
 msgstr "ArC, el contenedor CDI de Quarkus, se arranca en tiempo de compilación. Para integrarse con el contenedor, se pueden utilizar Extensiones link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#spi_lite[Compatibles con] la Construcción CDI, así como una API de extensión específica de Quarkus. Las Extensiones Portátiles CDI no son ni pueden ser compatibles. Esta guía se centra en la API de extensiones específica de Quarkus."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -27,26 +30,31 @@ msgid ""
 "From a high level perspective these phases go as follows:"
 msgstr "El contenedor se arranca en varias fases. Desde una perspectiva de alto nivel, estas fases son las siguientes:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Initialization"
 msgstr "Inicialización"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Bean discovery"
 msgstr "Descubrimiento de las judías"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Registration of synthetic components"
 msgstr "Registro de componentes sintéticos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Validation"
 msgstr "Validación"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -58,11 +66,13 @@ msgid ""
 "For example, the container validates every injection point in the application and fails the build if there is no bean that satisfies the given required type and qualifiers."
 msgstr "En la fase _de inicialización_ se lleva a cabo el trabajo preparatorio y se registran los contextos personalizados. El _descubrimiento de_ beans es entonces el proceso en el que el contenedor analiza todas las clases de la aplicación, identifica los beans y los conecta entre sí basándose en los metadatos proporcionados. Posteriormente, las extensiones pueden registrar componentes _sintéticos_ . Los atributos de estos componentes están totalmente controlados por las extensiones, es decir, no derivan de una clase existente. Por último, _se valida el despliegue_ . Por ejemplo, el contenedor valida cada punto de inyección de la aplicación y falla la compilación si no hay ningún bean que satisfaga el tipo y los calificadores requeridos dados."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "You can see more information about the bootstrap by enabling additional logging. Simply run the Maven build with `-X` or `--debug` and grep the lines that contain `io.quarkus.arc`. In <<cdi-reference.adoc#dev_mode,dev mode>>, you can use `quarkus.log.category.\"io.quarkus.arc.processor\".level=DEBUG` and two special endpoints are also registered automatically to provide some basic debug info in the JSON format."
 msgstr "Puede ver más información sobre el bootstrap habilitando el registro adicional. Simplemente ejecute la compilación de Maven con `-X` o `--debug` y busque las líneas que contengan `io.quarkus.arc` . En xref:cdi-reference.adoc#dev_mode[modo dev] , puede utilizar `quarkus.log.category.\"io.quarkus.arc.processor\".level=DEBUG` y también se registran automáticamente dos endpoints especiales para proporcionar alguna información básica de depuración en formato JSON."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -70,11 +80,13 @@ msgid ""
 "In the following sections we will describe all the relevant build items and common scenarios."
 msgstr "Los pasos de compilación de Quarkus pueden producir y consumir varios elementos de compilación y engancharse a cada fase. En las siguientes secciones describiremos todos los elementos de compilación relevantes y los escenarios comunes."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Metadata Sources"
 msgstr "Fuentes de metadatos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -85,6 +97,7 @@ msgid ""
 "This is an important aspect to realize when integrating CDI components in Quarkus."
 msgstr "Las clases y las anotaciones son la fuente principal de metadatos a nivel de frijol. Los metadatos iniciales se leen del _índice del archivo_ de beans, un link:https://github.com/smallrye/jandex[índice] inmutable link:https://github.com/smallrye/jandex[de Jandex] que se construye a partir de varias fuentes durante el xref:cdi-reference.adoc#bean_discovery[descubrimiento de beans] . Sin embargo, las extensiones pueden añadir, eliminar o transformar los metadatos en determinadas fases del bootstrap. Además, las extensiones también pueden registrar xref:synthetic_beans[componentes sintéticos] . Este es un aspecto importante a tener en cuenta al integrar componentes CDI en Quarkus."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -92,11 +105,13 @@ msgid ""
 "For example, a class that declares a `@Scheduled` method is always registered as a bean even if it is not annotated with a bean defining annotation and would be normally ignored."
 msgstr "De este modo, las extensiones pueden convertir clases, que de otro modo serían ignoradas, en beans y viceversa. Por ejemplo, una clase que declara un método `@Scheduled` siempre se registra como un frijol aunque no esté anotada con una anotación de definición de frijol y normalmente se ignoraría."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - My Class Is Not Recognized as a Bean"
 msgstr "Caso de uso - Mi clase no es reconocida como un frijol"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -106,11 +121,13 @@ msgid ""
 "In the first step we should identify the _reason_."
 msgstr "Un `UnsatisfiedResolutionException` indica un problema durante la xref:cdi.adoc#typesafe_resolution[resolución de] tipos. A veces no puede satisfacerse un punto de inyección aunque exista una clase en el classpath que parece ser apta para la inyección. Hay varias razones por las que no se reconoce una clase y también varias formas de solucionarlo. En el primer paso debemos identificar la _razón_ ."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Reason 1_: Class Is Not discovered"
 msgstr "_Razón 1_: No se descubre la clase"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -119,6 +136,7 @@ msgid ""
 "For example, classes from the _runtime module_ of a Quarkus extension are not indexed automatically."
 msgstr "Quarkus tiene un xref:cdi-reference.adoc#bean_discovery[descubrimiento simplificado] . Puede ocurrir que la clase no forme parte del índice de la aplicación. Por ejemplo, las clases del _módulo de_ ejecución de una extensión de Quarkus no se indexan automáticamente."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -127,21 +145,25 @@ msgid ""
 "Additional bean classes are transparently added to the application index processed by the container."
 msgstr "_Solución_ : Utilice la dirección `AdditionalBeanBuildItem` . Este elemento de construcción puede utilizarse para especificar una o varias clases adicionales que se analizarán durante el descubrimiento. Las clases bean adicionales se añaden de forma transparente al índice de aplicación procesado por el contenedor."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "It is not possible to conditionally enable/disable additional beans via the `@IfBuildProfile`, `@UnlessBuildProfile`, `@IfBuildProperty` and `@UnlessBuildProperty` annotations as described in <<cdi-reference.adoc#enable_build_profile>> and <<cdi-reference.adoc#enable_build_properties>>. Extensions should inspect the configuration or the current profile and only produce an `AdditionalBeanBuildItem` if really needed."
 msgstr "No es posible habilitar/deshabilitar condicionalmente beans adicionales a través de las anotaciones `@IfBuildProfile` , `@UnlessBuildProfile` , `@IfBuildProperty` y `@UnlessBuildProperty` como se describe en <<cdi-reference.adoc#enable_build_profile>> y <<cdi-reference.adoc#enable_build_properties>> . Las extensiones deben inspeccionar la configuración o el perfil actual y sólo producir un `AdditionalBeanBuildItem` si es realmente necesario."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`AdditionalBeanBuildItem` Example"
 msgstr "`AdditionalBeanBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`AdditionalBeanBuildItem.Builder` can be used for more complex use cases."
 msgstr "`AdditionalBeanBuildItem.Builder` puede utilizarse para casos de uso más complejos."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -151,6 +173,7 @@ msgid ""
 "See also <<cdi-reference.adoc#remove_unused_beans,Removing Unused Beans>> and <<unremovable_builditem>> for more details."
 msgstr "Las clases de frijoles añadidas a través de `AdditionalBeanBuildItem` son _extraíbles_ por defecto. Si el contenedor considera que xref:cdi-reference.adoc#remove_unused_beans[no se utilizan] , simplemente se ignoran. Sin embargo, puede utilizar el método `AdditionalBeanBuildItem.Builder.setUnremovable()` para indicar al contenedor que nunca elimine las clases bean registradas a través de este elemento de compilación. Consulte también xref:cdi-reference.adoc#remove_unused_beans[Eliminación de beans no utilizados] y <<unremovable_builditem>> para obtener más detalles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -158,16 +181,19 @@ msgid ""
 "The default scope is only used if there is no scope declared on the bean class."
 msgstr "También es posible establecer el ámbito por defecto a través de `AdditionalBeanBuildItem.Builder#setDefaultScope()` . El ámbito por defecto sólo se utiliza si no hay ningún ámbito declarado en la clase bean."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "If no default scope is specified the `@Dependent` pseudo-scope is used."
 msgstr "Si no se especifica ningún ámbito por defecto, se utiliza el pseudoámbito `@Dependent`."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Reason 2_: Class Is Discovered but Has No Bean Defining Annotation"
 msgstr "_Razón 2_: Se descubre la clase pero no tiene una anotación que defina el frijol"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -176,41 +202,49 @@ msgid ""
 "Bean defining annotations are declared on the class-level and include scopes, stereotypes and `@Interceptor`."
 msgstr "En Quarkus, la aplicación está representada por un único archivo de beans con el link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#default_bean_discovery[modo de descubrimiento de beans annotated] . Por lo tanto, las clases de judías que no tienen una anotación de definición de link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bean_defining_annotations[judías] se ignoran. Las anotaciones que definen los frijoles se declaran a nivel de clase e incluyen ámbitos, estereotipos y `@Interceptor` ."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution 1_: Use the `AutoAddScopeBuildItem`. This build item can be used to add a scope to a class that meets certain conditions."
 msgstr "_Solución 1_: Utilizar el elemento de construcción `AutoAddScopeBuildItem`. Este elemento de construcción se puede utilizar para añadir un ámbito a una clase que cumpla ciertas condiciones."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`AutoAddScopeBuildItem` Example"
 msgstr "`AutoAddScopeBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Find all classes annotated with `@Scheduled`."
 msgstr "Encuentre todas las clases anotadas con `@Scheduled`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Add `@Singleton` as default scope. Classes already annotated with a scope are skipped automatically."
 msgstr "Añadir `@Singleton` como ámbito por defecto. Las clases ya anotadas con un ámbito se omiten automáticamente."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution 2_: If you need to process classes annotated with a specific annotation then it's possible to extend the set of bean defining annotations via the `BeanDefiningAnnotationBuildItem`."
 msgstr "_Solución 2_: Si necesita procesar clases anotadas con una anotación específica, es posible ampliar el conjunto de anotaciones que definen los frijoles a través de `BeanDefiningAnnotationBuildItem`."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`BeanDefiningAnnotationBuildItem` Example"
 msgstr "`BeanDefiningAnnotationBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Add `org.eclipse.microprofile.graphql.GraphQLApi` to the set of bean defining annotations."
 msgstr "Añade `org.eclipse.microprofile.graphql.GraphQLApi` al conjunto de anotaciones que definen los frijoles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -219,6 +253,7 @@ msgid ""
 "See also <<cdi-reference.adoc#remove_unused_beans,Removing Unused Beans>> and <<unremovable_builditem>> for more details."
 msgstr "Las clases de beans añadidas a través de `BeanDefiningAnnotationBuildItem` _no_ son _extraíbles_ por defecto, es decir, los beans resultantes no deben eliminarse aunque se consideren no utilizados. Sin embargo, puede cambiar el comportamiento por defecto. Consulte también xref:cdi-reference.adoc#remove_unused_beans[Eliminación] de beans no utilizados y <<unremovable_builditem>> para obtener más detalles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -226,11 +261,13 @@ msgid ""
 "The default scope is only used if there is no scope declared on the bean class."
 msgstr "También es posible especificar el ámbito por defecto. El ámbito por defecto sólo se utiliza si no hay ámbito declarado en la clase bean."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Reason 3_: Class Was Discovered and Has a Bean Defining Annotation but Was Removed"
 msgstr "_Razón 3_: La clase fue descubierta y tiene una anotación de definición de frijoles pero fue eliminada"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -241,21 +278,25 @@ msgid ""
 "Extensions can eliminate possible false positives by producing an `UnremovableBeanBuildItem`."
 msgstr "Por defecto, el contenedor intenta xref:cdi-reference.adoc#remove_unused_beans[eliminar todos los beans no utilizados] durante la compilación. Esta optimización permite _eliminar código muerto a nivel de marco_ . En algunos casos especiales, no es posible identificar correctamente un bean no utilizado. En particular, Quarkus aún no es capaz de detectar el uso del método estático `CDI.current()` . Las extensiones pueden eliminar posibles falsos positivos produciendo un `UnremovableBeanBuildItem` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`UnremovableBeanBuildItem` Example"
 msgstr "`UnremovableBeanBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Make all classes annotated with `@Startup` unremovable."
 msgstr "Hacer que todas las clases anotadas con `@Startup` sean inamovibles."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - My Annotation Is Not Recognized as a Qualifier or an Interceptor Binding"
 msgstr "Caso de uso - Mi anotación no es reconocida como un calificador o un enlace interceptor"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -263,16 +304,19 @@ msgid ""
 "For example, classes from the _runtime module_ of a Quarkus extension are not indexed automatically."
 msgstr "Es probable que la clase de anotación no forme parte del índice de la aplicación. Por ejemplo, las clases del _módulo de_ ejecución de una extensión de Quarkus no se indexan automáticamente."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: Use the `AdditionalBeanBuildItem` as described in <<additional_bean_build_item>>."
 msgstr "_Solución_ : Utilice la página `AdditionalBeanBuildItem` tal y como se describe en <<additional_bean_build_item>> ."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - I Need To Transform Annotation Metadata"
 msgstr "Caso práctico - Necesito transformar los metadatos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -281,11 +325,13 @@ msgid ""
 "With an `AnnotationsTransformerBuildItem` it's possible to override the annotations that exist on bean classes."
 msgstr "En algunos casos, resulta útil poder modificar los metadatos de las anotaciones. Quarkus proporciona una potente alternativa a link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#process_annotated_type[jakarta.enterprise.inject.spi.ProcessAnnotatedType] y link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bce_enhancement[jakarta.enterprise.inject.build.compatible.spi.Enhancement] . Con un `AnnotationsTransformerBuildItem` es posible anular las anotaciones que existen sobre las clases de frijoles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Keep in mind that annotation transformers must be produced _before_ the bean discovery starts."
 msgstr "Tenga en cuenta que los transformadores de anotación deben producirse _antes de_ que se inicie el descubrimiento de frijoles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -293,96 +339,115 @@ msgid ""
 "You can use a convenient builder API to create a transformation instance:"
 msgstr "Por ejemplo, es posible que desee añadir un interceptor vinculante a una clase de frijol específica. Puede utilizar un práctico constructor API para crear una instancia de transformación:"
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Builder Example"
 msgstr "`CustomScopeBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The transformer is only applied to classes."
 msgstr "El transformador sólo se aplica a las clases."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Only apply the transformation if the class is `org.acme.Bar`."
 msgstr "Aplique la transformación sólo si la clase es `org.acme.Bar` ."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Add the `@MyInterceptorBinding` annotation."
 msgstr "Añada la anotación `@MyInterceptorBinding`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The example above can be rewritten with an anonymous class:"
 msgstr "El ejemplo anterior puede reescribirse con una clase anónima:"
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`AnnotationsTransformerBuildItem` Example"
 msgstr "`AnnotationsTransformerBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "If the class name equals to `org.acme.Bar` then add `@MyInterceptorBinding`."
 msgstr "Si el nombre de la clase es igual a `org.acme.Bar` entonces añada `@MyInterceptorBinding` ."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The previous `AnnotationsTransformer` API from ArC is still supported, but the new `AnnotationTransformation` API from Jandex is preferred."
 msgstr "La anterior API `AnnotationsTransformer` de ArC sigue siendo compatible, pero se prefiere la nueva API `AnnotationTransformation` de Jandex."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Build steps can query the transformed annotations for a given annotation target via the `TransformedAnnotationsBuildItem`."
 msgstr "Los pasos de construcción pueden consultar las anotaciones transformadas para un objetivo de anotación determinado a través de `TransformedAnnotationsBuildItem`."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`TransformedAnnotationsBuildItem` Example"
 msgstr "`TransformedAnnotationsBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`TransformedAnnotationsBuildItem.getAnnotations()` will return a possibly transformed set of annotations."
 msgstr "`TransformedAnnotationsBuildItem.getAnnotations()` devolverá un conjunto de anotaciones posiblemente transformado."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "There are other build items specialized in transformation: <<additional_interceptor_bindings>> and <<injection_point_transformation>>."
 msgstr "Existen otros elementos de construcción especializados en la transformación: <<additional_interceptor_bindings>> y <<injection_point_transformation>> ."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "How to Enable Trace Logging for Annotation Transformers"
 msgstr "Cómo activar el registro de trazas para los transformadores de anotación"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "You can set the `TRACE` level for the category `io.quarkus.arc.processor` and try to analyze the log output afterwards."
 msgstr "Puede establecer el nivel `TRACE` para la categoría `io.quarkus.arc.processor` e intentar analizar la salida del registro después."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`application.properties` Example"
 msgstr "Ejemplo de application.properties"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "You also need to adjust the minimum log level for the relevant category."
 msgstr "También es necesario ajustar el nivel mínimo de registro para la categoría correspondiente."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Inspect Beans, Observers and Injection Points"
 msgstr "Caso de uso - Inspeccionar frijoles, observadores y puntos de inyección"
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution 1_: `BeanDiscoveryFinishedBuildItem`"
 msgstr "_Solución 1_: `BeanDiscoveryFinishedBuildItem`"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -390,51 +455,61 @@ msgid ""
 "However, synthetic beans and observers are _not included_ because this build item is produced _before_ the synthetic components are registered."
 msgstr "Los consumidores de `BeanDiscoveryFinishedBuildItem` pueden inspeccionar fácilmente todos los beans basados en clases, observadores y puntos de inyección registrados en la aplicación. Sin embargo, las judías sintéticas y los observadores _no_ se _incluyen_ porque este elemento de compilación se produce _antes de_ que se registren los componentes sintéticos."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Additionally, the bean resolver returned from `BeanDiscoveryFinishedBuildItem#getBeanResolver()` can be used to apply the type-safe resolution rules, e.g. to find out whether there is a bean that would satisfy certain combination of required type and qualifiers."
 msgstr "Además, el bean resolver devuelto desde `BeanDiscoveryFinishedBuildItem#getBeanResolver()` puede utilizarse para aplicar las reglas de resolución de tipo seguro, por ejemplo, para averiguar si hay un bean que satisfaga cierta combinación de tipo y calificadores requeridos."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`BeanDiscoveryFinishedBuildItem` Example"
 msgstr "`BeanDiscoveryFinishedBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The resulting list will not contain `@Named` synthetic beans."
 msgstr "La lista resultante no contendrá `@Named` frijoles sintéticos."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution 2_: `SynthesisFinishedBuildItem`"
 msgstr "_Solución 2_: `SynthesisFinishedBuildItem`"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Consumers of `SynthesisFinishedBuildItem` can easily inspect all beans, observers and injection points registered in the application. Synthetic beans and observers are included because this build item is produced _after_ the synthetic components are registered."
 msgstr "Los consumidores de `SynthesisFinishedBuildItem` pueden inspeccionar fácilmente todos los beans, observadores y puntos de inyección registrados en la aplicación. Los beans y observadores sintéticos se incluyen porque este elemento de compilación se produce _después de_ registrar los componentes sintéticos."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Additionally, the bean resolver returned from `SynthesisFinishedBuildItem#getBeanResolver()` can be used to apply the type-safe resolution rules, e.g. to find out whether there is a bean that would satisfy certain combination of required type and qualifiers."
 msgstr "Además, el bean resolver devuelto desde `SynthesisFinishedBuildItem#getBeanResolver()` puede utilizarse para aplicar las reglas de resolución de tipo seguro, por ejemplo, para averiguar si hay un bean que satisfaga cierta combinación de tipo y calificadores requeridos."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`SynthesisFinishedBuildItem` Example"
 msgstr "`SynthesisFinishedBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The resulting list will contain `@Named` synthetic beans."
 msgstr "La lista resultante contendrá `@Named` frijoles sintéticos."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - The Need for Synthetic Beans"
 msgstr "Caso práctico - La necesidad de judías sintéticas"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -444,21 +519,25 @@ msgid ""
 "In regular CDI, this could be achieved using the https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#after_bean_discovery[`AfterBeanDiscovery.addBean()`, window=\"_blank\"] and https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bce_synthesis[`SyntheticComponents.addBean()`] methods."
 msgstr "A veces resulta práctico poder registrar un bean _sintético_ . Los atributos de un bean sintético no se derivan de una clase, método o campo Java. En su lugar, todos los atributos se definen mediante una extensión. En el CDI normal, esto podría conseguirse utilizando las etiquetas link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#after_bean_discovery[AfterBeanDiscovery.addBean()] y link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#bce_synthesis[SyntheticComponents.addBean()] métodos."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: If you need to register a synthetic bean then use the `SyntheticBeanBuildItem`."
 msgstr "_Solución_: Si necesita registrar un frijol sintético, utilice el sitio web `SyntheticBeanBuildItem`."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`SyntheticBeanBuildItem` Example 1"
 msgstr "`SyntheticBeanBuildItem` Ejemplo 1"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Generate the bytecode of the `jakarta.enterprise.context.spi.Contextual#create(CreationalContext<T>)` implementation."
 msgstr "Generar el bytecode de la implementación de `javax.enterprise.context.spi.Contextual#create(CreationalContext&amp;lt;T&amp;gt;)`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -467,51 +546,61 @@ msgid ""
 "You can:"
 msgstr "La salida de un configurador de beans se registra como bytecode. Por lo tanto, existen algunas limitaciones en la forma de crear una instancia sintética de bean en tiempo de ejecución. Es posible:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Generate the bytecode of the `Contextual#create(CreationalContext<T>)` method directly via `ExtendedBeanConfigurator.creator(Consumer<MethodCreator>)`."
 msgstr "Generar el bytecode del método `Contextual#create(CreationalContext&amp;lt;T&amp;gt;)` directamente a través de `ExtendedBeanConfigurator.creator(Consumer&amp;lt;MethodCreator&amp;gt;)`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Pass a subclass of `io.quarkus.arc.BeanCreator` via `ExtendedBeanConfigurator#creator(Class<? extends BeanCreator<U>>)`, and possibly specify some build-time parameters via `ExtendedBeanConfigurator#param()` and synthetic injection points via `ExtendedBeanConfigurator#addInjectionPoint()`."
 msgstr "Pase una clase de implementación de `io.quarkus.arc.BeanCreator` a través de `ExtendedBeanConfigurator#creator(Class&amp;lt;? extends BeanCreator&amp;lt;U&amp;gt;&amp;gt;)`, y posiblemente especifique algunos parámetros a través de `ExtendedBeanConfigurator#param()`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Produce the runtime instance through a proxy returned from a <<writing-extensions.adoc#bytecode-recording,`@Recorder` method>> and set it via `ExtendedBeanConfigurator#runtimeValue(RuntimeValue<?>)`, `ExtendedBeanConfigurator#runtimeProxy(Object)`,  `ExtendedBeanConfigurator#supplier(Supplier<?>)` or `ExtendedBeanConfigurator#createWith(Function<SyntheticCreationalContext<?>, <?>)`."
 msgstr "Produzca la instancia en tiempo de ejecución a través de un proxy devuelto por un xref:writing-extensions.adoc#bytecode-recording[método@Recorder] y fíjela a través de `ExtendedBeanConfigurator#runtimeValue(RuntimeValue<?>)` , `ExtendedBeanConfigurator#runtimeProxy(Object)` , `ExtendedBeanConfigurator#supplier(Supplier<?>)` o `ExtendedBeanConfigurator#createWith(Function<SyntheticCreationalContext<?>, <?>)` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`SyntheticBeanBuildItem` Example 2"
 msgstr "`SyntheticBeanBuildItem` Ejemplo 2"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "By default, a synthetic bean is initialized during `STATIC_INIT`."
 msgstr "Por defecto, un frijol sintético se inicializa durante `STATIC_INIT`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The bean instance is supplied by a value returned from a recorder method."
 msgstr "La instancia del frijol es suministrada por un valor devuelto por un método del registrador."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "It is also possible to create a generic synthetic bean `Foo<Bar>`."
 msgstr "También es posible crear una judía sintética genérica `Foo<Bar>` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`SyntheticBeanBuildItem` Example 3"
 msgstr "`SyntheticBeanBuildItem` Ejemplo 3"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`types()` or `addType()` must be used to specify the generic type."
 msgstr "`types()` o `addType()` deben utilizarse para especificar el tipo genérico."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -519,46 +608,55 @@ msgid ""
 "See the <<writing-extensions.adoc#bootstrap-three-phases,Three Phases of Bootstrap and Quarkus Philosophy>> for more information about the difference between `STATIC_INIT` and `RUNTIME_INIT`."
 msgstr "Es posible marcar un frijol sintético para que se inicialice durante `RUNTIME_INIT` . Consulte las xref:writing-extensions.adoc#bootstrap-three-phases[tres fases de la filosofía Bootstrap y Quarkus] para obtener más información sobre la diferencia entre `STATIC_INIT` y `RUNTIME_INIT` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`RUNTIME_INIT` `SyntheticBeanBuildItem` Example"
 msgstr "`RUNTIME_INIT` `SyntheticBeanBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The recorder must be executed in the `ExecutionTime.RUNTIME_INIT` phase."
 msgstr "La grabadora debe ejecutarse en la fase `ExecutionTime.RUNTIME_INIT`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The bean instance is initialized during `RUNTIME_INIT`."
 msgstr "La instancia del bean se inicializa durante `RUNTIME_INIT`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Synthetic beans initialized during `RUNTIME_INIT` must not be accessed during `STATIC_INIT`. `RUNTIME_INIT` build steps that access a runtime-init synthetic bean should consume the `SyntheticBeansRuntimeInitBuildItem`:"
 msgstr "Los beans sintéticos inicializados durante `RUNTIME_INIT` no deben ser accedidos durante `STATIC_INIT`. Los pasos de construcción de `RUNTIME_INIT` que accedan a un bean sintético iniciado en tiempo de ejecución deben consumir el `SyntheticBeansRuntimeInitBuildItem`:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "This build step must be executed after `syntheticBean()` completes."
 msgstr "Este paso de construcción debe ejecutarse después de que se complete `syntheticBean()`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "This recorder method results in an invocation upon the `Foo` bean instance and thus we need to make sure that the build step is executed after all synthetic beans are initialized."
 msgstr "Este método de grabación resulta en una invocación sobre la instancia del bean `Foo` y por lo tanto necesitamos asegurarnos de que el paso de construcción se ejecute después de que todos los beans sintéticos sean inicializados."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "It is also possible to use the `BeanRegistrationPhaseBuildItem` to register a synthetic bean. However, we recommend extension authors to stick with `SyntheticBeanBuildItem` which is more idiomatic for Quarkus."
 msgstr "También es posible utilizar el `BeanRegistrationPhaseBuildItem` para registrar un frijol sintético. Sin embargo, recomendamos a los autores de extensiones que se atengan a `SyntheticBeanBuildItem`, que es más idiomático para Quarkus."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Synthetic Injection Points"
 msgstr "Puntos de inyección sintéticos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -567,36 +665,43 @@ msgid ""
 "The injected reference is accessible through the `SyntheticCreationalContext#getInjectedReference()` methods at runtime."
 msgstr "Un frijol sintético puede registrar un punto de inyección sintético a través del método `ExtendedBeanConfigurator#addInjectionPoint()` . Este punto de inyección se valida en tiempo de compilación y se tiene en cuenta al xref:cdi-reference.adoc#remove_unused_beans[detectar beans no utilizados] . La referencia inyectada es accesible a través de los métodos `SyntheticCreationalContext#getInjectedReference()` en tiempo de ejecución."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Synthetic Injection Point - Build Step Example"
 msgstr "`SyntheticBeanBuildItem` Ejemplo 1"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "A synthetic injection point with required type `Bar` was added; this is an equivalent of `@Inject Bar`."
 msgstr "Se ha añadido un punto de inyección sintético con el tipo requerido `Bar`; es un equivalente de `@Inject Bar`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The bean instance is created with a function returned from a recorder method."
 msgstr "La instancia del frijol es suministrada por un valor devuelto por un método del registrador."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Synthetic Injection Point - Recorder Example"
 msgstr "Punto de inyección sintética - Ejemplo de registrador"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Pass a contextual reference of `Bar` to the constructor of `Foo`."
 msgstr "Pasa una referencia contextual de `Bar` al constructor de `Foo`."
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Inactive Synthetic Beans"
 msgstr "Judías sintéticas inactivas"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -604,11 +709,13 @@ msgid ""
 "This is done by configuring a \"check active\" procedure, which should be a `Supplier<ActiveResult>` obtained from a recorder:"
 msgstr "En el caso de que uno necesite registrar múltiples beans sintéticos en tiempo de compilación pero sólo quiera que un subconjunto de ellos esté activo en tiempo de ejecución, es útil poder marcar un bean sintético como _inactivo_ . Esto se hace configurando un procedimiento \"check active\", que debe ser un `Supplier<ActiveResult>` obtenido de un registrador:"
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Inactive Synthetic Bean - Build Step Example"
 msgstr "Alubia sintética inactiva - Ejemplo de paso de construcción"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -616,21 +723,25 @@ msgid ""
 "If the bean is in fact inactive, but is not injected into an always-active bean, eager initialization is skipped and no error is thrown."
 msgstr "Un bean que podría estar inactivo se inicializa normalmente de forma ansiosa, para asegurarse de que se lanza un error al inicio de la aplicación. Si el bean está de hecho inactivo, pero no se inyecta en un bean siempre activo, la inicialización eager se omite y no se lanza ningún error."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Configures the \"check active\" procedure."
 msgstr "Configura el procedimiento de \"comprobación activa\"."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Inactive Synthetic Bean - Recorder Example"
 msgstr "Alubia sintética inactiva - Ejemplo de grabadora"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The condition when the synthetic bean should be inactive."
 msgstr "La condición en la que la judía sintética debe estar inactiva."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -638,6 +749,7 @@ msgid ""
 "Another inactive `ActiveResult` may also be provided as a cause, if this bean's inactivity stems from another bean's inactivity."
 msgstr "Explicación adecuada de por qué el frijol está inactivo. También se puede proporcionar como causa otro `ActiveResult` inactivo, si la inactividad de este frijol se deriva de la inactividad de otro frijol."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -645,6 +757,7 @@ msgid ""
 "The error message contains the reason (from the `ActiveResult`), the cause chain (also from the `ActiveResult`), and possibly also a list of all injection points that resolve to this bean."
 msgstr "Si se inyecta un bean inactivo en algún lugar, o se busca dinámicamente, se lanza un `InactiveBeanException` . El mensaje de error contiene el motivo (de `ActiveResult` ), la cadena de causas (también de `ActiveResult` ), y posiblemente también una lista de todos los puntos de inyección que resuelven a este bean."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -652,36 +765,43 @@ msgid ""
 "You also need to check before obtaining the actual instance:"
 msgstr "Si desea manejar el caso de inactividad con elegancia, siempre debe inyectar beans posiblemente inactivos utilizando `Instance<>` . También debe comprobar antes de obtener la instancia real:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "If you want to consume only active beans, you can inject an `InjectableInstance<>` and call `getActive()` to get the single instance or `listActive()` to get all instances:"
 msgstr "Si desea consumir sólo beans activos, puede inyectar un `InjectableInstance<>` y llamar a `getActive()` para obtener la instancia única o a `listActive()` para obtener todas las instancias:"
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Synthetic Observers"
 msgstr "Caso práctico - Observadores sintéticos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Similar to <<synthetic_beans,synthetic beans>>, the attributes of a synthetic observer method are not derived from a Java method. Instead, all the attributes are defined by an extension."
 msgstr "De forma similar a xref:synthetic_beans[las judías sintéticas] , los atributos de un método observador sintético no se derivan de un método Java. En su lugar, todos los atributos se definen mediante una extensión."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: If you need to register a synthetic observer, use the `ObserverRegistrationPhaseBuildItem`."
 msgstr "_Solución_: Si necesita registrar un observador sintético, utilice la página web `ObserverRegistrationPhaseBuildItem`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "A build step that consumes the `ObserverRegistrationPhaseBuildItem` should always produce an `ObserverConfiguratorBuildItem` or at least inject a `BuildProducer` for this build item, otherwise it could be ignored or processed at the wrong time (e.g. after the correct CDI bootstrap phase)."
 msgstr "Un paso de compilación que consuma el `ObserverRegistrationPhaseBuildItem` debería producir siempre un `ObserverConfiguratorBuildItem` o al menos inyectar un `BuildProducer` para este elemento de compilación, de lo contrario podría ser ignorado o procesado en el momento equivocado (por ejemplo, después de la fase correcta de arranque del CDI)."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`ObserverRegistrationPhaseBuildItem` Example"
 msgstr "`ObserverRegistrationPhaseBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -690,11 +810,13 @@ msgid ""
 "Currently, you must generate the bytecode of the method body directly."
 msgstr "La salida de un `ObserverConfigurator` se registra como bytecode. Por lo tanto, existen algunas limitaciones en la forma de invocar un observador sintético en tiempo de ejecución. Actualmente, debe generar directamente el bytecode del cuerpo del método."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - I Have a Generated Bean Class"
 msgstr "Caso de uso - Tengo una clase de frijol generada"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -702,96 +824,115 @@ msgid ""
 "You can generate the bytecode of a bean class manually and then all you need to do is to produce a `GeneratedBeanBuildItem` instead of `GeneratedClassBuildItem`."
 msgstr "No hay problema. Puede generar el bytecode de una clase bean manualmente y entonces todo lo que tiene que hacer es producir un `GeneratedBeanBuildItem` en lugar de `GeneratedClassBuildItem` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`GeneratedBeanBuildItem` Example"
 msgstr "`GeneratedBeanBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`io.quarkus.arc.deployment.GeneratedBeanGizmoAdaptor` makes it easy to produce ``GeneratedBeanBuildItem``s from Gizmo constructs."
 msgstr "`io.quarkus.arc.deployment.GeneratedBeanGizmoAdaptor` facilita la producción de `GeneratedBeanBuildItem`s a partir de construcciones Gizmo."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "The resulting bean class is something like `public class @Singleton MyBean { }`."
 msgstr "La clase de frijol resultante es algo así como `public class @Singleton MyBean { }`."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - I Need to Validate the Deployment"
 msgstr "Caso práctico - Necesito validar la implantación"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Sometimes extensions need to inspect the beans, observers and injection points, then perform additional validations and fail the build if something is wrong."
 msgstr "A veces las extensiones necesitan inspeccionar los beans, observadores y puntos de inyección, y luego realizar validaciones adicionales y fallar la compilación si algo está mal."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: If an extension needs to validate the deployment it should use the `ValidationPhaseBuildItem`."
 msgstr "_Solución_: Si una extensión necesita validar el despliegue debe utilizar la página web `ValidationPhaseBuildItem`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "A build step that consumes the `ValidationPhaseBuildItem` should always produce a `ValidationErrorBuildItem` or at least inject a `BuildProducer` for this build item, otherwise it could be ignored or processed at the wrong time (e.g. after the correct CDI bootstrap phase)."
 msgstr "Un paso de compilación que consuma el `ValidationPhaseBuildItem` debería producir siempre un `ValidationErrorBuildItem` o al menos inyectar un `BuildProducer` para este elemento de compilación, de lo contrario podría ser ignorado o procesado en el momento equivocado (por ejemplo, después de la fase correcta de arranque del CDI)."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "You can easily filter all registered beans via the convenient `BeanStream` returned from the `ValidationPhaseBuildItem.getContext().beans()` method."
 msgstr "Puede filtrar fácilmente todos los granos registrados a través de la práctica `BeanStream` devuelta por el método `ValidationPhaseBuildItem.getContext().beans()`."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Register a Custom CDI Context"
 msgstr "Caso de uso - Registrar un contexto CDI personalizado"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Sometimes extensions need to extend the set of built-in CDI contexts."
 msgstr "A veces las extensiones necesitan ampliar el conjunto de contextos CDI incorporados."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: If you need to register a custom context, use the `ContextRegistrationPhaseBuildItem`."
 msgstr "_Solución_: Si necesita registrar un contexto personalizado, utilice la página web `ContextRegistrationPhaseBuildItem`."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "A build step that consumes the `ContextRegistrationPhaseBuildItem` should always produce a `ContextConfiguratorBuildItem` or at least inject a `BuildProducer` for this build item, otherwise it could be ignored or processed at the wrong time (e.g. after the correct CDI bootstrap phase)."
 msgstr "Un paso de compilación que consuma el `ContextRegistrationPhaseBuildItem` debería producir siempre un `ContextConfiguratorBuildItem` o al menos inyectar un `BuildProducer` para este elemento de compilación, de lo contrario podría ser ignorado o procesado en el momento equivocado (por ejemplo, después de la fase correcta de arranque del CDI)."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`ContextRegistrationPhaseBuildItem` Example"
 msgstr "`ContextRegistrationPhaseBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Additionally, each extension that registers a custom CDI context via `ContextRegistrationPhaseBuildItem` should also produce the `CustomScopeBuildItem` in order to contribute the custom scope annotation name to the set of bean defining annotations."
 msgstr "Además, cada extensión que registre un contexto CDI personalizado a través de `ContextRegistrationPhaseBuildItem` también debe producir el `CustomScopeBuildItem` para contribuir con el nombre de la anotación del ámbito personalizado al conjunto de anotaciones que definen los frijoles."
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`CustomScopeBuildItem` Example"
 msgstr "`CustomScopeBuildItem` Ejemplo"
 
+#. type: Title ==
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "What if I Need to Know All the Scopes Used in the Application?"
 msgstr "¿Y si necesito conocer todos los ámbitos utilizados en la aplicación?"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "_Solution_: You can inject the `CustomScopeAnnotationsBuildItem` in a build step and use the convenient methods such as `CustomScopeAnnotationsBuildItem.isScopeDeclaredOn()`."
 msgstr "_Solución_: Puede inyectar el `CustomScopeAnnotationsBuildItem` en un paso de construcción y utilizar los métodos convenientes como `CustomScopeAnnotationsBuildItem.isScopeDeclaredOn()`."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Additional Interceptor Bindings"
 msgstr "Caso de uso - Enlaces de intercepción adicionales"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -800,16 +941,19 @@ msgid ""
 "We are going to use `InterceptorBindingRegistrarBuildItem` to get it done."
 msgstr "En raras ocasiones puede resultar útil registrar mediante programación una anotación existente que no esté anotada con `@jakarta.interceptor.InterceptorBinding` como enlace interceptor. Esto es similar a lo que consigue CDI a través de `BeforeBeanDiscovery#addInterceptorBinding()` . Vamos a utilizar `InterceptorBindingRegistrarBuildItem` para conseguirlo."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`InterceptorBindingRegistrarBuildItem` Example"
 msgstr "`InterceptorBindingRegistrarBuildItem` Ejemplo"
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Additional Qualifiers"
 msgstr "Caso práctico - Calificadores adicionales"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -818,16 +962,19 @@ msgid ""
 "We are going to use `QualifierRegistrarBuildItem` to get it done."
 msgstr "A veces puede ser útil registrar una anotación existente que no esté anotada con `@jakarta.inject.Qualifier` como un calificador CDI. Esto es similar a lo que el CDI consigue a través de `BeforeBeanDiscovery#addQualifier()` . Vamos a utilizar `QualifierRegistrarBuildItem` para conseguirlo."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`QualifierRegistrarBuildItem` Example"
 msgstr "`QualifierRegistrarBuildItem` Ejemplo"
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Additional Stereotypes"
 msgstr "Caso práctico - Calificadores adicionales"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -836,21 +983,25 @@ msgid ""
 "We are going to use `StereotypeRegistrarBuildItem` to get it done."
 msgstr "A veces resulta útil registrar una anotación existente que no esté anotada con `@jakarta.enterprise.inject.Stereotype` como un estereotipo CDI. Esto es similar a lo que el CDI consigue a través de `BeforeBeanDiscovery#addStereotype()` . Vamos a utilizar `StereotypeRegistrarBuildItem` para conseguirlo."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`StereotypeRegistrarBuildItem` Example"
 msgstr "`QualifierRegistrarBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "If the newly registered stereotype annotation doesn't have the appropriate meta-annotations, such as scope or interceptor bindings, use an <<annotations_transformer_build_item,annotation transformation>> to add them."
 msgstr "Si la anotación de estereotipo recién registrada no tiene las metaanotaciones apropiadas, como las vinculaciones de ámbito o de interceptor, utilice una xref:annotations_transformer_build_item[transformación de anotación] para añadirlas."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Injection Point Transformation"
 msgstr "Caso práctico - Transformación del punto de inyección"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -859,21 +1010,25 @@ msgid ""
 "The following sample shows how to apply transformation to injection points with type `Foo` that contain qualifier `MyQualifier`:"
 msgstr "De vez en cuando resulta práctico poder cambiar los calificadores de un punto de inyección mediante programación. Puede hacer precisamente eso con `InjectionPointTransformerBuildItem` . El siguiente ejemplo muestra cómo aplicar la transformación a los puntos de inyección de tipo `Foo` que contienen el calificador `MyQualifier` :"
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`InjectionPointTransformerBuildItem` Example"
 msgstr "`InjectionPointTransformerBuildItem` Ejemplo"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "In theory, you can use <<annotations_transformer_build_item,an `AnnotationsTransformer`>> to achieve the same goal. However, there are few differences that make `InjectionPointsTransformer` more suitable for this particular task: (1) annotation transformers are applied to all classes during bean discovery, whereas `InjectionPointsTransformer` is only applied to discovered injection points after bean discovery; (2) with `InjectionPointsTransformer` you don't need to handle various types of injection points (field, parameters of initializer methods, etc.)."
 msgstr "En teoría, puede xref:annotations_transformer_build_item[utilizar AnnotationsTransformer] para lograr el mismo objetivo. Sin embargo, hay algunas diferencias que hacen que `InjectionPointsTransformer` sea más adecuado para esta tarea concreta: (1) los transformadores de anotación se aplican a todas las clases durante el descubrimiento de los frijoles, mientras que `InjectionPointsTransformer` sólo se aplica a los puntos de inyección descubiertos tras el descubrimiento de los frijoles; (2) con `InjectionPointsTransformer` no necesita manejar varios tipos de puntos de inyección (campo, parámetros de métodos inicializadores, etc.)."
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Use Case - Resource Annotations and Injection"
 msgstr "Caso práctico - Anotaciones de recursos e inyección"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -881,16 +1036,19 @@ msgid ""
 "An integrator must also provide a corresponding `io.quarkus.arc.ResourceReferenceProvider` service provider implementation."
 msgstr "`ResourceAnnotationBuildItem` puede utilizarse para especificar anotaciones de recursos que permitan resolver puntos de inyección no CDI, como los recursos de Jakarta EE. Un integrador también debe proporcionar la correspondiente implementación del proveedor de servicios `io.quarkus.arc.ResourceReferenceProvider` ."
 
+#. type: Block title
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`ResourceAnnotationBuildItem` Example"
 msgstr "`ResourceAnnotationBuildItem` Ejemplo"
 
+#. type: Title =
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Available Build Time Metadata"
 msgstr "Metadatos de tiempo de construcción disponibles"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -898,96 +1056,115 @@ msgid ""
 "The built-in keys located in `io.quarkus.arc.processor.BuildExtension.Key` are:"
 msgstr "Cualquiera de las extensiones anteriores que opere con `BuildExtension.BuildContext` puede aprovechar ciertos metadatos de tiempo de compilación que se generan durante la compilación. Las claves incorporadas que se encuentran en `io.quarkus.arc.processor.BuildExtension.Key` son:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "ANNOTATION_STORE"
 msgstr "ALMACÉN_DE_ANOTACIONES"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Contains an `AnnotationStore` that keeps information about all `AnnotationTarget` annotations after application of annotation transformers"
 msgstr "Contiene un `AnnotationStore` que mantiene la información sobre todas las anotaciones de `AnnotationTarget` tras la aplicación de los transformadores de anotaciones"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "INJECTION_POINTS"
 msgstr "PUNTOS_DE_INYECCIÓN"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Collection<InjectionPointInfo>` containing all injection points"
 msgstr "`Collection&amp;lt;InjectionPointInfo&amp;gt;` que contiene todos los puntos de inyección"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "BEANS"
 msgstr "FRIJOLES"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Collection<BeanInfo>` containing all beans"
 msgstr "`Collection&amp;lt;BeanInfo&amp;gt;` que contiene todas las judías"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "REMOVED_BEANS"
 msgstr "FRIJOLES_REMOVIDOS"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Collection<BeanInfo>` containing all the removed beans; see <<cdi-reference.adoc#remove_unused_beans,Removing unused beans>> for more information"
 msgstr "`Collection<BeanInfo>` que contiene todos los beans eliminados; consulte xref:cdi-reference.adoc#remove_unused_beans[Eliminar beans no utilizados] para obtener más información"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "OBSERVERS"
 msgstr "OBSERVADORES"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Collection<ObserverInfo>` containing all observers"
 msgstr "`Collection&amp;lt;ObserverInfo&amp;gt;` que contiene todos los observadores"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "SCOPES"
 msgstr "SCOPES"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Collection<ScopeInfo>` containing all scopes, including custom ones"
 msgstr "`Collection&amp;lt;ScopeInfo&amp;gt;` que contiene todos los ámbitos, incluidos los personalizados"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "QUALIFIERS"
 msgstr "CALIFICADORES"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Map<DotName, ClassInfo>` containing all qualifiers"
 msgstr "`Map&amp;lt;DotName, ClassInfo&amp;gt;` que contiene todos los calificativos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "INTERCEPTOR_BINDINGS"
 msgstr "INTERCEPTOR_BINDINGS"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Map<DotName, ClassInfo>` containing all interceptor bindings"
 msgstr "`Map&amp;lt;DotName, ClassInfo&amp;gt;` que contiene todos los enlaces del interceptor"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "STEREOTYPES"
 msgstr "ESTEREOTIPOS"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "`Map<DotName, StereotypeInfo>` containing all stereotypes"
 msgstr "`Map&amp;lt;DotName, StereotypeInfo&amp;gt;` que contiene todos los estereotipos"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid ""
@@ -997,61 +1174,73 @@ msgid ""
 "Here is a summary of which extensions can access which metadata:"
 msgstr "Para obtenerlos, basta con consultar el objeto de contexto de la extensión para la clave dada. Tenga en cuenta que estos metadatos están disponibles a medida que se construyen, lo que significa que las extensiones sólo pueden aprovechar los metadatos que se construyeron antes de que se invoquen las extensiones. Si su extensión intenta recuperar metadatos que aún no se han producido, se devolverá `null` . He aquí un resumen de qué extensiones pueden acceder a qué metadatos:"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "AnnotationsTransformer"
 msgstr "AnotacionesTransformador"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Shouldn't rely on any metadata as it could be used at any time in any phase of the bootstrap"
 msgstr "No debería depender de ningún metadato, ya que podría utilizarse en cualquier momento en cualquier fase del arranque"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "ContextRegistrar"
 msgstr "ContextRegistrar"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Has access to `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`"
 msgstr "Tiene acceso a `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "InjectionPointsTransformer"
 msgstr "InjectionPointsTransformer"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "ObserverTransformer"
 msgstr "ObservadorTransformador"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "BeanRegistrar"
 msgstr "BeanRegistrar"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Has access to `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`, `BEANS` (class-based beans only), `OBSERVERS` (class-based observers only), `INJECTION_POINTS`"
 msgstr "Tiene acceso a `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`, `BEANS` (sólo beans basados en clases), `OBSERVERS` (sólo observadores basados en clases), `INJECTION_POINTS`"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "ObserverRegistrar"
 msgstr "ObservadorRegistrador"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Has access to `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`, `BEANS`, `OBSERVERS` (class-based observers only), `INJECTION_POINTS`"
 msgstr "Tiene acceso a `ANNOTATION_STORE`, `QUALIFIERS`, `INTERCEPTOR_BINDINGS`, `STEREOTYPES`, `BEANS`, `OBSERVERS` (sólo observadores de clase), `INJECTION_POINTS`"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "BeanDeploymentValidator"
 msgstr "BeanDeploymentValidator"
 
+#. type: Plain text
 #: _versions/3.27/guides/cdi-integration.adoc
 #, fuzzy
 msgid "Has access to all build metadata"

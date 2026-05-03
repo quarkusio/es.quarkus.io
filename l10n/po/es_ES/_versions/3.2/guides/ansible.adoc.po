@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. type: Title =
+#. type: YAML Front Matter: title
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Automate Quarkus deployment with Ansible"
@@ -32,7 +32,7 @@ msgstr "Vamos a ver cómo construir y desplegar una aplicación Quarkus utilizan
 msgid "The first part, the application code checkout, compilation and packaging on the Ansible (where Ansible runs). We’ll use the getting-started sample application provided in its link:{quickstarts-tree-url}/getting-started[Quarkus QuickStarts directory] as a base for this tutorial. We’ll also leverage the https://galaxy.ansible.com/middleware_automation/quarkus[Quarkus collection] for Ansible, an extension for Ansible that alleviates the boilerplate required and to quickly build and deploy a Quarkus using Ansible."
 msgstr "La primera parte, la comprobación del código de la aplicación, compilación y empaquetado en el Ansible (donde se ejecuta Ansible). Utilizaremos la aplicación de ejemplo getting-started proporcionada en su link:{quickstarts-tree-url}/getting-started[directorio Quarkus QuickStarts] como base para este tutorial. También aprovecharemos la link:https://galaxy.ansible.com/middleware_automation/quarkus[colección de Quarkus] para Ansible, una extensión para Ansible que alivia el boilerplate requerido y para construir y desplegar rápidamente una aplicación de Quarkus usando Ansible."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Prerequisites"
@@ -48,7 +48,7 @@ msgstr "Necesitarás link:https://docs.ansible.com/ansible/latest/installation_g
 msgid "The Ansible collection we just installed only supports RHEL, Fedora, and other Linux distribution using RPMs. Ansible defines these as \"RedHat family\". Using the content on other platforms (Windows, Debian, Ubuntu, ...), while not impossible, will require a few adjustments."
 msgstr "La colección de Ansible que acabamos de instalar sólo es compatible con RHEL, Fedora y otras distribuciones de Linux que utilicen RPM. Ansible las define como \"familia RedHat\". Utilizar el contenido en otras plataformas (Windows, Debian, Ubuntu, ...), aunque no es imposible, requerirá algunos ajustes."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Inventory file"
@@ -64,7 +64,7 @@ msgstr "Si no está familiarizado con Ansible, tenga en cuenta que es necesario 
 msgid "To follow the tutorial, you may want to use only one machine (localhost) and skip the ssh authentication setup. This can be easily achieved by using the following inventory file:"
 msgstr "Para seguir el tutorial, es posible que desee utilizar sólo una máquina (localhost) y omitir la configuración de autenticación ssh. Esto se puede lograr fácilmente utilizando el siguiente archivo de inventario:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Root access on target system"
@@ -75,7 +75,7 @@ msgstr "Acceso root en el sistema de destino"
 msgid "A few tasks performed by the Ansible collection for Quarkus will require administrative privileges on the target (create a group and user account, install packages). If Ansible does run as root, you'll need to add the following options to the `ansible-playbook` command line:"
 msgstr "Algunas tareas realizadas por la colección Ansible para Quarkus requerirán privilegios administrativos en el objetivo (crear un grupo y una cuenta de usuario, instalar paquetes). Si Ansible se ejecuta como root, tendrás que añadir las siguientes opciones a la línea de comandos `ansible-playbook`:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Tutorial"
@@ -91,7 +91,7 @@ msgstr "Con la colección Ansible instalada en el controlador, ya puedes utiliza
 msgid "The four parameters provided to the playbook are pretty self-explanatory. The first one, `app_name`, is the name of the application, in our case, it's just `getting-started`. The second one, `quarkus_app_repo_url`, is the URL to the Git repository to checkout. The third one is optional, `quarkus_app_source_folder` specifies, if needed, which subfolder from the repo the source code is located. Finally, the fourth one indicates where to install the application on the target."
 msgstr "Los cuatro parámetros proporcionados al playbook se explican por sí mismos. El primero, `app_name`, es el nombre de la aplicación, en nuestro caso, es simplemente `getting-started`. El segundo, `quarkus_app_repo_url`, es la URL del repositorio Git que hay que obtener. El tercero es opcional, `quarkus_app_source_folder` especifica, si es necesario, en qué subcarpeta del repositorio se encuentra el código fuente. Por último, el cuarto indica dónde instalar la aplicación en el destino."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Playbook run"
@@ -117,23 +117,23 @@ msgstr "Una vez más, se comprueba que el OpenJDK apropiado está disponible en 
 msgid "With those requirements in place, the jar can be deployed on the target, along with the required configuration for the app integration into systemd as a service. Any change to the systemd configuration requires reloading its daemon, which the collection ensures will happen whenever it is needed. With all of that in place, the only thing that remains is to start the service itself, which Ansible will also take care of."
 msgstr "Una vez establecidos estos requisitos, el jar puede desplegarse en el destino, junto con la configuración necesaria para la integración de la aplicación en systemd como servicio. Cualquier cambio en la configuración de systemd requiere recargar su demonio, lo que la colección garantiza que ocurrirá siempre que sea necesario. Con todo eso en su lugar, lo único que queda es iniciar el servicio en sí, de lo que Ansible también se encargará."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/ansible.adoc
 msgid "By default, the Ansible collection for Quarkus will install and use the OpenJDK 17 available in the Yum repositories of the target host (or the controller). If you want to use a different version of OpenJDK, define the following variable:"
 msgstr "Por defecto, la colección Ansible para Quarkus instalará y utilizará el OpenJDK 17 disponible en los repositorios Yum del host de destino (o del controlador). Si desea utilizar una versión diferente de OpenJDK, defina la siguiente variable:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Validate that deployment was successful"
 msgstr "Validar que el despliegue se ha realizado correctamente"
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/ansible.adoc
 msgid "For the purpose of this tutorial, you may want to check manually, that the playbook did indeed deployed the app properly. Here is the few ways to do so."
 msgstr "es posible que desees verificar manualmente que el playbook haya desplegado la aplicación correctamente. Aquí hay algunas formas de hacerlo."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/ansible.adoc
 msgid "First, because the collection integrated, we can check the status of the service on one of the targets:"
 msgstr "En primer lugar, como la colección está integrada, podemos comprobar el estado del servicio en uno de los objetivos:"
@@ -148,7 +148,7 @@ msgstr "También puedes comprobar manualmente si se puede acceder a la aplicaci�
 msgid "We'll see how to automate those validation in the next and last part of this tutorial."
 msgstr "Veremos cómo automatizar esas validaciones en la siguiente y última parte de este tutorial."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/ansible.adoc
 #, no-wrap
 msgid "Writing a playbook"

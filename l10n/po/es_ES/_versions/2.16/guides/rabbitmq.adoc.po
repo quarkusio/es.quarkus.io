@@ -16,15 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, fuzzy, no-wrap
 msgid "Getting Started to SmallRye Reactive Messaging with RabbitMQ"
 msgstr "Introducción a la mensajería reactiva SmallRye con RabbitMQ"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 #, fuzzy
 msgid "<a class=\"status-label status-preview\" title=\"This extension's backward compatibility and presence in the ecosystem is not guaranteed\" href=\"#extension-status-note\">preview</a>"
@@ -36,18 +37,19 @@ msgstr "<a class=\"status-label status-preview\" title=\"La compatibilidad con v
 msgid "This guide demonstrates how your Quarkus application can utilize SmallRye Reactive Messaging to interact with RabbitMQ."
 msgstr "Esta guía demuestra cómo su aplicación Quarkus puede utilizar SmallRye Reactive Messaging para interactuar con RabbitMQ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Architecture"
 msgstr "Arquitectura"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "In this guide, we are going to develop two applications communicating with a RabbitMQ broker.\n"
@@ -58,6 +60,7 @@ msgstr ""
 "La primera aplicación envía una _solicitud de cotización_ al intercambio de _solicitudes de cotización_ RabbitMQ y consume mensajes de la cola de _cotizaciones_.\n"
 "La segunda aplicación recibe la _solicitud de cotización_ y envía una _cotización_ de vuelta."
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "The first application, the `producer`, will let the user request some quotes over an HTTP endpoint.\n"
@@ -73,18 +76,20 @@ msgstr ""
 msgid "The second application, the `processor`, in turn, will read from the `quote-requests` queue put a random price to the quote, and send it to an exchange named `quotes`."
 msgstr "La segunda aplicación, el `processor`, a su vez, leerá de la cola `quote-requests`, pondrá un precio aleatorio a la cotización, y lo enviará a un intercambio llamado `quotes`."
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Lastly, the `producer` will read the quotes and send them to the browser using server-sent events.\n"
 "The user will therefore see the quote price updated from _pending_ to the received price in real-time."
 msgstr "Por último, el `producer` leerá las cotizaciones y las enviará al navegador mediante eventos enviados por el servidor. Por tanto, el usuario verá el precio de la cotización actualizado de _pendiente_ al precio recibido en tiempo real."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Solution"
 msgstr "Solución"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "We recommend that you follow the instructions in the next sections and create applications step by step.\n"
@@ -102,7 +107,7 @@ msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargu
 msgid "The solution is located in the `rabbitmq-quickstart` {quickstarts-tree-url}/rabbitmq-quickstart[directory]."
 msgstr "La solución se encuentra en `rabbitmq-quickstart` {quickstarts-tree-url}/rabbitmq-quickstart[directory]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Creating the Maven Project"
@@ -149,12 +154,13 @@ msgstr "En ese momento deberías tener la siguiente estructura:"
 msgid "Open the two projects in your favorite IDE."
 msgstr "Abra los dos proyectos en su IDE favorito."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "The Quote object"
 msgstr "El objeto Cotización"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "The `Quote` class will be used in both `producer` and `processor` projects.\n"
@@ -165,6 +171,7 @@ msgstr ""
 "En aras de la simplicidad, duplicaremos la clase.\n"
 "En ambos proyectos, cree el archivo `src/main/java/org/acme/rabbitmq/model/Quote.java`, con el siguiente contenido:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "JSON representation of `Quote` objects will be used in messages sent to the RabbitMQ queues\n"
@@ -184,6 +191,7 @@ msgstr "Quarkus tiene capacidades incorporadas para tratar con mensajes JSON Rab
 msgid "@RegisterForReflection"
 msgstr "@RegisterForReflection"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 #, fuzzy
 msgid ""
@@ -192,12 +200,13 @@ msgid ""
 "Without, the native compilation would remove the fields and methods during the dead-code elimination phase."
 msgstr "La anotación `@RegisterForReflection` indica a Quarkus que incluya la clase (incluidos los campos y métodos) al construir el ejecutable nativo. Esto será útil más adelante cuando ejecutemos las aplicaciones como ejecutables nativos dentro de contenedores. Sin ella, la compilación nativa eliminaría los campos y métodos durante la fase de eliminación del código muerto."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Sending quote request"
 msgstr "Envío de solicitud de presupuesto"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid "Inside the `producer` project locate the generated  `src/main/java/org/acme/rabbitmq/producer/QuotesResource.java` file, and update the content to be:"
 msgstr "Dentro del proyecto `producer`, localice el archivo generado `src/main/java/org/acme/rabbitmq/producer/QuotesResource.java` y actualice el contenido para que sea:"
@@ -212,6 +221,7 @@ msgstr "Inyectar una Mensajería Reactiva `Emitter` para enviar mensajes al cana
 msgid "On a post request, generate a random UUID and send it to the RabbitMQ queue using the emitter."
 msgstr "En una solicitud POST, genere un UUID aleatorio y envíelo a la cola RabbitMQ utilizando el emisor."
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "This channel is mapped to a RabbitMQ exchange using the configuration we will add to the `application.properties` file.\n"
@@ -220,6 +230,7 @@ msgstr ""
 "Este canal se asigna a un intercambio RabbitMQ utilizando la configuración que añadiremos al archivo `application.properties`.\n"
 "Abra el archivo `src/main/resource/application.properties` y añada:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "All we need to specify is the `smallrye-rabbitmq` connector.\n"
@@ -228,12 +239,13 @@ msgstr ""
 "Todo lo que necesitamos especificar es el conector `smallrye-rabbitmq`.\n"
 "Por defecto, la mensajería reactiva asigna el nombre del canal `quote-requests` al mismo nombre de intercambio RabbitMQ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Processing quote requests"
 msgstr "Tramitación de solicitudes de quota"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Now let's consume the quote request and give out a price.\n"
@@ -262,6 +274,7 @@ msgstr "Indica que el procesamiento está _bloqueando_ y no puede ser ejecutado 
 msgid "The `process` method is called for every RabbitMQ message from the `quote-requests` queue, and will send a `Quote` object to the `quotes` exchange."
 msgstr "El método `process` es llamado por cada mensaje RabbitMQ de la cola `quote-requests`, y enviará un objeto `Quote` al intercambio `quotes`."
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "As with the previous example we need to configure the connectors in the `application.properties` file.\n"
@@ -270,6 +283,7 @@ msgstr ""
 "Al igual que en el ejemplo anterior, debemos configurar los conectores en el archivo `application.properties`.\n"
 "Abra el archivo `src/main/resources/application.properties` y añada:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 #, fuzzy
 msgid ""
@@ -297,12 +311,13 @@ msgstr "`quote-requests` → Cola RabbitMQ de la que leemos las solicitudes de c
 msgid "`quotes` -> RabbitMQ exchange in which we write the quotes"
 msgstr "`quotes` → Intercambio RabbitMQ en el que escribimos las cotizaciones"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Receiving quotes"
 msgstr "Recepción de presupuestos"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Back to our `producer` project.\n"
@@ -324,6 +339,7 @@ msgstr "Indica que el contenido se envía utilizando `Server Sent Events`"
 msgid "Returns the stream (_Reactive Stream_)"
 msgstr "Devuelve el flujo _(Reactive Stream_)"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Again we need to configure the incoming `quotes` channel inside `producer` project.\n"
@@ -332,7 +348,7 @@ msgstr ""
 "De nuevo necesitamos configurar el canal entrante `quotes` dentro del proyecto `producer`.\n"
 "Añada lo siguiente dentro del archivo `application.properties`:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "The HTML page"
@@ -348,13 +364,14 @@ msgstr "El toque final, la página HTML que lee los precios convertidos usando S
 msgid "Create inside the `producer` project `src/main/resources/META-INF/resources/quotes.html` file, with the following content:"
 msgstr "Cree dentro del proyecto `producer` el archivo `src/main/resources/META-INF/resources/quotes.html`, con el siguiente contenido:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Nothing spectacular here.\n"
 "On each received quote, it updates the page."
 msgstr "Aquí no hay nada espectacular. En cada cita recibida, actualiza la página."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Get it running"
@@ -370,6 +387,7 @@ msgstr "Sólo tienes que ejecutar ambas aplicaciones utilizando:"
 msgid "And, in a separate terminal:"
 msgstr "Y, en una terminal separada:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Quarkus starts a RabbitMQ broker automatically, configures the application and shares the broker instance between different applications.\n"
@@ -383,12 +401,13 @@ msgstr ""
 msgid "Open `http://localhost:8080/quotes.html` in your browser and request some quotes by clicking the button."
 msgstr "Abra `http://localhost:8080/quotes.html` en su navegador y solicite algunos presupuestos haciendo clic en el botón."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Running in JVM or Native mode"
 msgstr "Ejecución en modo JVM o nativo"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "When not running in dev or test mode, you will need to start your RabbitMQ broker.\n"
@@ -397,6 +416,7 @@ msgstr ""
 "Cuando no esté ejecutando en modo dev o test, necesitará iniciar su broker RabbitMQ.\n"
 "Puede seguir las instrucciones del link:https://hub.docker.com/_/rabbitmq[sitio web de RabbitMQ Docker] o crear un archivo `docker-compose.yaml` con el siguiente contenido:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Note how the RabbitMQ broker location is configured.\n"
@@ -410,6 +430,7 @@ msgstr ""
 msgid "First, make sure you stopped the applications, and build both applications in JVM mode with:"
 msgstr "En primer lugar, asegúrese de que ha detenido las aplicaciones, y construya ambas aplicaciones en modo JVM con:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "Once packaged, run `docker compose up --build`.\n"
@@ -421,6 +442,7 @@ msgstr "Una vez empaquetado, ejecute `docker compose up --build` . La interfaz d
 msgid "To run your applications as native, first we need to build the native executables:"
 msgstr "Para ejecutar tus aplicaciones como nativas, primero tenemos que construir los ejecutables nativos:"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "The `-Dquarkus.native.container-build=true` instructs Quarkus to build Linux 64bits native executables, who can run inside containers.\n"
@@ -432,12 +454,13 @@ msgstr "El `-Dquarkus.native.container-build=true` instruye a Quarkus para const
 msgid "As before, the UI is exposed on http://localhost:8080/quotes.html"
 msgstr "Como antes, la interfaz de usuario está expuesta en http://localhost:8080/quotes.html"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/rabbitmq.adoc
 #, no-wrap
 msgid "Going further"
 msgstr "Ir más allá"
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "This guide has shown how you can interact with RabbitMQ using Quarkus.\n"
@@ -446,6 +469,7 @@ msgstr ""
 "Esta guía ha mostrado cómo puede interactuar con RabbitMQ utilizando Quarkus.\n"
 "Utiliza link:https://smallrye.io/smallrye-reactive-messaging[SmallRye Reactive Messaging] para construir aplicaciones de flujo de datos."
 
+#. type: Plain text
 #: _versions/2.16/guides/rabbitmq.adoc
 msgid ""
 "If you did the Kafka, you have realized that it's the same code.\n"

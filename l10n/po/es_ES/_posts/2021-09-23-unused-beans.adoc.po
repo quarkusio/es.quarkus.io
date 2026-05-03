@@ -28,6 +28,7 @@ msgstr "Frijoles sin usar y por qué los eliminamos"
 msgid "Why does Quarkus detect and remove unused beans by default?"
 msgstr "¿Por qué Quarkus detecta y elimina por defecto los granos no utilizados?"
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -36,12 +37,13 @@ msgid ""
 "And CDI is one of them."
 msgstr "Quarkus es una pila orientada al tiempo de compilación, es decir, intenta hacer todo lo posible en tiempo de compilación para mejorar el tiempo de arranque y el uso de memoria de su aplicación. Sin embargo, no siempre es tan fácil y sencillo, ya que muchos marcos de trabajo y bibliotecas existentes no tienen en cuenta esta elección de diseño. Y CDI es uno de ellos."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy, no-wrap
 msgid "Why Bother"
 msgstr "Por qué molestarse"
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -53,6 +55,7 @@ msgid ""
 "This optimization helps to minimize the amount of generated classes and the number of metadata objects used at runtime, thus conserving memory."
 msgstr "Un contenedor CDI tradicional intenta encontrar todos los beans durante el arranque de la aplicación. Para cada beans se crea un objeto de metadatos que se mantiene durante toda la vida útil de la aplicación. Esto permite cierto grado de dinamicidad en tiempo de ejecución, pero es subóptimo en lo que respecta al consumo de memoria y al tiempo de arranque de la aplicación. Quarkus, por otro lado, intenta detectar y eliminar todos los beans, interceptores y decoradores _no utilizados_ durante la compilación por defecto. Y la razón es sencilla. Esta optimización ayuda a minimizar la cantidad de clases generadas y el número de objetos de metadatos utilizados en tiempo de ejecución, conservando así la memoria."
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -64,6 +67,7 @@ msgid ""
 "Finally, intercepted and decorated beans require some more internal constructs."
 msgstr "Hablando de clases generadas. El descubrimiento de los beans, la validación y el cableado de todos los componentes, todo esto se realiza en tiempo de compilación. A continuación, Quarkus almacena los metadatos recopilados en el código de bytes, es decir, para cada bean se generan una o varias clases. Para cumplir algunos requisitos básicos de la API CDI, un bean tiene al menos una implementación correspondiente en `javax.enterprise.inject.spi.Bean` . Si se trata de un bean de ámbito normal, también debe generarse una clase proxy cliente. Por último, los beans interceptados y decorados requieren algunas construcciones internas más."
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -75,12 +79,13 @@ msgid ""
 "Therefore, Quarkus implements an algorithm to get rid of all these classes."
 msgstr "Imagine que su aplicación contiene 50 beans que en realidad no se utilizan en ninguna parte. Si tienen un ámbito normal (por ejemplo, `@ApplicationScoped` ) y se interceptan (por ejemplo, declarar un método anotado con `@Transactional` ) puede esperar más de 150 clases generadas. Y estas clases son completamente inútiles. Aún así, el contenedor tendría que instanciar y mantener una referencia sobre esas más de 50 clases de metadatos de beans. Ni que decir tiene que las clases bean y cualquier clase referenciada no pueden ser objeto de eliminación de código muerto cuando se genera una imagen nativa. Por lo tanto, Quarkus implementa un algoritmo para deshacerse de todas estas clases."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy, no-wrap
 msgid "What’s Actually Removed?"
 msgstr "¿Qué se elimina realmente?"
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -118,6 +123,7 @@ msgstr "se excluyen a través de la propiedad `quarkus.arc.unremovable-types` co
 msgid "are otherwise identified by Quarkus extensions."
 msgstr "se identifican de otra manera por las extensiones de Quarkus."
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -168,12 +174,13 @@ msgstr "Por último, los interceptores y decoradores no utilizados no están aso
 msgid "When using the dev mode (e.g. running `./mvnw quarkus:dev`), you can see more information about which beans are being removed in the Dev UI."
 msgstr "Cuando se utiliza el modo dev (por ejemplo, ejecutando `./mvnw quarkus:dev`), se puede ver más información sobre los beans que se están eliminando en el Dev UI."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy, no-wrap
 msgid "Main Drawback"
 msgstr "Principal inconveniente"
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""
@@ -186,12 +193,13 @@ msgid ""
 "Finally, it's also possible to disable this optimization via the `quarkus.arc.remove-unused-beans=false` config property."
 msgstr "Pero hay un problema. Quarkus no puede detectar la búsqueda programática realizada a través del método estático `CDI.current()` . Por lo tanto, es posible que la eliminación de un determinado bean dé lugar a un error falso positivo, es decir, que se elimine un bean aunque en realidad se utilice. En tales casos, notará una gran advertencia en el registro. Por supuesto, los usuarios y los autores de extensiones tienen varias opciones para eliminar estos errores. Para los usuarios, la forma más sencilla es añadir una anotación especial: `@io.quarkus.arc.Unremovable` o utilizar la propiedad config `quarkus.arc.unremovable-types` . Por último, también es posible desactivar esta optimización mediante la propiedad config `quarkus.arc.remove-unused-beans=false` ."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy, no-wrap
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2021-09-23-unused-beans.adoc
 #, fuzzy
 msgid ""

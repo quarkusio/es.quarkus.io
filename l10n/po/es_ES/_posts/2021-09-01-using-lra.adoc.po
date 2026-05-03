@@ -28,12 +28,13 @@ msgstr "Una extensión para las actividades de larga duración"
 msgid "How to use the narayana LRA extension to create reliable long running activities."
 msgstr "Cómo utilizar la extensión narayana LRA para crear actividades fiables de larga duración."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-01-using-lra.adoc
 #, no-wrap
 msgid "Introduction"
 msgstr "Introducción"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -59,6 +60,7 @@ msgstr "Los servicios inician un LRA (o se unen a uno existente) marcando un mé
 msgid "Any work performed by a method annotated in this way should be \"compensatable\" in the sense that if some service \"cancels\" the LRA then the service will be reliably notified that it should compensate for any work that it did. Each service is responsible for interpreting the notion of what it means to compensate, the only requirement is that it responds https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/ParticipantStatus.html[appropriately] when it is notified that it should compensate. The service indicates how it should be notified by annotating one of its method with an https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/Compensate.html[@Compensate] annotation. Refer to the javadoc for the `@LRA` annotation for the details of how to control the outcome of an LRA."
 msgstr "Cualquier trabajo realizado por un método anotado de esta manera debería ser \"compensable\" en el sentido de que si algún servicio \"cancela\" el ERS, entonces el servicio será notificado de forma fiable de que debe compensar cualquier trabajo que haya realizado. Cada servicio es responsable de interpretar la noción de lo que significa compensar, el único requisito es que responda  link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/ParticipantStatus.html[adecuadamente] cuando se le notifique que debe compensar. El servicio indica cómo debe ser notificado anotando uno de sus métodos con una anotación  link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/Compensate.html[@Compensate]. Consulte el javadoc de la anotación `@LRA` para conocer los detalles de cómo controlar el resultado de un ERS."
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -66,12 +68,13 @@ msgid ""
 " https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/index.html?org/eclipse/microprofile/lra/annotation/ws/rs/LRA.html[annotations]."
 msgstr "La extensión proporciona una implementación de la link:https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html[especificación MicroProfile LRA] y sus link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/index.html?org/eclipse/microprofile/lra/annotation/ws/rs/LRA.html[anotaciones] asociadas."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "LRA coordinators"
 msgstr "Coordinadores del ERS"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -104,6 +107,7 @@ msgstr "Actualiza el archivo pom.xml para añadir una dependencia de la implemen
 msgid "Now build it and run it in the background:"
 msgstr "Ahora constrúyelo y ejecútalo en segundo plano:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -117,6 +121,7 @@ msgstr "Aquí estamos ejecutando el coordinador en el puerto por defecto utiliza
 msgid "This snippet shows the request returning an empty json array."
 msgstr "Este fragmento muestra la solicitud que devuelve un array json vacío."
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -125,7 +130,7 @@ msgid ""
 "(NOTE: you cannot use this approach to run coordinators in native mode, a future extension will be provided to support this requirement)."
 msgstr "Dejaremos el coordinador en ejecución (en el puerto predeterminado) mientras desarrollamos y probamos los servicios que utilizan ERS. Hacia el final del artículo mostraremos cómo incrustar coordinadores con servicios (NOTA: no puede utilizar este enfoque para ejecutar coordinadores en modo nativo, se proporcionará una futura extensión para dar soporte a este requisito)."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "JVM mode"
@@ -143,7 +148,7 @@ msgstr "Para construir una aplicación JAX-RS con soporte LRA añade la dependen
 msgid "As noted above, the guarantees (of eventual consistency) required by the https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html[LRA specification] rely on the presence of a JAX-RS application that coordinates the services participating in the LRA. This component must be present when starting the interaction, when joining the interaction and when ending the interaction. If the coordinator becomes unavailable it should be restarted. Similarly, services participating in the LRA must be available during the end phase; the system will continue retrying a service until it indicates that it is finished with the LRA, and once a service has indicated successful compensation (or completion) it no longer takes part in the interaction (although it can register for a reliable notification that all services have finished compensating or completing). Although there can be many coordinators, at the time of writing, only one can manage a particular LRA."
 msgstr "Como se ha señalado anteriormente, las garantías (de consistencia eventual) requeridas por la  link:https://download.eclipse.org/microprofile/microprofile-lra-1.0-M1/microprofile-lra-spec.html[especificación LRA] se basan en la presencia de una aplicación JAX-RS que coordina los servicios que participan en el LRA. Este componente debe estar presente cuando se inicia la interacción, cuando se une a la interacción y cuando termina la interacción. Si el coordinador deja de estar disponible, debe reiniciarse. Del mismo modo, los servicios que participan en el ERS deben estar disponibles durante la fase de finalización; el sistema seguirá reintentando un servicio hasta que indique que ha terminado con el ERS, y una vez que un servicio ha indicado que ha compensado (o completado) con éxito, ya no participa en la interacción (aunque puede registrarse para recibir una notificación fiable de que todos los servicios han terminado de compensar o completar). Aunque puede haber muchos coordinadores, en el momento de escribir este artículo, sólo uno puede gestionar un ERS concreto."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Step 1: Create the application:"
@@ -161,7 +166,7 @@ msgstr "Tenga en cuenta que si el coordinador se ejecuta en un puerto diferente 
 msgid "Verify that the generated application still works after these changes:"
 msgstr "Compruebe que la aplicación generada sigue funcionando después de estos cambios:"
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Step 2: Add LRA support"
@@ -197,6 +202,7 @@ msgstr "Con estos cambios, si se construye la aplicación y luego se invoca el m
 msgid "Make sure that the coordinator is still running otherwise you will see an error message similar to the following:"
 msgstr "Asegúrese de que el coordinador sigue funcionando, de lo contrario verá un mensaje de error similar al siguiente:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -204,7 +210,7 @@ msgid ""
 "Now kill the java process in preparation for the next step (the process id was printed on the console, in my example the pid is 2389948, so I typed `kill 2389948`)."
 msgstr "Observe los mensajes `System.out` que indican que la llamada de retorno `@Complete` fue invocada. Ahora mate el proceso java en preparación para el siguiente paso (el id del proceso se imprimió en la consola, en mi ejemplo el pid es 2389948, así que escribí `kill 2389948` )."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Step 3: Extending the LRA across two service methods"
@@ -222,6 +228,7 @@ msgstr "En este paso iniciaremos un ERS pero no lo terminaremos cuando el métod
 msgid "Define a second business method to do this:"
 msgstr "Definir un segundo método empresarial para hacerlo:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -242,6 +249,7 @@ msgstr "Matar la instancia existente ( `kill 2389948`) y reconstruir la aplicaci
 msgid "Start an LRA using `curl` to send a request the new method we have just added:"
 msgstr "Inicie un LRA utilizando `curl` para enviar una solicitud el nuevo método que acabamos de añadir:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -255,12 +263,13 @@ msgstr "El método start se codificó para devolver el id del ERS y he utilizado
 msgid "Notice that the `completeWork` method was invoked."
 msgstr "Observe que se ha invocado el método `completeWork`."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Step 4: Start an LRA in one microservice and end it in a different microservice"
 msgstr "Paso 4: Iniciar un ERS en un microservicio y terminarlo en otro microservicio"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -298,12 +307,13 @@ msgstr "Observe que ambos microservicios indicaron que recibieron el callback de
 msgid "Terminate both java processes (`kill 2495275 2495369`)."
 msgstr "Terminar ambos procesos java ( `kill 2495275 2495369`)."
 
-#. type: Title ====
+#. type: Title ===
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Optional Step: using the MANDATORY element"
 msgstr "Paso opcional: utilizar el elemento MANDATORY"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -329,7 +339,7 @@ msgstr "mientras que proporcionar la cabecera de contexto LRA funcionará:"
 msgid "Other https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.Type.html[LRA.Type element values] may be useful, depending upon what your application is trying to achieve. For those readers familiar with JTA it is worth remarking that it was loosely modelled on the https://docs.oracle.com/javaee/7/api/javax/transaction/Transactional.TxType.html[Java Transactional TxType annotation]."
 msgstr "Otros  link:https://download.eclipse.org/microprofile/microprofile-lra-1.0/apidocs/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.Type.html[valores del elemento LRA.] Type pueden ser útiles, dependiendo de lo que su aplicación esté tratando de lograr. Para aquellos lectores familiarizados con JTA, vale la pena remarcar que fue modelado libremente en la  link:https://docs.oracle.com/javaee/7/api/javax/transaction/Transactional.TxType.html[anotación Java Transactional TxType]."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Native mode"
@@ -347,6 +357,7 @@ msgstr "en el modo nativo sólo se admiten coordinadores externos (es decir, no 
 msgid "First build a native executable:"
 msgstr "Primero construye un ejecutable nativo:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -387,12 +398,13 @@ msgstr "y terminar con un método diferente:"
 msgid "Kill the service in preparation for the next step (`kill 2434426`) or just leave it running."
 msgstr "Mata el servicio en preparación para el siguiente paso ( `kill 2434426`) o simplemente déjalo funcionando."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Failure handling"
 msgstr "Gestión de fallos"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -445,6 +457,7 @@ msgstr "El ERS seguirá funcionando, como puede comprobar consultando al coordin
 msgid "To finish the LRA restart the failed service (which was listening on port 8080):"
 msgstr "Para terminar el LRA reinicie el servicio fallido (que estaba escuchando en el puerto 8080):"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -453,6 +466,7 @@ msgid ""
 "recovery endpoint as follows:"
 msgstr "El proceso de recuperación es periódico (el periodo por defecto entre pases de recuperación es de 2 minutos). Si no puede esperar 2 minutos, puede activar manualmente un ciclo de recuperación a través del punto final de recuperación de los coordinadores de la siguiente manera:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -467,18 +481,19 @@ msgstr "Lo que hay que destacar aquí es que el servicio reiniciado recibió la 
 msgid "Clean up by stopping the two services (`kill 2434984 2435130`)."
 msgstr "Limpie parando los dos servicios ( `kill 2434984 2435130`)."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Appendix 1"
 msgstr "Anexo 1"
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy, no-wrap
 msgid "Embedded Coordinators"
 msgstr "Coordinadores integrados"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -486,6 +501,7 @@ msgid ""
 "by adding the LRA coordinator dependency the applications pom.xml file:"
 msgstr "Dado que los coordinadores no son más que aplicaciones JAX-RS, pueden incrustarse con los servicios JAX-RS con bastante facilidad añadiendo la dependencia del coordinador LRA el archivo pom.xml de las aplicaciones:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -511,6 +527,7 @@ msgstr "no hay soporte para los ejecutables nativos."
 msgid "each instance requires dedicated storage for the coordinators' transaction logs (since sharing transaction stores is not currently supported)."
 msgstr "cada instancia requiere un almacenamiento dedicado para los registros de transacciones de los coordinadores (ya que actualmente no se admite compartir los almacenes de transacciones)."
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""
@@ -519,6 +536,7 @@ msgid ""
 "config to tell the application to use it:"
 msgstr "El coordinador integrado estará disponible en el mismo puerto que la aplicación (con la ruta `lra-coordinator` ), pero tenga en cuenta que el puerto por defecto del coordinador es `50000` , por lo que tendrá que configurar su ubicación en la configuración de la aplicación para indicarle a ésta que lo utilice:"
 
+#. type: Plain text
 #: _posts/2021-09-01-using-lra.adoc
 #, fuzzy
 msgid ""

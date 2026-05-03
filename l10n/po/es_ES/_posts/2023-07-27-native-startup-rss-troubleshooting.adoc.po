@@ -28,6 +28,7 @@ msgstr "Análisis del consumo de RSS en el inicio de Quarkus Native"
 msgid "Use Linux native tooling and JFR to understand Quarkus Native startup RSS consumption"
 msgstr "Utilización de herramientas nativas de Linux y JFR para comprender el consumo de RSS en el inicio de Quarkus Native"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -40,6 +41,7 @@ msgid ""
 "You will also learn about recent updates in GraalVM that make doing this kind of analysis more convenient."
 msgstr "Durante el desarrollo de Quarkus 2.13, descubrimos que existía una degradación en el arranque en modo nativo. Uno de los aspectos clave de esta degradación era que el consumo de RSS en el arranque había subido alrededor de un 10-15% en comparación con Quarkus 2.7. En esta entrada de blog aprenderá cómo se utilizaron las técnicas de depuración del consumo de RSS nativo de Quarkus descritas en link:https://quarkus.io/guides/native-reference#rss[la guía de referencia nativa de Quarkus] para diagnosticar este problema. También aprenderá acerca de las actualizaciones recientes en GraalVM que hacen que hacer este tipo de análisis sea más conveniente."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -47,6 +49,7 @@ msgid ""
 "Below we see how we measured the RSS consumption for Quarkus 2.7.6.Final:"
 msgstr "Nuestro análisis mostró que el consumo de RSS para Quarkus 2.7 fue de unos ~33MB mientras que para Quarkus 2.13 fue de unos ~36MB, aproximadamente un aumento del 10 %. A continuación vemos cómo medimos el consumo de RSS para Quarkus 2.7.6.Final:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -54,6 +57,7 @@ msgid ""
 "In our environment, the RSS consumption had gone up to about ~36M, roughly a 10% increase:"
 msgstr "Del mismo modo, a continuación vemos cómo medimos el consumo de RSS para Quarkus 2.13.4.Final: En nuestro entorno, el consumo de RSS había subido a unos ~36M, aproximadamente un aumento del 10%:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -63,6 +67,7 @@ msgid ""
 "as using the same GraalVM version on both Quarkus versions still resulted in similar differences."
 msgstr "Dado que Quarkus 2.7 y 2.13 utilizaban versiones diferentes de GraalVM (21.3 frente a 22.3), primero investigamos si el aumento del tiempo de arranque y del consumo de RSS se debía a un cambio en GraalVM. Resultó no ser el caso, ya que al utilizar la misma versión de GraalVM en ambas versiones de Quarkus las diferencias seguían siendo similares."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -73,6 +78,7 @@ msgid ""
 "and that was Quarkus specific."
 msgstr "También perfilamos el tiempo de arranque en modo JVM y, aunque pudimos observar un ligero aumento en el uso de la pila, el aumento del RSS no era evidente en tiempo de ejecución. Así pues, el reto consistía en comprender qué causaba el aumento del RSS que parecía afectar únicamente al modo nativo y que era específico de Quarkus."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -89,6 +95,7 @@ msgid ""
 "and then we generate flamegraphs with the recorded data:"
 msgstr "En modo nativo necesitábamos buscar las llamadas al sistema que aumentaban el RSS e investigar cuál era su causa. Hay varias llamadas al sistema que se pueden utilizar para asignar memoria, por ejemplo `malloc` , `mmap` ...etc, pero cuando analizamos las llamadas al sistema emitidas en el arranque, descubrimos que las llamadas a `mmap` eran las más destacadas. Siguiendo la link:https://www.brendangregg.com/FlameGraphs/memoryflamegraphs.html[guía de gráficos de llamas de fugas de memoria (y crecimiento) de Brendan Gregg] en un entorno Linux, pudimos producir flamegráficos para las llamadas al sistema `mmap` . Para obtener estos flamegráficos, capturamos los eventos de llamada al sistema `sys_enter_mmap` con `perf record` , y después generamos flamegráficos con los datos registrados:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -97,6 +104,7 @@ msgid ""
 "as extra build flags."
 msgstr "El ejecutable nativo anterior se creó pasando `-Dquarkus.native.debug.enabled` y `-Dquarkus.native.additional-build-args=-H:-DeleteLocalSymbols` como banderas de compilación adicionales."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -116,6 +124,7 @@ msgid ""
 "but an upcoming change will make it 512KB instead."
 msgstr "`mmap` se producen por diversas razones, pero en el contexto de esta entrada de blog, nos interesan las llamadas a `mmap` que se desencadenan por asignaciones de objetos. No todas las asignaciones de objetos desencadenan una llamada a `mmap` . En su lugar, cada hilo en SubstrateVM asignará un trozo de heap utilizando `mmap` cuando se asigne el primer objeto, y utilizará este trozo de heap mientras haya espacio para más objetos asignados en el mismo hilo. Cuando el trozo de heap esté lleno, el hilo solicitará un nuevo trozo de heap utilizando `mmap` . Este patrón se denomina asignación local de hilos. HotSpot también tiene una característica similar, pero allí el tamaño del heap chunk se calcula dinámicamente dependiendo de múltiples factores, mientras que en SubstrateVM el tamaño es fijo. En el momento de escribir estas líneas, el tamaño por defecto del heap chunk es de 1MB, pero un próximo cambio hará que sea de 512KB."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -128,6 +137,7 @@ msgid ""
 "E.g. `slowPathNewInstance` for plain objects or `slowPathNewArray` for arrays."
 msgstr "Describimos la asignación de objetos como rápida cuando el hilo tiene un trozo de heap almacenado en caché y hay espacio suficiente para el objeto. Describimos la asignación del objeto como lenta cuando el hilo necesita solicitar un nuevo trozo de heap a través de la llamada al sistema `mmap` para satisfacer la asignación del objeto. Las asignaciones lentas son las más interesantes en este caso, porque nos dan una indicación aproximada de qué asignaciones están elevando el número de trozos de heap y, por tanto, están elevando el consumo de RSS. En SubstrateVM, los stacktraces de la ruta de asignación lenta contienen invocaciones a métodos definidos en la clase `com.oracle.svm.core.genscavenge.ThreadLocalAllocation` que contienen el prefijo `slowPathNew` en su nombre . Por ejemplo, `slowPathNewInstance` para objetos planos o `slowPathNewArray` para matrices."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -172,6 +182,7 @@ msgstr "Para Quarkus 2.13.4.Final, el flamegráfico tiene este aspecto:"
 msgid "Focusing on the same area, we observe that the `slowPathNew` stacktrace count is 5 in this case, so the `main` thread allocates roughly 5MB of heap chunks:"
 msgstr "Centrándonos en la misma área, observamos que el recuento de stacktrace de `slowPathNew` es 5 en este caso, por lo que el hilo `main` asigna aproximadamente 5MB de trozos de heap:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -183,6 +194,7 @@ msgid ""
 "compared to the dynamic thread-local allocation logic in HotSpot."
 msgstr "El aumento de la asignación de objetos en el arranque en tiempo de ejecución entre estas dos versiones de Quarkus, combinado con la idiosincrasia de cómo funciona la asignación local de hilos en SubstrateVM, es lo que estaba causando el aumento del consumo de RSS. En otras palabras, aunque tanto HotSpot como SubstrateVM experimentan mayores asignaciones, los tamaños fijos de los trozos de heap de asignación local de hilos de SubstrateVM hacen que esto sea más evidente, en comparación con la lógica de asignación local de hilos dinámica de HotSpot."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -193,6 +205,7 @@ msgid ""
 "In this case, updates to the SmallRye configuration handling at startup caused the regression."
 msgstr "Desde entonces, se han introducido mejoras en los componentes que causaban la asignación extra de objetos. Pudimos detectar los cambios que habían causado estas asignaciones extra observando los componentes que aparecían en el stacktrace que provocaban las asignaciones lentas, e inspeccionando las actualizaciones que se habían producido en esos componentes. En este caso, las actualizaciones en el manejo de la configuración de SmallRye en el arranque causaron la regresión."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -204,6 +217,7 @@ msgid ""
 "that's probably a good hint that something in that area needs to be investigated."
 msgstr "Los stacktraces que provocan asignaciones lentas de objetos nos dan una aproximación sobre los componentes que provocan el aumento del uso de memoria. Podría haber situaciones en las que el stacktrace que provoca una asignación lenta es perfectamente válido, pero debido a la naturaleza no determinista de la asignación de objetos, el stacktrace simplemente resulta ser el que provocó que se asignara un nuevo trozo de heap. Sin embargo, si ve varios stacktraces en la misma zona, probablemente sea un buen indicio de que hay que investigar algo en esa zona."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -215,12 +229,13 @@ msgid ""
 "brought it back down."
 msgstr "En la versión 2.13.7.Final de Quarkus, el consumo de RSS en el arranque volvió a los niveles anteriores. La regresión RSS fue introducida por los cambios en link:https://github.com/quarkusio/quarkus/pull/26802#issue-1308798216[PR #26802] , y las correcciones en link:https://github.com/quarkusio/quarkus/pull/29408[PR #29408] y link:https://github.com/quarkusio/quarkus/pull/29842[PR #29842] la volvieron a reducir."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy, no-wrap
 msgid "Performing the analysis with `ObjectAllocationInNewTLAB` JFR event"
 msgstr "Realización del análisis con `ObjectAllocationInNewTLAB` Evento JFR"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -238,6 +253,7 @@ msgstr "A medida que las nuevas versiones de GraalVM implementan link:https://gi
 msgid "First, we build the native Quarkus application with JFR support:"
 msgstr "En primer lugar, construimos la aplicación nativa Quarkus con soporte JFR:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -252,6 +268,7 @@ msgstr "Para obtener los eventos de `jdk.ObjectAllocationInNewTLAB` , es necesar
 msgid "Then, we start the Quarkus native executable with the necessary JFR flags:"
 msgstr "A continuación, iniciamos el ejecutable nativo Quarkus con las banderas JFR necesarias:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -261,6 +278,7 @@ msgid ""
 "We can also do a similar focus on `ApplicationImpl.doStart()` method to observe which slow path allocations get triggered from there:"
 msgstr "Tras apagar Quarkus, podemos utilizar link:https://adoptium.net/jmc[el control de misión Eclipse de Adoptium] para visualizar un flamegráfico de todos los eventos de `jdk.ObjectAllocationInNewTLAB` . También podemos hacer un enfoque similar en el método `ApplicationImpl.doStart()` para observar qué asignaciones de rutas lentas se disparan desde allí:"
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""
@@ -271,6 +289,7 @@ msgid ""
 "would be something we would need to explore further and see if there's a regression."
 msgstr "Observando el flamegraph, podemos contar 7 stacktraces de asignaciones de rutas lentas para el hilo `main` . Si esto es un problema, o tal vez la ejecución del código se ha desplazado de otro hilo a `main` , sería algo que tendríamos que explorar más a fondo y ver si hay una regresión."
 
+#. type: Plain text
 #: _posts/2023-07-27-native-startup-rss-troubleshooting.adoc
 #, fuzzy
 msgid ""

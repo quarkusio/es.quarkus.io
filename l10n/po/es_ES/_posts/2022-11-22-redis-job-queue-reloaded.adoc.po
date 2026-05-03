@@ -28,6 +28,7 @@ msgstr "Cola de trabajos de Redis - Recargada"
 msgid "How to implement a more reliable job queue with Redis, including fault tolerance, de-duplication, and poison pill."
 msgstr "Cómo implementar una cola de trabajo más fiable con Redis, incluyendo la tolerancia a fallos, la desduplicación y la píldora venenosa."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -41,6 +42,7 @@ msgstr "En link:https://quarkus.io/blog/redis-job-queue/[Cómo implementar una c
 msgid "In this post, we explain how to improve the reliability of the job queue to handle failures, enable retry and use a _dead-letter queue_ to avoid poison pills."
 msgstr "En este post, explicamos cómo mejorar la fiabilidad de la cola de trabajos para manejar los fallos, habilitar el reintento y utilizar una _cola de letras muertas_ para evitar las píldoras de veneno."
 
+#. type: Title =
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "Recap & Problem"
@@ -52,6 +54,7 @@ msgstr "Recapitulación y problema"
 msgid "In the https://quarkus.io/blog/redis-job-queue/[previous blog post], we implemented the following system."
 msgstr "En la  link:https://quarkus.io/blog/redis-job-queue/[anterior entrada del blog], implementamos el siguiente sistema."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -60,6 +63,7 @@ msgid ""
 "The outcomes of the _fights_ were communicated using Redis Pub/Sub."
 msgstr "Una aplicación recibe _solicitudes de lucha_ y escribe estas solicitudes en una lista Redis. Varios simuladores procesaron esta lista. Los resultados de los _combates_ se comunicaron utilizando Redis Pub/Sub."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -67,6 +71,7 @@ msgid ""
 "This command pops the item from the queue in an atomic manner and ensure that the other simulators can't process it too."
 msgstr "La arquitectura funciona y garantiza que un combate sólo pueda ejecutarse una vez, gracias al comando `brpop` utilizado por el código del simulador. Este comando saca el elemento de la cola de forma atómica y garantiza que los demás simuladores no puedan procesarlo también."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -75,11 +80,13 @@ msgid ""
 "No other simulator would be able to process it, and if the simulator that failed restarts, it will not reprocess the same request."
 msgstr "Sin embargo, esta arquitectura tiene un inconveniente. Si falla el procesamiento de la solicitud de lucha saltada, la solicitud se pierde. Ningún otro simulador podría procesarla, y si el simulador que falló se reinicia, no volverá a procesar la misma solicitud."
 
+#. type: Title =
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "Introducing more queues"
 msgstr "Introducir más colas"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -100,6 +107,7 @@ msgstr "Estas colas privadas forman una red de seguridad."
 msgid "So, the simulator does use not only the _main queue_ but also its private queue:"
 msgstr "Por lo tanto, el simulador no sólo utiliza la _cola principal_, sino también su cola privada:"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -121,6 +129,7 @@ msgstr "Por lo tanto, utilizamos el siguiente código para mover la solicitud de
 msgid "Now, the simulator does not simulate the requests from the main queue but needs to process the ones added to its private queue."
 msgstr "Ahora, el simulador no simula las peticiones de la cola principal, sino que necesita procesar las que se añaden a su cola privada."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -130,6 +139,7 @@ msgid ""
 "We do this until the queue is empty."
 msgstr "Este código es ligeramente diferente del código del blog anterior. Esta vez, no hacemos pop. Obtenemos el último elemento de la cola (el índice `-1` es el último), lo procesamos y lo eliminamos de la cola. Hacemos esto hasta que la cola esté vacía."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -138,11 +148,13 @@ msgid ""
 "2. once the private queue is empty, it gets new requests from the main queue. It will not process them directly but re-trigger the processing of the private queue until the queue is empty."
 msgstr "Pongamos todo en orden: 1. cuando el simulador se inicia, debe procesar los elementos de su cola privada. Así, si se bloquea, volverá a intentar procesar el elemento. 2. una vez que la cola privada esté vacía, recibirá nuevas peticiones de la cola principal. No las procesará directamente, sino que volverá a iniciar el procesamiento de la cola privada hasta que la cola esté vacía."
 
+#. type: Title =
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "New architecture, new problems"
 msgstr "Nueva arquitectura, nuevos problemas"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -169,11 +181,13 @@ msgstr "_Duplicados_: si el procesamiento tiene éxito, pero el `lrem` falla por
 msgid "_Poison pill_: if a request cannot be processed successfully, it will retry to process it forever."
 msgstr "_Píldora venenosa_: si una solicitud no puede ser procesada con éxito, volverá a intentar procesarla para siempre."
 
+#. type: Title ==
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "De-duplication"
 msgstr "Desduplicación"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -181,11 +195,13 @@ msgid ""
 "In other words, if all our requests have a unique id, we can check if that id has already been processed (for example, by storing the processed ids in another list or a hash). If the item has already been processed, ignore it (remove it from the queue) and process it to the next one:"
 msgstr "La gestión de _duplicados_ requiere tener una forma de identificar las solicitudes de forma única y deduplicarlas manualmente. En otras palabras, si todas nuestras solicitudes tienen un id único, podemos comprobar si ese id ya ha sido procesado (por ejemplo, almacenando los id procesados en otra lista o en un hash). Si el elemento ya ha sido procesado, lo ignoramos (lo eliminamos de la cola) y procesamos al siguiente:"
 
+#. type: Title ==
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "Avoiding swallowing the poison pill"
 msgstr "Evitar tragarse la píldora del veneno"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -195,6 +211,7 @@ msgid ""
 "Retrying, in this case, will not help; we are not facing a transient issue."
 msgstr "La gestión de las píldoras _venenosas_ es más compleja. Una píldora _venenosa_ es una solicitud que siempre hará que falle el procesamiento. Puede deberse a un error en el código de procesamiento o a algo inesperado; siempre fallará. Reintentar, en este caso, no ayudará; no estamos ante un problema transitorio."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -209,6 +226,7 @@ msgstr "Entonces, ¿qué podemos hacer? Tenemos que hacer un seguimiento del nú
 msgid "The counter is a specific Redis integer value that we increment and reset once we succeed or give up."
 msgstr "El contador es un valor entero específico de Redis que incrementamos y ponemos a cero una vez que tenemos éxito o nos rendimos."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -217,11 +235,13 @@ msgid ""
 "Another approach requires that a human administrator looks at these requests before re-injecting them into the system; maybe it was just a formatting issue..."
 msgstr "Los ítems de la DLQ no se pierden; se guardan para un procesamiento futuro. Estos elementos podrían volver a añadirse a la cola principal (para verificar si no se trataba de un problema transitorio o si el fallo se ha solucionado). Otro enfoque requiere que un administrador humano examine estas solicitudes antes de volver a inyectarlas en el sistema; tal vez sólo se trataba de un problema de formato..."
 
+#. type: Title =
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid "Summary"
 msgstr "Resumen"
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""
@@ -231,6 +251,7 @@ msgid ""
 "But, nothing comes for free, and the resulting code is slightly more complex."
 msgstr "Este post explora cómo mejorar la cola link:https://quarkus.io/blog/redis-job-queue/[de] trabajos que implementamos en link:https://quarkus.io/blog/redis-job-queue/[Cómo implementar una cola de trabajos con Redis] . Esta implementación inicial, aunque sencilla, perdería peticiones si falla el procesamiento. Este post propone otra arquitectura, más compleja, para manejar ese caso pero también manejar duplicados y píldoras venenosas. Pero, nada sale gratis, y el código resultante es ligeramente más complejo."
 
+#. type: Plain text
 #: _posts/2022-11-22-redis-job-queue-reloaded.adoc
 #, fuzzy
 msgid ""

@@ -28,6 +28,7 @@ msgstr "Un hilo IO y un hilo worker entran en un bar: una historia de microbench
 msgid "Understand when and how to use the Quarkus IO thread and its influence on microbenchmarks."
 msgstr "Entender cuándo y cómo utilizar el hilo IO de Quarkus y su influencia en los microbenchmarks."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -39,12 +40,13 @@ msgid ""
 "Anyway, this turns out to be a very interesting topic and good information for Quarkus users, so read on."
 msgstr "Un competidor publicó recientemente un microbenchmark comparando el rendimiento de su pila con Quarkus. El equipo de Quarkus considera que este microbenchmark no debe tomarse al pie de la letra porque no hacía una comparación de igual a igual, lo que lleva a conclusiones incorrectas. Los dos frameworks comparados admiten el procesamiento reactivo. El procesamiento reactivo permite ejecutar la lógica empresarial directamente en el _hilo IO_ , que en última instancia obtiene mejores resultados en el microbenchmark centrado en el tiempo de respuesta y la concurrencia. El microbenchmark debería haberse escrito de forma que ambos marcos (o ninguno) obtuvieran este beneficio. En fin, este resulta ser un tema muy interesante y una buena información para los usuarios de Quarkus, así que siga leyendo."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "tl; dr;"
 msgstr "tl; dr;"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -58,6 +60,7 @@ msgstr "Quarkus link:https://quarkus.io/blog/runtime-performance/[tiene un gran 
 msgid "If you have a REST scenario well suited to run _purely on the IO thread_, add a Vert.x Reactive Route using https://quarkus.io/guides/reactive-routes[Quarkus Reactive Routes] and your app will get better performance than using Quarkus RESTEasy."
 msgstr "Si tienes un escenario REST muy adecuado para ejecutarse _puramente en el hilo IO_, añade una ruta reactiva Vert.x utilizando  link:https://quarkus.io/guides/reactive-routes[Quarkus Reactive Routes] y tu aplicación obtendrá un mejor rendimiento que utilizando Quarkus RESTEasy."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -66,12 +69,13 @@ msgid ""
 "But that’s on a microbenchmark purpose built to this specific scenario (more on that later)."
 msgstr "Ejecutamos este microbenchmark de bajo trabajo REST + validación escrito por la competencia que no presenta ninguna operación de bloqueo, sólo devuelve datos estáticos. Al utilizar Quarkus Reactive Routes para ejecutar Quarkus _puramente en el_ hilo IO, *observamos 2,6 veces más peticiones/seg y un 30% menos de uso de memoria (RSS* ) que ejecutando con Quarkus RESTEasy (que mezcla hilo IO e hilo trabajador). Pero eso es en un microbenchmark construido a propósito para este escenario específico (más sobre eso más adelante)."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "More interesting read"
 msgstr "Más información sobre el tema"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -79,12 +83,13 @@ msgid ""
 "Let’s use it as a vehicle to learn more about Quarkus and its reactive engine."
 msgstr "El microbenchmark en sí carece de interés, pero es un buen demostrador de un fenómeno que puede ocurrir en las pilas reactivas. Utilicémoslo como vehículo para aprender más sobre Quarkus y su motor reactivo."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "Imperative and Reactive: the elevator pitch"
 msgstr "Imperativo y reactivo: el discurso del ascensor"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -92,6 +97,7 @@ msgid ""
 "However, to understand why we see so much difference in the mentioned microbenchmark, we need some notions."
 msgstr "Esta entrada del blog no explica las diferencias fundamentales entre el modelo de ejecución imperativo y el modelo de ejecución reactivo. Sin embargo, para entender por qué vemos tanta diferencia en el microbenchmark mencionado, necesitamos algunas nociones."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -105,6 +111,7 @@ msgid ""
 "But this means one thread for every concurrent request, which limits the overall concurrency."
 msgstr "En general, las aplicaciones web Java utilizan programación imperativa combinada con operaciones IO de bloqueo. Esto es increíblemente popular porque es más fácil razonar sobre el código. Las _cosas_ se ejecutan secuencialmente. Para asegurarse de que una solicitud no se ve afectada por otra, se ejecutan en hilos diferentes. Cuando su carga de trabajo necesita interactuar con una base de datos u otro servicio remoto, se basa en el bloqueo de IO. El hilo se bloquea esperando la respuesta. Las demás solicitudes que se ejecutan en hilos diferentes no se ralentizan significativamente. Pero esto significa un hilo para cada solicitud concurrente, lo que limita la concurrencia global."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -124,6 +131,7 @@ msgid ""
 "It's a paradigm shift."
 msgstr "Por otro lado, el modelo de ejecución reactiva abarca modelos de desarrollo asíncronos y E/S no bloqueantes. Con este modelo, múltiples peticiones pueden ser gestionadas por el mismo hilo. Cuando el procesamiento de una solicitud ya no puede progresar (porque solicita un servicio remoto o interactúa con una base de datos), utiliza IO no bloqueantes. Esto libera inmediatamente el hilo, que puede utilizarse para atender otra solicitud. Cuando el resultado de la operación IO está disponible, el procesamiento de la solicitud se restablece y continúa su ejecución. Este modelo permite utilizar el hilo _IO_ para gestionar múltiples peticiones. Hay dos ventajas significativas. En primer lugar, el tiempo de respuesta es menor porque no tiene que saltar a otro hilo. En segundo lugar, reduce el consumo de memoria al disminuir el uso de hilos. El modelo reactivo utiliza los recursos de hardware de forma más eficiente, pero... existe un inconveniente importante. Si el procesamiento de una solicitud empieza a bloquearse, esto se pone muy feo. No se puede gestionar ninguna otra petición. Para evitarlo, hay que aprender a escribir código no bloqueante, a estructurar el procesamiento asíncrono y a utilizar E/S no bloqueantes. Es un cambio de paradigma."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -132,12 +140,13 @@ msgid ""
 "That is why, when the user application uses JAX-RS, Quarkus defaults to execute the (imperative) workload to a _worker thread_."
 msgstr "En Quarkus, queremos que el cambio sea lo más fácil posible. Sin embargo, hemos observado que la mayoría de las aplicaciones de usuario se escriben utilizando el modelo imperativo. Por eso, cuando la aplicación de usuario utiliza JAX-RS, Quarkus ejecuta por defecto la carga de trabajo (imperativa) en un _subproceso trabajador_ ."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "Hello world microbenchmark: IO thread or worker thread?"
 msgstr "Hola mundo microbenchmark: ¿Hilo IO o hilo worker?"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -146,6 +155,7 @@ msgid ""
 "This is the Hello World of REST for all intents and purposes."
 msgstr "Volviendo al microbenchmark de la competencia, tenemos un punto final REST que realiza algún procesamiento trivial y alguna validación igualmente trivial. Prácticamente nada de trabajo empresarial significativo. Este es el Hola Mundo de REST a todos los efectos."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -155,6 +165,7 @@ msgid ""
 "The dispatch overhead is not visible in most (real life) applications but is very visible in artificial constructs like microbenchmarks."
 msgstr "Cuando se ejecuta el microbenchmark con Quarkus RESTEasy, la solicitud es gestionada por el motor reactivo en el _hilo IO_ , pero luego el trabajo de procesamiento se entrega a un segundo hilo del _pool de hilos de trabajo_ . Eso se llama _despacho_ . Cuando su microbenchmark hace tan poco como Hello World, entonces la sobrecarga de despacho es proporcionalmente grande. La sobrecarga de despacho no es visible en la mayoría de las aplicaciones (de la vida real) pero es muy visible en construcciones artificiales como los microbenchmarks."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -163,11 +174,13 @@ msgid ""
 "And frankly (according to the competitor's numbers) and in spite of this extra dispatch work, Quarkus did very very well achieving ~95% of the competitor’s throughput today!  I say today because we are always improving upon performance, and in fact we expect to see further gains in the soon to be released 1.4 release."
 msgstr "La pila del competidor, sin embargo, ejecuta todas las operaciones de solicitud en el hilo IO por defecto. Así que lo que este microbenchmark estaba comparando en realidad es sólo el coste de despachar al conjunto de hilos de trabajo. Y francamente (según los números del competidor) y a pesar de este trabajo extra de despacho, Quarkus lo hizo muy bien ¡alcanzando hoy un ~95% del rendimiento del competidor! Digo hoy porque siempre estamos mejorando el rendimiento y, de hecho, esperamos ver más mejoras en la versión 1.4 que se publicará próximamente."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid "*When compared at a disadvantage (dispatching to a worker thread), Quarkus is nevertheless almost as fast in throughput.*"
 msgstr "*Cuando se compara en desventaja (despachando a un hilo trabajador), Quarkus es sin embargo casi tan rápido en rendimiento.*"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -183,7 +196,7 @@ msgstr "... Pero espere, Quarkus también puede evitar el despacho por completo 
 msgid "This is not very different from your JAX-RS equivalent."
 msgstr "Esto no es muy diferente de su equivalente JAX-RS."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "Throughput Numbers"
@@ -213,6 +226,7 @@ msgstr "256 MB de RAM"
 msgid "and `-Xmx128m` heap usage for the Java process"
 msgstr "y `-Xmx128m` uso del heap para el proceso Java"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -355,11 +369,13 @@ msgstr "1,262.1"
 msgid "379.4%"
 msgstr "379.4%"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid "*In a fair comparison (purely remaining on the IO thread - no dispatch), Quarkus more than double its throughput.*"
 msgstr "*En una comparación justa (permaneciendo puramente en el hilo IO - sin despacho), Quarkus más que duplica su rendimiento.*"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -369,6 +385,7 @@ msgid ""
 "You do not want the response time to degrade before the system reaches maximum throughput."
 msgstr "A medida que la carga generada tiende hacia el rendimiento máximo del sistema bajo prueba, el tiempo de respuesta experimentado por el cliente aumenta exponencialmente. Así que el mejor sistema (para la carga de trabajo) tiene una línea vertical lo más a la derecha posible. Igualmente importante es tener una línea lo más plana posible durante el mayor tiempo. No querrá que el tiempo de respuesta se degrade antes de que el sistema alcance el rendimiento máximo."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -376,6 +393,7 @@ msgid ""
 "The Quarkus Reactive Routes solution (on a pure IO event run) shows a 30% RSS usage reduction."
 msgstr "Por cierto, en el microbenchmark del competidor se muestra que Quarkus consume más RSS (más RAM). Esto también se explica por el funcionamiento del pool de hilos de trabajo, mientras que el competidor no tenía un pool de hilos de trabajo. La solución Quarkus Reactive Routes (en una ejecución de eventos IO puros) muestra una reducción del 30% en el uso de RSS."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -383,12 +401,13 @@ msgid ""
 "We see that the pure IO thread solution manages to increase throughput with little to no change to the memory usage (RSS), that's very good!"
 msgstr "En este gráfico, cuanto más bajo, mejor. Vemos que la solución de hilos IO puros consigue aumentar el rendimiento sin apenas cambios en el uso de la memoria (RSS), ¡eso está muy bien!"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy, no-wrap
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""
@@ -398,6 +417,7 @@ msgid ""
 "As usual, test as close to your real application as possible."
 msgstr "Quarkus le ofrece la posibilidad de ejecutar con seguridad operaciones bloqueantes, ejecutar operaciones no bloqueantes en el hilo IO o mezclar ambos modelos. El equipo de Quarkus se toma muy en serio el rendimiento y consideramos que Quarkus ofrece grandes cifras tanto si utiliza el modelo imperativo como el reactivo. En cargas de trabajo más realistas, el coste de despacho sería mucho menos significativo, no vería diferencias tan drásticas entre ambos enfoques. Como de costumbre, realice las pruebas lo más cerca posible de su aplicación real."
 
+#. type: Plain text
 #: _posts/2020-04-21-io-thread-benchmark.adoc
 #, fuzzy
 msgid ""

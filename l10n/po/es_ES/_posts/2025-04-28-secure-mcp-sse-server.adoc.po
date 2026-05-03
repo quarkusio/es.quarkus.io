@@ -6,100 +6,120 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Getting ready for secure MCP with Quarkus MCP Server"
 msgstr "Preparándose para un MCP seguro con Quarkus MCP Server"
 
+#. type: YAML Front Matter: synopsis
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Explain how MCP clients can access Quarkus MCP SSE servers with access tokens"
 msgstr "Explicar cómo los clientes MCP pueden acceder a los servidores Quarkus MCP SSE con tokens de acceso"
 
+#. type: Title =
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 msgid "Introduction"
 msgstr "Introducción"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "https://modelcontextprotocol.io/specification/2025-03-26[The latest version of the Model Context Protocol (MCP) specification] introduces an https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization[authorization] flow."
 msgstr "link:https://modelcontextprotocol.io/specification/2025-03-26[La última versión de la especificación del Protocolo de Contexto de Modelo (MCP] ) introduce un flujo de link:https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization[autorización] ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "While it will take a bit of time for the new MCP specification to be widely supported, you can already add authentication to client and server following the https://modelcontextprotocol.io/specification/2024-11-05[previous MCP version]."
 msgstr "Aunque la nueva especificación MCP tardará un poco en ser ampliamente compatible, ya puede añadir la autenticación al cliente y al servidor siguiendo la link:https://modelcontextprotocol.io/specification/2024-11-05[versión MCP anterior] ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You only need an MCP client that can receive an access token and pass it to the MCP server and, obviously, an MCP server that verifies the token."
 msgstr "Sólo necesita un cliente MCP que pueda recibir un token de acceso y pasarlo al servidor MCP y, obviamente, un servidor MCP que verifique el token."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "In this post, we will detail how you can enforce authentication with the https://github.com/quarkiverse/quarkus-mcp-server[Quarkus MCP SSE Server]."
 msgstr "En este post, detallaremos cómo puede reforzar la autenticación con el link:https://github.com/quarkiverse/quarkus-mcp-server[Servidor SSE de Quarkus MCP] ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "We will first use Keycloak as an OpenID Connect (OIDC) provider to login and use a Keycloak JWT access token to access the server with `Quarkus MCP SSE Server Dev UI` in dev mode."
 msgstr "Primero utilizaremos Keycloak como proveedor de OpenID Connect (OIDC) para iniciar sesión y utilizaremos un token de acceso JWT de Keycloak para acceder al servidor con `Quarkus MCP SSE Server Dev UI` en modo dev."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Secondly, we will show how to log in using GitHub OAuth2 and use a GitHub binary access token to access the server in prod mode with both https://modelcontextprotocol.io/docs/tools/inspector[MCP inspector] and the `curl` tools."
 msgstr "En segundo lugar, mostraremos cómo iniciar sesión mediante GitHub OAuth2 y utilizar un token de acceso binario de GitHub para acceder al servidor en modo prod tanto con link:https://modelcontextprotocol.io/docs/tools/inspector[el inspector MCP] como con las herramientas de `curl` ."
 
+#. type: Title =
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Step 1 - Create an MCP server using the SSE transport"
 msgstr "Paso 1 - Crear un servidor MCP utilizando el transporte SSE"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "First, let's create a secure Quarkus MCP SSE server that requires authentication to establish Server-Sent Events (SSE) connection and also when invoking the tools."
 msgstr "En primer lugar, vamos a crear un servidor Quarkus MCP SSE seguro que requiera autenticación para establecer la conexión de Eventos Enviados por el Servidor (SSE) y también al invocar las herramientas."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You can find the complete project source in the https://github.com/quarkiverse/quarkus-mcp-server/tree/main/samples/secure-mcp-sse-server[Quarkus MCP SSE Server samples]."
 msgstr "Puede encontrar el código fuente completo del proyecto en link:https://github.com/quarkiverse/quarkus-mcp-server/tree/main/samples/secure-mcp-sse-server[las muestras del Servidor SSE MCP de Quarkus] ."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Maven dependencies"
 msgstr "Dependencias de Maven"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Add the following dependencies:"
 msgstr "Añada las siguientes dependencias:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "`quarkus-mcp-server-sse` is required to support MCP SSE transport."
 msgstr "`quarkus-mcp-server-sse` es necesario para soportar el transporte MCP SSE."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "`quarkus-oidc` is required to secure access to MCP SSE endpoints. Its version is defined in the Quarkus BOM."
 msgstr "`quarkus-oidc` es necesario para asegurar el acceso a los puntos finales MCP SSE. Su versión se define en la lista de materiales de Quarkus."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Tool"
 msgstr "Herramienta"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Let's create a tool that can be invoked only if the current MCP request is authenticated:"
 msgstr "Creemos una herramienta que sólo pueda ser invocada si la solicitud MCP actual está autentificada:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Provide a tool that can return a name of the current user. Note the `user-name-provider` tool name, you will use it later for a tool call."
 msgstr "Proporcione una herramienta que pueda devolver un nombre del usuario actual. Anote el nombre de la herramienta `user-name-provider` , lo utilizará más adelante para una llamada a la herramienta."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -107,110 +127,132 @@ msgid ""
 "See also how the main MCP SSE endpoint is secured in the <<initial-configuration>> section below."
 msgstr "Requiere acceso autenticado a la herramienta - sí, la única diferencia con una herramienta de servidor MCP no autenticada es `@Authenticated` , ¡eso es todo! Vea también cómo se asegura el punto final principal de MCP SSE en la sección <<initial-configuration>> más abajo."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use the injected `SecurityIdentity` to return the current user's name."
 msgstr "Utilice el `SecurityIdentity` inyectado para devolver el nombre del usuario actual."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 msgid "Configuration"
 msgstr "Configuración"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Finally, let's configure our secure MCP server:"
 msgstr "Por último, configuremos nuestro servidor MCP seguro:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Enforce an authenticated access to the main MCP SSE endpoint during the initial handshake. See also how the tool is secured with an annotation in the <<tool>> section above, though you can also secure access to the tool by listing both main and tools endpoints in the configuration, for example: `quarkus.http.auth.permission.authenticated.paths=/mcp/sse,/mcp/messages/*`."
 msgstr "Imponga un acceso autenticado al punto final principal de MCP SSE durante el handshake inicial. Vea también cómo se asegura la herramienta con una anotación en la sección <<tool>> anterior, aunque también puede asegurar el acceso a la herramienta enumerando los puntos finales principal y de herramientas en la configuración, por ejemplo: `quarkus.http.auth.permission.authenticated.paths=/mcp/sse,/mcp/messages/*` ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "We are ready to test our secure MCP server in dev mode."
 msgstr "Estamos listos para probar nuestro servidor MCP seguro en modo dev."
 
+#. type: Title =
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Step 2 - Access the MCP server in dev mode"
 msgstr "Paso 2 - Acceda al servidor MCP en modo dev"
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Start the MCP server in dev mode"
 msgstr "Inicie el servidor MCP en modo dev"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "The configuration properties that we set in the <<initial-configuration>> section above are sufficient to start the application in dev mode."
 msgstr "Las propiedades de configuración que establecimos en la sección <<initial-configuration>> anterior son suficientes para iniciar la aplicación en modo dev."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "The OIDC configuration is provided in dev mode automatically by https://quarkus.io/guides/security-openid-connect-dev-services[Dev Services for Keycloak]. It creates a default realm, client and adds two users, `alice` and `bob`, for you to get started with OIDC immediately. You can also register a custom Keycloak realm to work with the existing realm, client and user registrations."
 msgstr "La configuración de OIDC es proporcionada en modo dev automáticamente por link:https://quarkus.io/guides/security-openid-connect-dev-services[Dev Services para Keycloak] . Crea un dominio por defecto, un cliente y añade dos usuarios, `alice` y `bob` , para que pueda empezar a utilizar OIDC inmediatamente. También puede registrar un dominio Keycloak personalizado para trabajar con el dominio, el cliente y los registros de usuario existentes."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You can also login to other OIDC and OAuth2 providers in OIDC Dev UI, see the <<mcp-server-devui>> section for more details."
 msgstr "También puede iniciar sesión en otros proveedores de OIDC y OAuth2 en OIDC Dev UI, consulte la sección <<mcp-server-devui>> para obtener más detalles."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use OIDC Dev UI to login and copy access token"
 msgstr "Utilice OIDC Dev UI para iniciar sesión y copiar el token de acceso"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Go to http://localhost:8080/q/dev[Dev UI], find the OpenId Connect card:"
 msgstr "Vaya a link:http://localhost:8080/q/dev[Dev UI] , busque la tarjeta OpenId Connect:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Follow the `Keycloak Provider` link and https://quarkus.io/guides/security-openid-connect-dev-services#develop-service-applications[login to Keycloak] using an `alice` name and an `alice` password."
 msgstr "Siga el enlace `Keycloak Provider` e link:https://quarkus.io/guides/security-openid-connect-dev-services#develop-service-applications[inicie sesión en Keycloak] utilizando un nombre `alice` y una contraseña `alice` ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You can login to other providers such as `Auth0` or https://quarkus.io/guides/security-openid-connect-providers#github[GitHub] from OIDC DevUI as well. The only requirement is to update your application registration to allow callbacks to DevUI. For example, see how you can https://quarkus.io/guides/security-oidc-auth0-tutorial#looking-at-auth0-tokens-in-the-oidc-dev-ui[login to Auth0 from Dev UI]."
 msgstr "También puede iniciar sesión en otros proveedores como `Auth0` o link:https://quarkus.io/guides/security-openid-connect-providers#github[GitHub] desde OIDC DevUI. El único requisito es actualizar el registro de su aplicación para permitir devoluciones de llamada a DevUI. Por ejemplo, vea cómo puede link:https://quarkus.io/guides/security-oidc-auth0-tutorial#looking-at-auth0-tokens-in-the-oidc-dev-ui[iniciar sesión en Auth0 desde Dev UI] ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "After logging in with `Keycloak` as `alice`, copy the acquired access token using a provided copy button:"
 msgstr "Después de iniciar sesión con `Keycloak` como `alice` , copie el token de acceso adquirido utilizando el botón de copia proporcionado:"
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use Quarkus MCP Server Dev UI to access the MCP server"
 msgstr "Utilice Quarkus MCP Server Dev UI para acceder al servidor MCP"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Make sure to login and copy the access token as explained in the <<oidc-devui>> section above."
 msgstr "Asegúrese de iniciar sesión y copiar el token de acceso como se explica en la sección <<oidc-devui>> anterior."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Go to http://localhost:8080/q/dev[Dev UI], find the MCP Server card:"
 msgstr "Vaya a link:http://localhost:8080/q/dev[Dev UI] , busque la tarjeta del servidor MCP:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Select its `Tools` option and choose to `Call` the `user-name-provider` tool:"
 msgstr "Seleccione su opción `Tools` y elija `Call` la herramienta `user-name-provider` :"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Paste the copied Keycloak access token into the Tool's `Bearer token` field, and request a new MCP SSE session:"
 msgstr "Pegue el token de acceso Keycloak copiado en el campo `Bearer token` de la herramienta, y solicite una nueva sesión MCP SSE:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Make a tool call and get a response which contains the `alice` user name:"
 msgstr "Realice una llamada a la herramienta y obtenga una respuesta que contenga el nombre de usuario `alice` :"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -218,116 +260,139 @@ msgid ""
 "Before that, stop the MCP server, which runs in dev mode."
 msgstr "Todo va bien en modo dev; es hora de ver cómo funcionará en modo prod. Antes de eso, detenga el servidor MCP, que se ejecuta en modo dev."
 
+#. type: Title =
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Step 3 - Access the MCP server in prod mode"
 msgstr "Paso 3 - Acceda al servidor MCP en modo prod"
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Register GitHub OAuth2 application"
 msgstr "Registrar la aplicación GitHub OAuth2"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Before it was all in dev mode - using Quarkus devservices to try things out. Now, let's move to prod mode. If you already have a Keycloak instance running then you can use it. But to illustrate how OAuth2 works with more than just Keycloak, we will switch to GitHub OAuth2 when the application runs in _prod mode_."
 msgstr "Antes estaba todo en modo dev - utilizando Quarkus devservices para probar cosas. Ahora, pasemos al modo prod. Si ya tiene una instancia de Keycloak en funcionamiento, puede utilizarla. Pero para ilustrar cómo funciona OAuth2 con algo más que Keycloak, cambiaremos a GitHub OAuth2 cuando la aplicación se ejecute en _modo prod_ ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "First, start with registering a GitHub OAuth2 application."
 msgstr "En primer lugar, comience por registrar una aplicación GitHub OAuth2."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Follow the https://quarkus.io/guides/security-openid-connect-providers#github[GitHub OAuth2 registration] process, and make sure to register the `http://localhost:8080/login` callback URL."
 msgstr "Siga el proceso de link:https://quarkus.io/guides/security-openid-connect-providers#github[registro de OAuth2 de GitHub] y asegúrese de registrar la `http://localhost:8080/login` URL de devolución de llamada."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Next, use the client id and secret generated during the GitHub OAuth2 application registration to <<update-config-to-support-github,update the configuration to support GitHub>>."
 msgstr "A continuación, utilice el identificador de cliente y el secreto generados durante el registro de la aplicación OAuth2 de xref:update-config-to-support-github[GitHub] para xref:update-config-to-support-github[actualizar la configuración y hacerla compatible con GitHub] ."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Update the configuration to support GitHub"
 msgstr "Actualizar la configuración para soportar GitHub"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "The <<initial-configuration, configuration>> that was used to run the MCP server in dev mode was suffient because Keycloak Dev Service was supporting the OIDC login."
 msgstr "La xref:initial-configuration[configuración] que se utilizó para ejecutar el servidor MCP en modo dev fue suficiente porque Keycloak Dev Service soportaba el inicio de sesión OIDC."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "To work with GitHub in prod mode, we update the configuration as follows:"
 msgstr "Para trabajar con GitHub en modo prod, actualizamos la configuración como sigue:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Enforce an authenticated access to the main MCP SSE endpoint during the initial handshake. See also how the tool is secured with an annotation in the <<tool>> section above."
 msgstr "Imponga un acceso autenticado al punto final principal MCP SSE durante el apretón de manos inicial. Vea también cómo se asegura la herramienta con una anotación en la sección <<tool>> más arriba."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Default Quarkus OIDC configuration requires that only GitHub access tokens can be used to access MCP SSE server."
 msgstr "La configuración por defecto de Quarkus OIDC requiere que sólo se puedan utilizar tokens de acceso a GitHub para acceder al servidor MCP SSE."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "By default, `quarkus.oidc.provider=github` supports an authorization code flow only. `quarkus.oidc.application-type=service` overrides it and requires the use of bearer tokens."
 msgstr "Por defecto, `quarkus.oidc.provider=github` sólo admite un flujo de código de autorización. `quarkus.oidc.application-type=service` lo anula y exige el uso de tokens portadores."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use GitHub authorization code flow to support the login endpoint with a dedicated Quarkus OIDC `login` https://quarkus.io/guides/security-openid-connect-multitenancy[tenant] configuration."
 msgstr "Utilice el flujo de código de autorización de GitHub para respaldar el punto final de inicio de sesión con una configuración de link:https://quarkus.io/guides/security-openid-connect-multitenancy[inquilino de] Quarkus OIDC `login` dedicada."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use the client id and secret generated in the <<register-github-application>> section."
 msgstr "Utilice el identificador de cliente y el secreto generados en la sección <<register-github-application>> ."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Note the use of the `%prod.` prefixes. It ensures the configuration properties prefixed with `%prod.` are only effective in prod mode and do not interfere with dev mode."
 msgstr "Observe el uso de los prefijos `%prod.` . Asegura que las propiedades de configuración prefijadas con `%prod.` sólo sean efectivas en modo prod y no interfieran con el modo dev."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Implement Login endpoint"
 msgstr "Implementar el punto final de inicio de sesión"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Currently, MCP clients can not use the authorization code flow themselves. Therefore, we implement an OAuth2 login endpoint that will return a GitHub token for the user to use with MCP clients, which can work with bearer tokens."
 msgstr "Actualmente, los clientes MCP no pueden utilizar por sí mismos el flujo de código de autorización. Por lo tanto, implementamos un punto final de inicio de sesión OAuth2 que devolverá un token de GitHub para que el usuario lo utilice con los clientes MCP, que pueden trabajar con tokens portadores."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Add another dependency to support Qute templates:"
 msgstr "Añada otra dependencia para soportar las plantillas Qute:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "`quarkus-rest-qute` is required to generate HTML pages. Its version is defined in the Quarkus BOM."
 msgstr "`quarkus-rest-qute` es necesario para generar páginas HTML. Su versión se define en la lista de materiales de Quarkus."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "and implement the login endpoint:"
 msgstr "e implemente el punto final de inicio de sesión:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "GitHub access tokens are binary and Quarkus OIDC indirectly verifies them by using them to request GitHub specific `UserInfo` representation."
 msgstr "Los tokens de acceso a GitHub son binarios y Quarkus OIDC los verifica indirectamente utilizándolos para solicitar la representación `UserInfo` específica de GitHub."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "`AccessTokenCredential` is used to capture a binary GitHub access token."
 msgstr "`AccessTokenCredential` se utiliza para capturar un token de acceso binario de GitHub."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -335,36 +400,43 @@ msgid ""
 "Of course, you would not do that in a real application. It is just an example to demonstrate the capability."
 msgstr "Después de que el usuario inicie sesión en GitHub y sea redirigido a este endpoint, el token de acceso será devuelto al usuario en una página HTML generada con una simple link:https://github.com/quarkiverse/quarkus-mcp-server/tree/main/samples/secure-mcp-sse-server/src/main/resources/templates/accessTokenPage.html[plantilla de Qute] . Por supuesto, usted no haría esto en una aplicación real. Es sólo un ejemplo para demostrar la capacidad."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Package and run the MCP Server"
 msgstr "Empaquete y ejecute el servidor MCP"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Package the MCP server application:"
 msgstr "Empaquete la aplicación del servidor MCP:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Run it:"
 msgstr "Ejecútelo:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You can also run the MCP server from its Maven coordinates directly with `jbang`:"
 msgstr "También puede ejecutar el servidor MCP desde sus coordenadas Maven directamente con `jbang` :"
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Login to GitHub and copy the access token"
 msgstr "Inicie sesión en GitHub y copie el token de acceso"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Access `http://localhost:8080/login`, login to GitHub, and copy the returned access token:"
 msgstr "Acceda a `http://localhost:8080/login` , inicie sesión en GitHub y copie el token de acceso devuelto:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -372,6 +444,7 @@ msgid ""
 "However, GitHub may require that both client id and secret are submitted as form parameters instead."
 msgstr "Por defecto, el proveedor GitHub de Quarkus envía el id de cliente y el secreto en la cabecera de Autorización HTTP. Sin embargo, GitHub puede requerir que tanto el id de cliente como el secreto se envíen como parámetros del formulario en su lugar."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -380,81 +453,97 @@ msgid ""
 "with the following two properties instead:"
 msgstr "Cuando obtenga un error HTTP 401 después de iniciar sesión en GitHub y ser redirigido de nuevo al servidor MCP de Quarkus, intente sustituir la propiedad `%prod.quarkus.oidc.login.credentials.secret=${github.client.secret}` por las dos propiedades siguientes en su lugar:"
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use MCP Inspector to access the MCP server"
 msgstr "Utilice MCP Inspector para acceder al servidor MCP"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "https://modelcontextprotocol.io/docs/tools/inspector[MCP Inspector] is an interactive developer tool for testing and debugging MCP servers. Let's use it to invoke our MCP server with the authentication."
 msgstr "link:https://modelcontextprotocol.io/docs/tools/inspector[MCP Inspector] es una herramienta interactiva de desarrollo para probar y depurar servidores MCP. Utilicémosla para invocar nuestro servidor MCP con la autenticación."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Launch https://modelcontextprotocol.io/docs/tools/inspector[MCP inspector]:"
 msgstr "Inicie link:https://modelcontextprotocol.io/docs/tools/inspector[el inspector MCP] :"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Ensure that you have https://github.com/modelcontextprotocol/inspector/releases/tag/0.6.0[modelcontextprotocol/inspector] version 0.6.0 or later installed as it adds support for specifying bearer token authentication."
 msgstr "Asegúrese de tener instalada la versión 0.6.0 o posterior de link:https://github.com/modelcontextprotocol/inspector/releases/tag/0.6.0[modelcontextprotocol/inspector] , ya que añade soporte para especificar la autenticación mediante token de portador."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Navigate to the URL provided into a browser."
 msgstr "Navegue hasta la URL proporcionada en un navegador."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Change the _Transport Type_ dropdown to `SSE` and the _URL_ to `http://localhost:8080/mcp/sse` so that it targets the running Quarkus MCP Server:"
 msgstr "Cambie el desplegable _Tipo de transporte_ a `SSE` y la _URL_ a `http://localhost:8080/mcp/sse` para que se dirija al Servidor MCP de Quarkus en ejecución:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Select the _Authorization_ button and paste the copied GitHub access token from the browser to the `Bearer Token` field and connect to the Quarkus MCP SSE server:"
 msgstr "Seleccione el botón _Autorización_ y pegue el token de acceso a GitHub copiado del navegador en el campo `Bearer Token` y conéctese al servidor SSE de Quarkus MCP:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Next, make a `user-name-provider` tool call:"
 msgstr "A continuación, realice una llamada a la herramienta `user-name-provider` :"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You will see the name from your GitHub account returned."
 msgstr "Verá que se le devuelve el nombre de su cuenta de GitHub."
 
+#. type: Title ==
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use curl to access the MCP server"
 msgstr "Utilice curl para acceder al servidor MCP"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Finally, let's use `curl` and also learn a little bit how both the MCP protocol and MCP SSE transport work."
 msgstr "Por último, utilicemos `curl` y aprendamos también un poco cómo funcionan tanto el protocolo MCP como el transporte MCP SSE."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "First, open a new terminal window and access the main SSE endpoint without the GitHub access token:"
 msgstr "En primer lugar, abra una nueva ventana de terminal y acceda al punto final principal de ESS sin el token de acceso de GitHub:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "You will get HTTP 401 error."
 msgstr "Obtendrá un error HTTP 401."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Use the access token that was obtained previously to access MCP server:"
 msgstr "Utilice el token de acceso obtenido anteriormente para acceder al servidor MCP:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "and get an SSE response such as:"
 msgstr "y obtendrá una respuesta SSE como"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -462,51 +551,61 @@ msgid ""
 "We cannot invoke the tool directly, we first need to follow the MCP handshake protocol."
 msgstr "Se crea la conexión SSE. Observe la ruta única en el `data` recibido, necesitamos esta ruta para invocar las herramientas. No podemos invocar la herramienta directamente, primero tenemos que seguir el protocolo de apretón de manos MCP."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Open another terminal window and use the same GitHub access token to initialize the curl as MCP client, and access the tool, using the value of the `data` property to build the target URL."
 msgstr "Abra otra ventana de terminal y utilice el mismo token de acceso a GitHub para inicializar el curl como cliente MCP, y acceda a la herramienta, utilizando el valor de la propiedad `data` para construir la URL de destino."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Send the client initialization request:"
 msgstr "Envíe la solicitud de inicialización del cliente:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "where the `initialize.json` file has a content like this:"
 msgstr "donde el archivo `initialize.json` tiene un contenido como éste:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Send the client initialization confirmation:"
 msgstr "Enviar la confirmación de inicialización del cliente:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "where the `initialized.json` file has a content like this:"
 msgstr "donde el archivo `initialized.json` tiene un contenido como éste:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Finally, send the request that will invoke the tool:"
 msgstr "Por último, envíe la solicitud que invocará la herramienta:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "where the `call.json` file has a content like this:"
 msgstr "donde el archivo `call.json` tiene un contenido como éste:"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Now look at the terminal window containing the SSE connection and you will see the name from your GitHub account returned."
 msgstr "Ahora mire la ventana del terminal que contiene la conexión SSE y verá que se le devuelve el nombre de su cuenta GitHub."
 
+#. type: Title =
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid ""
@@ -514,16 +613,19 @@ msgid ""
 "You can use any MCP client that allows passing a bearer token to the server."
 msgstr "En esta entrada de blog, explicamos cómo puede crear fácilmente un servidor MCP SSE de Quarkus que requiera autenticación, obtener un token de acceso y utilizarlo para acceder a la herramienta del servidor MCP en modo dev con `Quarkus MCP SSE Server Dev UI` y en modo prod tanto con el link:https://modelcontextprotocol.io/docs/tools/inspector[inspector MCP] como con las herramientas curl. Puede utilizar cualquier cliente MCP que permita pasar un token de acceso al servidor."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Notice, that there is no real difference in how OAuth2 is done for either Quarkus MCP server or REST endpoints. The most complex part is to get the settings configured correctly for your OAuth2 provider - but when all is done you just apply a few annotations to mark relevant methods as secure and Quarkus handles the authentication for you."
 msgstr "Tenga en cuenta, que no hay ninguna diferencia real en cómo OAuth2 se hace ya sea para Quarkus servidor MCP o puntos finales REST. La parte más compleja es conseguir que los ajustes se configuren correctamente para su proveedor de OAuth2 - pero cuando todo está hecho sólo tiene que aplicar unas cuantas anotaciones para marcar los métodos relevantes como seguros y Quarkus se encarga de la autenticación por usted."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "This blog post uses the previous version of the MCP protocol. The Quarkus team is keeping a close eye on the MCP Authorization specification evolution and working on having all possible MCP Authorization scenarios supported."
 msgstr "Esta entrada de blog utiliza la versión anterior del protocolo MCP. El equipo de Quarkus se mantiene atento a la evolución de la especificación de Autorización MCP y trabaja para tener todos los escenarios posibles de Autorización MCP soportados."
 
+#. type: Plain text
 #: _posts/2025-04-28-secure-mcp-sse-server.adoc
 #, fuzzy
 msgid "Stay tuned for more updates!"

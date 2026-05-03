@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Cross-Site Request Forgery Prevention"
@@ -31,11 +31,13 @@ msgstr "Prevención de la falsificación de petición en sitios cruzados"
 msgid "https://owasp.org/www-community/attacks/csrf[Cross-Site Request Forgery (CSRF)] is an attack that forces an end user to execute unwanted actions on a web application in which they are currently authenticated."
 msgstr "El  link:https://owasp.org/www-community/attacks/csrf[Cross-Site Request Forgery (CSRF)] es un ataque que obliga a un usuario final a ejecutar acciones no deseadas en una aplicación web en la que está autenticado."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "Quarkus Security provides a CSRF prevention feature which implements https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie[Double Submit Cookie] and <<csrf-request-header>> techniques."
 msgstr "Quarkus Security proporciona una función de prevención de CSRF que implementa las técnicas link:https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie[Double Submit Cookie] y <<csrf-request-header>> ."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid ""
@@ -43,38 +45,44 @@ msgid ""
 "directly embedded in a hidden form input of server-side rendered HTML forms, or submitted as a request header value."
 msgstr "`Double Submit Cookie` La técnica requiere que el token CSRF se envíe como `HTTPOnly` , opcionalmente firmado, cookie al cliente, y directamente incrustado en una entrada de formulario oculta de los formularios HTML renderizados del lado del servidor, o enviado como un valor de cabecera de solicitud."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "If you are looking for stateless CSRF prevention that does not involve the server creating a cookie, have a look at the xref:security-cors.adoc#cors-filter[CORS filter]. Despite its name it also offers CSRF prevention by checking whether a request's `Origin` either matches the target `Host` or is in a list of allowed origins server-side."
 msgstr "Si busca una prevención CSRF sin estado que no implique que el servidor cree una cookie, eche un vistazo al xref:security-cors.adoc#cors-filter[filtro CORS] . A pesar de su nombre, también ofrece prevención CSRF comprobando si el `Origin` de una solicitud coincide con el `Host` de destino o se encuentra en una lista de orígenes permitidos del lado del servidor."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "The extension consists of a xref:rest.adoc[Quarkus REST (formerly RESTEasy Reactive)] server filter which creates and verifies CSRF tokens in `application/x-www-form-urlencoded` and `multipart/form-data` forms and a Qute HTML form parameter provider which supports the xref:qute-reference.adoc#injecting-beans-directly-in-templates[injection of CSRF tokens in Qute templates]."
 msgstr "La extensión consiste en un filtro de servidor xref:rest.adoc[Quarkus REST (antes RESTEasy Reactive)] que crea y verifica los xref:qute-reference.adoc#injecting-beans-directly-in-templates[tokens CSRF] en los formularios `application/x-www-form-urlencoded` y `multipart/form-data` y un proveedor de parámetros de formularios HTML Qute que admite la xref:qute-reference.adoc#injecting-beans-directly-in-templates[inyección de tokens CSRF en las plantillas Qute] ."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "The CSRF prevention filter applies to requests using HTTP `POST`, `PUT`, `PATCH`, `DELETE` and other methods that can change the REST application state."
 msgstr "El filtro de prevención CSRF se aplica a las solicitudes que utilizan HTTP `POST` , `PUT` , `PATCH` , `DELETE` y otros métodos que pueden cambiar el estado de la aplicación REST."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Creating the Project"
 msgstr "Creación del proyecto"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 msgid ""
 "First, we need a new project.\n"
 "Create a new project with the following command:"
 msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "This command generates a project which imports the `rest-csrf` extension."
 msgstr "Este comando genera un proyecto que importa la extensión `rest-csrf` ."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid ""
@@ -147,7 +155,7 @@ msgstr "La solicitud POST del formulario fallará con el estado HTTP `400` si el
 msgid "At this stage no additional configuration is needed - by default the CSRF form field and cookie name will be set to `csrf-token`, and the filter will verify the token. But you can change these names if you would like:"
 msgstr "En esta etapa no se necesita ninguna configuración adicional - por defecto el campo de formulario CSRF y el nombre de la cookie se establecerán en `csrf_token`, y el filtro verificará el token. Pero vamos a cambiar estos nombres:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Sign CSRF token"
@@ -159,7 +167,7 @@ msgstr "Firmar token CSRF"
 msgid "You can get `HMAC` signatures created for the generated CSRF tokens and have these `HMAC` values stored as CSRF token cookies if you would like to avoid the risk of the attackers recreating the CSRF cookie token. All you need to do is to configure a token signature secret which must be at least 32 characters long:"
 msgstr "Puede obtener firmas `HMAC` creadas para los tokens CSRF generados y hacer que estos valores `HMAC` se almacenen como cookies de token CSRF si desea evitar el riesgo de que los atacantes vuelvan a crear el token de cookie CSRF. Todo lo que necesitas hacer es configurar un secreto de firma de token que debe tener al menos 32 caracteres:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "CSRF Request Header"
@@ -177,6 +185,7 @@ msgstr "Si no se utilizan etiquetas HTML `form` y necesita pasar el token CSRF c
 msgid "This expression is used to inject a CSRF token header and token. This token will be verified by the CSRF filter against a CSRF cookie."
 msgstr "Esta expresión se utiliza para inyectar un token CSRF en un campo de formulario oculto. Este token será verificado por el filtro CSRF contra una cookie CSRF."
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "Default header name is `X-CSRF-TOKEN`, you can customize it with `quarkus.rest-csrf.token-header-name`, for example:"
@@ -188,25 +197,25 @@ msgstr "El nombre de cabecera por defecto es `X-CSRF-TOKEN` , puede personalizar
 msgid "If you need to access the CSRF cookie from JavaScript in order to pass its value as a header, use `{inject:csrf.cookieName}` and `{inject:csrf.headerName}` to inject the cookie name which has to be read as a CSRF header value and allow accessing this cookie:"
 msgstr "Si necesita acceder a la cookie CSRF desde JavaScript para pasar su valor como cabecera, utilice `{inject:csrf.cookieName}` y `{inject:csrf.headerName}` para inyectar el nombre de la cookie que debe leerse como valor de cabecera CSRF y permitir el acceso a esta cookie:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Cross-origin resource sharing"
 msgstr "Compartir recursos entre orígenes"
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "If you would like to enforce CSRF prevention in a Cross-origin environment, please avoid supporting all Origins."
 msgstr "Si desea aplicar la prevención CSRF en un entorno de origen cruzado, evite admitir todos los orígenes."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "Restrict supported Origins to trusted Origins only, see xref:security-cors.adoc#cors-filter[CORS filter] section of the \"Cross-origin resource sharing\" guide for more information."
 msgstr "Para obtener más información, consulte  link:http-reference.html#cors-filter[Uso compartido de recursos entre orígenes]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Restrict CSRF token verification"
@@ -242,7 +251,7 @@ msgstr "POST json request to `/users`, CSRF token verification is not needed"
 msgid "As you can see a CSRF token verification will be required at the `/service/user` path accepting the `application/x-www-form-urlencoded` payload, but `User` JSON representation posted to both `/service/user` and `/service/users` method will have no CSRF token and therefore the token verification has to be skipped in these cases by restricting it to the specific `/service/user` request path but also allowing not only `application/x-www-form-urlencoded` on this path:"
 msgstr "Como puede ver, se requerirá una verificación de token CSRF en la ruta `/service/user` que acepte la carga útil `application/x-www-form-urlencoded`, pero la representación JSON `User` enviada a los métodos `/service/user` y `/service/users` no tendrá token CSRF y, por lo tanto, la verificación de token debe omitirse en estos casos restringiéndola a la ruta de solicitud `/service/user` específica, pero permitiendo también no sólo `application/x-www-form-urlencoded` en esta ruta:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy, no-wrap
 msgid "Verify CSRF token in the application code"
@@ -266,26 +275,30 @@ msgstr "Compara los valores del campo del formulario CSRF y de la cookie y falla
 msgid "Also disable the token verification in the filter:"
 msgstr "También desactiva la verificación de tokens en el filtro:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, no-wrap
 msgid "Configuration Reference"
 msgstr "Referencia de configuración"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
 msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"
 
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "Configuring the CSRF prevention programmatically"
 msgstr "Configurar la prevención CSRF mediante programación"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "When the `quarkus-rest-csrf` extension is used together with the `quarkus-security` extension, the `io.quarkus.vertx.http.security.HttpSecurity` CDI event allows you to customize the CSRF prevention programmatically:"
 msgstr "Cuando la extensión `quarkus-rest-csrf` se utiliza junto con la extensión `quarkus-security` , el evento CDI `io.quarkus.vertx.http.security.HttpSecurity` le permite personalizar la prevención CSRF mediante programación:"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid ""
@@ -293,7 +306,7 @@ msgid ""
 "If this extension is missing, call to the `CSRF.builder()` will fail."
 msgstr "Crea el constructor de configuración de prevención CSRF proporcionado por la extensión `quarkus-rest-csrf` . Si falta esta extensión, la llamada a `CSRF.builder()` fallará."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, no-wrap
 msgid "References"
@@ -305,6 +318,7 @@ msgstr "Referencias"
 msgid "https://owasp.org/www-community/attacks/csrf[OWASP Cross-Site Request Forgery]"
 msgstr "link:https://owasp.org/www-community/attacks/csrf[Falsificación de solicitud de sitio cruzado OWASP]"
 
+#. type: Plain text
 #: _versions/main/guides/security-csrf-prevention.adoc
 #, fuzzy
 msgid "xref:rest.adoc[Quarkus REST]"

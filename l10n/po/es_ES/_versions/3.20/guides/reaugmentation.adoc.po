@@ -6,26 +6,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "Re-augment a Quarkus Application"
 msgstr "Volver a medir una aplicación de Quarkus"
 
+#. type: Title =
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "What is augmentation?"
 msgstr "¿Qué es el proceso de aumento?"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "Quarkus application configuration may include two types of configuration options:"
 msgstr "La configuración de la aplicación Quarkus puede incluir dos tipos de opciones de configuración:"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "Build time options, handled during the application build time;"
 msgstr "Opciones de tiempo de construcción, manejadas durante el tiempo de construcción de la aplicación;"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "Runtime options, that may be adjusted after the application has been built but before it has been launched."
 msgstr "Opciones de tiempo de ejecución, que pueden ajustarse después de la construcción de la aplicación pero antes de su lanzamiento."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -36,14 +42,17 @@ msgid ""
 "It doesn't matter if you use profiles or any other way to override the properties."
 msgstr "El aumento es una fase del proceso de compilación de una aplicación durante la cual el código de bytes de la aplicación se optimiza de acuerdo con la configuración del tiempo de compilación de la aplicación. Los pasos de inicialización que solían ocurrir cuando se desplegaba un archivo EAR en un servidor Jakarta EE, como el análisis sintáctico de la configuración estática, la creación de instancias proxy, etc., ocurren ahora en el momento del aumento. Los beans CDI añadidos después del aumento no funcionarán (debido a la falta de clases proxy) así como las propiedades de tiempo de compilación (por ejemplo `quarkus.datasource.db-kind` ) cambiadas después del aumento serán ignoradas. Las propiedades de tiempo de compilación están marcadas con un icono de candado ([lock]) en la xref:all-config.adoc[lista de todas las opciones de configuración] . No importa si utiliza perfiles o cualquier otra forma de anular las propiedades."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "Re-augmentation is the process of recreating the augmentation output for a different build time configuration"
 msgstr "La re-aumentación es el proceso de recrear la salida de aumento para una configuración de tiempo de construcción diferente"
 
+#. type: Title =
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "When is re-augmentation useful?"
 msgstr "¿Cuándo es útil la re-aumentación?"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -54,15 +63,18 @@ msgid ""
 "Think of the consequences and what other options you have!"
 msgstr "La reaumentación es útil en caso de que los usuarios de su aplicación deseen poder cambiar algunas de sus propiedades en tiempo de compilación. Por ejemplo, cambiando el controlador de la base de datos o activando o desactivando funciones (por ejemplo, xref:opentelemetry.adoc[OpenTelemetry] o link:{config-consul-guide}[Config Consul] ). Si sólo hay dos o tres propiedades de tiempo de compilación que dependen del entorno del usuario, puede considerar la posibilidad de proporcionar compilaciones alternativas de la aplicación. Sin embargo, en caso de que haya más propiedades de este tipo, puede preferir enviar un jar mutable en su lugar y dejar que sus usuarios vuelvan a calibrar la aplicación para su entorno. Tenga en cuenta que no podrá utilizar imágenes nativas con el tipo de paquete `mutable-jar` . ¡Piense en las consecuencias y en qué otras opciones tiene!"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid "It is not a good idea to do re-augmentation at runtime unless you miss the good old times when starting up a server took several minutes, and you could enjoy a cup of coffee until it was ready."
 msgstr "No es una buena idea hacer la re-aumentación en tiempo de ejecución, a menos que eches de menos los buenos tiempos en los que arrancar un servidor tardaba varios minutos y podías disfrutar de una taza de café hasta que estaba listo."
 
+#. type: Title =
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "How to re-augment a Quarkus application"
 msgstr "Cómo volver a aumentar una aplicación de Quarkus"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -72,6 +84,7 @@ msgid ""
 "which contains the deployment JARs and their dependencies (and some class-loader configuration)."
 msgstr "Para ejecutar los pasos de aumento necesita los JAR de despliegue de las extensiones de Quarkus utilizadas. Estos JAR sólo están presentes en la distribución `mutable-jar` . Esto significa que necesita compilar su aplicación con `quarkus.package.jar.type=mutable-jar` . La distribución `mutable-jar` es igual que la distribución `fast-jar` , excepto por la carpeta adicional `quarkus-app/lib/deployment` que contiene los JAR de despliegue y sus dependencias (y alguna configuración del cargador de clases)."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -80,6 +93,7 @@ msgid ""
 "However, as of this writing changing `quarkus.datasource.db-kind` at runtime did neither fail nor produce a warning but was silently ignored."
 msgstr "Por defecto, recibirá una advertencia si se ha modificado una propiedad de tiempo de compilación en tiempo de ejecución. Puede establecer la propiedad `quarkus.config.build-time-mismatch-at-runtime=fail` para asegurarse de que su aplicación no se inicie si hay un desajuste. Sin embargo, en el momento de escribir estas líneas, cambiar `quarkus.datasource.db-kind` en tiempo de ejecución no produjo ni un fallo ni una advertencia, sino que se ignoró silenciosamente."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -89,22 +103,27 @@ msgid ""
 "configuration files."
 msgstr "La configuración en tiempo de compilación proporcionada por las herramientas de compilación ( `properties` en Maven `pom.xml` o `gradle.properties` en Gradle) en el espacio de nombres `quarkus` formará parte de la distribución `mutable-jar` , incluida la configuración de `quarkus` que haga referencia a secretos o contraseñas. Por favor, no incluya información sensible en los archivos de configuración de las herramientas de compilación."
 
+#. type: Title ==
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "1. Build your application as `mutable-jar`"
 msgstr "1. Construya su aplicación como `mutable-jar`"
 
+#. type: Title ==
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "2. Re-augment your application with a different build time configuration"
 msgstr "2. Vuelva a calibrar su aplicación con una configuración de tiempo de compilación diferente"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "In order to re-augment your Quarkus application with different build time properties, start the application with the desired configuration plus the `quarkus.launch.rebuild` system property set to `true`."
 msgstr "Para volver a aumentar su aplicación Quarkus con diferentes propiedades de tiempo de compilación, inicie la aplicación con la configuración deseada más la propiedad del sistema `quarkus.launch.rebuild` establecida en `true`."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "The following example changes the `quarkus.datasource.db-kind` to `mysql`. For this to work the `mysql-extension` must have been included in the build. Augmentation can only use extensions that were present during compile time."
 msgstr "El siguiente ejemplo cambia el `quarkus.datasource.db-kind` por `mysql`. Para que esto funcione el `mysql-extension` debe haber sido incluido en la compilación. La ampliación sólo puede utilizar las extensiones que estaban presentes en el momento de la compilación."
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 #, fuzzy
 msgid ""
@@ -113,10 +132,12 @@ msgid ""
 "The command line above will not launch the application. Quarkus will exit immediately after the application has been re-augmented."
 msgstr "No importa si utiliza propiedades del sistema, variables de entorno, perfiles o un archivo de configuración externo. Se utilizará la configuración actual para el aumento (el contenido de `quarkus-app/quarkus` se sustituirá por la nueva salida de aumento). La línea de comandos anterior no iniciará la aplicación. Quarkus saldrá inmediatamente después de que la aplicación haya sido re-aumentada."
 
+#. type: Title ==
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "3. Optional: Delete the deployments folder"
 msgstr "3. Opcional: Eliminar la carpeta de despliegues"
 
+#. type: Plain text
 #: _versions/3.20/guides/reaugmentation.adoc
 msgid "You may delete the directory `quarkus-app/lib/deployment` to save some space in your ZIP distribution or Docker image (remember to use a multistage Docker build to avoid unnecessary layers). After deleting the `deployment` directory, it is obviously not possible anymore to re-augment the application."
 msgstr "Puedes eliminar el directorio `quarkus-app/lib/deployment` para ahorrar algo de espacio en tu distribución ZIP o imagen Docker (recuerda utilizar una construcción Docker multietapa para evitar capas innecesarias). Después de eliminar el directorio `deployment`, obviamente ya no es posible volver a aumentar la aplicación."

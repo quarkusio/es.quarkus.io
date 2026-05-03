@@ -41,7 +41,7 @@ msgstr ""
 msgid "This post gives some feedback on a particular challenge I have been facing in a professional context with respect to deploying applications on Kubernetes, and how we were able to provide a solution that met our goals using Quarkus."
 msgstr "Este post ofrece algunos comentarios sobre un desafío particular que he estado enfrentando en un contexto profesional con respecto al despliegue de aplicaciones en Kubernetes, y cómo pudimos proporcionar una solución que cumplió con nuestros objetivos utilizando Quarkus."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "The challenge"
@@ -59,6 +59,7 @@ msgstr "Desde hace unos años estoy involucrado en un proyecto de Kubernetes, co
 msgid "Onboarding more easily and more quickly new technologies (either applicative frameworks, or middleware products)."
 msgstr "Incorporación más fácil y rápida de nuevas tecnologías (ya sean marcos aplicativos o productos de middleware)."
 
+#. type: Plain text
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid ""
@@ -90,7 +91,7 @@ msgstr "Además de estos objetivos, había una restricción relacionada con el h
 msgid "Some projections indicated that at project end, the different clusters in production would contain 10'000 pods."
 msgstr "Algunas proyecciones indicaban que, al final del proyecto, los diferentes grupos en producción contendrían 10.000 vainas."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "First attempts"
@@ -144,12 +145,13 @@ msgstr "Cuando nos alejamos de Tower, decidimos aprovechar nuestra infraestructu
 msgid "All was well... until we started deploying multiple tenants at the same time, and/or different applications. We had sized the _ocpdeploy_ container to `200 millicores` and `280 Mb` of RAM. For some applications there were around 30 tenants, that would be all deployed in parallel. This meant 30 pods, which accounted for `6 cores` and `8 Gb` of RAM. This seems livable, but deployments tend to be done after business hours, between 7 and 8pm for many. And we started being afraid of the impact _ocpdeploy_ itself would have if we were running multiple deployments in parallel, on top of our SpringBoot or WildFly applications, which take their toll on the cluster at startup."
 msgstr "Todo iba bien... hasta que empezamos a desplegar varios inquilinos al mismo tiempo, y/o diferentes aplicaciones. Habíamos dimensionado el contenedor _ocpdeploy_ a `200 millicores` y `280 Mb` de RAM. Para algunas aplicaciones había alrededor de 30 inquilinos, que se desplegarían todos en paralelo. Esto significaba 30 pods, que representaban `6 cores` y `8 Gb` de RAM. Esto parece habitable, pero los despliegues tienden a hacerse después de las horas de trabajo, entre las 7 y las 8 de la tarde para muchos. Y empezamos a temer el impacto que tendría el propio _ocpdeploy_ si ejecutáramos varios despliegues en paralelo, encima de nuestras aplicaciones SpringBoot o WildFly, que pasan factura al cluster en el arranque."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "Enter the Quarkus Universe"
 msgstr "Entra en el Universo Quarkus"
 
+#. type: Plain text
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid ""
@@ -163,6 +165,7 @@ msgstr "Así que hace menos de un año decidimos lanzar un POC de Quarkus en _oc
 msgid "Fortunately, other bits were already there in Quarkus, such as support for command mode applications, a rest client, the Vault extension, and support for the Fabric8 Kubernetes Client, which provided a nice base for a new OpenShift Client extension that was added to the core. The Kubernetes Client extension alone was a huge push for the project because when we started we did not have Argo available, so we had to implement _apply_ and _prune_ ourselves."
 msgstr "Afortunadamente, otras partes ya estaban allí en Quarkus, como el apoyo a las aplicaciones de modo de comando, un cliente de descanso, la extensión Vault, y el apoyo a la Fabric8 Kubernetes Client, que proporcionó una buena base para una nueva extensión de OpenShift Client que se añadió al núcleo. La extensión Kubernetes Client por sí sola fue un gran impulso para el proyecto porque cuando empezamos no teníamos Argo disponible, así que tuvimos que implementar _apply_ y _prune_ nosotros mismos."
 
+#. type: Plain text
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid ""
@@ -212,7 +215,7 @@ msgstr "Reescribir las pruebas para usar los diferentes enfoques de mocking, inc
 msgid "This allowed us to provide extensive testing through Kubernetes yaml generation, _snapshotting_ and _replay_ in a variety of situations transforming all the configuration to be _MP config_ compliant."
 msgstr "Esto nos ha permitido realizar pruebas exhaustivas mediante la generación de yaml de Kubernetes, la _realización de instantáneas_ y la _reproducción_ en diversas situaciones, transformando toda la configuración para que sea compatible con _MP config_."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "Benchmarks"
@@ -272,164 +275,196 @@ msgstr "La comparación entre `Quarkus native 180 Mb` y `50 Mb` también fue int
 msgid "The last interesting observation we made was that the results for `plain Java 180 Mb` were nearly identical to `Quarkus jvm 180 Mb`. This meant that the cost of the applicative framework, which provides maintainability and productivity, was 0 in our case. It's like having your cake and eating it as well. In our case we did not mind slow executions, as long as we could save a lot on memory and CPU, which we were able to achieve."
 msgstr "La última observación interesante que hicimos fue que los resultados de `plain Java 180 Mb` eran casi idénticos a los de `Quarkus jvm 180 Mb`. Esto significaba que el coste del marco aplicativo, que proporciona la mantenibilidad y la productividad, era 0 en nuestro caso. Es como tener el pastel y comérselo también. En nuestro caso no nos importaban las ejecuciones lentas, siempre que pudiéramos ahorrar mucho en memoria y CPU, lo que pudimos conseguir."
 
+#. type: Plain text
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "Program execution in seconds for different limits (in millicores)"
 msgstr "Ejecución del programa en segundos para diferentes límites (en milicores)"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "plain Java (180Mb)"
 msgstr "Java plano (180Mb)"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "Quarkus Native (180Mb)"
 msgstr "Quarkus Native (180Mb)"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "Quarkus JVM (180Mb)"
 msgstr "Quarkus JVM (180Mb)"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "Quarkus Native (50Mb)"
 msgstr "Quarkus Native (50Mb)"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "50m"
 msgstr "50m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "283"
 msgstr "283"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "18"
 msgstr "18"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "306"
 msgstr "306"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "61"
 msgstr "61"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "100m"
 msgstr "100m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "95"
 msgstr "95"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "9"
 msgstr "9"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "120"
 msgstr "120"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "32"
 msgstr "32"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "250m"
 msgstr "250m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "38"
 msgstr "38"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 msgid "4"
 msgstr "4"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "43"
 msgstr "43"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "11"
 msgstr "11"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "500m"
 msgstr "500m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "17"
 msgstr "17"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 msgid "3"
 msgstr "3"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 msgid "21"
 msgstr "21"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "8"
 msgstr "8"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "1000m"
 msgstr "1000m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "5"
 msgstr "5"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "1500m"
 msgstr "1500m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "2000m"
 msgstr "2000m"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "7"
 msgstr "7"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "No Limit"
 msgstr "Sin límite"
 
+#. type: Table
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid "6"
 msgstr "6"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "A few issues"
@@ -507,7 +542,7 @@ msgstr "link:https://groups.google.com/g/Quarkus-dev/c/KXzJ2UPGRvI/m/3AEsLvZNBAA
 msgid "This seems quite a bit, but actually none of those bullet points were major issues, or something we could not work around. Several issues were related to configuration, in part because the program was run as a Tekton task, and there is limited flexibility on how you define optional parameters in Tekton. I have listed only those points that we had to work around. Many issues or questions were actually resolved as we were making progress through answers in the google group, or actual fixes."
 msgstr "Esto parece bastante, pero en realidad ninguno de esos puntos era un problema importante, o algo que no pudiéramos solucionar. Varios problemas estaban relacionados con la configuración, en parte porque el programa se ejecutaba como una tarea de Tekton, y la flexibilidad para definir parámetros opcionales en Tekton es limitada. Sólo he enumerado los puntos en los que tuvimos que trabajar. Muchos problemas o preguntas se resolvieron en realidad a medida que avanzábamos a través de respuestas en el grupo de Google, o correcciones reales."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "CI for native builds"
@@ -537,7 +572,7 @@ msgstr "Pero definitivamente hay algunas preguntas sobre el dimensionamiento de 
 msgid "The only drawback compared to the original solution was that our regression test suite was slower to run, essentially because our tests generated resources in the context of a specific configuration. And since we were using _MP config_, we needed to boot a new Quarkus context every time we wanted to test a different configuration. Fortunately booting a new context is extremely fast in Quarkus, but still a lot slower than with our original plain Java solution."
 msgstr "El único inconveniente en comparación con la solución original era que nuestro conjunto de pruebas de regresión era más lento de ejecutar, esencialmente porque nuestras pruebas generaban recursos en el contexto de una configuración específica. Y como estábamos usando _MP config_, necesitábamos arrancar un nuevo contexto de Quarkus cada vez que queríamos probar una configuración diferente. Afortunadamente, arrancar un nuevo contexto es extremadamente rápido en Quarkus, pero sigue siendo mucho más lento que con nuestra solución original de Java."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "It is all about the community"
@@ -609,7 +644,7 @@ msgstr "Revisar rápidamente las relaciones públicas y facilitar las contribuci
 msgid "Releasing with high frequency."
 msgstr "Liberando con alta frecuencia."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy, no-wrap
 msgid "Takeovers"
@@ -687,6 +722,7 @@ msgstr "Modo de desarrollo (local y remoto)"
 msgid "A framework for developing extensions that facilitate implementing patterns such as the build time initialization"
 msgstr "Un marco para el desarrollo de extensiones que facilitan la implementación de patrones como la inicialización en tiempo de construcción"
 
+#. type: Plain text
 #: _posts/2021-06-08-quarkus-deploys-apps-on-openshift.adoc
 #, fuzzy
 msgid ""

@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Writing Your Own Extension"
@@ -31,6 +31,7 @@ msgstr "Escribir su propia extensión"
 msgid "Quarkus extensions add a new developer focused behavior to the core offering, and consist of two distinct parts, buildtime augmentation and runtime container. The augmentation part is responsible for all metadata processing, such as reading annotations, XML descriptors etc. The output of this augmentation phase is recorded bytecode which is responsible for directly instantiating the relevant runtime services."
 msgstr "Las extensiones de Quarkus añaden un nuevo comportamiento centrado en el desarrollador a la oferta principal, y constan de dos partes distintas, el aumento en tiempo de construcción y el contenedor en tiempo de ejecución. La parte de aumento es responsable de todo el procesamiento de metadatos, como la lectura de anotaciones, descriptores XML, etc. El resultado de esta fase de aumento es un código de bytes grabado que se encarga de instanciar directamente los servicios de tiempo de ejecución pertinentes."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -44,7 +45,7 @@ msgstr "Esto significa que los metadatos sólo se procesan una vez en tiempo de 
 msgid "This is an in-depth documentation, see the xref:building-my-first-extension.adoc[building my first extension] if you need an introduction."
 msgstr "Esta es una documentación en profundidad, vea la  link:building-my-first-extension.html[construcción de mi primera extensión] si necesita una introducción."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Extension philosophy"
@@ -56,12 +57,13 @@ msgstr "Filosofía de la extensión"
 msgid "This section is a work in progress and gathers the philosophy under which extensions should be designed and written."
 msgstr "Esta sección es un trabajo en curso y recoge la filosofía bajo la cual deben diseñarse y escribirse las extensiones."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Why an extension framework"
 msgstr "Por qué un marco de extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -71,6 +73,7 @@ msgid ""
 "By using the Quarkus extension approach, we can bring Java applications in line with memory footprint constrained environments like Kubernetes or cloud platforms."
 msgstr "La misión de Quarkus es transformar toda su aplicación, incluidas las librerías que utiliza, en un artefacto que utilice muchos menos recursos que los enfoques tradicionales. A continuación, puede utilizarlos para crear aplicaciones nativas con GraalVM. Para ello es necesario analizar y comprender el \"mundo cerrado\" completo de la aplicación. Sin el contexto total y completo, lo mejor que se puede conseguir es un soporte genérico parcial y limitado. Utilizando el enfoque de extensión de Quarkus, podemos adecuar las aplicaciones Java a entornos con limitaciones de huella de memoria como Kubernetes o las plataformas en la nube."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -156,12 +159,13 @@ msgstr "Enviar metadatos a GraalVM para las clases de ejemplo que necesitan refl
 msgid "This information is not static per library (e.g. Hibernate) but the framework has the semantic knowledge and knows which classes need to have reflection (for example @Entity classes)"
 msgstr "Esta información no es estática por biblioteca (por ejemplo, Hibernate), sino que el marco de trabajo tiene el conocimiento semántico y sabe qué clases necesitan tener reflexión (por ejemplo, las clases @Entity)"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Favor build time work over runtime work"
 msgstr "Favorecer el trabajo en tiempo de construcción sobre el trabajo en tiempo de ejecución"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -169,12 +173,13 @@ msgid ""
 "The more is done there, the smaller Quarkus applications using that extension will be and the faster they will load."
 msgstr "En la medida de lo posible, favorezca que el trabajo se realice en tiempo de compilación (parte de despliegue de la extensión) frente a dejar que el framework lo haga en tiempo de inicio (tiempo de ejecución). Cuanto más se haga allí, más pequeñas serán las aplicaciones Quarkus que utilicen esa extensión y más rápido se cargarán."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "How to expose configuration"
 msgstr "Cómo exponer la configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -182,6 +187,7 @@ msgid ""
 "This means that its defaults might be different from the library it integrates."
 msgstr "Quarkus simplifica los usos más comunes. Esto significa que sus valores por defecto pueden ser diferentes de los de la biblioteca que integra."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -189,6 +195,7 @@ msgid ""
 "Avoid library specific configuration files, or at least make them optional: e.g. `persistence.xml` for Hibernate ORM is optional."
 msgstr "Para que la experiencia sea más sencilla, unifique la configuración en `application.properties` a través de SmallRye Config. Evite los archivos de configuración específicos de bibliotecas, o al menos hágalos opcionales: por ejemplo, `persistence.xml` para Hibernate ORM es opcional."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -198,6 +205,7 @@ msgid ""
 "Less common properties can live in the library namespace."
 msgstr "Las extensiones deben ver la configuración de forma holística como una aplicación Quarkus en lugar de centrarse en la experiencia de la biblioteca. Por ejemplo `quarkus.database.url` y amigos son compartidos entre extensiones ya que definir un acceso a una base de datos es una tarea compartida (en lugar de una propiedad `hibernate.` por ejemplo). Las opciones de configuración más útiles deberían exponerse como `quarkus.[extension].` en lugar del espacio de nombres natural de la biblioteca. Las propiedades menos comunes pueden vivir en el espacio de nombres de la biblioteca."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -206,7 +214,7 @@ msgid ""
 "But many properties like enable caching or setting the JDBC driver can safely require a rebuild of the application."
 msgstr "Para habilitar plenamente los supuestos del mundo cercano que Quarkus puede optimizar mejor, es mejor considerar las opciones de configuración como asentadas en tiempo de compilación frente a anulables en tiempo de ejecución. Por supuesto, propiedades como host, puerto, contraseña deben ser anulables en tiempo de ejecución. Pero muchas propiedades como habilitar el almacenamiento en caché o configurar el controlador JDBC pueden requerir con seguridad una reconstrucción de la aplicación."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Static Init Config"
@@ -221,17 +229,18 @@ msgstr "Si la extensión proporciona fuentes de configuración adicionales y si 
 #
 #
 #
+#. type: Title ==
 #. === API
 #. TODO: Describe where to put APIs
 #. I wonder if that content should be in the technical aspects
 #. === Substitution and recorders
 #. TODO: Describe where Substitutions and recorders should live
-#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Expose your components via CDI"
 msgstr "Exponga sus componentes a través de CDI"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -240,7 +249,7 @@ msgid ""
 "Extensions must register these bean definitions at build time."
 msgstr "Dado que CDI es el modelo de programación central en lo que respecta a la composición de componentes, los marcos de trabajo y las extensiones deben exponer sus componentes como beans que sean fácilmente consumibles por las aplicaciones de usuario. Por ejemplo, Hibernate ORM expone los beans `EntityManagerFactory` y `EntityManager` , el pool de conexiones expone los beans `DataSource` , etc. Las extensiones deben registrar estas definiciones de beans en tiempo de compilación."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Beans backed by classes"
@@ -300,12 +309,13 @@ msgstr "Inyectar un bean proporcionado por otra extensión."
 msgid "Inject all beans matching the type `List<String>`."
 msgstr "Inyectar todos los granos que coincidan con el tipo `List&amp;lt;String&amp;gt;`."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Bean initialization"
 msgstr "Inicialización de los frijoles"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -322,6 +332,7 @@ msgstr "Algunos componentes pueden requerir una inicialización adicional basada
 msgid "`BUILD_AND_RUN_TIME_FIXED` and `RUN_TIME` config roots can be injected in any bean. `RUN_TIME` config roots should only be injected after the bootstrap though."
 msgstr "`BUILD_AND_RUN_TIME_FIXED` y `RUN_TIME` config roots pueden inyectarse en cualquier bean. Sin embargo, `RUN_TIME` config roots sólo debe inyectarse después del bootstrap."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -338,6 +349,7 @@ msgstr "Sin embargo, es posible invocar un método bean desde un xref:bytecode-r
 msgid "Don't forget to make sure the bean state guarantees the visibility, e.g. via the `volatile` keyword."
 msgstr "No olvides asegurarte de que el estado del frijol garantiza la visibilidad, por ejemplo, a través de la palabra clave `volatile`."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -346,12 +358,13 @@ msgid ""
 "We'll cover a more robust solution in the <<synthetic_beans>>."
 msgstr "Este enfoque de \"inicialización tardía\" tiene un inconveniente importante. Un bean _no inicializado_ puede ser accedido por otras extensiones o componentes de la aplicación que se instancien durante el arranque. Cubriremos una solución más robusta en la página <<synthetic_beans>> ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Default beans"
 msgstr "Frijoles por defecto"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -372,12 +385,13 @@ msgstr "Supongamos que la extensión de Quarkus necesita proporcionar un bean `T
 msgid "If for example application code wants to use `Tracer`, but also needs to use a custom `Reporter` bean, such a requirement could easily be done using something like:"
 msgstr "Si, por ejemplo, el código de la aplicación quiere usar `Tracer`, pero también necesita usar un bean personalizado de `Reporter`, tal requisito podría hacerse fácilmente usando algo como:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "How to Override a Bean Defined by a Library/Quarkus Extension that doesn't use @DefaultBean"
 msgstr "Cómo anular un bean definido por una biblioteca/extensión de Quarkus que no utiliza @DefaultBean"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -416,12 +430,13 @@ msgstr "Activa la alternativa. La prioridad puede ser cualquier número para anu
 msgid "CDI alternatives are only considered during injection and type-safe resolution. For example the default implementation would still receive observer notifications."
 msgstr "Las alternativas de CDI sólo se consideran durante la inyección y la resolución a prueba de tipos. Por ejemplo, la implementación por defecto seguiría recibiendo notificaciones de los observadores."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Synthetic beans"
 msgstr "Frijoles sintéticos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -430,6 +445,7 @@ msgid ""
 "Instead, the attributes are specified by an extension."
 msgstr "A veces resulta muy útil poder registrar un bean sintético. Los atributos de un bean sintético no se derivan de una clase, método o campo java. En su lugar, los atributos se especifican mediante una extensión."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -437,6 +453,7 @@ msgid ""
 "In other words, it's up to the extension to provide all required services to a synthetic bean instance."
 msgstr "Dado que el contenedor CDI no controla la instanciación de un frijol sintético, la inyección de dependencia y otros servicios (como los interceptores) no están soportados. En otras palabras, depende de la extensión proporcionar todos los servicios necesarios a una instancia de frijol sintético."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -486,7 +503,7 @@ msgstr "\"Contexto\" Titular"
 msgid "The \"real\" components can inject the `TestContext` directly."
 msgstr "Los componentes \"reales\" pueden inyectar el `TestContext` directamente."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Some types of extensions"
@@ -498,12 +515,13 @@ msgstr "Algunos tipos de extensiones"
 msgid "There exist multiple stereotypes of extension, let's list a few."
 msgstr "Existen múltiples estereotipos de extensión, vamos a enumerar algunos."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Bare library running"
 msgstr "Biblioteca desnuda en funcionamiento"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -513,12 +531,13 @@ msgid ""
 "Second best is to write Substrate VM substitutions, which are patches applied during native image compilation."
 msgstr "Esta es la extensión menos sofisticada. Consiste en un conjunto de parches para asegurarse de que una biblioteca funciona en GraalVM. Si es posible, contribuya con estos parches aguas arriba, no en extensiones. La segunda mejor opción es escribir sustituciones de Substrate VM, que son parches que se aplican durante la compilación de la imagen nativa."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Get a framework running"
 msgstr "Conseguir que un marco funcione"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -529,12 +548,13 @@ msgstr ""
 "\n"
 " Estas operaciones deben realizarse en tiempo de compilación y el metamodelo debe pasarse al DSL grabador que generará las clases que se ejecutarán en tiempo de ejecución y arrancarán el marco."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Get a CDI portable extension running"
 msgstr "Obtener una extensión portátil CDI en funcionamiento"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -544,13 +564,13 @@ msgid ""
 "The way to port a CDI extension to Quarkus is to rewrite it as a Quarkus extension which will define the various beans at build time (deployment time in extension parlance)."
 msgstr "El modelo de extensión portátil CDI es muy flexible. Demasiado flexible para beneficiarse del arranque en tiempo de compilación promovido por Quarkus. La mayoría de las extensiones que hemos visto no hacen uso de estas capacidades de extrema flexibilidad. La forma de portar una extensión CDI a Quarkus es reescribirla como una extensión Quarkus que definirá los distintos beans en tiempo de compilación (tiempo de despliegue en la jerga de las extensiones)."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Technical aspect"
 msgstr "Aspecto técnico"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Three Phases of Bootstrap and Quarkus Philosophy"
@@ -562,12 +582,13 @@ msgstr "Tres fases de la filosofía de Bootstrap y Quarkus"
 msgid "There are three distinct bootstrap phases of a Quarkus app:"
 msgstr "Hay tres fases distintas de arranque de una aplicación Quarkus:"
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Augmentation"
 msgstr "Aumento"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -577,12 +598,13 @@ msgid ""
 "the step may be run in a different JVM based on the following two modes."
 msgstr "Esta es la primera fase, y la realiza el <<Build Step Processors>> . Estos procesadores tienen acceso a la información de las anotaciones de Jandex y pueden analizar cualquier descriptor y leer las anotaciones, pero no deben intentar cargar ninguna clase de la aplicación. La salida de estos pasos de compilación es algún bytecode grabado, utilizando una extensión del proyecto ObjectWeb ASM llamada Gizmo(ext/gizmo), que se utiliza para arrancar realmente la aplicación en tiempo de ejecución. Dependiendo del valor `io.quarkus.deployment.annotations.ExecutionTime` de la anotación `@io.quarkus.deployment.annotations.Record` asociada al paso de compilación, el paso puede ejecutarse en una JVM diferente según los dos modos siguientes."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Static Init"
 msgstr "Init estático"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -599,6 +621,7 @@ msgstr "Si el bytecode se graba con `@Record(STATIC_INIT)` entonces se ejecutar�
 msgid "There are some restrictions on what can be done in this stage as the Substrate VM disallows some objects in the native executable. For example you should not attempt to listen on a port or start threads in this phase. In addition, it is disallowed to read run time configuration during static initialization."
 msgstr "Existen algunas restricciones sobre lo que se puede hacer en esta fase, ya que la VM de Substrate deshabilita algunos objetos en el ejecutable nativo. Por ejemplo, no se debe intentar escuchar en un puerto o iniciar hilos en esta fase. Además, no está permitido leer la configuración en tiempo de ejecución durante la inicialización estática."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -608,6 +631,7 @@ msgid ""
 "memory. Quarkus aims to eliminate this, so that the only classes loaded at runtime are actually used at runtime."
 msgstr "En el modo JVM puro no nativo, no existe una diferencia real entre Static y Runtime Init, excepto que Static Init siempre se ejecuta primero. Este modo se beneficia de la misma ampliación de la fase de compilación que el modo nativo, ya que el análisis sintáctico del descriptor y el escaneo de anotaciones se realizan en tiempo de compilación y cualquier dependencia de clase/marco asociada puede eliminarse del tarro de salida de la compilación. En servidores como WildFly, las clases relacionadas con el despliegue, como los analizadores XML, permanecen colgadas durante toda la vida de la aplicación, consumiendo una valiosa memoria. Quarkus pretende eliminar esto, de modo que las únicas clases cargadas en tiempo de ejecución se utilicen realmente en tiempo de ejecución."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -615,12 +639,13 @@ msgid ""
 "application. Any XML parsing of configuration should be done in the Augmentation phase."
 msgstr "Como ejemplo, la única razón por la que una aplicación Quarkus debería cargar un analizador XML es si el usuario está utilizando XML en su aplicación. Cualquier análisis sintáctico XML de la configuración debe hacerse en la fase de aumento."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Runtime Init"
 msgstr "Init en tiempo de ejecución"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -641,6 +666,7 @@ msgstr "Llevar todo lo posible a la fase `@Record(STATIC_INIT)` permite dos opti
 msgid "In both native executable and pure JVM mode this allows the app to start as fast as possible since processing was done during build time. This also minimizes the classes/native code needed in the application to pure runtime related behaviors."
 msgstr "Tanto en el modo ejecutable nativo como en el modo JVM puro, esto permite que la aplicación se inicie lo más rápido posible, ya que el procesamiento se realizó durante el tiempo de compilación. Esto también minimiza las clases/código nativo necesario en la aplicación a comportamientos puramente relacionados con el tiempo de ejecución."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -648,7 +674,7 @@ msgid ""
 "that method. If config is read at runtime, Substrate cannot reason about the contents of the config and so needs to keep all features in case they are required."
 msgstr "Otra ventaja del modo ejecutable nativo es que Substrate puede eliminar más fácilmente las funciones que no se utilizan. Si las características se inicializan directamente mediante bytecode, Substrate puede detectar que un método nunca se llama y eliminar ese método. Si config se lee en tiempo de ejecución, Substrate no puede razonar sobre el contenido de config, por lo que necesita conservar todas las características por si son necesarias."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Project setup"
@@ -672,6 +698,7 @@ msgstr "Un submódulo de tiempo de despliegue que maneja el procesamiento de tie
 msgid "A runtime submodule that contains the runtime behavior that will provide the extension behavior in the native executable or runtime JVM."
 msgstr "Un submódulo de tiempo de ejecución que contiene el comportamiento de tiempo de ejecución que proporcionará el comportamiento de la extensión en el ejecutable nativo o la JVM de tiempo de ejecución."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -681,6 +708,7 @@ msgid ""
 "and possibly the deployment artifacts of other Quarkus modules if you want to use functionality provided by them."
 msgstr "Su artefacto de tiempo de ejecución debería depender de `io.quarkus:quarkus-core` , y posiblemente de los artefactos de tiempo de ejecución de otros módulos de Quarkus si desea utilizar la funcionalidad proporcionada por ellos. Su módulo de tiempo de despliegue debería depender de `io.quarkus:quarkus-core-deployment` , su artefacto de tiempo de ejecución y posiblemente los artefactos de despliegue de otros módulos de Quarkus si desea utilizar la funcionalidad proporcionada por ellos."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -688,7 +716,7 @@ msgid ""
 "in pulling all the deployment time code into runtime scope, which defeats the purpose of having the split."
 msgstr "Bajo ninguna circunstancia puede el módulo en tiempo de ejecución depender de un artefacto de despliegue. Esto daría lugar a tirar de todo el código de tiempo de despliegue en el ámbito de tiempo de ejecución, que derrota el propósito de tener la división."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Using Maven"
@@ -706,6 +734,7 @@ msgstr "Tendrás que incluir el `io.quarkus:quarkus-extension-maven-plugin` y co
 msgid "You may want to use the `create-extension` mojo of `io.quarkus.platform:quarkus-maven-plugin` to create these Maven modules - see the next section."
 msgstr "Es posible que desee utilizar el mojo `create-extension` de `io.quarkus.platform:quarkus-maven-plugin` para crear estos módulos Maven - véase la siguiente sección."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -725,7 +754,7 @@ msgstr "La configuración anterior de `maven-compiler-plugin` requiere la versi�
 msgid "You will also need to configure the `maven-compiler-plugin` of the deployment module to detect the `quarkus-extension-processor` annotation processor."
 msgstr "También tendrá que configurar el `maven-compiler-plugin` del módulo de despliegue para detectar el procesador de anotaciones `quarkus-extension-processor`."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Create new Quarkus Core extension modules using Maven"
@@ -899,6 +928,7 @@ msgstr "las categorías bajo las cuales la extensión debe aparecer en  link:htt
 msgid "maturity status, which could be `stable`, `preview` or `experimental`, evaluated by extension maintainers"
 msgstr "estado de madurez, que puede ser `stable`, `preview` o `experimental`, evaluado por los mantenedores de la extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -907,19 +937,20 @@ msgid ""
 "So you may consider omitting explicit `name` in some cases."
 msgstr "El parámetro `name` del mojo es opcional. Si no lo especifica en la línea de órdenes, el complemento lo derivará de `extensionId` sustituyendo los guiones por espacios y poniendo en mayúsculas cada token. Así que puede considerar omitir `name` explícitamente en algunos casos."
 
-#. The following link should point to the mojo page once https://github.com/quarkusio/quarkusio.github.io/issues/265 is fixed
 #. type: Plain text
+#. The following link should point to the mojo page once https://github.com/quarkusio/quarkusio.github.io/issues/265 is fixed
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "Please refer to https://github.com/quarkusio/quarkus/blob/{quarkus-version}/devtools/maven/src/main/java/io/quarkus/maven/CreateExtensionMojo.java[CreateExtensionMojo JavaDoc] for all the available options of the mojo."
 msgstr "Consulte  link:https://github.com/quarkusio/quarkus/blob/{quarkus-version}/devtools/maven/src/main/java/io/quarkus/maven/CreateExtensionMojo.java[el JavaDoc de CreateExtensionMojo] para conocer todas las opciones disponibles del mojo."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Using Gradle"
 msgstr "Uso de Gradle"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -929,18 +960,19 @@ msgid ""
 "The name of the deployment module can be configured in the plugin by setting the `deploymentModule` property. The property is set to `deployment` by default:"
 msgstr "Deberá aplicar el plugin `io.quarkus.extension` en el módulo `runtime` de su proyecto de extensión. El plugin incluye la tarea `extensionDescriptor` que generará los archivos `META-INF/quarkus-extension.properties` y `META-INF/quarkus-extension.yml` . El plugin también habilita el procesador de anotaciones `io.quarkus:quarkus-extension-processor` en los módulos `deployment` y `runtime` para recopilar y generar el resto de los xref:extension-metadata.adoc[metadatos de la extensión de Quarkus] . El nombre del módulo de despliegue puede configurarse en el plugin estableciendo la propiedad `deploymentModule` . La propiedad se establece en `deployment` por defecto:"
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "This plugin is still experimental, it does not validate the extension dependencies as the equivalent Maven plugin does."
 msgstr "Este plugin es todavía experimental, no valida las dependencias de la extensión como lo hace el plugin equivalente de Maven."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Build Step Processors"
 msgstr "Construir procesadores de paso"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -949,12 +981,13 @@ msgid ""
 "to produce the final build artifact(s)."
 msgstr "El trabajo se realiza en tiempo de ampliación mediante pasos de _compilación_ que producen y consumen elementos de _compilación_ . Los pasos de compilación que se encuentran en los módulos de despliegue y que corresponden a las ampliaciones en la compilación del proyecto se conectan automáticamente entre sí y se ejecutan para producir el artefacto o artefactos de compilación finales."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Build steps"
 msgstr "Construir pasos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -963,6 +996,7 @@ msgid ""
 "ultimately consumed by another step."
 msgstr "Una etapa de _construcción_ es un método no estático anotado con la anotación `@io.quarkus.deployment.annotations.BuildStep` . Cada paso de construcción puede xref:consuming-values[consumir] elementos producidos por etapas anteriores y xref:producing-values[producir] elementos que pueden ser consumidos por etapas posteriores. Normalmente, los pasos de construcción sólo se ejecutan cuando producen un elemento de construcción que finalmente es consumido por otro paso."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -970,12 +1004,13 @@ msgid ""
 "instantiated during the augment process and utilize <<injection,injection>>."
 msgstr "Los pasos de construcción se colocan normalmente en clases simples dentro del módulo de despliegue de una extensión. Las clases se instancian automáticamente durante el proceso de ampliación y utilizan xref:injection[la inyección] ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Build items"
 msgstr "Construir elementos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1003,6 +1038,7 @@ msgstr "exponer el hecho de que existe una configuración de base de datos"
 msgid "consume that database configuration (e.g. a connection pool extension or an ORM extension)"
 msgstr "consumir esa configuración de la base de datos (por ejemplo, una extensión del pool de conexiones o una extensión del ORM)"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1016,6 +1052,7 @@ msgstr "pedir a una extensión que haga trabajo para otra extensión: por ejempl
 msgid "This is a very flexible mechanism."
 msgstr "Se trata de un mecanismo muy flexible."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1029,12 +1066,13 @@ msgstr "`BuildItem` Las instancias deben ser inmutables, ya que el modelo produc
 msgid "Build steps are executed if and only if they produce build items that are (transitively) needed by other build steps. Make sure your build step produces a build item, otherwise you should probably produce either `ValidationErrorBuildItem` for build validations, or `ArtifactResultBuildItem` for generated artifacts."
 msgstr "Los pasos de construcción se ejecutan si y sólo si producen elementos de construcción que son (transitoriamente) necesarios para otros pasos de construcción. Asegúrese de que su paso de compilación produce un elemento de compilación, de lo contrario probablemente debería producir `ValidationErrorBuildItem` para las validaciones de compilación, o `ArtifactResultBuildItem` para los artefactos generados."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Simple build items"
 msgstr "Elementos de construcción sencillos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1050,12 +1088,13 @@ msgstr "Los elementos de construcción simples son clases finales que extienden 
 msgid "Example of a single build item"
 msgstr "Ejemplo de un elemento de construcción único"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Multi build items"
 msgstr "Artículos de construcción múltiple"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1076,12 +1115,13 @@ msgstr "Ejemplo de un elemento de construcción múltiple"
 msgid "Example of multiple build item usage"
 msgstr "Ejemplo de uso de elementos de construcción múltiples"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Empty build items"
 msgstr "Elementos de construcción vacíos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1090,6 +1130,7 @@ msgid ""
 "without having to instantiate empty classes.  They cannot themselves be instantiated."
 msgstr "Los elementos de construcción vacíos son clases finales (normalmente vacías) que amplían `io.quarkus.builder.item.EmptyBuildItem` . Representan elementos de construcción que en realidad no llevan ningún dato, y permiten que tales elementos se produzcan y consuman sin tener que instanciar clases vacías. No pueden instanciarse por sí mismas."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1103,6 +1144,7 @@ msgstr "Como no pueden instanciarse, no pueden inyectarse por ningún medio, ni 
 msgid "Example of an empty build item"
 msgstr "Ejemplo de un elemento de construcción vacío"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1123,7 +1165,7 @@ msgstr "Ejemplo de uso de un elemento de construcción vacío en un estilo \"pse
 msgid "Example of usage of an empty build item in a \"barrier\" style"
 msgstr "Ejemplo de uso de un elemento de construcción vacío en un estilo de \"barrera\""
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Validation Error build items"
@@ -1141,12 +1183,13 @@ msgstr "Representan elementos de construcción con errores de validación que ha
 msgid "Example of usage of an validation error build item in a \"pseudo-target\" style"
 msgstr "Ejemplo de uso de un elemento de construcción vacío en un estilo \"pseudo-objetivo\""
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Artifact Result build items"
 msgstr "Artículos de construcción múltiple"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1160,7 +1203,7 @@ msgstr "Representan elementos de compilación que contienen el artefacto ejecuta
 msgid "Example of build step that is always executed in a \"pseudo-target\" style"
 msgstr "Ejemplo de uso de un elemento de construcción vacío en un estilo \"pseudo-objetivo\""
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Injection"
@@ -1190,6 +1233,7 @@ msgstr "Inyección en el campo"
 msgid "Method parameter injection (for build step methods only)"
 msgstr "Inyección de parámetros de métodos (sólo para métodos de pasos de construcción)"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1197,6 +1241,7 @@ msgid ""
 "should only be communicated between build steps by way of build items, even if the steps are on the same class."
 msgstr "Las clases de pasos de compilación se instancian e inyectan para cada invocación de pasos de compilación, y se descartan después. El estado sólo debe comunicarse entre pasos de compilación mediante elementos de compilación, aunque los pasos pertenezcan a la misma clase."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1234,6 +1279,7 @@ msgstr "xref:configuration[Configuración] Tipos de xref:configuration[mapeo] "
 msgid "Template objects for <<bytecode-recording,bytecode recording>>"
 msgstr "Objetos plantilla para la xref:bytecode-recording[grabación del código de bytes]"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1241,6 +1287,7 @@ msgid ""
 "execution."
 msgstr "Los objetos que se inyectan en un método de pasos de compilación o en su clase _no deben_ utilizarse fuera de la ejecución de ese método."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1248,7 +1295,7 @@ msgid ""
 "and the resulting code does not have permission to inject private fields or invoke private methods."
 msgstr "La inyección se resuelve en tiempo de compilación mediante un procesador de anotaciones, y el código resultante no tiene permiso para inyectar campos privados o invocar métodos privados."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Producing values"
@@ -1278,6 +1325,7 @@ msgstr "Devolviendo un `List` de una clase de artículo de construcción múltip
 msgid "By injecting a `BuildProducer` of a simple or multi build item class"
 msgstr "Inyectando un `BuildProducer` de una clase de artículo simple o de construcción múltiple"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1285,6 +1333,7 @@ msgid ""
 "<<empty-build-items,empty build item>>"
 msgstr "Anotando el método con `@io.quarkus.deployment.annotations.Produce` , dando el nombre de clase de un xref:empty-build-items[elemento de construcción vacío]"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1292,6 +1341,7 @@ msgid ""
 "will result.  Build producers, which are injected into steps, _must not_ be used outside that step."
 msgstr "Si se declara un elemento de construcción simple en un paso de construcción, _debe_ producirse durante ese paso de construcción, de lo contrario se producirá un error. Los productores de construcción, que se inyectan en los pasos, _no deben_ utilizarse fuera de ese paso."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1302,7 +1352,7 @@ msgid ""
 "items will not be invoked."
 msgstr "Tenga en cuenta que un método `@BuildStep` sólo será llamado si produce algo que otro consumidor o la salida final requiere. Si no hay ningún consumidor para un elemento concreto, entonces no se producirá. Lo que se requiera dependerá del objetivo final que se esté produciendo. Por ejemplo, cuando se ejecuta en modo desarrollador, la salida final no pedirá elementos de compilación específicos de GraalVM como `ReflectiveClassBuildItem` , por lo que no se invocarán los métodos que sólo producen estos elementos."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Consuming values"
@@ -1332,6 +1382,7 @@ msgstr "Inyectando un `Optional` de una simple clase de elemento de construcció
 msgid "By injecting a `List` of a <<multi-build-items,multi build item>> class"
 msgstr "Inyectando un `List` de una clase de xref:multi-build-items[elemento de construcción] múltiple"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1339,6 +1390,7 @@ msgid ""
 "<<empty-build-items,empty build item>>"
 msgstr "Anotando el método con `@io.quarkus.deployment.annotations.Consume` , dando el nombre de clase de un xref:empty-build-items[elemento de construcción vacío]"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1346,6 +1398,7 @@ msgid ""
 "step.  In this way, it is guaranteed that all the declared values will be present and non-`null` when a step is run."
 msgstr "Normalmente es un error que un paso incluido consuma un elemento de construcción simple que no es producido por ningún otro paso. De este modo, se garantiza que todos los valores declarados estarán presentes y no `null` cuando se ejecute un paso."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1359,12 +1412,13 @@ msgstr "A veces un valor no es necesario para que la compilación se complete, p
 msgid "Multi build values are always considered _optional_.  If not present, an empty list will be injected."
 msgstr "Los valores de construcción múltiple se consideran siempre _opcionales_. Si no están presentes, se inyectará una lista vacía."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Weak value production"
 msgstr "Producción de valor débil"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1373,6 +1427,7 @@ msgid ""
 "not installed or which only produce build items which are not relevant for the given artifact type are excluded."
 msgstr "Normalmente, un paso de construcción se incluye siempre que produzca cualquier elemento de construcción que a su vez sea consumido por cualquier otro paso de construcción. De este modo, sólo se incluyen los pasos necesarios para producir el artefacto o artefactos finales, y se excluyen los pasos que pertenecen a extensiones que no están instaladas o que sólo producen elementos de construcción que no son relevantes para el tipo de artefacto dado."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1392,6 +1447,7 @@ msgstr "Ejemplo de producción débil de un elemento de construcción"
 msgid "This method (not provided in this example) would generate the class using the ASM API."
 msgstr "Este método (no proporcionado en este ejemplo) generaría la clase utilizando la API de ASM."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1403,6 +1459,7 @@ msgid ""
 "process."
 msgstr "Ciertos tipos de elementos de compilación suelen consumirse siempre, como las clases generadas o los recursos. Una extensión podría producir un elemento de compilación junto con una clase generada para facilitar el uso de ese elemento de compilación. Un paso de compilación de este tipo utilizaría la anotación `@Weak` en el elemento de compilación de la clase generada, mientras produce normalmente el otro elemento de compilación. Si el otro elemento de construcción es finalmente consumido por algo, entonces el paso se ejecutaría y se generaría la clase. Si nada consume el otro elemento de construcción, el paso no se incluiría en el proceso de construcción."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1410,6 +1467,7 @@ msgid ""
 "some other build step."
 msgstr "En el ejemplo anterior, `GeneratedClassBuildItem` sólo se produciría si `ExecutorClassBuildItem` es consumido por algún otro paso de compilación."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1435,12 +1493,13 @@ msgstr "Tenga en cuenta el atributo `optional`."
 msgid "This example is using recorder proxies; see the section on <<bytecode-recording,bytecode recording>> for more information."
 msgstr "Este ejemplo utiliza proxies grabadores; consulte la sección sobre xref:bytecode-recording[grabación de bytecode] para obtener más información."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Application Archives"
 msgstr "Archivos de aplicaciones"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1450,12 +1509,13 @@ msgid ""
 "file will be indexed."
 msgstr "La anotación `@BuildStep` también puede registrar archivos marcadores que determinan qué archivos de la ruta de clase se consideran \"Archivos de aplicación\" y, por tanto, serán indexados. Esto se hace a través de `applicationArchiveMarkers` . Por ejemplo, la extensión ArC registra `META-INF/beans.xml` , lo que significa que todos los archivos de la ruta de clase con un archivo `beans.xml` serán indexados."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Using Thread's Context Class Loader"
 msgstr "Uso del cargador de clases de contexto de Thread"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1465,12 +1525,13 @@ msgid ""
 "This means that loading a class during augmentation does not stop it from being transformed when running in the development/test mode."
 msgstr "El paso de compilación se ejecutará con un TCCL que puede cargar clases de usuario desde la implementación de una forma segura para el transformador. Este cargador de clases sólo dura el tiempo de vida del aumento y se descarta después. Las clases se cargarán de nuevo en un cargador de clases diferente en tiempo de ejecución. Esto significa que cargar una clase durante el aumento no impide que se transforme cuando se ejecuta en el modo de desarrollo/prueba."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Adding external JARs to the indexer with IndexDependencyBuildItem"
 msgstr "Añadir JARs externos al indexador con IndexDependencyBuildItem"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1496,6 +1557,7 @@ msgstr "La extensión `Amazon Alexa` añade librerías dependientes del SDK de A
 msgid "With the artifacts added to the `Jandex` indexer, you can now search the index to identify classes implementing an interface, subclasses of a specific class, or classes with a target annotation."
 msgstr "Con los artefactos añadidos al indexador de `Jandex`, ahora puede buscar en el índice para identificar las clases que implementan una interfaz, las subclases de una clase específica o las clases con una anotación de destino."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1503,12 +1565,13 @@ msgid ""
 "and add them to the reflective hierarchy for `BUILD_TIME` analysis."
 msgstr "Por ejemplo, la extensión `Jackson` utiliza código como el siguiente para buscar anotaciones utilizadas en la deserialización de JSON y añadirlas a la jerarquía reflexiva para el análisis de `BUILD_TIME` ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Visualizing build step dependencies"
 msgstr "Visualización de las dependencias de los pasos de compilación"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1516,12 +1579,13 @@ msgid ""
 "will result in the creation of the `build.dot` file in the project's root directory. See link:https://graphviz.org/resources/[this] for a list of software that can open the file and show the actual visual representation."
 msgstr "En ocasiones puede resultar útil ver una representación visual de las interacciones entre los distintos pasos de compilación. Para estos casos, si añade `-Djboss.builder.graph-output=build.dot` al construir una aplicación, se creará el archivo `build.dot` en el directorio raíz del proyecto. Consulte link:https://graphviz.org/resources/[aquí] una lista de software que puede abrir el archivo y mostrar la representación visual real."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, no-wrap
 msgid "Configuration"
 msgstr "Configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1529,6 +1593,7 @@ msgid ""
 "by https://smallrye.io/smallrye-config/Main/[SmallRye Config] are also available in Quarkus."
 msgstr "La configuración en Quarkus se basa en link:https://smallrye.io/smallrye-config/Main/[SmallRye] Config. Todas las características proporcionadas por link:https://smallrye.io/smallrye-config/Main/[SmallRye] Config también están disponibles en Quarkus."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1537,12 +1602,13 @@ msgid ""
 "to each configuration phase and generate the configuration documentation."
 msgstr "Las extensiones deben utilizar link:https://smallrye.io/smallrye-config/Main/config/mappings/[SmallRye Config @ConfigMapping] para mapear la configuración requerida por la extensión. Esto permitirá a Quarkus exponer automáticamente una instancia del mapeo a cada fase de configuración y generar la documentación de configuración."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Config Phases"
 msgstr "Fases de la raíz de la configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1660,12 +1726,13 @@ msgstr "Para todos los casos que no sean el de `BUILD_TIME`, la clase raíz de c
 msgid "_Bootstrap_ configuration steps are executed during runtime-init *before* any of other runtime steps. This means that code executed as part of this step cannot access anything that gets initialized in runtime init steps (runtime synthetic CDI beans being one such example)."
 msgstr "Los pasos de configuración _del Bootstrap_ se ejecutan durante el runtime-init *antes de* cualquier otro paso del runtime. Esto significa que el código ejecutado como parte de este paso no puede acceder a nada que se inicialice en los pasos de init en tiempo de ejecución (los beans sintéticos CDI en tiempo de ejecución son un ejemplo de ello)."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Configuration Example"
 msgstr "Ejemplo de configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1697,6 +1764,7 @@ msgstr "`file` - un segmento de nombre que corresponde al campo `file` de esta c
 msgid "`enabled` - a name segment which corresponds to `enable` field in `FileConfig` class annotated with `@ConfigGroup`."
 msgstr "`enabled` - un segmento de nombre que corresponde al campo `enable` de la clase `FileConfig` anotado con `@ConfigGroup` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1710,6 +1778,7 @@ msgstr "La anotación `@ConfigMapping` indica que la interfaz es un mapeo de con
 msgid "The `@ConfigRoot` annotation indicated to which Config phase, the configuration applies to."
 msgstr "La anotación `@ConfigRoot` indica a qué fase de la configuración se aplica."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1718,6 +1787,7 @@ msgid ""
 "key type."
 msgstr "La clase `FileConfig` está anotada con `@ConfigGroup` para indicar que se trata de un objeto de configuración agregado que contiene una colección de propiedades configurables, en lugar de ser un simple tipo de clave de configuración."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1737,6 +1807,7 @@ msgstr "Un `application.properties` correspondiente al ejemplo anterior podría 
 msgid "Since `format` is not defined in these properties, the default value from `@ConfigItem` will be used instead."
 msgstr "Dado que `format` no está definido en estas propiedades, se utilizará en su lugar el valor por defecto de `@ConfigItem` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1747,12 +1818,13 @@ msgid ""
 "correspond to the `BOOTSTRAP` configuration may end with `BootstrapConfig` or `BootstrapConfiguration`."
 msgstr "Un nombre de mapeo de configuración puede contener un segmento sufijo extra para el caso en que existan mapeos de configuración para múltiples <<Config Phases>> . Las clases que corresponden a la fase `BUILD_TIME` y `BUILD_AND_RUN_TIME_FIXED` pueden terminar con `BuildTimeConfig` o `BuildTimeConfiguration` , las clases que corresponden a la fase `RUN_TIME` pueden terminar con `RuntimeConfig` , `RunTimeConfig` , `RuntimeConfiguration` o `RunTimeConfiguration` mientras que las clases que corresponden a la configuración `BOOTSTRAP` pueden terminar con `BootstrapConfig` o `BootstrapConfiguration` ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Conditional Step Inclusion"
 msgstr "Inclusión condicional de pasos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1762,6 +1834,7 @@ msgid ""
 "`true` (for `onlyIf`) or `false` (for `onlyIfNot`)."
 msgstr "Es posible incluir un determinado `@BuildStep` sólo en determinadas condiciones. La anotación `@BuildStep` tiene dos parámetros opcionales: `onlyIf` y `onlyIfNot` . Estos parámetros pueden establecerse en una o varias clases que implementen `BooleanSupplier` . El paso de construcción sólo se incluirá cuando el método devuelva `true` (para `onlyIf` ) o `false` (para `onlyIfNot` )."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1769,6 +1842,7 @@ msgid ""
 "a build-time phase.  Run time configuration is not available for condition classes."
 msgstr "La clase de condición puede inyectar xref:configuration[asignaciones de configuración] siempre que pertenezcan a una fase de tiempo de compilación. La configuración en tiempo de ejecución no está disponible para las clases de condición."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1782,6 +1856,7 @@ msgstr "La clase de condición también puede inyectar un valor del tipo `io.qua
 msgid "An example of a conditional build step"
 msgstr "Un ejemplo de paso de construcción condicional"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1819,12 +1894,13 @@ msgstr "El paso principal de construcción sólo se ejecutará en modo dev."
 msgid "The other build step will only be executed in dev mode."
 msgstr "El otro paso de construcción sólo se ejecutará en el modo de desarrollo."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Bytecode Recording"
 msgstr "Grabación de bytecodes"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1832,6 +1908,7 @@ msgid ""
 "Servlet instances and then starts Undertow."
 msgstr "Una de las principales salidas del proceso de compilación es el bytecode grabado. Este bytecode configura en realidad el entorno de ejecución. Por ejemplo, para iniciar Undertow, la aplicación resultante tendrá algún bytecode que registre directamente todas las instancias Servlet y luego inicie Undertow."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1854,6 +1931,7 @@ msgstr "Veamos el clásico ejemplo del tipo 'Hola Mundo'. Para hacer esto a la m
 msgid "And then create a build step that uses this recorder:"
 msgstr "Y luego crear un paso de construcción que utiliza esta grabadora:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1862,6 +1940,7 @@ msgid ""
 "printed to the console."
 msgstr "Cuando se ejecuta este paso de compilación no se imprime nada en la consola. Esto se debe a que el `HelloRecorder` que se inyecta es en realidad un proxy que registra todas las invocaciones. En su lugar, si ejecutamos el programa Quarkus resultante veremos 'Hola Mundo' impreso en la consola."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1871,6 +1950,7 @@ msgid ""
 "is to produce `BuildItem` instances that wrap the results of these recorder invocations."
 msgstr "Los métodos de una grabadora pueden devolver un valor, que debe ser proxiable (si desea devolver un elemento no proxiable envuélvalo en `io.quarkus.runtime.RuntimeValue` ). Estos proxies no pueden invocarse directamente, sin embargo pueden pasarse a otros métodos del registrador. Puede tratarse de cualquier método de registrador, incluso de otros métodos de `@BuildStep` , por lo que un patrón común es producir instancias de `BuildItem` que envuelvan los resultados de estas invocaciones de registradores."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1879,6 +1959,7 @@ msgid ""
 "in another module, and Undertow will consume it and pass it into the recorder method that starts Undertow."
 msgstr "Por ejemplo, para realizar cambios arbitrarios en la implementación de un servlet, Undertow dispone de un `ServletExtensionBuildItem` , que es un `MultiBuildItem` que envuelve una instancia de `ServletExtension` . Puedo devolver un `ServletExtension` desde un grabador en otro módulo, y Undertow lo consumirá y lo pasará al método del grabador que inicia Undertow."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1941,12 +2022,13 @@ msgstr "Cualquier objeto arbitrario a través del mecanismo `io.quarkus.deployme
 msgid "Arrays, Lists and Maps of the above"
 msgstr "Matrices, listas y mapas de lo anterior"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Injecting Configuration into Recorders"
 msgstr "Inyección de la configuración en las grabadoras"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1957,12 +2039,13 @@ msgid ""
 "when the runtime methods are being invoked."
 msgstr "Los objetos de configuración con fase `RUNTIME` o `BUILD_AND_RUNTIME_FIXED` pueden inyectarse en las grabadoras mediante la inyección de constructores. Basta con crear un constructor que tome los objetos de configuración que necesita la grabadora. Si la grabadora tiene varios constructores, puede anotar el que desea que Quarkus utilice con `@Inject` . Si la grabadora desea inyectar la configuración en tiempo de ejecución pero también se utiliza en tiempo de init estático, entonces necesita inyectar un `RuntimeValue<ConfigObject>` , este valor sólo se establecerá cuando se estén invocando los métodos en tiempo de ejecución."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "RecorderContext"
 msgstr "RecorderContext"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1972,6 +2055,7 @@ msgid ""
 "a class proxy. This interface can be directly injected as a method parameter into any `@Record` method."
 msgstr "`io.quarkus.deployment.recording.RecorderContext` proporciona algunos métodos de conveniencia para mejorar el registro de código de bytes, esto incluye la capacidad de registrar funciones de creación para clases sin constructores sin carga, registrar una sustitución de objeto (básicamente un transformador de un objeto no serializable a uno serializable y viceversa), y crear un proxy de clase. Esta interfaz puede inyectarse directamente como parámetro de método en cualquier método de `@Record` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1980,12 +2064,13 @@ msgid ""
 "convenience to avoid the need to explicitly load classes in the recorders."
 msgstr "Al llamar a `classProxy` con un nombre de clase determinado se creará un `Class` que puede pasarse a los métodos del registrador, y en tiempo de ejecución se sustituirá por la clase cuyo nombre se pasó a `classProxy` . Esto es básicamente una comodidad para evitar la necesidad de cargar explícitamente las clases en los registradores."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Printing step execution time"
 msgstr "Tiempo de ejecución de la etapa de impresión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -1994,19 +2079,20 @@ msgid ""
 "The output will look something like:"
 msgstr "A veces, puede ser útil saber el tiempo exacto que tarda cada tarea de inicio (que es el resultado de cada grabación de bytecode) cuando se ejecuta la aplicación. La forma más sencilla de determinar esta información es iniciar la aplicación Quarkus con la propiedad del sistema `-Dquarkus.debug.print-startup-times=true` . La salida será algo parecido a"
 
+#. type: Title ==
 #. TODO: config integration
-#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Contexts and Dependency Injection"
 msgstr "Contextos e inyección de dependencia"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Extension Points"
 msgstr "Puntos de extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2015,7 +2101,7 @@ msgid ""
 "Instead, Quarkus extensions can make use of various xref:cdi-reference.adoc[Build Time Extension Points]."
 msgstr "Como runtime basado en CDI, las extensiones de Quarkus a menudo hacen que los beans CDI estén disponibles como parte del comportamiento de la extensión. Sin embargo, la solución DI de Quarkus no admite extensiones portátiles CDI. En su lugar, las extensiones Quarkus pueden hacer uso de varios xref:cdi-reference.adoc[Puntos de Extensión en Tiempo de Construcción] ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Quarkus Dev UI"
@@ -2027,12 +2113,13 @@ msgstr "Quarkus Dev UI"
 msgid "You can make your extension support the xref:dev-ui.adoc[Quarkus Dev UI] for a greater developer experience."
 msgstr "Puede hacer que su extensión sea compatible con la xref:dev-ui.adoc[Quarkus Dev UI] para una mayor experiencia del desarrollador."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Extension-defined endpoints"
 msgstr "Puntos finales definidos por la extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2046,6 +2133,7 @@ msgstr "Su extensión puede añadir puntos finales adicionales, no relacionados 
 msgid "Use a `NonApplicationRootPathBuildItem` to define an endpoint:"
 msgstr "Utilice un `NonApplicationRootPathBuildItem` para definir un punto final:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2054,6 +2142,7 @@ msgid ""
 "endpoint root is `/q` by default, which means the resulting endpoint will be found at `/q/custom-endpoint`."
 msgstr "Observe que la ruta de arriba no empieza por '/', lo que indica que es una ruta relativa. El punto final anterior se servirá en relación a la raíz del punto final sin aplicación configurada. La raíz del punto final sin aplicación es `/q` por defecto, lo que significa que el punto final resultante se encontrará en `/q/custom-endpoint` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2073,6 +2162,7 @@ msgstr "Si una extensión necesita puntos finales anidados no relacionados con l
 msgid "Given a default non-application endpoint root of `/q`, this will create an endpoint at `/q/custom-endpoint/deep`."
 msgstr "Dada una raíz de punto final sin aplicación por defecto de `/q`, esto creará un punto final en `/q/custom-endpoint/deep`."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2080,6 +2170,7 @@ msgid ""
 "the resulting endpoint will be found at `/deep`."
 msgstr "Las rutas absolutas también influyen en los puntos finales anidados. Si el anterior llamó a `nestedRoute(\"custom-endpoint\", \"/deep\")` , el punto final resultante se encontrará en `/deep` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2087,7 +2178,7 @@ msgid ""
 "for details on how the non-application root path is configured."
 msgstr "Consulte la xref:all-config.adoc#quarkus-vertx-http_quarkus.http.non-application-root-path[referencia de configuración HTTP de Quarkus Vertx] para obtener más detalles sobre cómo se configura la ruta raíz no aplicativa."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Extension Health Check"
@@ -2111,6 +2202,7 @@ msgstr "Al escribir una extensión, es beneficioso proporcionar comprobaciones d
 msgid "In order to provide a health check, you should do the following:"
 msgstr "Para realizar un chequeo de salud, debe hacer lo siguiente:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2118,6 +2210,7 @@ msgid ""
 "health check is not included."
 msgstr "Importe la extensión `quarkus-smallrye-health` como dependencia *opcional* en su módulo de ejecución para que no afecte al tamaño de la aplicación si no se incluye la comprobación de la salud."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2149,12 +2242,13 @@ msgstr "Añade una forma de desactivar la comprobación de la salud de la extens
 msgid "Following is an example from the Agroal extension that provides a `DataSourceHealthCheck` to validate the readiness of a datasource."
 msgstr "A continuación se muestra un ejemplo de la extensión Agroal que proporciona un `DataSourceHealthCheck` para validar la disponibilidad de una fuente de datos."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Extension Metrics"
 msgstr "Métricas de extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2217,7 +2311,7 @@ msgstr "Una biblioteca subyacente utiliza su propio mecanismo para recopilar mé
 msgid "An underlying library does not provide metrics (or there is no library at all) and you want to add instrumentation."
 msgstr "Una biblioteca subyacente no proporciona métricas (o no hay ninguna biblioteca) y usted quiere añadir instrumentación."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Case 1: The library uses a metrics library directly"
@@ -2247,7 +2341,7 @@ msgstr "Cree un paso de construcción separado que consuma un `MetricsFactory`, 
 msgid "Extensions may need to provide a fallback if there is no active metrics extension or the extension doesn't support the API required by the library."
 msgstr "Es posible que las extensiones deban proporcionar un recurso si no hay una extensión de métricas activa o si la extensión no es compatible con la API requerida por la biblioteca."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Case 2: The library provides its own metric API"
@@ -2271,7 +2365,7 @@ msgstr "La extensión define un objeto instrumentable como lo hace Agroal con `i
 msgid "The extension provides its own abstraction of metrics, as Jaeger does with `io.jaegertracing.spi.MetricsFactory`."
 msgstr "La extensión proporciona su propia abstracción de las métricas, como hace Jaeger con `io.jaegertracing.spi.MetricsFactory`."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Observing instrumentable objects"
@@ -2301,7 +2395,7 @@ msgstr "El registrador asociado debe utilizar el `MetricsFactory` proporcionado 
 msgid "The `MetricsFactory` provides a fluid builder for registration of metrics, with the final step constructing gauges or counters based on a `Supplier` or `ToDoubleFunction`. Timers can either wrap `Callable`, `Runnable`, or `Supplier` implementations, or can use a `TimeRecorder` to accumulate chunks of time. The underlying metrics extension will create appropriate artifacts to observe or measure the defined functions."
 msgstr "El `MetricsFactory` proporciona un constructor fluido para el registro de métricas, con el paso final de construcción de medidores o contadores basados en un `Supplier` o `ToDoubleFunction`. Los temporizadores pueden envolver implementaciones de `Callable`, `Runnable`, o `Supplier`, o pueden utilizar un `TimeRecorder` para acumular trozos de tiempo. La extensión de métricas subyacente creará los artefactos adecuados para observar o medir las funciones definidas."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Using a Metrics API-specific implementation"
@@ -2319,6 +2413,7 @@ msgstr "En algunos casos puede ser preferible utilizar implementaciones específ
 msgid "`Optional<MetricsCapabilityBuildItem> metricsCapability` can be used in the build step to selectively control initialization of beans or the production of other build items. The Jaeger extension, for example, can use the following to control initialization of specialized Metrics API adapters:"
 msgstr "`Optional&amp;lt;MetricsCapabilityBuildItem&amp;gt; metricsCapability` puede utilizarse en el paso de construcción para controlar selectivamente la inicialización de los beans o la producción de otros elementos de construcción. La extensión Jaeger, por ejemplo, puede utilizar lo siguiente para controlar la inicialización de adaptadores especializados de la API de métricas:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "+"
@@ -2330,7 +2425,7 @@ msgstr "+"
 msgid "A recorder consuming a `MetricsFactory` can use `MetricsFactory::metricsSystemSupported()` can be used to control initialization of metrics objects during bytecode recording in a similar way."
 msgstr "Un grabador que consuma un `MetricsFactory` puede utilizar `MetricsFactory::metricsSystemSupported()` puede utilizarse para controlar la inicialización de los objetos métricos durante la grabación de bytecode de forma similar."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Case 3: It is necessary to collect metrics within the extension code"
@@ -2348,6 +2443,7 @@ msgstr "Para definir tus propias métricas desde cero, tienes dos opciones bási
 msgid "To use the extension-agnostic `MetricFactory` API, your processor can define a `BuildStep` that produces a `MetricsFactoryConsumerBuildItem` that uses a `RUNTIME_INIT` or `STATIC_INIT` Recorder to define a `MetricsFactory` consumer."
 msgstr "Para utilizar la API `MetricFactory` agnóstica a las extensiones, su procesador puede definir un `BuildStep` que produce un `MetricsFactoryConsumerBuildItem` que utiliza un `RUNTIME_INIT` o `STATIC_INIT` Recorder para definir un `MetricsFactory` consumidor."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2361,7 +2457,7 @@ msgstr "+ - El registrador asociado debe utilizar el `MetricsFactory` proporcion
 msgid "Remember that metrics extensions are optional. Keep metrics-related initialization isolated from other setup for your extension, and structure your code to avoid eager imports of metrics APIs. Gathering metrics can also be expensive. Consider using additional extension-specific configuration to control behavior of metrics if the presence/absence of metrics support isn't sufficient."
 msgstr "Recuerda que las extensiones de métricas son opcionales. Mantenga la inicialización relacionada con las métricas aislada del resto de la configuración de su extensión, y estructure su código para evitar importaciones ansiosas de las APIs de métricas. La recopilación de métricas también puede ser costosa. Considera el uso de una configuración adicional específica de la extensión para controlar el comportamiento de las métricas si la presencia/ausencia de soporte de métricas no es suficiente."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Customizing JSON handling from an extension"
@@ -2373,6 +2469,7 @@ msgstr "Personalización del manejo de JSON desde una extensión"
 msgid "Extensions often need to register serializers and/or deserializers for types the extension provides."
 msgstr "Las extensiones a menudo necesitan registrar serializadores y/o deserializadores para los tipos que la extensión proporciona."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2386,6 +2483,7 @@ msgstr "Para ello, tanto las extensiones Jackson como JSON-B proporcionan una fo
 msgid "Keep in mind that not everybody will need JSON, so you need to make it optional."
 msgstr "Ten en cuenta que no todo el mundo necesitará JSON, así que debes hacerlo opcional."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2393,7 +2491,7 @@ msgid ""
 "it is strongly advised to provide customization for both Jackson and JSON-B."
 msgstr "Si una extensión pretende proporcionar personalización relacionada con JSON, se recomienda encarecidamente que proporcione personalización tanto para Jackson como para JSON-B."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Customizing Jackson"
@@ -2417,6 +2515,7 @@ msgstr "A continuación, cree un serializador o un deserializador (o ambos) para
 msgid "Add a dependency to `quarkus-jackson-spi` on your extension's deployment module."
 msgstr "Añada una dependencia a `quarkus-jackson-spi` del módulo de despliegue de su extensión."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2430,6 +2529,7 @@ msgstr "Añada un paso de compilación a su procesador para registrar un módulo
 msgid "The Jackson extension will then use the produced build item to register a module within Jackson automatically."
 msgstr "La extensión de Jackson utilizará entonces el elemento de construcción producido para registrar un módulo dentro de Jackson automáticamente."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2438,7 +2538,7 @@ msgid ""
 "More info about customizing Jackson can be found on the JSON guide xref:rest-json.adoc#configuring-json-support[Configuring JSON support]"
 msgstr "Si necesita más capacidades de personalización que registrar un módulo, puede producir un bean CDI que implemente `io.quarkus.jackson.ObjectMapperCustomizer` a través de un `AdditionalBeanBuildItem` . Encontrará más información sobre la personalización de Jackson en la guía JSON xref:rest-json.adoc#configuring-json-support[Configuración del soporte JSON]"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Customizing JSON-B"
@@ -2474,6 +2574,7 @@ msgstr "Añade un paso de construcción a tu procesador para registrar el serial
 msgid "The JSON-B extension will then use the produced build item to register your serializer/deserializer automatically."
 msgstr "La extensión JSON-B utilizará entonces el elemento de construcción producido para registrar su serializador/deserializador automáticamente."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2482,7 +2583,7 @@ msgid ""
 "More info about customizing JSON-B can be found on the JSON guide xref:rest-json.adoc#configuring-json-support[Configuring JSON support]"
 msgstr "Si necesita más capacidades de personalización que registrar un serializador o un deserializador, puede producir un bean CDI que implemente `io.quarkus.jsonb.JsonbConfigCustomizer` a través de un `AdditionalBeanBuildItem` . Encontrará más información sobre la personalización de JSON-B en la guía JSON xref:rest-json.adoc#configuring-json-support[Configuración del soporte JSON]"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Integrating with Development Mode"
@@ -2494,12 +2595,13 @@ msgstr "Integración con el modo de desarrollo"
 msgid "There are various APIS that you can use to integrate with development mode, and to get information about the current state."
 msgstr "Hay varias APIS que puede utilizar para integrarse con el modo de desarrollo, y para obtener información sobre el estado actual."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Handling restarts"
 msgstr "Gestión de los reinicios"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2519,6 +2621,7 @@ msgstr "¿Esto es un comienzo limpio o una recarga en vivo"
 msgid "If this is a live reload which changed files / classes triggered the reload"
 msgstr "Si se trata de una recarga en vivo que cambió archivos / clases desencadenó la recarga"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2526,12 +2629,13 @@ msgid ""
 "static fields."
 msgstr "También proporciona un mapa contextual global que puede utilizar para almacenar información entre reinicios, sin necesidad de recurrir a campos estáticos."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Triggering Live Reload"
 msgstr "Activación de la recarga en vivo"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2540,6 +2644,7 @@ msgid ""
 "in your runtime module, and add a `META-INF/services/io.quarkus.dev.spi.HotReplacementSetup` that lists your implementation."
 msgstr "La recarga en vivo se dispara generalmente por una petición HTTP, sin embargo no todas las aplicaciones son aplicaciones HTTP y algunas extensiones pueden querer disparar la recarga en vivo basándose en otros eventos. Para ello necesita implementar `io.quarkus.dev.spi.HotReplacementSetup` en su módulo de tiempo de ejecución, y añadir un `META-INF/services/io.quarkus.dev.spi.HotReplacementSetup` que enumere su implementación."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2547,12 +2652,13 @@ msgid ""
 "to initiate a scan for changed files."
 msgstr "Al iniciarse se llamará al método `setupHotDeployment` , y podrá utilizar el `io.quarkus.dev.spi.HotReplacementContext` proporcionado para iniciar un escaneo en busca de archivos modificados."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Testing Extensions"
 msgstr "Probar las extensiones"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2563,6 +2669,7 @@ msgid ""
 "Quarkus application for each test class."
 msgstr "Las pruebas de las extensiones de Quarkus deben realizarse con la extensión JUnit 5 de `io.quarkus.test.QuarkusUnitTest` . Esta extensión permite realizar pruebas al estilo Arquillian que comprueban funcionalidades específicas. No está pensada para probar aplicaciones de usuario, ya que esto debe hacerse a través de `io.quarkus.test.junit.QuarkusTest` . La principal diferencia es que `QuarkusTest` simplemente arranca la aplicación una vez al inicio de la ejecución, mientras que `QuarkusUnitTest` despliega una aplicación Quarkus personalizada para cada clase de prueba."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2624,12 +2731,13 @@ msgstr "Si desea comprobar que una extensión falla correctamente en el momento 
 msgid "This tells JUnit that the Quarkus deployment should fail with a specific exception"
 msgstr "Esto indica a JUnit que el despliegue de Quarkus debe fallar con una excepción específica"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Testing hot reload"
 msgstr "Probando la recarga en caliente"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2637,6 +2745,7 @@ msgid ""
 "handle updates."
 msgstr "También es posible escribir pruebas que verifiquen que una extensión funciona correctamente en modo de desarrollo y que puede gestionar correctamente las actualizaciones."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2644,6 +2753,7 @@ msgid ""
 "verify that this functionality is working as expected. To test this we use `QuarkusDevModeTest`:"
 msgstr "Para la mayoría de las extensiones esto funcionará 'out of the box', sin embargo sigue siendo una buena idea tener una prueba de humo para verificar que esta funcionalidad funciona como se espera. Para probar esto utilizamos `QuarkusDevModeTest` :"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2651,6 +2761,7 @@ msgid ""
 "each test method so every method starts with a clean deployment."
 msgstr "Esto inicia el despliegue, su prueba puede modificarlo como parte del conjunto de pruebas. Quarkus se reiniciará entre cada método de prueba para que cada método comience con un despliegue limpio."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2658,6 +2769,7 @@ msgid ""
 "source is returned."
 msgstr "Este método permite modificar el código fuente de un archivo de clase. La fuente antigua se pasa a la función y se devuelve la fuente actualizada."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2677,12 +2789,13 @@ msgstr "Este método modifica un recurso estático"
 msgid "This method adds a new static resource"
 msgstr "Este método añade un nuevo recurso estático"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Native Executable Support"
 msgstr "Soporte de ejecutables nativos"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2691,7 +2804,7 @@ msgid ""
 "executable. Some of these build items are listed below:"
 msgstr "Allí Quarkus proporciona un montón de elementos de compilación que controlan aspectos de la compilación del ejecutable nativo. Esto permite a las extensiones realizar mediante programación tareas como registrar clases para la reflexión o añadir recursos estáticos al ejecutable nativo. Algunos de estos elementos de compilación se enumeran a continuación:"
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem`"
@@ -2703,7 +2816,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildIte
 msgid "Includes static resources into the native executable."
 msgstr "Incluye recursos estáticos en el ejecutable nativo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem`"
@@ -2715,7 +2828,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirector
 msgid "Includes directory's static resources into the native executable."
 msgstr "Incluye los recursos estáticos del directorio en el ejecutable nativo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem`"
@@ -2727,7 +2840,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBu
 msgid "A class that will be reinitialized at runtime by Substrate. This will result in the static initializer running twice."
 msgstr "Una clase que será reiniciada en tiempo de ejecución por Substrate. Esto hará que el inicializador estático se ejecute dos veces."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem`"
@@ -2739,7 +2852,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBu
 msgid "A system property that will be set at native executable build time."
 msgstr "Una propiedad del sistema que se establecerá en el momento de la construcción del ejecutable nativo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem`"
@@ -2751,7 +2864,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBu
 msgid "Includes a resource bundle in the native executable."
 msgstr "Incluye un paquete de recursos en el ejecutable nativo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem`"
@@ -2763,7 +2876,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem`"
 msgid "Registers a class for reflection in Substrate. Constructors are always registered, while methods and fields are optional."
 msgstr "Registra una clase para su reflexión en Substrate. Los constructores siempre se registran, mientras que los métodos y los campos son opcionales."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem`"
@@ -2775,7 +2888,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuil
 msgid "A class that will be initialized at runtime rather than build time. This will cause the build to fail if the class is initialized as part of the native executable build process, so care must be taken."
 msgstr "Una clase que será inicializada en tiempo de ejecución y no en tiempo de construcción. Esto hará que la construcción falle si la clase se inicializa como parte del proceso de construcción del ejecutable nativo, por lo que hay que tener cuidado."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.nativeimage.NativeImageConfigBuildItem`"
@@ -2787,7 +2900,7 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.NativeImageConfigBuildItem`
 msgid "A convenience feature that allows you to control most of the above features from a single build item."
 msgstr "Una función práctica que le permite controlar la mayoría de las funciones anteriores desde un único elemento de construcción."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem`"
@@ -2799,12 +2912,13 @@ msgstr "`io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem`"
 msgid "Indicates that all charsets should be enabled in native image."
 msgstr "Indica que todos los conjuntos de caracteres deben estar habilitados en la imagen nativa."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "`io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem`"
 msgstr "`io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem`"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2812,13 +2926,13 @@ msgid ""
 "When using this feature, remember to add your extension to the list of extensions that offer SSL support automatically on the https://github.com/quarkusio/quarkus/blob/main/docs/src/main/asciidoc/native-and-ssl.adoc[native and ssl guide]."
 msgstr "Una forma conveniente de decirle a Quarkus que la extensión requiere SSL, y que debe habilitarse durante la construcción de la imagen nativa. Cuando utilice esta característica, recuerde añadir su extensión a la lista de extensiones que ofrecen soporte SSL automáticamente en la link:https://github.com/quarkusio/quarkus/blob/main/docs/src/main/asciidoc/native-and-ssl.adoc[guía nativa y ssl] ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "IDE support tips"
 msgstr "Consejos de apoyo al IDE"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Writing Quarkus extensions in Eclipse"
@@ -2854,19 +2968,20 @@ msgstr "Si tiene el proyecto `io.quarkus:quarkus-extension-processor` abierto al
 msgid "If you just closed the extension processor project, be sure to do `Maven > Update Project` on the other projects in order for Eclipse to pick up the extension processor from the Maven repository."
 msgstr "Si acabas de cerrar el proyecto del procesador de extensiones, asegúrate de hacer `Maven &amp;gt; Update Project` en los otros proyectos para que Eclipse recoja el procesador de extensiones del repositorio de Maven."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Troubleshooting / Debugging Tips"
 msgstr "Solución de problemas / Consejos de depuración"
 
+#. type: Title ===
 #. This id was previously used for the "Dump the Generated Classes to the File System" section
-#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Inspecting the Generated/Transformed Classes"
 msgstr "Inspección de las clases generadas/transformadas"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2946,12 +3061,13 @@ msgstr "La propiedad también se respeta al ejecutar las pruebas:"
 msgid "Analogously, you can use the `quarkus.debug.transformed-classes-dir` and `quarkus.debug.generated-sources-dir` properties to dump the relevant output."
 msgstr "Análogamente, puede utilizar las propiedades `quarkus.debug.transformed-classes-dir` y `quarkus.debug.transformed-classes-dir` para volcar la salida correspondiente."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Multi-module Maven Projects and the Development Mode"
 msgstr "Proyectos Maven multimódulo y el modo de desarrollo"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2960,7 +3076,7 @@ msgid ""
 "Otherwise, Quarkus attempts to monitor the extension classes and this may result in weird class loading issues."
 msgstr "No es infrecuente desarrollar una extensión en un proyecto Maven multimódulo que también contenga un módulo \"ejemplo\". Sin embargo, si desea ejecutar el ejemplo en el modo de desarrollo, deberá utilizar la propiedad del sistema `-DnoDeps` para excluir las dependencias locales del proyecto. De lo contrario, Quarkus intentará controlar las clases de la extensión y esto puede dar lugar a problemas extraños de carga de clases."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Indexer does not include your external dependency"
@@ -2972,12 +3088,13 @@ msgstr "El indexador no incluye su dependencia externa"
 msgid "Remember to add `IndexDependencyBuildItem` artifacts to your `@BuildStep`."
 msgstr "Recuerda añadir los artefactos de `IndexDependencyBuildItem` a tu `@BuildStep`."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Sample Test Extension"
 msgstr "Muestra de la extensión de la prueba"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -2985,18 +3102,19 @@ msgid ""
 "author will typically need to perform using the test-extension code to illustrate how the task could be done."
 msgstr "Tenemos una extensión que se utiliza para comprobar si hay regresiones en el procesamiento de extensiones. Se encuentra en {quarkus-tree-url}/integration-tests/test-extension/extension directory. En esta sección tocamos algunas tareas que un autor de extensiones necesitará realizar normalmente utilizando el código de la extensión de prueba para ilustrar cómo podría realizarse la tarea."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Features and Capabilities"
 msgstr "Características y capacidades"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Features"
 msgstr "Características"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3028,6 +3146,7 @@ msgstr "Una característica puede registrarse en un método <<Build Step Process
 msgid "TestProcessor#feature()"
 msgstr "TestProcessor#feature()"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3036,6 +3155,7 @@ msgid ""
 "If multiple extensions register a feature of the same name the build fails."
 msgstr "El nombre de la característica sólo debe contener caracteres en minúsculas, las palabras se separan con guiones; por ejemplo `security-jpa` . Una extensión debe proporcionar como máximo una característica y el nombre debe ser único. Si varias extensiones registran una característica con el mismo nombre, la compilación falla."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3044,12 +3164,13 @@ msgid ""
 "using the Quarkus maven plugin as shown in this example taken from the xref:rest-json.adoc[Writing JSON REST Services] guide where the `resteasy-reactive-jackson` feature is referenced:"
 msgstr "El nombre de la característica también debe corresponderse con una etiqueta en la entrada `devtools/common/src/main/filtered/extensions.json` de la extensión, de modo que el nombre de la característica que muestre la línea de inicio coincida con una etiqueta que se pueda utilizar para seleccionar la extensión al crear un proyecto utilizando el plugin maven de Quarkus, como se muestra en este ejemplo tomado de la guía xref:rest-json.adoc[Writing JSON REST Services] , donde se hace referencia a la característica `resteasy-reactive-jackson` :"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Capabilities"
 msgstr "Capacidades"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3083,6 +3204,7 @@ msgstr "Las extensiones pueden consumir las capacidades registradas utilizando e
 msgid "TestProcessor#doSomeCoolStuff()"
 msgstr "TestProcessor#doSomeCoolStuff()"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3090,7 +3212,7 @@ msgid ""
 "Capabilities provided by core extensions should be listed in the `io.quarkus.deployment.Capability` enum and their name should always start with the `io.quarkus` prefix."
 msgstr "Las capacidades deben seguir las convenciones de nomenclatura de los paquetes Java; por ejemplo, `io.quarkus.security.jpa` . Las capacidades proporcionadas por las extensiones del núcleo deben enumerarse en el enum `io.quarkus.deployment.Capability` y su nombre debe comenzar siempre con el prefijo `io.quarkus` ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Bean Defining Annotations"
@@ -3120,7 +3242,7 @@ msgstr "Registre la clase de anotación y el ámbito por defecto de CDI utilizan
 msgid "`ConfiguredBean` will be processed by the CDI layer the same as a bean annotated with the CDI standard @ApplicationScoped."
 msgstr "`ConfiguredBean` será procesado por la capa CDI igual que un bean anotado con el estándar CDI @ApplicationScoped."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Parsing Config to Objects"
@@ -3132,6 +3254,7 @@ msgstr "Parsing Config to Objects"
 msgid "One of the main things an extension is likely to do is completely separate the configuration phase of behavior from the runtime phase. Frameworks often do parsing/load of configuration on startup that can be done during build time to both reduce the runtime dependencies on frameworks like xml parsers as well as reducing the startup time the parsing incurs."
 msgstr "Una de las principales cosas que probablemente haga una extensión es separar completamente la fase de configuración del comportamiento de la fase de tiempo de ejecución. Los frameworks a menudo realizan el análisis/carga de la configuración en el arranque que puede realizarse durante el tiempo de compilación tanto para reducir las dependencias en tiempo de ejecución de frameworks como los analizadores xml, así como para reducir el tiempo de arranque en el que incurre el análisis."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3151,7 +3274,7 @@ msgstr "Busca un recurso config.xml classpath"
 msgid "If found, parse using JAXB context for `XmlConfig.class`"
 msgstr "Si se encuentra, se analiza utilizando el contexto JAXB para `XmlConfig.class`"
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "If there was no /config.xml resource available in the build environment, then a null `RuntimeServiceBuildItem` would be returned and no subsequent logic based on a `RuntimeServiceBuildItem` being produced would execute."
@@ -3169,13 +3292,13 @@ msgstr "Normalmente, se está cargando una configuración para crear algún comp
 msgid "If for some reason you need to parse the config and use it in other build steps in an extension processor, you would need to create an `XmlConfigBuildItem` to pass the parsed XmlConfig instance around."
 msgstr "Si por alguna razón necesitas analizar la configuración y usarla en otros pasos de construcción en un procesador de extensión, necesitarás crear un `XmlConfigBuildItem` para pasar la instancia XmlConfig analizada."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "If you look at the XmlConfig code you will see that it does carry around the JAXB annotations. If you don't want these in the runtime image, you could clone the XmlConfig instance into some POJO object graph and then replace XmlConfig with the POJO class. We will do this in <<Replacing Classes in the Native Image>>."
 msgstr "Si mira el código de XmlConfig verá que sí lleva las anotaciones JAXB. Si no las quiere en la imagen en tiempo de ejecución, podría clonar la instancia de XmlConfig en algún gráfico de objetos POJO y luego sustituir XmlConfig por la clase POJO. Haremos esto en <<Replacing Classes in the Native Image>> ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Scanning Deployments Using Jandex"
@@ -3223,7 +3346,7 @@ msgstr "Determine cuál de estos frijoles tiene también la interfaz `IConfigCon
 msgid "Save the bean class in a `TestBeanBuildItem` for use in a latter RUNTIME_INIT build step that will interact with the bean instances."
 msgstr "Guarda la clase bean en un `TestBeanBuildItem` para utilizarla en un paso de construcción posterior RUNTIME_INIT que interactuará con las instancias del bean."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Interacting With Extension Beans"
@@ -3271,7 +3394,7 @@ msgstr "El registrador de tiempo de ejecución recupera el frijol utilizando su 
 msgid "Runtime recorder invokes the `IConfigConsumer#loadConfig(...)` method passing in the configuration objects with runtime information."
 msgstr "El grabador de tiempo de ejecución invoca el método `IConfigConsumer#loadConfig(…​)` pasando los objetos de configuración con información de tiempo de ejecución."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Manage Non-CDI Service"
@@ -3307,7 +3430,7 @@ msgstr "Utilizando la instancia de `XmlConfig` analizada, cree una instancia de 
 msgid "Wrap the return service value in a `RuntimeServiceBuildItem` for use in a RUNTIME_INIT build step that will start the service."
 msgstr "Envuelva el valor del servicio de retorno en un `RuntimeServiceBuildItem` para su uso en un paso de construcción RUNTIME_INIT que iniciará el servicio."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Starting a Service"
@@ -3361,6 +3484,7 @@ msgstr "El registrador de tiempo de ejecución recupera la referencia de la inst
 msgid "Runtime recorder registers an invocation of the service instance `stopService` method with the Quarkus `ShutdownContext`."
 msgstr "El registrador de tiempo de ejecución registra una invocación del método de la instancia de servicio `stopService` con el Quarkus `ShutdownContext`."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3374,12 +3498,13 @@ msgstr "El código de `RuntimeXmlConfigService` puede consultarse aquí: {quarku
 msgid "The testcase for validating that the `RuntimeXmlConfigService` has started can be found in the `testRuntimeXmlConfigService` test of `ConfiguredBeanTest` and `NativeImageIT`."
 msgstr "El caso de prueba para validar que el `RuntimeXmlConfigService` se ha iniciado se encuentra en la prueba `testRuntimeXmlConfigService` de `ConfiguredBeanTest` y `NativeImageIT`."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Startup and Shutdown Events"
 msgstr "Eventos de arranque y apagado"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3405,6 +3530,7 @@ msgstr "Observe un `StartupEvent` para ser notificado de que el tiempo de ejecuc
 msgid "Observe a `ShutdownEvent` to be notified when the runtime is going to shut down."
 msgstr "Observe un `ShutdownEvent` para ser notificado cuando el tiempo de ejecución se va a apagar."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3413,6 +3539,7 @@ msgid ""
 "after a `ShutdownEvent` had been sent."
 msgstr "¿Cuál es la relevancia de los eventos de inicio y cierre para los autores de extensiones? Ya hemos visto el uso de un `ShutdownContext` para registrar una llamada de retorno para realizar tareas de apagado en la sección <<Starting a Service>> . Estas tareas de apagado se llamarían después de que se hubiera enviado un `ShutdownEvent` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3435,7 +3562,7 @@ msgstr "Ejemplo de producción de un ServiceStartBuildItem"
 msgid "Produce a `ServiceStartBuildItem` to indicate that this is a service starting step that needs to run before the `StartupEvent` is sent."
 msgstr "Produce un `ServiceStartBuildItem` para indicar que se trata de un paso de inicio de servicio que debe ejecutarse antes de enviar el `StartupEvent`."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Register Resources for Use in Native Image"
@@ -3471,12 +3598,13 @@ msgstr "Indicar que el recurso `META-INF/my-descriptor.xml` debe ser copiado en 
 msgid "Indicate that the \"javax.xml.bind.Messages\" resource bundle should be copied into native image."
 msgstr "Indique que el paquete de recursos \"javax.xml.bind.Messages\" debe copiarse en la imagen nativa."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Service files"
 msgstr "Archivos de servicio"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3484,6 +3612,7 @@ msgid ""
 "but you also need to register each listed class for reflection so they can be instantiated or inspected at run-time:"
 msgstr "Si utiliza archivos `META-INF/services` , deberá registrar los archivos como recursos para que su imagen nativa pueda encontrarlos, pero también deberá registrar cada una de las clases listadas para la reflexión, de modo que puedan ser instanciadas o inspeccionadas en tiempo de ejecución:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3493,6 +3622,7 @@ msgid ""
 "file."
 msgstr "`ServiceProviderBuildItem` toma como parámetros una lista de clases de implementación de servicios: si no las está leyendo del fichero de servicios, asegúrese de que se corresponden con el contenido del fichero de servicios, ya que éste se seguirá leyendo y utilizando en tiempo de ejecución. Esto no sustituye la escritura de un fichero de servicio."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3500,6 +3630,7 @@ msgid ""
 "to inspect its fields and methods). If you need to do that, you can do it this way:"
 msgstr "Esto sólo registra las clases de implementación para su instanciación mediante reflexión (no podrá inspeccionar sus campos y métodos). Si necesita hacerlo, puede hacerlo de esta forma:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3507,6 +3638,7 @@ msgid ""
 "classes at build time and generating code that registers them at static-init time instead of relying on reflection."
 msgstr "Aunque esta es la forma más sencilla de conseguir que sus servicios se ejecuten de forma nativa, es menos eficiente que escanear las clases de implementación en tiempo de compilación y generar código que las registre en tiempo de static-init en lugar de depender de la reflexión."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3514,7 +3646,7 @@ msgid ""
 "classes for reflection:"
 msgstr "Puede conseguirlo adaptando el paso de compilación anterior para utilizar un registrador static-init en lugar de registrar clases para la reflexión:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Object Substitution"
@@ -3568,7 +3700,7 @@ msgstr "Una extensión registra esta sustitución produciendo un `ObjectSubstitu
 msgid "Registering an Object Substitution"
 msgstr "Registro de una sustitución de objeto"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Replacing Classes in the Native Image"
@@ -3586,12 +3718,13 @@ msgstr "El SDK de Graal admite sustituciones de clases en la imagen nativa. Un e
 msgid "Substitution of XmlConfig/XmlData Classes Example"
 msgstr "Ejemplo de sustitución de las clases XmlConfig/XmlData"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Configuration reference documentation"
 msgstr "Documentación de referencia de la configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3599,6 +3732,7 @@ msgid ""
 "Each configuration property should have a proper Javadoc comment."
 msgstr "La configuración es una parte importante de cada extensión y, por tanto, debe documentarse adecuadamente. Cada propiedad de configuración debe tener un comentario Javadoc adecuado."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3612,7 +3746,7 @@ msgstr "Aunque es práctico disponer de la documentación al codificar, esta doc
 msgid "In this section, we will explain everything you need to know about the configuration reference documentation."
 msgstr "En esta sección, le explicaremos todo lo que necesita saber sobre la documentación de referencia de la configuración."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Writing the documentation"
@@ -3624,7 +3758,7 @@ msgstr "Escribir la documentación"
 msgid "For each configuration property, you need to write some Javadoc explaining its purpose."
 msgstr "Para cada propiedad de configuración, necesita escribir algo de Javadoc explicando su propósito."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "Always make the first sentence meaningful and self-contained as it is included in the summary table."
@@ -3636,6 +3770,7 @@ msgstr "Haga siempre que la primera frase tenga sentido y sea autónoma, ya que 
 msgid "You can either use standard Javadoc comments or Asciidoc directly as a Javadoc comment."
 msgstr "Puede utilizar comentarios Javadoc estándar o Asciidoc directamente como comentario Javadoc."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3650,6 +3785,7 @@ msgstr "Suponemos que está familiarizado con la escritura de comentarios Javado
 msgid "Here is a typical configuration property commented with Asciidoc:"
 msgstr "He aquí una típica propiedad de configuración comentada con Asciidoc:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3669,6 +3805,7 @@ msgstr "Consideremos ahora un ejemplo más complicado:"
 msgid "A few comments on this one:"
 msgstr "Algunos comentarios al respecto:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3685,6 +3822,7 @@ msgstr "Cada vez que necesite que se respete la sangría en el comentario Javado
 msgid "As you can see, you can use the full power of Asciidoctor (except for the limitation below)"
 msgstr "Como puede ver, puede utilizar toda la potencia de Asciidoctor (salvo la limitación siguiente)"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3692,6 +3830,7 @@ msgid ""
 "All the other types of blocks (source, admonitions...) are supported."
 msgstr "No puede utilizar bloques abiertos ( `--` ) en su documentación Asciidoctor. Se admiten todos los demás tipos de bloques (fuente, admoniciones...)."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3706,12 +3845,13 @@ msgstr "Por defecto, el generador de documentos utilizará el nombre del campo c
 msgid "This will generate a configuration map key named `quarkus.some.\"cache-name\"` instead of `quarkus.some.\"namespace\"`."
 msgstr "Esto generará una clave de mapa de configuración llamada `quarkus.some.\"cache-name\"` en lugar de `quarkus.some.\"namespace\"`."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Writing section documentation"
 msgstr "Redacción de la documentación de la sección"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3719,6 +3859,7 @@ msgid ""
 "See the code  example below:"
 msgstr "Si desea generar la sección de configuración de un determinado `@ConfigGroup` , Quarkus le tiene cubierto con la anotación `@ConfigDocSection` . Vea el ejemplo de código a continuación:"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3727,7 +3868,7 @@ msgid ""
 "You can also use the `@asciidoclet` tag as shown above."
 msgstr "Esto añadirá una sección de documentación para el elemento de configuración `configGroup` en la documentación generada. El título y la introducción de la sección se derivarán del javadoc del elemento de configuración. La primera frase del javadoc se considerará el título de la sección y las frases restantes se utilizarán como introducción de la sección. También puede utilizar la etiqueta `@asciidoclet` como se muestra arriba."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Generating the documentation"
@@ -3745,6 +3886,7 @@ msgstr "Generar la documentación es fácil:"
 msgid "Running `./mvnw clean install -DskipTests -DskipITs` will do."
 msgstr "Con `./mvnw clean install -DskipTests -DskipITs` bastará."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid "You  can either do it globally or in a specific extension directory (e.g. `extensions/mailer`)."
@@ -3756,7 +3898,7 @@ msgstr "Puede hacerlo de forma global o en un directorio de extensiones específ
 msgid "The documentation is generated in the global `target/asciidoc/generated/config/` located at the root of the project."
 msgstr "La documentación se genera en la página global `target/asciidoc/generated/config/` situada en la raíz del proyecto."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Including the documentation in the extension guide"
@@ -3798,6 +3940,7 @@ msgstr "Algunas recomendaciones:"
 msgid "`opts=optional` is mandatory as we don't want the build to fail if only part of the configuration documentation has been generated"
 msgstr "`opts=optional` es obligatorio ya que no queremos que la compilación falle si sólo se ha generado una parte de la documentación de configuración"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3806,6 +3949,7 @@ msgid ""
 "It can be done with `leveloffset=+N`."
 msgstr "La documentación se genera con un nivel de título 2 (es decir, `==` ). Normalmente es necesario ajustarlo. Puede hacerlo con `leveloffset=+N` ."
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3831,12 +3975,13 @@ msgstr "A continuación, al final de su documentación, incluya la documentació
 msgid "Finally, generate the documentation and check it out."
 msgstr "Por último, genere la documentación y compruébela."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Ecosystem integration"
 msgstr "Integración del ecosistema"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3854,12 +3999,13 @@ msgstr "Algunas extensiones pueden ser privadas, y otras pueden desear formar pa
 msgid "Alternatively, continuous testing and publication can be handled manually."
 msgstr "Como alternativa, las pruebas continuas y la publicación pueden realizarse manualmente."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Continuous testing of your extension"
 msgstr "Pruebas continuas de su extensión"
 
+#. type: Plain text
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy
 msgid ""
@@ -3869,7 +4015,7 @@ msgid ""
 "of what the process looks like."
 msgstr "Para facilitar a los autores de extensiones la comprobación diaria de sus extensiones con la última instantánea de Quarkus, Quarkus ha introducido la noción de Ecosystem CI. El link:https://github.com/quarkusio/quarkus-ecosystem-ci/blob/main/README.adoc[LÉEME de] Ecosystem CI tiene todos los detalles sobre cómo configurar un trabajo de Acciones de GitHub para aprovechar esta capacidad, mientras que este link:https://www.youtube.com/watch?v=VpbRA1n0hHQ[vídeo] ofrece una visión general de cómo es el proceso."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.13/guides/writing-extensions.adoc
 #, fuzzy, no-wrap
 msgid "Publish your extension in registry.quarkus.io"

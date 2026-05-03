@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. type: Title =
+#. type: YAML Front Matter: title
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "OpenID Connect authorization code flow mechanism for protecting web applications"
@@ -28,7 +28,7 @@ msgstr "Mecanismo de flujo de código de autorización de OpenID Connect para pr
 msgid "To protect your web applications, you can use the industry-standard OpenID Connect (OIDC) Authorization Code Flow mechanism provided by the Quarkus OIDC extension."
 msgstr "Para proteger sus aplicaciones web, puede utilizar el mecanismo de flujo de código de autorización OpenID Connect (OIDC) estándar del sector que proporciona la extensión OIDC de Quarkus."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Overview of the OIDC authorization code flow mechanism"
@@ -40,6 +40,7 @@ msgstr "Visión general del mecanismo de flujo de código de autorización OIDC"
 msgid "The Quarkus OpenID Connect (OIDC) extension can protect application HTTP endpoints by using the OIDC Authorization Code Flow mechanism supported by OIDC-compliant authorization servers, such as link:https://www.keycloak.org[Keycloak]."
 msgstr "La extensión OpenID Connect (OIDC) de Quarkus puede proteger los puntos finales HTTP de la aplicación utilizando el mecanismo de flujo de código de autorización OIDC admitido por los servidores de autorización compatibles con OIDC, como  link:https://www.keycloak.org[Keycloak]."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -96,6 +97,7 @@ msgstr "El proveedor de OIDC autentica las credenciales de usuario introducidas 
 msgid "The Quarkus web-app exchanges this authorization code with the OIDC provider for ID, access, and refresh tokens."
 msgstr "La aplicación web de Quarkus intercambia este código de autorización con el proveedor de OIDC para obtener tokens de identificación, acceso y actualización."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -145,13 +147,13 @@ msgstr "Si desea proteger las aplicaciones de servicio mediante la autenticació
 msgid "For information about how to support multiple tenants, see xref:security-openid-connect-multitenancy.adoc[Using OpenID Connect Multi-Tenancy]."
 msgstr "Para obtener información sobre cómo admitir varios inquilinos, consulte  link:security-openid-connect-multitenancy.html[Uso de OpenID Connect Multi-Tenancy]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Using the authorization code flow mechanism"
 msgstr "Utilizar el mecanismo de flujo de código de autorización"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Configuring access to the OIDC provider endpoint"
@@ -175,6 +177,7 @@ msgstr "Por convención, se descubren añadiendo una ruta `/.well-known/openid-c
 msgid "Alternatively, if the discovery endpoint is not available, or you prefer to reduce the discovery endpoint round-trip, you can disable endpoint discovery and configure relative path values, for example:"
 msgstr "Alternativamente, si el punto final de descubrimiento no está disponible, o si prefiere reducir el viaje de ida y vuelta del punto final de descubrimiento, puede desactivar el descubrimiento del punto final y configurar valores de ruta relativos, por ejemplo:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -182,6 +185,7 @@ msgid ""
 "To work around this limitation, you can configure the missing endpoint URL values locally, as outlined in the following example:"
 msgstr "Algunos proveedores de OIDC admiten el descubrimiento de metadatos pero no devuelven todos los valores de URL de punto final necesarios para que el flujo de código de autorización se complete o para admitir funciones de la aplicación, por ejemplo, el cierre de sesión del usuario. Para sortear esta limitación, puede configurar localmente los valores de URL de punto final que faltan, como se indica en el siguiente ejemplo:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -191,12 +195,13 @@ msgid ""
 "However, if the requirement is for the current application to log the user out of only the specific application, you can override the global end-session URL, by setting the `quarkus.oidc.end-session-path=logout` parameter."
 msgstr "Puede utilizar esta misma configuración para anular una URL de punto final descubierta si esa URL no funciona para el punto final local de Quarkus y se necesita un valor más específico. Por ejemplo, un proveedor que admite puntos finales de sesión globales y específicos de la aplicación devuelve una URL de punto final global como `http://localhost:8180/oidcprovider/account/global-logout` . Esta URL cerrará la sesión del usuario en todas las aplicaciones en las que esté conectado en ese momento. Sin embargo, si el requisito es que la aplicación actual cierre la sesión del usuario sólo de la aplicación específica, puede anular la URL de fin de sesión global, estableciendo el parámetro `quarkus.oidc.end-session-path=logout` ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "OIDC provider client authentication"
 msgstr "Autenticación del cliente proveedor de OIDC"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -204,6 +209,7 @@ msgid ""
 "Quarkus OIDC, specifically the `quarkus.oidc.runtime.OidcProviderClient` class,  authenticates to the OIDC provider when the authorization code must be exchanged for the ID, access, and refresh tokens, or when the ID and access tokens need to be refreshed or introspected."
 msgstr "Los proveedores de OIDC suelen requerir que las aplicaciones se identifiquen y autentiquen cuando interactúan con los puntos finales de OIDC. Quarkus OIDC, concretamente la clase `quarkus.oidc.runtime.OidcProviderClient` , autentica al proveedor de OIDC cuando el código de autorización debe intercambiarse por los tokens de identificación, acceso y actualización, o cuando los tokens de identificación y acceso deben actualizarse o introspeccionarse."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -259,12 +265,13 @@ msgstr "Ejemplo de `private_key_jwt` con el fichero de claves PEM, y donde el al
 msgid "Example of `private_key_jwt` with the keystore file, where the signature algorithm is RS256:"
 msgstr "Ejemplo de `private_key_jwt` con el archivo keystore, donde el algoritmo de firma es RS256:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Using `client_secret_jwt` or `private_key_jwt` authentication methods ensures that a client secret does not get sent to the OIDC provider, therefore avoiding the risk of a secret being intercepted by a  'man-in-the-middle' attack."
 msgstr "El uso de los métodos de autenticación `client_secret_jwt` o `private_key_jwt` garantiza que el secreto de un cliente no se envíe al proveedor de OIDC, evitando así el riesgo de que un secreto sea interceptado por un ataque \"man-in-the-middle\"."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Additional JWT authentication options"
@@ -276,7 +283,7 @@ msgstr "Opciones adicionales de autenticación JWT"
 msgid "If `client_secret_jwt`, `private_key_jwt` authentication methods are used or an Apple `post_jwt` method is used, then the JWT signature algorithm, key identifier, audience, subject and issuer can be customized, for example:"
 msgstr "Si se utilizan los métodos de autenticación `client_secret_jwt`, `private_key_jwt` o un método de Apple `post_jwt`, se pueden personalizar, por ejemplo, el algoritmo de firma JWT, el identificador de clave, el público, el asunto y el emisor:"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Apple POST JWT"
@@ -294,12 +301,13 @@ msgstr "El proveedor de OIDC de Apple utiliza un método `client_secret_post` po
 msgid "In Quarkus Security, `quarkus-oidc` supports a non-standard `client_secret_post_jwt` authentication method, which you can configure as follows:"
 msgstr "En Quarkus Security, `quarkus-oidc` admite un método de autenticación no estándar `client_secret_post_jwt`, que puede configurar de la siguiente manera:"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "mutual TLS (mTLS)"
 msgstr "TLS mutuo (mTLS)"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Some OpenID Connect providers might require that a client is authenticated as part of the mutual TLS  authentication process."
@@ -311,12 +319,13 @@ msgstr "Algunos proveedores de OpenID Connect pueden requerir que un cliente se 
 msgid "The following example shows how you can configure `quarkus-oidc` to support `mTLS`:"
 msgstr "El siguiente ejemplo muestra cómo puede configurar `quarkus-oidc` para que admita `mTLS`:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Introspection endpoint authentication"
 msgstr "Autenticación del punto final de introspección"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -330,12 +339,13 @@ msgstr "Algunos proveedores de OIDC requieren autenticarse en su punto final de 
 msgid "If the tokens have to be introspected and the introspection endpoint-specific authentication mechanism is required, then you can configure `quarkus-oidc`, as follows:"
 msgstr "Si los tokens tienen que ser introspeccionados y se requiere el mecanismo de autenticación específico del punto final de introspección, entonces puede configurar `quarkus-oidc`, como se indica a continuación:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Redirecting to and from the OIDC provider"
 msgstr "Redirección hacia y desde el proveedor OIDC"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -343,6 +353,7 @@ msgid ""
 "In our case, this is the Quarkus application."
 msgstr "Cuando un usuario es redirigido al proveedor de OpenID Connect para autenticarse, la URL de redirección incluye un parámetro de consulta `redirect_uri` , que indica al proveedor a dónde tiene que ser redirigido el usuario cuando finalice la autenticación. En nuestro caso, se trata de la aplicación Quarkus."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -351,6 +362,7 @@ msgid ""
 "Similarly, if the request URL is `http://localhost:8080/service/2` then the `redirect_uri` parameter is set to `http://localhost:8080/service/2`."
 msgstr "Quarkus establece este parámetro en la URL de solicitud de la aplicación actual por defecto. Por ejemplo, si un usuario está intentando acceder a un punto final de servicio de Quarkus en `http://localhost:8080/service/1` entonces el parámetro `redirect_uri` se establece en `http://localhost:8080/service/1` . Del mismo modo, si la URL de solicitud es `http://localhost:8080/service/2` entonces el parámetro `redirect_uri` se establece en `http://localhost:8080/service/2` ."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -358,6 +370,7 @@ msgid ""
 "In such cases, a `quarkus.oidc.authentication.redirect-path` property has to be set, for example, `quarkus.oidc.authentication.redirect-path=/service/callback`, and Quarkus will set the `redirect_uri` parameter to an absolute URL such as `http://localhost:8080/service/callback`, which will be the same regardless of the current request URL."
 msgstr "Algunos proveedores de OIDC exigen que la dirección `redirect_uri` tenga el mismo valor para una aplicación determinada, por ejemplo, `http://localhost:8080/service/callback` para todas las URL de redirección. En tales casos, hay que establecer una propiedad `quarkus.oidc.authentication.redirect-path` , por ejemplo, `quarkus.oidc.authentication.redirect-path=/service/callback` , y Quarkus establecerá el parámetro `redirect_uri` en una URL absoluta como `http://localhost:8080/service/callback` , que será la misma independientemente de la URL de la solicitud actual."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -365,7 +378,7 @@ msgid ""
 "This will restore the request URL such as `http://localhost:8080/service/1`."
 msgstr "Si `quarkus.oidc.authentication.redirect-path` está configurado pero necesita que la URL de solicitud original se restaure después de que el usuario haya sido redirigido de nuevo a una URL de devolución de llamada única, por ejemplo, `http://localhost:8080/service/callback` , establezca la propiedad `quarkus.oidc.authentication.restore-path-after-redirect` en `true` . Esto restaurará la URL de solicitud como `http://localhost:8080/service/1` ."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Customizing authentication requests"
@@ -377,6 +390,7 @@ msgstr "Personalización de las solicitudes de autenticación"
 msgid "By default, only the `response_type` (set to `code`), `scope` (set to 'openid'), `client_id`, `redirect_uri` and `state` properties are passed as HTTP query parameters to the OpenID Connect provider's authorization endpoint when the user is redirected to it to authenticate."
 msgstr "Por defecto, sólo las propiedades `response_type` (establecida como `code`), `scope` (establecida como 'openid'), `client_id`, `redirect_uri` y `state` se pasan como parámetros de consulta HTTP al extremo de autorización del proveedor OpenID Connect cuando el usuario es redirigido a él para autenticarse."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -385,12 +399,13 @@ msgid ""
 "The following example shows how you can work around this issue:"
 msgstr "Puede añadirle más propiedades con `quarkus.oidc.authentication.extra-params` . Por ejemplo, algunos proveedores de OIDC podrían optar por devolver el código de autorización como parte del fragmento del URI de redirección, lo que rompería el proceso de autenticación. El siguiente ejemplo muestra cómo puede solucionar este problema:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Customizing the authentication error response"
 msgstr "Personalización de la respuesta de error de autenticación"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -398,6 +413,7 @@ msgid ""
 "For example, this can happen when an invalid scope or other invalid parameters are included in the redirect to the provider."
 msgstr "Si la autenticación del usuario falla en el punto final de autorización OIDC, entonces el proveedor redirigirá al usuario de vuelta a Quarkus con los parámetros `error` y `error_description` en lugar de `code` . Por ejemplo, esto puede ocurrir cuando se incluye un ámbito no válido u otros parámetros no válidos en la redirección al proveedor."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -406,6 +422,7 @@ msgid ""
 "To do this, set the `quarkus.oidc.authentication.error-path` property, as shown in the following example:"
 msgstr "En tales casos, una propiedad HTTP `401`error will be returned by default. However, you can instead request that a custom public error endpoint is called to return a more user-friendly HTML error page. To do this, set the `quarkus.oidc.authentication.error-path` , como se muestra en el siguiente ejemplo:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -419,7 +436,7 @@ msgstr "Asegúrese de que la propiedad comienza con un carácter de barra oblicu
 msgid "It is important to ensure that this error endpoint is a public resource to prevent the user from being redirected to this page to be authenticated again."
 msgstr "Es importante asegurarse de que este endpoint de error es un recurso público para evitar que el usuario sea redirigido a esta página para ser autenticado de nuevo."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Accessing authorization data"
@@ -431,19 +448,20 @@ msgstr "Acceso a los datos de autorización"
 msgid "Let's first discuss how to access information around authorization."
 msgstr "Veamos primero cómo acceder a la información relativa a la autorización."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Accessing ID and access tokens"
 msgstr "Acceso a la identificación y a las fichas de acceso"
 
-#. SJ: new concept topic to describe the different token types and usage proposed in next iteration
 #. type: Plain text
+#. SJ: new concept topic to describe the different token types and usage proposed in next iteration
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "The OIDC code authentication mechanism acquires three tokens during the authorization code flow: https://openid.net/specs/openid-connect-core-1_0.html#IDToken[IDToken], Access Token, and Refresh Token."
 msgstr "El mecanismo de autenticación de código OIDC adquiere tres tokens durante el flujo de código de autorización:  link:https://openid.net/specs/openid-connect-core-1_0.html#IDToken[IDToken], Access Token y Refresh Token."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -476,12 +494,13 @@ msgstr "La inyección de `JsonWebToken` y `AccessTokenCredential` se admite en l
 msgid "RefreshToken is used by Quarkusn OIDC to refresh the current ID and access tokens as part of its xref:session-management[session management] process."
 msgstr "RefreshToken es utilizado por Quarkusn OIDC para refrescar el ID actual y los tokens de acceso como parte de su proceso de  link:#session-management[gestión de sesión]."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "User info"
 msgstr "Información del usuario"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -495,7 +514,7 @@ msgstr "Si el token de identificación no proporciona suficiente información so
 msgid "A request will be sent to the OpenID Provider UserInfo endpoint using the access token returned with the authorization code grant response and an `io.quarkus.oidc.UserInfo` (a simple `jakarta.json.JsonObject` wrapper) object will be created. `io.quarkus.oidc.UserInfo` can be either injected or accessed as a SecurityIdentity `userinfo` attribute."
 msgstr "Se enviará una solicitud al punto final OpenID Provider UserInfo utilizando el token de acceso devuelto con la respuesta de concesión de código de autorización y se creará un objeto `io.quarkus.oidc.UserInfo` (un simple envoltorio de `jakarta.json.JsonObject` ). `io.quarkus.oidc.UserInfo` puede inyectarse o accederse como un atributo SecurityIdentity `userinfo`."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Accessing the OIDC configuration information"
@@ -513,7 +532,7 @@ msgstr "Los  link:https://openid.net/specs/openid-connect-discovery-1_0.html#Pro
 msgid "The default tenant's `OidcConfigurationMetadata` is injected if the endpoint is public."
 msgstr "La dirección `OidcConfigurationMetadata` del inquilino por defecto se inyecta si el punto final es público."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Mapping token claims and `SecurityIdentity` roles"
@@ -525,6 +544,7 @@ msgstr "Correspondencia entre las solicitudes de fichas y las funciones de `Secu
 msgid "The way the roles are mapped to the SecurityIdentity roles from the verified tokens is identical to how it is done for the xref:security-oidc-bearer-token-authentication.adoc[Bearer tokens] with the only difference being that https://openid.net/specs/openid-connect-core-1_0.html#IDToken[ID Token] is used as a source of the roles by default."
 msgstr "La forma en que los roles se asignan a los roles SecurityIdentity desde los tokens verificados es idéntica a cómo se hace para los  link:security-oidc-bearer-token-authentication.html[tokens Bearer] con la única diferencia de que  link:https://openid.net/specs/openid-connect-core-1_0.html#IDToken[ID Token] se utiliza como fuente de los roles por defecto."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -556,12 +576,13 @@ msgstr "Si UserInfo es la fuente de los roles, entonces establece `quarkus.oidc.
 msgid "Additionally, a custom `SecurityIdentityAugmentor` can also be used to add the roles. For more information, see xref:security-customization.adoc#security-identity-customization[SecurityIdentity customization]."
 msgstr "Además, también se puede utilizar un `SecurityIdentityAugmentor` personalizado para añadir los roles. Para obtener más información, consulte  link:security-customization.html#security-identity-customization[Personalización de SecurityIdentity]."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Ensuring validity of tokens and authentication data"
 msgstr "Garantizar la validez de los tokens y los datos de autenticación"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -569,7 +590,7 @@ msgid ""
 "This is done by ensuring tokens are trustable."
 msgstr "Una parte fundamental del proceso de autenticación es garantizar la cadena de confianza y la validez de la información. Esto se consigue garantizando que los tokens sean fiables."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Token verification and introspection"
@@ -581,6 +602,7 @@ msgstr "Verificación de tokens e introspección"
 msgid "The verification process of OIDC authorization code flow tokens follows the Bearer token authentication token verification and introspection logic. For more information, see the xref:security-oidc-bearer-token-authentication.adoc#token-verification-introspection[Token Verification And Introspection] section of the \"Quarkus OpenID Connect (OIDC) Bearer token authentication\" guide."
 msgstr "El proceso de verificación de tokens de flujo de código de autorización OIDC sigue la lógica de verificación e introspección de tokens de autenticación de token de portador. Para obtener más información, consulte la sección  link:security-oidc-bearer-token-authentication.html#token-verification-introspection[Verificación] e introspección de tokens de la guía \"Autenticación de tokens de portador de OpenID Connect (OIDC) de Quarkus\"."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -588,12 +610,13 @@ msgid ""
 "If you expect the access token to contain the roles required to access the current Quarkus endpoint (`quarkus.oidc.roles.source=accesstoken`) then it will also be verified."
 msgstr "Con las aplicaciones de Quarkus `web-app` , sólo se verifica por defecto el `IdToken` porque el token de acceso no se utiliza para acceder al punto final actual de Quarkus `web-app` y está destinado a propagarse a los servicios que esperan este token de acceso. Si espera que el token de acceso contenga las funciones necesarias para acceder al punto final actual de Quarkus ( `quarkus.oidc.roles.source=accesstoken` ), entonces también se verificará."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Token introspection and UserInfo cache"
 msgstr "Introspección de tokens y caché UserInfo"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -608,12 +631,13 @@ msgstr "Los tokens de acceso al flujo de código no se introspeccionan a menos q
 msgid "Please see xref:security-oidc-bearer-token-authentication.adoc#token-introspection-userinfo-cache[Token Introspection and UserInfo cache] for more information about using a default token cache or registering a custom cache implementation."
 msgstr "Consulte  link:security-oidc-bearer-token-authentication.html#token-introspection-userinfo-cache[Introspección de tokens y Caché UserInfo] para obtener más información sobre el uso de una caché de tokens predeterminada o el registro de una implementación de caché personalizada."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "JSON web token claim verification"
 msgstr "Verificación de reclamaciones mediante token web JSON"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -621,7 +645,7 @@ msgid ""
 "It applies to ID tokens but also to access tokens in a JWT format if the `web-app` application has requested the access token verification."
 msgstr "Consulte la sección Verificación de la xref:security-oidc-bearer-token-authentication.adoc#jwt-claim-verification[reclamación del token web JSON] sobre la verificación de la reclamación, incluida la reclamación de `iss` (emisor). Se aplica a los tokens de identificación, pero también a los tokens de acceso en formato JWT si la aplicación `web-app` ha solicitado la verificación del token de acceso."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Further security with Proof Key for Code Exchange (PKCE)"
@@ -633,6 +657,7 @@ msgstr "Más seguridad con la clave de prueba para el intercambio de códigos (P
 msgid "link:https://datatracker.ietf.org/doc/html/rfc7636[Proof Key for Code Exchange] (PKCE) minimizes the risk of authorization code interception."
 msgstr "link:https://datatracker.ietf.org/doc/html/rfc7636[Proof Key for Code Exchange] (PKCE) minimiza el riesgo de interceptación del código de autorización."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -646,11 +671,13 @@ msgstr "Aunque PKCE es de importancia primordial para los clientes públicos de 
 msgid "You can enable `PKCE` for your OIDC `web-app` endpoint with a `quarkus.oidc.authentication.pkce-required` property and a 32-character secret, as shown in the following example:"
 msgstr "Puede habilitar `PKCE` para su punto final OIDC `web-app` con una propiedad `quarkus.oidc.authentication.pkce-required` y un secreto de 32 caracteres, como se muestra en el siguiente ejemplo:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "If you already have a 32-characters client secret then you do not need to set the  `quarkus.oidc.authentication.pkce-secret` property unless you prefer to use a different secret key."
 msgstr "Si ya dispone de un secreto de cliente de 32 caracteres, no necesita configurar la propiedad `quarkus.oidc.authentication.pkce-secret` a menos que prefiera utilizar una clave secreta diferente."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -659,12 +686,13 @@ msgid ""
 "The provider will fail the code exchange if a `SHA256` digest of the `code_verifier` does not match the `code_challenge` that was provided during the authentication request."
 msgstr "La clave secreta es necesaria para cifrar un `PKCE` generado aleatoriamente `code_verifier` mientras el usuario está siendo redirigido con el parámetro de consulta `code_challenge` a un proveedor de OIDC para autenticarse. El `code_verifier` se descifra cuando el usuario es redirigido de nuevo a Quarkus y se envía al punto final del token junto con el `code` , el secreto del cliente y otros parámetros para completar el intercambio de códigos. El proveedor fallará en el intercambio de códigos si el resumen de `SHA256` del `code_verifier` no coincide con el `code_challenge` que se proporcionó durante la solicitud de autenticación."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Handling and controlling the lifetime of authentication"
 msgstr "Gestión y control de la duración de la autenticación"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -673,12 +701,13 @@ msgid ""
 "Use the following key points to find the right balance for securing your Quarkus applications:"
 msgstr "Otro requisito importante para la autenticación es garantizar que los datos en los que se basa la sesión están actualizados sin exigir al usuario que se autentique para cada solicitud. También hay situaciones en las que se solicita explícitamente un evento de cierre de sesión. Utilice los siguientes puntos clave para encontrar el equilibrio adecuado para asegurar sus aplicaciones Quarkus:"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Cookies"
 msgstr "Cookies"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -716,6 +745,7 @@ msgstr "`/web-app1/service` y `/web-app2/service`"
 msgid "By default, `quarkus.oidc.authentication.cookie-path` is set to `/` but you can change this to a more specific path if required, for example, `/web-app`."
 msgstr "Por defecto, `quarkus.oidc.authentication.cookie-path` se establece en `/`, pero puede cambiarla a una ruta más específica si es necesario, por ejemplo, `/web-app`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -730,6 +760,7 @@ msgstr "Para establecer la ruta de la cookie de forma dinámica, configure la pr
 msgid "If `quarkus.oidc.authentication.cookie-path-header` is set but no configured HTTP header is available in the current request then the `quarkus.oidc.authentication.cookie-path` will be checked."
 msgstr "Si `quarkus.oidc.authentication.cookie-path-header` está configurado pero no hay ninguna cabecera HTTP configurada en la solicitud actual, se comprobará `quarkus.oidc.authentication.cookie-path`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -749,12 +780,13 @@ msgstr "https://whatever.wherever.company.net/"
 msgid "\\https://another.address.company.net/"
 msgstr "https://another.address.company.net/"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Customizing the cookie with TokenStateManager"
 msgstr "Personalización de la cookie con TokenStateManager"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -828,6 +860,7 @@ msgstr "Mantener sólo el token de identificación"
 msgid "`quarkus.oidc.token-state-manager.strategy=id-token`"
 msgstr "`quarkus.oidc.token-state-manager.strategy=id-token`"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -836,6 +869,7 @@ msgid ""
 "To workaround this issue,  you can set `quarkus.oidc.token-state-manager.split-tokens=true` to create a unique session token for each token."
 msgstr "Si la estrategia de cookies elegida combina tokens y genera un valor de cookie de sesión grande, superior a 4 KB, es posible que algunos navegadores no puedan manejar cookies de ese tamaño. Esto puede ocurrir cuando los tokens de identificación, acceso y actualización son tokens JWT y la estrategia seleccionada es `keep-all-tokens` o con tokens de identificación y actualización cuando la estrategia es `id-refresh-token` . Para solucionar este problema, puede configurar `quarkus.oidc.token-state-manager.split-tokens=true` para que cree un token de sesión único para cada token."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -843,6 +877,7 @@ msgid ""
 "The following example shows how you configure `TokenStateManager` to split the tokens and encrypt them:"
 msgstr "`TokenStateManager` cifra los tokens antes de almacenarlos en la cookie de sesión. El siguiente ejemplo muestra cómo se configura `TokenStateManager` para dividir los tokens y encriptarlos:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -880,6 +915,7 @@ msgstr "De lo contrario, se genera una clave aleatoria, lo que puede ser problem
 msgid "You can disable token encryption in the session cookie by setting `quarkus.oidc.token-state-manager.encryption-required=false`."
 msgstr "Puede desactivar el cifrado de tokens en la cookie de sesión configurando `quarkus.oidc.token-state-manager.encryption-required=false`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -894,8 +930,8 @@ msgstr "Registre su propio frijol CDI `io.quarkus.oidc.TokenStateManager' implem
 msgid "Here is a simple example:"
 msgstr "He aquí un ejemplo sencillo:"
 
+#. type: Title ===
 #. SJ: In next iteration, propose to recompose Logout information into a new concept topic
-#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Logout and expiration"
@@ -913,12 +949,13 @@ msgstr "Hay dos formas principales de que caduque la información de autenticaci
 msgid "Let's start with explicit logout operations."
 msgstr "Empecemos con las operaciones explícitas de cierre de sesión."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "User-initiated logout"
 msgstr "Cierre de sesión iniciado por el usuario"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -956,6 +993,7 @@ msgstr "Tenga en cuenta que el nombre de una cookie varía cuando se utiliza  li
 msgid "Here is an example of how to configure a Quarkus app initiated logout flow:"
 msgstr "He aquí un ejemplo de cómo configurar un flujo de cierre de sesión iniciado por una aplicación de Quarkus:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -963,6 +1001,7 @@ msgid ""
 "For more information, see the xref:oidc-cookies[Cookies] section."
 msgstr "También puede ser necesario establecer `quarkus.oidc.authentication.cookie-path` a un valor de ruta común a todos los recursos de la aplicación que es `/` en este ejemplo. Para más información, consulte la sección  link:#oidc-cookies[Cookies]."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -970,24 +1009,25 @@ msgid ""
 "However, this is not a problem for Quarkus because the specific logout mechanisms of such OIDC providers only differ in how the logout URL query parameters are named."
 msgstr "Algunos proveedores de OIDC no admiten la especificación de cierre de sesión link:https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[iniciado por RP] y no devuelven una propiedad de metadatos conocida de OpenID Connect `end_session_endpoint` . Sin embargo, esto no es un problema para Quarkus porque los mecanismos específicos de cierre de sesión de dichos proveedores de OIDC sólo difieren en cómo se nombran los parámetros de consulta de la URL de cierre de sesión."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "According to the https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[RP-initiated logout] specification, the `quarkus.oidc.logout.post-logout-path` property is represented as a `post_logout_redirect_uri` query parameter, which is not recognized by the providers that do not support this specification."
 msgstr "Según la especificación de  link:https://openid.net/specs/openid-connect-session-1_0.html#RPLogout[cierre de sesión iniciado por el RP], la propiedad `quarkus.oidc.logout.post-logout-path` se representa como un parámetro de consulta `post_logout_redirect_uri`, que no es reconocido por los proveedores que no soportan esta especificación."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "You can use `quarkus.oidc.logout.post-logout-url-param` to work around this issue. You can also request more logout query parameters added with `quarkus.oidc.logout.extra-params`. For example, here is how you can support a logout with `Auth0`:"
 msgstr "Puede utilizar `quarkus.oidc.logout.post-logout-url-param` para solucionar este problema. También puede solicitar más parámetros de consulta de cierre de sesión añadidos con `quarkus.oidc.logout.extra-params`. Por ejemplo, así es como se puede apoyar un cierre de sesión con `Auth0`:"
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Back-channel logout"
 msgstr "Desconexión del canal trasero"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -995,18 +1035,19 @@ msgid ""
 "In this case the OIDC will call a specific URL from each application to trigger that logout."
 msgstr "El proveedor de OIDC puede forzar el cierre de sesión de todas las aplicaciones utilizando los datos de autentificación: es lo que se denomina cierre de sesión por canal trasero. En este caso, el OIDC llamará a una URL específica de cada aplicación para desencadenar ese cierre de sesión."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "link:https://openid.net/specs/openid-connect-backchannel-1_0.html[Back-Channel Logout] is used by OpenID Connect providers to log out the current user from all the applications this user is currently logged in, bypassing the user agent."
 msgstr "Los proveedores de OpenID Connect utilizan  link:https://openid.net/specs/openid-connect-backchannel-1_0.html[el cierre de sesión por canal trasero] para cerrar la sesión del usuario actual en todas las aplicaciones en las que está conectado, sin pasar por el agente de usuario."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "You can configure Quarkus to support `Back-Channel Logout` as follows:"
 msgstr "Puede configurar Quarkus para que admita `Back-Channel Logout` del siguiente modo:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1014,6 +1055,7 @@ msgid ""
 "You will need to configure this URL in the admin console of your OIDC provider."
 msgstr "La URL absoluta de `back-channel logout` se calcula añadiendo `quarkus.oidc.back-channel-logout.path` a la URL del punto final actual, por ejemplo, `http://localhost:8080/back-channel-logout` . Deberá configurar esta URL en la consola de administración de su proveedor de OIDC."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1021,12 +1063,13 @@ msgid ""
 "For example, set `quarkus.oidc.token.age=10S` to ensure that no more than 10 seconds elapse since the logout token's `iat` (issued at) time."
 msgstr "También tendrá que configurar una propiedad de antigüedad del token para que la verificación del token de cierre de sesión tenga éxito si su proveedor de OpenID Connect no establece una reclamación de caducidad en el token de cierre de sesión actual. Por ejemplo, configure `quarkus.oidc.token.age=10S` para asegurarse de que no transcurren más de 10 segundos desde la hora de `iat` (emitida en) del token de cierre de sesión."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Front-channel logout"
 msgstr "Desconexión del canal frontal"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1047,12 +1090,13 @@ msgstr "Puede configurar Quarkus para que admita `Front-Channel Logout` del sigu
 msgid "This path will be compared against the current request's path and the user will be logged out if these paths match."
 msgstr "Esta ruta se comparará con la ruta de la solicitud actual y el usuario se desconectará si estas rutas coinciden."
 
-#. type: Title =====
+#. type: Title ====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Local logout"
 msgstr "Cierre de sesión local"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1068,11 +1112,13 @@ msgstr "El cierre de xref:user-initiated-logout[sesión iniciado por] el usuario
 msgid "By using xref:oidc-session[OidcSession], you can support a local logout, which means that only the local session cookie is cleared, as shown in the following example:"
 msgstr "Mediante el uso de  link:#oidc-session[OidcSession], puede soportar un cierre de sesión local, lo que significa que sólo se borra la cookie de sesión local, como se muestra en el siguiente ejemplo:"
 
+#. type: Title =====
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Using `OidcSession` for local logout"
 msgstr "Uso de `OidcSession` para el cierre de sesión local"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1080,12 +1126,13 @@ msgid ""
 "More useful methods will be added to it over time."
 msgstr "`io.quarkus.oidc.OidcSession` es una envoltura alrededor de la actual `IdToken` , que puede ayudar a realizar un xref:local-logout[cierre de sesión local] , recuperar el identificador de inquilino de la sesión actual y comprobar cuándo expirará la sesión. Con el tiempo se le irán añadiendo más métodos útiles."
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Session management"
 msgstr "Gestión de sesiones"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1093,6 +1140,7 @@ msgid ""
 "If the session at the OIDC provider is still active, users are automatically re-authenticated without needing to provide their credentials again."
 msgstr "Por defecto, el cierre de sesión se basa en la hora de caducidad del token de identificación emitido por el proveedor de OIDC. Cuando el token de identificación caduca, la sesión actual del usuario en el punto final de Quarkus se invalida y el usuario es redirigido de nuevo al proveedor de OIDC para autenticarse. Si la sesión en el proveedor de OIDC sigue activa, los usuarios se vuelven a autenticar automáticamente sin necesidad de proporcionar de nuevo sus credenciales."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1112,6 +1160,7 @@ msgstr "Si tiene una  link:security-oidc-bearer-token-authentication.html#single
 msgid "If you work with a Quarkus OIDC `web-app` application, then it is the Quarkus OIDC code authentication mechanism that is managing the user session lifespan."
 msgstr "Si trabajas con una aplicación de Quarkus OIDC `web-app`, entonces es el mecanismo de autenticación de código de Quarkus OIDC el que está gestionando la duración de la sesión del usuario."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1125,6 +1174,7 @@ msgstr "Para utilizar el token de actualización, debe configurar cuidadosamente
 msgid "You calculate the session age by adding the lifespan value of the current ID token and the values of the `quarkus.oidc.authentication.session-age-extension` and `quarkus.oidc.token.lifespan-grace` properties."
 msgstr "La edad de la sesión se calcula sumando el valor de vida útil del token de ID actual y los valores de las propiedades `quarkus.oidc.authentication.session-age-extension` y `quarkus.oidc.token.lifespan-grace`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1132,6 +1182,7 @@ msgid ""
 "You use the `quarkus.oidc.token.lifespan-grace` property only for taking some small clock skews into consideration."
 msgstr "Usted sólo utiliza la propiedad `quarkus.oidc.authentication.session-age-extension` para prolongar significativamente la duración de la sesión, si es necesario. Utilice la propiedad `quarkus.oidc.token.lifespan-grace` sólo para tener en cuenta algunas pequeñas desviaciones del reloj."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1139,6 +1190,7 @@ msgid ""
 "The OIDC provider might challenge the user again if the session between the user and this OIDC provider is still active, which might happen if the session is configured to last longer than the ID token."
 msgstr "Cuando el usuario autenticado actual vuelve al punto final protegido de Quarkus y el token de identificación asociado a la cookie de sesión ha caducado, entonces, por defecto, el usuario es redirigido automáticamente al punto final de autorización de OIDC para volver a autenticarse. El proveedor de OIDC podría volver a desafiar al usuario si la sesión entre el usuario y este proveedor de OIDC sigue activa, lo que podría ocurrir si la sesión está configurada para durar más que el token de ID."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1147,6 +1199,7 @@ msgid ""
 "As a result, the new session cookie is created and the session is extended."
 msgstr "Si `quarkus.oidc.token.refresh-expired` está configurado como `true` , el token de identificación caducado (así como el token de acceso) se actualiza utilizando el token de actualización devuelto con la respuesta de concesión del código de autorización inicial. Este token de refresco también podría ser reciclado (refrescado) por sí mismo como parte de este proceso. Como resultado, se crea la nueva cookie de sesión y se amplía la sesión."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1156,6 +1209,7 @@ msgid ""
 "Set `quarkus.oidc.authentication.session-age-extension` to be _reasonably_ long for your barely-active users and in accordance with your security policies."
 msgstr "En los casos en que el usuario no es muy activo, puede utilizar la propiedad `quarkus.oidc.authentication.session-age-extension` para ayudar a manejar los tokens de identificación caducados. Si el token de identificación caduca, es posible que la cookie de sesión no se devuelva al punto final de Quarkus durante la siguiente solicitud del usuario, ya que la vida útil de la cookie habría transcurrido. Quarkus asume que esta solicitud es la primera solicitud de autenticación. Configure `quarkus.oidc.authentication.session-age-extension` para que sea _razonablemente_ larga para sus usuarios poco activos y de acuerdo con sus políticas de seguridad."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1169,6 +1223,7 @@ msgstr "Puede ir un paso más allá y refrescar proactivamente los tokens de ide
 msgid "You can further optimize this process by having a simple JavaScript function ping your Quarkus endpoint to periodically emulate the user activity, which minimizes the time frame during which the user might have to be re-authenticated."
 msgstr "Puede optimizar aún más este proceso haciendo que una simple función de JavaScript haga ping a su punto final de Quarkus para emular periódicamente la actividad del usuario, lo que minimiza el lapso de tiempo durante el cual el usuario podría tener que volver a autenticarse."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1176,12 +1231,13 @@ msgid ""
 "The returning user with the expired ID token will have to re-authenticate at the OIDC provider endpoint once the refresh token has expired."
 msgstr "No se puede prolongar indefinidamente la sesión del usuario. El usuario que regrese con el token de identificación caducado tendrá que volver a autenticarse en el punto final del proveedor de OIDC una vez que el token de actualización haya caducado."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Integration with GitHub and non-OIDC OAuth2 providers"
 msgstr "Integración con GitHub y proveedores OAuth2 ajenos a OIDC"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1201,6 +1257,7 @@ msgstr "La principal diferencia entre los proveedores de OpenID Connect y OAuth2
 msgid "OAuth2 providers such as GitHub do not return `IdToken`, the fact of the user authentication is implicit and is indirectly represented by the `access` token which represents an authenticated user authorizing the current Quarkus `web-app` application to access some data on behalf of the authenticated user."
 msgstr "Los proveedores OAuth2 como GitHub no devuelven `IdToken`, el hecho de la autenticación del usuario es implícito y está representado indirectamente por el token `access` que representa a un usuario autenticado que autoriza a la aplicación actual Quarkus `web-app` a acceder a algunos datos en nombre del usuario autenticado."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1221,6 +1278,7 @@ msgstr "Por ejemplo, cuando se trabaja con GitHub, el punto final de Quarkus pue
 msgid "To support the integration with such OAuth2 servers, `quarkus-oidc` needs to be configured a bit differently to allow the authorization code flow responses without `IdToken`: `quarkus.oidc.authentication.id-token-required=false`."
 msgstr "Para soportar la integración con tales servidores OAuth2, `quarkus-oidc` necesita ser configurado un poco diferente para permitir las respuestas de flujo de código de autorización sin `IdToken`: `quarkus.oidc.authentication.id-token-required=false`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1235,6 +1293,7 @@ msgstr "Aunque configure la extensión para soportar los flujos de código de au
 msgid "This simplifies how you handle an application that supports multiple OIDC providers."
 msgstr "Esto simplifica el manejo de una aplicación que soporta múltiples proveedores OIDC."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1247,6 +1306,7 @@ msgid ""
 "For GitHub, since it does not have an introspection endpoint, requesting the UserInfo is required."
 msgstr "El siguiente paso es asegurarse de que el token de acceso devuelto puede ser útil y es válido para el punto final actual de Quarkus. La primera forma es llamar al punto final de introspección del proveedor OAuth2 configurando `quarkus.oidc.introspection-path` , si el proveedor ofrece tal punto final. En este caso puede utilizar el token de acceso como fuente de roles utilizando `quarkus.oidc.roles.source=accesstoken` . Si no existe ningún punto final de introspección, puede intentar en su lugar solicitar xref:user-info[UserInfo] al proveedor, ya que al menos validará el token de acceso. Para ello, especifique `quarkus.oidc.token.verify-access-token-with-user-info=true` . También debe establecer la propiedad `quarkus.oidc.user-info-path` en un punto final de URL que obtenga la información del usuario (o en un punto final protegido por el token de acceso). En el caso de GitHub, dado que no dispone de un endpoint de introspección, es necesario solicitar el UserInfo."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1255,12 +1315,13 @@ msgid ""
 "For more information, see the xref:security-oidc-bearer-token-authentication.adoc#token-introspection-userinfo-cache[Token Introspection and UserInfo cache] section of the \"OpenID Connect (OIDC) Bearer token authentication\" guide."
 msgstr "Requerir xref:user-info[UserInfo] implica realizar una llamada remota en cada solicitud. Por lo tanto, es posible que desee considerar la posibilidad de almacenar en caché los datos de `UserInfo` . Para más información, consulte la sección xref:security-oidc-bearer-token-authentication.adoc#token-introspection-userinfo-cache[Introspección de tokens y] caché de UserInfo de la guía \"Autenticación con token de portador OpenID Connect (OIDC)\"."
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid "Alternatively, you may want to request that `UserInfo` is embedded into the internal generated `IdToken` with the `quarkus.oidc.cache-user-info-in-idtoken=true` property - the advantage of this approach is that by default no cached `UserInfo` state will be kept with the endpoint - instead it will be stored in a session cookie. You may also want to consider encrypting `IdToken` in this case if `UserInfo` contains sensitive data. For more information, see xref:token-state-manager[Encrypt tokens with TokenStateManager]."
 msgstr "Alternativamente, puede que desee solicitar que `UserInfo` se incruste en el `IdToken` generado internamente con la propiedad `quarkus.oidc.cache-user-info-in-idtoken=true` - la ventaja de este enfoque es que por defecto ningún estado `UserInfo` en caché se mantendrá con el endpoint - en su lugar se almacenará en una cookie de sesión. También puede considerar cifrar `IdToken` en este caso si `UserInfo` contiene datos sensibles. Para obtener más información, consulte  link:#token-state-manager[Cifrar tokens con TokenStateManager]."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1268,6 +1329,7 @@ msgid ""
 "In this case, you must disable the discovery and configure the authorization, token, and introspection and the userinfo endpoint paths manually."
 msgstr "Es posible que los servidores OAuth2 no admitan un endpoint de configuración conocido. En este caso, deberá desactivar el descubrimiento y configurar manualmente las rutas de autorización, token e introspección y el endpoint userinfo."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1311,12 +1373,13 @@ msgstr "Posiblemente una alternativa más sencilla sea inyectar tanto `@IdToken 
 msgid "You must ensure that the callback path you enter in the GitHub OAuth application configuration matches the endpoint path where you'd like the user be redirected to after a successful GitHub authentication and application authorization, in this case it has to be set to `http:localhost:8080/github/userinfo`."
 msgstr "Debes asegurarte de que la ruta de devolución de llamada que introduces en la configuración de la aplicación GitHub OAuth coincide con la ruta del punto final al que te gustaría que se redirigiera al usuario tras una autenticación de GitHub y una autorización de la aplicación satisfactorias, en este caso debe establecerse en `http:localhost:8080/github/userinfo`."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Listening to important authentication events"
 msgstr "Escuchar eventos de autenticación importantes"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1326,7 +1389,7 @@ msgid ""
 "For example:"
 msgstr "Puede registrar el frijol `@ApplicationScoped` que observará los eventos importantes de autenticación de OIDC. Cuando un usuario se conecta por primera vez, se reautentica o refresca la sesión, se actualiza el oyente. En el futuro, podrían notificarse más eventos. Por ejemplo:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Propagating tokens to downstream services"
@@ -1338,7 +1401,7 @@ msgstr "Propagación de fichas a servicios posteriores"
 msgid "For information about Authorization Code Flow access token propagation to downstream services, see the xref:security-openid-connect-client-reference.adoc#token-propagation[Token Propagation] section."
 msgstr "Para obtener información sobre la propagación de tokens de acceso de flujo de código de autorización a servicios posteriores, consulte la sección  link:security-openid-connect-client-reference.html#token-propagation[Propagación de tokens]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Integration considerations"
@@ -1356,7 +1419,7 @@ msgstr "Su aplicación asegurada por OIDC se integra en un entorno en el que pue
 msgid "This section discusses these considerations."
 msgstr "En esta sección se analizan estas consideraciones."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Single-page applications"
@@ -1368,6 +1431,7 @@ msgstr "Aplicaciones de una sola página"
 msgid "You can check if implementing single-page applications (SPAs) the way it is suggested in the xref:security-oidc-bearer-token-authentication.adoc#single-page-applications[Single-page applications] section of the \"OpenID Connect (OIDC) Bearer token authentication\" guide meets your requirements."
 msgstr "Puede comprobar si la implementación de aplicaciones de  link:security-oidc-bearer-token-authentication.html#single-page-applications[una sola] página (SPA) del modo sugerido en la sección  link:security-oidc-bearer-token-authentication.html#single-page-applications[Aplicaciones de una sola página] de la guía \"Autenticación con token de portador de OpenID Connect (OIDC)\" cumple sus requisitos."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1375,6 +1439,7 @@ msgid ""
 "This will lead to authentication failures if the Quarkus application and the OpenID Connect provider are hosted on different HTTP domains, ports, or both."
 msgstr "Si prefiere utilizar SPA y API de JavaScript como `Fetch` o `XMLHttpRequest` (XHR) con las aplicaciones web de Quarkus, tenga en cuenta que es posible que los proveedores de OpenID Connect no admitan el uso compartido de recursos entre orígenes (CORS) para los puntos finales de autorización en los que los usuarios se autentican después de una redirección desde Quarkus. Esto provocará fallos de autenticación si la aplicación de Quarkus y el proveedor de OpenID Connect están alojados en diferentes dominios HTTP, puertos o ambos."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1383,12 +1448,13 @@ msgid ""
 "For example:"
 msgstr "En tales casos, establezca la propiedad `quarkus.oidc.authentication.java-script-auto-redirect` en `false` , lo que indicará a Quarkus que devuelva un código de estado `499` y un encabezado `WWW-Authenticate` con el valor `OIDC` . También debe actualizar el script del navegador para establecer el encabezado `X-Requested-With` con el valor `JavaScript` y recargar la última página solicitada en caso de un código de estado `499` . Por ejemplo:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Cross-origin resource sharing"
 msgstr "Compartir recursos entre orígenes"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1396,13 +1462,13 @@ msgid ""
 "For more information, see the xref:http-reference.adoc#cors-filter[CORS filter] section of the \"HTTP reference\" guide."
 msgstr "Si tiene previsto consumir esta aplicación desde una aplicación de una sola página que se ejecute en un dominio diferente, deberá configurar el uso compartido de recursos entre orígenes (CORS). Para más información, consulte la sección del xref:http-reference.adoc#cors-filter[filtro COR] S de la guía \"Referencia HTTP\"."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Calling Cloud provider services"
 msgstr "Llamar a los servicios del proveedor de la nube"
 
-#. type: Title ====
+#. type: Title ===
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Google Cloud"
@@ -1414,6 +1480,7 @@ msgstr "Nube de Google"
 msgid "You can have Quarkus OIDC `web-app` applications access **Google Cloud services** such as **BigQuery** on behalf of the currently-authenticated users who have enabled OpenID Connect (Authorization Code Flow) permissions to such services in their Google developer consoles."
 msgstr "Puede hacer que las aplicaciones de Quarkus OIDC `web-app` accedan a *los servicios de Google Cloud*, como *BigQuery*, en nombre de los usuarios autenticados en ese momento que hayan habilitado los permisos de OpenID Connect (flujo de código de autorización) para dichos servicios en sus consolas de desarrollador de Google."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1439,7 +1506,7 @@ msgstr "build.gradle"
 msgid "and configure Google OIDC properties:"
 msgstr "y configurar las propiedades de Google OIDC:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Running Quarkus application behind a reverse proxy"
@@ -1475,12 +1542,13 @@ msgstr "donde `X-ORIGINAL-HOST` es establecido por Kubernetes Ingress para repre
 msgid "`quarkus.oidc.authentication.force-redirect-https-scheme` property may also be used when the Quarkus application is running behind an SSL terminating reverse proxy."
 msgstr "`quarkus.oidc.authentication.force-redirect-https-scheme` también puede utilizarse cuando la aplicación Quarkus se ejecuta detrás de un proxy inverso con terminación SSL."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "External and internal access to the OIDC provider"
 msgstr "Acceso externo e interno al proveedor de OIDC"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1488,6 +1556,7 @@ msgid ""
 "In such cases an issuer verification failure may be reported by the endpoint and redirects to the externally accessible Connect Provider endpoints may fail."
 msgstr "Tenga en cuenta que la autorización accesible externamente del proveedor de OpenID Connect, el cierre de sesión y otros puntos finales pueden tener URL HTTP(S) diferentes en comparación con las URL autodescubiertas o configuradas en relación con la URL interna de `quarkus.oidc.auth-server-url`. En tales casos, es posible que el punto final notifique un error de verificación del emisor y que fallen las redirecciones a los puntos finales del proveedor de Connect accesibles externamente."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1495,12 +1564,13 @@ msgid ""
 "If you work with other Openid Connect providers then please check your provider's documentation."
 msgstr "En estos casos, si trabajas con Keycloak, por favor, inícialo con una propiedad del sistema `KEYCLOAK_FRONTEND_URL` establecida en la URL base accesible externamente. Si trabaja con otros proveedores de Openid Connect, consulte la documentación del proveedor."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, no-wrap
 msgid "Testing"
 msgstr "Probando"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1514,7 +1584,7 @@ msgstr "Las pruebas suelen ser complicadas cuando se trata de la autentificació
 msgid "Start by adding the following dependencies to your test project:"
 msgstr "Comience por añadir las siguientes dependencias a su proyecto de prueba:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Wiremock"
@@ -1556,12 +1626,13 @@ msgstr "Además, `OidcWiremockTestResource` establece el emisor de tokens y la a
 msgid "`OidcWiremockTestResource` can be used to emulate all OpenID Connect providers."
 msgstr "`OidcWiremockTestResource` puede utilizarse para emular todos los proveedores de OpenID Connect."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Dev services for Keycloak"
 msgstr "Servicios de desarrollo para Keycloak"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1587,6 +1658,7 @@ msgstr "Pero si ya tienes configuradas todas las propiedades requeridas de `quar
 msgid "If a custom realm file has to be imported into Keycloak before running the tests then you can configure `Dev Services for Keycloak` as follows:"
 msgstr "Si es necesario importar un archivo de dominio personalizado en Keycloak antes de ejecutar las pruebas, puede configurar `Dev Services for Keycloak` de la siguiente manera:"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1594,12 +1666,13 @@ msgid ""
 "The only difference is that `@QuarkusTestResource` is no longer needed:"
 msgstr "Por último, escriba un código de prueba de la misma forma que se describe en la sección  link:#integration-testing-wiremock[Wiremock]. La única diferencia es que `@QuarkusTestResource` ya no es necesario:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Using KeycloakTestResourceLifecycleManager"
 msgstr "Uso de KeycloakTestResourceLifecycleManager"
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1631,6 +1704,7 @@ msgstr "Y configura el plugin Maven Surefire como sigue:"
 msgid "(and similarly the Maven Failsafe plugin when testing in native image)."
 msgstr "(y de forma similar el plugin Maven Failsafe al probar en imagen nativa)."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1644,6 +1718,7 @@ msgstr "Y ahora establezca la configuración y escriba el código de prueba de l
 msgid "`KeycloakTestResourceLifecycleManager` registers `alice` and `admin` users. The user `alice` has the `user` role only by default - it can be customized with a `keycloak.token.user-roles` system property. The user `admin` has the `user` and `admin` roles by default - it can be customized with a `keycloak.token.admin-roles` system property."
 msgstr "`KeycloakTestResourceLifecycleManager` registra los usuarios `alice` y `admin`. El usuario `alice` sólo tiene el rol `user` por defecto - puede ser personalizado con una propiedad del sistema `keycloak.token.user-roles`. El usuario `admin` tiene los roles `user` y `admin` por defecto - puede ser personalizado con una propiedad del sistema `keycloak.token.admin-roles`."
 
+#. type: Plain text
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy
 msgid ""
@@ -1651,7 +1726,7 @@ msgid ""
 "Default realm name is `quarkus` and client id - `quarkus-web-app` - set `keycloak.realm` and `keycloak.web-app.client` system properties to customize the values if needed."
 msgstr "Por defecto, `KeycloakTestResourceLifecycleManager` utiliza HTTPS para inicializar una instancia de Keycloak, lo que puede desactivarse con `keycloak.use.https=false`. El nombre de dominio por defecto es `quarkus` y el id de cliente - `quarkus-web-app` - configure las propiedades del sistema `keycloak.realm` y `keycloak.web-app.client` para personalizar los valores si es necesario."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "TestSecurity annotation"
@@ -1663,7 +1738,7 @@ msgstr "Anotación TestSecurity"
 msgid "See xref:security-oidc-bearer-token-authentication.adoc#integration-testing-security-annotation[Use TestingSecurity with injected JsonWebToken] section for more information about using `@TestSecurity` and `@OidcSecurity` annotations for testing the `web-app` application endpoint code which depends on the injected ID and access `JsonWebToken` as well as `UserInfo` and `OidcConfigurationMetadata`."
 msgstr "Consulte la sección  link:security-oidc-bearer-token-authentication.html#integration-testing-security-annotation[Usar TestingSecurity con JsonWebToken iny] ectado para obtener más información sobre el uso de las anotaciones `@TestSecurity` y `@OidcSecurity` para probar el código del endpoint de la aplicación `web-app` que depende del ID inyectado y acceder a `JsonWebToken` así como a `UserInfo` y `OidcConfigurationMetadata`."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, fuzzy, no-wrap
 msgid "Checking errors in the logs"
@@ -1687,7 +1762,7 @@ msgstr "Para ver detalles sobre los errores de inicialización del cliente OidcP
 msgid "You can also from `quarkus dev` console hit `j` to change the application global log level."
 msgstr "También puedes desde la consola `quarkus dev` pulsar `j` para cambiar el nivel de registro global de la aplicación."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/3.2/guides/security-oidc-code-flow-authentication.adoc
 #, no-wrap
 msgid "References"

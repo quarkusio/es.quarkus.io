@@ -16,15 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Introduction to Contexts and Dependency Injection (CDI)"
 msgstr "Introducción a los contextos y a la inyección de dependencia (CDI)"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -33,23 +34,25 @@ msgid ""
 "The xref:cdi-integration.adoc[CDI integration guide] has more detail on common CDI-related integration use cases, and example code for solutions."
 msgstr "En esta guía vamos a describir los principios básicos del modelo de programación Quarkus que se basa en la especificación de link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html[Contextos de Yakarta e Inyección de Dependencia 4.1] . La xref:cdi-reference.adoc[guía de referencia CDI] describe el descubrimiento de beans, las características no estándar y las propiedades de configuración. La xref:cdi-integration.adoc[guía de integración CDI] tiene más detalles sobre casos de uso comunes de integración relacionados con CDI, y código de ejemplo para soluciones."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "OK. Let's start simple. What is a bean?"
 msgstr "BIEN. Empecemos con algo sencillo. ¿Qué es una judía?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "Well, a bean is a _container-managed_ object that supports a set of basic services, such as injection of dependencies, lifecycle callbacks, and interceptors."
 msgstr "Pues bien, un bean es un objeto _gestionado por un contenedor_ que admite un conjunto de servicios básicos, como la inyección de dependencias, las devoluciones de llamada del ciclo de vida y los interceptores."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Wait a minute. What does \"container-managed\" mean?"
 msgstr "Un momento. ¿Qué significa \"gestionado por contenedores\"?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -59,7 +62,7 @@ msgid ""
 "It creates and destroys the instances of beans, associates the instances with a designated context, and injects them into other beans."
 msgstr "En pocas palabras, usted no controla directamente el ciclo de vida de la instancia del objeto. En su lugar, puede afectar al ciclo de vida a través de medios declarativos, como anotaciones, configuración, etc. El contenedor es el _entorno_ en el que se ejecuta su aplicación. Crea y destruye las instancias de beans, asocia las instancias a un contexto designado y las inyecta en otros beans."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "What is it good for?"
@@ -77,12 +80,13 @@ msgstr "Un desarrollador de aplicaciones puede centrarse en la lógica de negoci
 msgid "You've probably heard of the _inversion of control_ (IoC) programming principle. Dependency injection is one of the implementation techniques of IoC."
 msgstr "Probablemente haya oído hablar del principio de programación de _inversión de control_ (IoC). La inyección de dependencia es una de las técnicas de implementación de IoC."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "What does a bean look like?"
 msgstr "¿Qué aspecto tiene una judía?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -108,17 +112,19 @@ msgstr "Esta es una anotación de alcance. Indica al contenedor con qué context
 msgid "This is a field injection point. It tells the container that `Translator` depends on the `Dictionary` bean. If there is no matching bean the build fails."
 msgstr "Este es un punto de inyección de campo. Indica al contenedor que `Translator` depende del bean `Dictionary`. Si no hay un bean que coincida, la construcción falla."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "This is an interceptor binding annotation. In this case, the annotation comes from Micrometer. The relevant interceptor intercepts the invocation and updates the relevant metrics. We will talk about <<interceptors,interceptors>> later."
 msgstr "Se trata de una anotación de enlace interceptor. En este caso, la anotación procede de Micrometer. El interceptor correspondiente intercepta la invocación y actualiza las métricas pertinentes. Hablaremos de xref:interceptors[los interceptores] más adelante."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Nice. How does the dependency resolution work? I see no names or identifiers."
 msgstr "Muy bien. ¿Cómo funciona la resolución de dependencias? No veo nombres ni identificadores."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -131,12 +137,13 @@ msgid ""
 "For now, it's enough to know that the bean above is assignable to an injection point of type `Translator` and `java.lang.Object`."
 msgstr "Es una buena pregunta. En CDI el proceso de emparejar un bean con un punto de inyección es *de tipo seguro* . Cada frijol declara un conjunto de tipos de frijol. En nuestro ejemplo anterior, el bean `Translator` tiene dos tipos de bean: `Translator` y `java.lang.Object` . Posteriormente, un bean es asignable a un punto de inyección si el bean tiene un tipo de bean que coincide con el tipo _requerido_ y tiene todos los calificadores _requeridos_ . Hablaremos de los calificadores más adelante. Por ahora, basta con saber que el bean anterior es asignable a un punto de inyección de tipo `Translator` y `java.lang.Object` ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Hm, wait a minute. What happens if multiple beans declare the same type?"
 msgstr "Un momento. ¿Qué sucede si varios frijoles declaran el mismo tipo?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -146,6 +153,7 @@ msgid ""
 "This is very useful because your application fails fast whenever the container is not able to find an unambiguous dependency for any injection point."
 msgstr "Hay una regla simple: *exactamente un frijol debe ser asignable a un punto de inyección, de lo contrario la* construcción falla. Si no hay ninguno asignable, la compilación falla con `UnsatisfiedResolutionException` . Si hay varios asignables, la compilación falla con `AmbiguousResolutionException` . Esto es muy útil porque su aplicación falla rápidamente cuando el contenedor no es capaz de encontrar una dependencia inequívoca para cualquier punto de inyección."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "You can use programmatic lookup via  `jakarta.enterprise.inject.Instance` to resolve ambiguities at runtime and even iterate over all beans implementing a given type:"
@@ -163,12 +171,13 @@ msgstr "Este punto de inyección no dará lugar a una dependencia ambigua aunque
 msgid "`jakarta.enterprise.inject.Instance` extends `Iterable`."
 msgstr "`javax.enterprise.inject.Instance` amplía `Iterable`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Can I use setter and constructor injection?"
 msgstr "¿Puedo utilizar la inyección de setters y constructores?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -183,6 +192,7 @@ msgstr "Sí que puede. De hecho, en CDI, la \"inyección setter\" es sustituida 
 msgid "Initialized and Constructor Injection Example"
 msgstr "Ejemplo de inyección de inicializadores y constructores"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -204,12 +214,13 @@ msgstr "Un método inicializador debe ser anotado con `@Inject`."
 msgid "An initializer may accept multiple parameters - each one is an injection point."
 msgstr "Un inicializador puede aceptar múltiples parámetros - cada uno es un punto de inyección."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "You talked about some qualifiers?"
 msgstr "¿Hablaste de algunos calificativos?"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -242,11 +253,13 @@ msgstr "Los calificadores de un bean se declaran anotando la clase del bean o el
 msgid "Bean With Custom Qualifier Example"
 msgstr "Ejemplo de frijol con calificador personalizado"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "`@Superior` is a https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#defining_qualifier_types[qualifier annotation, window=\"_blank\"]."
 msgstr "`@Superior` es una link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#defining_qualifier_types[anotación calificativa] ."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -255,6 +268,7 @@ msgid ""
 "And since our `SuperiorTranslator` does not declare `@Default` only the original `Translator` bean is assignable."
 msgstr "Este bean sería asignable a `@Inject @Superior Translator` y `@Inject @Superior SuperiorTranslator` pero no a `@Inject Translator` . La razón es que `@Inject Translator` se transforma automáticamente en `@Inject @Default Translator` durante la resolución tipográfica. Y puesto que nuestro `SuperiorTranslator` no declara `@Default` sólo el bean original `Translator` es asignable."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -262,7 +276,7 @@ msgid ""
 "See the xref:cdi-reference.adoc#string-based-qualifiers[corresponding section] in CDI Reference Guide for why you typically shouldn't use it."
 msgstr "El calificador `@Named` , con el que quizá esté familiarizado, es algo diferente en CDI al resto de calificadores. Consulte la xref:cdi-reference.adoc#string-based-qualifiers[sección correspondiente] en la Guía de referencia CDI para saber por qué no debería utilizarlo normalmente."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Looks good. What is the bean scope?"
@@ -280,7 +294,7 @@ msgstr "El ámbito de un bean determina el ciclo de vida de sus instancias, es d
 msgid "Every bean has exactly one scope."
 msgstr "Cada judía tiene exactamente un ámbito de aplicación."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "What scopes can I actually use in my Quarkus application?"
@@ -298,6 +312,7 @@ msgstr "Puede utilizar todos los ámbitos incorporados mencionados por la especi
 msgid "Annotation"
 msgstr "Anotación"
 
+#. type: Table
 #: _versions/main/guides/cdi.adoc
 msgid "Description"
 msgstr "Descripción"
@@ -308,6 +323,7 @@ msgstr "Descripción"
 msgid "`@jakarta.enterprise.context.ApplicationScoped`"
 msgstr "`@javax.enterprise.context.ApplicationScoped`"
 
+#. type: Table
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "A single bean instance is used for the application and shared among all injection points. The instance is created lazily, i.e. once a method is invoked upon the <<client_proxies, client proxy>>."
@@ -367,7 +383,7 @@ msgstr "Este ámbito está respaldado por un objeto `javax.servlet.http.HttpSess
 msgid "There can be other custom scopes provided by Quarkus extensions. For example, xref:transaction.adoc[`quarkus-narayana-jta`] provides xref:transaction.adoc#transaction-scope[`jakarta.transaction.TransactionScoped`]."
 msgstr "Puede haber otros ámbitos personalizados proporcionados por las extensiones de Quarkus. Por ejemplo, `quarkus-narayana-jta` proporciona `javax.transaction.TransactionScoped`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "`@ApplicationScoped` and `@Singleton` look very similar. Which one should I choose for my Quarkus application?"
@@ -379,6 +395,7 @@ msgstr "`@ApplicationScoped` y `@Singleton` son muy similares. ¿Cuál debería 
 msgid "It depends ;-)."
 msgstr "Depende ;-)."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -386,6 +403,7 @@ msgid ""
 "when a method is invoked upon an injected instance for the first time."
 msgstr "Un bean `@Singleton` no tiene xref:client_proxies[proxy cliente] y, por lo tanto, se crea una instancia _eagerly_ cuando se inyecta el bean. Por el contrario, una instancia de un frijol `@ApplicationScoped` se crea _perezosamente_ , es decir, cuando se invoca por primera vez un método sobre una instancia inyectada."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -399,11 +417,13 @@ msgstr "Además, los proxies de cliente sólo delegan las invocaciones de métod
 msgid "`@Singleton` should have a slightly better performance because there is no indirection (no proxy that delegates to the current instance from the context)."
 msgstr "`@Singleton` debería tener un rendimiento ligeramente mejor porque no hay indirección (no hay proxy que delegue en la instancia actual del contexto)."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "On the other hand, you cannot mock `@Singleton` beans using <<getting-started-testing.adoc#quarkus_mock,QuarkusMock>>."
 msgstr "Por otra parte, no puede burlarse de los beans de `@Singleton` utilizando xref:getting-started-testing.adoc#quarkus_mock[QuarkusMock] ."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -417,12 +437,13 @@ msgstr "`@ApplicationScoped` Los beans también pueden destruirse y recrearse en
 msgid "Therefore, we recommend to stick with `@ApplicationScoped` by default unless there's a good reason to use `@Singleton`."
 msgstr "Por lo tanto, recomendamos utilizar `@ApplicationScoped` por defecto a menos que haya una buena razón para utilizar `@Singleton`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "I don't understand the concept of client proxies."
 msgstr "No entiendo el concepto de proxies de clientes."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -443,6 +464,7 @@ msgstr "Los proxies de cliente sólo delegan las invocaciones de métodos. Por t
 msgid "Generated Client Proxy Example"
 msgstr "Ejemplo de proxy de cliente generado"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "The `Translator_ClientProxy` instance is always injected instead of a direct reference to a https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html#contextual_instance[contextual instance, window=\"_blank\"] of the `Translator` bean."
@@ -478,7 +500,7 @@ msgstr "Dependencias circulares en el gráfico de dependencias. Tener dependenci
 msgid "In rare cases it's practical to destroy the beans manually. A direct injected reference would lead to a stale bean instance."
 msgstr "En raros casos es práctico destruir los beans manualmente. Una referencia inyectada directamente conduciría a una instancia de frijol rancia."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "OK. You said that there are several kinds of beans?"
@@ -520,6 +542,7 @@ msgstr "Frijoles sintéticos"
 msgid "Synthetic beans are usually provided by extensions. Therefore, we are not going to cover them in this guide."
 msgstr "Los frijoles sintéticos suelen ser proporcionados por las extensiones. Por lo tanto, no vamos a cubrirlos en esta guía."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -533,6 +556,7 @@ msgstr "Los métodos y campos productores son útiles si necesita un control adi
 msgid "Producers Example"
 msgstr "Ejemplo de productores"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -548,6 +572,7 @@ msgstr "El contenedor analiza las anotaciones de campo para construir los metada
 msgid "The container will read this field when creating the bean instance."
 msgstr "El contenedor leerá este campo al crear la instancia del bean."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -563,6 +588,7 @@ msgstr "El contenedor analiza las anotaciones del método para construir los met
 msgid "The container will call this method when creating the bean instance."
 msgstr "El contenedor llamará a este método cuando cree la instancia del bean."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -571,13 +597,13 @@ msgid ""
 "You can read more about producers for example in the https://docs.jboss.org/weld/reference/latest/en-US/html/producermethods.html[Weld docs, window=\"_blank\"]."
 msgstr "Hay más cosas sobre los productores. Puede declarar calificadores, inyectar dependencias en los parámetros de los métodos productores, etc. Puede leer más sobre los productores, por ejemplo, en link:https://docs.jboss.org/weld/reference/latest/en-US/html/producermethods.html[los documentos de Weld] ."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "OK, injection looks cool. What other services are provided?"
 msgstr "Vale, la inyección parece genial. ¿Qué otros servicios se prestan?"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Lifecycle Callbacks"
@@ -613,12 +639,13 @@ msgstr "Esta llamada de retorno es invocada antes de que la instancia del bean s
 msgid "It's a good practice to keep the logic in the callbacks \"without side effects\", i.e. you should avoid calling other beans inside the callbacks."
 msgstr "Es una buena práctica mantener la lógica en las devoluciones de llamada \"sin efectos secundarios\", es decir, debes evitar llamar a otros beans dentro de las devoluciones de llamada."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Interceptors"
 msgstr "Interceptores"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -704,6 +731,7 @@ msgstr "Las instancias de los interceptores son objetos dependientes de la insta
 msgid "Simple Example of Interceptor Usage"
 msgstr "Ejemplo de interceptor simple"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -711,6 +739,7 @@ msgid ""
 "The annotation can also be put on individual methods, in which case, only the annotated methods are intercepted."
 msgstr "La anotación de enlace interceptor se pone en una clase de frijol para que todos los métodos de negocio sean interceptados. La anotación también puede ponerse en métodos individuales, en cuyo caso, sólo se interceptan los métodos anotados."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -718,7 +747,7 @@ msgid ""
 "If there's a bean class that inherits from `MyService`, the `LoggingInterceptor` will also apply to it."
 msgstr "Recuerde que la anotación `@Logged` es `@Inherited` . Si existe una clase bean que hereda de `MyService` , también se le aplicará la anotación `LoggingInterceptor` ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Decorators"
@@ -760,6 +789,7 @@ msgstr "El conjunto de tipos decorados incluye todos los tipos de bean que son i
 msgid "Each decorator must declare exactly one _delegate injection point_. The decorator applies to beans that are assignable to this delegate injection point."
 msgstr "Cada decorador debe declarar exactamente un punto de inyección de _delegado_. El decorador se aplica a los beans que son asignables a este punto de inyección de delegado."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid "It is possible to obtain information about the decorated bean by using the `@Decorated` qualifier."
@@ -783,12 +813,13 @@ msgstr "El decorador puede invocar cualquier método del objeto delegado. Y el c
 msgid "Instances of decorators are dependent objects of the bean instance they intercept, i.e. a new decorator instance is created for each intercepted bean."
 msgstr "Las instancias de los decoradores son objetos dependientes de la instancia del bean que interceptan, es decir, se crea una nueva instancia del decorador para cada bean interceptado."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Events and Observers"
 msgstr "Eventos y observadores"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -827,12 +858,13 @@ msgstr "Este método es notificado cuando se dispara un evento `TaskCompleted`."
 msgid "For more info about events/observers visit https://docs.jboss.org/weld/reference/latest/en-US/html/events.html[Weld docs, window=\"_blank\"]."
 msgstr "Para más información sobre los eventos/observadores, visita  link:https://docs.jboss.org/weld/reference/latest/en-US/html/events.html[los documentos de Weld, window=_blank]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/main/guides/cdi.adoc
 #, fuzzy, no-wrap
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""
@@ -842,6 +874,7 @@ msgid ""
 "There are also quite a few <<cdi-reference#nonstandard_features,non-standard features>> and <<cdi-reference.adoc#build_time_apis,Quarkus-specific APIs>>."
 msgstr "En esta guía, hemos cubierto algunos temas básicos del modelo de programación Quarkus que se basa en la especificación link:https://jakarta.ee/specifications/cdi/4.1/jakarta-cdi-spec-4.1.html[Contextos de Yakarta e Inyección de Dependencia 4.1] . Quarkus implementa la especificación CDI Lite, pero no CDI Full. Véase también xref:cdi-reference.adoc#supported_features_and_limitations[la lista de características y limitaciones soportadas] . También hay bastantes xref:cdi-reference.adoc#nonstandard_features[características no estándar] y xref:cdi-reference.adoc#build_time_apis[API específicas de] Quarkus."
 
+#. type: Plain text
 #: _versions/main/guides/cdi.adoc
 #, fuzzy
 msgid ""

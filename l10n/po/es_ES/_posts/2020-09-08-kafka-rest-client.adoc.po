@@ -28,6 +28,7 @@ msgstr "Combinación de Apache Kafka y el cliente Rest"
 msgid "How to combine reactive messaging, Kafka and the Rest client"
 msgstr "Cómo combinar la mensajería reactiva, Kafka y el cliente Rest"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -42,6 +43,7 @@ msgstr "Otra semana, otra pregunta interesante. Esta semana, alguien me pregunta
 msgid "image:/assets/images/posts/kafka-rest-client/kafka-rest-architecture.png[]"
 msgstr "image:/assets/images/posts/kafka-rest-client/kafka-rest-architecture.png[alt=kafka rest architecture]"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -52,6 +54,7 @@ msgid ""
 "It also writes the response (produced by the remote service) to another Kafka topic \"out\"."
 msgstr "En otras palabras, queremos llamar a un servicio remoto por cada mensaje Kafka que recibamos. Por lo tanto, tenemos un primer tema (\"en\") que contiene los datos que estamos consumiendo, por ejemplo, \"transacciones\". A continuación, tenemos la pieza central de la arquitectura: el componente de procesamiento. Consume las transacciones entrantes y, para cada una de ellas, llama a un servicio remoto. También escribe la respuesta (producida por el servicio remoto) en otro tema Kafka \"out\"."
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -59,12 +62,13 @@ msgid ""
 "Thanks to Reactive Messaging and the Rest Client, this should not take more than 20 lines of code!"
 msgstr "Implementar esto con Quarkus es sencillo, y eso es lo que cubriremos en este post. Gracias a la mensajería reactiva y al cliente Rest, ¡esto no debería llevar más de 20 líneas de código!"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy, no-wrap
 msgid "The Remote Service"
 msgstr "El servicio a distancia"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -78,6 +82,7 @@ msgstr "Empecemos por el servicio remoto. Quarkus ofrece múltiples maneras de i
 msgid "You can use any HTTP API, but to simplify, let's consider a straightforward remote service, something like:"
 msgstr "Puedes utilizar cualquier API HTTP, pero para simplificar, vamos a considerar un servicio remoto sencillo, algo así como"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -89,6 +94,7 @@ msgid ""
 "In the `application.properties` add:"
 msgstr "Este servicio contiene dos métodos que llaman al mismo punto final HTTP. El primero es síncrono, por lo que bloquea el hilo de llamada hasta que se recibe la respuesta. El segundo es asíncrono, y el `Uni` devuelve la respuesta cuando la recibe. En este caso, el hilo llamador no se bloquea y puede hacer otra cosa. Vamos a ver cómo utilizar estos métodos más adelante, pero antes, un poco de configuración. En el `application.properties` añada:"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -96,12 +102,13 @@ msgid ""
 "The https://quarkus.io/guides/rest-client[https://quarkus.io/guides/rest-client] guide gives more details about the usage and configuration of the Rest Client."
 msgstr "Por supuesto, actualice la URL. La guía https://quarkus.io/guides/rest-client ofrece más detalles sobre el uso y la configuración del cliente Rest."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy, no-wrap
 msgid "Invoking the service for each incoming transaction"
 msgstr "Invocar el servicio para cada transacción entrante"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -112,6 +119,7 @@ msgid ""
 "We call this first channel `in`."
 msgstr "Ok, podemos llamar a nuestro servicio, pero recuerde, queremos invocarlo para cada transacción entrante, y estas transacciones provienen de un tema Kafka. Con la Mensajería Reactiva, no hay necesidad de manejar Kafka en este momento. Podemos centrarnos en la lógica. Digamos que tenemos un *canal* (un flujo de datos), en el que transitar nuestras transacciones. Llamamos a este primer canal `in` ."
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -126,6 +134,7 @@ msgstr "También queremos escribir las respuestas del servicio remoto en otro te
 msgid "So, we have the following (incomplete) code:"
 msgstr "Así, tenemos el siguiente código (incompleto):"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -134,6 +143,7 @@ msgid ""
 "But, something is missing... we need to call our remote service:"
 msgstr "`@Incoming` configura el canal de lectura. `@Outgoing` configura el canal de escritura. Pero, falta algo... necesitamos llamar a nuestro servicio remoto:"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -141,6 +151,7 @@ msgid ""
 "Then, we just invoke it in our method."
 msgstr "Primero, inyectamos el cliente Rest. Después, lo invocamos en nuestro método."
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -150,6 +161,7 @@ msgid ""
 "But, it keeps your logic synchronous."
 msgstr "Puede que se pregunte sobre `@Blocking` . Con la mensajería reactiva, debe indicar cuándo está utilizando código bloqueante, ya que por defecto utiliza una arquitectura de bucle de eventos. Aunque es conveniente, no debe abusar de `@Blocking` , ya que se basa en un pool de hilos que limita su concurrencia. Pero, mantiene su lógica sincrónica."
 
+#. type: Title ==
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid "Using Asynchronous operations"
@@ -161,6 +173,7 @@ msgstr "Uso de operaciones asíncronas"
 msgid "We can get rid of `@Blocking` annotation by using the second method provided by the `TransactionService`: `postAsync:`"
 msgstr "Podemos deshacernos de la anotación `@Blocking` utilizando el segundo método proporcionado por el `TransactionService`: `postAsync:`"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -169,11 +182,13 @@ msgid ""
 "When that `Uni` receives the remote service's response, it writes the value to the `out` channel."
 msgstr "El uso de la variante *asíncrona* del método `post` nos permite eliminar `@Blocking` . Devolvemos directamente `Uni` . Cuando ese `Uni` recibe la respuesta del servicio remoto, escribe el valor en el canal `out` ."
 
+#. type: Title ==
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid "Mapping channel to Kafka"
 msgstr "Asignación de canal a Kafka"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -184,6 +199,7 @@ msgid ""
 "Once again, edit the `application.properties` file, and add:"
 msgstr "Hasta aquí todo bien. Es hora de conectar nuestro código con Kafka. Con Reactive Messaging, asignamos canales a _conectores_ , aquí Kafka. Por lo tanto, sólo tenemos que configurar la aplicación para indicar que los canales `in` y `out` son temas de Kafka. Una vez más, edite el archivo `application.properties` , y añada:"
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -193,6 +209,7 @@ msgid ""
 "The last other properties disable the auto-commit (Reactive Messaging is handling commits for you) and read the data since the last committed offset."
 msgstr "El primer bloque se refiere al canal `in` . Está conectado al tema Kafka `transactions` . Los datos se deserializan con un link:https://github.com/cescoffier/quarkus-kafka-rest-client-demo/blob/master/src/main/java/org/acme/model/TransactionDeserializer.java[deserializador personalizado] . Las otras últimas propiedades desactivan el auto-commit (Reactive Messaging se encarga de los commits por usted) y leen los datos desde el último commit offset."
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""
@@ -219,6 +236,7 @@ msgstr "Si miras dentro del tema de `output`, verás el `TransactionResult` fluy
 msgid "image:/assets/images/posts/kafka-rest-client/output.png[]"
 msgstr "image:/assets/images/posts/kafka-rest-client/output.png[alt=output]"
 
+#. type: Title ==
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid "We are done!"
@@ -230,6 +248,7 @@ msgstr "¡Hemos terminado!"
 msgid "With a few lines of code and a bit of configuration, we can read data from a Kafka topic, call a remote service, and write the result to another Kafka topic. Plain simple."
 msgstr "Con unas pocas líneas de código y un poco de configuración, podemos leer datos de un tema Kafka, llamar a un servicio remoto y escribir el resultado en otro tema Kafka. Así de simple."
 
+#. type: Plain text
 #: _posts/2020-09-08-kafka-rest-client.adoc
 #, fuzzy
 msgid ""

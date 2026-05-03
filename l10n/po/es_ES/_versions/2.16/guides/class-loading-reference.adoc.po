@@ -16,15 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Class Loading Reference"
 msgstr "Referencia de carga de clases"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -32,6 +33,7 @@ msgid ""
 "authors and advanced users who want to understand exactly how Quarkus works."
 msgstr "Este documento explica la arquitectura de carga de clases de Quarkus. Está destinado a los autores de extensiones y a los usuarios avanzados que deseen comprender exactamente cómo funciona Quarkus."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -39,6 +41,7 @@ msgid ""
 "the application is run in."
 msgstr "La arquitectura de carga de clases de Quarkus es ligeramente diferente según el modo en que se ejecute la aplicación."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -47,6 +50,7 @@ msgid ""
 "which indexes class at build time, while a small set of dependencies is loaded from the system ClassLoader."
 msgstr "Cuando se ejecuta una aplicación de producción utilizando el tipo de paquete `fast-jar` (que es el predeterminado), casi todas las dependencias se cargan a través de `io.quarkus.bootstrap.runner.RunnerClassLoader` , que indexa las clases en tiempo de compilación, mientras que un pequeño conjunto de dependencias se carga desde el ClassLoader del sistema."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -60,6 +64,7 @@ msgstr "Cuando se ejecuta una aplicación de producción utilizando el tipo de p
 msgid "The flat classpath strategy is also used for GraalVM native images, since GraalVM does not really support multiple ClassLoaders."
 msgstr "La estrategia de classpath plano también se utiliza para las imágenes nativas de GraalVM, ya que GraalVM no soporta realmente múltiples ClassLoaders."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -67,12 +72,13 @@ msgid ""
 "uses the class loading architecture outlined in following section."
 msgstr "Para todos los demás casos de uso (por ejemplo, pruebas, modo dev y construcción de la aplicación) Quarkus utiliza la arquitectura de carga de clases descrita en la sección siguiente."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Bootstrapping Quarkus"
 msgstr "Cómo hacer un bootstrap de Quarkus"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -82,6 +88,7 @@ msgid ""
 "for the application."
 msgstr "Todas las aplicaciones Quarkus se crean mediante la clase QuarkusBootstrap del módulo `independent-projects/bootstrap` . Esta clase se utiliza para resolver todas las dependencias pertinentes (tanto de despliegue como de tiempo de ejecución) que se necesitan para la aplicación Quarkus. El resultado final de este proceso es un `CuratedApplication` , que contiene toda la información de carga de clases para la aplicación."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -96,7 +103,7 @@ msgstr "El `CuratedApplication` puede utilizarse entonces para crear una instanc
 msgid "This bootstrap process should be the same no matter how Quarkus is launched, just with different parameters passed in."
 msgstr "Este proceso de arranque debería ser el mismo independientemente de cómo se lance Quarkus, sólo que con diferentes parámetros pasados."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Current Run Modes"
@@ -162,12 +169,13 @@ msgstr "Adaptador arquillero"
 msgid "One of the goals of this refactor is to have all these different run modes boot Quarkus in fundamentally the same way."
 msgstr "Uno de los objetivos de esta refactorización es que todos estos modos de ejecución diferentes arranquen Quarkus fundamentalmente de la misma manera."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Notes on Transformer Safety"
 msgstr "Notas sobre la seguridad de los transformadores"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -177,7 +185,7 @@ msgid ""
 "prevent the transformation, as the loaded class is not used at runtime."
 msgstr "Se dice que un cargador de clases es \"seguro para los transformadores\" si es seguro cargar clases en él antes de que los transformadores estén preparados. Una vez que una clase ha sido cargada no puede ser modificada, por lo que si una clase es cargada antes de que los transformadores hayan sido preparados esto impedirá que la transformación funcione. Cargar clases en un ClassLoader seguro para los transformadores no impedirá la transformación, ya que la clase cargada no se utiliza en tiempo de ejecución."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "ClassLoader Implementations"
@@ -189,12 +197,13 @@ msgstr "Implementaciones de ClassLoader"
 msgid "Quarkus has the following ClassLoaders:"
 msgstr "Quarkus tiene las siguientes ClassLoaders:"
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Base ClassLoader"
 msgstr "Base ClassLoader"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -202,12 +211,13 @@ msgid ""
 "is used to load the bootstrap classes, and other ClassLoader instances will delegate the loading of JDK classes to it."
 msgstr "Este suele ser el ClassLoader normal del sistema JVM. En algunos entornos como Maven puede ser diferente. Este ClassLoader se utiliza para cargar las clases de arranque, y otras instancias de ClassLoader delegarán en él la carga de las clases del JDK."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Augment ClassLoader"
 msgstr "Aumentar ClassLoader"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -217,6 +227,7 @@ msgid ""
 "transformer safe."
 msgstr "Esto carga todos los artefactos de `-deployment` y sus dependencias, así como otras dependencias del usuario. No carga la raíz de la aplicación ni ningún código desplegado en caliente. Este ClassLoader es persistente, incluso si la aplicación se reinicia permanecerá (por eso no puede cargar clases de la aplicación que puedan estar desplegadas en caliente). Su padre es el ClassLoader base, y es seguro para el transformador."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -225,7 +236,7 @@ msgid ""
 "the builder classes are isolated, which means that use cases that want to customise the build chains are slightly more complex."
 msgstr "En la actualidad esto se puede configurar para delegar en el ClassLoader Base, sin embargo el plan es que esta opción desaparezca y tener esto siempre como un ClassLoader aislado. Hacer de esto un ClassLoader aislado es complicado ya que significa que todas las clases constructoras están aisladas, lo que significa que los casos de uso que quieren personalizar las cadenas de construcción son ligeramente más complejos."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Deployment ClassLoader"
@@ -237,6 +248,7 @@ msgstr "Despliegue ClassLoader"
 msgid "This can load all application classes. Its parent is the Augment ClassLoader, so it can also load all deployment classes."
 msgstr "Puede cargar todas las clases de la aplicación. Su padre es el cargador de clases de aumento, por lo que también puede cargar todas las clases de despliegue."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -244,12 +256,13 @@ msgid ""
 "is the context ClassLoader that is used when running the build steps. It is also transformer safe."
 msgstr "Este ClassLoader no es persistente, se volverá a crear cuando se inicie la aplicación, y está aislado. Este ClassLoader es el ClassLoader de contexto que se utiliza al ejecutar los pasos de compilación. También es seguro para el transformador."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Base Runtime ClassLoader"
 msgstr "Base Runtime ClassLoader"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -259,6 +272,7 @@ msgid ""
 "application classes that may be hot deployed). Its parent is the base ClassLoader."
 msgstr "Esto carga todas las dependencias de la extensión en tiempo de ejecución, así como otras dependencias del usuario (tenga en cuenta que esto puede incluir copias duplicadas de clases también cargadas por el cargador de clases Augment). No carga la raíz de la aplicación ni ningún código desplegado en caliente. Este ClassLoader es persistente, incluso si la aplicación se reinicia permanecerá (por eso no puede cargar clases de la aplicación que puedan estar desplegadas en caliente). Su padre es el ClassLoader base."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -270,6 +284,7 @@ msgid ""
 "restarts use the copy of the class that was created on the first start."
 msgstr "Esto carga código que no es recargable en caliente, pero sí admite la transformación (aunque una vez cargada la clase esta transformación ya no es posible). Esto significa que sólo tendrán efecto las transformaciones registradas en el primer inicio de la aplicación, aunque como se espera que estas transformaciones sean idempotentes, esto no debería causar problemas. Un ejemplo de la clase de transformación que podría ser necesaria aquí es una entidad Panache empaquetada en un tarro externo. Esta clase necesita ser transformada para tener implementados sus métodos estáticos, sin embargo esta transformación sólo ocurre una vez, por lo que los reinicios utilizan la copia de la clase que se creó en el primer arranque."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -278,6 +293,7 @@ msgid ""
 "to behave more like a production application (production applications are isolated in that they run in a whole new JVM)."
 msgstr "Este cargador de clases está aislado de los cargadores de clases de aumento y despliegue. Esto significa que no es posible establecer valores en un campo estático en la parte de despliegue y esperar leerlo en tiempo de ejecución. Esto permite que las aplicaciones de desarrollo y prueba se comporten más como una aplicación de producción (las aplicaciones de producción están aisladas en el sentido de que se ejecutan en una JVM completamente nueva)."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -285,12 +301,13 @@ msgid ""
 "version used at deployment time might want to include ByteBuddy, while the version used at runtime does not."
 msgstr "Esto también significa que la versión en tiempo de ejecución puede vincularse con un conjunto diferente de dependencias, por ejemplo, la versión de hibernate utilizada en tiempo de despliegue podría querer incluir ByteBuddy, mientras que la versión utilizada en tiempo de ejecución no."
 
-#. type: Labeled list
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Runtime Class Loader"
 msgstr "Cargador de clases en tiempo de ejecución"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -298,12 +315,13 @@ msgid ""
 "ClassLoader, and it is recreated when the application is restarted."
 msgstr "Este ClassLoader se utiliza para cargar las clases de la aplicación y otros recursos desplegables en caliente. Su padre es el ClassLoader base en tiempo de ejecución, y se vuelve a crear cuando se reinicia la aplicación."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Isolated ClassLoaders"
 msgstr "ClassLoaders aislados"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -323,12 +341,13 @@ msgstr "Clases del JDK"
 msgid "Classes from artifacts that extensions have marked as parent first (more on this later)."
 msgstr "Las clases de los artefactos que las extensiones han marcado como padres primero (más sobre esto más adelante)."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Parent First Dependencies"
 msgstr "Dependencias de los padres en primer lugar"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -349,6 +368,7 @@ msgstr "Algunas clases relacionadas con el registro, como el registro debe ser c
 msgid "Quarkus bootstrap itself"
 msgstr "El propio Quarkus bootstrap"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -357,12 +377,13 @@ msgid ""
 "or a `LinkageError` can occur."
 msgstr "Si esto es necesario, puede configurarse en `quarkus-extension-maven-plugin` . Tenga en cuenta que si marca una dependencia como padre primero, entonces todas sus dependencias deben ser también padres primero, o puede producirse un `LinkageError` ."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Banned Dependencies"
 msgstr "Dependencias prohibidas"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -374,6 +395,7 @@ msgid ""
 "file). Simply add an `excludedArtifacts` section as shown below:"
 msgstr "Hay algunas dependencias que podemos estar seguros de no querer. Esto ocurre generalmente cuando una dependencia ha tenido un cambio de nombre (por ejemplo, smallrye-config cambiando los grupos de `org.smallrye` a `org.smallrye.config` , el renombramiento `javax` → `jakarta` ). Esto puede causar problemas, ya que si estos artefactos terminan en el árbol de dependencias fuera de fecha se pueden cargar clases que no son compatibles con Quarkus. Para hacer frente a esto, las extensiones pueden especificar artefactos que nunca deben ser cargados. Esto se hace modificando la configuración `quarkus-extension-maven-plugin` en el pom (que genera el archivo `quarkus-extension.properties` ). Simplemente añada una sección `excludedArtifacts` como se muestra a continuación:"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -381,12 +403,13 @@ msgid ""
 "in a replacement artifact as a dependency then classes the application needs might end up missing."
 msgstr "Esto sólo debe hacerse si la extensión depende de una versión más reciente de estos artefactos. Si la extensión no trae un artefacto de reemplazo como dependencia entonces las clases que la aplicación necesita podrían terminar faltando."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Configuring Class Loading"
 msgstr "Configuración de la carga de clases"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -395,12 +418,13 @@ msgid ""
 "(as it is needed too early), so only supports `application.properties`. The following options are supported."
 msgstr "Es posible configurar algunos aspectos de la carga de clases en los modos dev y test. Esto puede hacerse utilizando `application.properties` . Tenga en cuenta que la configuración de la carga de clases es diferente a la configuración normal, en el sentido de que no utiliza los mecanismos de configuración estándar de Quarkus (ya que se necesita demasiado pronto), por lo que sólo admite `application.properties` . Se admiten las siguientes opciones."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Hiding/Removing classes and resources from dependencies"
 msgstr "Ocultar/eliminar clases y recursos de las dependencias"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -420,6 +444,7 @@ msgstr "`quarkus.class-loading.removed-resources.\"io.quarkus\\:quarkus-integrat
 msgid "This will remove the `RemovedResource.class` file from the `io.quarkus:quarkus-integration-test-shared-library` artifact."
 msgstr "Esto eliminará el archivo `RemovedResource.class` del artefacto `io.quarkus:quarkus-integration-test-shared-library`."
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""
@@ -427,12 +452,13 @@ msgid ""
 "is created removed resources will not be accessible."
 msgstr "Aunque esta opción es una opción de carga de clases, también afectará a la aplicación generada, por lo que cuando se cree la aplicación no se podrá acceder a los recursos eliminados."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy, no-wrap
 msgid "Reading Class Bytecode"
 msgstr "Lectura del Bytecode de la clase"
 
+#. type: Plain text
 #: _versions/2.16/guides/class-loading-reference.adoc
 #, fuzzy
 msgid ""

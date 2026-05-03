@@ -34,6 +34,7 @@ msgstr "Describa cómo puede implementar una aplicación CRUD / RESTFul utilizan
 msgid "Last week, we published a video demonstrating the creation of a CRUD application using virtual threads in Quarkus. It's as simple as adding the `@RunOnVirtualThread` annotation on your HTTP resource (or your controller class if you use the Spring compatibility layer)."
 msgstr "La semana pasada publicamos un vídeo demostrando la creación de una aplicación CRUD utilizando hilos virtuales en Quarkus. Es tan sencillo como añadir la anotación `@RunOnVirtualThread` en tu recurso HTTP (o en tu clase controladora si utilizas la capa de compatibilidad de Spring)."
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -51,12 +52,13 @@ msgstr ""
 msgid "This companion post explains how it works behind the scenes."
 msgstr "Este artículo explica cómo funciona entre bastidores."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy, no-wrap
 msgid "The code"
 msgstr "El código"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -112,6 +114,7 @@ msgstr "El gestor de transacciones Narayana - para ejecutar nuestro código dent
 msgid "The PostgreSQL driver - as we use a PostgreSQL database"
 msgstr "El controlador PostgreSQL - ya que utilizamos una base de datos PostgreSQL"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -120,11 +123,13 @@ msgid ""
 "It instructs Quarkus to invoke these methods on virtual threads instead of regular platform threads (learn more about the difference in the https://quarkus.io/blog/virtual-thread-1/[previous blog post]), including `@Transactional` methods."
 msgstr "El código es similar al de una implementación normal de un servicio CRUD con Quarkus, excepto por link:https://github.com/quarkusio/virtual-threads-demos/blob/main/crud-example/src/main/java/org/acme/crud/TodoResource.java#L22[una línea] . Añadimos la anotación `@RunOnVirtualThread` en la clase de recurso (línea 17). Indica a Quarkus que invoque estos métodos en hilos virtuales en lugar de en hilos normales de la plataforma (más información sobre la diferencia en la link:https://quarkus.io/blog/virtual-thread-1/[entrada anterior del blog] ), incluidos los métodos `@Transactional` ."
 
+#. type: Title ==
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid "The threading model"
 msgstr "El modelo de roscado"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -134,6 +139,7 @@ msgid ""
 "Instead of blocking a platform thread, it only blocks the virtual threads:"
 msgstr "Como hemos visto en el código, el modelo de desarrollo es síncrono. Las interacciones con la base de datos utilizan API de bloqueo: se espera a las respuestas. Ahí es donde los hilos virtuales introducen su magia. En lugar de bloquear un hilo de la plataforma, sólo bloquea los hilos virtuales:"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -142,6 +148,7 @@ msgid ""
 "As a result, the number of worker threads, generally used when using a synchronous and blocking development model, is not the bottleneck anymore."
 msgstr "Así, cuando llega otra solicitud, el hilo portador puede ocuparse de ella. Esto reduce radicalmente el número de hilos de plataforma necesarios cuando hay muchas peticiones concurrentes. Como resultado, el número de hilos de trabajador, generalmente utilizado cuando se utiliza un modelo de desarrollo síncrono y de bloqueo, ya no es el cuello de botella."
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -153,11 +160,13 @@ msgid ""
 "You can still handle many requests concurrently, but they will wait for database connections to be available, reducing the response time."
 msgstr "Sin embargo, no por utilizar hilos virtuales su aplicación deja de tener un límite de concurrencia. Hay un nuevo cuello de botella: el pool de conexiones de *la base de datos* . Cuando interactúa con la base de datos, solicita una conexión al pool de conexiones (Agroal en nuestro caso). El número de conexiones no es infinito (20 por defecto). Una vez utilizadas todas las conexiones, deberá esperar a que otro procesamiento finalice y libere su conexión. Podrá seguir gestionando muchas peticiones simultáneamente, pero éstas esperarán a que las conexiones a la base de datos estén disponibles, lo que reducirá el tiempo de respuesta."
 
+#. type: Title ==
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid "A note about pinning"
 msgstr "Una nota sobre la fijación"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -165,6 +174,7 @@ msgid ""
 "In this case, blocking the virtual thread also blocks the carrier thread:"
 msgstr "Como se describió en la link:https://quarkus.io/blog/virtual-thread-1/[anterior entrada del blog] , el bloqueo se produce cuando el hilo virtual no puede desmontarse del hilo portador. En este caso, el bloqueo del hilo virtual también bloquea el hilo portador:"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -175,6 +185,7 @@ msgid ""
 "Quarkus, Narayana and Hibernate have been patched to avoid the pinning."
 msgstr "Afortunadamente, en esta aplicación no hay pinning. El controlador PostgreSQL es uno de los únicos controladores JDBC que no hace pin. Si piensa utilizar otra base de datos, compruébelo primero. Hablaremos de cómo detectar el pinning en el próximo post. Quarkus, Narayana e Hibernate han sido parcheados para evitar el pinning."
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -183,11 +194,13 @@ msgid ""
 "Fortunately, we contributed an SPI to https://github.com/FasterXML/jackson-core/pull/1064[Jackson] that will allow us to remove this allocation hog."
 msgstr "El \"pinning\" es uno de los muchos problemas que pueden surgir. La aplicación sufrirá las consecuencias del mecanismo de agrupación de objetos por defecto utilizado por Jackson. Afortunadamente, hemos aportado un SPI a link:https://github.com/FasterXML/jackson-core/pull/1064[Jackson] que nos permitirá eliminar este acaparador de asignaciones."
 
+#. type: Title =
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""
@@ -196,6 +209,7 @@ msgid ""
 "It's as simple as using RESTEasy Reactive and adding one annotation: `@RunOnVirtualThread` on your resource."
 msgstr "Este post explica la implementación de una aplicación CRUD utilizando hilos virtuales en Quarkus. Ahora puede utilizar un modelo de desarrollo imperativo sin comprometer la concurrencia de la aplicación. Es tan sencillo como utilizar RESTEasy Reactive y añadir una anotación: `@RunOnVirtualThread` en su recurso."
 
+#. type: Plain text
 #: _posts/2023-09-23-virtual-threads-2.adoc
 #, fuzzy
 msgid ""

@@ -28,6 +28,7 @@ msgstr "RESTEasy Reactive - Bloquear o no bloquear"
 msgid "Quarkus 2.2 includes a new dispatching strategy to make RESTEasy Reactive even better."
 msgstr "Con Quarkus 2.2, la estrategia de envío de RESTEasy _reactivo_ se vuelve más inteligente, mejorando así la experiencia del desarrollador."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -35,6 +36,7 @@ msgid ""
 "Since its introduction, RESTEasy Reactive adoption has been quite good, and we plan to make it the default approach to implement HTTP API shortly."
 msgstr "En enero de 2021, el equipo de Quarkus anunció RESTEasy Reactive, una novedosa forma de servir API HTTP en Quarkus. Desde su introducción, la adopción de RESTEasy Reactive ha sido bastante buena, y planeamos convertirlo en breve en el enfoque predeterminado para implementar la API HTTP."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -42,12 +44,13 @@ msgid ""
 "This blog post will look at a few changes we made in RESTEasy reactive to make the transition smooth and transparent."
 msgstr "Pero, un momento, ¿qué significa eso para mis API imperativas? ¿Necesito aprender ahora programación reactiva para utilizar Quarkus? Seamos claros: *no* . Esta entrada de blog examinará algunos cambios que hemos realizado en RESTEasy reactivo para que la transición sea suave y transparente."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "A brief history of HTTP APIs in Quarkus"
 msgstr "Breve historia de las APIs HTTP en Quarkus"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -56,6 +59,7 @@ msgid ""
 "The following snippet shows a short _hello world_ example:"
 msgstr "Desde su génesis, Quarkus ha sido capaz de servir API HTTP. La inclusión de link:https://resteasy.github.io/[RESTEasy] ha sido un hito importante de las primeras versiones beta de Quarkus. Con RESTEasy _classic_ , puede desarrollar API HTTP utilizando las conocidas anotaciones JAX-RS como `@GET` , `@Path` , `@POST` ... El siguiente fragmento muestra un breve ejemplo de _hola mundo_ :"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -64,6 +68,7 @@ msgid ""
 "However, relying on worker threads introduces a concurrency limit: the number of threads."
 msgstr "RESTEasy _classic_ invoca el punto final HTTP (el método `hello` del fragmento anterior) en un hilo trabajador asociado a la solicitud HTTP. Se trata de un modelo bien entendido, sencillo de comprender. Sin embargo, depender de hilos de trabajador introduce un límite de concurrencia: el número de hilos."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -73,6 +78,7 @@ msgid ""
 "Both were using, under the hood, the reactive engine of Quarkus, but the reactive camp we using it in a more efficient way."
 msgstr "Incluso con la infusión de reactivo en el núcleo de Quarkus, RESTEasy _classic_ mantuvo esta estrategia de envío. Estaba fragmentando el ecosistema de Quarkus. Por un lado, teníamos el bando imperativo que utilizaba RESTEasy _classic_ , Hibernate ORM... Por otro lado, teníamos el bando reactivo que utilizaba Reactive Routes, Vert.x APIs y otras extensiones reactivas. Ambos utilizaban, bajo el capó, el motor reactivo de Quarkus, pero el bando reactivo lo utilizaba de un modo más eficiente."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -100,6 +106,7 @@ msgstr "_clásico_ - siempre en un hilo de trabajo,"
 msgid "_reactive_ - on the I/O thread or on a worker thread (and you, as the developer, have the choice)"
 msgstr "_reactivo_ - en el hilo de E/S o en un hilo de trabajo (y usted, como desarrollador, puede elegir)"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -109,12 +116,13 @@ msgid ""
 "Emmanuel explained the benefits in the https://quarkus.io/blog/io-thread-benchmark/[A IO thread and a worker thread walk into a bar: a microbenchmark story] blog post."
 msgstr "Quizá se pregunte por qué es tan importante. Los hilos son caros, especialmente en contenedores o en la nube, donde los recursos son limitados. Utilizar los hilos de E/S evita crear hilos adicionales (mejorando el consumo de memoria) y evita los cambios de contexto (mejorando el tiempo de respuesta). Emmanuel explicó las ventajas en la entrada del blog link:https://quarkus.io/blog/io-thread-benchmark/[A IO thread and a worker thread walk into a bar: a microbenchmark story] ."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "To block or not to block, that is the question."
 msgstr "Bloquear o no bloquear, esa es la cuestión."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -122,6 +130,7 @@ msgid ""
 "This model resulted in outstanding performance and was simple enough, thanks to the usage of the `@Blocking` annotation."
 msgstr "Cuando introdujimos RESTEasy _reactivo_ , decidimos utilizar un enfoque no bloqueante por defecto: si no se indica lo contrario, llama al método del punto final HTTP en el hilo de E/S. Este modelo dio como resultado un rendimiento excepcional y fue bastante sencillo, gracias al uso de la anotación `@Blocking` ."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -130,6 +139,7 @@ msgid ""
 "The central question is about the usage of Hibernate ORM."
 msgstr "En los últimos meses, ¡la adopción de RESTEasy _reactivo_ ha sido increíble! Hemos recibido muchas preguntas y, obviamente, informes de errores. La pregunta central es sobre el uso de Hibernate ORM."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -143,6 +153,7 @@ msgstr "Como Hibernate ORM _clásico_ (también tenemos Hibernate _reactivo_ ) e
 msgid "While the resulting model looked efficient and straightforward for us, non-aware users have seen a lot of:"
 msgstr "Aunque el modelo resultante nos pareció eficiente y sencillo, los usuarios no conscientes han visto un montón de:"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -150,6 +161,7 @@ msgid ""
 "But, it rarely makes us happy when we have such a wall of text printed in our terminal."
 msgstr "El mensaje de error es explícito. Pero, rara vez nos hace felices tener semejante muro de texto impreso en nuestro terminal."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -158,11 +170,13 @@ msgid ""
 "It's as dangerous to call reactive APIs expected to be called on an I/O thread on a worker thread than calling blocking APIs on the I/O thread."
 msgstr "Puede que diga... \"bueno, hagamos el bloqueo por defecto\". No es tan sencillo. Es tan peligroso llamar a APIs reactivas que se espera sean llamadas en un hilo de E/S en un hilo trabajador que llamar a APIs bloqueantes en el hilo de E/S."
 
+#. type: Title =
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid "New world, new rules!"
 msgstr "¡Nuevo mundo, nuevas reglas!"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -236,6 +250,7 @@ msgstr "`Publisher&amp;lt;T&amp;gt; method(…​)`"
 msgid "`@Transactional CompletionStage<T>  method(...)`"
 msgstr "`@Transactional CompletionStage&amp;lt;T&amp;gt; method(…​)`"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -244,6 +259,7 @@ msgid ""
 "The `@Transactional` annotation is an exception to the default rules as it often means you are accessing blocking resources (such as an entity manager)."
 msgstr "Básicamente: los _métodos síncronos se ejecutan por defecto en hilos de trabajo y los métodos asíncronos en hilos de E/S, salvo que se indique explícitamente lo contrario_ . Por supuesto, puede anular el comportamiento utilizando las anotaciones `@Blocking` y `@NonBlocking` . La anotación `@Transactional` es una excepción a las reglas por defecto, ya que a menudo significa que está accediendo a recursos bloqueantes (como un gestor de entidades)."
 
+#. type: Title =
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid "What does that change for you?"
@@ -255,7 +271,7 @@ msgstr "¿Qué cambia eso para usted?"
 msgid "Let’s discuss a few examples explaining how this new strategy improves the user experience without limiting efficiency and flexibility."
 msgstr "Veamos algunos ejemplos que explican cómo esta nueva estrategia mejora la experiencia del usuario sin limitar la eficacia y la flexibilidad."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Hello RESTEasy Reactive"
@@ -267,6 +283,7 @@ msgstr "Hola RESTEasy Reactive"
 msgid "Using RESTEasy _reactive_ does not change the _hello_ example from above:"
 msgstr "El uso de RESTEasy _reactivo_ no cambia el ejemplo de _hola_ de arriba:"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -275,12 +292,13 @@ msgid ""
 "To switch back to that behavior, add `@NonBlocking`:"
 msgstr "Ese método se invoca en un hilo trabajador porque tiene una firma síncrona. Anteriormente (antes de Quarkus 2.2), con RESTEasy _reactivo_ , habría sido llamado en el hilo de E/S. Para volver a ese comportamiento, añada `@NonBlocking` :"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid "Alternatively, you can return a `Uni`:"
 msgstr "Alternativamente, puede devolver un `Uni` :"
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Integrating with Hibernate ORM"
@@ -298,7 +316,7 @@ msgstr "Siguiendo los comentarios de los usuarios, imaginemos que quieres utiliz
 msgid "You don't need to use `@Blocking` as the signature is synchronous. No more wall of text!"
 msgstr "No es necesario utilizar `@Blocking` ya que la firma es sincrónica. ¡Se acabó el muro de texto!"
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Integrating with Hibernate Reactive"
@@ -310,17 +328,19 @@ msgstr "Integración con Hibernate Reactive"
 msgid "If you use Hibernate _reactive_, you will use the Mutiny API, and so the resulting code will be:"
 msgstr "Si utiliza Hibernate _reactivo_, utilizará la API de Mutiny, por lo que el código resultante será"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid "This method runs on the I/O thread, which is what Hibernate _reactive_  expects."
 msgstr "Este método se ejecuta en el hilo de E/S, que es lo que espera Hibernate _reactivo_ ."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Integrating with Kafka"
 msgstr "Integración con Kafka"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -335,7 +355,7 @@ msgstr "Si combina HTTP y Kafka (utilizando mensajería reactiva), utilizará un
 msgid "If you change it to a synchronous signature, it runs on a worker thread:"
 msgstr "Si se cambia a una firma sincrónica, se ejecuta en un hilo de trabajo:"
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Combining RESTEasy Reactive, Hibernate ORM and Kafka"
@@ -347,6 +367,7 @@ msgstr "Combinación de RESTEasy Reactive, Hibernate ORM y Kafka"
 msgid "Let's now combine Resteasy _reactive_, Hibernate ORM _classic_ and Kafka to persist an entity and write it to a Kafka topic:"
 msgstr "Ahora vamos a combinar Resteasy _reactivo_, Hibernate ORM _clásico_ y Kafka para persistir una entidad y escribirla en un tema de Kafka:"
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""
@@ -354,7 +375,7 @@ msgid ""
 "The `@Transactional` annotation configures the dispatching strategy to use a worker thread."
 msgstr "Este método se ejecuta en un hilo de trabajador a pesar de la firma. La anotación `@Transactional` configura la estrategia de envío para utilizar un subproceso de trabajador."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy, no-wrap
 msgid "Summary"
@@ -384,6 +405,7 @@ msgstr "No necesitas pensar en tus hilos; Quarkus lo hace por ti."
 msgid "You don't lose in flexibility; you can override the decision."
 msgstr "No pierdes en flexibilidad; puedes anular la decisión."
 
+#. type: Plain text
 #: _posts/2021-08-23-resteasy-reactive-smart-dispatch.adoc
 #, fuzzy
 msgid ""

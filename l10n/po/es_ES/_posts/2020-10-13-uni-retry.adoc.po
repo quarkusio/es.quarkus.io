@@ -28,6 +28,7 @@ msgstr "Motín - ¿Cómo se reintenta... reintentar?"
 msgid "How does `retry` actually work?"
 msgstr "¿Cómo funciona realmente `retry`?"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -40,6 +41,7 @@ msgid ""
 "As you can imagine, that did not satisfy David’s curiosity."
 msgstr "La semana pasada, David, un usuario de Quarkus, me preguntó sobre el reintento de una operación asíncrona. David tiene un servicio HTTP remoto _quisquilloso_ , que a veces se comporta mal. La respuesta es fácil. Basta con hacer: `uni.onFailure().retry().atMost(x)` . Pero, David es curioso, y me hizo una segunda pregunta: ¿cómo funciona el reintento? Bueno, es sencillo; simplemente reintenta... Como puede imaginar, eso no satisfizo la curiosidad de David."
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -47,11 +49,13 @@ msgid ""
 "That’s what we are going to see in this blog post."
 msgstr "Mientras respondía a David, me di cuenta de que reintentar no es tan sencillo y merece más explicación. Eso es lo que vamos a ver en esta entrada del blog."
 
+#. type: Title =
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "Disclaimer about retries"
 msgstr "Descargo de responsabilidad sobre los reintentos"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -69,6 +73,7 @@ msgstr "De acuerdo, si usted es el tipo de lector que se salta los términos y c
 msgid "Disclaimer said! Let’s look under the hood of retry."
 msgstr "¡Descargo de responsabilidad! Vamos a mirar bajo el capó de la reintentación."
 
+#. type: Title =
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "Retry is about resubscribing"
@@ -80,6 +85,7 @@ msgstr "Reintentar es volver a suscribirse"
 msgid "Let’s imagine you have a `Uni` representing your asynchronous action, like in David’s case, an invocation of a remote service:"
 msgstr "Imaginemos que tienes un `Uni` que representa tu acción asíncrona, como en el caso de David, una invocación a un servicio remoto:"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -89,6 +95,7 @@ msgid ""
 "So to execute the request, we need to subscribe:"
 msgstr "Las Unis son perezosas. Hasta que alguien se suscribe a ellas, no ocurre nada. En nuestro caso, la solicitud sólo se envía al servicio remoto cuando alguien se suscribe a la `uni` . Así que para ejecutar la solicitud, necesitamos suscribirnos:"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -96,6 +103,7 @@ msgid ""
 "So, don't be mistaken, there is a subscription, you may not see it."
 msgstr "En Quarkus, la mayoría de las veces, usted devuelve el `Uni` , y Quarkus se suscribe a él. Por lo tanto, no se equivoque, existe una suscripción, puede que usted no la vea."
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -121,6 +129,7 @@ msgstr "Una consecuencia interesante de esto es que si te suscribes dos veces, e
 msgid "image:/assets/images/posts/mutiny-retry/double-subscription.png[]"
 msgstr "image:/assets/images/posts/mutiny-retry/double-subscription.png[alt=double subscription]"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -136,6 +145,7 @@ msgstr "Pero volvamos al reintento. ¿Qué es un reintento? Un reintento es una 
 msgid "In this snippet, we retry _indefinitely_ until we get a successful result."
 msgstr "En este fragmento, reintentamos _indefinidamente_ hasta obtener un resultado exitoso."
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -150,6 +160,7 @@ msgstr "Pero, ¿cómo funciona bajo el capó? Es muy sencillo. Si recibe un fall
 msgid "image:/assets/images/posts/mutiny-retry/retry.png[]"
 msgstr "image:/assets/images/posts/mutiny-retry/retry.png[alt=retry]"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -157,11 +168,13 @@ msgid ""
 "In other words, retrying is resubscribing."
 msgstr "Se vuelve a suscribir hasta que obtiene una respuesta satisfactoria. En otras palabras, reintentar es volver a suscribirse."
 
+#. type: Title =
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "How many times should I retry?"
 msgstr "¿Cuántas veces debo reintentarlo?"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -177,6 +190,7 @@ msgstr "Siempre es una buena pregunta. ¿Debería reintentarlo _indefinidamente_
 msgid "You can configure the number of retries using `atMost`:"
 msgstr "Puede configurar el número de reintentos utilizando `atMost`:"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -184,21 +198,25 @@ msgid ""
 "If we still get a failure after that number of resubscription, the last failure is sent to the subscriber."
 msgstr "`atMost` indica que como máximo se harán `n` intentos antes de fallar. Si después de ese número de reintentos se sigue produciendo un fallo, se enviará el último fallo al abonado."
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "image:/assets/images/posts/mutiny-retry/retry-failed.png[]"
 msgstr "image:/assets/images/posts/mutiny-retry/retry-failed.png[alt=\"retry failed\"]"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "You can also use `until` and decide to retry by looking at the received failure:"
 msgstr "También puede utilizar `until` y decidir reintentar mirando el fallo recibido:"
 
+#. type: Title =
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "Bonus: Exponential backoff"
 msgstr "Bonificación: Retroceso exponencial"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -208,31 +226,37 @@ msgid ""
 "Retrying with exponential backoff:"
 msgstr "Hasta ahora, nuestros reintentos se producen inmediatamente. Puede que no sea muy acertado, y separar un poco nuestros reintentos puede dar mejores resultados, sobre todo cuando nos enfrentamos a fallos intermitentes debidos a la carga o a otras causas externas. El uso del backoff exponencial proporciona una compensación razonable. Reintentos con backoff exponencial:"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "retries after an initial delay,"
 msgstr "reintentos tras un retardo inicial,"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "on every failure, it doubles the previous delay, with an optional maximum,"
 msgstr "en cada fallo, duplica el retraso anterior, con un máximo opcional,"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "it can use a jitter to add a random duration to the delay,"
 msgstr "puede utilizar un jitter para añadir una duración aleatoria al retardo,"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "it can have a max delay if needed,"
 msgstr "puede tener un retardo máximo si es necesario,"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "it is still constrained by `atMost`"
 msgstr "sigue estando limitada por `atMost`"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -242,11 +266,13 @@ msgid ""
 "If, unfortunately, after ten attempts, it still fails, the failure is sent to the subscriber."
 msgstr "Este último fragmento configura el reintento con backoff exponencial. El primer reintento se produce después de 1 segundo, y luego se duplica cada vez sin límite superior. Se aplica un jitter aleatorio a los retardos. Si, por desgracia, después de diez intentos sigue fallando, se envía el fallo al abonado."
 
+#. type: Title =
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid "Demo time!"
 msgstr "¡Hora de la demostración!"
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""
@@ -261,6 +287,7 @@ msgstr "Ok, basta de hablar. He construido un sencillo campo de juego en el que 
 msgid "The called service fails 50% of the time (well, it uses a random, so statistically 50% of the time)."
 msgstr "El servicio llamado falla el 50% de las veces (bueno, utiliza un aleatorio, así que estadísticamente el 50% de las veces)."
 
+#. type: Plain text
 #: _posts/2020-10-13-uni-retry.adoc
 #, fuzzy
 msgid ""

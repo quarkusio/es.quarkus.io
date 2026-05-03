@@ -6,16 +6,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Indexing rollover with Quarkus and Hibernate Search"
 msgstr "Indexación de rollover con Quarkus e Hibernate Search"
 
+#. type: YAML Front Matter: synopsis
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "This is the first post in the series that dives into the implementation details of the search.quarkus.io application. Are you interested in near zero-downtime reindexing? Then this one is for you!"
 msgstr "Este es el primer post de la serie que se sumerge en los detalles de implementación de la aplicación search.quarkus.io. ¿Le interesa la reindexación con tiempo de inactividad casi nulo? ¡Entonces éste es para usted!"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -24,6 +27,7 @@ msgid ""
 "link:https://quarkus.io/guides/[quarkus.io]."
 msgstr "Este es el primer post de la serie que profundiza en los detalles de implementación de la link:https://github.com/quarkusio/search.quarkus.io[aplicación] que respalda la búsqueda de guías de link:https://quarkus.io/guides/[quarkus.io] ."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -35,6 +39,7 @@ msgid ""
 "or https://quarkus.io/version/main/guides/hibernate-search-standalone-elasticsearch[in standalone mode]."
 msgstr "¿Su aplicación necesita capacidades de búsqueda de texto completo? ¿Necesita mantener su aplicación en funcionamiento y produciendo resultados de búsqueda sin ningún tiempo de inactividad, incluso cuando se reindexan todos sus datos? No busque más. En este post, cubriremos cómo puede abordar este problema y resolverlo en la práctica con unas pocas API de bajo nivel, siempre que utilice Hibernate Search, ya sea link:{quarkus-hibernate-search-docs-url}[sobre Hibernate ORM] o link:https://quarkus.io/version/main/guides/hibernate-search-standalone-elasticsearch[en modo independiente] ."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -45,6 +50,7 @@ msgid ""
 "while an indexing operation will be sent to a write index alias."
 msgstr "El enfoque sugerido en este post se basa en el hecho de que Hibernate Search utiliza índices link:{hibernate-search-docs-url}#backend-elasticsearch-indexlayout[con] alias, y se comunica con el índice real a través de un alias de lectura/escritura, dependiendo de la operación que necesite realizar. Por ejemplo, una operación de búsqueda se dirigirá a un alias de índice de lectura, mientras que una operación de indexación se enviará a un alias de índice de escritura."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -55,6 +61,7 @@ msgid ""
 "and link:https://github.com/quarkusio/search.quarkus.io/blob/d956b6a1341d8693fa1d6b7881f3840f48bdaacd/src/main/java/io/quarkus/search/app/indexing/IndexingService.java#L226-L244[rollover usage]."
 msgstr "Este enfoque está implementado y se utiliza con éxito en nuestra aplicación Quarkus que respalda la búsqueda de guías de link:https://quarkus.io/guides/[quarkus.io/guides/] . Puede ver la implementación completa aquí: link:https://github.com/quarkusio/search.quarkus.io/blob/d956b6a1341d8693fa1d6b7881f3840f48bdaacd/src/main/java/io/quarkus/search/app/indexing/Rollover.java#L44-L331[implementación de rollover] y link:https://github.com/quarkusio/search.quarkus.io/blob/d956b6a1341d8693fa1d6b7881f3840f48bdaacd/src/main/java/io/quarkus/search/app/indexing/IndexingService.java#L226-L244[uso de rollover] ."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -62,6 +69,7 @@ msgid ""
 "as the data on which the index documents are based is modified, providing a near real-time index synchronisation."
 msgstr "Las aplicaciones que utilizan Hibernate Search pueden mantener al día sus índices de búsqueda actualizando el índice gradualmente, a medida que se modifican los datos en los que se basan los documentos del índice, lo que proporciona una sincronización del índice casi en tiempo real."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -71,6 +79,7 @@ msgid ""
 "and other Hibernate Search capabilities."
 msgstr "Por otro lado, si los requisitos de búsqueda permiten un retraso en la sincronización o los datos se actualizan sólo en determinados momentos del día, la opción de indexación masiva puede mantener los índices actualizados de forma eficaz. La link:{hibernate-search-docs-url}[documentación de Hibernate] Search proporciona más información sobre estos enfoques y otras capacidades de Hibernate Search."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -79,6 +88,7 @@ msgid ""
 "the application has to process the documentation guides and create search index documents from them."
 msgstr "La aplicación analizada en este post utiliza el enfoque de indexación masiva. Esto significa que en determinados eventos, por ejemplo, cuando se despliega una nueva versión de la aplicación o se alcanza una hora programada, la aplicación tiene que procesar las guías de documentación y crear documentos de índice de búsqueda a partir de ellas."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -90,11 +100,13 @@ msgid ""
 "search operations would not be able to match them anymore until reindexing finishes."
 msgstr "Ahora bien, como queremos que nuestra aplicación siga proporcionando resultados a cualquier solicitud de búsqueda mientras añadimos/actualizamos documentos a los índices, no podemos realizar una simple operación de reindexación utilizando un link:{hibernate-search-docs-url}#search-batchindex-massindexer[indexador masivo] , o el link:{quarkus-hibernate-search-docs-url}#management[punto final de gestión] recientemente añadido link:{quarkus-hibernate-search-docs-url}#management[en Quarkus] , ya que éstos eliminarían todos los documentos existentes del índice antes de indexarlos: las operaciones de búsqueda ya no podrían hacerlos coincidir hasta que finalizara la reindexación."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Instead, we can create a new index with the same schema and route any write operations to it."
 msgstr "En su lugar, podemos crear un nuevo índice con el mismo esquema y dirigir hacia él cualquier operación de escritura."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -103,11 +115,13 @@ msgid ""
 "To do so, we need to follow a few simple steps:"
 msgstr "Dado que Hibernate Search no proporciona la función rollover de forma inmediata ( link:https://hibernate.atlassian.net/browse/HSEARCH-3499[todavía] ), tendremos que recurrir al uso de las API de nivel inferior para acceder al cliente de Elasticsearch y realizar nosotros mismos las operaciones necesarias. Para ello, debemos seguir unos sencillos pasos:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get the mapping information for the index we want to reindex using the schema manager."
 msgstr "Obtenga la información de asignación del índice que queremos reindexar utilizando el gestor de esquemas."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -124,11 +138,13 @@ msgid ""
 "    });"
 msgstr "@Inject SearchMapping searchMapping; // <1>"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Inject `SearchMapping` somewhere in your app so that we can use it to access a schema manager."
 msgstr "Inyecte `SearchMapping` en algún lugar de su aplicación para que podamos utilizarlo para acceder a un gestor de esquemas."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -136,11 +152,13 @@ msgid ""
 "If all entities should be targeted, then `Object.class` can be used to create the scope."
 msgstr "Obtenga un gestor de esquemas para la entidad indexada que nos interesa ( `MyIndexedEntity` ). Si se debe apuntar a todas las entidades, se puede utilizar `Object.class` para crear el ámbito."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Use the export schema API to access the mapping information."
 msgstr "Utilice la API del esquema de exportación para acceder a la información de asignación."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -148,21 +166,25 @@ msgid ""
 "a JSON representing the JSON HTTP body needed to create the indexes."
 msgstr "Utilice la extensión para acceder al método `.bodyParts()` específico de Elasticsearch que devuelve un JSON que representa el cuerpo HTTP JSON necesario para crear los índices."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get the mapping information for the particular index."
 msgstr "Obtenga la información de mapeo del índice en cuestión."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get the settings for the particular index."
 msgstr "Obtenga la configuración del índice concreto."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get the reference to the Elasticsearch client, so we can perform API calls to the search backend cluster:"
 msgstr "Obtenga la referencia al cliente de Elasticsearch, para que podamos realizar llamadas a la API del clúster de backend de búsqueda:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -174,21 +196,25 @@ msgid ""
 "    .client(RestClient.class); // <4>"
 msgstr "@Inject SearchMapping searchMapping; // <1> RestClient client = searchMapping.backend() // <2> .unwrap(ElasticsearchBackend.class) // <3> .client(RestClient.class); // <4>"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Access the backend from a search mapping instance."
 msgstr "Acceda al backend desde una instancia de mapeo de búsqueda."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Unwrap the backend to the `ElasticsearchBackend`, so that we can access backend-specific APIs."
 msgstr "Desenvuelve el backend en `ElasticsearchBackend` , para que podamos acceder a las API específicas del backend."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get a reference to the Elasticsearch's rest client."
 msgstr "Obtenga una referencia al cliente de reposo de Elasticsearch."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -197,6 +223,7 @@ msgid ""
 "while write operations will be sent to the new index:"
 msgstr "Cree un nuevo índice utilizando la API de rollover de OpenSearch/Elasticsearch que nos permita seguir utilizando el índice existente para las operaciones de lectura, mientras que las operaciones de escritura se enviarán al nuevo índice:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -218,16 +245,19 @@ msgid ""
 "//..."
 msgstr "@Inject SearchMapping searchMapping; // <1>"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get the index descriptor to get the aliases from it."
 msgstr "Obtenga el descriptor del índice para obtener de él los alias."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Start building the rollover request body using the write index alias from the index descriptor."
 msgstr "Comience a construir el cuerpo de la solicitud de prórroga utilizando el alias de índice de escritura del descriptor de índice."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -236,26 +266,31 @@ msgid ""
 "We don't want the read alias to start pointing to the new index immediately."
 msgstr "Tenga en cuenta que estamos incluyendo un \"alias\" vacío para que los alias no se copien en el nuevo índice, excepto el alias de escritura (que se actualiza implícitamente ya que la solicitud de transferencia apunta directamente a él). No queremos que el alias de lectura empiece a apuntar al nuevo índice inmediatamente."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Perform the rollover API request using the Elasticsearch REST client obtained in the previous step."
 msgstr "Realice la solicitud de la API de prórroga utilizando el cliente REST de Elasticsearch obtenido en el paso anterior."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "With this successfully completed, indexes are in the state we wanted:"
 msgstr "Con esto completado con éxito, los índices están en el estado que queríamos:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "We can start populating our write index without affecting search requests."
 msgstr "Podemos empezar a poblar nuestro índice de escritura sin afectar a las peticiones de búsqueda."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Once we are done with indexing, we can either commit or rollback depending on the results:"
 msgstr "Una vez que hayamos terminado con la indexación, podemos hacer commit o rollback en función de los resultados:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -263,6 +298,7 @@ msgid ""
 "for both reading and writing operations while removing the old one. To do that, we need to send a request to the cluster:"
 msgstr "Confirmar la renovación del índice significa que estamos satisfechos con los resultados y listos para cambiar al nuevo índice tanto para las operaciones de lectura como de escritura, al tiempo que eliminamos el antiguo. Para ello, debemos enviar una solicitud al clúster:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -291,16 +327,19 @@ msgid ""
 "//..."
 msgstr "var cliente = ... <1>"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Get access to the Elasticsearch REST client as described above."
 msgstr "Obtenga acceso al cliente REST de Elasticsearch como se ha descrito anteriormente."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Start creating an `_aliases` API request."
 msgstr "Empiece a crear una solicitud de API `_aliases` ."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -308,11 +347,13 @@ msgid ""
 "Here, we must make the read alias point to the new index."
 msgstr "Añada una acción para actualizar los alias de índice a fin de utilizar el nuevo índice tanto para las operaciones de lectura como de escritura. En este caso, debemos hacer que el alias de lectura apunte al nuevo índice."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Add an action to remove the old index."
 msgstr "Añada una acción para eliminar el índice antiguo."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -320,6 +361,7 @@ msgid ""
 "while the aliases can be retrieved from the index descriptor."
 msgstr "Los nombres del nuevo/antiguo índice pueden recuperarse de la respuesta de la solicitud inicial de la API `_rollover` , mientras que los alias pueden recuperarse del descriptor del índice."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -327,6 +369,7 @@ msgid ""
 "the initial index:"
 msgstr "De lo contrario, si hemos encontrado un error o hemos decidido por cualquier otra razón detener la prórroga, podemos volver a utilizar el índice inicial:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -355,6 +398,7 @@ msgid ""
 "//..."
 msgstr "var cliente = ... <1>"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -362,11 +406,13 @@ msgid ""
 "Here, we must make the write alias point back to the old index."
 msgstr "Añada una acción para actualizar los alias de índice de forma que utilicen el índice antiguo tanto para las operaciones de lectura como de escritura. En este caso, debemos hacer que el alias de escritura vuelva a apuntar al índice antiguo."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Add an action to remove the new index."
 msgstr "Añada una acción para eliminar el nuevo índice."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -374,11 +420,13 @@ msgid ""
 "while the write alias was pointing to the new index."
 msgstr "Tenga en cuenta que en caso de retroceso, su índice inicial puede quedar desincronizado si se realizó alguna operación de escritura mientras el alias de escritura apuntaba al nuevo índice."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "With this knowledge, we can organize the rollover process as follows:"
 msgstr "Con este conocimiento, podemos organizar el proceso de prórroga de la siguiente manera:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -388,11 +436,13 @@ msgid ""
 "}"
 msgstr "try (Rollover rollover = Rollover.start(searchMapping)) { // Realiza las operaciones de indexación ... rollover.commit(); }"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Where the `Rollover` class will look as follows:"
 msgstr "La clase `Rollover` tendrá el siguiente aspecto:"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -424,16 +474,19 @@ msgid ""
 "}"
 msgstr "class Rollover implements Closeable { public static Rollover start(SearchMapping searchMapping) { // iniciar el proceso de rollover enviando la petición _rollover ... // ... return new Rollover( client, rolloverResponse ); // <1> }"
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "Keep the reference to the Elasticsearch REST client to perform API calls."
 msgstr "Mantenga la referencia al cliente REST de Elasticsearch para realizar llamadas a la API."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid "If we haven't successfully committed the rollover, it'll be rolled back on close."
 msgstr "Si no hemos consignado correctamente la prórroga, se anulará al cierre."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -441,6 +494,7 @@ msgid ""
 "link:https://github.com/quarkusio/search.quarkus.io[search.quarkus.io on GitHub]."
 msgstr "Una vez más, para ver un ejemplo de funcionamiento completo de esta implementación de rollover, consulte link:https://github.com/quarkusio/search.quarkus.io[search.quarkus.io en GitHub] ."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""
@@ -449,6 +503,7 @@ msgid ""
 "to discuss your ideas and suggestions."
 msgstr "Si encuentra útil esta característica y le gustaría tenerla incorporada en sus aplicaciones Hibernate Search y Quarkus, no dude en ponerse en contacto con nosotros en las link:https://hibernate.atlassian.net/browse/HSEARCH-3499[peticiones de características pendientes] para discutir sus ideas y sugerencias."
 
+#. type: Plain text
 #: _posts/2024-04-25-search-indexing-rollover.adoc
 #, fuzzy
 msgid ""

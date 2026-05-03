@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Virtual Thread support reference"
@@ -31,19 +31,19 @@ msgstr "Referencia de soporte del hilo virtual"
 msgid "This guide explains how to benefit from Java 21+ virtual threads in Quarkus application."
 msgstr "Esta guía explica cómo beneficiarse de los hilos virtuales de Java 21+ en la aplicación Quarkus."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "What are virtual threads?"
 msgstr "¿Qué son los hilos virtuales?"
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Terminology"
 msgstr "Terminología"
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "OS thread"
@@ -55,12 +55,13 @@ msgstr "Hilo conductor del sistema operativo"
 msgid "A \"thread-like\" data structure managed by the Operating System."
 msgstr "Una estructura de datos \"tipo hilo\" gestionada por el sistema operativo."
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Platform thread"
 msgstr "Hilo conductor de la plataforma"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -68,12 +69,13 @@ msgid ""
 "Creating a platform thread creates an OS thread, and blocking a platform thread blocks an OS thread."
 msgstr "Hasta Java 19, cada instancia de la clase link:{thread}[Thread] era un hilo de plataforma, una envoltura alrededor de un hilo del SO. La creación de un hilo de plataforma crea un hilo del SO, y el bloqueo de un hilo de plataforma bloquea un hilo del SO."
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Virtual thread"
 msgstr "Hilo virtual"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -81,12 +83,13 @@ msgid ""
 "Thus, scheduling virtual threads is the responsibility of the JVM."
 msgstr "Hilos ligeros gestionados por la JVM. Amplían la clase link:{thread}[Thread] pero no están vinculados a un hilo específico del SO. Por lo tanto, la programación de los hilos virtuales es responsabilidad de la JVM."
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Carrier thread"
 msgstr "Hilo conductor"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -94,7 +97,7 @@ msgid ""
 "It isn't a class distinct from link:{Thread}[Thread] or `VirtualThread` but rather a functional denomination."
 msgstr "Un hilo de plataforma utilizado para ejecutar un hilo virtual se denomina hilo *portador* . No es una clase distinta de link:{Thread}[Thread] o `VirtualThread` , sino más bien una denominación funcional."
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Differences between virtual threads and platform threads"
@@ -106,6 +109,7 @@ msgstr "Diferencias entre hilos virtuales e hilos de plataforma"
 msgid "We will give a brief overview of the topic here; please refer to the link:{vthreadjep}[JEP 425] for more information."
 msgstr "Aquí daremos una breve visión general del tema, pero para más información consulte el  link:{vthreadjep}[PEC 425]."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -113,6 +117,7 @@ msgid ""
 "aiming at providing a cheap alternative to platform threads for I/O-bound workloads."
 msgstr "Los hilos virtuales son una característica disponible desde Java 19 (Java 21 es la primera versión LTS que incluye hilos virtuales), con el objetivo de proporcionar una alternativa barata a los hilos de plataforma para cargas de trabajo ligadas a la E/S."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -121,6 +126,7 @@ msgid ""
 "Creating a Java platform thread creates a \"thread-like\" structure in your operating system."
 msgstr "Hasta ahora, los hilos de plataforma eran la unidad de concurrencia de la JVM. Son una envoltura sobre las estructuras del sistema operativo. La creación de un hilo de plataforma Java crea una estructura \"similar a un hilo\" en su sistema operativo."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -128,12 +134,13 @@ msgid ""
 "As such, they have been designed to offer the following characteristics:"
 msgstr "Los hilos virtuales, por su parte, son gestionados por la JVM. Para ser ejecutados, necesitan ser montados en un hilo de la plataforma (que actúa como portador de ese hilo virtual). Como tales, han sido diseñados para ofrecer las siguientes características:"
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Lightweight "
 msgstr "Ligero"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -143,12 +150,13 @@ msgid ""
 "You can find these numbers and other motivations for virtual threads in this https://youtu.be/lIq-x_iI-kc?t=543[presentation] given by the lead developer of project Loom (the project that added the virtual thread support to the JVM)."
 msgstr "Los hilos virtuales ocupan menos espacio que los hilos de plataforma en la memoria. Por lo tanto, es posible utilizar más hilos virtuales que hilos de plataforma simultáneamente sin reventar la memoria. Por defecto, los hilos de plataforma se crean con una pila de aproximadamente 1 MB, mientras que la pila de los hilos virtuales es \"de pago\". Puede encontrar estas cifras y otras motivaciones para los hilos virtuales en esta link:https://youtu.be/lIq-x_iI-kc?t=543[presentación] realizada por el desarrollador principal del proyecto Loom (el proyecto que añadió el soporte de hilos virtuales a la JVM)."
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Cheap to create"
 msgstr "Barato de crear"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -158,12 +166,13 @@ msgid ""
 "it is discouraged to pool them or reuse them for different tasks."
 msgstr "Crear un hilo de plataforma en Java lleva su tiempo. En la actualidad, se recomienda encarecidamente el uso de técnicas como el pooling, en el que los hilos se crean una vez y luego se reutilizan, para minimizar el tiempo que se pierde al iniciarlos (así como limitar el número máximo de hilos para mantener bajo el consumo de memoria). Se supone que los hilos virtuales son entidades desechables que creamos cuando los necesitamos, se desaconseja agruparlos o reutilizarlos para diferentes tareas."
 
-#. type: Labeled list
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Cheap to block"
 msgstr "Barato de bloquear"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -172,7 +181,7 @@ msgid ""
 "Their state is stored in the heap, and another virtual thread is executed on the same Java platform (carrier) thread."
 msgstr "Cuando se realiza una E/S de bloqueo, el hilo del SO subyacente envuelto por el hilo de la plataforma Java se coloca en una cola de espera, y se produce un cambio de contexto para cargar un nuevo contexto de hilo en el núcleo de la CPU. Esta operación lleva tiempo. Dado que la JVM gestiona hilos virtuales, ningún hilo del SO subyacente se bloquea cuando realiza una operación de bloqueo. Su estado se almacena en el montón, y otro hilo virtual se ejecuta en el mismo hilo de la plataforma Java (portadora)."
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "The Continuation Dance"
@@ -190,12 +199,13 @@ msgstr "Como se ha mencionado anteriormente, la JVM programa los hilos virtuales
 msgid "Note that the virtual thread may not be re-mounted on the same carrier thread."
 msgstr "Tenga en cuenta que el hilo virtual no puede volver a montarse en el mismo hilo portador."
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Virtual threads are useful for I/O-bound workloads only"
 msgstr "Los hilos virtuales son útiles sólo para cargas de trabajo de E/S"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -208,12 +218,13 @@ msgid ""
 "It will either reduce the chance for the other virtual thread to run or will start creating new carrier threads, leading to high memory usage."
 msgstr "Ahora sabemos que podemos crear más hilos virtuales que hilos de plataforma. Se podría caer en la tentación de utilizar hilos virtuales para realizar cálculos largos (carga de trabajo ligada a la CPU). Es inútil y contraproducente. CPU-bound no consiste en intercambiar rápidamente los hilos mientras tienen que esperar a que se complete una E/S, sino en dejarlos unidos a un núcleo de la CPU para que computen algo. En este escenario, es peor que inútil tener miles de hilos si tenemos decenas de núcleos de CPU, los hilos virtuales no mejorarán el rendimiento de las cargas de trabajo CPU-bound. Peor aún, cuando se ejecuta una carga de trabajo ligada a la CPU en un hilo virtual, éste monopoliza el hilo portador en el que está montado. Reducirá las posibilidades de ejecución del otro hilo virtual o empezará a crear nuevos hilos portadores, lo que provocará un elevado uso de memoria."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Run code on virtual threads using @RunOnVirtualThread"
 msgstr "Ejecutar código en hilos virtuales utilizando @RunOnVirtualThread"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -222,6 +233,7 @@ msgid ""
 "There are dedicated guides for extensions supporting that annotation, such as:"
 msgstr "En Quarkus, el soporte de hilos virtuales se implementa mediante la anotación link:{runonvthread}[@RunOnVirtualThread] . En esta sección se describen brevemente los fundamentos y la forma de utilizarla. Existen guías dedicadas para las extensiones que soportan esa anotación, como:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "xref:./rest-virtual-threads.adoc[Virtual threads in REST applications]"
@@ -245,12 +257,13 @@ msgstr "link:./grpc-virtual-threads.html[Hilos virtuales en los servicios gRPC]"
 msgid "xref:./scheduler-reference.adoc#virtual_threads[Execute periodic tasks on virtual threads]"
 msgstr "link:./scheduler-reference.html#virtual_threads[Ejecutar tareas periódicas en hilos virtuales]"
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Why not run everything on virtual threads?"
 msgstr "¿Qué son los hilos virtuales?"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -262,6 +275,7 @@ msgid ""
 "Using virtual threads with these libraries will lead to massive allocation, as the intentionally pooled objects will be instantiated for every (disposable and generally short-lived) virtual thread."
 msgstr "Como ya se ha mencionado, no todo puede ejecutarse con seguridad en hilos virtuales. El riesgo de *monopolización* puede conducir a un uso elevado de memoria. Además, hay situaciones en las que el hilo virtual no puede desmontarse del hilo portador. Esto se denomina \" *pinning* \". Por último, algunas bibliotecas utilizan `ThreadLocal` para almacenar y reutilizar objetos. El uso de hilos virtuales con estas bibliotecas dará lugar a una asignación masiva, ya que los objetos agrupados intencionadamente se instanciarán para cada hilo virtual (desechable y generalmente de corta duración)."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -284,12 +298,13 @@ msgstr "Es esencial entender que estos problemas no son limitaciones o errores d
 msgid "To learn more about the internal design and choices, check the https://dl.acm.org/doi/10.1145/3583678.3596895[Considerations for integrating virtual threads in a Java framework: a Quarkus example in a resource-constrained environment] paper."
 msgstr "Para saber más sobre el diseño interno y las opciones, consulta el documento  link:https://dl.acm.org/doi/10.1145/3583678.3596895[Consideraciones para integrar hilos virtuales en un framework Java: un ejemplo de Quarkus en un entorno con recursos limitados]."
 
-#. type: Title ====
+#. type: Title ===
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Monopolization cases"
 msgstr "Casos de monopolización"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -298,6 +313,7 @@ msgid ""
 "Indeed, the current scheduler does not support preempting tasks."
 msgstr "El acaparamiento se ha explicado en la sección Los hilos xref:cpu-bound[virtuales son útiles sólo para cargas de trabajo limitadas por E/S] . Cuando se ejecutan cálculos largos, no permitimos que la JVM desmonte y cambie a otro hilo virtual hasta que el hilo virtual termine. De hecho, el planificador actual no admite tareas preferentes."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -306,6 +322,7 @@ msgid ""
 "So, there is a memory cost associated with this creation."
 msgstr "Esta monopolización puede llevar a la creación de nuevos hilos portadores para ejecutar otros hilos virtuales. La creación de hilos portadores da lugar a la creación de hilos de plataforma. Por tanto, existe un coste de memoria asociado a esta creación."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -313,12 +330,13 @@ msgid ""
 "The memory usage may be higher than with regular worker threads because of the inherent cost of the scheduling and virtual threads."
 msgstr "Supongamos que se ejecuta en un entorno con restricciones, como los contenedores. En ese caso, la monopolización puede convertirse rápidamente en una preocupación, ya que el elevado uso de memoria puede provocar problemas de falta de memoria y la terminación del contenedor. El uso de memoria puede ser mayor que con los hilos de trabajador normales debido al coste inherente de la programación y de los hilos virtuales."
 
-#. type: Title ====
+#. type: Title ===
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Pinning cases"
 msgstr "Casos de fijación"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -326,6 +344,7 @@ msgid ""
 "The platform thread is blocked in this situation, precisely as it would have been in a typical blocking scenario."
 msgstr "La promesa de un \"bloqueo barato\" puede no cumplirse siempre: un hilo virtual puede _bloquear_ a su portador en determinadas ocasiones. El hilo de la plataforma está bloqueado en esta situación, precisamente como lo estaría en un escenario de bloqueo típico."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -334,11 +353,13 @@ msgid ""
 "However, native code interactions can still cause pinning (see below)."
 msgstr "*Mejora de Java 24+:* A partir de Java 24, gracias a link:https://openjdk.org/jeps/491[JEP 491: Synchronize Virtual Threads without Pinning] , los bloques y métodos de `synchronized` *ya no provocan pinning* . Se trata de una mejora importante que elimina uno de los escenarios de pinning más comunes. Sin embargo, las interacciones de código nativo aún pueden causar pinning (véase más abajo)."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "According to link:{vthreadjep}[JEP 425], pinning can happen in the following situations:"
 msgstr "Según link:{vthreadjep}[el JEP 425] , el pinzamiento puede producirse en las siguientes situaciones:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "*On Java 21-23:*"
@@ -356,16 +377,19 @@ msgstr "cuando un hilo virtual ejecuta realiza una operación de bloqueo dentro 
 msgid "when it executes a blocking operation inside a native method or a foreign function"
 msgstr "cuando ejecuta una operación de bloqueo dentro de un método nativo o una función ajena"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "*On Java 24+:*"
 msgstr "*En Java 24+:*"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "when a virtual thread calls native code (via JNI or the Foreign Function & Memory API) and that native code calls back to Java code that performs a blocking operation"
 msgstr "cuando un hilo virtual llama a código nativo (a través de JNI o de la API Foreign Function & Memory) y ese código nativo devuelve la llamada a código Java que realiza una operación de bloqueo"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -380,6 +404,7 @@ msgstr "Puede ser razonablemente fácil evitar estas situaciones en su código, 
 msgid "For more information, see link:https://quarkus.io/blog/virtual-thread-1/[When Quarkus meets Virtual Threads]"
 msgstr "Para más información, véase  link:https://quarkus.io/blog/virtual-thread-1/[Cuando Quarkus se encuentra con hilos virtuales]"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -388,12 +413,13 @@ msgid ""
 "For more information, see the link:https://jdbc.postgresql.org/changelogs/2023-03-17-42.6.0-release/[Notable Changes] for PostgreSQL JDBC driver 42.6.0."
 msgstr "Esta información sobre los casos de bloqueo se aplica al controlador PostgreSQL JDBC 42.5.4 y anteriores en Java 21-23. Para el controlador PostgreSQL JDBC 42.6.0 y posteriores, prácticamente todos los métodos sincronizados han sido sustituidos por bloqueos reentrantes. Para más información, consulte los link:https://jdbc.postgresql.org/changelogs/2023-03-17-42.6.0-release/[Cambios notables] para el controlador PostgreSQL JDBC 42.6.0."
 
-#. type: Title ====
+#. type: Title ===
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "The pooling case"
 msgstr "El caso de la puesta en común"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -419,6 +445,7 @@ msgstr "Ventaja de asignación: los objetos pesados sólo se asignan una vez por
 msgid "Thread safety: only one thread can access the object stored in the thread local - preventing concurrent accesses."
 msgstr "Seguridad de subprocesos: sólo un subproceso puede acceder al objeto almacenado en el subproceso local, evitando accesos simultáneos."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -430,11 +457,13 @@ msgid ""
 "Unfortunately, it requires sophisticated code changes in the libraries themselves."
 msgstr "Sin embargo, este patrón es contraproducente cuando se utilizan hilos virtuales. Los hilos virtuales no se agrupan y suelen durar poco. Así, en lugar de unos pocos, ahora tenemos muchos. Para cada uno de ellos, se crea el objeto almacenado en `ThreadLocal` (a menudo grande y caro) y no se reutilizará, ya que el hilo virtual no está agrupado (y no se utilizará para ejecutar otra tarea una vez finalizada la ejecución). Este problema conlleva un elevado uso de memoria. Por desgracia, requiere sofisticados cambios de código en las propias bibliotecas."
 
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "Use @RunOnVirtualThread with Quarkus REST (formerly RESTEasy Reactive)"
 msgstr "Utilice @RunOnVirtualThread con Quarkus REST (antes RESTEasy Reactive)"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -442,6 +471,7 @@ msgid ""
 "It also explains the various development and execution models offered by Quarkus."
 msgstr "Esta sección muestra un breve ejemplo de utilización de la anotación link:{runonvthread}[@RunOnVirtualThread] . También explica los distintos modelos de desarrollo y ejecución que ofrece Quarkus."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -449,11 +479,13 @@ msgid ""
 "Quarkus handles the creation of the virtual thread and the offloading."
 msgstr "La anotación `@RunOnVirtualThread` indica a Quarkus que invoque el método anotado en un *nuevo* hilo virtual en lugar del actual. Quarkus se encarga de la creación del hilo virtual y de la descarga."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "Since virtual threads are disposable entities, the fundamental idea of `@RunOnVirtualThread` is to offload the execution of an endpoint handler on a new virtual thread instead of running it on an event-loop or worker thread (in the case of Quarkus REST)."
 msgstr "Dado que los hilos virtuales son entidades desechables, la idea fundamental de `@RunOnVirtualThread` es descargar la ejecución de un manejador de punto final en un nuevo hilo virtual en lugar de ejecutarlo en un bucle de eventos o en un hilo trabajador (en el caso de Quarkus REST)."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -462,6 +494,7 @@ msgid ""
 "It will then be possible to perform blocking operations without blocking the platform thread upon which the virtual thread is mounted."
 msgstr "Para ello, basta con añadir la anotación link:{runonvthread}[@RunOnVirtualThread] al endpoint. Si la máquina virtual Java utilizada para *ejecutar* la aplicación proporciona soporte para hilos virtuales (por tanto, Java 21 o versiones posteriores), la ejecución del endpoint se descarga a un hilo virtual. Entonces será posible realizar operaciones de bloqueo sin bloquear el hilo de la plataforma sobre el que está montado el hilo virtual."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -471,6 +504,7 @@ msgid ""
 "for more information."
 msgstr "En el caso de Quarkus REST, esta anotación sólo puede utilizarse en puntos finales anotados con link:{blockingannotation}[@Blocking] o considerados bloqueantes por su firma. Puede visitar xref:rest.adoc#execution-model-blocking-non-blocking[Modelo de ejecución, bloqueante, no bloque] ante para más información."
 
+#. type: Title ===
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "Get started with virtual threads with Quarkus REST"
@@ -500,12 +534,13 @@ msgstr "build.gradle"
 msgid "Then, you also need to make sure that you are using Java 21+, this can be enforced in your pom.xml file with the following:"
 msgstr "También debe asegurarse de que está utilizando la versión 19 de Java, esto puede ser aplicado en su archivo pom.xml con lo siguiente:"
 
-#. type: Title ====
+#. type: Title ===
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Three development and execution models"
 msgstr "Tres modelos de desarrollo y ejecución"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -525,6 +560,7 @@ msgstr "el primero utiliza el estilo de bloqueo tradicional, se considera de blo
 msgid "the second one uses Mutiny, it is considered non-blocking due to its signature."
 msgstr "el segundo utiliza flujos reactivos Mutiny en un estilo declarativo, se considera no-bloqueo debido a su firma."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -634,12 +670,13 @@ msgstr "Riesgo de \"pinning\", monopolización y puesta en común ineficiente de
 msgid "Note that all three models can be used in a single application."
 msgstr "Tenga en cuenta que los tres modelos pueden utilizarse en una misma aplicación."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Use virtual thread friendly clients"
 msgstr "Utilizar clientes virtuales amigables con los hilos"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -647,6 +684,7 @@ msgid ""
 "So, you need to be careful, especially when using a libraries doing I/O."
 msgstr "Como se mencionó en la sección xref:why-not[¿Por qué no ejecutar todo en hilos virtuales?] , el ecosistema Java no está totalmente preparado para los hilos virtuales. Por lo tanto, debe tener cuidado, especialmente cuando utilice una librería que realice E/S."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -660,6 +698,7 @@ msgstr "Afortunadamente, Quarkus proporciona un ecosistema masivo que está list
 msgid "As a result:"
 msgstr "Como resultado:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -679,22 +718,25 @@ msgstr "La API que devuelve `Uni` puede utilizarse directamente utilizando `uni.
 msgid "If you use a https://smallrye.io/smallrye-mutiny-vertx-bindings/latest/[Vert.x client using the Mutiny bindings], use the `andAwait()` methods which block until you get the result without pinning the carrier thread. It includes all the reactive SQL drivers."
 msgstr "Si utiliza un  link:https://smallrye.io/smallrye-mutiny-vertx-bindings/latest/[cliente Vert.x con los enlaces Mutiny], utilice los métodos `andAwait()` que bloquean hasta obtener el resultado sin bloquear el hilo portador. Incluye todos los controladores SQL reactivos."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Detect pinned thread in tests"
 msgstr "Detectar el hilo fijado en las pruebas"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "**Java 24+ Change:** The `-Djdk.tracePinnedThreads` system property is **no longer available starting with Java 24**. This flag has been removed as part of the virtual thread improvements introduced in link:https://openjdk.org/jeps/491[JEP 491]. For Java 24+, use the JFR (Java Flight Recorder) events or the Quarkus testing extensions described below to detect pinning."
 msgstr "*Cambio en Java 24+:* La propiedad del sistema `-Djdk.tracePinnedThreads` *ya no está disponible a partir de Java 24* . Esta bandera se ha eliminado como parte de las mejoras de los hilos virtuales introducidas en link:https://openjdk.org/jeps/491[JEP 491] . Para Java 24+, utilice los eventos JFR (Java Flight Recorder) o las extensiones de prueba Quarkus que se describen a continuación para detectar la fijación."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "*For Java 21-23 only:*"
 msgstr "*Sólo para Java 21-23:*"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -702,17 +744,19 @@ msgid ""
 "It will not fail the tests, but at least dump stack traces if the code pins the carrier thread:"
 msgstr "Recomendamos utilizar la siguiente configuración cuando ejecute pruebas en aplicaciones que utilicen hilos virtuales. No fallará las pruebas, pero al menos volcará las trazas de pila si el código bloquea el hilo portador:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "*For all Java versions (21+):*"
 msgstr "*Para todas las versiones de Java (21+):*"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "For a more robust approach that works on all Java versions, use the `junit-virtual-threads` extension described in the xref:testing-virtual-thread-applications[Testing virtual thread applications] section below. This extension uses JFR events to detect pinning and works consistently across Java 21, 24, and later versions."
 msgstr "Para un enfoque más robusto que funcione en todas las versiones de Java, utilice la extensión `junit-virtual-threads` descrita en la sección xref:testing-virtual-thread-applications[Pruebas de aplicaciones de hilos virtuales] más adelante. Esta extensión utiliza eventos JFR para detectar la fijación y funciona de forma coherente en Java 21, 24 y versiones posteriores."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Run application using virtual threads"
@@ -724,7 +768,7 @@ msgstr "¿Qué son los hilos virtuales?"
 msgid "Prior to Java 21, virtual threads were still an experimental feature, you need to start your application with the `--enable-preview` flag."
 msgstr "Los hilos virtuales son todavía una característica experimental, necesitas iniciar tu aplicación con la bandera `--enable-preview`:"
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Build containers for application using virtual threads"
@@ -736,6 +780,7 @@ msgstr "Construir contenedores para aplicaciones utilizando hilos virtuales"
 msgid "When running your application in JVM mode (so not compiled into native, for native check xref:native[the dedicated section]), you can follow the xref:./container-image.adoc[containerization guide] to build a container."
 msgstr "Cuando ejecutes tu aplicación en modo JVM (es decir, no compilada en nativo, para nativo consulta  link:#native[la sección dedicada]), puedes seguir la  link:./container-image.html[guía de containerización] para construir un contenedor."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -761,6 +806,7 @@ msgstr "Asegúrate de utilizar una imagen base que soporte hilos virtuales. Aqu�
 msgid "Select the target architecture. You can select more than one to build multi-archs images."
 msgstr "Seleccione la arquitectura de destino. Puede seleccionar más de una para crear imágenes multiarquitectura."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -768,13 +814,13 @@ msgid ""
 "For example, if you are using Maven, run:"
 msgstr "A continuación, construya su contenedor como lo haría habitualmente. Por ejemplo, si está utilizando Maven, ejecute:"
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Compiling Quarkus application using virtual threads into native executable"
 msgstr "Compilación de la aplicación Quarkus utilizando hilos virtuales en un ejecutable nativo"
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Using a local GraalVM installation"
@@ -786,6 +832,7 @@ msgstr "Utilizar una instalación local de GraalVM"
 msgid "To compile a Quarkus applications leveraging `@RunOnVirtualThread` into a native executable, you must be sure to use a GraalVM / Mandrel `native-image` supporting virtual threads, so providing at least Java 21."
 msgstr "Para compilar una aplicación Quarkus aprovechando `@RunOnVirtualThreads` en un ejecutable nativo, debe asegurarse de utilizar un GraalVM / Mandrel `native-image` que soporte hilos virtuales, por lo que proporciona al menos Java 19+."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -793,12 +840,13 @@ msgid ""
 "For example, with Maven, run:"
 msgstr "Construya el ejecutable nativo como se indica en xref:./building-native-image.adoc[la guía de compilación nativa] . Por ejemplo, con Maven, ejecute"
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Using an in-container build"
 msgstr "Utilizar una compilación en contenedor"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -825,6 +873,7 @@ msgstr "Activa la compilación dentro del contenedor"
 msgid "From ARM/64 to AMD/64"
 msgstr "De ARM/64 a AMD/64"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -838,12 +887,13 @@ msgstr "Si está utilizando un Mac M1 o M2 (con una CPU ARM64), debe tener en cu
 msgid "Be aware that it increases the compilation time... a lot (>10 minutes)."
 msgstr "Ten en cuenta que aumenta el tiempo de compilación... mucho (&gt;10 minutos)."
 
-#. type: Title ===
+#. type: Title ==
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Containerize native applications using virtual threads"
 msgstr "Containerización de aplicaciones nativas mediante hilos virtuales"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -851,7 +901,7 @@ msgid ""
 "make sure you have a Linux/AMD64 executable (or ARM64 if you are targeting ARM machines)."
 msgstr "Para construir un contenedor que ejecute una aplicación Quarkus utilizando hilos virtuales compilados en un ejecutable nativo, debe asegurarse de que dispone de un ejecutable Linux/AMD64 (o ARM64 si se dirige a máquinas ARM)."
 
-#. type: delimited block =
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "Make sure your `application.properties` contains the configuration explained in xref:native[the native compilation section]."
@@ -862,12 +912,13 @@ msgstr "Asegúrese de que su `application.properties` contiene la configuración
 msgid "If you ever want to build a native container image and already have an existing native image you can set `-Dquarkus.native.reuse-existing=true` and the native image build will not be re-run."
 msgstr "Si alguna vez quiere construir una imagen de contenedor nativo y ya tiene una imagen nativa existente, puede establecer `-Dquarkus.native.reuse-existing=true` y la construcción de la imagen nativa no se volverá a ejecutar."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Use the duplicated context in virtual threads"
 msgstr "Utilizar el contexto duplicado en hilos virtuales"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -881,12 +932,13 @@ msgstr "Los métodos anotados con `@RunOnVirtualThread` heredan del contexto dup
 msgid "However, thread locals are not propagated."
 msgstr "Sin embargo, los hilos locales no se propagan."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Virtual thread names"
 msgstr "Hilo virtual"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -895,12 +947,13 @@ msgid ""
 "You can customize this prefix, or disable the naming altogether configuring an empty value:"
 msgstr "Los hilos virtuales se crean sin nombre de hilo por defecto, lo que no resulta práctico para identificar la ejecución a efectos de depuración y registro. Los hilos virtuales gestionados por Quarkus se nombran y prefijan con `quarkus-virtual-thread-` . Puede personalizar este prefijo, o desactivar totalmente la nomenclatura configurando un valor vacío:"
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Inject the virtual thread executor"
 msgstr "¿Qué son los hilos virtuales?"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -914,12 +967,13 @@ msgstr "Para ejecutar tareas en hilos virtuales Quarkus gestiona un `ThreadPerTa
 msgid "Injecting the Virtual Thread ExecutorService is experimental and may change in future versions."
 msgstr "La inyección del Virtual Thread ExecutorService es experimental y puede cambiar en futuras versiones."
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Testing virtual thread applications"
 msgstr "Utilizar clientes virtuales amigables con los hilos"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -934,11 +988,13 @@ msgstr "Como se ha mencionado anteriormente, los hilos virtuales tienen algunas 
 msgid "To enable this detection:"
 msgstr "Para activar esta detección:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "1) Add the `junit-virtual-threads` dependency to your project:"
 msgstr "1) Añada la dependencia `junit-virtual-threads` a su proyecto:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -949,11 +1005,13 @@ msgid ""
 "</dependency>"
 msgstr "<dependencia> <groupId>io.quarkus.junit</groupId> <artifactId>junit-virtual-threads</artifactId> <ámbito>prueba</ámbito> </dependencia>>"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "2) In your test case, add the `io.quarkus.test.junit.virtual.VirtualThreadUnit`  and `io.quarkus.test.junit.virtual.ShouldNotPin` annotations:"
 msgstr "2) En su caso de prueba, añada las anotaciones `io.quarkus.test.junit.virtual.VirtualThreadUnit` y `io.quarkus.test.junit.virtual.ShouldNotPin` :"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -966,6 +1024,7 @@ msgid ""
 "}"
 msgstr "@QuarkusTest @TestMethodOrder(MethodOrderer.OrderAnnotation.class) @VirtualThreadUnit // Utiliza la extensión @ShouldNotPin // Detecta el hilo portador fijado class TodoResourceTest { // ... }"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -979,6 +1038,7 @@ msgstr "Cuando ejecute su prueba (recuerde utilizar Java 21+), Quarkus detectar�
 msgid "The `@ShouldNotPin` can also be used on methods directly."
 msgstr "La dirección `@ShouldNotPin` también puede utilizarse directamente en los métodos."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -986,16 +1046,19 @@ msgid ""
 "The following snippet demonstrates the `@ShouldPin` annotation usage."
 msgstr "_Junit-virtual-threads_ también proporciona una anotación `@ShouldPin` para los casos en los que la fijación es inevitable. El siguiente fragmento demuestra el uso de la anotación `@ShouldPin` ."
 
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "Virtual thread metrics"
 msgstr "Métricas de los hilos virtuales"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "You can enable the Micrometer Virtual Thread _binder_ by adding the following artifact to your application:"
 msgstr "Puede activar el _aglutinante de_ rosca virtual micrométrica añadiendo el siguiente artefacto a su aplicación:"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid ""
@@ -1003,22 +1066,25 @@ msgid ""
 "See the https://docs.micrometer.io/micrometer/reference/reference/jvm.html#_java_21_metrics[MicroMeter documentation] for more information."
 msgstr "Esta carpeta mantiene un registro del número de eventos de anclaje y del número de hilos virtuales que no se han podido iniciar o desanclar. Consulte la link:https://docs.micrometer.io/micrometer/reference/reference/jvm.html#_java_21_metrics[documentación de MicroMeter] para obtener más información."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "You can explicitly disable the binder by setting the following property in your `application.properties`:"
 msgstr "Puede desactivar explícitamente el aglutinante estableciendo la siguiente propiedad en su `application.properties` :"
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "In addition, if the application is running on a JVM that does not support virtual threads (prior to Java 21), the binder is automatically disabled."
 msgstr "Además, si la aplicación se ejecuta en una JVM que no admite hilos virtuales (anterior a Java 21), el enlazador se desactiva automáticamente."
 
+#. type: Plain text
 #: _guides/virtual-threads.adoc
 #, fuzzy
 msgid "You can associate tags to the collected metrics by setting the following properties in your `application.properties`:"
 msgstr "Puede asociar etiquetas a las métricas recopiladas configurando las siguientes propiedades en su `application.properties` :"
 
-#. type: Title ==
+#. type: Title =
 #: _guides/virtual-threads.adoc
 #, fuzzy, no-wrap
 msgid "Additional references"

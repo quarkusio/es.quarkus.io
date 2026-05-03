@@ -28,12 +28,13 @@ msgstr "Uso de Qute con plantillas de una base de datos"
 msgid "We moved our Qute templates from the file storage to a database to improve the tenants experience in a multitenant Quarkus app."
 msgstr "Trasladamos nuestras plantillas de Qute del almacenamiento de archivos a una base de datos para mejorar la experiencia de los inquilinos en una aplicación de Quarkus multitenant."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, no-wrap
 msgid "Introduction"
 msgstr "Introducción"
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -42,6 +43,7 @@ msgid ""
 "Each tenant can create as many email templates as they need and link them with the events that will trigger the notifications."
 msgstr "Formo parte de un equipo de Red Hat que ha creado un servicio de notificaciones multitenant que envía las notificaciones de muchas aplicaciones de link:https://console.redhat.com[Red Hat Hybrid Cloud Console] (los tenants). Nuestro servicio puede utilizarse para enviar varios tipos de notificaciones, incluidos correos electrónicos. Cada inquilino puede crear tantas plantillas de correo electrónico como necesite y vincularlas con los eventos que activarán las notificaciones."
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -52,6 +54,7 @@ msgid ""
 "We needed to make that process easier for the tenants, ideally even self-serviced."
 msgstr "Lo implementamos con el increíble link:https://quarkus.io/guides/qute-reference[motor de plantillas Qute] y plantillas almacenadas como archivos en la carpeta `src/main/resources/templates` . Permitía a nuestros inquilinos diseñar plantillas a la medida de sus necesidades con un conocimiento mínimo de Qute. Sin embargo, pronto nos dimos cuenta de que editar las plantillas era un proceso lento y pesado para los inquilinos. De hecho, tenían que crear una solicitud de extracción de GitHub en nuestro repositorio, esperar una revisión y volver a esperar un despliegue antes de poder probar las plantillas. Necesitábamos facilitar ese proceso a los arrendatarios, idealmente incluso autogestionarlo."
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -71,12 +74,13 @@ msgstr "image:/assets/images/posts/qute-templates-from-db/before-after.png[alt=b
 msgid "Here's how we did it."
 msgstr "Así es como lo hicimos."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "The obvious part: persisting the templates into the database"
 msgstr "La parte obvia: persistir las plantillas en la base de datos"
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -98,12 +102,13 @@ msgstr "Las siguientes secciones harán uso de esta entidad JPA:"
 msgid "The template name will be the DB primary key."
 msgstr "El nombre de la plantilla será la clave primaria de la BD."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "The interesting part: connecting Qute to the database"
 msgstr "La parte interesante: conectar Qute a la base de datos"
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -129,12 +134,13 @@ msgstr "Si su aplicación de Quarkus contiene plantillas cargadas tanto desde el
 msgid "Before Quarkus 2.10, integrating `DbTemplateLocator` with the Qute engine instance provided by Quarkus could only be done with a CDI observer like this."
 msgstr "Antes de Quarkus 2.10, la integración de `DbTemplateLocator` con la instancia del motor Qute proporcionada por Quarkus sólo podía hacerse con un observador CDI como éste."
 
-#. type: delimited block =
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid "Quarkus 2.10 recently introduced a new `@Locate` annotation that makes the https://quarkus.io/version/main/guides/qute-reference#template-locator-registration[Template Locator Registration] even simpler."
 msgstr "Quarkus 2.10 ha introducido recientemente una nueva anotación `@Locate` que simplifica aún más el  link:https://quarkus.io/version/main/guides/qute-reference#template-locator-registration[registro del localizador de plantillas]."
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -142,12 +148,13 @@ msgid ""
 "As you can see in the following example, DB templates are used exactly like file templates:"
 msgstr "Ahora que el localizador de plantillas está registrado, estamos listos para compilar y renderizar plantillas desde la base de datos con Qute. Como puede ver en el siguiente ejemplo, las plantillas de la base de datos se utilizan exactamente igual que las plantillas de archivo:"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "Beware of Qute's internal cache"
 msgstr "Cuidado con el caché interno de Qute"
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -173,6 +180,7 @@ msgstr "Elimina las plantillas cuyo id de asignación coincide con el predicado 
 msgid "This removes all templates from the cache."
 msgstr "Esto elimina todas las plantillas de la caché."
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -187,12 +195,13 @@ msgstr "Limpiar esa caché interna puede resultar complicado si su aplicación s
 msgid "All templates will be cleared from the internal cache every 5 minutes."
 msgstr "Todas las plantillas se borrarán de la caché interna cada 5 minutos."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "Preventing the deletion of an included template"
 msgstr "Impedir la eliminación de una plantilla incluida"
 
+#. type: Plain text
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy
 msgid ""
@@ -206,7 +215,7 @@ msgstr "Una plantilla Qute puede incluirse dentro de otra plantilla. Si se elimi
 msgid "Here's a way to look for the inclusion of a template into another one before deleting it:"
 msgstr "Esta es una forma de buscar la inclusión de una plantilla en otra antes de borrarla:"
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "Database templates validation"
@@ -224,7 +233,7 @@ msgstr "Las plantillas de bases de datos tienen un inconveniente importante: Qua
 msgid "The syntax validation is also delayed from build time to runtime but this is expected as templates can be created or edited at runtime."
 msgstr "La validación de la sintaxis también se retrasa desde el momento de la construcción hasta el tiempo de ejecución, pero esto es de esperar, ya que las plantillas se pueden crear o editar en tiempo de ejecución."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2022-06-21-qute-templates-from-db.adoc
 #, fuzzy, no-wrap
 msgid "Special thanks"

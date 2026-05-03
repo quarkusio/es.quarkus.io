@@ -6,20 +6,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Changing the Quarkus loggers level from Unleash"
 msgstr "Cambiar el nivel de los registradores Quarkus desde Unleash"
 
+#. type: YAML Front Matter: synopsis
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Updating an environment variable to change a logger level can sometimes be slow. What if you could change that level immediately with Unleash?"
 msgstr "Actualizar una variable de entorno para cambiar el nivel de un registrador a veces puede resultar lento. ¿Y si pudiera cambiar ese nivel inmediatamente con Unleash?"
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 msgid "Introduction"
 msgstr "Introducción"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -30,6 +34,7 @@ msgid ""
 "We also don't want to expose REST endpoints in most of our apps, so extensions such as https://github.com/quarkiverse/quarkus-logging-manager[quarkus-logging-manager^] are not an option."
 msgstr "Formo parte de un equipo de Red Hat que es responsable de una docena de aplicaciones Quarkus que se ejecutan en Red Hat OpenShift, con múltiples pods cada una. Aunque todas estas apps tienen propósitos diferentes, también comparten un destino común: algo irá mal en algún momento. Cuando lo haga, tendremos que entender y solucionar el problema lo antes posible. Bajar el nivel de un registrador suele ser útil, pero nuestras aplicaciones están en contenedores y actualizar una variable de entorno para cambiar el nivel del registrador no siempre es tan fácil como parece. Tampoco queremos exponer puntos finales REST en la mayoría de nuestras aplicaciones, por lo que extensiones como link:https://github.com/quarkiverse/quarkus-logging-manager[quarkus-logging-manager] no son una opción."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -38,6 +43,7 @@ msgid ""
 "I'll show you below how I successfully did that."
 msgstr "Nuestras aplicaciones tienen otra cosa en común: dependen de link:https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash] porque obtenemos nuestras funciones de link:https://www.getunleash.io/[Unleash] . Cuando leí link:https://medium.com/safe-engineering/how-unleash-enhanced-our-troubleshooting-experience-by-100x-e0c82b6df825[Zero downtime log level changes using Unleash] de Aman Jain, me dieron ganas de intentar lo mismo con Quarkus. A continuación le mostraré cómo lo hice con éxito."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -45,16 +51,19 @@ msgid ""
 "Each one of them is an enhanced version of the previous one and addresses a specific technical challenge."
 msgstr "Esta entrada de blog contiene fragmentos de código incrementales. Cada uno de ellos es una versión mejorada del anterior y aborda un reto técnico específico."
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Changing a logger level programmatically"
 msgstr "Cambiar el nivel de un registrador mediante programación"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Let's start with the obvious requirement: how to change the level of a logger programmatically with Quarkus."
 msgstr "Empecemos por el requisito obvio: cómo cambiar el nivel de un registrador mediante programación con Quarkus."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -63,31 +72,37 @@ msgid ""
 "I can't guarantee that everything will work out of the box with other logging APIs."
 msgstr "Como se describe en la link:https://quarkus.io/guides/logging[guía de configuración] del registro, Quarkus admite varias API de registro. Sólo he probado el código siguiente con la API de registro de JBoss, así como con la API `io.quarkus.logging.Log` . No puedo garantizar que todo funcionará fuera de la caja con otras API de registro."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "The JBoss Logging API doesn't offer a way to change the level of a logger programmatically, so we need the help of the `java.util.logging` API to do it:"
 msgstr "La API de JBoss Logging no ofrece una forma de cambiar el nivel de un registrador mediante programación, por lo que necesitamos la ayuda de la API `java.util.logging` para hacerlo:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Make sure you're importing classes from the `java.util.logging` package."
 msgstr "Asegúrese de que está importando clases del paquete `java.util.logging` ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Any category as described in the https://quarkus.io/guides/logging#logging-categories[Logging configuration guide^] will work as the logger name."
 msgstr "Cualquier categoría descrita en la link:https://quarkus.io/guides/logging#logging-categories[guía de configuración] del registro funcionará como nombre del registro."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "`Level#parse` will throw exceptions if the level name is not valid. Please handle them carefully."
 msgstr "`Level#parse` lanzará excepciones si el nombre del nivel no es válido. Manéjelas con cuidado."
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Setting a logger level from Unleash"
 msgstr "Establecer un nivel de registro desde Unleash"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -95,11 +110,13 @@ msgid ""
 "Now, how do we feed the `LogLevelManager#setLoggerLevel` method with data from Unleash?"
 msgstr "Así, somos capaces de establecer un nivel de registro mediante programación. Ahora, ¿cómo alimentamos el método `LogLevelManager#setLoggerLevel` con datos de Unleash?"
 
+#. type: Title ==
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Unleash variants to the rescue"
 msgstr "Variantes desatadas al rescate"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -108,56 +125,67 @@ msgid ""
 "That's how we'll set the level of our Quarkus app loggers:"
 msgstr "En Unleash, los toggles de características pueden asociarse con link:https://docs.getunleash.io/reference/feature-toggle-variants[variantes] que están pensadas para facilitar las pruebas A/B y la experimentación. Cada variante se define con un conjunto de propiedades, incluida la opcional `payload` que puede utilizarse para pasar datos JSON desde Unleash a nuestra app Quarkus. Así es como estableceremos el nivel de nuestros registradores de la aplicación Quarkus:"
 
+#. type: Title ==
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Retrieving the variant payload"
 msgstr "Recuperación de la carga útil de la variante"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Now, let's see how we'll retrieve from the Quarkus app the variant payload defined in Unleash."
 msgstr "Ahora, veamos cómo recuperaremos de la aplicación Quarkus la carga útil de la variante definida en Unleash."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "First, the Quarkus app needs to depend on the https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash^] extension."
 msgstr "En primer lugar, la aplicación Quarkus necesita depender de la extensión link:https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash] ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "We'll also use a very simple data structure to deserialize the payload with Jackson:"
 msgstr "También utilizaremos una estructura de datos muy simple para deserializar la carga útil con Jackson:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Then, here's an update of the `LogLevelManager` class to make it get the variant from Unleash, deserialize the payload and change the level of a series of loggers:"
 msgstr "A continuación, he aquí una actualización de la clase `LogLevelManager` para que obtenga la variante de Unleash, deserialice la carga útil y cambie el nivel de una serie de registradores:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "From now on, `LogLevelManager` is an `@ApplicationScoped` bean."
 msgstr "A partir de ahora, `LogLevelManager` es una alubia `@ApplicationScoped` ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "`Unleash` is an `@ApplicationScoped` bean produced by the https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash^] extension."
 msgstr "`Unleash` es un frijol `@ApplicationScoped` producido por la extensión link:https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash] ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Be careful about the argument passed to `Unleash#getVariant`: it has to be the toggle name, not the variant name."
 msgstr "Tenga cuidado con el argumento que pasa a `Unleash#getVariant` : tiene que ser el nombre de la palanca, no el nombre de la variante."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "`variant.isEnabled()` will return `false` if the toggle is disabled in Unleash or if the toggle has no variants."
 msgstr "`variant.isEnabled()` devolverá `false` si la palanca está desactivada en Unleash o si la palanca no tiene variantes."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "If the method is unable to find a variant payload or if it fails to deserialize that payload for any reasons, an empty `LogConfig` array will be returned."
 msgstr "Si el método es incapaz de encontrar una variante de carga útil o si falla en la deserialización de dicha carga por cualquier motivo, se devolverá una matriz `LogConfig` vacía."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -166,6 +194,7 @@ msgid ""
 "Where should it be used from, and when?"
 msgstr "Ahora podemos recuperar la configuración de los registradores desde Unleash, ¡eso es genial! Pero ese nuevo método `LogLevelManager#updateLoggerslevel` aún no se utiliza. ¿Desde dónde debería utilizarse y cuándo?"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -175,11 +204,13 @@ msgid ""
 "Let's jump to the next section."
 msgstr "Necesitamos que ese método se ejecute en cuanto se modifique la configuración de los registradores en Unleash. Por lo tanto, su ejecución tiene que programarse periódicamente de alguna manera. Podríamos hacer que el método `@Scheduled` con la extensión link:https://quarkus.io/guides/scheduler-reference[quarkus-scheduler] , pero hay un enfoque mejor gracias al SDK de Unleash. Pasemos a la siguiente sección."
 
+#. type: Title ==
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "The Subscriber API from Unleash"
 msgstr "La API de suscriptores de Unleash"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -187,6 +218,7 @@ msgid ""
 "The https://github.com/Unleash/unleash-client-java/blob/main/src/main/java/io/getunleash/event/UnleashSubscriber.java[UnleashSubscriber^] interface can indeed be implemented to subscribe to various Unleash events, including `FeatureToggleResponse` which is emitted when the Unleash client fetches toggles from the server."
 msgstr "El SDK del cliente Unleash para Java viene con una característica que será muy útil en este caso: la link:https://docs.getunleash.io/reference/sdks/java#subscriber-api[API Subscriber] . En efecto, la interfaz link:https://github.com/Unleash/unleash-client-java/blob/main/src/main/java/io/getunleash/event/UnleashSubscriber.java[UnleashSubscriber] puede implementarse para suscribirse a varios eventos Unleash, incluido `FeatureToggleResponse` que se emite cuando el cliente Unleash obtiene toggles del servidor."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -195,21 +227,25 @@ msgid ""
 "The extension will pass the bean to the Unleash client builder automatically."
 msgstr "Utilizar la API Subscriber con la extensión link:https://docs.quarkiverse.io/quarkus-unleash/dev/index.html[quarkus-unleash] es extremadamente sencillo. `UnleashSubscriber` necesita implementarse en un bean CDI y ¡ya está! La extensión pasará el bean al constructor de clientes Unleash automáticamente."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "We're still using the same `LogLevelManager` class, but now it's implementing `UnleashSubscriber`."
 msgstr "Seguimos utilizando la misma clase `LogLevelManager` , pero ahora implementa `UnleashSubscriber` ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "This method is invoked every time the Unleash client fetches toggles from the server."
 msgstr "Este método se invoca cada vez que el cliente Unleash obtiene toggles del servidor."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "We'll update the loggers level only if the toggles changed server-side."
 msgstr "Actualizaremos el nivel de los registradores sólo si los conmutadores cambiaron del lado del servidor."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -220,11 +256,13 @@ msgid ""
 "It will work automagically!"
 msgstr "Bien, el método `LogLevelManager#updateLoggerslevel` se invoca ahora automáticamente cada vez que el cliente obtiene nuevos datos del servidor. Pero, ¿qué pasa con la programación periódica? Bueno, el cliente Unleash ya confía en un ejecutor interno programado para obtener los toggles. Por lo tanto, no necesitamos molestarnos en programar nada en nuestra aplicación. ¡Funcionará de forma automática!"
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "One variant to rule them all"
 msgstr "Una variante para gobernarlos a todos"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -233,6 +271,7 @@ msgid ""
 "Let's simplify and consider all of them as hosts."
 msgstr "Al principio de este post, mencioné que mi equipo es responsable de una docena de aplicaciones Quarkus. Cada aplicación se ejecuta con un número variable de réplicas. Simplifiquemos y consideremos a todas ellas como hosts."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -240,61 +279,73 @@ msgid ""
 "Here's how I implemented that."
 msgstr "Tenemos docenas de hosts y, sin embargo, sólo una variante de Unleash para gestionar el nivel de loggers para todos ellos. He aquí cómo lo he implementado."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "First, the data structure of the variant payload needs a small addition:"
 msgstr "En primer lugar, la estructura de datos de la carga útil de la variante necesita un pequeño añadido:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "That's new!"
 msgstr "¡Eso es nuevo!"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Now, we can introduce a host filtering capability in `LogLevelManager`:"
 msgstr "Ahora, podemos introducir una capacidad de filtrado del anfitrión en `LogLevelManager` :"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "In OpenShift, we're passing the generated pod name through the `HOST_NAME` environment variable."
 msgstr "En OpenShift, pasaremos el nombre del pod generado a través de la variable de entorno `HOST_NAME` ."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "This block is used to filter hosts based on a host name prefix. That's enough for our use case, but a regular expression could be used for finer filtering."
 msgstr "Este bloque se utiliza para filtrar hosts basándose en un prefijo de nombre de host. Es suficiente para nuestro caso de uso, pero podría utilizarse una expresión regular para un filtrado más fino."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Here's how the variant payload may look like after these changes:"
 msgstr "Este es el aspecto que puede tener la carga útil de la variante después de estos cambios:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "In that payload:"
 msgstr "En esa carga útil:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "the first entry will affect a specific host: `unstable-service-7dbbcb4cc-9d9hl`"
 msgstr "la primera entrada afectará a un host específico: `unstable-service-7dbbcb4cc-9d9hl`"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "the second entry will affect all hosts whose name starts with `awesome-app`"
 msgstr "la segunda entrada afectará a todos los hosts cuyo nombre empiece por `awesome-app`"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "the third entry will affect all hosts regardless of their names"
 msgstr "la tercera entrada afectará a todos los hosts independientemente de sus nombres"
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Reverting changes automatically"
 msgstr "Revertir cambios automáticamente"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid ""
@@ -303,51 +354,61 @@ msgid ""
 "Doing so by hand would be painful, so let's see how we can automate that."
 msgstr "Cambiar el nivel de los registradores a través de una variante de Unleash debería ser una acción temporal, sobre todo para solucionar problemas. Esto significa que necesitamos revertir el nivel de los registradores eventualmente cuando la resolución de problemas haya terminado. Hacerlo a mano sería doloroso, así que veamos cómo podemos automatizarlo."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "The original logger level is now stored in memory and will be used when the changes are eventually reverted."
 msgstr "El nivel original del registrador se almacena ahora en la memoria y se utilizará cuando finalmente se reviertan los cambios."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "If the level of a logger was previously modified from Unleash and that logger is no longer part of the latest Unleash variant payload, its level will be reverted to the original value."
 msgstr "Si el nivel de un registrador se modificó previamente desde Unleash y ese registrador ya no forma parte de la carga útil de la última variante de Unleash, su nivel se revertirá al valor original."
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "If the original level is `null`, then the logger will inherit the level from its parent logger."
 msgstr "Si el nivel original es `null` , entonces el registrador heredará el nivel de su registrador padre."
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "The `LogLevelManager` class is still far from perfect, but it finally meets the requirements of this blog post:"
 msgstr "La clase `LogLevelManager` aún está lejos de ser perfecta, pero por fin cumple los requisitos de esta entrada de blog:"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "it changes the level of Quarkus loggers automatically and immediately, based on a variant payload from Unleash"
 msgstr "cambia el nivel de los registradores Quarkus de forma automática e inmediata, basándose en una carga útil variante de Unleash"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "it automatically reverts all changes to the previous loggers configuration when needed"
 msgstr "revierte automáticamente todos los cambios a la configuración anterior del registrador cuando es necesario"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Thanks for reading this post! I hope it will help you troubleshoot your applications faster."
 msgstr "Gracias por leer este post. Espero que le ayude a solucionar más rápidamente los problemas de sus aplicaciones."
 
+#. type: Title =
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Special thanks"
 msgstr "Agradecimiento especial"
 
+#. type: Plain text
 #: _posts/2024-04-03-changing-loggers-level-from-unleash.adoc
 #, fuzzy
 msgid "Thanks to Mikel Alejo Barcina for helping me fix a bug in the code above!"

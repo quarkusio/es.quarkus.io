@@ -28,6 +28,7 @@ msgstr "Manejo de APIs paginadas con Mutiny"
 msgid "How to use API using pagination with Mutiny"
 msgstr "Cómo utilizar la API mediante la paginación con Mutiny"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -40,6 +41,7 @@ msgid ""
 "You need to invoke the service for every page, extract the items and feed the stream."
 msgstr "Al principio de la aventura Mutiny, mi amigo Alex acudió a mí con un problema interesante. Alex quería recuperar datos de un servicio REST de forma reactiva. Hasta aquí, ningún problema, tenemos todo para ello en nuestra caja de herramientas. Pero, este servicio, como muchos otros, utiliza paginación. Eso pone las cosas un poco más picantes. Alex quería recuperar todos los elementos y consumirlos como un flujo, pero no puede recuperar los elementos en un lote. Necesita invocar el servicio para cada página, extraer los elementos y alimentar el flujo."
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -47,11 +49,13 @@ msgid ""
 "Let's have a look!"
 msgstr "Entonces, ¿cómo conseguirlo de forma reactiva y construir un flujo adecuado de artículos sin perder la cordura? ¡Echemos un vistazo!"
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "The Punk API"
 msgstr "La API punk"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -67,6 +71,7 @@ msgstr "En primer lugar, necesitamos una API. Alex me presentó la API link:http
 msgid "If you call `https://api.punkapi.com/v2/beers?page=1`, you get a JSON array like:"
 msgstr "Si llamas a `&lt;a href=\"https://api.punkapi.com/v2/beers?page=1\" class=\"bare\"&gt;https://api.punkapi.com/v2/beers?page=1&lt;/a&gt;`se obtiene un array JSON como"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -101,11 +106,13 @@ msgstr "image:/assets/images/posts/mutiny-pagination/mutiny-pagination.png[alt=m
 msgid "Let's proceed step by step."
 msgstr "Procedamos paso a paso."
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "Retrieving a single page"
 msgstr "Recuperación de una sola página"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -113,6 +120,7 @@ msgid ""
 "I'm going to use the Vert.x Web Client, but you can use any reactive HTTP clients providing a Mutiny API."
 msgstr "En primer lugar, tenemos que ver cómo podemos recuperar una sola página. Voy a utilizar el cliente web Vert.x, pero puede utilizar cualquier cliente HTTP reactivo que proporcione una API Mutiny."
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -138,11 +146,13 @@ msgstr "Extraigamos este código en un método y tomemos el número de página c
 msgid "So far, so good."
 msgstr "Hasta ahora, todo va bien."
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "Retrieving multiple page"
 msgstr "Recuperación de varias páginas"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -150,6 +160,7 @@ msgid ""
 "We just need to repeat this operation for every page, and provide a stream."
 msgstr "Así pues, ahora sabemos cómo recuperar una sola página y extraer los elementos de ella. Sólo tenemos que repetir esta operación para cada página y proporcionar un flujo."
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -159,6 +170,7 @@ msgid ""
 "Mutiny offers the possibility to store a state in order to let the method creating the `Uni` increments the page number:"
 msgstr "Mutiny proporciona un método para crear un `Multi` repitiendo varias veces un `Uni` . Bajo el capó, llama a un método que devuelve un `Uni` y se suscribe en él. Pero necesitamos _avanzar_ y pasar la página actual. Mutiny ofrece la posibilidad de almacenar un estado para permitir que el método que crea el `Uni` incremente el número de página:"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -167,6 +179,7 @@ msgid ""
 "So, it retrieves the page 1, 2, 3 ... and every time emits the received `List<Beer>` downstream."
 msgstr "Este código anterior crea un flujo con el elemento emitido por el `Unis` devuelto por el método `getPage` . Incrementamos el número de página (almacenado en un `AtomicInteger` ) cada vez. Así, recupera la página 1, 2, 3 ... y cada vez emite el `List<Beer>` recibido aguas abajo."
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -174,6 +187,7 @@ msgid ""
 "As we said earlier, we can stop when the returned list is empty:"
 msgstr "Sin embargo, en algún momento debemos detenernos. Como dijimos antes, podemos detenernos cuando la lista devuelta esté vacía:"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -182,11 +196,13 @@ msgid ""
 "If the list still contains beers, it retrieves the next page."
 msgstr "La cláusula `until` indica cuándo debe detenerse la iteración. Recibe la lista recuperada (producida por `getPage` ), y cuando esta lista está vacía, detiene la repetición. Si la lista aún contiene cervezas, recupera la página siguiente."
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "Unpacking the beers"
 msgstr "Desembalaje de las cervezas"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -225,11 +241,13 @@ msgstr "Como se trata de una operación común, Mutiny proporciona el método `d
 msgid "And we are done!"
 msgstr "¡Y ya está!"
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "The benefits of reactive"
 msgstr "Las ventajas de la reactividad"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -237,6 +255,7 @@ msgid ""
 "Let's, for example, retrieve the first 10 beers with \"IPA\" (let's be trendy) in their description:"
 msgstr "Ya tenemos nuestro flujo, ¡es hora de utilizarlo! Recuperemos, por ejemplo, las 10 primeras cervezas con \"IPA\" (seamos modernos) en su descripción:"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""
@@ -246,11 +265,13 @@ msgid ""
 "So, retrieving items from paginated APIs this way can reduce the number of requests and, as a consequence the load on the remote service."
 msgstr "La ventaja de nuestro flujo es que no recuperaremos todas las páginas. En cuanto tengamos suficientes cervezas, detendremos la repetición. ¿Cómo? Porque informa al flujo ascendente de que no necesita más elementos *(cancelación* ) y eso detiene la repetición. Así pues, recuperar elementos de API paginadas de esta forma puede reducir el número de peticiones y, en consecuencia, la carga del servicio remoto."
 
+#. type: Title =
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid "Feel thirsty?"
 msgstr "¿Tiene sed?"
 
+#. type: Plain text
 #: _posts/2020-09-15-mutiny-pagination.adoc
 #, fuzzy
 msgid ""

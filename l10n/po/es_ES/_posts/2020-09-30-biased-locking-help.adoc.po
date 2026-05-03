@@ -71,11 +71,13 @@ msgstr "Para ello, pruebe lo siguiente en las pruebas de rendimiento de su aplic
 msgid "Run your Quarkus application performance tests as you normally would with the following command line flags on Java 11 (jdk11u) and if feasible Java 15 (jdk15):"
 msgstr "Ejecute las pruebas de rendimiento de su aplicación Quarkus como lo haría normalmente con las siguientes banderas de línea de comandos en Java 11 (jdk11u) y, si es posible, Java 15 (jdk15):"
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid "*enabled*: -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0"
 msgstr "*habilitado* : -XX:+UseBiasedLocking -XX:BiasedLockingStartupDelay=0"
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid "*disabled*: -XX:-UseBiasedLocking"
@@ -117,7 +119,7 @@ msgstr "recuento de hilos ~= N * recuento de núcleos de hardware donde 8 &lt; N
 msgid "The intent of these are to see how the level of concurrency affects the result."
 msgstr "La intención de estos es ver cómo el nivel de concurrencia afecta al resultado."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "Reporting the result"
@@ -135,7 +137,7 @@ msgstr "Por favor,  link:https://github.com/quarkusio/quarkus/issues/new?assigne
 msgid "This will help us immensely. Thank you!"
 msgstr "Esto nos ayudará enormemente. Gracias."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "Background"
@@ -147,7 +149,7 @@ msgstr "Fondo"
 msgid "Below is some background context on biased locking - all optional reading - you don't need to understand the details to help us by running your performance tests and let us know if anything changes."
 msgstr "A continuación se presenta un contexto de fondo sobre el bloqueo sesgado - toda la lectura es opcional - no es necesario entender los detalles para ayudarnos mediante la ejecución de sus pruebas de rendimiento y háganos saber si algo cambia."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "What is biased locking?"
@@ -159,6 +161,7 @@ msgstr "¿Qué es el bloqueo sesgado?"
 msgid "Biased locking lowers the cost of /uncontended/ synchronization."
 msgstr "El bloqueo sesgado reduce el coste de la sincronización /inconforme/."
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid ""
@@ -166,11 +169,13 @@ msgid ""
 "when it performs repeated synchronizations on the same object. It also needs to wait for those set/clear writes to be drained to local cache before proceeding to execute further memory operations."
 msgstr "*Sin bloqueo sesgado* : un hilo necesita establecer y borrar un bit de bloqueo cuando realiza sincronizaciones repetidas sobre el mismo objeto. También necesita esperar a que esas escrituras de establecimiento/borrado se vacíen en la caché local antes de proceder a ejecutar otras operaciones de memoria."
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid "*With biased locking*: the first time a thread synchronizes on an object it does a bit more work to acquire synchronized ('bias' it to the thread). Subsequent syncrhonizations proceed via a simple read test with no need to  drain to cache."
 msgstr "*Con bloqueo sesgado* : la primera vez que un hilo se sincroniza sobre un objeto realiza un poco más de trabajo para adquirir la sincronización (\"sesgarla\" hacia el hilo). Las sincronizaciones posteriores proceden mediante una simple prueba de lectura sin necesidad de drenar a la caché."
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid ""
@@ -178,6 +183,7 @@ msgid ""
 "there is more work to do to bias and unbias the lock. However, it is known that many synchronized operations are uncontended."
 msgstr "¿Dónde está la compensación? Bueno, si se disputa un bloqueo sesgado, entonces hay más trabajo que hacer para sesgar y sesgar el bloqueo. Sin embargo, se sabe que muchas operaciones sincronizadas no están sesgadas."
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid ""
@@ -193,12 +199,13 @@ msgstr "El sesgo puede ser de gran ayuda cuando una estructura de datos potencia
 msgid "A similar case occurs with class ByteOutput Stream. Method putByte is synchronized. So writing a single byte involves a lock and unlock. n.b. method putInt calls putByte 4 times, requiring 4 locks and unlocks. Method putLong calls it 8 times!"
 msgstr "Un caso similar ocurre con la clase ByteOutput Stream. El método putByte está sincronizado. Así que escribir un solo byte implica un bloqueo y un desbloqueo. n.b. el método putInt llama a putByte 4 veces, requiriendo 4 bloqueos y desbloqueos. El método putLong lo llama 8 veces."
 
-#. type: Title ===
+#. type: Title ==
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "Why is biased locking being removed?"
 msgstr "¿Por qué se suprime el bloqueo parcial?"
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid ""
@@ -206,7 +213,7 @@ msgid ""
 "right away in jdk15 others argue for a slower deprecation route in order to check that we could really dispense with it."
 msgstr "La implementación del bloqueo sesgado añade una gran complejidad a la JVM y sólo es comprendida por un pequeño subconjunto de los ingenieros más experimentados. El coste de mantenerlo y diseñar a su alrededor está ralentizando significativamente el progreso en nuevas características. Ha sido un objetivo a largo plazo eliminarlo si es posible. Algunos colaboradores de OpenJDK querían eliminarlo de inmediato en jdk15 otros abogan por una vía de depreciación más lenta para comprobar que realmente podemos prescindir de él."
 
-#. type: Title ==
+#. type: Title =
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy, no-wrap
 msgid "What happens next?"
@@ -224,6 +231,7 @@ msgstr "Estamos recopilando nuestras propias pruebas de rendimiento internas en 
 msgid "Once processed we might reach out to those reporting scenarios with unexpected results and get more details."
 msgstr "Una vez procesado, podríamos contactar con aquellos que informan de escenarios con resultados inesperados y obtener más detalles."
 
+#. type: Plain text
 #: _posts/2020-09-30-biased-locking-help.adoc
 #, fuzzy
 msgid ""

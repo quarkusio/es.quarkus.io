@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. type: YAML Front Matter: title
 #. This guide is maintained in the main Quarkus repository
 #. and pull requests should be submitted there:
 #. https://github.com/quarkusio/quarkus/tree/main/docs/src/main/asciidoc
-#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Using OpenID Connect (OIDC) Multi-Tenancy"
@@ -49,7 +49,7 @@ msgstr "Lea la guía xref:security-openid-connect.adoc[Utilizar OpenID Connect p
 msgid "Please read the xref:security-openid-connect-web-authentication.adoc[Using OpenID Connect to Protect Web Applications] guide if you need to authenticate and authorize a tenant using OpenID Connect Authorization Code Flow."
 msgstr "Lea la guía xref:security-openid-connect-web-authentication.adoc[Uso de OpenID Connect para proteger aplicaciones] web si necesita autenticar y autorizar a un arrendatario mediante el flujo de códigos de autorización de OpenID Connect."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Prerequisites"
@@ -61,7 +61,7 @@ msgstr "Requisitos previos"
 msgid "https://stedolan.github.io/jq/[jq tool]"
 msgstr "link:https://stedolan.github.io/jq/[herramienta jq]"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Architecture"
@@ -97,12 +97,13 @@ msgstr "`/{tenant}`"
 msgid "This resource returns information obtained from the Access token issued by OpenID Provider about the authenticated user and the current tenant."
 msgstr "La página de inicio es servida por un recurso JAX-RS y muestra la información obtenida del proveedor OpenID sobre el usuario autenticado y el inquilino actual."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Solution"
 msgstr "Solución"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 msgid ""
 "We recommend that you follow the instructions in the next sections and create the application step by step.\n"
@@ -122,7 +123,7 @@ msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargu
 msgid "The solution is located in the `security-openid-connect-multi-tenancy-quickstart` {quickstarts-tree-url}/security-openid-connect-multi-tenancy-quickstart[directory]."
 msgstr "La solución se encuentra en `security-openid-connect-multi-tenancy-quickstart` {quickstarts-tree-url}/security-openid-connect-multi-tenancy-quickstart[directorio]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Creating the Maven Project"
@@ -133,6 +134,7 @@ msgstr "Creación del proyecto Maven"
 msgid "First, we need a new project. Create a new project with the following command:"
 msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -157,7 +159,7 @@ msgstr "pom.xml"
 msgid "build.gradle"
 msgstr "build.gradle"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Writing the application"
@@ -187,7 +189,7 @@ msgstr "A partir de la implementación anterior, los inquilinos se resuelven a p
 msgid "Note the `tenant-a` application type is `hybrid` - it can accept HTTP bearer tokens if provided, otherwise it will initiate an authorization code flow when the authentication is required."
 msgstr "Tenga en cuenta que el tipo de aplicación `tenant-a` es `hybrid` - puede aceptar tokens de portador HTTP si se proporcionan, de lo contrario iniciará un flujo de código de autorización cuando se requiera la autenticación."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Configuring the application"
@@ -235,6 +237,7 @@ msgstr "Puede definir varios inquilinos en su archivo de configuración, sólo a
 msgid "However, using a static tenant resolution (configuring tenants in `application.properties` and resolving them with `TenantResolver`) prevents testing the endpoint with `Dev Services for Keycloak` since `Dev Services for Keycloak` has no knowledge of how the requests will be mapped to individual tenants and can not dynamically provide tenant-specific `quarkus.oidc.<tenant-id>.auth-server-url` values and therefore using `%prod` prefixes with the tenant-specific URLs in `application.properties` will not work in tests or devmode."
 msgstr "Sin embargo, el uso de una resolución estática de inquilinos (configurando los inquilinos en `application.properties` y resolviéndolos con `TenantResolver`) impide probar el endpoint con `Dev Services for Keycloak` ya que `Dev Services for Keycloak` no tiene conocimiento de cómo se mapearán las peticiones a los inquilinos individuales y no puede proporcionar dinámicamente los valores específicos de los inquilinos `quarkus.oidc.&amp;lt;tenant-id&amp;gt;.auth-server-url` y, por lo tanto, el uso de los prefijos de `%prod` con las URLs específicas de los inquilinos en `application.properties` no funcionará en las pruebas o en el modo dev."
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -254,13 +257,13 @@ msgstr "Se puede utilizar una técnica similar con `TenantConfigResolver`, donde
 msgid "If you also use xref:hibernate-orm.adoc#multitenancy[Hibernate ORM multitenancy] and both OIDC and Hibernate ORM tenant IDs are the same and must be extracted from the Vert.x `RoutingContext` then you can pass the tenant id from the OIDC Tenant Resolver to the Hibernate ORM Tenant Resolver as a `RoutingContext` attribute, for example:"
 msgstr "Si también utiliza el xref:hibernate-orm.adoc#multitenancy[multiarrendamiento de Hibernate OR] M y tanto el Id. de arrendatario de OIDC como el de Hibernate ORM son iguales y deben extraerse de Vert.x `RoutingContext` , entonces puede pasar el Id. de arrendatario del Resolutor de arrendatarios de OIDC al Resolutor de arrendatarios de Hibernate ORM como atributo `RoutingContext` , por ejemplo:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Starting and Configuring the Keycloak Server"
 msgstr "Inicio y configuración del servidor Keycloak"
 
-#. type: delimited block =
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid "To start a Keycloak Server you can use Docker and just run the following command:"
@@ -308,13 +311,13 @@ msgstr "Importe el archivo {quickstarts-tree-url}/security-openid-connect-multi-
 msgid "For more details, see the Keycloak documentation about how to https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm[create a new realm]."
 msgstr "Para más detalles, consulte la documentación de Keycloak sobre cómo  link:https://www.keycloak.org/docs/latest/server_admin/index.html#_create-realm[crear un nuevo reino]."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Running and Using the Application"
 msgstr "Ejecución y uso de la aplicación"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Running in Developer Mode"
@@ -326,7 +329,7 @@ msgstr "Ejecución en modo desarrollador"
 msgid "To run the microservice in dev mode, use:"
 msgstr "Para ejecutar el microservicio en modo dev, utilice:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Running in JVM Mode"
@@ -349,7 +352,7 @@ msgstr "Primero compilarlo:"
 msgid "Then run it:"
 msgstr "A continuación, ejecútelo:"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Running in Native Mode"
@@ -361,6 +364,7 @@ msgstr "Ejecución en modo nativo"
 msgid "This same demo can be compiled into native code: no modifications required."
 msgstr "Esta misma demo se puede compilar en código nativo: no requiere modificaciones."
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -369,6 +373,7 @@ msgid ""
 "the produced binary, and optimized to run with minimal resource overhead."
 msgstr "Esto implica que ya no es necesario instalar una JVM en su entorno de producción, ya que la tecnología de tiempo de ejecución está incluida en el binario producido, y optimizada para ejecutarse con una sobrecarga mínima de recursos."
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -382,18 +387,19 @@ msgstr "La compilación tardará un poco más, por lo que este paso está desact
 msgid "After getting a cup of coffee, you'll be able to run this binary directly:"
 msgstr "Después de tomar una taza de café, podrás ejecutar este binario directamente:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Test the Application"
 msgstr "Probar la aplicación"
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Use Dev Services for Keycloak"
 msgstr "Utilizar los servicios de desarrollo para Keycloak"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -407,6 +413,7 @@ msgstr "Se recomienda utilizar xref:security-openid-connect-dev-services.adoc[De
 msgid "First you need to add the following dependencies:"
 msgstr "En primer lugar, hay que añadir las siguientes dependencias:"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -438,7 +445,7 @@ msgstr "y en modo nativo:"
 msgid "Please see xref:security-openid-connect-dev-services.adoc[Dev Services for Keycloak] for more information about the way it is initialized and configured."
 msgstr "Por favor, vea  link:security-openid-connect-dev-services.html[Dev Services for Keycloak] para más información sobre la forma en que se inicializa y configura."
 
-#. type: Title ===
+#. type: Title ==
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Use Browser"
@@ -456,6 +463,7 @@ msgstr "Para probar la aplicación, debe abrir su navegador y acceder a la sigui
 msgid "http://localhost:8080/default[http://localhost:8080/default]"
 msgstr "link:http://localhost:8080/default[http://localhost:8080/default]"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -505,6 +513,7 @@ msgstr "link:http://localhost:8080/tenant-a[http://localhost:8080/tenant-a]"
 msgid "You should be redirected again to the login page at Keycloak. However, now you are going to authenticate using a different `realm`."
 msgstr "Debería ser redirigido de nuevo a la página de inicio de sesión en Keycloak. Sin embargo, ahora vas a autenticar usando un `realm` diferente."
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -512,12 +521,13 @@ msgid ""
 "user `alice` exists in both tenants, for the application they are distinct users belonging to different realms/tenants."
 msgstr "En ambos casos, si el usuario se autentica correctamente, la página de destino mostrará el nombre y el correo electrónico del usuario. Aunque el usuario `alice` existe en ambos arrendatarios, para la aplicación son usuarios distintos que pertenecen a reinos/arrendatarios diferentes."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Resolving Tenant Identifiers with Annotations"
 msgstr "Resolución de identificadores de arrendatario con anotaciones"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -526,6 +536,7 @@ msgid ""
 "the current `RoutingContext`."
 msgstr "Puede utilizar las anotaciones y los interceptores CDI para resolver los identificadores de inquilino como alternativa al uso de `quarkus.oidc.TenantResolver` . Esto puede hacerse estableciendo el valor de la clave `OidcUtils.TENANT_ID_ATTRIBUTE` en la actual `RoutingContext` ."
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -533,6 +544,7 @@ msgid ""
 "annotation per tenant ID other than default:"
 msgstr "Suponiendo que su aplicación admita dos inquilinos OIDC ( `hr` , y por defecto) primero deberá definir una anotación por cada ID de inquilino que no sea por defecto:"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -546,6 +558,7 @@ msgstr "La autenticación proactiva HTTP debe estar desactivada ( `quarkus.http.
 msgid "Next, you'll need one interceptor for each of those annotations:"
 msgstr "A continuación, necesitará un interceptor para cada una de esas anotaciones:"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -554,12 +567,13 @@ msgid ""
 "OIDC provider."
 msgstr "Ahora todos los métodos y clases que lleven `@HrTenant` se autenticarán utilizando el proveedor OIDC configurado por `quarkus.oidc.hr.auth-server-url` , mientras que el resto de clases y métodos seguirán autenticándose utilizando el proveedor OIDC por defecto."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Programmatically Resolving Tenants Configuration"
 msgstr "Resolución programática de la configuración de inquilinos"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy
 msgid ""
@@ -579,7 +593,7 @@ msgstr "Esta interfaz permite crear dinámicamente configuraciones de inquilinos
 msgid "The `OidcTenantConfig` returned from this method is the same used to parse the `oidc` namespace configuration from the `application.properties`. You can populate it using any of the settings supported by the `quarkus-oidc` extension."
 msgstr "El `OidcTenantConfig` devuelto por este método es el mismo que se utiliza para analizar la configuración del espacio de nombres `oidc` desde el `application.properties`. Puede rellenarlo utilizando cualquiera de las configuraciones soportadas por la extensión `quarkus-oidc`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Tenant Resolution for OIDC 'web-app' applications"
@@ -645,7 +659,7 @@ msgstr "Los parámetros de consulta de la URL personalizada se restauran despué
 msgid "One option to ensure the information for resolving the tenant configurations for `web-app` applications is available before and after the redirect is to use a cookie, for example:"
 msgstr "Una opción para garantizar que la información para resolver las configuraciones de los inquilinos para las aplicaciones de `web-app` esté disponible antes y después de la redirección es utilizar una cookie, por ejemplo:"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, fuzzy, no-wrap
 msgid "Disabling Tenant Configurations"
@@ -669,17 +683,18 @@ msgstr "Si se espera que los resolvedores personalizados infieran siempre un arr
 msgid "Note that tenant specific configurations can also be disabled, for example: `quarkus.oidc.tenant-a.tenant-enabled=false`."
 msgstr "Tenga en cuenta que también se pueden desactivar las configuraciones específicas de los inquilinos, por ejemplo: `quarkus.oidc.tenant-a.tenant-enabled=false`."
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "Configuration Reference"
 msgstr "Referencia de configuración"
 
+#. type: Plain text
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 msgid "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fixed at build time\"></i></span> Configuration property fixed at build time - All other configuration properties are overridable at runtime <input type=\"search\" id=\"config-search-0\" placeholder=\"FILTER CONFIGURATION\" disabled>"
 msgstr "<span class=\"icon\"><i class=\"fa fa-lock\" title=\"Fijado en tiempo de compilación\"></i></span> Propiedad de configuración fijada en tiempo de compilación - Todas las demás propiedades de configuración son anulables en tiempo de ejecución <input type=\"search\" id=\"config-search-0\" placeholder=\"CONFIGURACIÓN DEL FILTRO\" disabled>"
 
-#. type: Title ==
+#. type: Title =
 #: _versions/2.16/guides/security-openid-connect-multitenancy.adoc
 #, no-wrap
 msgid "References"

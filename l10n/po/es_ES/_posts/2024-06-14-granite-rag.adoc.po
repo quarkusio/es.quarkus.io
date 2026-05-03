@@ -6,16 +6,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: jekyll-l10n\n"
 
+#. type: YAML Front Matter: title
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Crafting a Local RAG application with Quarkus"
 msgstr "Elaboración de una aplicación RAG local con Quarkus"
 
+#. type: YAML Front Matter: synopsis
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "How to build a RAG chatbot using the Granite LLM."
 msgstr "Cómo construir un chatbot RAG utilizando el LLM Granite."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -23,6 +26,7 @@ msgid ""
 "In this post, we will create an **entirely** local solution, eliminating the need for any cloud services, including the LLM."
 msgstr "Esta entrada de blog demuestra cómo construir una aplicación chatbot infundida con IA utilizando Quarkus, LangChain4j, link:https://infinispan.org/[Infinispan] y el link:https://github.com/ibm-granite/granite-code-models[LLM Granite] . En este post, crearemos una solución *totalmente* local, eliminando la necesidad de cualquier servicio en la nube, incluyendo el LLM."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -30,6 +34,7 @@ msgid ""
 "To run Granite locally, we'll be utilizing https://instructlab.ai/[InstructLab], though https://github.com/containers/podman-desktop-extension-ai-lab[Podman AI Lab] is another viable option."
 msgstr "Nuestro chatbot aprovecha el LLM Granite, un modelo de lenguaje que genera texto contextualmente relevante basado en las indicaciones del usuario. Para ejecutar Granite localmente, utilizaremos link:https://instructlab.ai/[InstructLab] , aunque link:https://github.com/containers/podman-desktop-extension-ai-lab[Podman AI Lab] es otra opción viable."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -37,15 +42,18 @@ msgid ""
 "This approach enhances the chatbot's responses by retrieving pertinent information from a vector database — in this case, Infinispan — before generating a response."
 msgstr "El núcleo de nuestra aplicación se basa en el patrón RAG (Retrieval-Augmented Generation). Este enfoque mejora las respuestas del chatbot recuperando información pertinente de una base de datos vectorial -en este caso, Infinispan- antes de generar una respuesta."
 
+#. type: Title =
 #: _posts/2024-06-14-granite-rag.adoc
 msgid "Architecture"
 msgstr "Arquitectura"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Our chatbot application is composed of four main components:"
 msgstr "Nuestra aplicación chatbot consta de cuatro componentes principales:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -54,66 +62,79 @@ msgid ""
 "It relies on the AI Service to interact with the LLM."
 msgstr "*Web Socket Endpoint* : Este componente sirve de puente de comunicación entre el backend del chatbot y la interfaz del frontend. Este componente utiliza la nueva extensión WebSocket-Next de Quarkus para manejar eficientemente las conexiones WebSocket. Depende del Servicio AI para interactuar con el LLM."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "**Ingestor**: The ingestor is responsible for populating the database with relevant data. It processes a set of local documents, split them into text segments, compute their vector representation and store them into Infinispan."
 msgstr "*Ingestor* : El ingestor se encarga de poblar la base de datos con datos relevantes. Procesa un conjunto de documentos locales, los divide en segmentos de texto, calcula su representación vectorial y los almacena en Infinispan."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "**Retriever**: The retriever allows finding relevant text segments into Infinispan. When a user inputs a query, the retriever searches the vector database to find the most relevant pieces of information."
 msgstr "*Recuperador* : El recuperador permite encontrar segmentos de texto relevantes en Infinispan. Cuando un usuario introduce una consulta, el recuperador busca en la base de datos vectorial para encontrar los fragmentos de información más relevantes."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "**AI Service**: This is the core component of the chatbot, combining the capabilities of the retriever and the Granite LLM. The AI service takes the relevant information fetched by the retriever and uses the Granite LLM to generate the appropriate responses."
 msgstr "*Servicio de IA* : Se trata del componente central del chatbot, que combina las capacidades del recuperador y del LLM de Granite. El servicio de IA toma la información relevante obtenida por el recuperador y utiliza el LLM de Granite para generar las respuestas adecuadas."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The following picture illustrates the high-level architecture:"
 msgstr "La siguiente imagen ilustra la arquitectura de alto nivel:"
 
+#. type: Title =
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "A simple explanation of the RAG pattern"
 msgstr "Una explicación sencilla del patrón RAG"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The RAG (Retrieval-Augmented Generation) pattern is one of the most popular AI patterns, combining a retrieval mechanism with a generation mechanism to provide more accurate and relevant responses."
 msgstr "El patrón RAG (Recuperación-Generación Aumentada) es uno de los patrones de IA más populares, ya que combina un mecanismo de recuperación con otro de generación para proporcionar respuestas más precisas y pertinentes."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The RAG pattern operates in two main steps:"
 msgstr "El patrón RAG funciona en dos pasos principales:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "**Ingestion**: The application ingests a set of documents, processes them, and stores them in a vector database."
 msgstr "*Ingestión* : La aplicación ingiere un conjunto de documentos, los procesa y los almacena en una base de datos vectorial."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "**Retrieval**: When a user inputs a query, the application retrieves the most relevant information from the vector database."
 msgstr "*Recuperación* : Cuando un usuario introduce una consulta, la aplicación recupera la información más relevante de la base de datos vectorial."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The following image gives a high-level overview of the _traditional_ RAG pattern:"
 msgstr "La siguiente imagen ofrece una visión general de alto nivel del patrón RAG _tradicional_ :"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "There are more advanced version of the RAG pattern, but let's stick to the basics for this application."
 msgstr "Existen versiones más avanzadas del patrón RAG, pero ciñámonos a lo básico para esta aplicación."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Ingestion"
 msgstr "Ingestión"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -121,6 +142,7 @@ msgid ""
 "The ingestion process involves reading a set of documents, splitting them into text segments, computing their vector representations, and storing them in Infinispan."
 msgstr "Veamos primero el paso de ingestión. El proceso de ingestión implica leer un conjunto de documentos, dividirlos en segmentos de texto, calcular sus representaciones vectoriales y almacenarlos en Infinispan."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -130,6 +152,7 @@ msgid ""
 "Also, if the document has a specific structure, you can use this structure to split the text into segments (like sections, chapters, etc.)."
 msgstr "El secreto de una aplicación eficaz de la GAR reside en cómo se calculan los segmentos de texto. En nuestra aplicación, seguiremos un enfoque directo, pero existen técnicas más avanzadas y a menudo son necesarias. Dependiendo del documento, puede utilizar diversas técnicas para dividir el texto en segmentos, como la división en párrafos, la división en frases o técnicas más avanzadas como el divisor `recursive` . Además, si el documento tiene una estructura específica, puede utilizar esta estructura para dividir el texto en segmentos (como secciones, capítulos, etc.)."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -138,11 +161,13 @@ msgid ""
 "Other options, like the Universal Angle Embedding, are available, but we'll stick with BGE-small for simplicity."
 msgstr "El modelo de incrustación se encarga de convertir el texto en una representación vectorial. Por simplicidad, utilizamos un modelo de incrustación en proceso ( `BGE-small` ). Existen otras opciones, como la incrustación angular universal, pero nos ceñiremos a BGE-small por simplicidad."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Retrieval"
 msgstr "Recuperación"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -150,6 +175,7 @@ msgid ""
 "When a user inputs a query, the application searches the vector database to find the most relevant text segments."
 msgstr "El segundo paso es el proceso de recuperación. Cuando un usuario introduce una consulta, la aplicación busca en la base de datos vectorial los segmentos de texto más relevantes."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -157,6 +183,7 @@ msgid ""
 "It selects the most relevant text segments based on the similarity between the query vector and the text segment vectors."
 msgstr "Para ello, la aplicación calcula la representación vectorial de la consulta del usuario utilizando el *mismo* modelo de incrustación y la compara con las representaciones vectoriales de los segmentos de texto almacenados en Infinispan. Selecciona los segmentos de texto más relevantes basándose en la similitud entre el vector de la consulta y los vectores de los segmentos de texto."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -164,11 +191,13 @@ msgid ""
 "Note that until this step, the LLM is not used."
 msgstr "A continuación, aumenta la consulta del usuario con los segmentos de texto recuperados y la envía al LLM. Tenga en cuenta que hasta este paso no se utiliza el LLM."
 
+#. type: Title =
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Implementing the chatbot"
 msgstr "Implementación del chatbot"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -176,55 +205,66 @@ msgid ""
 "You can find the final version on https://github.com/cescoffier/quarkus-granite-rag-demo[GitHub]."
 msgstr "Basta de teoría: sumerjámonos en la implementación. Puede encontrar la versión final en link:https://github.com/cescoffier/quarkus-granite-rag-demo[GitHub] ."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Used extensions and dependencies"
 msgstr "Extensiones y dependencias utilizadas"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "To implement our chatbot, we rely on the following Quarkus extensions:"
 msgstr "Para implementar nuestro chatbot, nos basamos en las siguientes extensiones de Quarkus:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "`quarkus-langchain4j-openai`: Integrates LLM providers using the OpenAI API, suitable for both InstructLab and Podman AI Lab."
 msgstr "`quarkus-langchain4j-openai` : Integra proveedores LLM utilizando la API OpenAI, apto tanto para InstructLab como para Podman AI Lab."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "`quarkus-websockets-next`: Provides support for WebSocket communication."
 msgstr "`quarkus-websockets-next` : Proporciona soporte para la comunicación WebSocket."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "`quarkus-langchain4j-infinispan`: Integrates Infinispan with LangChain4j, allowing us to store and retrieve vector representations of text segments."
 msgstr "`quarkus-langchain4j-infinispan` : Integra Infinispan con LangChain4j, permitiéndonos almacenar y recuperar representaciones vectoriales de segmentos de texto."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "`quarkus-web-bundler`: Bundles frontend resources with the Quarkus application."
 msgstr "`quarkus-web-bundler` : Agrupa los recursos frontales con la aplicación Quarkus."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "We also need a specific dependency to use the BGE-small embedding model:"
 msgstr "También necesitamos una dependencia específica para utilizar el modelo de incrustación BGE-pequeño:"
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 msgid "Configuration"
 msgstr "Configuración"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "We need a bit of configuration to ensure our application uses Granite and sets up the Infinispan database correctly:"
 msgstr "Necesitamos un poco de configuración para asegurarnos de que nuestra aplicación utiliza Granite y configura correctamente la base de datos Infinispan:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Configure the dimension of the vectors stored in Infinispan, which depends on the embedding model (BGE-small in our case)."
 msgstr "Configure la dimensión de los vectores almacenados en Infinispan, que depende del modelo de incrustación (BGE-pequeño en nuestro caso)."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -233,16 +273,19 @@ msgid ""
 "Indeed, InstructLab and Podman AI Lab expose an OpenAI-compatible API."
 msgstr "Configure el servicio OpenAI para utilizar InstructLab. Si lo prefiere, puede sustituir la URL base por la de Podman AI Lab. De hecho, InstructLab y Podman AI Lab exponen una API compatible con OpenAI."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Set the default embedding model to BGE-small."
 msgstr "Establezca el modelo de incrustación por defecto en BGE-pequeño."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The Ingestor"
 msgstr "El Ingestor"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -250,16 +293,19 @@ msgid ""
 "The ingestor reads documents from the `documents` directory, splits them into text segments, computes their vector representations, and stores them in Infinispan:"
 msgstr "Con la configuración en su sitio, implementemos la link:https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/Ingestion.java[parte de ingestión (Ingestion.java)] . El ingestor lee los documentos del directorio `documents` , los divide en segmentos de texto, calcula sus representaciones vectoriales y los almacena en Infinispan:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@Startup` annotation ensures that the ingestion process starts when the application launches."
 msgstr "La anotación `@Startup` garantiza que el proceso de ingestión se inicie cuando se lance la aplicación."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `Ingestion` class uses an (automatically injected) `EmbeddingStore<TextSegment>` (Infinispan) and an `EmbeddingModel` (BGE-small)."
 msgstr "La clase `Ingestion` utiliza un `EmbeddingStore<TextSegment>` (inyectado automáticamente) (Infinispan) y un `EmbeddingModel` (BGE-small)."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -267,11 +313,13 @@ msgid ""
 "More advanced techniques may be used to improve the accuracy of the RAG model."
 msgstr "Utilizamos un simple divisor de documentos ( `recursive(1024, 0)` ) para dividir los documentos en segmentos de texto. Pueden utilizarse técnicas más avanzadas para mejorar la precisión del modelo RAG."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The retriever"
 msgstr "El perro perdiguero"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -279,6 +327,7 @@ msgid ""
 "The retriever finds the most relevant text segments in Infinispan based on the user query:"
 msgstr "A continuación, implementemos el recuperador link:https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/Retriever.java[(Retriever.java)] . El recuperador encuentra los segmentos de texto más relevantes en Infinispan basándose en la consulta del usuario:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -286,6 +335,7 @@ msgid ""
 "The `Retriever` class uses `EmbeddingStore<TextSegment>` (Infinispan) and `EmbeddingModel` (BGE-small) to build the retriever."
 msgstr "Para implementar un recuperador, exponga un bean que implemente la interfaz `Supplier<RetrievalAugmentor>` . La clase `Retriever` utiliza `EmbeddingStore<TextSegment>` (Infinispan) y `EmbeddingModel` (BGE-small) para construir el recuperador."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -293,75 +343,90 @@ msgid ""
 "Since our segments are large, we retrieve only two segments."
 msgstr "El método `maxResults` del constructor EmbeddingStoreContentRetriever especifica el número de segmentos de texto a recuperar. Como nuestros segmentos son grandes, recuperamos sólo dos segmentos."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The AI Service"
 msgstr "El servicio de IA"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/ChatBot.java[AI Service (ChatBot.java)] is the core component of our chatbot, combining the capabilities of the retriever and the Granite LLM to generate appropriate responses."
 msgstr "El link:https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/ChatBot.java[servicio de IA (ChatBot.java)] es el componente central de nuestro chatbot, que combina las capacidades del recuperador y del LLM de granito para generar respuestas adecuadas."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "With Quarkus, implementing an AI service is straightforward:"
 msgstr "Con Quarkus, implantar un servicio de IA es sencillo:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@RegisterAiService` annotation specifies the retrieval augmentor to use, which in our case is the `Retriever` bean defined earlier."
 msgstr "La anotación `@RegisterAiService` especifica el aumentador de recuperación a utilizar, que en nuestro caso es el frijol `Retriever` definido anteriormente."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@SystemMessage` annotation provides the main instructions for the AI model."
 msgstr "La anotación `@SystemMessage` proporciona las instrucciones principales para el modelo de IA."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@SessionScoped` annotation ensures that the AI service is stateful, maintaining context between user interactions for more engaging conversations."
 msgstr "La anotación `@SessionScoped` garantiza que el servicio de IA tenga estado, manteniendo el contexto entre las interacciones de los usuarios para lograr conversaciones más atractivas."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `ChatBot` interface defines a single method, `chat`, which takes a user question as input and returns the chatbot's response."
 msgstr "La interfaz `ChatBot` define un único método, `chat` , que toma como entrada una pregunta del usuario y devuelve la respuesta del chatbot."
 
+#. type: Title ==
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The WebSocket endpoint"
 msgstr "El punto final WebSocket"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The final piece is the https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/ChatWebSocket.java[WebSocket endpoint (ChatWebSocket.java)], which serves as the communication bridge between the chatbot's backend and the frontend interface:"
 msgstr "La pieza final es el link:https://github.com/cescoffier/quarkus-granite-rag-demo/blob/main/src/main/java/me/escoffier/granite/rag/ChatWebSocket.java[punto final WebSocket (ChatWebSocket.java)] , que sirve de puente de comunicación entre el backend del chatbot y la interfaz del frontend:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@WebSocket` annotation specifies the WebSocket path."
 msgstr "La anotación `@WebSocket` especifica la ruta WebSocket."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@OnOpen` method sends a welcome message when a user connects to the _WebSocket_."
 msgstr "El método `@OnOpen` envía un mensaje de bienvenida cuando un usuario se conecta al _WebSocket_ ."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "The `@OnTextMessage` method processes the user's messages and returns the chatbot's responses, using the injected AI service."
 msgstr "El método `@OnTextMessage` procesa los mensajes del usuario y devuelve las respuestas del chatbot, utilizando el servicio de IA inyectado."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "That's it! Our chatbot is now ready to chat with users, providing contextually relevant responses based on the RAG pattern."
 msgstr "¡Ya está! Nuestro chatbot ya está listo para chatear con los usuarios, proporcionándoles respuestas contextualmente relevantes basadas en el patrón RAG."
 
+#. type: Title =
 #: _posts/2024-06-14-granite-rag.adoc
 msgid "Running the application"
 msgstr "Ejecución de la aplicación"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -369,6 +434,7 @@ msgid ""
 "First, clone the https://github.com/cescoffier/quarkus-granite-rag-demo/tree/main[repository] and run the following command:"
 msgstr "Vamos a ejecutar la aplicación y ver nuestro chatbot en acción. En primer lugar, clone el link:https://github.com/cescoffier/quarkus-granite-rag-demo/tree/main[repositorio] y ejecute el siguiente comando:"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -377,11 +443,13 @@ msgid ""
 "You will also need Docker or Podman to automatically start Infinispan."
 msgstr "Este comando inicia la aplicación Quarkus en modo de desarrollo. Asegúrese de que tiene InstructLab o Podman AI Lab en ejecución para utilizar el LLM Granite. También necesitará Docker o Podman para iniciar automáticamente Infinispan."
 
+#. type: Block title
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Podman AI Lab or InstructLab?"
 msgstr "¿Podman AI Lab o InstructLab?"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -391,6 +459,7 @@ msgid ""
 "Typically, on a Mac, you would use InstructLab, while on Linux, Podman AI Lab shows great performances."
 msgstr "Puede utilizar Podman AI Lab o InstructLab para ejecutar el LLM Granite localmente. Dependiendo del sistema operativo, es posible que Podman no tenga soporte para GPU. Por lo tanto, el tiempo de respuesta puede ser elevado. En este caso, InstructLab es la opción preferida para obtener mejores tiempos de respuesta. Normalmente, en un Mac, se utilizaría InstructLab, mientras que en Linux, Podman AI Lab muestra un gran rendimiento."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -398,11 +467,13 @@ msgid ""
 "You should see the chatbot interface, where you can start chatting with Mona:"
 msgstr "Una vez que la aplicación esté en funcionamiento, abra su navegador y navegue hasta link:http://localhost:8080[http://localhost:8080.] Debería ver la interfaz del chatbot, donde podrá empezar a chatear con Mona:"
 
+#. type: Title =
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid "Summary"
 msgstr "Resumen"
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
@@ -411,6 +482,7 @@ msgid ""
 "This application runs entirely locally, eliminating the need for any cloud services and addressing privacy concerns."
 msgstr "Ya está. Con sólo unas pocas líneas de código, hemos implementado un chatbot utilizando el patrón RAG, combinando las capacidades del LLM Granite, Infinispan y Quarkus. Esta aplicación se ejecuta íntegramente de forma local, lo que elimina la necesidad de cualquier servicio en la nube y resuelve los problemas de privacidad."
 
+#. type: Plain text
 #: _posts/2024-06-14-granite-rag.adoc
 #, fuzzy
 msgid ""
