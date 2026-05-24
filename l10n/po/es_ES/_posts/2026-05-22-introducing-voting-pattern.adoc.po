@@ -8,218 +8,261 @@ msgstr ""
 
 #. type: YAML Front Matter: title
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Parallel voting and adaptive model selection: smarter agentic AI on a budget"
-msgstr ""
+msgstr "Votación paralela y selección adaptativa de modelos: IA agéntica más inteligente con poco presupuesto"
 
 #. type: YAML Front Matter: synopsis
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Learn how LangChain4j 1.15.0`s voting pattern uses parallel multi-critic evaluation and runtime model switching to build smarter, cost-efficient agentic systems with Quarkus."
-msgstr ""
+msgstr "Aprenda cómo el patrón de votación de LangChain4j 1.15.0 utiliza la evaluación multicrítica paralela y el cambio de modelo en tiempo de ejecución para construir sistemas agénticos más inteligentes y rentables con Quarkus."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "In a https://quarkus.io/blog/agentic-ai-patterns/[previous article] we discussed why no single agentic pattern can cover all use cases, and introduced a generic `Planner` abstraction that allows users to define their own orchestration strategies and combine them with the ones provided by LangChain4j out-of-the-box. For instance, there we demonstrated how a goal-oriented pattern could be extended with a reflection loop to iteratively refine a piece of generated content."
-msgstr ""
+msgstr "En un link:https://quarkus.io/blog/agentic-ai-patterns/[artículo anterior] discutimos por qué ningún patrón agéntico único puede cubrir todos los casos de uso, e introdujimos una abstracción genérica `Planner` que permite a los usuarios definir sus propias estrategias de orquestación y combinarlas con las que proporciona LangChain4j out-of-the-box. Por ejemplo, allí demostramos cómo un patrón orientado a objetivos puede ampliarse con un bucle de reflexión para refinar iterativamente un contenido generado."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Among other things, that example highlighted that having an agent evaluate its own output and loop until it reaches a quality threshold is a powerful technique. But this fundamental pattern also comes with a limitation: relying on a single evaluator can make the system fragile or less reliable. To overcome this issue, what if, instead of one judge, we could assemble a panel?"
-msgstr ""
+msgstr "Entre otras cosas, ese ejemplo puso de relieve que hacer que un agente evalúe su propia salida y haga un bucle hasta que alcance un umbral de calidad es una técnica poderosa. Pero este patrón fundamental también conlleva una limitación: depender de un único evaluador puede hacer que el sistema sea frágil o menos fiable. Para superar este problema, ¿qué pasaría si, en lugar de un solo juez, pudiéramos reunir un panel?"
 
 #. type: Title =
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The voting pattern"
-msgstr ""
+msgstr "El patrón de voto"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The https://docs.langchain4j.dev/tutorials/agents/#voting-agentic-pattern[voting pattern], introduced in LangChain4j 1.15.0, addresses this by dispatching the same input to multiple evaluator agents in parallel, collecting their individual assessments, and then aggregating them into a single consolidated result. This is not a simple majority vote on a boolean decision: the aggregation strategy is fully customizable, allowing the system to combine structured results in whatever way makes sense for the task at hand."
-msgstr ""
+msgstr "El link:https://docs.langchain4j.dev/tutorials/agents/#voting-agentic-pattern[patrón de votación] , introducido en LangChain4j 1.15.0, aborda esta cuestión enviando la misma entrada a varios agentes evaluadores en paralelo, recogiendo sus evaluaciones individuales y agregándolas después en un único resultado consolidado. No se trata de una simple votación por mayoría sobre una decisión booleana: la estrategia de agregación es totalmente personalizable, lo que permite al sistema combinar los resultados estructurados de la forma que tenga sentido para la tarea en cuestión."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "To put this into practice, let's build a story evaluation system, also using the `quarkus-langchain4j-agentic` extension version 1.10.0. The pipeline works as follows: a creative writer generates a short story on a given topic, and then a panel of three critics, each specialized in a different aspect, evaluates the story in parallel. Their scores and suggestions are aggregated into a single critique, which is fed back to an editor agent that rewrites the story. This review loop repeats until the aggregated score crosses a quality threshold or a maximum number of iterations is reached. We will implement this example leveraging the fully declarative style made available by the quarkus-langchain4j extension."
-msgstr ""
+msgstr "Para ponerlo en práctica, construyamos un sistema de evaluación de relatos, utilizando también la extensión `quarkus-langchain4j-agentic` versión 1.10.0. El sistema funciona de la siguiente manera: un escritor creativo genera un relato corto sobre un tema determinado y, a continuación, un panel de tres críticos, cada uno especializado en un aspecto diferente, evalúa el relato en paralelo. Sus puntuaciones y sugerencias se agregan en una única crítica, que se devuelve a un agente editor que reescribe el relato. Este bucle de revisión se repite hasta que la puntuación agregada supera un umbral de calidad o se alcanza un número máximo de iteraciones. Implementaremos este ejemplo aprovechando el estilo totalmente declarativo que pone a nuestra disposición la extensión quarkus-langchain4j."
 
 #. type: Title ==
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Defining the agents"
-msgstr ""
+msgstr "Definición de los agentes"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "First, let's define the basic data types and the individual agents. Each agent is a simple Java interface with a single method having an `@Agent` annotation describing its role and an `@UserMessage` containing its prompt. In particular the `@Agent` annotation's `outputKey` attribute specifies the key under which the agent's output will be stored in the `AgenticScope`, making it available for other agents to use."
-msgstr ""
+msgstr "En primer lugar, definamos los tipos de datos básicos y los agentes individuales. Cada agente es una simple interfaz Java con un único método que tiene una anotación `@Agent` que describe su función y una `@UserMessage` que contiene su consulta. En particular, el atributo `outputKey` de la anotación `@Agent` especifica la clave bajo la cual se almacenará la salida del agente en `AgenticScope` , poniéndola a disposición de otros agentes para su uso."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "All these agents return a common `CritiqueResult` record to represent scores and suggestions, while the final output of the system is a `ScoredStory` that combines the story with its aggregated critique."
-msgstr ""
+msgstr "Todos estos agentes devuelven un registro común `CritiqueResult` para representar las puntuaciones y las sugerencias, mientras que la salida final del sistema es un `ScoredStory` que combina la historia con su crítica agregada."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The creative writer generates a short story from a topic:"
-msgstr ""
+msgstr "El escritor creativo genera un relato corto a partir de un tema:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The three critics evaluate different aspects of the story: style, originality, and engagement. They all follow the same structure, differing only in their prompt:"
-msgstr ""
+msgstr "Los tres críticos evalúan diferentes aspectos del relato: estilo, originalidad y compromiso. Todos siguen la misma estructura, diferenciándose únicamente en su prontitud:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The `OriginalityCritic` and `EngagementCritic` are analogous, each focusing on their respective dimension and producing their own `CritiqueResult` with `outputKey` values of `\"originalityCritique\"` and `\"engagementCritique\"`."
-msgstr ""
+msgstr "Los `OriginalityCritic` y `EngagementCritic` son análogos, cada uno se centra en su dimensión respectiva y produce su propio `CritiqueResult` con `outputKey` valores de `\"originalityCritique\"` y `\"engagementCritique\"` ."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Finally, the story editor rewrites the story based on the aggregated critique:"
-msgstr ""
+msgstr "Por último, el editor de la historia la reescribe basándose en la crítica agregada:"
 
 #. type: Title ==
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Implementing the VotingPlanner"
-msgstr ""
+msgstr "Implementación de VotingPlanner"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The key component that makes this pattern work is the `VotingPlanner`. It implements the `Planner` interface and orchestrates the parallel execution of all critic subagents, then aggregates their results using a configurable `VotingStrategy`."
-msgstr ""
+msgstr "El componente clave que hace funcionar este patrón es `VotingPlanner` . Implementa la interfaz `Planner` y orquesta la ejecución en paralelo de todos los subagentes críticos, para después agregar sus resultados utilizando un `VotingStrategy` configurable."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The planner's logic is straightforward: on the first action it dispatches all subagents at once in parallel by returning `call(subagents)`. As each critic completes, `nextAction` is called: it collects the result and returns `noOp()` until all critics have finished, at which point it aggregates the votes and returns `done(result)`."
-msgstr ""
+msgstr "La lógica del planificador es sencilla: en la primera acción despacha a todos los subagentes a la vez en paralelo devolviendo `call(subagents)` . A medida que cada crítico finaliza, se llama a `nextAction` : recoge el resultado y devuelve `noOp()` hasta que todos los críticos han terminado, momento en el que agrega los votos y devuelve `done(result)` ."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The `VotingStrategy` is a functional interface that takes the collection of all critic outputs and reduces them to a single result:"
-msgstr ""
+msgstr "La `VotingStrategy` es una interfaz funcional que toma la colección de todas las salidas críticas y las reduce a un único resultado:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "For our story evaluation use case, the aggregation strategy averages the scores and concatenates the suggestions from all critics:"
-msgstr ""
+msgstr "Para nuestro caso de uso de evaluación de historias, la estrategia de agregación promedia las puntuaciones y concatena las sugerencias de todos los críticos:"
 
 #. type: Title ==
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Composing the agentic system"
-msgstr ""
+msgstr "Composición del sistema agéntico"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The LangChain4j API makes it easy to wire these agents into a coherent agentic system. First of all, we can configure the three critic agents as subagents of the voting agentic pattern, using the `critiquesAggregator` defined above to combine their results:"
-msgstr ""
+msgstr "La API LangChain4j facilita el cableado de estos agentes en un sistema agéntico coherente. En primer lugar, podemos configurar los tres agentes críticos como subagentes del patrón agéntico de votación, utilizando el `critiquesAggregator` definido anteriormente para combinar sus resultados:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Then we can put the resulting `votingCritics` planner together with the story editor into a review loop that iteratively refines the story until it reaches a certain quality threshold:"
-msgstr ""
+msgstr "A continuación, podemos poner el planificador resultante de `votingCritics` junto con el editor de historias en un bucle de revisión que refine iterativamente la historia hasta que alcance un determinado umbral de calidad:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Finally, we can chain the `CreativeWriter` agent, that generates the initial story, with the review loop in a sequence, and define an output method to assemble the final `ScoredStory` result:"
-msgstr ""
+msgstr "Por último, podemos encadenar el agente `CreativeWriter` , que genera la historia inicial, con el bucle de revisión en una secuencia, y definir un método de salida para ensamblar el resultado final `ScoredStory` :"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The resulting system composes three different agentic patterns, a sequence, a loop, and a custom voting planner, into a single pipeline that can be injected at any point in your Quarkus application."
-msgstr ""
+msgstr "El sistema resultante compone tres patrones agénticos diferentes, una secuencia, un bucle y un planificador de votaciones personalizado, en una única canalización que puede inyectarse en cualquier punto de su aplicación Quarkus."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "and then can be called with one line:"
-msgstr ""
+msgstr "y luego se puede llamar con una sola línea:"
 
 #. type: Title ==
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Visualizing the system"
-msgstr ""
+msgstr "Visualización del sistema"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Making the `StoryEvaluator` interface extend the `MonitoredAgent` interface allows us to visualize both the system topology and the execution history of a sample run, using the new LangChain4j view available in the Quarkus Dev-UI. The LangChain4j monitoring dashboard automatically detects the nested structure of the agentic system, showing how the different patterns are composed together."
-msgstr ""
+msgstr "Hacer que la interfaz `StoryEvaluator` amplíe la interfaz `MonitoredAgent` nos permite visualizar tanto la topología del sistema como el historial de ejecución de una ejecución de muestra, utilizando la nueva vista LangChain4j disponible en la Dev-UI de Quarkus. El panel de control de LangChain4j detecta automáticamente la estructura anidada del sistema agéntico, mostrando cómo se componen entre sí los distintos patrones."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Giving a look at the topology of this agentic system clearly shows how the three patterns are nested: at the top, a sequential planner first invokes the `CreativeWriter` and then enters the review loop. Inside the loop, the `VotingPlanner` fans out to the three critics in parallel, collects and aggregates their results, and then the `StoryEditor` rewrites the story. The loop continues until the average score reaches 8.5 or five iterations have been completed."
-msgstr ""
+msgstr "Si echamos un vistazo a la topología de este sistema agéntico, veremos claramente cómo se anidan los tres patrones: en la parte superior, un planificador secuencial invoca primero al `CreativeWriter` y después entra en el bucle de revisión. Dentro del bucle, el `VotingPlanner` se dirige a los tres críticos en paralelo, recoge y agrega sus resultados y, a continuación, el `StoryEditor` reescribe la historia. El bucle continúa hasta que la puntuación media alcanza 8,5 o se han completado cinco iteraciones."
 
 #. type: Block title
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The topology of the voting-based story evaluation system"
-msgstr ""
+msgstr "La topología del sistema de evaluación de relatos basado en votaciones"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "We can try to put this agentic system at work, for instance asking it to generare a story on the topic of \"a lonely robot finding friendship\" and see how it iteratively refines the story based on the critics' feedback, finally producing a result like this:"
-msgstr ""
+msgstr "Podemos intentar poner a trabajar este sistema agéntico, por ejemplo pidiéndole que genere una historia sobre el tema de \"un robot solitario que encuentra la amistad\" y ver cómo refina iterativamente la historia basándose en los comentarios de los críticos, produciendo finalmente un resultado como éste:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The execution history of this sample run illustrates the sequence of agents invoked to fulfill the request."
-msgstr ""
+msgstr "El historial de ejecución de este ejemplo ilustra la secuencia de agentes invocados para satisfacer la solicitud."
 
 #. type: Block title
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "A sample execution of the voting-based story evaluation system"
-msgstr ""
+msgstr "Un ejemplo de ejecución del sistema de evaluación de relatos basado en votaciones"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The parallel execution of the three critics is clearly visible in the Gantt-like chart: in each iteration of the review loop they run concurrently, and only after all three have completed does the editor receive the aggregated critique and produce an improved version of the story."
-msgstr ""
+msgstr "La ejecución paralela de los tres críticos es claramente visible en el diagrama tipo Gantt: en cada iteración del bucle de revisión se ejecutan de forma concurrente, y sólo después de que los tres hayan terminado el editor recibe la crítica agregada y produce una versión mejorada de la historia."
 
 #. type: Title =
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Dynamic chat model selection"
-msgstr ""
+msgstr "Selección dinámica del modelo de chat"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The system described so far uses the same chat model for every agent. This is a reasonable default, but it doesn't have to be the only option. In a real-world scenario, you might want to use a cheaper, faster model for routine work and switch to a more capable, and more expensive, one only when it really matters: for instance, when the story is already good enough that the final polish requires a higher level of linguistic sophistication."
-msgstr ""
+msgstr "El sistema descrito hasta ahora utiliza el mismo modelo de chat para todos los agentes. Se trata de una opción por defecto razonable, pero no tiene por qué ser la única. En un escenario del mundo real, es posible que desee utilizar un modelo más barato y rápido para el trabajo rutinario y cambiar a uno más capaz, y más caro, sólo cuando realmente importe: por ejemplo, cuando la historia ya es lo suficientemente buena como para que el pulido final requiera un mayor nivel de sofisticación lingüística."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The LangChain4j agentic framework supports this scenario through https://docs.langchain4j.dev/tutorials/agents/#dynamic-chat-model-selection[dynamic chat model selection]. The idea is simple: instead of binding an agent to a single fixed model at build time, it is possible to provide the agent with a function of the `AgenticScope` that dynamically selects the model to use for each invocation. This allows the agent to adapt its behavior based on the current state of the system."
-msgstr ""
+msgstr "El marco agéntico LangChain4j soporta este escenario mediante la link:https://docs.langchain4j.dev/tutorials/agents/#dynamic-chat-model-selection[selección dinámica del modelo de conversación] . La idea es sencilla: en lugar de vincular un agente a un único modelo fijo en el momento de la construcción, es posible proporcionar al agente una función de la `AgenticScope` que seleccione dinámicamente el modelo a utilizar en cada invocación. Esto permite al agente adaptar su comportamiento en función del estado actual del sistema."
 
 #. type: Title ==
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Applying it to the story editor"
-msgstr ""
+msgstr "Aplicarlo al editor de historias"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "In our story evaluation pipeline, the natural candidate for this optimization is the `StoryEditor`. During the first iterations, when the story is still rough and the critique score is low, a fast and inexpensive model like `gpt-4o-mini`, defined as `baseModel` in the code, is more than adequate. But once the critics start giving higher scores, indicating that the story is close to its final form, the editor can switch to a more powerful model like `gpt-5.1`, identified as `enhancedModel`, for the finishing touches. These two models can be defined in the Quarkus `application.properties` file as follows:"
-msgstr ""
+msgstr "En nuestro pipeline de evaluación de historias, el candidato natural para esta optimización es el `StoryEditor` . Durante las primeras iteraciones, cuando la historia aún está en bruto y la puntuación de la crítica es baja, un modelo rápido y barato como `gpt-4o-mini` , definido como `baseModel` en el código, es más que adecuado. Pero una vez que los críticos empiezan a dar puntuaciones más altas, lo que indica que la historia está cerca de su forma final, el editor puede cambiar a un modelo más potente como `gpt-5.1` , identificado como `enhancedModel` , para los toques finales. Estos dos modelos pueden definirse en el archivo `application.properties` de Quarkus como sigue:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "and then we can implement the following `DynamicModelSelector` to read the current critique from the `AgenticScope` and select the appropriate model based on the current score:"
-msgstr ""
+msgstr "y entonces podemos implementar el siguiente `DynamicModelSelector` para leer la crítica actual del `AgenticScope` y seleccionar el modelo adecuado en función de la puntuación actual:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Finally, it is possible to rewrite the `StoryEditor` agent adding a method annotated with `@ChatModelSupplier` that uses this selector to choose at runtime, at each invocation of the agent, the model that best fits the current state of the story:"
-msgstr ""
+msgstr "Por último, es posible reescribir el agente `StoryEditor` añadiendo un método anotado con `@ChatModelSupplier` que utilice este selector para elegir en tiempo de ejecución, en cada invocación del agente, el modelo que mejor se ajuste al estado actual de la historia:"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "In this configuration, the editor starts with `baseModel` for all iterations where the critique score is 7.8 or below. Once the critics' average score exceeds 7.8, indicating that the story has reached a level of quality where finer editorial judgment matters, the selector switches to `enhancedModel` for the subsequent iterations."
-msgstr ""
+msgstr "En esta configuración, el editor comienza con `baseModel` para todas las iteraciones en las que la puntuación de la crítica es de 7,8 o inferior. Una vez que la puntuación media de los críticos supera 7,8, lo que indica que la historia ha alcanzado un nivel de calidad en el que importa un juicio editorial más fino, el selector pasa a `enhancedModel` para las iteraciones posteriores."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Looking back at the execution log, this transition is clearly visible. During the first two iterations, the story editor is invoked with `gpt-4o-mini`. In the third iteration, after the critics' average score crosses the 7.8 threshold, the editor transparently switches to `gpt-5.1` for the remaining refinements."
-msgstr ""
+msgstr "Observando el registro de ejecución, esta transición es claramente visible. Durante las dos primeras iteraciones, el editor de historias se invoca con `gpt-4o-mini` . En la tercera iteración, después de que la puntuación media de los críticos cruce el umbral de 7,8, el editor pasa de forma transparente a `gpt-5.1` para los refinamientos restantes."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "This approach provides a practical way to balance cost and quality. The cheaper model handles the bulk of the iterative refinement, and the more expensive one is brought in only for the final passes where its additional capabilities can make a real difference. The decision is driven entirely by the runtime state of the agentic system, with no manual intervention required."
-msgstr ""
+msgstr "Este enfoque ofrece una forma práctica de equilibrar el coste y la calidad. El modelo más barato se encarga de la mayor parte del refinamiento iterativo, y el más caro sólo se incorpora para las pasadas finales, en las que sus capacidades adicionales pueden marcar una diferencia real. La decisión depende por completo del estado en tiempo de ejecución del sistema agéntico, sin necesidad de intervención manual."
 
 #. type: Title =
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
@@ -229,20 +272,24 @@ msgstr "Conclusión"
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "The voting pattern adds a new dimension to agentic orchestration by introducing collective evaluation. Instead of relying on a single critic that might be biased or inconsistent, multiple specialized agents assess the same content from different perspectives, and their judgments are aggregated into a more robust and balanced evaluation."
-msgstr ""
+msgstr "El patrón de votación añade una nueva dimensión a la orquestación por agentes al introducir la evaluación colectiva. En lugar de confiar en un único crítico que podría ser sesgado o incoherente, múltiples agentes especializados evalúan el mismo contenido desde diferentes perspectivas, y sus juicios se agregan en una evaluación más sólida y equilibrada."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Combined with conditional chat model selection, this creates a system that is not only more reliable in its quality assessments but also cost-efficient in its use of language models. The framework dynamically allocates more powerful, and more expensive, models only when the quality of the content justifies the investment, while routine iterations run on cheaper alternatives."
-msgstr ""
+msgstr "Combinado con la selección condicional de modelos de chat, esto crea un sistema que no sólo es más fiable en sus evaluaciones de calidad, sino también rentable en su uso de modelos lingüísticos. El marco asigna dinámicamente modelos más potentes, y más caros, sólo cuando la calidad del contenido justifica la inversión, mientras que las iteraciones rutinarias se ejecutan con alternativas más baratas."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "Both these new features are implemented as composable building blocks within the LangChain4j agentic framework. The `VotingPlanner` is a `Planner` like any other, meaning it can be nested inside sequences, loops, or any other pattern. The conditional model selection works transparently at the agent level, requiring no changes to the surrounding orchestration logic. Together, they demonstrate how small, focused additions to the framework can enable sophisticated behaviors without increasing complexity for the user. The complete source code for this example is available in the https://github.com/mariofusco/voting-agentic-pattern[here]."
-msgstr ""
+msgstr "Estas dos nuevas características se implementan como bloques de construcción componibles dentro del marco agéntico LangChain4j. El `VotingPlanner` es un `Planner` como cualquier otro, lo que significa que puede anidarse dentro de secuencias, bucles o cualquier otro patrón. La selección condicional del modelo funciona de forma transparente en el nivel del agente, sin requerir cambios en la lógica de orquestación circundante. Juntos, demuestran cómo pequeñas adiciones centradas en el marco pueden permitir comportamientos sofisticados sin aumentar la complejidad para el usuario. El código fuente completo de este ejemplo está disponible link:https://github.com/mariofusco/voting-agentic-pattern[aquí] ."
 
 #. type: Plain text
 #: _posts/2026-05-22-introducing-voting-pattern.adoc
+#, fuzzy
 msgid "In the near future we plan to further enrich the set of available https://docs.langchain4j.dev/tutorials/agents/#custom-agentic-patterns[custom agentic patterns] in order to cover even more use cases out-of-the-box, and to provide more examples of how to combine them together in complex agentic systems. Stay tuned!"
-msgstr ""
+msgstr "En un futuro próximo tenemos previsto enriquecer aún más el conjunto de link:https://docs.langchain4j.dev/tutorials/agents/#custom-agentic-patterns[patrones agénticos personalizados] disponibles con el fin de cubrir aún más casos de uso out-of-the-box, y proporcionar más ejemplos de cómo combinarlos entre sí en sistemas agénticos complejos. Esté atento."
