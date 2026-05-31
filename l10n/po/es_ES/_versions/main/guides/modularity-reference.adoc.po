@@ -8,8 +8,9 @@ msgstr ""
 
 #. type: YAML Front Matter: title
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "Modularity SPI reference"
-msgstr ""
+msgstr "Modularidad Referencia SPI"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
@@ -19,196 +20,229 @@ msgstr "<a class=\"status-label status-experimental\" title=\"Esta extensión so
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "This document describes the build items that extension authors use to integrate with the xref:modularity.adoc[Quarkus modularity] system.\n"
 "Extensions can declare boot modules, add inter-module dependencies, and consume the completed module model."
-msgstr ""
+msgstr "Este documento describe los elementos de construcción que los autores de extensiones utilizan para integrarse con el sistema de xref:modularity.adoc[modularidad de Quarkus] . Las extensiones pueden declarar módulos de arranque, añadir dependencias entre módulos y consumir el modelo de módulo completado."
 
 #. type: Title =
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`BootModulePathBuildItem`"
-msgstr ""
+msgstr "`BootModulePathBuildItem`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "`BootModulePathBuildItem` is a `MultiBuildItem` produced by extensions.\n"
 "It declares that a named module must be placed on the boot module path."
-msgstr ""
+msgstr "`BootModulePathBuildItem` es un `MultiBuildItem` producido por extensiones. Declara que un módulo con nombre debe colocarse en la ruta del módulo de arranque."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "An extension should produce this item when it provides a module that must be in the JDK's boot module layer.\n"
 "This is necessary when the module is required before the dynamic module loader (`smallrye-modules`) starts, or when the module must participate in the boot class loading chain."
-msgstr ""
+msgstr "Una extensión debe producir este elemento cuando proporciona un módulo que debe estar en la capa de módulos de arranque del JDK. Esto es necesario cuando el módulo se requiere antes de que se inicie el cargador dinámico de módulos ( `smallrye-modules` ), o cuando el módulo debe participar en la cadena de carga de clases de arranque."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "The constructor takes a single `String` parameter: the module name."
-msgstr ""
+msgstr "El constructor toma un único parámetro `String` : el nombre del módulo."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The modularity extension computes the transitive closure of all declared boot modules.\n"
 "If a boot module depends on other modules (via `LINKED` dependencies), those modules are also included in the boot set automatically.\n"
 "Automatic modules are excluded from the boot set because they cannot be linked by `jlink`."
-msgstr ""
+msgstr "La extensión de modularidad calcula el cierre transitivo de todos los módulos de arranque declarados. Si un módulo de arranque depende de otros módulos (a través de las dependencias de `LINKED` ), esos módulos también se incluyen en el conjunto de arranque automáticamente. Los módulos automáticos se excluyen del conjunto de arranque porque no pueden vincularse mediante `jlink` ."
 
 #. type: Title =
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`AddDependencyBuildItem`"
-msgstr ""
+msgstr "`AddDependencyBuildItem`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "`AddDependencyBuildItem` is a `MultiBuildItem` produced by extensions.\n"
 "It adds a dependency between two modules at build time."
-msgstr ""
+msgstr "`AddDependencyBuildItem` es un `MultiBuildItem` producido por extensiones. Añade una dependencia entre dos módulos en tiempo de compilación."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "An extension should produce this item when it needs to wire a module dependency that is not expressed in the Maven POM or in the module's `module-info.class` descriptor.\n"
 "This is common when Quarkus extensions generate code that references types from another module, or when service loading relationships must be declared explicitly."
-msgstr ""
+msgstr "Una extensión debe producir este elemento cuando necesite cablear una dependencia de módulo que no esté expresada en el POM de Maven o en el descriptor `module-info.class` del módulo. Esto es común cuando las extensiones de Quarkus generan código que hace referencia a tipos de otro módulo, o cuando las relaciones de carga de servicios deben declararse explícitamente."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "The constructor takes three parameters: the source module name (`String`), the target module name (`String`), and a set of dependency modifiers (`Modifiers<Dependency.Modifier>`)."
-msgstr ""
+msgstr "El constructor toma tres parámetros: el nombre del módulo fuente ( `String` ), el nombre del módulo destino ( `String` ) y un conjunto de modificadores de dependencia ( `Modifiers<Dependency.Modifier>` )."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "When multiple items declare the same source/target pair, their modifier sets are merged."
-msgstr ""
+msgstr "Cuando varios elementos declaran el mismo par fuente/destino, sus conjuntos de modificadores se fusionan."
 
 #. type: Title =
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`ApplicationModuleInfoBuildItem`"
-msgstr ""
+msgstr "`ApplicationModuleInfoBuildItem`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "`ApplicationModuleInfoBuildItem` is a `SimpleBuildItem` produced by the modularity extension.\n"
 "It contains the completed `AppModuleModel`, which includes the module descriptor for every module in the application, the set of boot modules, and the set of JDK modules in use."
-msgstr ""
+msgstr "`ApplicationModuleInfoBuildItem` es un `SimpleBuildItem` producido por la extensión de modularidad. Contiene el `AppModuleModel` completo, que incluye el descriptor de módulo para cada módulo de la aplicación, el conjunto de módulos de arranque y el conjunto de módulos JDK en uso."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "This item is consumed by downstream packaging extensions such as the xref:jlink.adoc[jlink extension].\n"
 "Extension authors generally do not need to consume this item unless they are implementing a custom packaging step."
-msgstr ""
+msgstr "Este elemento es consumido por extensiones de empaquetado posteriores como la xref:jlink.adoc[extensión jlink] . Los autores de extensiones generalmente no necesitan consumir este elemento a menos que estén implementando un paso de empaquetado personalizado."
 
 #. type: Title =
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "Dependency modifiers"
-msgstr ""
+msgstr "Modificadores de dependencia"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The `Dependency.Modifier` enum (from `io.smallrye.modules.desc`) defines the following values.\n"
 "These are used with `AddDependencyBuildItem` to control how the dependency is wired."
-msgstr ""
+msgstr "El enum `Dependency.Modifier` (de `io.smallrye.modules.desc` ) define los siguientes valores. Se utilizan con `AddDependencyBuildItem` para controlar cómo se cablea la dependencia."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`LINKED`"
-msgstr ""
+msgstr "`LINKED`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The dependency is linked for class loading.\n"
 "Classes from the target module are visible to the source module's class loader."
-msgstr ""
+msgstr "La dependencia se vincula para la carga de clases. Las clases del módulo de destino son visibles para el cargador de clases del módulo de origen."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`READ`"
-msgstr ""
+msgstr "`READ`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The dependency is readable from the source module.\n"
 "Exported packages from the target module are accessible to the source module."
-msgstr ""
+msgstr "La dependencia es legible desde el módulo fuente. Los paquetes exportados del módulo destino son accesibles para el módulo fuente."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`SERVICES`"
-msgstr ""
+msgstr "`SERVICES`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "Service implementations in the target module are available to the source module via `ServiceLoader`."
-msgstr ""
+msgstr "Las implementaciones de servicios en el módulo de destino están disponibles para el módulo de origen a través de `ServiceLoader` ."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`OPTIONAL`"
-msgstr ""
+msgstr "`OPTIONAL`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The dependency is optional.\n"
 "If the target module is not present at link time, the dependency is silently ignored rather than causing a failure."
-msgstr ""
+msgstr "La dependencia es opcional. Si el módulo de destino no está presente en el momento del enlace, la dependencia se ignora silenciosamente en lugar de provocar un fallo."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`TRANSITIVE`"
-msgstr ""
+msgstr "`TRANSITIVE`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The dependency is transitive.\n"
 "Any module that depends on the source module also implicitly depends on the target module."
-msgstr ""
+msgstr "La dependencia es transitiva. Cualquier módulo que dependa del módulo fuente también depende implícitamente del módulo destino."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`SYNTHETIC`"
-msgstr ""
+msgstr "`SYNTHETIC`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "The dependency was added by a framework rather than declared in the original module descriptor. _Note:_ because modifier sets are merged when a dependency is declared in two places, this modifier would take precedence over a non-synthetic dependency, which is a minor detail but possibly undesirable. Thus, this modifier may change to be \"non-synthetic\" or something along those lines in the final version, so that an explicit dependency will never be marked as being synthetic."
-msgstr ""
+msgstr "La dependencia fue añadida por un marco de trabajo en lugar de ser declarada en el descriptor del módulo original. _Nota:_ dado que los conjuntos de modificadores se fusionan cuando una dependencia se declara en dos lugares, este modificador tendría prioridad sobre una dependencia no sintética, lo cual es un detalle menor pero posiblemente indeseable. Así pues, este modificador puede cambiar para ser \"no sintético\" o algo parecido en la versión final, de modo que una dependencia explícita nunca se marcará como sintética."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "`MANDATED`"
-msgstr ""
+msgstr "`MANDATED`"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "The dependency is mandated by specification (for example, the implicit dependency on `java.base`)."
-msgstr ""
+msgstr "La dependencia viene impuesta por la especificación (por ejemplo, la dependencia implícita de `java.base` )."
 
 #. type: Title =
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid "Related core build items"
-msgstr ""
+msgstr "Elementos básicos relacionados"
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "The `quarkus-core-deployment` module provides two additional build items that affect the module graph.\n"
 "These are documented separately but are noted here for completeness."
-msgstr ""
+msgstr "El módulo `quarkus-core-deployment` proporciona dos elementos de compilación adicionales que afectan al gráfico del módulo. Se documentan por separado, pero se señalan aquí para completar la información."
 
 #. type: Plain text
 #: _versions/main/guides/modularity-reference.adoc
+#, fuzzy
 msgid ""
 "`ModuleOpenBuildItem` declares that one module should open specified packages to another module (equivalent to the `--add-opens` JVM flag).\n"
 "`ModuleEnableNativeAccessBuildItem` declares that a module requires native access (equivalent to the `--enable-native-access` JVM flag)."
-msgstr ""
+msgstr "`ModuleOpenBuildItem` declara que un módulo debe abrir paquetes especificados a otro módulo (equivalente a la bandera JVM `--add-opens` ). `ModuleEnableNativeAccessBuildItem` declara que un módulo requiere acceso nativo (equivalente a la bandera JVM `--enable-native-access` )."
