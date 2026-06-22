@@ -28,7 +28,7 @@ Es compatible con la ejecución en Windows/Mac/Linux y tiene abundantes teclas d
 
 ### Importación y traducción automáticas de objetivos de traducción
 
-Cuando se actualice [quarkus.io](https://quarkus.io), los archivos a traducir se importan automáticamente a este repositorio mediante el flujo de trabajo de GitHub Actions y se creará un archivo .po. El archivo .po contiene traducciones existentes almacenadas en la memoria de traducción y usando [quarkus-adoc-po-translator](https://github.com/doc-l10n-kit/quarkus-adoc-po-translator) se insertará el texto traducido automáticamente por la API de DeepL, así que utilícelo como una traducción aproximada.
+Cuando se actualice [quarkus.io](https://quarkus.io), los archivos a traducir se importan automáticamente a este repositorio mediante el flujo de trabajo de GitHub Actions y se creará un archivo .po. El archivo .po contiene traducciones existentes almacenadas en la memoria de traducción y el texto será traducido automáticamente por la API de DeepL, así que utilícelo como una traducción aproximada.
 
 Sin embargo, dado que es una traducción automática, hay muchas partes erroneas, y está marcado como "confirmación requerida" (fuzzy), y no se reflejará la traducción a menos que la marca "fuzzy" se elimine...
 Revise y corrija la traducción y elimine la marca de "fuzzy".
