@@ -8,144 +8,166 @@ msgstr ""
 
 #. type: YAML Front Matter: title
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "Quarkus modularity"
-msgstr ""
+msgstr "Modularidad de Quarkus"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "<a class=\"status-label status-experimental\" title=\"This extension requests early feedback to mature the idea\" href=\"#extension-status-note\">experimental</a>"
-msgstr ""
+msgstr "<a class=\"status-label status-experimental\" title=\"Esta extensión solicita retroalimentación temprana para madurar la idea\" href=\"#extension-status-note\">experimental</a>"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "The Quarkus modularity extension constructs a complete module graph for a Quarkus application at build time.\n"
 "It is a superset of the Java Platform Module System (JPMS), enhancing and completing the module information for every artifact in the application.\n"
 "This extension is intended to be consumed by other Quarkus extensions (such as the xref:jlink.adoc[jlink extension]) rather than by application developers directly."
-msgstr ""
+msgstr "La extensión de modularidad de Quarkus construye un grafo de módulos completo para una aplicación Quarkus en tiempo de compilación. Es un superconjunto del Sistema de Módulos de la Plataforma Java (JPMS), que mejora y completa la información de los módulos para cada artefacto de la aplicación. Esta extensión está pensada para ser consumida por otras extensiones de Quarkus (como la xref:jlink.adoc[extensión jlink] ) más que por los desarrolladores de aplicaciones directamente."
 
 #. type: Title =
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "What Quarkus modularity does"
-msgstr ""
+msgstr "Qué hace la modularidad de Quarkus"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "Quarkus modularity processes every artifact in the application's dependency graph and produces a unified module model.\n"
 "It handles two cases."
-msgstr ""
+msgstr "La modularidad de Quarkus procesa cada artefacto del grafo de dependencias de la aplicación y produce un modelo de módulo unificado. Maneja dos casos."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "For artifacts that contain a `module-info.class` descriptor, the extension reads the existing module information and enhances it with Quarkus-specific dependency data.\n"
 "This includes additional `opens` and `exports` directives, extra inter-module dependencies, and service provider information that JPMS does not capture on its own."
-msgstr ""
+msgstr "Para los artefactos que contienen un descriptor `module-info.class` , la extensión lee la información del módulo existente y la mejora con datos de dependencia específicos de Quarkus. Esto incluye directivas `opens` y `exports` adicionales, dependencias entre módulos adicionales e información sobre proveedores de servicios que JPMS no captura por sí solo."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "For artifacts that lack a `module-info.class` (automatic modules), the extension computes a module descriptor.\n"
 "Unlike the default JDK behavior where automatic modules can read every other module, Quarkus scopes each automatic module's dependencies to match its Maven dependency graph.\n"
 "This produces a more accurate and constrained set of module relationships."
-msgstr ""
+msgstr "Para los artefactos que carecen de un `module-info.class` (módulos automáticos), la extensión computa un descriptor de módulo. A diferencia del comportamiento predeterminado del JDK, en el que los módulos automáticos pueden leer cualquier otro módulo, Quarkus delimita las dependencias de cada módulo automático para que coincidan con su gráfico de dependencias de Maven. Esto produce un conjunto de relaciones entre módulos más preciso y restringido."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "The extension also supports dependency semantics that go beyond what JPMS provides.\n"
 "Module dependencies carry distinct modifiers such as `LINKED`, `READ`, `SERVICES`, and `OPTIONAL`, which control how and whether modules are wired together at both link time and run time."
-msgstr ""
+msgstr "La extensión también admite una semántica de dependencias que va más allá de lo que proporciona JPMS. Las dependencias entre módulos llevan modificadores distintos como `LINKED` , `READ` , `SERVICES` , y `OPTIONAL` , que controlan cómo y si los módulos se conectan entre sí tanto en tiempo de enlace como en tiempo de ejecución."
 
 #. type: Title =
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "Boot modules and dynamic modules"
-msgstr ""
+msgstr "Módulos de arranque y módulos dinámicos"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "The modularity extension organizes modules into two tiers: boot modules and dynamic modules."
-msgstr ""
+msgstr "La ampliación de la modularidad organiza los módulos en dos niveles: módulos de arranque y módulos dinámicos."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "Boot modules are loaded by the JDK's boot module layer.\n"
 "A small set of modules must be present on the boot module path in order for the JVM to start in module mode.\n"
 "This set includes the module system loader itself (`smallrye-modules`), a minimal launcher, and the transitive dependencies of those components (typically logging support and a few common libraries).\n"
 "The boot module set is kept as small as possible."
-msgstr ""
+msgstr "Los módulos de arranque son cargados por la capa de módulos de arranque del JDK. Un pequeño conjunto de módulos debe estar presente en la ruta del módulo de arranque para que la JVM arranque en modo módulo. Este conjunto incluye el propio cargador del sistema de módulos ( `smallrye-modules` ), un lanzador mínimo, y las dependencias transitivas de esos componentes (normalmente soporte de registro y unas pocas bibliotecas comunes). El conjunto de módulos de arranque se mantiene lo más pequeño posible."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "Dynamic modules are loaded at runtime by `smallrye-modules`.\n"
 "This module loader is more capable and more flexible than the JDK's built-in module layer support.\n"
 "Application code and the majority of library modules reside in this tier."
-msgstr ""
+msgstr "Los módulos dinámicos se cargan en tiempo de ejecución mediante `smallrye-modules` . Este cargador de módulos es más capaz y más flexible que el soporte integrado de la capa de módulos del JDK. El código de la aplicación y la mayoría de los módulos de biblioteca residen en esta capa."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "One consequence of this split is that JDK AOT precompilation via Class Data Sharing (CDS) currently only supports modules on the boot module path.\n"
 "This is a known limitation."
-msgstr ""
+msgstr "Una consecuencia de esta división es que la precompilación AOT del JDK a través de Class Data Sharing (CDS) actualmente sólo admite módulos en la ruta del módulo de arranque. Se trata de una limitación conocida."
 
 #. type: Title =
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "`smallrye-modules`"
-msgstr ""
+msgstr "`smallrye-modules`"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "The https://github.com/smallrye/smallrye-modules[`smallrye-modules`] project provides the module loader that powers the dynamic module tier.\n"
 "It supports extended dependency semantics beyond those offered by JPMS, including the additional modifier types described above."
-msgstr ""
+msgstr "El proyecto link:https://github.com/smallrye/smallrye-modules[smallrye-modules] proporciona el cargador de módulos que alimenta el nivel de módulos dinámicos. Soporta una semántica de dependencia ampliada más allá de la ofrecida por JPMS, incluyendo los tipos de modificadores adicionales descritos anteriormente."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "Extension authors do not usually interact with `smallrye-modules` directly.\n"
 "Instead, they use the build items described in the xref:modularity-reference.adoc[modularity SPI reference] to declare boot modules, add inter-module dependencies, and contribute other module metadata at build time."
-msgstr ""
+msgstr "Los autores de extensiones no suelen interactuar directamente con `smallrye-modules` . En su lugar, utilizan los elementos de compilación descritos en la xref:modularity-reference.adoc[referencia SPI de modularidad] para declarar módulos de arranque, añadir dependencias entre módulos y aportar otros metadatos de módulos en el momento de la compilación."
 
 #. type: Title =
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "How the module model is built"
-msgstr ""
+msgstr "Cómo se construye el modelo modular"
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid "At build time, the modularity extension assembles the module model through the following process."
-msgstr ""
+msgstr "En el momento de la construcción, la extensión de modularidad ensambla el modelo de módulo a través del siguiente proceso."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "All runtime artifacts are collected from the application's dependency model.\n"
 "Classes and resources generated or transformed during the Quarkus build (such as those produced by ArC or bytecode recorders) are assigned to their owning modules based on package membership."
-msgstr ""
+msgstr "Todos los artefactos en tiempo de ejecución se recogen del modelo de dependencia de la aplicación. Las clases y los recursos generados o transformados durante la compilación de Quarkus (como los producidos por ArC o los grabadores de código de bytes) se asignan a sus módulos propietarios en función de la pertenencia al paquete."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "For each artifact, the extension either reads its `module-info.class` descriptor or computes an automatic module descriptor from its Maven dependencies.\n"
 "Contributions from other extensions, provided through build items, are then merged into each module's descriptor.\n"
 "These contributions include extra dependencies between modules, additional `opens` and `exports` directives, and native access flags."
-msgstr ""
+msgstr "Para cada artefacto, la extensión lee su descriptor `module-info.class` o calcula un descriptor de módulo automático a partir de sus dependencias de Maven. A continuación, las contribuciones de otras extensiones, proporcionadas a través de elementos de compilación, se fusionan en el descriptor de cada módulo. Estas contribuciones incluyen dependencias adicionales entre módulos, directivas `opens` y `exports` adicionales y banderas de acceso nativo."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "The boot module set is computed as the transitive closure of all modules declared as boot modules by extensions.\n"
 "Automatic modules are excluded from the boot set because they cannot be linked by `jlink`."
-msgstr ""
+msgstr "El conjunto de módulos de arranque se computa como el cierre transitivo de todos los módulos declarados como módulos de arranque por las extensiones. Los módulos automáticos se excluyen del conjunto de arranque porque no pueden vincularse mediante `jlink` ."
 
 #. type: Plain text
 #: _guides/modularity.adoc
+#, fuzzy
 msgid ""
 "The final result is an `ApplicationModuleInfoBuildItem` containing the complete `AppModuleModel`.\n"
 "Downstream packaging extensions, such as the xref:jlink.adoc[`jlink` extension], consume this model to produce the application's runtime image."
-msgstr ""
+msgstr "El resultado final es un `ApplicationModuleInfoBuildItem` que contiene el `AppModuleModel` completo. Las extensiones de empaquetado posteriores, como la xref:jlink.adoc[extensiónjlink] , consumen este modelo para producir la imagen de ejecución de la aplicación."
