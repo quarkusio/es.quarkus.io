@@ -8,148 +8,177 @@ msgstr ""
 
 #. type: YAML Front Matter: title
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Harder, Better, Faster, Stronger... Earlier!"
-msgstr ""
+msgstr "Más duro, mejor, más rápido, más fuerte… ¡Y antes!"
 
 #. type: YAML Front Matter: synopsis
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Throughput averages hide warmup problems. On 4 cores with 100 connections, C2 compiler threads are starved by platform threads. pidstat and JFR show how."
-msgstr ""
+msgstr "Los promedios de rendimiento ocultan problemas de calentamiento. En 4 núcleos con 100 conexiones, los subprocesos del compilador C2 se ven limitados por los subprocesos de la plataforma. pidstat y JFR muestran cómo ocurre esto."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "_https://www.youtube.com/watch?v=gAjR4_CbPpQ[Daft Punk]_"
-msgstr ""
+msgstr "_link:https://www.youtube.com/watch?v=gAjR4_CbPpQ[Daft Punk]_"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Our https://github.com/quarkusio/spring-quarkus-perf-comparison/tree/38345ca[Quarkus vs Spring CRUD benchmark] shows Quarkus delivering roughly 2x Spring's throughput on a REST/CRUD workload backed by PostgreSQL. The latest https://github.com/quarkusio/benchmarks/commit/d26d45d[public results] confirm this."
-msgstr ""
+msgstr "Nuestra link:https://github.com/quarkusio/spring-quarkus-perf-comparison/tree/38345ca[prueba comparativa de Quarkus frente a Spring en operaciones CRUD] muestra que Quarkus ofrece aproximadamente el doble de rendimiento que Spring en una carga de trabajo REST/CRUD con PostgreSQL como base de datos. Los últimos link:https://github.com/quarkusio/benchmarks/commit/d26d45d[resultados públicos] lo confirman."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "But throughput is an average over a measurement window. It doesn't tell you how long the application took to get there. This post looks at the dimension averages hide: **time to peak performance**."
-msgstr ""
+msgstr "Sin embargo, el rendimiento es un promedio calculado a lo largo de un intervalo de medición. No indica cuánto tiempo tardó la aplicación en alcanzar ese nivel. En esta entrada se analiza la dimensión que ocultan los promedios: *el tiempo necesario para alcanzar el rendimiento máximo* ."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The benchmark runs on our RHEL 9.6 performance lab with JDK 25, 4 pinned cores per application, and 100 concurrent HTTP connections. The workload is **CPU-bound by design**, fully utilizing the 4 cores during load. Each run consists of a **2-minute warmup** at full load, a **30-second cooldown**, and a **30-second load test** where throughput is measured."
-msgstr ""
+msgstr "La prueba de rendimiento se ejecuta en nuestro laboratorio de rendimiento con RHEL 9.6, utilizando JDK 25, 4 núcleos asignados por aplicación y 100 conexiones HTTP simultáneas. La carga de trabajo está *diseñada para estar limitada por la CPU* , utilizando al máximo los 4 núcleos durante la carga. Cada ejecución consta de un *calentamiento de 2 minutos* a plena carga, un *enfriamiento de 30 segundos* y una *prueba de carga de 30 segundos* en la que se mide el rendimiento."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The warmup curve"
-msgstr ""
+msgstr "La curva de calentamiento"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "https://github.com/Hyperfoil/Hyperfoil[Hyperfoil] records per-second throughput during each phase. Here is the warmup curve for the two baseline configurations, Quarkus and Spring, both with platform threads:"
-msgstr ""
+msgstr "link:https://github.com/Hyperfoil/Hyperfoil[Hyperfoil] registra el rendimiento por segundo durante cada fase. A continuación se muestra la curva de calentamiento de las dos configuraciones de referencia, Quarkus y Spring, ambas con subprocesos de la plataforma:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Quarkus reaches ~14,700 req/s within 60 seconds. Spring plateaus at ~3,300 req/s during warmup, then jumps to ~7,800 during the load test after the 30-second cooldown gives the compiler time to catch up."
-msgstr ""
+msgstr "Quarkus alcanza unas 14 700 solicitudes por segundo en 60 segundos. Spring se estabiliza en unas 3 300 solicitudes por segundo durante el calentamiento y, a continuación, da un salto hasta unas 7 800 durante la prueba de carga, una vez que el periodo de espera de 30 segundos ha dado tiempo al compilador a ponerse al día."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**The shape matters.** Quarkus's curve has a steep initial ramp and plateaus early. Spring plateaus at less than a quarter of Quarkus's throughput during warmup, and only recovers after the cooldown period."
-msgstr ""
+msgstr "*La forma es importante.* La curva de Quarkus presenta una rampa inicial pronunciada y alcanza una meseta muy pronto. Spring alcanza una meseta con menos de una cuarta parte del rendimiento de Quarkus durante el calentamiento, y solo se recupera tras el periodo de enfriamiento."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Why is Spring slower to warm up?"
-msgstr ""
+msgstr "¿Por qué tarda más la primavera en entrar en calor?"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The HotSpot JVM uses https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk[tiered compilation]: code starts in the interpreter, gets compiled by C1, and eventually by C2 which produces the fastest native code. C2 runs on dedicated background threads. If those threads can't get CPU time, the application stays on slower code longer."
-msgstr ""
+msgstr "La JVM de HotSpot utiliza link:https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk[la compilación por niveles] : el código se ejecuta inicialmente en el intérprete, se compila mediante C1 y, finalmente, mediante C2, que genera el código nativo más rápido. C2 se ejecuta en subprocesos dedicados en segundo plano. Si dichos subprocesos no consiguen tiempo de CPU, la aplicación permanece más tiempo ejecutando código más lento."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "https://man7.org/linux/man-pages/man1/pidstat.1.html[pidstat] with per-thread reporting (`-t`) shows `%wait`: the percentage of time a thread spends in the run queue, ready to execute but waiting for a CPU. This is collected as part of our https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/62[active benchmarking practice]."
-msgstr ""
+msgstr "link:https://man7.org/linux/man-pages/man1/pidstat.1.html[El programa `pidstat`] , con informes por hilo ( `-t` ), muestra el valor « `%wait` »: el porcentaje de tiempo que un hilo pasa en la cola de ejecución, listo para ejecutarse pero a la espera de una CPU. Este dato se recopila como parte de nuestra link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/62[práctica de pruebas de rendimiento activas] ."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The JVM runs 2 C2 compiler threads on this configuration. The chart sums both threads: 200% wait means both are fully waiting for a CPU. Green is CPU time doing actual compilation work; pink is time spent in the run queue, ready to run but waiting for a CPU."
-msgstr ""
+msgstr "La JVM ejecuta dos subprocesos del compilador C2 en esta configuración. El gráfico suma ambos subprocesos: un 200 % de tiempo de espera significa que ambos están a la espera de una CPU. El color verde representa el tiempo de CPU dedicado a la compilación propiamente dicha; el rosa, el tiempo pasado en la cola de ejecución, listos para ejecutarse pero a la espera de una CPU."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "During **startup** (green region, before any request arrives), both frameworks show **C2 running freely**: green with no pink. Spring's C2 threads are at ~200% usr (both maxed out), reflecting more framework code to compile at boot. Quarkus's C2 threads peak at ~80% usr, less startup compilation work. Spring's startup also takes longer (~13 seconds vs ~8 for Quarkus; the https://github.com/quarkusio/benchmarks/commit/d26d45d[public benchmark results] show **Quarkus starts in roughly half the time**)."
-msgstr ""
+msgstr "Durante *el arranque* (zona verde, antes de que llegue ninguna solicitud), ambos marcos muestran que *C2 funciona sin restricciones* : en verde, sin rosa. Los hilos C2 de Spring se sitúan en torno al 200 % de uso de usuario (ambos al máximo), lo que refleja que hay más código del marco que compilar durante el arranque. Los hilos C2 de Quarkus alcanzan un máximo de aproximadamente el 80 % de uso de usuario, lo que supone menos trabajo de compilación durante el arranque. El arranque de Spring también tarda más (aproximadamente 13 segundos frente a los 8 de Quarkus; link:https://github.com/quarkusio/benchmarks/commit/d26d45d[los resultados públicos de las pruebas de rendimiento] muestran que *Quarkus se inicia en aproximadamente la mitad de tiempo* )."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Once the **warmup** load hits, the picture changes."
-msgstr ""
+msgstr "En cuanto se alcanza la carga *de calentamiento* , la situación cambia."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**spring4-jvm** (top panel): the C2 threads are immediately overwhelmed. The pink band fills the warmup phase, with the two threads collectively spending 140-180% of their time waiting. **The compiler can barely run for the whole duration of the warmup.**"
-msgstr ""
+msgstr "*spring4-jvm* (panel superior): los hilos C2 se ven desbordados de inmediato. La franja rosa ocupa toda la fase de calentamiento, y los dos hilos pasan, en conjunto, entre el 140 % y el 180 % de su tiempo en espera. *El compilador apenas puede funcionar durante todo el tiempo que dura el calentamiento.*"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**quarkus3-jvm** (bottom panel): C2 threads are also contended during the first half of warmup (100-150% summed wait). But C2 activity drops to near zero by the second half. **The compiler finishes its work** within the first ~60 seconds."
-msgstr ""
+msgstr "*quarkus3-jvm* (panel inferior): Los subprocesos C2 también se ven afectados por conflictos durante la primera mitad del periodo de calentamiento (entre el 100 % y el 150 % del tiempo de espera total). Sin embargo, la actividad de C2 desciende hasta casi cero en la segunda mitad. *El compilador finaliza su trabajo* en los primeros ~60 segundos."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Both are starved during warmup.** The difference is recovery. Quarkus needs **41% fewer total compilations** to reach peak (~12,500 vs ~17,600 for Spring, from JFR's `jdk.CompilerStatistics`): a leaner framework means less work for the compiler."
-msgstr ""
+msgstr "*Ambos se ven limitados durante la fase de calentamiento.* La diferencia radica en la recuperación. Quarkus necesita *un 41 % menos de compilaciones en total* para alcanzar su máximo rendimiento (aproximadamente 12 500 frente a unas 17 600 en el caso de Spring, según el artículo de JFR « `jdk.CompilerStatistics` »): un marco más ligero supone menos trabajo para el compilador."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Quarkus is also leaner at runtime.** Spring Boot's Tomcat creates a platform thread per HTTP connection. With 100 connections, pidstat shows **~130 threads with %CPU > 0** during warmup. Quarkus shows **~47**. pidstat also reports two types of context switches: **voluntary** (the thread yields the CPU on its own, typically because it starts waiting for I/O) and **involuntary** (the scheduler forcibly preempts the thread because its time slice expired). Averaged per worker thread across the warmup:"
-msgstr ""
+msgstr "*Quarkus también es más ligero en tiempo de ejecución.* El Tomcat de Spring Boot crea un hilo de la plataforma por cada conexión HTTP. Con 100 conexiones, pidstat muestra *unos 130 hilos con un %CPU > 0* durante la fase de calentamiento. Quarkus muestra *unos 47* . pidstat también registra dos tipos de cambios de contexto: *voluntarios* (el hilo cede la CPU por iniciativa propia, normalmente porque comienza a esperar una operación de E/S) e *involuntarios* (el programador interrumpe forzosamente el hilo porque ha expirado su intervalo de tiempo). Media por hilo de trabajo durante el periodo de calentamiento:"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Avg voluntary cswch/s"
-msgstr ""
+msgstr "Promedio de cswch/s voluntarios"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Avg involuntary cswch/s"
-msgstr ""
+msgstr "Promedio de cswch/s involuntarios"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Ratio nvol/vol"
-msgstr ""
+msgstr "Relación nvol/vol"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "spring4-jvm"
-msgstr ""
+msgstr "spring4-jvm"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "105"
-msgstr ""
+msgstr "105"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "864"
-msgstr ""
+msgstr "864"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**8.3**"
-msgstr ""
+msgstr "*8,3*"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "quarkus3-jvm"
-msgstr ""
+msgstr "quarkus3-jvm"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "502"
-msgstr ""
+msgstr "502"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
@@ -159,168 +188,201 @@ msgstr "43"
 
 #. type: Table
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "0.1"
-msgstr ""
+msgstr "0,1"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Spring worker threads are involuntarily preempted 20x more than Quarkus threads. Quarkus threads yield the CPU voluntarily 4x more: **they complete request work faster and return to I/O wait, leaving scheduling gaps for the C2 compiler**."
-msgstr ""
+msgstr "Los subprocesos de trabajo de Spring son interrumpidos involuntariamente 20 veces más que los de Quarkus. Los subprocesos de Quarkus ceden voluntariamente la CPU 4 veces más: *completan el trabajo de las solicitudes más rápidamente y vuelven a la espera de E/S, dejando huecos de programación para el compilador C2* ."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Starvation also degrades code quality.** When the C2 queue grows too large, HotSpot's compilation policy kicks in a https://github.com/openjdk/jdk25u/blob/master/src/hotspot/share/compiler/compilationPolicy.cpp#L1365[**backpressure mechanism**]: it skips tier 3 (C1 with full profiling) and compiles methods at tier 2 (C1 without full profiling) instead, reducing the load on C2. When the queue pressure drops, methods get promoted from tier 2 to tier 3 and eventually to tier 4 (C2). For spring4-jvm, JFR execution samples show this directly: during warmup, **C1-compiled code dominates at ~60% of leaf frames while C2-inlined code stays at ~30%**. The C2 queue peaks at over **3,000 pending methods** and stays there for the entire warmup. After the 30-second cooldown gives C2 the CPU it needs, the picture flips: **C2-inlined code jumps to ~80% and C1 drops to ~20%**. The throughput jump after cooldown is the C2-compiled code finally running."
-msgstr ""
+msgstr "*La «hambruna» también deteriora la calidad del código.* Cuando la cola C2 crece demasiado, la política de compilación de HotSpot activa un link:https://github.com/openjdk/jdk25u/blob/master/src/hotspot/share/compiler/compilationPolicy.cpp#L1365[mecanismo de contrapresión] : omite el nivel 3 (C1 con perfilado completo) y, en su lugar, compila los métodos en el nivel 2 (C1 sin perfilado completo), lo que reduce la carga sobre C2. Cuando la presión de la cola disminuye, los métodos pasan del nivel 2 al nivel 3 y, finalmente, al nivel 4 (C2). En el caso de spring4-jvm, las muestras de ejecución de JFR lo muestran directamente: durante el calentamiento, *el código compilado en C1 predomina en aproximadamente el 60 % de los marcos finales, mientras que el código integrado en C2 se mantiene en torno al 30 %.* La cola de C2 alcanza un máximo de más de *3.000 métodos pendientes* y se mantiene así durante todo el calentamiento. Una vez que el periodo de reposo de 30 segundos proporciona a C2 la CPU que necesita, la situación se invierte: *el código integrado en C2 se dispara hasta alrededor del 80 % y el de C1 desciende hasta aproximadamente el 20 %.* El aumento del rendimiento tras el periodo de reposo se debe a que el código compilado en C2 finalmente se ejecuta."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Virtual threads change the equation"
-msgstr ""
+msgstr "Los hilos virtuales cambian las reglas del juego"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Virtual threads multiplex onto a small number of carrier threads. With 100 HTTP connections, only ~4 carriers are on-CPU instead of 100+ platform threads. Adding virtual threads to both frameworks:"
-msgstr ""
+msgstr "Los hilos virtuales se multiplexan en un número reducido de hilos portadores. Con 100 conexiones HTTP, solo hay unos 4 hilos portadores ejecutándose en la CPU, en lugar de más de 100 hilos de la plataforma. Incorporación de hilos virtuales a ambos marcos de trabajo:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Spring with virtual threads reaches ~9,900 req/s and warms up within 30 seconds.** With platform threads, Spring is still at ~3,300 req/s at the 30-second mark, and is still climbing during the load test, never reaching a stable peak within the entire benchmark window."
-msgstr ""
+msgstr "*Spring, con hilos virtuales, alcanza unas 9.900 solicitudes por segundo y se pone en marcha en 30 segundos.* Con hilos de plataforma, Spring sigue situándose en unas 3.300 solicitudes por segundo al cabo de 30 segundos, y sigue aumentando durante la prueba de carga, sin alcanzar nunca un pico estable en todo el periodo de la prueba de rendimiento."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Quarkus with virtual threads reaches peak in ~15 seconds instead of ~60 seconds**, but both converge to ~15,000 req/s. The benefit is warmup speed, not peak throughput."
-msgstr ""
+msgstr "*Quarkus con subprocesos virtuales alcanza su pico en unos 15 segundos, en lugar de unos 60 segundos* , pero ambos convergen en unos 15 000 req/s. La ventaja radica en la velocidad de calentamiento, no en el rendimiento máximo."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Fewer threads competing for 4 cores means the C2 compiler threads get more CPU time during warmup."
-msgstr ""
+msgstr "Un menor número de subprocesos que compiten por los 4 núcleos significa que los subprocesos del compilador C2 disponen de más tiempo de CPU durante la fase de calentamiento."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "What about Leyden?"
-msgstr ""
+msgstr "¿Y qué hay de Leyden?"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "https://openjdk.org/projects/leyden/[Project Leyden] in JDK 25 caches class loading, linking, and method profiling data in an AOT cache (https://openjdk.org/jeps/483[JEP 483], https://openjdk.org/jeps/514[JEP 514], https://openjdk.org/jeps/515[JEP 515]). **AOT Code Compilation** (caching the actual C2-compiled native code) is https://openjdk.org/jeps/8335368[not yet in JDK 25] and is available on the Leyden premain branch for future releases."
-msgstr ""
+msgstr "link:https://openjdk.org/projects/leyden/[El Proyecto Leyden] en el JDK 25 almacena en caché los datos de carga de clases, enlace y perfilado de métodos en una caché AOT ( link:https://openjdk.org/jeps/483[JEP 483] , link:https://openjdk.org/jeps/514[JEP 514] , link:https://openjdk.org/jeps/515[JEP 515] ). *La compilación de código AOT* (almacenamiento en caché del código nativo compilado en C2) link:https://openjdk.org/jeps/8335368[aún no] está link:https://openjdk.org/jeps/8335368[incluida en el JDK 25] , pero está disponible en la rama «premain» de Leyden para futuras versiones."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The AOT cache accelerates startup: Spring starts in 6.4s with Leyden vs 9.3s without. But warmup tells a different story."
-msgstr ""
+msgstr "La caché AOT acelera el arranque: Spring se inicia en 6,4 s con Leyden, frente a los 9,3 s sin él. Sin embargo, la fase de calentamiento muestra una situación diferente."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Our benchmark follows the https://docs.spring.io/spring-boot/reference/packaging/aot-cache.html[official Spring Boot AOT cache documentation], which uses `-Dspring.context.exit=onRefresh` for the training run: class loading and context initialization only, no HTTP traffic."
-msgstr ""
+msgstr "Nuestra prueba de rendimiento se basa en la link:https://docs.spring.io/spring-boot/reference/packaging/aot-cache.html[documentación oficial de Spring Boot sobre la caché AOT] , que utiliza « `-Dspring.context.exit=onRefresh` » para la ejecución de entrenamiento: únicamente la carga de clases y la inicialización del contexto, sin tráfico HTTP."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**spring4-leyden measures 2,921 TPS after the 2-minute warmup, less than half of spring4-jvm (7,850).** The application has not yet reached peak performance when the load test starts. During warmup, the two curves are close for the first 30 seconds, then spring4-jvm pulls ahead while spring4-leyden stalls at ~2,500-3,000."
-msgstr ""
+msgstr "*spring4-leyden registra 2.921 TPS tras los 2 minutos de calentamiento, menos de la mitad que spring4-jvm (7.850).* La aplicación aún no ha alcanzado su máximo rendimiento cuando comienza la prueba de carga. Durante el calentamiento, las dos curvas se mantienen próximas durante los primeros 30 segundos; a continuación, spring4-jvm se adelanta, mientras que spring4-leyden se estanca en torno a los 2.500-3.000."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**quarkus3-leyden takes ~90 seconds to reach peak, vs ~60 seconds without Leyden.** The final throughput is also lower (13,060 vs 14,710). Quarkus's Leyden integration uses https://quarkus.io/blog/leyden-2/[`@QuarkusIntegrationTest`] for training, which exercises actual HTTP endpoints, providing richer profiling data than a startup-only training run. Yet the warmup is still slower."
-msgstr ""
+msgstr "*Quarkus3-Leyden tarda unos 90 segundos en alcanzar su máximo rendimiento, frente a los aproximadamente 60 segundos sin Leyden.* El rendimiento final también es inferior (13 060 frente a 14 710). La integración de Leyden en Quarkus utiliza link:https://quarkus.io/blog/leyden-2/[@QuarkusIntegrationTest] para el entrenamiento, lo que pone a prueba puntos finales HTTP reales y proporciona datos de perfilado más completos que una ejecución de entrenamiento basada únicamente en el arranque. Sin embargo, el calentamiento sigue siendo más lento."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The C2 compiler thread chart shows the starvation is even worse with Leyden:"
-msgstr ""
+msgstr "El gráfico de subprocesos del compilador C2 muestra que la falta de recursos es aún mayor con Leyden:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**spring4-leyden shows near-200% wait through the entire warmup and into the load test.** quarkus3-leyden recovers, but takes ~90 seconds instead of ~60."
-msgstr ""
+msgstr "*spring4-leyden presenta un tiempo de espera cercano al 200 % durante todo el calentamiento y hasta bien entrada la prueba de carga.* quarkus3-leyden se recupera, pero tarda unos 90 segundos en lugar de unos 60."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "As with the non-Leyden case, **virtual threads fix the starvation for both frameworks**: spring4-virtual-leyden delivers 9,264 TPS (vs 2,921 without virtual threads), a 3x improvement."
-msgstr ""
+msgstr "Al igual que en el caso sin Leyden, *los hilos virtuales resuelven el cuello de botella en ambos marcos* : spring4-virtual-leyden alcanza los 9 264 TPS (frente a los 2 921 sin hilos virtuales), lo que supone una mejora de tres veces."
 
 #. type: Title ==
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Plot twist"
-msgstr ""
+msgstr "Giro inesperado en la trama"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "While investigating these results, we shared our findings with the OpenJDK community. https://github.com/ashu-mehra[Ashutosh Mehra] from the IBM OpenJDK team looked into the compilation policy and identified https://bugs.openjdk.org/browse/JDK-8386852[JDK-8386852]. Normally, the **backpressure mechanism** described above has a **safety net**: methods that have been around long enough (\"old\" methods) get promoted out of tier 2 regardless of queue size. But when AOT training data is present, this safety net is https://github.com/openjdk/jdk25u/blob/master/src/hotspot/share/compiler/compilationPolicy.cpp#L1433[disabled]. **Methods compiled at tier 2 get stuck there instead of being promoted to tier 3 and tier 4**, resulting in fewer C2 compilations and lower peak throughput. Removing this guard in a patched build enables more C2 compilations, improves peak performance, and reduces time to peak for both frameworks. **Until this is fixed, Leyden warmup numbers in JDK 25 should not be taken as representative.**"
-msgstr ""
+msgstr "Mientras investigábamos estos resultados, compartimos nuestras conclusiones con la comunidad de OpenJDK. link:https://github.com/ashu-mehra[Ashutosh Mehra] , del equipo de OpenJDK de IBM, analizó la política de compilación e identificó link:https://bugs.openjdk.org/browse/JDK-8386852[el problema JDK-8386852] . Normalmente, el *mecanismo de contrapresión* descrito anteriormente cuenta con una *red de seguridad* : los métodos que llevan suficiente tiempo en uso (los métodos «antiguos») pasan del nivel 2 independientemente del tamaño de la cola. Sin embargo, cuando hay datos de entrenamiento AOT, esta red de seguridad se link:https://github.com/openjdk/jdk25u/blob/master/src/hotspot/share/compiler/compilationPolicy.cpp#L1433[desactiva] . *Los métodos compilados en el nivel 2 quedan atascados allí en lugar de ascender a los niveles 3 y 4* , lo que da lugar a un menor número de compilaciones C2 y a un rendimiento máximo más bajo. La eliminación de esta protección en una compilación parcheada permite un mayor número de compilaciones C2, mejora el rendimiento máximo y reduce el tiempo necesario para alcanzar dicho pico en ambos marcos de trabajo. *Hasta que se solucione este problema, las cifras de calentamiento de Leyden en el JDK 25 no deben considerarse representativas.*"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Troubleshooting hints:** To diagnose C2 starvation in your own application, enable https://dev.java/learn/jvm/jfr/[JDK Flight Recorder] with `-XX:StartFlightRecording=settings=profile,dumponexit=true` and look at:"
-msgstr ""
+msgstr "*Consejos para la resolución de problemas:* Para diagnosticar un agotamiento de C2 en su propia aplicación, active link:https://dev.java/learn/jvm/jfr/[el «Flight Recorder» del JDK] mediante el comando « `-XX:StartFlightRecording=settings=profile,dumponexit=true` » y consulte:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "`jdk.CompilerStatistics`: track `compileCount` and `nmethodCodeSize` over time. If the compiled code size is still growing during your measurement window, the compiler hasn't finished."
-msgstr ""
+msgstr "`jdk.CompilerStatistics` : realice un seguimiento de `compileCount` y `nmethodCodeSize` a lo largo del tiempo. Si el tamaño del código compilado sigue aumentando durante el periodo de medición, significa que el compilador aún no ha terminado."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "`jdk.Compilation`: individual compilations exceeding 100ms (with `settings=profile`). **Wall-clock durations of 10+ seconds indicate the compiler thread is being preempted.**"
-msgstr ""
+msgstr "`jdk.Compilation` : compilaciones individuales que superan los 100 ms (con ` `settings=profile` `). *Las duraciones en tiempo real de más de 10 segundos indican que el hilo del compilador está siendo interrumpido.*"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "`jdk.CompilerQueueUtilization`: if the C2 `queueSize` is non-zero during your measurement window, methods are waiting to be compiled."
-msgstr ""
+msgstr "`jdk.CompilerQueueUtilization` : si el valor de C2 `queueSize` es distinto de cero durante su ventana de medición, hay métodos pendientes de compilar."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Combine with `pidstat -t -u -w 1` to see C2 thread `%wait` and worker thread involuntary context switches."
-msgstr ""
+msgstr "Combínelo con `pidstat -t -u -w 1` para ver los cambios de contexto involuntarios del hilo C2 `%wait` y del hilo de trabajo."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Leyden caveat:** enabling JDK Flight Recorder (`-XX:StartFlightRecording`) on a Leyden-enabled application can invalidate the AOT cache, because the `jdk.jfr` module added at runtime was not present during training (this affects JDK 25, 26, and 27 EA). A separate issue (https://bugs.openjdk.org/browse/JDK-8386853[JDK-8386853]) means the JVM does not properly clean up AOT-related flags after cache rejection. For Quarkus, the two-step AOT cache creation process makes this harder to work around (https://github.com/quarkusio/quarkus/issues/54876[quarkus#54876])."
-msgstr ""
+msgstr "*Advertencia sobre Leyden:* al habilitar el JDK Flight Recorder ( `-XX:StartFlightRecording` ) en una aplicación compatible con Leyden, la caché AOT puede quedar invalidada, ya que el módulo « `jdk.jfr` », añadido en tiempo de ejecución, no estaba presente durante el entrenamiento (esto afecta a las versiones EA de JDK 25, 26 y 27). Otro problema ( link:https://bugs.openjdk.org/browse/JDK-8386853[JDK-8386853] ) hace que la JVM no elimine correctamente los indicadores relacionados con AOT tras el rechazo de la caché. En el caso de Quarkus, el proceso de creación de la caché AOT en dos pasos dificulta aún más la solución de este problema ( link:https://github.com/quarkusio/quarkus/issues/54876[quarkus#54876] )."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The OS scheduler matters"
-msgstr ""
+msgstr "El programador del sistema operativo es importante"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "All the results above are from our RHEL 9.6 performance lab (kernel 5.14, CFS scheduler). Here is the same benchmark on a local machine running **Fedora 43** (kernel 7.0, EEVDF scheduler), same 4 pinned cores and 100 connections:"
-msgstr ""
+msgstr "Todos los resultados anteriores proceden de nuestro laboratorio de rendimiento de RHEL 9.6 (núcleo 5.14, programador CFS). A continuación se muestra la misma prueba de rendimiento en un equipo local que ejecuta *Fedora 43* (núcleo 7.0, programador EEVDF), con los mismos 4 núcleos fijos y 100 conexiones:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "The peak throughput is different because, although clocked at the same speed, this is a different CPU architecture than the lab. The important comparison is the **shape of the curve**: spring4-jvm now reaches peak **during warmup** (~110 seconds), while on CFS it was still at ~3,300 req/s after the full 2-minute warmup. Quarkus peaks at ~35 seconds instead of ~60."
-msgstr ""
+msgstr "El rendimiento máximo es diferente porque, aunque funciona a la misma velocidad de reloj, se trata de una arquitectura de CPU distinta a la del laboratorio. Lo importante en esta comparación es la *forma de la curva* : spring4-jvm alcanza ahora su pico *durante el calentamiento* (aproximadamente 110 segundos), mientras que con CFS seguía situándose en unos 3.300 req/s tras el calentamiento completo de 2 minutos. Quarkus alcanza su pico en unos 35 segundos, en lugar de en unos 60."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "For comparison, here is the CFS C2 chart from earlier alongside the EEVDF one:"
-msgstr ""
+msgstr "A modo de comparación, a continuación se muestra el gráfico C2 del CFS anterior junto con el del EEVDF:"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "On EEVDF, C2 threads get significantly more CPU time (green) during warmup. **The EEVDF scheduler gives C2 threads more CPU time under contention.** It does not eliminate the problem, but it reduces the severity."
-msgstr ""
+msgstr "En EEVDF, los hilos C2 obtienen un tiempo de CPU significativamente mayor (en verde) durante la fase de calentamiento. *El programador EEVDF concede a los hilos C2 más tiempo de CPU en situaciones de contienda.* Aunque no elimina el problema, sí reduce su gravedad."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Does this happen in production?"
-msgstr ""
+msgstr "¿Ocurre esto en el entorno de producción?"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Our benchmark uses 4 cores and 100 connections, but production is no different: containerized microservices commonly run with similar CPU budgets and large thread pools. **C2 threads get starved, compilations take seconds instead of milliseconds, and pods get killed and restarted before the compiler finishes.** The JVM keeps serving requests while broken: liveness probes pass, the application just runs slow code. Without https://www.brendangregg.com/activebenchmarking.html[active benchmarking], C2 starvation is invisible."
-msgstr ""
+msgstr "Nuestra prueba de rendimiento utiliza 4 núcleos y 100 conexiones, pero el entorno de producción no es diferente: los microservicios en contenedores suelen ejecutarse con presupuestos de CPU similares y grandes grupos de subprocesos. *Los subprocesos C2 se ven privados de recursos, las compilaciones tardan segundos en lugar de milisegundos, y los pods se cierran y se reinician antes de que el compilador termine.* La JVM sigue atendiendo solicitudes aunque esté defectuosa: las pruebas de actividad se superan, y la aplicación simplemente ejecuta el código a baja velocidad. Sin link:https://www.brendangregg.com/activebenchmarking.html[pruebas de rendimiento activas] , la falta de recursos de C2 pasa desapercibida."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Leyden's upcoming AOT Code Compilation (https://openjdk.org/jeps/8335368[JEP draft 8335368]) should help immensely: by caching C2-compiled native code from a training run, the need for runtime C2 activity is heavily reduced. **With proper training data that exercises the hot paths**, applications could start with optimized code already available, **sidestepping the starvation problem entirely**."
-msgstr ""
+msgstr "La próxima compilación del código AOT de Leyden ( link:https://openjdk.org/jeps/8335368[borrador JEP 8335368] ) debería suponer una gran ayuda: al almacenar en caché el código nativo compilado con C2 a partir de una sesión de entrenamiento, se reduce considerablemente la necesidad de actividad de C2 en tiempo de ejecución. *Con datos de entrenamiento adecuados que pongan a prueba las rutas más frecuentes* , las aplicaciones podrían comenzar con código optimizado ya disponible, *eludiendo por completo el problema de la «hambruna* »."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
@@ -330,40 +392,48 @@ msgstr "Para llevar"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Throughput averages hide warmup problems.** Time to peak performance is a separate dimension. An application that delivers good steady-state throughput may take minutes to get there, or never reach it."
-msgstr ""
+msgstr "*Los promedios de rendimiento ocultan los problemas de calentamiento.* El tiempo que se tarda en alcanzar el rendimiento máximo es una dimensión distinta. Una aplicación que ofrezca un buen rendimiento en estado estacionario puede tardar varios minutos en alcanzarlo, o puede que nunca lo alcance."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**The C2 compiler needs CPU time.** When too many threads compete for the same cores, the C2 threads get preempted. The application runs slower code for longer."
-msgstr ""
+msgstr "*El compilador C2 necesita tiempo de CPU.* Cuando hay demasiados subprocesos compitiendo por los mismos núcleos, los subprocesos de C2 son interrumpidos. La aplicación ejecuta código más lento durante más tiempo."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Virtual threads help** by reducing the number of on-CPU threads, leaving more scheduling time for the compiler. Both frameworks warm up faster with virtual threads."
-msgstr ""
+msgstr "*Los hilos virtuales contribuyen* a reducir el número de hilos en la CPU, lo que deja más tiempo de programación para el compilador. Ambos marcos de trabajo alcanzan su rendimiento óptimo más rápidamente con los hilos virtuales."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Leaner request processing helps.** Quarkus worker threads yield the CPU voluntarily 4x more often than Spring's, with 20x fewer involuntary preemptions. The compiler gets scheduling gaps to work in."
-msgstr ""
+msgstr "*Un procesamiento de solicitudes más ágil resulta de gran ayuda.* Los subprocesos de trabajo de Quarkus ceden voluntariamente la CPU cuatro veces más a menudo que los de Spring, con veinte veces menos interrupciones involuntarias. El compilador aprovecha así los huecos en la programación para realizar su trabajo."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**Leyden warmup in JDK 25 is affected by a https://bugs.openjdk.org/browse/JDK-8386852[compilation policy bug].** Until this is fixed, and until AOT Code Compilation (https://openjdk.org/jeps/8335368[JEP draft 8335368]) ships, Leyden warmup numbers should not be taken as representative. Virtual threads can recover the lost throughput."
-msgstr ""
+msgstr "*El tiempo de calentamiento de Leyden en JDK 25 se ve afectado por un link:https://bugs.openjdk.org/browse/JDK-8386852[error en la política de compilación] .* Hasta que se solucione este problema y se implemente la compilación de código AOT ( link:https://openjdk.org/jeps/8335368[borrador de JEP 8335368] ), no deben considerarse representativas las cifras de calentamiento de Leyden. Los hilos virtuales pueden recuperar el rendimiento perdido."
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "**The OS scheduler matters.** The EEVDF scheduler gives C2 threads more CPU time under contention, reducing the warmup gap. The scheduling algorithm determines how background compiler threads fare."
-msgstr ""
+msgstr "*El programador del sistema operativo es importante.* El programador EEVDF concede a los subprocesos C2 más tiempo de CPU en situaciones de contienda, lo que reduce la diferencia en la fase de calentamiento. El algoritmo de programación determina el rendimiento de los subprocesos del compilador en segundo plano."
 
 #. type: Title =
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "Tools and data"
-msgstr ""
+msgstr "Herramientas y datos"
 
 #. type: Plain text
 #: _posts/2026-06-10-when-the-jit-cant-keep-up.adoc
+#, fuzzy
 msgid "All data was collected with https://dev.java/learn/jvm/jfr/[JDK Flight Recorder], https://github.com/sysstat/sysstat[pidstat] (`-t -u -w`), and https://github.com/Hyperfoil/Hyperfoil[Hyperfoil]. The benchmark, methodology, and data are public: see https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/591[issue #591] and https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/420[issue #420]. The benchmark code is at https://github.com/quarkusio/spring-quarkus-perf-comparison/tree/38345ca[commit 38345ca]."
-msgstr ""
+msgstr "Todos los datos se recopilaron con link:https://dev.java/learn/jvm/jfr/[JDK Flight Recorder] , link:https://github.com/sysstat/sysstat[pidstat] ( `-t -u -w` ) e link:https://github.com/Hyperfoil/Hyperfoil[Hyperfoil] . La prueba de rendimiento, la metodología y los datos son públicos: véanse link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/420[las incidencias] n. link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/591[º 591] y n. link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/420[º 420] . El código de la prueba de rendimiento se encuentra en link:https://github.com/quarkusio/spring-quarkus-perf-comparison/tree/38345ca[la confirmación 38345ca] ."
