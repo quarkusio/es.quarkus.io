@@ -197,23 +197,20 @@ msgstr "Ejemplo `{config-file}`"
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "xref:datasource.adoc[Configure the datasource]."
-msgstr "xref:datasource.adoc[Configure la fuente de datos] ."
+msgid "xref:datasource.adoc[Configure the datasource] for production, relying on xref:datasource#dev-services[Dev Services] for connection information in tests / dev mode."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Drop and create the database at startup (use `update` to only update the schema)."
-msgstr "Elimine y cree la base de datos al inicio (utilice `update` para actualizar únicamente el esquema)."
+msgid "Configure Hibernate ORM to create the schema on startup in production, which is useful for experimentation, but rely on <<dev-mode,convenient defaults in tests / dev mode>>."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
-"Note that these configuration properties are not the same ones as in your typical Hibernate ORM configuration file.\n"
+"Note that configuration properties for the Hibernate ORM Quarkus extension are not the same ones as in your typical Hibernate ORM configuration file.\n"
 "They will often map to Hibernate ORM configuration properties but could have different names and don't necessarily map 1:1 to each other."
-msgstr "Tenga en cuenta que estas propiedades de configuración no son las mismas que las del típico archivo de configuración ORM de Hibernate. A menudo se asignarán a las propiedades de configuración de Hibernate ORM, pero podrían tener nombres diferentes y no necesariamente se asignan 1:1 entre sí."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -583,15 +580,8 @@ msgstr "Defina una fuente de datos llamada `inventory`."
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Define a persistence unit called `users`."
-msgstr "Definir una unidad de persistencia llamada `users`."
-
-#. type: Plain text
-#: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Define the datasource used by the persistence unit."
-msgstr "Define la fuente de datos utilizada por la unidad de persistencia."
+msgid "Define a persistence unit called `users` pointing to the `users` datasource."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1283,15 +1273,15 @@ msgstr "Hibernate ORM en modo de desarrollo"
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Quarkus development mode is really useful for applications that mix front end or services and database access."
-msgstr "El modo de desarrollo de Quarkus es realmente útil para las aplicaciones que mezclan el front-end o los servicios y el acceso a la base de datos."
+msgid ""
+"During tests and in xref:dev-mode-differences.adoc[development mode], Hibernate ORM benefits from xref:datasource.adoc#dev-services[datasource Dev Services],\n"
+"making configuration of database connections unnecessary."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "There are a few common approaches to make the best of it."
-msgstr "Hay algunos enfoques comunes para sacar el máximo provecho."
+msgid "The main remaining question is how to initialize that database."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1301,28 +1291,34 @@ msgstr "La primera opción es utilizar `quarkus.hibernate-orm.schema-management.
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
 "That way for every change to your app and in particular to your entities, the database schema will be properly recreated\n"
-"and your data fixture (stored in `import.sql`) will be used to repopulate it from scratch.\n"
+"and your data fixture (stored in `import.sql`) will be used to repopulate it from scratch."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
+msgid ""
 "This is best to perfectly control your environment and works magic with Quarkus live reload mode:\n"
-"your entity changes or any change to your `import.sql` is immediately picked up and the schema updated without restarting the application!"
-msgstr "De esta forma, para cada cambio en su aplicación y en particular en sus entidades, el esquema de la base de datos se recreará correctamente y su fijación de datos (almacenada en `import.sql` ) se utilizará para repoblarla desde cero. Esto es lo mejor para controlar perfectamente su entorno y funciona mágicamente con el modo de recarga en vivo de Quarkus: ¡los cambios en sus entidades o cualquier cambio en su `import.sql` se recogen inmediatamente y el esquema se actualiza sin reiniciar la aplicación!"
+"your entity changes or any change to your `import.sql` is immediately picked up and the schema updated without restarting the application!\n"
+"In fact, this is the default when using xref:dev-services.adoc[Dev Services]."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
-"By default, in `dev` and `test` modes, Hibernate ORM, upon boot, will read and execute the SQL statements in the `/import.sql` file (if present).\n"
-"You can change the file name by changing the property `quarkus.hibernate-orm.sql-load-script` in `application.properties`.\n"
+"You can use a file with a different name than `import.sql` by setting the property `quarkus.hibernate-orm.sql-load-script` in `application.properties`.\n"
 "You can also provide a `.zip` file in the same way which should contain only the files containing the SQL statements to be executed."
-msgstr "Por defecto, en los modos `dev` y `test` , Hibernate ORM, al arrancar, leerá y ejecutará las sentencias SQL en el archivo `/import.sql` (si está presente). Puede cambiar el nombre del archivo modificando la propiedad `quarkus.hibernate-orm.sql-load-script` en `application.properties` . También puede proporcionar de la misma forma un archivo `.zip` que contenga únicamente los archivos que contienen las sentencias SQL que se van a ejecutar."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
+msgid "The second approach is to use `quarkus.hibernate-orm.schema-management.strategy=update`."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
 msgid ""
-"The second approach is to use `quarkus.hibernate-orm.schema-management.strategy=update`.\n"
 "This approach is best when you do many entity changes but\n"
 "still need to work on a copy of the production data\n"
 "or if you want to reproduce a bug that is based on specific database entries.\n"
@@ -1330,16 +1326,19 @@ msgid ""
 "including altering your database structure which could lead to data loss.\n"
 "For example if you change structures which violate a foreign key constraint, Hibernate ORM might have to bail out.\n"
 "But for development, these limitations are acceptable."
-msgstr "El segundo enfoque consiste en utilizar `quarkus.hibernate-orm.schema-management.strategy=update` . Este enfoque es el mejor cuando realiza muchos cambios en las entidades pero aún necesita trabajar con una copia de los datos de producción o si desea reproducir un error que se basa en entradas específicas de la base de datos. `update` es el mejor esfuerzo de Hibernate ORM y fallará en situaciones específicas, incluyendo la alteración de la estructura de su base de datos que podría conducir a la pérdida de datos. Por ejemplo, si modifica estructuras que violan una restricción de clave foránea, es posible que Hibernate ORM tenga que abandonar. Pero para el desarrollo, estas limitaciones son aceptables."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
+msgid "The third approach is to use `quarkus.hibernate-orm.schema-management.strategy=none`."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
 msgid ""
-"The third approach is to use `quarkus.hibernate-orm.schema-management.strategy=none`.\n"
 "This approach is best when you are working on a copy of the production data but want to fully control the schema evolution.\n"
 "Or if you use a database schema migration tool like xref:flyway.adoc[Flyway] or xref:liquibase.adoc[Liquibase]."
-msgstr "El tercer enfoque consiste en utilizar `quarkus.hibernate-orm.schema-management.strategy=none` . Este enfoque es el mejor cuando se trabaja sobre una copia de los datos de producción pero se desea controlar totalmente la evolución del esquema. O si utiliza una herramienta de migración de esquemas de bases de datos como xref:flyway.adoc[Flyway] o xref:liquibase.adoc[Liquibase] ."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -1351,9 +1350,8 @@ msgstr "Con este enfoque, cuando realice cambios en una entidad, asegúrese de a
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Do not use `quarkus.hibernate-orm.schema-management.strategy` `drop-and-create` and `update` in your production environment."
-msgstr "No utilice `quarkus.hibernate-orm.schema-management.strategy` `drop-and-create` y `update` en su entorno de producción."
+msgid "Do not set `quarkus.hibernate-orm.schema-management.strategy` to `drop-and-create` or `update` in your production environment."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -2342,6 +2340,12 @@ msgid ""
 "We use the default datasource here, but could use a named datasource if we wanted to,\n"
 "by following instructions <<multiple-persistence-units,there>>."
 msgstr "Aquí utilizamos la fuente de datos por defecto, pero podríamos utilizar una fuente de datos con nombre si quisiéramos, siguiendo las instrucciones xref:multiple-persistence-units[que aparecen allí] ."
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
+#, fuzzy
+msgid "xref:datasource.adoc[Configure the datasource]."
+msgstr "xref:datasource.adoc[Configure la fuente de datos] ."
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
