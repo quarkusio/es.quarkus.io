@@ -1151,118 +1151,17 @@ msgstr "El navegador debe utilizar la biblioteca JavaScript `vertx-eventbus` par
 
 #. type: Title =
 #: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Use native transports"
-msgstr "Uso de transportes nativos"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "Native transports are not supported in native executables."
-msgstr "Los transportes nativos no están soportados en los ejecutables nativos."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "To use `io_uring`, refer to the <<use-io_uring>> section."
-msgstr "Para utilizar `io_uring`, consulte la sección <<use-io_uring>>."
+msgid "Native transports"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/vertx-reference.adoc
 msgid ""
-"Vert.x is capable of using https://netty.io/wiki/native-transports.html[Netty's native transports], which offers performance improvements on specific platforms.\n"
-"To enable them, you must include the appropriate dependency for your platform.\n"
-"It's usually a good idea to have both to keep your application platform-agnostic.\n"
-"Netty is smart enough to use the correct one, that includes none at all on unsupported platforms:"
+"Quarkus supports Netty's native transports (epoll, kqueue, io_uring) for improved\n"
+"I/O performance on specific platforms.\n"
+"See the xref:native-transport-reference.adoc[Native Transport Reference] for\n"
+"configuration, dependencies, and platform-specific details."
 msgstr ""
-"Vert.x es capaz de utilizar link:https://netty.io/wiki/native-transports.html[los transportes nativos de Netty], que ofrecen mejoras de rendimiento en plataformas específicas.\n"
-"Para habilitarlos, debe incluir la dependencia adecuada para su plataforma.\n"
-"Suele ser una buena idea tener ambas para mantener su aplicación agnóstica a la plataforma.\n"
-"Netty es lo suficientemente inteligente como para utilizar la correcta, es decir, ninguna en absoluto en plataformas no soportadas:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"You will also have to explicitly configure Vert.x to use the native transport.\n"
-"In `application.properties` add:"
-msgstr ""
-"También tendrá que configurar explícitamente Vert.x para que utilice el transporte nativo.\n"
-"En `application.properties` añada:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "Or in `application.yml`:"
-msgstr "O en `application.yml`:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "If all is well quarkus will log:"
-msgstr "Si todo va bien, Quarkus registrará:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "[io.qua.ver.cor.run.VertxCoreRecorder] (main) Vertx has Native Transport Enabled: true"
-msgstr "[io.qua.ver.cor.run.VertxCoreRecorder] (main) Vertx tiene habilitado el transporte nativo: true"
-
-#. type: Title ==
-#: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Native Linux transport"
-msgstr "Transporte nativo de Linux"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "On Linux you can enable the following socket options:"
-msgstr "En Linux puede activar las siguientes opciones de socket:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "SO_REUSEPORT"
-msgstr "SO_REUSEPORT"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "quarkus.http.so-reuse-port=true"
-msgstr "quarkus.http.so-reuse-port=true"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "TCP_QUICKACK"
-msgstr "TCP_QUICKACK"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "quarkus.http.tcp-quick-ack=true"
-msgstr "quarkus.http.tcp-quick-ack=true"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "TCP_CORK"
-msgstr "TCP_CORK"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "quarkus.http.tcp-cork=true"
-msgstr "quarkus.http.tcp-cork=true"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "TCP_FASTOPEN"
-msgstr "TCP_FASTOPEN"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "quarkus.http.tcp-fast-open=true"
-msgstr "quarkus.http.tcp-fast-open=true"
-
-#. type: Title ==
-#: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Native macOS transport"
-msgstr "Transporte nativo de macOS"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "On macOS Sierra and above you can enable the following socket options:"
-msgstr "En macOS Sierra y superior puede habilitar las siguientes opciones de socket:"
 
 #. type: Title =
 #: _versions/main/guides/vertx-reference.adoc
@@ -1361,6 +1260,11 @@ msgstr "Los sockets de dominio Unix son compatibles tanto en modo JVM como en mo
 
 #. type: Plain text
 #: _versions/main/guides/vertx-reference.adoc
+msgid "Unix domain sockets require a native transport dependency. See the xref:native-transport-reference.adoc[Native Transport Reference] for details."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/vertx-reference.adoc
 #, fuzzy
 msgid ""
 "quarkus.http.domain-socket=/var/run/io.quarkus.app.socket\n"
@@ -1394,126 +1298,6 @@ msgstr ""
 #: _versions/main/guides/vertx-reference.adoc
 msgid "Make sure your application has the right permissions to write to the socket."
 msgstr "Asegúrese de que su aplicación tiene los permisos adecuados para escribir en el socket."
-
-#. type: Title =
-#: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Use io_uring"
-msgstr "Uso de io_uring"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "`io_uring` is not supported in native executables."
-msgstr "`io_uring` no está soportado en los ejecutables nativos."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "`io_uring` support is experimental"
-msgstr "El soporte de `io_uring` es experimental"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"`io_uring` is a Linux kernel interface that allows you to send and receive data asynchronously.\n"
-"It provides unified semantics for both file and network I/O.\n"
-"It was originally designed to target block devices and files but has since gained the ability to work with things like network sockets.\n"
-"It has the potential to provide modest performance benefits to network I/O on its own and greater benefits for mixed file and network I/O application workloads."
-msgstr ""
-"`io_uring` es una interfaz del núcleo de Linux que permite enviar y recibir datos de forma asíncrona.\n"
-"Proporciona una semántica unificada tanto para la E/S de archivos como de red.\n"
-"Se diseñó originalmente para dirigirse a dispositivos de bloques y archivos, pero desde entonces ha adquirido la capacidad de trabajar con elementos como los sockets de red.\n"
-"Tiene el potencial de proporcionar modestos beneficios de rendimiento a la E/S de red por sí sola y mayores beneficios para cargas de trabajo de aplicaciones mixtas de E/S de archivo y de red."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "To learn more about `io_uring`, we recommend the following links:"
-msgstr "Para saber más sobre `io_uring`, le recomendamos los siguientes enlaces:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"https://developers.redhat.com/articles/2023/04/12/why-you-should-use-iouring-network-io[Why you should use io_uring for network I/O]: The main benefit of io_uring for network I/O is a modern asynchronous API that is straightforward to use and provides unified semantics for file and network I/O.\n"
-"A potential performance benefit of io_uring for network I/O is reducing the number of syscalls.\n"
-"This could provide the biggest benefit for high volumes of small operations where the overhead of system calls can be significant."
-msgstr ""
-"link:https://developers.redhat.com/articles/2023/04/12/why-you-should-use-iouring-network-io[Por qué debería utilizar io_uring para la E/S de red]: El principal beneficio de io_uring para la E/S de red es una API asíncrona moderna que es fácil de usar y proporciona una semántica unificada para la E/S de archivos y de red.\n"
-"Un beneficio potencial de rendimiento de io_uring para la E/S de red es la reducción del número de syscalls.\n"
-"Esto podría proporcionar el mayor beneficio para grandes volúmenes de pequeñas operaciones en las que la sobrecarga de las llamadas al sistema puede ser significativa."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"https://dzone.com/articles/the-backend-revolution-or-why-io-uring-is-so-impor[The Backend Revolution and Why io_uring Is So Important]: The io_uring API uses two ring buffers for communication between application and kernel (hence the API name) and designed in a way that enables natural batching of requests and responses.\n"
-"Besides, it provides a way to submit multiple requests in one system call, which can reduce overhead."
-msgstr ""
-"link:https://dzone.com/articles/the-backend-revolution-or-why-io-uring-is-so-impor[La revolución del backend y por qué io_uring es tan importante]: La API io_uring utiliza dos búferes de anillo para la comunicación entre la aplicación y el núcleo (de ahí el nombre de la API) y está diseñada de tal forma que permite el procesamiento natural por lotes de las peticiones y las respuestas.\n"
-"Además, proporciona una forma de enviar múltiples peticiones en una sola llamada al sistema, lo que puede reducir la sobrecarga."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"https://stackoverflow.com/questions/61767702/what-exactly-is-io-uring[What exactly is io_uring?]: io_uring is a Linux kernel interface to efficiently allow you to send and receive data asynchronously.\n"
-"It was originally designed to target block devices and files but has since gained the ability to work with things like network sockets."
-msgstr ""
-"link:https://stackoverflow.com/questions/61767702/what-exactly-is-io-uring[¿Qué es exactamente io_uring?]: io_uring es una interfaz del núcleo de Linux que permite enviar y recibir datos de forma asíncrona de manera eficiente.\n"
-"Se diseñó originalmente para dirigirse a dispositivos de bloques y archivos, pero desde entonces ha adquirido la capacidad de trabajar con elementos como los sockets de red."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"To use `io_uring`, you need to add two dependencies to your project and enable native transport.\n"
-"First add the following dependencies to your project:"
-msgstr ""
-"Para utilizar `io_uring`, necesita añadir dos dependencias a su proyecto y habilitar el transporte nativo.\n"
-"En primer lugar, añada las siguientes dependencias a su proyecto:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "Then, in the `application.properties`, add:"
-msgstr "A continuación, en el `application.properties`, añada:"
-
-#. type: Block title
-#: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Can I use io_uring on my Linux machine?"
-msgstr "¿Puedo utilizar io_uring en mi máquina Linux?"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "To check if you can use `io_uring` on your Linux machine, execute the following command:"
-msgstr "Para comprobar si puede utilizar `io_uring` en su máquina Linux, ejecute el siguiente comando:"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "If it prints something like above, you can use `io_uring`."
-msgstr "Si imprime algo como lo anterior, puede utilizar `io_uring`."
-
-#. type: Block title
-#: _versions/main/guides/vertx-reference.adoc
-#, no-wrap
-msgid "Troubleshooting"
-msgstr "Solución de problemas"
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid ""
-"`io_uring` support is still experimental.\n"
-"Check the https://github.com/netty/netty-incubator-transport-io_uring#faq[Netty io_uring FAQ] if you see some odd behavior.\n"
-"Also, the https://github.com/netty/netty-incubator-transport-io_uring/issues/152[netty io_uring was slower than epoll] issue describes a few configuration mistakes."
-msgstr ""
-"El soporte de `io_uring` es todavía experimental.\n"
-"Consulte link:https://github.com/netty/netty-incubator-transport-io_uring#faq[las preguntas frecuentes de Netty io_uring] si observa algún comportamiento extraño.\n"
-"Además, el problema link:https://github.com/netty/netty-incubator-transport-io_uring/issues/152[netty io_uring era más lento que epoll] describe algunos errores de configuración."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "Domain sockets are not yet supported with io_uring."
-msgstr "Los sockets de dominio aún no están soportados con io_uring."
-
-#. type: Plain text
-#: _versions/main/guides/vertx-reference.adoc
-msgid "The Vert.x asynchronous file system API does not use io_uring yet."
-msgstr "La API del sistema de archivos asíncrono Vert.x aún no utiliza io_uring."
 
 #. type: Title =
 #: _versions/main/guides/vertx-reference.adoc
