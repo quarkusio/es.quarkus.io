@@ -187,30 +187,98 @@ msgstr "Compresión HTTP"
 
 #. type: Plain text
 #: _versions/main/guides/http-reference.adoc
-#, fuzzy
 msgid ""
-"The response body of a static resource is not compressed by default.\n"
-"You can enable the HTTP compression support by means of `quarkus.http.enable-compression=true`.\n"
-"If compression support is enabled then the response body is compressed if the `Content-Type` header derived from the file name of a resource is a compressed media type as configured via `quarkus.http.compress-media-types`."
-msgstr "El cuerpo de respuesta de un recurso estático no se comprime por defecto. Puede activar el soporte de compresión HTTP mediante `quarkus.http.enable-compression=true` . Si el soporte de compresión está activado, el cuerpo de la respuesta se comprime si la cabecera `Content-Type` derivada del nombre de archivo de un recurso es un tipo de medio comprimido, tal y como se configura mediante `quarkus.http.compress-media-types` ."
+"The response body of an HTTP response is not compressed by default.\n"
+"You can enable HTTP compression support by setting `quarkus.http.enable-compression=true`."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/http-reference.adoc
-#, fuzzy
-msgid "By default, the following list of media types is compressed: `text/html`, `text/plain`, `text/xml`, `text/css`, `text/javascript`, `application/javascript`, `application/json`, `application/graphql+json` and `application/xhtml+xml`."
-msgstr "Por defecto, se comprime la siguiente lista de tipos de medios: `text/html` , `text/plain` , `text/xml` , `text/css` , `text/javascript` , `application/javascript` , `application/json` , `application/graphql+json` y `application/xhtml+xml` ."
+msgid "If compression is enabled, the response body is compressed when the `Content-Type` header matches one of the media types configured via `quarkus.http.compress-media-types`."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/http-reference.adoc
-#, fuzzy
-msgid "If the client does not indicate its support for HTTP compression in a request header, e.g. `Accept-Encoding: deflate, gzip, br`, then the response body is not compressed."
-msgstr "Si el cliente no indica su compatibilidad con la compresión HTTP en una cabecera de solicitud, por ejemplo `Accept-Encoding: deflate, gzip, br` , el cuerpo de la respuesta no se comprime."
+msgid "By default, the following media types are compressed: `text/html`, `text/plain`, `text/xml`, `text/css`, `text/javascript`, `application/javascript`, `application/json`, `application/graphql+json`, and `application/xhtml+xml`."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/http-reference.adoc
-#, fuzzy
-msgid "Brotli compression is not available by default. You can enable it by setting `quarkus.http.compressors=deflate,gzip,br`. In case of building native image, it adds around 1MB to your executable size."
-msgstr "La compresión Brotli no está disponible por defecto. Puede activarla configurando `quarkus.http.compressors=deflate,gzip,br` . En caso de construir una imagen nativa, añade alrededor de 1MB al tamaño de su ejecutable."
+msgid "If the client does not indicate support for HTTP compression in the request (e.g., `Accept-Encoding: deflate, gzip, br`), the response body is not compressed."
+msgstr ""
+
+#. type: Title ===
+#: _versions/main/guides/http-reference.adoc
+msgid "Minimum response size"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"By default, all responses matching the configured media types are compressed regardless of their size.\n"
+"Use `quarkus.http.compression-content-size-threshold` to set a minimum response body size (in bytes) that triggers compression.\n"
+"Responses smaller than this threshold are sent uncompressed, avoiding the CPU overhead of compressing small payloads."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "The threshold only applies when the response `Content-Length` is known. Chunked responses (where the total size is not known upfront) are always eligible for compression when compression is enabled."
+msgstr ""
+
+#. type: Title ===
+#: _versions/main/guides/http-reference.adoc
+msgid "Compression level"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"Use `quarkus.http.compression-level` to control the compression level for gzip and deflate.\n"
+"Higher values produce smaller output at the cost of more CPU usage.\n"
+"When not set, the compressor's default level is used."
+msgstr ""
+
+#. type: Title ===
+#: _versions/main/guides/http-reference.adoc
+msgid "Brotli compression"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"Brotli compression is not available by default.\n"
+"Enable it by adding `br` to the compressors list:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "Enabling Brotli adds approximately 1MB to native executable size because it requires bundling the Brotli4J native library."
+msgstr ""
+
+#. type: Title ===
+#: _versions/main/guides/http-reference.adoc
+msgid "Per-endpoint control"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"The RESTEasy Reactive and Reactive Routes extensions allow enabling or disabling compression on individual endpoints using the `@io.quarkus.vertx.http.Compressed` and `@io.quarkus.vertx.http.Uncompressed` annotations.\n"
+"See the xref:rest.adoc#http-compression[Quarkus REST] and xref:reactive-routes.adoc#http-compression[Reactive Routes] guides for details."
+msgstr ""
+
+#. type: Title ===
+#: _versions/main/guides/http-reference.adoc
+msgid "Request decompression"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"Quarkus can also decompress incoming request bodies.\n"
+"Enable this with `quarkus.http.enable-decompression=true`.\n"
+"The client must indicate the compression format in the `Content-Encoding` request header (e.g., `gzip`, `deflate`, or `br`)."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/http-reference.adoc
@@ -755,6 +823,92 @@ msgid ""
 "To make your Quarkus application accessible to another application running on a different domain, you need to configure cross-origin resource sharing (CORS).\n"
 "For more information about the CORS filter that Quarkus provides, see the Quarkus xref:security-cors.adoc#cors-filter[CORS filter] section of the \"Cross-origin resource sharing\" guide."
 msgstr "Para que su aplicación Quarkus sea accesible a otra aplicación que se ejecute en un dominio diferente, debe configurar el uso compartido de recursos entre orígenes (CORS). Para obtener más información sobre el filtro CORS que proporciona Quarkus, consulte la sección xref:security-cors.adoc#cors-filter[Filtro CORS] de Quarkus de la guía \"Uso compartido de recursos entre orígenes\"."
+
+#. type: Title =
+#: _versions/main/guides/http-reference.adoc
+msgid "HTTP Host header validation"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "Quarkus can validate the HTTP `Host` header on incoming requests to protect against DNS rebinding attacks and host header poisoning."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"When `quarkus.http.host` is set to a localhost name (`localhost`, `127.0.0.1`, or `[::1]`), host validation is automatically enabled in **dev** and **production** modes.\n"
+"Only requests whose `Host` header matches one of the known localhost names are accepted; all others receive a `400 Bad Request` response."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"This automatic behavior is a change from previous Quarkus versions, where no `Host` header validation was performed.\n"
+"If your application runs behind a reverse proxy that rewrites the `Host` header, you may need to either:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "configure the allowed hosts explicitly with `quarkus.http.host-validation.allowed-hosts`, or"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "disable the automatic validation with `quarkus.http.host-validation.require-localhost=false`."
+msgstr ""
+
+#. type: Title ==
+#: _versions/main/guides/http-reference.adoc
+msgid "Configuring allowed hosts"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "To restrict requests to a specific set of host names, use `allowed-hosts`:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "The check is case-insensitive and only validates the host name, not the port."
+msgstr ""
+
+#. type: Title ==
+#: _versions/main/guides/http-reference.adoc
+msgid "Requiring localhost only"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "To explicitly require that only localhost names are accepted:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "To disable automatic localhost validation when the server is bound to a localhost address:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid ""
+"`allowed-hosts` and `require-localhost` are mutually exclusive.\n"
+"Setting both results in a configuration error."
+msgstr ""
+
+#. type: Title ==
+#: _versions/main/guides/http-reference.adoc
+msgid "Reverse proxy considerations"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "When running behind a reverse proxy, enable proxy header forwarding so that Quarkus validates the forwarded host instead of the proxy's internal host name:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/http-reference.adoc
+msgid "This works with both the standard `Forwarded` header and the `X-Forwarded-Host` header."
+msgstr ""
 
 #. type: Title =
 #: _versions/main/guides/http-reference.adoc
@@ -1851,18 +2005,6 @@ msgstr "-manipulador de cuerpos de sustitución."
 #. type: Table
 #: _versions/main/guides/http-reference.adoc
 #, fuzzy, no-wrap
-msgid "`ROUTE_ORDER_BODY_HANDLER_MANAGEMENT`"
-msgstr "`ROUTE_ORDER_BODY_HANDLER_MANAGEMENT`"
-
-#. type: Table
-#: _versions/main/guides/http-reference.adoc
-#, fuzzy, no-wrap
-msgid "Body handler for the management router."
-msgstr "Gestor del cuerpo del router de gestión."
-
-#. type: Table
-#: _versions/main/guides/http-reference.adoc
-#, fuzzy, no-wrap
 msgid "`ROUTE_ORDER_HEADERS`"
 msgstr "`ROUTE_ORDER_HEADERS`"
 
@@ -1871,6 +2013,27 @@ msgstr "`ROUTE_ORDER_HEADERS`"
 #, fuzzy, no-wrap
 msgid "Handlers that add headers specified in the configuration."
 msgstr "Manejadores que añaden cabeceras especificadas en la configuración."
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
+#, fuzzy, no-wrap
+msgid "`Integer.MIN_VALUE + 1`"
+msgstr "`Integer.MIN_VALUE + 1`"
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
+msgid "`ROUTE_ORDER_HOST_VALIDATION_MANAGEMENT`"
+msgstr ""
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
+msgid "Host validation handler of the management router."
+msgstr ""
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
+msgid "`Integer.MIN_VALUE + 2`"
+msgstr ""
 
 #. type: Table
 #: _versions/main/guides/http-reference.adoc
@@ -1886,9 +2049,20 @@ msgstr "Gestor CORS-Origin del enrutador de gestión."
 
 #. type: Table
 #: _versions/main/guides/http-reference.adoc
+msgid "`Integer.MIN_VALUE + 3`"
+msgstr ""
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
 #, fuzzy, no-wrap
-msgid "`Integer.MIN_VALUE + 1`"
-msgstr "`Integer.MIN_VALUE + 1`"
+msgid "`ROUTE_ORDER_BODY_HANDLER_MANAGEMENT`"
+msgstr "`ROUTE_ORDER_BODY_HANDLER_MANAGEMENT`"
+
+#. type: Table
+#: _versions/main/guides/http-reference.adoc
+#, fuzzy, no-wrap
+msgid "Body handler for the management router."
+msgstr "Gestor del cuerpo del router de gestión."
 
 #. type: Table
 #: _versions/main/guides/http-reference.adoc
