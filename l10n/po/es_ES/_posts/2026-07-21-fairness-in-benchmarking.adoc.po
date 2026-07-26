@@ -8,48 +8,57 @@ msgstr ""
 
 #. type: YAML Front Matter: title
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Improving a Competitor's Numbers (On Purpose)"
-msgstr ""
+msgstr "Mejorar las cifras de un competidor (a propósito)"
 
 #. type: YAML Front Matter: synopsis
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "We found our benchmark was measuring Spring's warmup, not its peak. We changed it. Spring's numbers went up. Quarkus's didn't. That's what fairness looks like."
-msgstr ""
+msgstr "Descubrimos que nuestra prueba de rendimiento medía el tiempo de calentamiento de Spring, no su rendimiento máximo. Lo modificamos. Las cifras de Spring aumentaron. Las de Quarkus, no. Así es como se define la imparcialidad."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "_\"The first principle is that you must not fool yourself — and you are the easiest person to fool.\"_ (https://calteches.library.caltech.edu/51/2/CargoCult.htm[Richard Feynman, 1974])"
-msgstr ""
+msgstr "_«El primer principio es que no debe engañarse a sí mismo, y usted es la persona a la que más fácil resulta engañar»._ ( link:https://calteches.library.caltech.edu/51/2/CargoCult.htm[Richard Feynman, 1974] )"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Our https://quarkus.io/blog/when-the-jit-cant-keep-up/[previous article] dug into C2 compiler starvation: Spring's ~100 platform threads on 4 cores were hogging all the CPU, leaving the JIT compiler unable to do its job. The measured throughput reflected half-baked code running at C1 tier, not the peak Spring could actually achieve."
-msgstr ""
+msgstr "En nuestro link:https://quarkus.io/blog/when-the-jit-cant-keep-up/[artículo anterior] analizamos el problema de la saturación del compilador C2: los aproximadamente 100 subprocesos de la plataforma Spring en 4 núcleos acaparaban toda la CPU, lo que impedía que el compilador JIT pudiera realizar su trabajo. El rendimiento medido reflejaba un código a medio desarrollar que se ejecutaba en el nivel C1, y no el rendimiento máximo que Spring podía alcanzar realmente."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "That raised an uncomfortable question. If our benchmark was measuring Spring mid-compilation, were we measuring peak performance... or just punishing slow warmup?"
-msgstr ""
+msgstr "Esto planteaba una pregunta incómoda. Si nuestro punto de referencia medía Spring en plena compilación, ¿estábamos midiendo el rendimiento máximo…​ o simplemente penalizando un calentamiento lento?"
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "What does \"fair\" even mean?"
-msgstr ""
+msgstr "¿Qué significa realmente «justo»?"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "If you're claiming to compare peak throughput, every runtime needs to have finished compiling before the stopwatch starts. Otherwise you're comparing one runtime's peak against another's still-warming-up numbers, and calling it a day."
-msgstr ""
+msgstr "Si pretende comparar el rendimiento máximo, es necesario que todos los entornos de ejecución hayan finalizado la compilación antes de que comience el cronómetro. De lo contrario, estará comparando el rendimiento máximo de un entorno de ejecución con las cifras de otro que aún se está calentando, y dando el asunto por zanjado."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Our old warmup was a single 2-minute continuous blast followed by a 30-second cooldown and a 30-second measurement. Quarkus was done compiling in 60 seconds. Spring wasn't done when measurement began."
-msgstr ""
+msgstr "Nuestro antiguo calentamiento consistía en una única ráfaga continua de 2 minutos, seguida de un enfriamiento de 30 segundos y una medición de 30 segundos. Quarkus había terminado de compilar en 60 segundos. Spring aún no había terminado cuando comenzó la medición."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "That's a framework problem: Quarkus doesn't have it despite higher throughput, because its leaner request processing leaves CPU gaps for the compiler. Or as Mytkowicz et al. put it: we were https://dl.acm.org/doi/10.1145/1508244.1508275[\"producing wrong data without doing anything obviously wrong\"]. In production, nobody pauses traffic so the JIT can catch up — continuous load is the realistic scenario. But it's still our call to make sure the benchmark gives every runtime the best chance to show its peak."
-msgstr ""
+msgstr "Se trata de un problema del marco de trabajo: Quarkus no lo presenta a pesar de su mayor rendimiento, ya que su procesamiento de solicitudes, más ágil, deja márgenes de CPU para el compilador. O, como lo expresaron Mytkowicz et al.: estábamos link:https://dl.acm.org/doi/10.1145/1508244.1508275[«generando datos erróneos sin hacer nada que fuera obviamente incorrecto».] En producción, nadie detiene el tráfico para que el JIT pueda ponerse al día: la carga continua es el escenario realista. No obstante, sigue siendo nuestra responsabilidad asegurarnos de que la prueba de rendimiento ofrezca a cada entorno de ejecución la mejor oportunidad de mostrar su máximo rendimiento."
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
@@ -59,118 +68,141 @@ msgstr "El arreglo"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "We can't just make the warmup longer. The whole point of the https://quarkus.io/blog/when-the-jit-cant-keep-up/[previous analysis] was that C2 never gets CPU during continuous load. More time under load just means more time starved."
-msgstr ""
+msgstr "No podemos limitarnos a alargar el periodo de calentamiento. La conclusión principal del link:https://quarkus.io/blog/when-the-jit-cant-keep-up/[análisis anterior] era que el C2 nunca recibe recursos de la CPU durante una carga continua. Un mayor tiempo bajo carga solo supone un mayor tiempo sin recursos."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "The trick: **break the warmup into short bursts with cooldown gaps.** During each 15-second cooldown, the 2 C2 compiler threads get full access to the 4 available cores and can drain the compilation queue. 10 cycles of load+cooldown, 5 minutes total, then measure."
-msgstr ""
+msgstr "El truco: *dividir el calentamiento en breves intervalos con pausas de enfriamiento.* Durante cada pausa de enfriamiento de 15 segundos, los dos subprocesos del compilador C2 obtienen acceso completo a los cuatro núcleos disponibles y pueden vaciar la cola de compilación. Diez ciclos de carga más enfriamiento, cinco minutos en total, y a continuación, realice la medición."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Quarkus peaks by cycle 2. Spring ramps through 5 cycles and stabilizes. By the time measurement starts, both are fully compiled. In cloud deployments with fewer cores, the starvation would be worse — reaching peak quickly vs. slowly translates directly to provisioning cost."
-msgstr ""
+msgstr "Quarkus alcanza su pico en el ciclo 2. Spring va aumentando progresivamente a lo largo de 5 ciclos y se estabiliza. En el momento en que comienza la medición, ambos están completamente compilados. En implementaciones en la nube con menos núcleos, la falta de recursos sería más grave: alcanzar el pico de forma rápida frente a hacerlo lentamente se traduce directamente en el coste de aprovisionamiento."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "The C2 compiler thread activity confirms it. Compare this to the https://quarkus.io/blog/when-the-jit-cant-keep-up/[previous article's charts] where C2 was starved for the entire warmup:"
-msgstr ""
+msgstr "La actividad de los subprocesos del compilador C2 lo confirma. Compárelo con link:https://quarkus.io/blog/when-the-jit-cant-keep-up/[los gráficos del artículo anterior] , en los que C2 se vio privado de recursos durante todo el periodo de calentamiento:"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Both frameworks show near-zero C2 activity during the load test (rightmost region). The compiler is done."
-msgstr ""
+msgstr "Ambos marcos muestran una actividad C2 prácticamente nula durante la prueba de carga (zona situada más a la derecha). El compilador ha finalizado su ejecución."
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "What changed"
-msgstr ""
+msgstr "¿Qué ha cambiado?"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Spring went from ~7,850 to ~8,500 TPS — an ~8% improvement just from letting C2 finish its job. Quarkus held steady at ~14,800. The ratio narrowed from ~1.9x to ~1.7x."
-msgstr ""
+msgstr "Spring pasó de unos 7.850 a unos 8.500 TPS, lo que supone una mejora de aproximadamente el 8 % simplemente al dejar que C2 completara su tarea. Quarkus se mantuvo estable en unos 14.800. La relación se redujo de aproximadamente 1,9 veces a aproximadamente 1,7 veces."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**The performance gap is real, and Quarkus's lead remains definitive.** What we removed is the artificial penalty from measuring before Spring finished compiling."
-msgstr ""
+msgstr "*La diferencia de rendimiento es real, y la ventaja de Quarkus sigue siendo clara.* Lo que hemos eliminado es la penalización artificial que se producía al realizar la medición antes de que Spring terminara de compilar."
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "A number hides a shape"
-msgstr ""
+msgstr "Un número esconde una figura"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "The multi-cycle warmup fixed the peak measurement. But here's something the average still can't tell you. These are the per-second TPS traces during the load test with the new warmup, across multiple iterations:"
-msgstr ""
+msgstr "El calentamiento de varios ciclos solucionó el problema de la medición de picos. Sin embargo, hay algo que la media aún no puede revelar. Estas son las curvas de TPS por segundo durante la prueba de carga con el nuevo calentamiento, a lo largo de varias iteraciones:"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Only one quarkus3-jvm iteration is shown. The per-second throughput barely moves, so additional iterations would be indistinguishable from the first."
-msgstr ""
+msgstr "Solo se muestra una iteración de quarkus3-jvm. El rendimiento por segundo apenas varía, por lo que las iteraciones adicionales serían indistinguibles de la primera."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Quarkus is stable within the measurement window. spring4-virtual is stable across all three iterations, with occasional single-second dips. spring4-jvm wobbles continuously across all iterations, despite no C2 compiler activity during the load test (as we saw in the previous section). The instability is not a compilation problem."
-msgstr ""
+msgstr "Quarkus se mantiene estable dentro del intervalo de medición. spring4-virtual se mantiene estable a lo largo de las tres iteraciones, con caídas ocasionales de un solo segundo. spring4-jvm presenta fluctuaciones continuas en todas las iteraciones, a pesar de que no se ha registrado actividad del compilador C2 durante la prueba de carga (tal y como se ha observado en la sección anterior). La inestabilidad no se debe a un problema de compilación."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "A violin plot makes the distributions visible at a glance:"
-msgstr ""
+msgstr "Un gráfico de violín permite visualizar las distribuciones de un solo vistazo:"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "In a https://quarkus.io/blog/quarkus-insights-252-performance-engineering-lessons/[Quarkus Insights session with Holly Cummins], we discussed the value of having a noiseless benchmark: if the measurement is stable enough, you don't need statistics at all. A single number tells the story. When it doesn't, https://en.wikipedia.org/wiki/Violin_plot[violin plots] show what's really happening, but they add cognitive load. The goal is to make statistics unnecessary, not to add more of them."
-msgstr ""
+msgstr "En una link:https://quarkus.io/blog/quarkus-insights-252-performance-engineering-lessons/[sesión de Quarkus Insights con Holly Cummins] , hablamos del valor de contar con una prueba de rendimiento sin interferencias: si la medición es lo suficientemente estable, no se necesitan estadísticas en absoluto. Una sola cifra lo dice todo. Cuando no es así, link:https://en.wikipedia.org/wiki/Violin_plot[los gráficos de violín] muestran lo que realmente está ocurriendo, pero suponen una carga cognitiva adicional. El objetivo es hacer que las estadísticas sean innecesarias, no añadir más."
 
 #. type: Title ==
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Why does spring4-jvm still wobble?"
-msgstr ""
+msgstr "¿Por qué sigue fallando Spring4-JVM?"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "This isn't a warmup problem anymore. Compilations are done. The wobble comes from how Spring's ~100 platform threads interact with the https://en.wikipedia.org/wiki/Completely_Fair_Scheduler[CFS scheduler] on the performance lab (RHEL 9.6, kernel 5.14)."
-msgstr ""
+msgstr "Esto ya no es un problema de calentamiento. Las compilaciones han finalizado. La inestabilidad se debe a la forma en que los aproximadamente 100 subprocesos de la plataforma Spring interactúan con el link:https://en.wikipedia.org/wiki/Completely_Fair_Scheduler[programador CFS] en el laboratorio de rendimiento (RHEL 9.6, kernel 5.14)."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Spring Boot's default connection pool has a yield-spin pattern that creates a storm of involuntary context switches when many platform threads contend on few cores. The effect is OS-scheduler-dependent: severe on CFS, invisible on EEVDF. Quarkus uses https://agroal.github.io/[Agroal], which doesn't have this pattern."
-msgstr ""
+msgstr "El grupo de conexiones predeterminado de Spring Boot presenta un patrón «yield-spin» que genera una avalancha de cambios de contexto involuntarios cuando numerosos subprocesos de la plataforma compiten por un número reducido de núcleos. El efecto depende del programador del sistema operativo: es grave en CFS, pero imperceptible en EEVDF. Quarkus utiliza link:https://agroal.github.io/[Agroal] , que no presenta este patrón."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**`Thread.yield()` is not what it seems.** The `sched_yield()` syscall keeps the thread in `TASK_RUNNING` state. The kernel classifies the resulting context switch as **involuntary**, not voluntary, because the thread never blocked. This means the high involuntary context switch counts for Spring are partly driven by HikariCP choosing to yield."
-msgstr ""
+msgstr "*<code>Thread.yield()</code> no es lo que parece.* La llamada al sistema « `sched_yield()` » mantiene el hilo en un estado « `TASK_RUNNING` ». El núcleo clasifica el cambio de contexto resultante como *involuntario* , y no como voluntario, ya que el hilo nunca se bloqueó. Esto significa que los elevados recuentos de cambios de contexto involuntarios en Spring se deben, en parte, a que HikariCP opta por ceder el control."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "With virtual threads, `Thread.yield()` is handled by the JVM's virtual thread scheduler in userspace. No syscall, no involuntary context switch storm."
-msgstr ""
+msgstr "Con los subprocesos virtuales, la gestión de « `Thread.yield()` » corre a cargo del programador de subprocesos virtuales de la JVM en el espacio de usuario. Sin llamadas al sistema, sin avalancha de cambios de contexto involuntarios."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**Virtual threads stabilize Spring in our benchmark.** They collapse ~100 OS threads to a handful of carrier threads, where `Thread.yield()` is no longer the OS scheduler's responsibility. spring4-virtual reaches peak in 2 warmup cycles and delivers stable throughput. But virtual threads are not a universal fix for yield-spin: `Thread.yield()` on a virtual thread unmounts it from the carrier, but the virtual thread can be immediately re-enqueued on the same carrier, and under load all carriers can end up spinning in the yield loop. This was severe enough to cause pod restarts in production and was fixed in https://github.com/brettwooldridge/HikariCP/issues/2398[HikariCP 7.1.0]."
-msgstr ""
+msgstr "*Los hilos virtuales estabilizan Spring en nuestra prueba de rendimiento.* Reducen unos 100 hilos del sistema operativo a un puñado de hilos portadores, en los que el « `Thread.yield()` » ya no es responsabilidad del programador del sistema operativo. spring4-virtual alcanza su máximo rendimiento en dos ciclos de calentamiento y ofrece un rendimiento estable. Sin embargo, los hilos virtuales no son una solución universal para el «yield-spin»: la llamada « `Thread.yield()` » en un hilo virtual lo desmonta del portador, pero el hilo virtual puede volver a colocarse inmediatamente en la cola del mismo portador y, bajo carga, todos los portadores pueden acabar girando en el bucle «yield». Este problema era lo suficientemente grave como para provocar reinicios de pods en producción y se solucionó en link:https://github.com/brettwooldridge/HikariCP/issues/2398[HikariCP 7.1.0] ."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "As discussed in the https://quarkus.io/blog/when-the-jit-cant-keep-up/[previous article], machines with the https://lwn.net/Articles/925371/[EEVDF scheduler] don't exhibit the platform-thread CFS problem."
-msgstr ""
+msgstr "Tal y como se ha comentado en el link:https://quarkus.io/blog/when-the-jit-cant-keep-up/[artículo anterior] , las máquinas que utilizan el link:https://lwn.net/Articles/925371/[programador EEVDF] no presentan el problema CFS entre la plataforma y los subprocesos."
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "We've done this before"
-msgstr ""
+msgstr "Ya lo hemos hecho antes"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "This isn't the first time we've faced this dilemma. In https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/521[issue #521], we found that both frameworks were given 512MB heap even though **Quarkus could run with far less**. Rather than give Quarkus a memory advantage, we kept the same heap for both: a common baseline, even if it doesn't showcase Quarkus's density. Same principle: **measure what you claim to measure.**"
-msgstr ""
+msgstr "No es la primera vez que nos enfrentamos a este dilema. En link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/521[el número 521] , observamos que a ambos marcos se les asignó un montón de 512 MB, a pesar de que *Quarkus podía funcionar con una cantidad mucho menor* . En lugar de dar a Quarkus una ventaja en cuanto a memoria, mantuvimos el mismo montón para ambos: una referencia común, aunque ello no permita poner de manifiesto la eficiencia de Quarkus. El mismo principio: *mida lo que dice que va a medir.*"
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
@@ -180,28 +212,33 @@ msgstr "Para llevar"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**Even after giving Spring every advantage — multi-cycle warmup, full C2 compilation, peak conditions — Quarkus delivers 1.7x the throughput.** The gap narrowed from 1.9x, but the lead remains definitive."
-msgstr ""
+msgstr "*Incluso tras proporcionar a Spring todas las ventajas posibles —calentamiento de varios ciclos, compilación completa en C2, condiciones óptimas—, Quarkus ofrece un rendimiento 1,7 veces superior.* La diferencia se ha reducido con respecto a la cifra de 1,9 veces, pero la ventaja sigue siendo clara."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**If the compiler never finishes, you're not measuring peak.** Continuous warmup starves C2 on thread-heavy runtimes. Break it into cycles. Let the compiler breathe."
-msgstr ""
+msgstr "*Si el compilador no termina nunca, no está midiendo el pico.* Un calentamiento continuo agota el C2 en entornos de ejecución con gran carga de subprocesos. Divídalo en ciclos. Deje que el compilador respire."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**When your competitor looks slow, check your methodology before you celebrate.** We did. Spring gained ~650 TPS. We sleep fine."
-msgstr ""
+msgstr "*Cuando su competidor parezca ir lento, revise su metodología antes de dar por hecho el triunfo.* Nosotros lo hicimos. Spring ganó unas 650 TPS. Dormimos tranquilos."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**A throughput number is a lossy compression of reality.** Quarkus draws a flat line. Spring wobbles. Same average, very different stories. Show the trace, not just the score."
-msgstr ""
+msgstr "*Una cifra de rendimiento es una representación de la realidad con pérdida de información.* Quarkus traza una línea recta. Spring presenta fluctuaciones. La media es la misma, pero las historias son muy diferentes. Muestre la evolución, no solo la puntuación."
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "**Fairness isn't charity, it's credibility.** A benchmark that flatters you by handicapping the other side is a benchmark nobody should trust."
-msgstr ""
+msgstr "*La equidad no es caridad, es credibilidad.* Un punto de referencia que le favorece a usted al poner en desventaja a la otra parte es un punto de referencia en el que nadie debería confiar."
 
 #. type: Title =
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
@@ -211,25 +248,30 @@ msgstr "Herramientas y datos"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Previous article: https://quarkus.io/blog/when-the-jit-cant-keep-up/[Harder, Better, Faster, Stronger... Earlier!]"
-msgstr ""
+msgstr "Artículo anterior: link:https://quarkus.io/blog/when-the-jit-cant-keep-up/[¡Más duro, mejor, más rápido, más fuerte… ¡y antes!]"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Multi-cycle warmup: https://github.com/quarkusio/spring-quarkus-perf-comparison/pull/681[PR #681] / https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/633[issue #633]"
-msgstr ""
+msgstr "Calentamiento de varios ciclos: link:https://github.com/quarkusio/spring-quarkus-perf-comparison/pull/681[PR n.º 681] / link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/633[número n.º 633]"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Fairness precedent: https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/521[issue #521] (heap sizing)"
-msgstr ""
+msgstr "Precedente de equidad: link:https://github.com/quarkusio/spring-quarkus-perf-comparison/issues/521[asunto n.º 521] (tamaño del montón)"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "HikariCP virtual-thread yield-spin: https://github.com/brettwooldridge/HikariCP/issues/2398[HikariCP #2398] (fixed in 7.1.0)"
-msgstr ""
+msgstr "HikariCP: «yield-spin» en subprocesos virtuales: link:https://github.com/brettwooldridge/HikariCP/issues/2398[HikariCP n.º 2398] (corregido en la versión 7.1.0)"
 
 #. type: Plain text
 #: _posts/2026-07-21-fairness-in-benchmarking.adoc
+#, fuzzy
 msgid "Performance engineering discussion: https://quarkus.io/blog/quarkus-insights-252-performance-engineering-lessons/[Quarkus Insights #252]"
-msgstr ""
+msgstr "Debate sobre ingeniería del rendimiento: link:https://quarkus.io/blog/quarkus-insights-252-performance-engineering-lessons/[Quarkus Insights n.º 252]"
