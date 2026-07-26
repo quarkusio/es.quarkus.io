@@ -344,6 +344,15 @@ msgid ""
 "you want to write non-type-safe queries, you can always use the provided methods of `PanacheRepository`:"
 msgstr "Con los métodos generados de búsqueda y consulta, como hemos mostrado anteriormente, todo se valida en el momento de la compilación, pero si desea escribir consultas no seguras para el tipo, siempre puede utilizar los métodos proporcionados por `PanacheRepository` :"
 
+#. type: Plain text
+#: _versions/main/guides/quarkus-data-hibernate.adoc
+msgid ""
+"Sorting is applied on the `PanacheQuery` returned by `find()` and `findAll()`, not on the shortcut\n"
+"`list()`, `listAll()`, `stream()`, or `streamAll()` methods. For a single criterion, pass a `Sort`\n"
+"directly — there is no need to wrap it in `Order.by()`. Use `Order` only when you need multiple\n"
+"criteria, or when receiving an `Order` from a REST endpoint:"
+msgstr ""
+
 #. type: Title =
 #: _versions/main/guides/quarkus-data-hibernate.adoc
 #, fuzzy
@@ -1104,9 +1113,8 @@ msgstr "`?page=2&size=25`"
 
 #. type: Table
 #: _versions/main/guides/quarkus-data-hibernate.adoc
-#, fuzzy
-msgid "`Sort<?>`"
-msgstr "`Sort<?>`"
+msgid "`Sort<Cat>`"
+msgstr ""
 
 #. type: Table
 #: _versions/main/guides/quarkus-data-hibernate.adoc
@@ -1128,15 +1136,19 @@ msgstr "`?sort=name` (asc) o `?sort=-name` (desc)"
 
 #. type: Table
 #: _versions/main/guides/quarkus-data-hibernate.adoc
-#, fuzzy
-msgid "`Order<?>`"
-msgstr "`Order<?>`"
+msgid "`Order<Cat>`"
+msgstr ""
 
 #. type: Table
 #: _versions/main/guides/quarkus-data-hibernate.adoc
 #, fuzzy
 msgid "`sort` (repeating)"
 msgstr "`sort` (repitiendo)"
+
+#. type: Table
+#: _versions/main/guides/quarkus-data-hibernate.adoc
+msgid "empty `Order.by()`"
+msgstr ""
 
 #. type: Table
 #: _versions/main/guides/quarkus-data-hibernate.adoc
@@ -1194,6 +1206,16 @@ msgstr "Para `Sort` y `Order` , anteponga al nombre de la propiedad `-` para ind
 
 #. type: Plain text
 #: _versions/main/guides/quarkus-data-hibernate.adoc
+msgid ""
+"When binding sort parameters from REST endpoints to `PanacheQuery`, prefer `Order<Cat>` over\n"
+"`Sort<Cat>`. A missing `sort` query parameter yields `null` for `Sort<Cat>` but an empty\n"
+"`Order.by()` for `Order<Cat>`. If you use `Sort<Cat>` and the parameter is `null`, you can\n"
+"safely call `.sort(null)` and it is a no-op; `Order` is still preferred when multiple columns\n"
+"may be requested."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/quarkus-data-hibernate.adoc
 #, fuzzy
 msgid ""
 "Cursor-based pagination (`PageRequest.Mode.CURSOR_NEXT` / `CURSOR_PREVIOUS`) is not currently supported\n"
@@ -1230,12 +1252,10 @@ msgstr "Ejemplo de punto final"
 
 #. type: Plain text
 #: _versions/main/guides/quarkus-data-hibernate.adoc
-#, fuzzy
 msgid ""
 "Here is an example of a REST endpoint that uses `PageRequest` and `Order` to return a paginated, sorted\n"
-"list of cats. `PanacheRepository` already provides a `findAll(PageRequest, Order)` method, so you can use\n"
-"the entity and repository we defined earlier directly:"
-msgstr "He aquí un ejemplo de punto final REST que utiliza `PageRequest` y `Order` para devolver una lista paginada y ordenada de gatos. `PanacheRepository` ya proporciona un método `findAll(PageRequest, Order)` , por lo que puede utilizar directamente la entidad y el repositorio que hemos definido anteriormente:"
+"list of cats. Paging and sorting are configured on the `PanacheQuery` returned by `findAll()`:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/quarkus-data-hibernate.adoc
