@@ -152,6 +152,19 @@ msgstr "Cuando se especifican públicos de forma explícita, estos tienen priori
 
 #. type: Title =
 #: _versions/main/guides/security-spiffe-client.adoc
+#, fuzzy
+msgid "OIDC SPIFFE Client Authentication"
+msgstr "Autenticación de clientes de OIDC SPIFFE"
+
+#. type: Plain text
+#: _versions/main/guides/security-spiffe-client.adoc
+msgid ""
+"When this extension is combined with either `quarkus-oidc` or `quarkus-oidc-client` extensions, JWT-SVIDs can be supplied automatically and used as OIDC client authentication assertions.\n"
+"Please see the xref:security-oidc-code-flow-authentication.adoc#oidc-provider-client-authentication[OIDC provider client authentication] section of the OIDC code flow authentication guide and the xref:security-openid-connect-client-reference.adoc#oidc-client-authentication[OIDC Client authentication] section of the OIDC client guide for more information."
+msgstr ""
+
+#. type: Title =
+#: _versions/main/guides/security-spiffe-client.adoc
 msgid "Testing"
 msgstr "Probando"
 
@@ -164,29 +177,42 @@ msgid ""
 "You can choose the transport protocol with the `quarkus.spiffe-client.devservices.transport` property, which accepts `unix` (default) or `tcp`."
 msgstr "En los modos de desarrollo y prueba, la extensión ofrece un servicio de desarrollo (Dev Service) que emula la API de carga de trabajo SPIFFE con una identidad preconfigurada y un par de claves generado localmente. Aunque no admite políticas de autorización personalizadas ni entradas de registro, resulta suficiente para verificar que su aplicación recupera y utiliza correctamente los JWT-SVID sin necesidad de una infraestructura SPIRE externa. Puede elegir el protocolo de transporte mediante la propiedad « `quarkus.spiffe-client.devservices.transport` », que admite « `unix` » (por defecto) o « `tcp` »."
 
-#. type: Title =
+#. type: Title ==
 #: _versions/main/guides/security-spiffe-client.adoc
-#, fuzzy
-msgid "OIDC SPIFFE Client Authentication"
-msgstr "Autenticación de clientes de OIDC SPIFFE"
+msgid "Testing SPIFFE client authentication with Keycloak"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-spiffe-client.adoc
-#, fuzzy
-msgid "When combined with `quarkus-oidc` or `quarkus-oidc-client`, this extension can supply JWT-SVIDs as client assertions automatically:"
-msgstr "Si se combina con `quarkus-oidc` o `quarkus-oidc-client` , esta extensión puede proporcionar automáticamente JWT-SVID como afirmaciones de cliente:"
+msgid ""
+"To test OIDC SPIFFE client authentication against Keycloak Dev Services, you need to configure a Keycloak realm with a SPIFFE identity provider and a `federated-jwt` client.\n"
+"You can automate this setup by creating a custom test resource using `KeycloakTestClient`. This ensures the realm is ready before your tests execute.\n"
+"For example, you can create a test realm like this:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-spiffe-client.adoc
-#, fuzzy
-msgid "To authenticate the OIDC provider client during the authorization code exchange, see the xref:security-oidc-code-flow-authentication.adoc#oidc-provider-client-authentication[OIDC provider client authentication] section of the OIDC code flow guide."
-msgstr "Para autenticar al cliente del proveedor OIDC durante el intercambio del código de autorización, consulte la sección xref:security-oidc-code-flow-authentication.adoc#oidc-provider-client-authentication[«Autenticación del cliente del proveedor OIDC»] de la guía del flujo de códigos OIDC."
+msgid ""
+"Next, adjust your application configuration to enable the SPIFFE feature in Keycloak Dev Services.\n"
+"The SPIFFE Dev Service bundle endpoint listens on port `18443` by default, and Keycloak must be able to reach it:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/security-spiffe-client.adoc
-#, fuzzy
-msgid "To authenticate an `OidcClient` for `client_credentials` or other grant types, see the xref:security-openid-connect-client-reference.adoc#oidc-client-authentication[OidcClient authentication] section of the OIDC client reference."
-msgstr "Para autenticar un `OidcClient` para `client_credentials` u otros tipos de concesión, consulte la sección xref:security-openid-connect-client-reference.adoc#oidc-client-authentication[«Autenticación de OidcClient»] de la referencia del cliente OIDC."
+msgid ""
+"Alternatively, if you already have an existing realm, export it to a JSON file and set the SPIFFE identity provider's `trustDomain` to `spiffe://test.quarkus.io` and `bundleEndpoint` to `http://host.testcontainers.internal:18443/bundle`.\n"
+"In your realm JSON file, add or update the SPIFFE identity provider entry in the `identityProviders` array:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/security-spiffe-client.adoc
+msgid "Then load the realm file with:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/security-spiffe-client.adoc
+msgid "Finally, apply this setup to your test class using the `@QuarkusTestResource` annotation:"
+msgstr ""
 
 #. type: Title =
 #: _versions/main/guides/security-spiffe-client.adoc

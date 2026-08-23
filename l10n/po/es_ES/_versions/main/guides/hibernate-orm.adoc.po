@@ -223,9 +223,8 @@ msgstr "Para obtener una lista de los elementos que puede configurar en `{config
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "An `EntityManagerFactory` will be created based on the Quarkus `datasource` configuration as long as the Hibernate ORM extension is listed among your project dependencies."
-msgstr "Se creará un `EntityManagerFactory` basado en la configuración de Quarkus `datasource` siempre y cuando la extensión Hibernate ORM esté listada entre las dependencias de su proyecto."
+msgid "A `SessionFactory` will be created based on the Quarkus `datasource` configuration as long as the Hibernate ORM extension is listed among your project dependencies."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -237,9 +236,8 @@ msgstr "El dialecto se seleccionará y configurará automáticamente en función
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "You can then happily inject your `EntityManager`:"
-msgstr "A continuación, puede inyectar alegremente su `EntityManager`:"
+msgid "You can then happily inject your `Session`:"
+msgstr ""
 
 #. type: Block title
 #: _versions/main/guides/hibernate-orm.adoc
@@ -249,15 +247,18 @@ msgstr "Ejemplo de aplicación bean con Hibernate"
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Inject your entity manager and have fun"
-msgstr "Inyecta tu gestor de entidades y diviértete"
+msgid "Inject your Hibernate ORM session and have fun"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Mark your CDI bean method as `@Transactional` and the `EntityManager` will enlist and flush at commit."
-msgstr "Marque su método de frijol CDI como `@Transactional` y el `EntityManager` se alistará y se descargará en el momento del commit."
+msgid "Mark your CDI bean method as `@Transactional` and the `Session` will enlist and flush at commit."
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "If you prefer to stick to the Jakarta Persistence API, you can <<injecting-entry-points,inject an `EntityManager` instead of a `Session`>>."
+msgstr ""
 
 #. type: Block title
 #: _versions/main/guides/hibernate-orm.adoc
@@ -282,12 +283,11 @@ msgstr "Esto es útil para tener un conjunto de datos listo para sus pruebas o d
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
-"Make sure to wrap methods modifying your database (e.g. `entity.persist()`) within a transaction. Marking a\n"
+"Make sure to wrap methods modifying your database (e.g. `session.persist(entity)`) within a transaction. Marking a\n"
 "CDI bean method `@Transactional` will do that for you and make that method a transaction boundary. We recommend doing\n"
 "so at your application entry point boundaries like your REST endpoint controllers."
-msgstr "Asegúrese de envolver los métodos que modifican su base de datos (por ejemplo `entity.persist()` ) dentro de una transacción. Marcar un método CDI bean `@Transactional` lo hará por usted y convertirá ese método en un límite de transacción. Le recomendamos que lo haga en los límites de los puntos de entrada de su aplicación, como los controladores de sus puntos finales REST."
+msgstr ""
 
 #. type: Title ==
 #: _versions/main/guides/hibernate-orm.adoc
@@ -543,9 +543,8 @@ msgstr "Propiedades de configuración de Hibernate ORM"
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "There are various optional properties useful to refine your `EntityManagerFactory` or guide guesses of Quarkus."
-msgstr "Hay varias propiedades opcionales útiles para refinar su `EntityManagerFactory` o guiar las conjeturas de Quarkus."
+msgid "There are various optional properties useful to refine your `SessionFactory` or guide guesses of Quarkus."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -819,21 +818,18 @@ msgstr "Inyección de puntos de entrada"
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "If you are familiar with using Hibernate ORM in Quarkus, you probably already have injected the `EntityManager` using CDI:"
-msgstr "Si está familiarizado con el uso de Hibernate ORM en Quarkus, probablemente ya haya inyectado el `EntityManager` utilizando CDI:"
+msgid "If you are familiar with using Hibernate ORM in Quarkus, you probably already have injected the `Session` using CDI:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "This will inject the `EntityManager` of the default persistence unit."
-msgstr "Esto inyectará la `EntityManager` de la unidad de persistencia por defecto."
+msgid "This will inject the `Session` of the default persistence unit."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "Injecting the `EntityManager` of a named persistence unit (`users` in our example) is as simple as:"
-msgstr "Inyectar el `EntityManager` de una unidad de persistencia con nombre ( `users` en nuestro ejemplo) es tan sencillo como:"
+msgid "Injecting the `Session` of a named persistence unit (`users` in our example) is as simple as:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -843,9 +839,13 @@ msgstr "También en este caso utilizamos la misma anotación `@io.quarkus.hibern
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "The injected `EntityManager` or `Session` instance is a proxy that requires an active transaction for interaction."
-msgstr "La instancia inyectada de `EntityManager` o `Session` es un proxy que requiere una transacción activa para la interacción."
+msgid "If you prefer to stick to the Jakarta Persistence API, you can inject an `EntityManager` instead, using the exact same mechanism:"
+msgstr ""
+
+#. type: Plain text
+#: _versions/main/guides/hibernate-orm.adoc
+msgid "The injected `Session` or `EntityManager` instance is a proxy that requires an active transaction for interaction."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -855,15 +855,13 @@ msgstr "Por defecto, también es posible utilizarlo para operaciones de sólo le
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "You can inject the `EntityManagerFactory` of a named persistence unit using the exact same mechanism:"
-msgstr "Puede inyectar el `EntityManagerFactory` de una unidad de persistencia con nombre utilizando exactamente el mismo mecanismo:"
+msgid "You can inject the `SessionFactory` (or its Jakarta Persistence equivalent, `EntityManagerFactory`) of a named persistence unit using the exact same mechanism:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
-msgid "In addition to `EntityManager` and `EntityManagerFactory`, Quarkus also supports injecting the following JPA/Hibernate components:"
-msgstr "Además de `EntityManager` y `EntityManagerFactory` , Quarkus también admite la inyección de los siguientes componentes JPA/Hibernate:"
+msgid "In addition to `Session` and `SessionFactory` (and their Jakarta Persistence equivalents `EntityManager` and `EntityManagerFactory`), Quarkus also supports injecting the following JPA/Hibernate components:"
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
@@ -2687,22 +2685,20 @@ msgstr "Aplique métodos de `org.hibernate.Interceptor` según sea necesario."
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
 "By default, interceptor beans annotated with `@PersistenceUnitExtension` are application-scoped,\n"
 "which means only one interceptor instance will be created per application\n"
-"and reused across all entity managers.\n"
+"and reused across all sessions.\n"
 "For this reason, the interceptor implementation must be thread-safe."
-msgstr "Por defecto, los beans interceptores anotados con `@PersistenceUnitExtension` son application-scoped, lo que significa que sólo se creará una instancia de interceptor por aplicación y se reutilizará en todos los gestores de entidades. Por esta razón, la implementación del interceptor debe ser segura para los hilos."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
-#, fuzzy
 msgid ""
-"In order to create one interceptor instance per entity manager instead,\n"
+"In order to create one interceptor instance per session instead,\n"
 "annotate your bean with `@Dependent`.\n"
 "In that case, the interceptor implementation doesn't need to be thread-safe."
-msgstr "Para crear en su lugar una instancia de interceptor por gestor de entidades, anote su frijol con `@Dependent` . En ese caso, no es necesario que la implementación del interceptor sea segura para los hilos."
+msgstr ""
 
 #. type: Plain text
 #: _versions/main/guides/hibernate-orm.adoc
