@@ -6,71 +6,89 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "Implementing a custom Stork service registrar"
-msgstr ""
+msgstr "Implementación de un registrador de servicios Stork personalizado"
 
+#, fuzzy
 msgid "This guide explains how to implement a custom service registrar for https://smallrye.io/smallrye-stork[SmallRye Stork] and use it to programmatically register service instances at startup."
-msgstr ""
+msgstr "Esta guía explica cómo implementar un registrador de servicios personalizado para link:https://smallrye.io/smallrye-stork[SmallRye Stork] y utilizarlo para registrar mediante programación instancias de servicio al inicio."
 
+#, fuzzy
 msgid "If you are new to Stork, please read the xref:stork.adoc[Stork Getting Started Guide]."
-msgstr ""
+msgstr "Si eres nuevo en Stork, por favor lee la  link:stork.html[Guía de inicio de Stork]."
 
+#, fuzzy
 msgid "This technology is considered {extension-status}."
-msgstr ""
+msgstr "Esta tecnología se considera {extensión-estado}."
 
+#, fuzzy
 msgid ""
 "In _preview_, backward compatibility and presence in the ecosystem is not guaranteed.\n"
 "Specific improvements might require changing configuration or APIs, and plans to become _stable_ are under way.\n"
 "Feedback is welcome on our https://groups.google.com/d/forum/quarkus-dev[mailing list] or as issues in our https://github.com/quarkusio/quarkus/issues[GitHub issue tracker]."
-msgstr ""
+msgstr "En la _versión preliminar_ , la compatibilidad con versiones anteriores y la presencia en el ecosistema no están garantizadas. Las mejoras específicas podrían requerir cambios en la configuración o en las API, y los planes para llegar a ser _estables_ están en marcha. Los comentarios son bienvenidos en nuestra link:https://groups.google.com/d/forum/quarkus-dev[lista de correo] o como problemas en nuestro link:https://github.com/quarkusio/quarkus/issues[rastreador de problemas de GitHub] ."
 
+#, fuzzy
 msgid "For a full list of possible statuses, check our https://quarkus.io/faq/#what-are-the-extension-statuses[FAQ entry]."
-msgstr ""
+msgstr "Para obtener una lista completa de posibles estados, consulte nuestra  link:https://quarkus.io/faq/#what-are-the-extension-statuses[entrada de preguntas frecuentes]."
 
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
+#, fuzzy
 msgid "To complete this guide, you need:"
-msgstr ""
+msgstr "Para completar esta guía, necesitas:"
 
+#, fuzzy
 msgid "Roughly 15 minutes"
-msgstr ""
+msgstr "Aproximadamente 15 minutos"
 
+#, fuzzy
 msgid "An IDE"
-msgstr ""
+msgstr "Un IDE"
 
+#, fuzzy
 msgid "JDK 17+ installed with `JAVA_HOME` configured appropriately"
-msgstr ""
+msgstr "JDK 17+ instalado con `JAVA_HOME` configurado adecuadamente"
 
+#, fuzzy
 msgid "Apache Maven {maven-version}"
-msgstr ""
+msgstr "Apache Maven {versión de Maven}"
 
+#, fuzzy
 msgid "Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
-msgstr ""
+msgstr "Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
 
+#, fuzzy
 msgid "Optionally Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately] if you want to build a native executable (or Docker if you use a native container build)"
-msgstr ""
+msgstr "Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image.html#configuring-graalvm[configurados apropiadamente] si quieres construir un ejecutable nativo (o Docker si usas una construcción de contenedor nativo)"
 
 msgid "Architecture"
 msgstr "Arquitectura"
 
+#, fuzzy
 msgid "In this guide, we will build an application that:"
-msgstr ""
+msgstr "En esta guía, construiremos una aplicación que:"
 
+#, fuzzy
 msgid "Implements a custom service registrar by extending Stork's SPI"
-msgstr ""
+msgstr "Implementa un registrador de servicios personalizado ampliando el SPI de Stork"
 
+#, fuzzy
 msgid "Programmatically registers a service instance at startup"
-msgstr ""
+msgstr "Registra programáticamente una instancia de servicio al inicio"
 
+#, fuzzy
 msgid "Configures the registrar via `application.properties`"
-msgstr ""
+msgstr "Configura el registrador a través de `application.properties`"
 
+#, fuzzy
 msgid ""
 "Beyond service discovery and load balancing, it also supports xref:stork-registration.adoc[_service registration_].\n"
 "Service registration is the process of announcing a service instance to a registry so that other services can discover it.\n"
 "While Stork provides built-in registrars for Consul, Eureka, and others, you can implement your own by using the Stork SPI."
-msgstr ""
+msgstr "Además del descubrimiento de servicios y el equilibrio de carga, también admite el xref:stork-registration.adoc[registro de servicios] . El registro de servicios es el proceso de anunciar una instancia de servicio a un registro para que otros servicios puedan descubrirla. Aunque Stork proporciona registros incorporados para Consul, Eureka y otros, usted puede implementar el suyo propio utilizando la SPI de Stork."
 
 msgid "Solution"
 msgstr "Solución"
@@ -85,203 +103,256 @@ msgstr ""
 msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
 msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
+#, fuzzy
 msgid "The solution is located in the `stork-programmatic-custom-registration-quickstart` link:{quickstarts-tree-url}/stork-programmatic-custom-registration-quickstart[directory]."
-msgstr ""
+msgstr "La solución se encuentra en el link:{quickstarts-tree-url}/stork-programmatic-custom-registration-quickstart[directorio] `stork-programmatic-custom-registration-quickstart` ."
 
 msgid "Bootstrapping the project"
 msgstr "Puesta en marcha del proyecto"
 
+#, fuzzy
 msgid "Create a Quarkus project importing the quarkus-rest, quarkus-smallrye-stork, and quarkus-rest-client-jackson extensions using your favorite approach:"
-msgstr ""
+msgstr "Cree un proyecto Quarkus importando las extensiones quarkus-rest, quarkus-smallrye-stork y quarkus-rest-client-jackson utilizando su método favorito:"
 
 msgid "CLI"
 msgstr "CLI"
 
+#, fuzzy
 msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
 
+#, fuzzy
 msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
-msgstr ""
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
 
 msgid "Maven"
 msgstr "Maven"
 
+#, fuzzy
 msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
 
+#, fuzzy
 msgid "For Windows users:"
-msgstr ""
+msgstr "Para usuarios de Windows:"
 
+#, fuzzy
 msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
-msgstr ""
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
 
+#, fuzzy
 msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
-msgstr ""
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
 
+#, fuzzy
 msgid "In the generated project, also add the following dependencies:"
-msgstr ""
+msgstr "En el proyecto generado, añada también las siguientes dependencias:"
 
+#, fuzzy
 msgid ""
 "`stork-core` provides the Stork API and SPI needed to implement a custom registrar.\n"
 "`stork-configuration-generator` generates configuration classes at build time based on annotations on your registrar provider."
-msgstr ""
+msgstr "`stork-core` proporciona la API y el SPI de Stork necesarios para implementar un registrador personalizado. `stork-configuration-generator` genera clases de configuración en tiempo de compilación basándose en las anotaciones de su proveedor de registradores."
 
+#, fuzzy
 msgid "The Custom Service Registrar Provider"
-msgstr ""
+msgstr "El proveedor de registro de servicios personalizados"
 
+#, fuzzy
 msgid ""
 "Stork uses a provider model.\n"
 "To create a custom registrar, you need two classes:"
-msgstr ""
+msgstr "Stork utiliza un modelo de proveedor. Para crear un registrador personalizado, necesita dos clases:"
 
+#, fuzzy
 msgid "A *provider* implementing `ServiceRegistrarProvider` — the factory that creates registrar instances."
-msgstr ""
+msgstr "Un *proveedor* que implemente `ServiceRegistrarProvider` - la fábrica que crea instancias de registrador."
 
+#, fuzzy
 msgid "A *registrar* implementing `ServiceRegistrar` — the actual registration logic."
-msgstr ""
+msgstr "Un *registrador* que implemente `ServiceRegistrar` : la lógica de registro real."
 
+#, fuzzy
 msgid ""
 "Let's start with the provider.\n"
 "Create the `src/main/java/org/acme/services/CustomServiceRegistrarProvider.java` file with the following content:"
-msgstr ""
+msgstr "Empecemos por el proveedor. Cree el archivo `src/main/java/org/acme/services/CustomServiceRegistrarProvider.java` con el siguiente contenido:"
 
+#, fuzzy
 msgid "There are a few important things to note:"
-msgstr ""
+msgstr "Hay que tener en cuenta algunas cosas importantes:"
 
+#, fuzzy
 msgid ""
 "The `@ServiceRegistrarType` annotation declares the registrar _type_.\n"
 "This is the value used in the `quarkus.stork.<service-name>.service-registrar.type` property.\n"
 "Here, it is `custom`."
-msgstr ""
+msgstr "La anotación `@ServiceRegistrarType` declara el _tipo de_ registrador. Este es el valor utilizado en la propiedad `quarkus.stork.<service-name>.service-registrar.type` . En este caso, es `custom` ."
 
+#, fuzzy
 msgid ""
 "The `@ServiceRegistrarAttribute` annotations declare the configuration attributes for this registrar.\n"
 "Stork's annotation processor (provided by `stork-configuration-generator`) uses these annotations to generate\n"
 "the `CustomRegistrarConfiguration` class at compile time. You do not need to write this class yourself."
-msgstr ""
+msgstr "Las anotaciones de `@ServiceRegistrarAttribute` declaran los atributos de configuración para este registrador. El procesador de anotaciones de Stork (proporcionado por `stork-configuration-generator` ) utiliza estas anotaciones para generar la clase `CustomRegistrarConfiguration` en tiempo de compilación. No necesita escribir esta clase usted mismo."
 
+#, fuzzy
 msgid "The `@ApplicationScoped` annotation makes this provider a CDI bean, so Stork can discover it automatically."
-msgstr ""
+msgstr "La anotación `@ApplicationScoped` convierte a este proveedor en un bean CDI, por lo que Stork puede descubrirlo automáticamente."
 
+#, fuzzy
 msgid "The `createServiceRegistrar` method is the factory that creates a `CustomServiceRegistrar` from the generated configuration."
-msgstr ""
+msgstr "El método `createServiceRegistrar` es la fábrica que crea un `CustomServiceRegistrar` a partir de la configuración generada."
 
+#, fuzzy
 msgid "The Custom Service Registrar"
-msgstr ""
+msgstr "El registrador de servicios personalizados"
 
+#, fuzzy
 msgid ""
 "Now let's implement the registrar itself.\n"
 "Create the `src/main/java/org/acme/services/CustomServiceRegistrar.java` file with the following content:"
-msgstr ""
+msgstr "Ahora implementemos el registrador propiamente dicho. Cree el archivo `src/main/java/org/acme/services/CustomServiceRegistrar.java` con el siguiente contenido:"
 
+#, fuzzy
 msgid "This registrar:"
-msgstr ""
+msgstr "Este registrador:"
 
+#, fuzzy
 msgid "Receives its configuration (host and port) from the generated `CustomRegistrarConfiguration` class."
-msgstr ""
+msgstr "Recibe su configuración (host y puerto) de la clase `CustomRegistrarConfiguration` generada."
 
+#, fuzzy
 msgid "Stores registered instances in a `ConcurrentHashMap`."
-msgstr ""
+msgstr "Almacena las instancias registradas en un `ConcurrentHashMap` ."
 
+#, fuzzy
 msgid "Implements `registerServiceInstance` to add a service instance to the map."
-msgstr ""
+msgstr "Implementa `registerServiceInstance` para añadir una instancia de servicio al mapa."
 
+#, fuzzy
 msgid "Implements `deregisterServiceInstance` to remove a service instance on shutdown."
-msgstr ""
+msgstr "Implementa `deregisterServiceInstance` para eliminar una instancia de servicio al apagarse."
 
+#, fuzzy
 msgid "Both methods return `Uni<Void>`, since Stork uses Mutiny for reactive support."
-msgstr ""
+msgstr "Ambos métodos devuelven `Uni<Void>` , ya que Stork utiliza Mutiny para el soporte reactivo."
 
+#, fuzzy
 msgid "Programmatic Service Registration at Startup"
-msgstr ""
+msgstr "Registro de servicios programáticos al inicio"
 
+#, fuzzy
 msgid ""
 "With the registrar in place, we can now register service instances programmatically.\n"
 "Create the `src/main/java/org/acme/services/Registration.java` file with the following content:"
-msgstr ""
+msgstr "Con el registrador en su sitio, ahora podemos registrar instancias de servicio mediante programación. Cree el archivo `src/main/java/org/acme/services/Registration.java` con el siguiente contenido:"
 
+#, fuzzy
 msgid ""
 "When the application starts, this CDI bean observes the `StartupEvent` and uses the Stork API to register a service instance.\n"
 "The `Stork.getInstance().getService(\"my-service\")` call retrieves the Stork service named `my-service`, and `registerInstance`\n"
 "delegates to the custom registrar we created earlier."
-msgstr ""
+msgstr "Cuando se inicia la aplicación, este frijol CDI observa la `StartupEvent` y utiliza la API de Stork para registrar una instancia de servicio. La llamada a `Stork.getInstance().getService(\"my-service\")` recupera el servicio Stork denominado `my-service` , y `registerInstance` delega en el registrador personalizado que creamos anteriormente."
 
+#, fuzzy
 msgid "Stork configuration"
-msgstr ""
+msgstr "Configuración de la cigüeña"
 
+#, fuzzy
 msgid "Now we need to configure Stork to use our custom registrar."
-msgstr ""
+msgstr "Ahora tenemos que configurar Stork para que utilice nuestro registrador personalizado."
 
+#, fuzzy
 msgid "In the `src/main/resources/application.properties`, add:"
-msgstr ""
+msgstr "En el `src/main/resources/application.properties`, añada:"
 
+#, fuzzy
 msgid ""
 "The `quarkus.stork.my-service.service-registrar.type` property tells Stork to use the `custom` registrar type.\n"
 "This matches the value declared in the `@ServiceRegistrarType` annotation on `CustomServiceRegistrarProvider`."
-msgstr ""
+msgstr "La propiedad `quarkus.stork.my-service.service-registrar.type` indica a Stork que utilice el tipo de registro `custom` . Esto coincide con el valor declarado en la anotación `@ServiceRegistrarType` en `CustomServiceRegistrarProvider` ."
 
+#, fuzzy
 msgid ""
 "The `quarkus.stork.my-service.service-registrar.host` property maps to the `host` attribute declared with `@ServiceRegistrarAttribute` on the provider.\n"
 "This is a required attribute."
-msgstr ""
+msgstr "La propiedad `quarkus.stork.my-service.service-registrar.host` mapea al atributo `host` declarado con `@ServiceRegistrarAttribute` en el proveedor. Se trata de un atributo obligatorio."
 
+#, fuzzy
 msgid ""
 "You can optionally set `quarkus.stork.my-service.service-registrar.port` as well, since the provider declares an optional `port` attribute.\n"
 "If omitted, the registrar defaults to port `8080`."
-msgstr ""
+msgstr "También puede establecer opcionalmente `quarkus.stork.my-service.service-registrar.port` , ya que el proveedor declara un atributo opcional `port` . Si se omite, el registrador utiliza por defecto el puerto `8080` ."
 
 msgid "Running the application"
 msgstr "Ejecución de la aplicación"
 
+#, fuzzy
 msgid "Package the application:"
-msgstr ""
+msgstr "Empaquete la solicitud:"
 
+#, fuzzy
 msgid "And run it:"
-msgstr ""
+msgstr "Y ejecútalo:"
 
+#, fuzzy
 msgid "You should see the following log message in the output, confirming that the custom registrar is invoked:"
-msgstr ""
+msgstr "Debería ver el siguiente mensaje de registro en la salida, confirmando que se ha invocado al registrador personalizado:"
 
+#, fuzzy
 msgid "You can compile this application into a native executable:"
-msgstr ""
+msgstr "Puedes compilar esta aplicación en un ejecutable nativo:"
 
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
+#, fuzzy
 msgid "In this guide, we have:"
-msgstr ""
+msgstr "En esta guía, tenemos:"
 
+#, fuzzy
 msgid "Implemented a custom `ServiceRegistrarProvider` using the `@ServiceRegistrarType` and `@ServiceRegistrarAttribute` annotations."
-msgstr ""
+msgstr "Implementado un `ServiceRegistrarProvider` personalizado utilizando las anotaciones `@ServiceRegistrarType` y `@ServiceRegistrarAttribute` ."
 
+#, fuzzy
 msgid "Implemented a custom `ServiceRegistrar` with `registerServiceInstance` and `deregisterServiceInstance` methods."
-msgstr ""
+msgstr "Implementado un `ServiceRegistrar` personalizado con los métodos `registerServiceInstance` y `deregisterServiceInstance` ."
 
+#, fuzzy
 msgid "Used the Stork API to programmatically register a service instance at startup."
-msgstr ""
+msgstr "Utiliza la API de Stork para registrar de forma programática una instancia de servicio en el arranque."
 
+#, fuzzy
 msgid "Configured the custom registrar in `application.properties`."
-msgstr ""
+msgstr "Configurado el registrador personalizado en `application.properties` ."
 
+#, fuzzy
 msgid "This pattern is useful when you need to integrate Stork with a service registry that is not supported out of the box."
-msgstr ""
+msgstr "Este patrón es útil cuando necesita integrar Stork con un registro de servicios que no está soportado fuera de la caja."
 
 msgid "Going further"
 msgstr "Ir más allá"
 
+#, fuzzy
 msgid ""
 "This guide has shown how to extend SmallRye Stork with a custom service registrar.\n"
 "You can find more about Stork in:"
-msgstr ""
+msgstr "Esta guía ha mostrado cómo ampliar SmallRye Stork con un registrador de servicios personalizado. Puede encontrar más información sobre Stork en:"
 
+#, fuzzy
 msgid "the xref:stork-reference.adoc[Stork reference guide],"
-msgstr ""
+msgstr "la  link:stork-reference.html[guía de referencia de la cigüeña],"
 
+#, fuzzy
 msgid "the xref:stork.adoc[Stork with Consul getting started guide],"
-msgstr ""
+msgstr "la xref:stork.adoc[guía de iniciación a la Cigüeña con Cónsul] ,"
 
+#, fuzzy
 msgid "the xref:stork-kubernetes.adoc[Stork with Kubernetes guide],"
-msgstr ""
+msgstr "la xref:stork-kubernetes.adoc[guía Stork con Kubernetes] ,"
 
+#, fuzzy
 msgid "the https://smallrye.io/smallrye-stork[SmallRye Stork website]."
-msgstr ""
+msgstr "el  link:https://smallrye.io/smallrye-stork[sitio web de SmallRye Stork]."

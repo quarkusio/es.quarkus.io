@@ -6,71 +6,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "Using Apache Kafka with Schema Registry and JSON Schema"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y JSON Schema"
 
+#, fuzzy
 msgid ""
 "This guide shows how your Quarkus application can use Apache Kafka, https://json-schema.org/[JSON Schema] serialized\n"
 "records, and connect to a schema registry (such as the https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] or https://www.apicur.io/registry/[Apicurio Registry])."
-msgstr ""
+msgstr "Esta guía muestra cómo su aplicación Quarkus puede utilizar Apache Kafka, registros serializados link:https://json-schema.org/[JSON Schema] y conectarse a un registro de esquemas (como link:https://docs.confluent.io/platform/current/schema-registry/index.html[Confluent Schema Registry] o link:https://www.apicur.io/registry/[Apicurio Registry] )."
 
+#, fuzzy
 msgid ""
 "If you are not familiar with Kafka and Kafka in Quarkus in particular, consider\n"
 "first going through the xref:kafka.adoc[Using Apache Kafka with Reactive Messaging] guide."
-msgstr ""
+msgstr "Si no está familiarizado con Kafka y con Kafka en Quarkus en particular, considere la posibilidad de consultar primero la guía xref:kafka.adoc[Using Apache Kafka with Reactive Messaging (Utilización de Apache Kafka con mensajería reactiva] )."
 
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
+#, fuzzy
 msgid "To complete this guide, you need:"
-msgstr ""
+msgstr "Para completar esta guía, necesitas:"
 
+#, fuzzy
 msgid "Roughly {prerequisites-time}"
-msgstr ""
+msgstr "Aproximadamente {requisitos-tiempo}"
 
+#, fuzzy
 msgid "An IDE"
-msgstr ""
+msgstr "Un IDE"
 
+#, fuzzy
 msgid "JDK 17+ installed with `JAVA_HOME` configured appropriately"
-msgstr ""
+msgstr "JDK 17+ instalado con `JAVA_HOME` configurado adecuadamente"
 
+#, fuzzy
 msgid "Apache Maven {maven-version}"
-msgstr ""
+msgstr "Apache Maven {versión de Maven}"
 
+#, fuzzy
 msgid "Docker and Docker Compose or xref:podman.adoc[Podman], and Docker Compose"
-msgstr ""
+msgstr "Docker y Docker Compose o  link:podman.html[Podman], y Docker Compose"
 
+#, fuzzy
 msgid "Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
-msgstr ""
+msgstr "Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
 
+#, fuzzy
 msgid "Optionally Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately] if you want to build a native executable (or Docker if you use a native container build)"
-msgstr ""
+msgstr "Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image.html#configuring-graalvm[configurados apropiadamente] si quieres construir un ejecutable nativo (o Docker si usas una construcción de contenedor nativo)"
 
 msgid "Architecture"
 msgstr "Arquitectura"
 
+#, fuzzy
 msgid ""
 "In this guide we are going to implement a REST resource, namely `MovieResource`, that\n"
 "will consume movie DTOs and put them in a Kafka topic."
-msgstr ""
+msgstr "En esta guía vamos a implementar un recurso REST, concretamente `MovieResource` , que consumirá DTOs de películas y los colocará en un tema de Kafka."
 
+#, fuzzy
 msgid ""
 "Then, we will implement a consumer that will consume and collect messages from the same topic.\n"
 "The collected messages will be then exposed by another resource, `ConsumedMovieResource`, via\n"
 "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Server-Sent Events]."
-msgstr ""
+msgstr "A continuación, implementaremos un consumidor que consumirá y recopilará mensajes del mismo tema. A continuación, los mensajes recopilados serán expuestos por otro recurso, `ConsumedMovieResource` , a través de link:https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[eventos enviados por el servidor] ."
 
+#, fuzzy
 msgid ""
 "The _Movies_ will be serialized and deserialized using JSON Schema.\n"
 "The schema, describing the _Movie_, is stored in Apicurio Registry.\n"
 "The same concept applies if you are using the Confluent JSON Schema _serde_ and Confluent Schema Registry."
-msgstr ""
+msgstr "Las _Películas_ serán serializadas y deserializadas utilizando el Esquema JSON. El esquema, que describe la _Película_ , se almacena en Apicurio Registry. El mismo concepto se aplica si utiliza el _serde_ Confluent JSON Schema y Confluent Schema Registry."
 
 msgid "Solution"
 msgstr "Solución"
 
+#, fuzzy
 msgid "Follow the instructions in the next sections to create the application step by step."
-msgstr ""
+msgstr "Siga las instrucciones que figuran en las siguientes secciones para crear la aplicación paso a paso."
 
 msgid "Creating the Maven Project"
 msgstr "Creación del proyecto Maven"
@@ -81,319 +96,402 @@ msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto c
 msgid "CLI"
 msgstr "CLI"
 
+#, fuzzy
 msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
 
+#, fuzzy
 msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
-msgstr ""
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
 
 msgid "Maven"
 msgstr "Maven"
 
+#, fuzzy
 msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
-msgstr ""
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
 
+#, fuzzy
 msgid "For Windows users:"
-msgstr ""
+msgstr "Para usuarios de Windows:"
 
+#, fuzzy
 msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
-msgstr ""
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
 
+#, fuzzy
 msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
-msgstr ""
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
 
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you don't need the `quarkus-apicurio-registry-json-schema` extension.\n"
 "Instead, you need the `quarkus-confluent-registry-json-schema` extension and a few more dependencies.\n"
 "See <<confluent>> for details."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, no necesita la extensión `quarkus-apicurio-registry-json-schema` . En su lugar, necesita la extensión `quarkus-confluent-registry-json-schema` y algunas dependencias más. Consulte <<confluent>> para obtener más detalles."
 
+#, fuzzy
 msgid "Json Schema"
-msgstr ""
+msgstr "Esquema Json"
 
+#, fuzzy
 msgid ""
 "Json Schema is a data serialization system. Data structures are described using schemas.\n"
 "The first thing we need to do is to create a schema describing the `Movie` structure.\n"
 "Create a file called `src/main/resources/json-schema.json` with the schema for our record (Kafka message):"
-msgstr ""
+msgstr "El esquema Json es un sistema de serialización de datos. Las estructuras de datos se describen mediante esquemas. Lo primero que tenemos que hacer es crear un esquema que describa la estructura `Movie` . Cree un archivo llamado `src/main/resources/json-schema.json` con el esquema para nuestro registro (mensaje Kafka):"
 
+#, fuzzy
 msgid "Note that auto-generating the Java class from the JSON Schema definition is not possible. Therefore, you must define the Java class as follows so it can be used by the serialization process:"
-msgstr ""
+msgstr "Tenga en cuenta que no es posible autogenerar la clase Java a partir de la definición del esquema JSON. Por lo tanto, debe definir la clase Java de la siguiente manera para que pueda ser utilizada por el proceso de serialización:"
 
 msgid "The <code>Movie</code> producer"
 msgstr ""
 
+#, fuzzy
 msgid "Having defined the schema, we can now jump to implementing the `MovieResource`."
-msgstr ""
+msgstr "Una vez definido el esquema, podemos pasar a implementar el `MovieResource`."
 
+#, fuzzy
 msgid ""
 "Let's open the `MovieResource`, inject an https://quarkus.io/blog/reactive-messaging-emitter/[`Emitter`] of `Movie` DTO and implement a `@POST` method\n"
 "that consumes `Movie` and sends it through the `Emitter`:"
-msgstr ""
+msgstr "Abramos el `MovieResource` , inyectemos un link:https://quarkus.io/blog/reactive-messaging-emitter/[Emitter] de `Movie` DTO e implementemos un método `@POST` que consuma `Movie` y lo envíe a través de `Emitter` :"
 
+#, fuzzy
 msgid ""
 "Now, we need to _map_ the `movies` channel (the `Emitter` emits to this channel) to a Kafka topic and also _map_ the schema to be used on this channel.\n"
 "To achieve this, edit the `application.properties` file, and add the following content:"
-msgstr ""
+msgstr "Ahora, necesitamos _mapear_ el canal `movies` (el `Emitter` emite a este canal) a un tema Kafka y también _mapear_ el esquema que se utilizará en este canal. Para ello, edite el archivo `application.properties` y añada el siguiente contenido:"
 
+#, fuzzy
 msgid ""
 "Note that unlike in the avro serialization, xref:kafka.adoc#serialization-autodetection[autodetect] can't be used with JSON Schema, so we must define the  `value.serializer`.\n"
 "Just like with avro, we still have to define the `apicurio.registry.auto-register` property."
-msgstr ""
+msgstr "Tenga en cuenta que, a diferencia de la serialización avro, xref:kafka.adoc#serialization-autodetection[autodetect] no se puede utilizar con JSON Schema, por lo que debemos definir la propiedad `value.serializer` . Al igual que con avro, tenemos que definir la propiedad `apicurio.registry.auto-register` ."
 
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, in this case you must define the `value.serializer` as well with the value `io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer`.\n"
 "It is also detected automatically.\n"
 "The Confluent Schema Registry analogue of `apicurio.registry.auto-register` is called `auto.register.schemas`.\n"
 "It defaults to `true`, so it doesn't have to be configured in this example.\n"
 "It can be explicitly set to `false` if you want to disable automatic schema registration."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, en este caso deberá definir también el `value.serializer` con el valor `io.confluent.kafka.serializers.json.KafkaJsonSchemaSerializer` . También se detecta automáticamente. El análogo de Confluent Schema Registry de `apicurio.registry.auto-register` se llama `auto.register.schemas` . Su valor por defecto es `true` , por lo que no es necesario configurarlo en este ejemplo. Puede configurarse explícitamente en `false` si desea desactivar el registro automático de esquemas."
 
 msgid "The <code>Movie</code> consumer"
 msgstr ""
 
+#, fuzzy
 msgid ""
 "So, we can write records into Kafka containing our `Movie` data.\n"
 "That data is serialized using JSON Schema.\n"
 "Now, it's time to implement a consumer for them."
-msgstr ""
+msgstr "Así, podemos escribir registros en Kafka que contengan nuestros datos de `Movie` . Esos datos se serializan utilizando el esquema JSON. Ahora, es el momento de implementar un consumidor para ellos."
 
+#, fuzzy
 msgid ""
 "Let's create `ConsumedMovieResource` that will consume `Movie` messages\n"
 "from the `movies-from-kafka` channel and will expose it via Server-Sent Events:"
-msgstr ""
+msgstr "Creemos `ConsumedMovieResource` que consumirá mensajes `Movie` del canal `movies-from-kafka` y los expondrá a través de Eventos Enviados por el Servidor:"
 
+#, fuzzy
 msgid ""
 "The last bit of the application's code is the configuration of the `movies-from-kafka` channel in\n"
 "`application.properties`:"
-msgstr ""
+msgstr "La última parte del código de la aplicación es la configuración del canal `movies-from-kafka` en `application.properties` :"
 
+#, fuzzy
 msgid "Again, unlike with Avro, we have to define the `value.deserializer`."
-msgstr ""
+msgstr "De nuevo, a diferencia del Avro, tenemos que definir el `value.deserializer` ."
 
+#, fuzzy
 msgid ""
 "If you use Confluent Schema Registry, you must configure `value.deserializer` as well with the value ´io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer´.\n"
 "They are both detected automatically."
-msgstr ""
+msgstr "Si utiliza Confluent Schema Registry, deberá configurar también `value.deserializer` con el valor 'io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer'. Ambos se detectan automáticamente."
 
 msgid "Running the application"
 msgstr "Ejecución de la aplicación"
 
+#, fuzzy
 msgid "Start the application in dev mode:"
-msgstr ""
+msgstr "Inicie la aplicación en modo de desarrollo:"
 
+#, fuzzy
 msgid ""
 "Kafka broker and Apicurio Registry instance are started automatically thanks to Dev Services.\n"
 "See xref:kafka-dev-services.adoc[Dev Services for Kafka] and xref:apicurio-registry-dev-services.adoc[Dev Services for Apicurio Registry] for more details."
-msgstr ""
+msgstr "El broker Kafka y la instancia de Apicurio Registry se inician automáticamente gracias a Dev Services. Consulte Dev Services xref:kafka-dev-services.adoc[para Kafka] y xref:apicurio-registry-dev-services.adoc[Dev Services para] Apicurio Registry para más detalles."
 
+#, fuzzy
 msgid ""
 "You might have noticed that we didn't configure the schema registry URL anywhere.\n"
 "This is because Dev Services for Apicurio Registry configures all Kafka channels in Quarkus Messaging to use the automatically started registry instance."
-msgstr ""
+msgstr "Habrá notado que no configuramos la URL del registro de esquemas en ninguna parte. Esto se debe a que Dev Services for Apicurio Registry configura todos los canales Kafka en Quarkus Messaging para utilizar la instancia de registro iniciada automáticamente."
 
+#, fuzzy
 msgid ""
 "Apicurio Registry, in addition to its native API, also exposes an endpoint that is API-compatible with Confluent Schema Registry.\n"
 "Therefore, this automatic configuration works both for Apicurio Registry serde and Confluent Schema Registry serde."
-msgstr ""
+msgstr "Apicurio Registry, además de su API nativa, también expone un endpoint que es compatible con la API de Confluent Schema Registry. Por lo tanto, esta configuración automática funciona tanto para Apicurio Registry serde como para Confluent Schema Registry serde."
 
+#, fuzzy
 msgid ""
 "However, note that there's no Dev Services support for running Confluent Schema Registry itself.\n"
 "If you want to use a running instance of Confluent Schema Registry, configure its URL, together with the URL of a Kafka broker:"
-msgstr ""
+msgstr "Sin embargo, tenga en cuenta que no hay soporte de Dev Services para ejecutar Confluent Schema Registry por sí mismo. Si desea utilizar una instancia en ejecución de Confluent Schema Registry, configure su URL, junto con la URL de un corredor de Kafka:"
 
+#, fuzzy
 msgid "In the second terminal, query the `ConsumedMovieResource` resource with `curl`:"
-msgstr ""
+msgstr "En el segundo terminal, consulte el recurso `ConsumedMovieResource` con `curl`:"
 
+#, fuzzy
 msgid "In the third one, post a few movies:"
-msgstr ""
+msgstr "En la tercera, publica algunas películas:"
 
+#, fuzzy
 msgid "Observe what is printed in the second terminal. You should see something along the lines of:"
-msgstr ""
+msgstr "Observe lo que se imprime en la segunda terminal. Debería ver algo parecido a:"
 
 msgid "Running in JVM or Native mode"
 msgstr "Ejecución en modo JVM o nativo"
 
+#, fuzzy
 msgid ""
 "When not running in dev or test mode, you will need to start your own Kafka broker and Apicurio Registry.\n"
 "The easiest way to get them running is to use `docker-compose` to start the appropriate containers."
-msgstr ""
+msgstr "Cuando no esté funcionando en modo dev o test, necesitará iniciar su propio broker Kafka y su propio Registro Apicurio. La forma más sencilla de ponerlos en marcha es utilizar `docker-compose` para iniciar los contenedores apropiados."
 
+#, fuzzy
 msgid "Create a `docker-compose.yaml` file at the root of the project with the following content:"
-msgstr ""
+msgstr "Cree un archivo `docker-compose.yaml` en la raíz del proyecto con el siguiente contenido:"
 
+#, fuzzy
 msgid "Before starting the application, let's first start the Kafka broker and Apicurio Registry:"
-msgstr ""
+msgstr "Antes de iniciar la aplicación, vamos a iniciar el broker Kafka y el Registro Apicurio:"
 
+#, fuzzy
 msgid "You can build the application with:"
-msgstr ""
+msgstr "Puedes construir la aplicación con:"
 
+#, fuzzy
 msgid "And run it in JVM mode with:"
-msgstr ""
+msgstr "Y ejecutarlo en modo JVM con:"
 
+#, fuzzy
 msgid "Specifying the registry URL on the command line is not very convenient, so you can add a configuration property only for the `prod` profile:"
-msgstr ""
+msgstr "Especificar la URL del registro en la línea de comandos no es muy conveniente, por lo que puede añadir una propiedad de configuración sólo para el perfil `prod`:"
 
+#, fuzzy
 msgid "You can build a native executable with:"
-msgstr ""
+msgstr "Puedes construir un ejecutable nativo con:"
 
+#, fuzzy
 msgid "and run it with:"
-msgstr ""
+msgstr "y ejecutarlo con:"
 
+#, fuzzy
 msgid "Testing the application"
-msgstr ""
+msgstr "Probar la aplicación"
 
+#, fuzzy
 msgid ""
 "As mentioned above, Dev Services for Kafka and Apicurio Registry automatically start and configure a Kafka broker and Apicurio Registry instance in dev mode and for tests.\n"
 "Hence, we don't have to set up Kafka and Apicurio Registry ourselves.\n"
 "We can just focus on writing the test."
-msgstr ""
+msgstr "Como se ha mencionado anteriormente, los servicios Dev Services para Kafka y Apicurio Registry inician y configuran automáticamente un broker de Kafka y una instancia de Apicurio Registry en modo dev y para pruebas. Por lo tanto, no tenemos que configurar Kafka y Apicurio Registry nosotros mismos. Sólo tenemos que centrarnos en escribir la prueba."
 
+#, fuzzy
 msgid "First, let's add test dependencies on REST Client and Awaitility to the build file:"
-msgstr ""
+msgstr "En primer lugar, vamos a añadir las dependencias de prueba de REST Client y Awaitility al archivo de compilación:"
 
+#, fuzzy
 msgid ""
 "In the test, we will send movies in a loop and check if the `ConsumedMovieResource` returns\n"
 "what we send."
-msgstr ""
+msgstr "En la prueba, enviaremos películas en un bucle y comprobaremos si la `ConsumedMovieResource` devuelve lo que enviamos."
 
+#, fuzzy
 msgid "Manual setup"
-msgstr ""
+msgstr "Configuración manual"
 
+#, fuzzy
 msgid "If we couldn't use Dev Services and wanted to start a Kafka broker and Apicurio Registry instance manually, we would define a xref:getting-started-testing.adoc#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
-msgstr ""
+msgstr "Si no pudiéramos usar Dev Services y quisiéramos iniciar un broker Kafka y una instancia de Apicurio Registry manualmente, definiríamos un  link:getting-started-testing.html#quarkus-test-resource[QuarkusTestResourceLifecycleManager]."
 
+#, fuzzy
 msgid "Migrating from Apicurio Registry 2.x to 3.x"
-msgstr ""
+msgstr "Migración de Apicurio Registry 2.x a 3.x"
 
+#, fuzzy
 msgid "Schema ID Format Change"
-msgstr ""
+msgstr "Cambio de formato de ID de esquema"
 
+#, fuzzy
 msgid ""
 "Apicurio Registry 3.x changed the schema ID format from **8-byte (long)** to **4-byte (int)** identifiers.\n"
 "This means messages produced with v2 cannot be consumed by v3 applications (and vice versa) without explicit configuration."
-msgstr ""
+msgstr "Apicurio Registry 3.x cambió el formato de los identificadores de esquema de *8 bytes (long)* a *4 bytes (int)* . Esto significa que los mensajes producidos con v2 no pueden ser consumidos por las aplicaciones v3 (y viceversa) sin una configuración explícita."
 
+#, fuzzy
 msgid "Migration Scenarios"
-msgstr ""
+msgstr "Escenarios de migración"
 
+#, fuzzy
 msgid "**New applications (no existing v2 messages):** No configuration needed. The v3 defaults will be used automatically."
-msgstr ""
+msgstr "*Nuevas aplicaciones (sin mensajes v2 existentes):* No es necesaria ninguna configuración. Se utilizarán automáticamente los valores predeterminados de la v3."
 
+#, fuzzy
 msgid "**Consuming existing v2 messages:** Configure the `Legacy8ByteIdHandler` for channels that need to read v2-produced messages:"
-msgstr ""
+msgstr "*Consumir mensajes v2 existentes:* Configure la dirección `Legacy8ByteIdHandler` para los canales que necesiten leer mensajes producidos por v2:"
 
+#, fuzzy
 msgid "**Producing v2-compatible messages:** If downstream consumers still use v2, configure the producer:"
-msgstr ""
+msgstr "*Producir mensajes compatibles con v2:* Si los consumidores posteriores siguen utilizando v2, configure el productor:"
 
+#, fuzzy
 msgid "Standard ID Handlers: Fixed Format"
-msgstr ""
+msgstr "Manipuladores de identificación estándar: Formato fijo"
 
+#, fuzzy
 msgid ""
 "Both v2 (8-byte) and v3 (4-byte) formats use the same magic byte.\n"
 "The standard ID handlers (`Legacy8ByteIdHandler` and `Default4ByteIdHandler`) read a fixed number of bytes based on configuration—there is no per-message auto-detection."
-msgstr ""
+msgstr "Tanto el formato v2 (8 bytes) como el v3 (4 bytes) utilizan el mismo byte mágico. Los manejadores de ID estándar ( `Legacy8ByteIdHandler` y `Default4ByteIdHandler` ) leen un número fijo de bytes basado en la configuración-no hay autodetección por mensaje."
 
+#, fuzzy
 msgid "**With standard ID handlers, gradual migration only works when:**"
-msgstr ""
+msgstr "*Con los manipuladores de ID estándar, la migración gradual sólo funciona cuando:*"
 
+#, fuzzy
 msgid "Each topic has messages in ONE format (either v2 or v3, not both)"
-msgstr ""
+msgstr "Cada tema tiene mensajes en UN formato (ya sea v2 o v3, no ambos)"
 
+#, fuzzy
 msgid "Per-channel configuration routes each topic to the correct ID handler"
-msgstr ""
+msgstr "La configuración por canal dirige cada tema al gestor de ID correcto"
 
+#, fuzzy
 msgid "You can have producers and consumers using both formats in the same Apicurio Registry instance, but not mixing them in the same topic."
-msgstr ""
+msgstr "Puede tener productores y consumidores que utilicen ambos formatos en la misma instancia del Registro de Apicurio, pero no mezclarlos en el mismo tema."
 
+#, fuzzy
 msgid "Migration Paths for Topics with Existing v2 Messages"
-msgstr ""
+msgstr "Vías de migración para temas con mensajes v2 existentes"
 
+#, fuzzy
 msgid "For topics that already contain v2 messages, valid migration approaches are:"
-msgstr ""
+msgstr "Para los temas que ya contienen mensajes v2, los enfoques de migración válidos son:"
 
+#, fuzzy
 msgid "**Stop and drain:** Stop producers → drain topic completely → upgrade all services → restart with v3 configuration"
-msgstr ""
+msgstr "*Detener y drenar:* Detener productores → drenar tema completamente → actualizar todos los servicios → reiniciar con configuración v3."
 
+#, fuzzy
 msgid "**New topic migration:** Create a new v3 topic and migrate traffic to it"
-msgstr ""
+msgstr "*Migración de un nuevo tema:* Crear un nuevo tema v3 y migrar el tráfico hacia él"
 
+#, fuzzy
 msgid "**Accept transient failures:** Accept transient failures during the switchover period"
-msgstr ""
+msgstr "*Acepte fallos transitorios:* Aceptar fallos transitorios durante el periodo de conmutación."
 
+#, fuzzy
 msgid "**Optimistic fallback handler:** Use the `OptimisticFallbackIdHandler` for gradual migration (see below)"
-msgstr ""
+msgstr "*Gestor optimista de retroceso:* Utilice el `OptimisticFallbackIdHandler` para una migración gradual (véase más abajo)"
 
+#, fuzzy
 msgid "Optimistic Fallback ID Handler"
-msgstr ""
+msgstr "Manejador optimista de ID de Fallback"
 
+#, fuzzy
 msgid ""
 "Apicurio Registry provides an `OptimisticFallbackIdHandler` that can help with gradual migration from v2 to v3.\n"
 "This handler:"
-msgstr ""
+msgstr "Apicurio Registry proporciona un `OptimisticFallbackIdHandler` que puede ayudar con la migración gradual de v2 a v3. Este manejador:"
 
+#, fuzzy
 msgid "**Writes** new messages with 4-byte (v3) IDs"
-msgstr ""
+msgstr "*Escribe* nuevos mensajes con ID de 4 bytes (v3)"
 
+#, fuzzy
 msgid "**Reads** both 4-byte (v3) and 8-byte (v2) IDs"
-msgstr ""
+msgstr "*Lee* tanto ID de 4 bytes (v3) como de 8 bytes (v2)"
 
+#, fuzzy
 msgid "This approach enables a gradual migration where:"
-msgstr ""
+msgstr "Este enfoque permite una migración gradual en la que:"
 
+#, fuzzy
 msgid "Upgrade consumers first with `OptimisticFallbackIdHandler` (they can read both v2 and v3 messages)"
-msgstr ""
+msgstr "Actualice primero a los consumidores con `OptimisticFallbackIdHandler` (pueden leer tanto los mensajes v2 como los v3)"
 
+#, fuzzy
 msgid "Then upgrade producers (they start writing v3 format)"
-msgstr ""
+msgstr "A continuación, actualice los productores (empiezan a escribir en formato v3)"
 
+#, fuzzy
 msgid "Once all v2 messages are consumed, optionally switch to `Default4ByteIdHandler`"
-msgstr ""
+msgstr "Una vez consumidos todos los mensajes v2, cambie opcionalmente a `Default4ByteIdHandler`"
 
+#, fuzzy
 msgid "Compatibility with Apicurio Registry 2.x Server"
-msgstr ""
+msgstr "Compatibilidad con el servidor Apicurio Registry 2.x"
 
+#, fuzzy
 msgid ""
 "The Apicurio Registry 3.x client libraries continue to work with Apicurio Registry 2.x servers.\n"
 "However, note that Apicurio Registry 2.x is no longer actively maintained."
-msgstr ""
+msgstr "Las librerías cliente de Apicurio Registry 3.x siguen funcionando con los servidores de Apicurio Registry 2.x. Sin embargo, tenga en cuenta que Apicurio Registry 2.x ya no se mantiene activamente."
 
+#, fuzzy
 msgid "Additional Resources"
-msgstr ""
+msgstr "Recursos adicionales"
 
+#, fuzzy
 msgid "https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html[Apicurio Registry 3.x Documentation]"
-msgstr ""
+msgstr "link:https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html[Documentación de Apicurio Registry 3.x]"
 
+#, fuzzy
 msgid "https://www.apicur.io/registry/docs/apicurio-registry/3.1.x/getting-started/assembly-migrating-registry-v2-v3.html[Apicurio Registry Deployment Migration Guide]"
-msgstr ""
+msgstr "link:https://www.apicur.io/registry/docs/apicurio-registry/3.1.x/getting-started/assembly-migrating-registry-v2-v3.html[Guía de migración del despliegue del Registro Apicurio]"
 
+#, fuzzy
 msgid "https://www.apicur.io/blog/2025/03/30/migrate-registry-2-to-3[Official Apicurio Migration Guide]"
-msgstr ""
+msgstr "link:https://www.apicur.io/blog/2025/03/30/migrate-registry-2-to-3[Guía oficial de migración a Apicurio]"
 
+#, fuzzy
 msgid "https://www.apicur.io/blog/2025/04/03/evolving-serialization[Apicurio SerDes Evolution Blog Post]"
-msgstr ""
+msgstr "link:https://www.apicur.io/blog/2025/04/03/evolving-serialization[Apicurio SerDes Evolution Blog Post]"
 
+#, fuzzy
 msgid "Using the Confluent Schema Registry"
-msgstr ""
+msgstr "Uso de Apache Kafka con Schema Registry y Avro"
 
+#, fuzzy
 msgid ""
 "If you want to use the Confluent Schema Registry, you need the `quarkus-confluent-registry-json-schema` extension, instead of the `quarkus-apicurio-registry-json-schema` extension.\n"
 "Also, you need to add a few dependencies and a custom Maven repository to your `pom.xml` / `build.gradle` file:"
-msgstr ""
+msgstr "Si desea utilizar el registro de esquemas de Confluent, necesita la extensión `quarkus-confluent-registry-json-schema` , en lugar de la extensión `quarkus-apicurio-registry-json-schema` . Además, necesita añadir algunas dependencias y un repositorio Maven personalizado a su archivo `pom.xml` / `build.gradle` :"
 
+#, fuzzy
 msgid ""
 "In JVM mode, any version of `io.confluent:kafka-json-schema-serializer` can be used.\n"
 "In native mode, Quarkus supports the following versions: `6.2.x`, `7.0.x`, `7.1.x`, `7.2.x`, `7.3.x`."
-msgstr ""
+msgstr "En modo JVM, se puede utilizar cualquier versión de `io.confluent:kafka-json-schema-serializer` . En modo nativo, Quarkus soporta las siguientes versiones: `6.2.x` , `7.0.x` , `7.1.x` , `7.2.x` , `7.3.x` ."
 
+#, fuzzy
 msgid "For version `7.4.x` and `7.5.x`, due to an issue with the Confluent Schema Serializer, you need to add another dependency:"
-msgstr ""
+msgstr "Para las versiones `7.4.x` y `7.5.x`, debido a un problema con Confluent Schema Serializer, es necesario añadir otra dependencia:"
 
+#, fuzzy
 msgid "For any other versions, the native configuration may need to be adjusted."
-msgstr ""
+msgstr "Para cualquier otra versión, puede ser necesario ajustar la configuración nativa."
 
+#, fuzzy
 msgid "Further reading"
-msgstr ""
+msgstr "Más información"
 
+#, fuzzy
 msgid "link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/kafka/kafka.html[SmallRye Reactive Messaging Kafka] documentation"
-msgstr ""
+msgstr "Documentación de link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.9/kafka/kafka.html[SmallRye Reactive Messaging Kafka]"

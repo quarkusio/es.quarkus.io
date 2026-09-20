@@ -6,190 +6,242 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "Creating the extension"
-msgstr ""
+msgstr "Creación de la extensión"
 
+#, fuzzy
 msgid "From time to time, I see tweets or articles claiming they don't see the point of Quarkus because \"who needs fast startup?\", \"I have plenty of memory\" or \"what is the point of live reload?\"."
-msgstr ""
+msgstr "De vez en cuando, veo tuits o artículos en los que se afirma que no se ve el sentido de Quarkus porque \"¿quién necesita un arranque rápido?\", \"tengo mucha memoria\" o \"¿para qué sirve la recarga en vivo?\"."
 
+#, fuzzy
 msgid ""
 "I could write an article debunking these arguments and explain how the latter makes your development workflow much more efficient and how the former makes the latter possible, even if fast boots are not your thing.\n"
 "But for the sake of this blog post, let's admit these persons are absolutely right and these are not good reasons to use Quarkus."
-msgstr ""
+msgstr "Podría escribir un artículo desacreditando estos argumentos y explicar cómo el segundo hace que su flujo de trabajo de desarrollo sea mucho más eficiente y cómo el primero hace posible el segundo, incluso si las botas rápidas no son lo suyo. Pero por el bien de esta entrada de blog, admitamos que estas personas tienen toda la razón y que no son buenas razones para utilizar Quarkus."
 
+#, fuzzy
 msgid "So now what? Back to `<insert your favorite framework here>`? Not so fast..."
-msgstr ""
+msgstr "¿Y ahora qué? ¿Volver a `&amp;lt;insert your favorite framework here&amp;gt;`? No tan rápido..."
 
+#, fuzzy
 msgid ""
 "Quarkus didn't achieve fast startup and low memory footprint by using dark magic or lazy loading tricks but by entirely rethinking the way Java applications are bootstrapped.\n"
 "The whole point of Quarkus is to move as much work as possible to the build time and this journey made us create a framework to push work at build time that can be leveraged in Quarkus extensions."
-msgstr ""
+msgstr "Quarkus no consiguió un arranque rápido y una huella de memoria baja utilizando magia oscura o trucos de carga perezosa, sino replanteándose por completo la forma en que se arrancan las aplicaciones Java. Todo el sentido de Quarkus es trasladar la mayor cantidad de trabajo posible al tiempo de compilación y este viaje nos hizo crear un marco para impulsar el trabajo en tiempo de compilación que puede aprovecharse en las extensiones de Quarkus."
 
+#, fuzzy
 msgid "A Quarkus extension? That sounds like a lot of work?"
-msgstr ""
+msgstr "¿Una extensión de Quarkus? ¿Suena a mucho trabajo?"
 
+#, fuzzy
 msgid ""
 "No, really, it is not.\n"
 "You can develop your own extensions very easily and they can solve some out of the ordinary problems in a very simple way."
-msgstr ""
+msgstr "No, en realidad no lo es. Puede desarrollar sus propias extensiones muy fácilmente y pueden resolver algunos problemas fuera de lo común de forma muy sencilla."
 
+#, fuzzy
 msgid "Last week, one of of our users (hey, Juan!) asked this question on Zulip:"
-msgstr ""
+msgstr "La semana pasada, uno de nuestros usuarios (¡eh, Juan!) hizo esta pregunta en Zulip:"
 
+#, fuzzy
 msgid "Hi! I'm trying to understand how to find classes with some criteria and add them to the dependency injection context, for example: I want to find all classes whose name ends with \"MessageTransformer\" and add them to the context, I want to find those classes in an external library, so I can't add annotations to them."
-msgstr ""
+msgstr "Hola, estoy tratando de entender cómo encontrar clases con algunos criterios y añadirlas al contexto de inyección de dependencia, por ejemplo: Quiero encontrar todas las clases cuyo nombre termine en \"MessageTransformer\" y añadirlas al contexto, quiero encontrar esas clases en una librería externa, por lo que no puedo añadirles anotaciones."
 
+#, fuzzy
 msgid "Let's see how we can solve this issue by developing a custom extension."
-msgstr ""
+msgstr "Veamos cómo podemos resolver este problema desarrollando una extensión personalizada."
 
+#, fuzzy
 msgid "Creating the extension is as simple as:"
-msgstr ""
+msgstr "Crear la extensión es tan sencillo como:"
 
+#, fuzzy
 msgid "It will ask for a `groupId` - let's keep the default `org.acme` - and an extension id - I went for `message-transformers-as-beans`."
-msgstr ""
+msgstr "Le pedirá un `groupId` -dejemos el valor por defecto `org.acme` - y un identificador de extensión -yo elegí `message-transformers-as-beans`-."
 
+#, fuzzy
 msgid "Then you can import your new extension into your favorite IDE."
-msgstr ""
+msgstr "Luego puedes importar tu nueva extensión a tu IDE favorito."
 
+#, fuzzy
 msgid "Structure of the extension"
-msgstr ""
+msgstr "Estructura de la ampliación"
 
+#, fuzzy
 msgid ""
 "There is a lot to say about extensions but, in the context of this blog post, we will keep it short.\n"
 "The extension is composed of three Maven modules:"
-msgstr ""
+msgstr "Hay mucho que decir sobre las extensiones pero, en el contexto de esta entrada de blog, seremos breves. La extensión se compone de tres módulos Maven:"
 
+#, fuzzy
 msgid "The parent module - nothing to see here"
-msgstr ""
+msgstr "El módulo principal - nada que ver aquí"
 
+#, fuzzy
 msgid "The deployment module - this is the one of interest for our blog post"
-msgstr ""
+msgstr "El módulo de despliegue - este es el que nos interesa para nuestra entrada en el blog"
 
+#, fuzzy
 msgid "The runtime module - in this blog post, we won't modify it"
-msgstr ""
+msgstr "El módulo de ejecución - en esta entrada del blog, no lo modificaremos"
 
+#, fuzzy
 msgid "Let's keep it simple: the deployment module is what will be used at build time, the runtime module is what will be used at runtime."
-msgstr ""
+msgstr "Hagámoslo sencillo: el módulo de despliegue es lo que se utilizará en tiempo de construcción, el módulo de ejecución es lo que se utilizará en tiempo de ejecución."
 
+#, fuzzy
 msgid "In our case, we want to declare new beans and this is something we do at build time, so deployment module, here we come!"
-msgstr ""
+msgstr "En nuestro caso, queremos declarar nuevos beans y esto es algo que hacemos en tiempo de construcción, así que módulo de despliegue, ¡allá vamos!"
 
+#, fuzzy
 msgid "Processors and build steps"
-msgstr ""
+msgstr "Procesadores y pasos de construcción"
 
+#, fuzzy
 msgid "If you have a look at your `deployment` module, you will see a `MessageTransformersAsBeansProcessor` and you can see a method annotated with the `@BuildStep` annotation in it."
-msgstr ""
+msgstr "Si echas un vistazo a tu módulo `deployment`, verás un `MessageTransformersAsBeansProcessor` y podrás ver un método anotado con la anotación `@BuildStep` en él."
 
+#, fuzzy
 msgid ""
 "Quarkus build is populated by these build steps and they are following a consumer/producer model with dependency injection.\n"
 "The items being consumed and produced are called ``BuildItem``s."
-msgstr ""
+msgstr "La compilación de Quarkus está poblada por estos pasos de compilación y siguen un modelo de consumidor/productor con inyección de dependencias. Los elementos que se consumen y producen se denominan `BuildItem` s."
 
+#, fuzzy
 msgid ""
 "The build step that is automatically generated is easy to understand.\n"
 "It produces a `FeatureBuildItem` which will be consumed by Quarkus startup and you will see the extension name in the list displayed by Quarkus at startup:"
-msgstr ""
+msgstr "El paso de compilación que se genera automáticamente es fácil de entender. Produce un `FeatureBuildItem` que será consumido por el arranque de Quarkus y verá el nombre de la extensión en la lista mostrada por Quarkus al arrancar:"
 
+#, fuzzy
 msgid "The Jandex index"
-msgstr ""
+msgstr "El índice Jandex"
 
+#, fuzzy
 msgid ""
 "Now that we are done with the scaffolding, let's think a bit about what we want to achieve:\n"
 "we need to find all the classes in a given package whose name ends with `MessageTransformer`."
-msgstr ""
+msgstr "Ahora que ya hemos terminado con el andamiaje, pensemos un poco en lo que queremos conseguir: necesitamos encontrar todas las clases de un paquete determinado cuyo nombre termine en `MessageTransformer` ."
 
+#, fuzzy
 msgid ""
 "An important assumption of Quarkus is that the application lives in a closed world.\n"
 "You cannot dynamically add a jar at runtime to your Quarkus application and expect it to work."
-msgstr ""
+msgstr "Un supuesto importante de Quarkus es que la aplicación vive en un mundo cerrado. No puede añadir dinámicamente un jar en tiempo de ejecución a su aplicación Quarkus y esperar que funcione."
 
+#, fuzzy
 msgid ""
 "While it can be seen as a limitation, it opens all sorts of possibilities,\n"
 "one of which is the ability to index the classes and their annotations to easily look them up."
-msgstr ""
+msgstr "Aunque puede verse como una limitación, abre todo tipo de posibilidades, una de las cuales es la capacidad de indexar las clases y sus anotaciones para buscarlas fácilmente."
 
+#, fuzzy
 msgid "This index, based on https://github.com/wildfly/jandex[Jandex], is a very important part of the Quarkus bootstrap."
-msgstr ""
+msgstr "Este índice, basado en  link:https://github.com/wildfly/jandex[Jandex], es una parte muy importante del bootstrap de Quarkus."
 
+#, fuzzy
 msgid "The Jandex index doesn't contain all the classes around but is, by default, limited to the application classes and the dependencies containing either a pre-built index or an empty `META-INF/beans.xml`."
-msgstr ""
+msgstr "El índice de Jandex no contiene todas las clases del entorno, sino que, por defecto, se limita a las clases de la aplicación y a las dependencias que contienen un índice preconstruido o un `META-INF/beans.xml` vacío."
 
+#, fuzzy
 msgid ""
 "In our case, we want to list the classes of an external dependency so we will need to add them to the index.\n"
 "We can do that very easily by adding a build step to `MessageTransformersAsBeansProcessor`:"
-msgstr ""
+msgstr "En nuestro caso, queremos listar las clases de una dependencia externa por lo que necesitaremos añadirlas al índice. Podemos hacerlo muy fácilmente añadiendo un paso de compilación a `MessageTransformersAsBeansProcessor` :"
 
+#, fuzzy
 msgid "This will add the content of the `my.group.id:my-artifact-id` jar to the index."
-msgstr ""
+msgstr "Esto añadirá el contenido del tarro `my.group.id:my-artifact-id` al índice."
 
+#, fuzzy
 msgid "Declaring additional beans"
-msgstr ""
+msgstr "Declarar frijoles adicionales"
 
+#, fuzzy
 msgid "Now that we have our classes indexed, we want to make them CDI beans."
-msgstr ""
+msgstr "Ahora que tenemos nuestras clases indexadas, queremos convertirlas en beans CDI."
 
+#, fuzzy
 msgid "This can be achieved by adding another build step:"
-msgstr ""
+msgstr "Esto puede lograrse añadiendo otro paso de construcción:"
 
+#, fuzzy
 msgid "Consume the Jandex index"
-msgstr ""
+msgstr "Consumir el índice Jandex"
 
+#, fuzzy
 msgid "Inject the additional beans producer"
-msgstr ""
+msgstr "Inyectar el productor de frijoles adicional"
 
+#, fuzzy
 msgid "Get all known classes from the index"
-msgstr ""
+msgstr "Obtener todas las clases conocidas del índice"
 
+#, fuzzy
 msgid "Filter out abstract classes"
-msgstr ""
+msgstr "Filtrar las clases abstractas"
 
+#, fuzzy
 msgid "Get the FQCN of the class"
-msgstr ""
+msgstr "Obtener el FQCN de la clase"
 
+#, fuzzy
 msgid "Only keep classes from the root package we target"
-msgstr ""
+msgstr "Mantener sólo las clases del paquete raíz al que nos dirigimos"
 
+#, fuzzy
 msgid "Only keep ``MessageTransformer``s"
-msgstr ""
+msgstr "Sólo guarda `MessageTransformer`s"
 
+#, fuzzy
 msgid "Produce an `AdditionalBeanBuildItem`"
-msgstr ""
+msgstr "Producir un `AdditionalBeanBuildItem`"
 
+#, fuzzy
 msgid "Make the beans unremovable to prevent ArC from removing the beans if they are only programatically consumed"
-msgstr ""
+msgstr "Hacer que los granos sean inamovibles para evitar que ArC elimine los granos si sólo se consumen programáticamente"
 
+#, fuzzy
 msgid "Set the default scope to `@ApplicationScoped` - can be any CDI scope of your preference"
-msgstr ""
+msgstr "Establezca el ámbito por defecto en `@ApplicationScoped` - puede ser cualquier ámbito CDI de su preferencia"
 
+#, fuzzy
 msgid ""
 "With this build step, any non-abstract class from our root package `my.package` whose name ends with `MessageTransformer`\n"
 "will be made an `@ApplicationScoped` CDI bean."
-msgstr ""
+msgstr "Con este paso de compilación, cualquier clase no abstracta de nuestro paquete raíz `my.package` cuyo nombre termine en `MessageTransformer` se convertirá en un bean CDI `@ApplicationScoped` ."
 
+#, fuzzy
 msgid "Cherry on top, all this work is done at build time and you don't need to scan your entire classpath at runtime."
-msgstr ""
+msgstr "La guinda del pastel es que todo este trabajo se realiza en tiempo de compilación y no es necesario explorar todo el classpath en tiempo de ejecución."
 
+#, fuzzy
 msgid ""
 "Usually, we look up classes in the index with an interface, a superclass or an annotation.\n"
 "It is less brittle and faster than crawling the whole index and filter by name."
-msgstr ""
+msgstr "Normalmente, buscamos clases en el índice con una interfaz, una superclase o una anotación. Es menos frágil y más rápido que rastrear todo el índice y filtrar por nombre."
 
+#, fuzzy
 msgid "But the point here was to do with the constraints of the user and it wasn't an option to adapt the external dependency."
-msgstr ""
+msgstr "Pero el punto aquí tenía que ver con las limitaciones del usuario y no era una opción adaptar la dependencia externa."
 
 msgid "That&#8217;s all, folks!"
 msgstr ""
 
+#, fuzzy
 msgid "Obviously, this is a very simple example and you can do much more complex things with a Quarkus extension."
-msgstr ""
+msgstr "Obviamente, este es un ejemplo muy sencillo y se pueden hacer cosas mucho más complejas con una extensión de Quarkus."
 
+#, fuzzy
 msgid ""
 "But the whole point of this blog post was to demonstrate that you can easily leverage our extension framework to solve real-life issues.\n"
 "And **in ~10 minutes of coding, our problem is gone**."
-msgstr ""
+msgstr "Pero el objetivo de esta entrada de blog era demostrar que puede aprovechar fácilmente nuestro marco de extensión para resolver problemas de la vida real. Y *en ~10 minutos de codificación, nuestro problema ha desaparecido* ."
 
+#, fuzzy
 msgid "Next one?"
-msgstr ""
+msgstr "¿La siguiente?"
 
 msgid "Come Join Us"
 msgstr "Únete a nosotros"

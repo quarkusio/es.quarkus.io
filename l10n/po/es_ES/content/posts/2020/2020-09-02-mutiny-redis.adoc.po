@@ -6,122 +6,162 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "I got an interesting question from a user about Redis and Mutiny. While the problem was not specifically about Redis and could be applied to many other APIs, I found the context amusing."
-msgstr ""
+msgstr "Recibí una interesante pregunta de un usuario sobre Redis y Mutiny. Aunque el problema no era específicamente sobre Redis y podría aplicarse a muchas otras APIs, encontré el contexto divertido."
 
+#, fuzzy
 msgid "Enrico, the user, wanted to do something like this:"
-msgstr ""
+msgstr "Enrico, el usuario, quería hacer algo así:"
 
+#, fuzzy
 msgid "Enrico is using the Mutiny variant of the Vert.x Redis Client."
-msgstr ""
+msgstr "Enrico está utilizando la variante Mutiny del cliente Vert.x Redis."
 
+#, fuzzy
 msgid "This client offers a few methods to help us with our problem:"
-msgstr ""
+msgstr "Este cliente ofrece algunos métodos para ayudarnos con nuestro problema:"
 
+#, fuzzy
 msgid "the `RedisClient.keys(pattern)` method returning `Uni<JsonArray>`. This array contains the list of keys matching a pattern passed to the `keys` method. To simplify this post, let's use: `keys(\"*\")` returning all the keys."
-msgstr ""
+msgstr "el método `RedisClient.keys(pattern)` que devuelve `Uni&amp;lt;JsonArray&amp;gt;`. Este array contiene la lista de claves que coinciden con un patrón pasado al método `keys`. Para simplificar este post, vamos a utilizar: `keys(\"*\")` devolviendo todas las claves."
 
+#, fuzzy
 msgid "the `RedisClient.hgetall(key)` method returning a `Uni<JsonObject>`. This method retrieves the object associated with the passed key."
-msgstr ""
+msgstr "el método `RedisClient.hgetall(key)` que devuelve un `Uni&amp;lt;JsonObject&amp;gt;`. Este método recupera el objeto asociado a la clave pasada."
 
+#, fuzzy
 msgid "Both methods are asynchronous (they return `Uni`), and we need to call the second one for each retrieved key. In other words, we need to iterate over the set of keys, and for each key to invoke an asynchronous action. Finally, we want to collect the result of these asynchronous actions into a `JsonArray`."
-msgstr ""
+msgstr "Ambos métodos son asíncronos (devuelven `Uni`), y necesitamos llamar al segundo por cada clave recuperada. En otras palabras, necesitamos iterar sobre el conjunto de claves, y para cada clave invocar una acción asíncrona. Por último, queremos recoger el resultado de estas acciones asíncronas en un `JsonArray`."
 
+#, fuzzy
 msgid "Let's start with the beginning; we need the Redis Client instance:"
-msgstr ""
+msgstr "Empecemos por el principio; necesitamos la instancia del Cliente Redis:"
 
+#, fuzzy
 msgid "Note that in Quarkus, you should use the Redis extension directly, which exposes a similar API. Enrico wanted to use the Vert.x Redis Client directly."
-msgstr ""
+msgstr "Tenga en cuenta que en Quarkus, debe utilizar la extensión Redis directamente, que expone una API similar. Enrico quería usar el cliente de Redis de Vert.x directamente."
 
+#, fuzzy
 msgid "Now that we have our client, let's retrieve the list of keys:"
-msgstr ""
+msgstr "Ahora que tenemos nuestro cliente, vamos a recuperar la lista de claves:"
 
+#, fuzzy
 msgid "That produces the `JsonArray`, but we want a stream of keys.  Again, it's an asynchronous method. The returned `Uni` receives the array when it's available. Once received (`onItem`), we can create a stream out of this array:"
-msgstr ""
+msgstr "Eso produce el `JsonArray`, pero queremos un flujo de claves. De nuevo, es un método asíncrono. El `Uni` devuelto recibe el array cuando está disponible. Una vez recibido ( `onItem`), podemos crear un flujo a partir de este array:"
 
+#, fuzzy
 msgid "This snippet:"
-msgstr ""
+msgstr "Este fragmento:"
 
+#, fuzzy
 msgid "retrieves the `JsonArray` containing the keys"
-msgstr ""
+msgstr "recupera el `JsonArray` que contiene las claves"
 
+#, fuzzy
 msgid "creates a `Multi` streaming these keys, it's a `Multi<Object>` as a `JsonArray` is extending `Iterable<Object>`"
-msgstr ""
+msgstr "crea un `Multi` transmitiendo estas claves, es un `Multi&amp;lt;Object&amp;gt;` ya que un `JsonArray` se extiende `Iterable&amp;lt;Object&amp;gt;`"
 
+#, fuzzy
 msgid "maps the items from this `Multi` to `String`"
-msgstr ""
+msgstr "asigna los elementos de este `Multi` a `String`"
 
+#, fuzzy
 msgid "At this point, we have a stream of (String) keys. So, we are done with step 1."
-msgstr ""
+msgstr "En este punto, tenemos un flujo de claves (String). Por lo tanto, hemos terminado con el paso 1."
 
+#, fuzzy
 msgid "Now, step 2: for each key, we want to retrieve the associated object."
-msgstr ""
+msgstr "Ahora, paso 2: para cada clave, queremos recuperar el objeto asociado."
 
+#, fuzzy
 msgid "So let's use the `hgetall` method:"
-msgstr ""
+msgstr "Así que vamos a utilizar el método `hgetall`:"
 
+#, fuzzy
 msgid "This snippet requires a bit of an explanation."
-msgstr ""
+msgstr "Este fragmento requiere un poco de explicación."
 
+#, fuzzy
 msgid "For each item of the stream `keys`, we call `hgetall`, which produces a `Uni<JsonObject>`."
-msgstr ""
+msgstr "Para cada elemento del flujo `keys`, llamamos a `hgetall`, que produce un `Uni&amp;lt;JsonObject&amp;gt;`."
 
+#, fuzzy
 msgid "So, we want to transform our key into a Uni (*transformToUni*)."
-msgstr ""
+msgstr "Entonces, queremos transformar nuestra llave en un Uni *(transformToUni*)."
 
+#, fuzzy
 msgid "When you have a stream of items and need to invoke an asynchronous action for each item, you must choose how you will merge the results. Mutiny provides two strategies:"
-msgstr ""
+msgstr "Cuando tiene un flujo de elementos y necesita invocar una acción asíncrona para cada elemento, debe elegir cómo va a combinar los resultados. Mutiny proporciona dos estrategias:"
 
+#, fuzzy
 msgid "*merge -* as soon as the item produced by the `Uni` is received we send it downstream"
-msgstr ""
+msgstr "*fusión -* tan pronto como se recibe el artículo producido por el `Uni` lo enviamos aguas abajo"
 
+#, fuzzy
 msgid "*concatenate* - we preserve the order of the input stream to be sure that the items are sent downstream in the same order"
-msgstr ""
+msgstr "*concatenar* - preservamos el orden del flujo de entrada para asegurarnos de que los elementos se envían aguas abajo en el mismo orden"
 
+#, fuzzy
 msgid "Let's illustrate this. Imagine we have the keys `1`, `2`, `3` and to the stream `{1, 2, 3}`. Also, let's consider that in our Redis database, the key `1` is associated to `A`, `2` to `B` and `3` to `C`."
-msgstr ""
+msgstr "Ilustremos esto. Imaginemos que tenemos las claves `1`, `2`, `3` y al flujo `{1, 2, 3}`. Además, consideremos que en nuestra base de datos Redis, la clave `1` está asociada a `A`, `2` a `B` y `3` a `C`."
 
+#, fuzzy
 msgid "If you use the *merge* strategy, we are retrieving the associated objects in an undetermined order. We can end up with `{A, C, B}` or `{B, A, C}`. It depends on many factors, such as the latency, scheduling, load and so on. However, it also means we can retrieve all the associated objects concurrently and produce the resulting stream without taking care of the order."
-msgstr ""
+msgstr "Si se utiliza la estrategia de *fusión*, estamos recuperando los objetos asociados en un orden indeterminado. Podemos terminar con `{A, C, B}` o `{B, A, C}`. Depende de muchos factores, como la latencia, la programación, la carga, etc. Sin embargo, también significa que podemos recuperar todos los objetos asociados de forma concurrente y producir el flujo resultante sin tener en cuenta el orden."
 
+#, fuzzy
 msgid "If you use the *concatenate* strategy, it preserves the order from the input stream. So, it will always produce `{A, B, C}`. While it may be desirable, it may reduce the ability to retrieve the object concurrently, as Mutiny has to *wait* for all the retrieval of all the previous objects. For example, if Mutiny receives `C` first, it needs to wait for `A` and `B` before sending `C` downstream."
-msgstr ""
+msgstr "Si se utiliza la estrategia de *concatenación*, se conserva el orden del flujo de entrada. Por lo tanto, siempre producirá `{A, B, C}`. Aunque puede ser deseable, puede reducir la capacidad de recuperar el objeto de forma concurrente, ya que Mutiny tiene que *esperar* a la recuperación de todos los objetos anteriores. Por ejemplo, si Mutiny recibe primero `C`, tiene que esperar a `A` y `B` antes de enviar `C` a la corriente de entrada."
 
+#, fuzzy
 msgid "In our context, let's not preserve the order and use the *merge* strategy. So we use `transformToUniAndMerge`."
-msgstr ""
+msgstr "En nuestro contexto, no vamos a preservar el orden y utilizar la estrategia de *fusión*. Así que utilizamos `transformToUniAndMerge`."
 
+#, fuzzy
 msgid "If you run the code multiple times, you might see order changes in the resulting array."
-msgstr ""
+msgstr "Si ejecuta el código varias veces, puede ver cambios de orden en la matriz resultante."
 
+#, fuzzy
 msgid "Ok, step 2 done. Let's focus on the final steps: accumulate the objects into a `JsonArray`, and produce a `Uni<JsonArray>`, containing all the objects. Mutiny provides methods to gather items from a stream into lists, maps, sets, but there is no built-in `JsonArray` support. Fortunately, Mutiny offers a method that you can use to collect items in any structure:"
-msgstr ""
+msgstr "Bien, paso 2 realizado. Centrémonos en los últimos pasos: acumular los objetos en un `JsonArray`, y producir un `Uni&amp;lt;JsonArray&amp;gt;`, que contenga todos los objetos. Mutiny proporciona métodos para reunir elementos de un flujo en listas, mapas y conjuntos, pero no hay soporte incorporado para `JsonArray`. Afortunadamente, Mutiny ofrece un método que se puede utilizar para recoger elementos en cualquier estructura:"
 
+#, fuzzy
 msgid "`collectItems().in` allows accumulating the items in your own structure. It takes two parameters: a supplier of the structure, called only once, and a bi-consumer taking the structure and the item to add, called for each item."
-msgstr ""
+msgstr "`collectItems().in` permite acumular los artículos en su propia estructura. Toma dos parámetros: un proveedor de la estructura, llamado una sola vez, y un biconsumidor que toma la estructura y el elemento a añadir, llamado para cada elemento."
 
+#, fuzzy
 msgid "Here we go, we have everything to solve Enrico's question."
-msgstr ""
+msgstr "Aquí vamos, tenemos todo para resolver la pregunta de Enrico."
 
+#, fuzzy
 msgid "The *all in one* code is the following:"
-msgstr ""
+msgstr "El código *todo en uno* es el siguiente:"
 
+#, fuzzy
 msgid "In this snippet, there are a few interesting patterns:"
-msgstr ""
+msgstr "En este fragmento, hay algunos patrones interesantes:"
 
+#, fuzzy
 msgid "When you have a collection, and you want to iterate on it with Mutiny, transform it into a `Multi`"
-msgstr ""
+msgstr "Cuando tengas una colección y quieras iterar sobre ella con Mutiny, transfórmala en un `Multi`"
 
+#, fuzzy
 msgid "When you execute asynchronous action for each item of a stream, think about *merge* vs. *concatenate.* Use the one that makes sense for you."
-msgstr ""
+msgstr "Cuando ejecute una acción asíncrona para cada elemento de un flujo, piense en *fusionar* o *concatenar.* Utilice la que tenga sentido para usted."
 
+#, fuzzy
 msgid "To accumulate items into a structure, use `collectItems`, it offers many methods to produce your structure of choice."
-msgstr ""
+msgstr "Para acumular elementos en una estructura, utilice `collectItems`, que ofrece muchos métodos para producir la estructura que desee."
 
+#, fuzzy
 msgid "If you want to see this code in action, check this https://gist.github.com/cescoffier/e8c8a18897f9e5ca15f1378876a1bd93[gist]. You even can run it directly with JBang:"
-msgstr ""
+msgstr "Si quieres ver este código en acción, consulta este  link:https://gist.github.com/cescoffier/e8c8a18897f9e5ca15f1378876a1bd93[gist]. Incluso puedes ejecutarlo directamente con JBang:"
 
+#, fuzzy
 msgid "You can replace *merge* with *concatenate* to see the difference."
-msgstr ""
+msgstr "Puedes sustituir *fusionar* por *concatenar* para ver la diferencia."
 
+#, fuzzy
 msgid "Enjoy!"
-msgstr ""
+msgstr "¡Que aproveche!"

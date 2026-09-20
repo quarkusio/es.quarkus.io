@@ -6,165 +6,204 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "Step 1 - Generate your project"
-msgstr ""
+msgstr "Paso 1 - Genere su proyecto"
 
+#, fuzzy
 msgid ""
 "https://kafka.apache.org/[Apache] Kafka is a prevalent distributed streaming platform offering a unique set of characteristics such as message retention, replay capabilities, consumer groups, and so on.\n"
 "Kafka is highly scalable, fault-tolerant, and is becoming the spine of many modern systems.\n"
 "That being said, Kafka is not the only one out there, and choosing the right messaging technology for your application can be challenging.\n"
 "There are many articles to help you drive your decision, such as https://medium.com/@graemecolman/mind-your-amqps-or-kafka-or-interconnect-what-is-in-the-red-hat-messaging-box-9ed5aa590e92[this one].\n"
 "This post is about Kafka, and an equivalent post about AMQP will be published later."
-msgstr ""
+msgstr "link:https://kafka.apache.org/[Apache] Kafka es una plataforma prevalente de streaming distribuido que ofrece un conjunto único de características como la retención de mensajes, capacidades de repetición, grupos de consumidores, etc. Kafka es altamente escalable, tolerante a fallos y se está convirtiendo en la columna vertebral de muchos sistemas modernos. Dicho esto, Kafka no es la única que existe, y elegir la tecnología de mensajería adecuada para su aplicación puede ser todo un reto. Hay muchos artículos que le ayudarán a orientar su decisión, como link:https://medium.com/@graemecolman/mind-your-amqps-or-kafka-or-interconnect-what-is-in-the-red-hat-messaging-box-9ed5aa590e92[éste] . Este post trata sobre Kafka, y más adelante se publicará un post equivalente sobre AMQP."
 
+#, fuzzy
 msgid ""
 "In this post, you will learn how to get started with Apache Kafka in your Quarkus application in less than 10 steps.\n"
 "We will use https://smallrye.io/smallrye-reactive-messaging/latest/[Reactive Messaging] - a declarative approach to build event-driven microservices, but you can also use _bare_ Kafka APIs or Kafka Streams."
-msgstr ""
+msgstr "En esta entrada, aprenderá a dar los primeros pasos con Apache Kafka en su aplicación Quarkus en menos de 10 pasos. Utilizaremos link:https://smallrye.io/smallrye-reactive-messaging/latest/[Reactive Messaging] —un enfoque declarativo para crear microservicios basados en eventos—, aunque también puede utilizar las API _básicas_ de Kafka o Kafka Streams."
 
+#, fuzzy
 msgid ""
 "Let's start with the very beginning, getting a new project structure with the right dependencies.\n"
 "Go to https://code.quarkus.io, enter your group id and artifact id.\n"
 "Then in the extension list, select:"
-msgstr ""
+msgstr "Empecemos por el principio, obteniendo una nueva estructura de proyecto con las dependencias adecuadas. Vaya a link:https://code.quarkus.io[https://code.quarkus.io,] introduzca su id de grupo y su id de artefacto. A continuación, en la lista de extensiones, seleccione:"
 
+#, fuzzy
 msgid "SmallRye Reactive Messaging - Kafka Connector"
-msgstr ""
+msgstr "Mensajería reactiva SmallRye - Conector Kafka"
 
+#, fuzzy
 msgid "RESTEasy Jackson"
-msgstr ""
+msgstr "RESTEasy Jackson"
 
+#, fuzzy
 msgid "image:/assets/images/posts/getting-started-kafka/getting-started-kafka-code.webp[]"
-msgstr ""
+msgstr "image:/assets/images/posts/getting-started-kafka/getting-started-kafka-code.webp[alt=\"getting started kafka code\"]"
 
+#, fuzzy
 msgid "Then, click on __Generate your application__, download the project as a zip file, unzip it, and load it in your favorite IDE."
-msgstr ""
+msgstr "A continuación, haga clic en _Generar su aplicación_, descargue el proyecto como un archivo zip, descomprímalo y cárguelo en su IDE favorito."
 
+#, fuzzy
 msgid ""
 "If you opened the generated `pom.xml`, you would see that the `quarkus-smallrye-reactive-messaging-kafka`  and `quarkus-resteasy-jackson`\n"
 "dependencies are declared, so we're ready to write some code."
-msgstr ""
+msgstr "Si abriera el `pom.xml` generado, vería que las dependencias `quarkus-smallrye-reactive-messaging-kafka` y `quarkus-resteasy-jackson` están declaradas, así que estamos listos para escribir algo de código."
 
+#, fuzzy
 msgid "Step 2 - What are we going to exchange?"
-msgstr ""
+msgstr "Paso 2 - ¿Qué vamos a intercambiar?"
 
+#, fuzzy
 msgid ""
 "We need something to exchange.\n"
 "Without much originality, let's say we will send and receive `Movie` objects.\n"
 "In your project, create the `org.acme.Movie` class with the following content:"
-msgstr ""
+msgstr "Necesitamos algo que intercambiar. Sin mucha originalidad, digamos que enviaremos y recibiremos objetos `Movie` . En su proyecto, cree la clase `org.acme.Movie` con el siguiente contenido:"
 
+#, fuzzy
 msgid ""
 "In Kafka, we produce and consume records.\n"
 "A record contains a key and a value.\n"
 "Let's say we will use the movie's publication year as key and the title as value."
-msgstr ""
+msgstr "En Kafka, producimos y consumimos registros. Un registro contiene una clave y un valor. Digamos que utilizaremos el año de publicación de la película como clave y el título como valor."
 
+#, fuzzy
 msgid ""
 "We also need to decide on which topic we are going to send these records.\n"
 "Let's keep things simple and name our topic __movies__."
-msgstr ""
+msgstr "También tenemos que decidir sobre qué tema vamos a enviar estos registros. Mantengamos las cosas sencillas y llamemos a nuestro tema _películas_ ."
 
+#, fuzzy
 msgid "Step 3 - Configure the application"
-msgstr ""
+msgstr "Paso 3 - Configurar la aplicación"
 
+#, fuzzy
 msgid ""
 "As said above, we will use Reactive Messaging.\n"
 "When you use Reactive Messaging, you send messages to a channel and receive them from another channel.\n"
 "These channels are mapped to the underlying messaging technology by configuration.\n"
 "In our application, we must indicate that our reception and publication channels will use the __movies__ Kafka channel.\n"
 "In `src/main/resources/application.properties`, add the following content:"
-msgstr ""
+msgstr "Como ya hemos dicho, utilizaremos la Mensajería Reactiva. Cuando se utiliza la Mensajería Reactiva, se envían mensajes a un canal y se reciben de otro canal. Estos canales se asignan a la tecnología de mensajería subyacente mediante configuración. En nuestra aplicación, debemos indicar que nuestros canales de recepción y publicación utilizarán el canal Kafka de _películas_ . En `src/main/resources/application.properties` , añada el siguiente contenido:"
 
+#, fuzzy
 msgid "After having configured the broker location with `kafka.bootstrap.servers`, we configure our two channels: `movies-in` (receiving the records) and `movies-out` (publishing the records)."
-msgstr ""
+msgstr "Después de haber configurado la ubicación del broker con `kafka.bootstrap.servers`, configuramos nuestros dos canales: `movies-in` (recepción de los registros) y `movies-out` (publicación de los registros)."
 
+#, fuzzy
 msgid ""
 "We use the `mp.messaging.incoming.movies-in` prefix to configure the channel.\n"
 "The `connector` attribute indicates who's responsible for this channel, here the Kafka connector.\n"
 "We also need to configure the key and value deserializers."
-msgstr ""
+msgstr "Utilizamos el prefijo `mp.messaging.incoming.movies-in` para configurar el canal. El atributo `connector` indica quién es el responsable de este canal, aquí el conector Kafka. También tenemos que configurar los deserializadores de claves y valores."
 
+#, fuzzy
 msgid ""
 "To configure the outbound `movies-out` channel, we use the `mp.messaging.outgoing.movies-out` prefix.\n"
 "In addition to indicate who's responsible for that channel, we also need to configure the key and value serializers."
-msgstr ""
+msgstr "Para configurar el canal de salida `movies-out` , utilizamos el prefijo `mp.messaging.outgoing.movies-out` . Además de indicar quién es el responsable de ese canal, también tenemos que configurar los serializadores de claves y valores."
 
+#, fuzzy
 msgid "Step 4 - Publishing movies to Kafka"
-msgstr ""
+msgstr "Paso 4 - Publicación de películas en Kafka"
 
+#, fuzzy
 msgid ""
 "Now, it's time to send a record to Kafka.\n"
 "Create the `org.acme.MovieProducer` class with the following content:"
-msgstr ""
+msgstr "Ahora, es el momento de enviar un registro a Kafka. Cree la clase `org.acme.MovieProducer` con el siguiente contenido:"
 
+#, fuzzy
 msgid ""
 "In this class, we inject an `Emitter`, i.e., an object responsible for sending a message to a channel.\n"
 "This emitter is attached to the `movies-out` channel (and so will send messages to Kafka).\n"
 "We are sending `Record` objects containing the movie's publication year as key and its title as value."
-msgstr ""
+msgstr "En esta clase, inyectamos un `Emitter` , es decir, un objeto responsable de enviar un mensaje a un canal. Este emisor está unido al canal `movies-out` (y por tanto enviará mensajes a Kafka). Estamos enviando objetos `Record` que contienen el año de publicación de la película como clave y su título como valor."
 
+#, fuzzy
 msgid "So, the rest of our application can simply use the `sendMovieToKafka` method to send a movie to our Kafka topic."
-msgstr ""
+msgstr "Así, el resto de nuestra aplicación puede simplemente utilizar el método `sendMovieToKafka` para enviar una película a nuestro tema Kafka."
 
+#, fuzzy
 msgid "Step 5 - Consuming movies"
-msgstr ""
+msgstr "Paso 5 - Consumir películas"
 
+#, fuzzy
 msgid "Let's now look at the other side and retrieve the movies from Kafka."
-msgstr ""
+msgstr "Veamos ahora el otro lado y recuperemos las películas de Kafka."
 
+#, fuzzy
 msgid "Here, we use the `@Incoming` annotation to indicate to Quarkus to call the `receive` method for every received record."
-msgstr ""
+msgstr "Aquí, utilizamos la anotación `@Incoming` para indicar a Quarkus que llame al método `receive` para cada registro recibido."
 
+#, fuzzy
 msgid "Step 6 - Sending movies from a REST endpoint"
-msgstr ""
+msgstr "Paso 6 - Envío de películas desde un punto final REST"
 
+#, fuzzy
 msgid ""
 "It's quite common to send messages to Kafka from a REST endpoint.\n"
 "To do this, create the `org.acme.MovieResource` class with the following content:"
-msgstr ""
+msgstr "Es bastante común enviar mensajes a Kafka desde un punto final REST. Para ello, cree la clase `org.acme.MovieResource` con el siguiente contenido:"
 
 msgid "Step 7 - Let&#8217;s get this running!"
 msgstr ""
 
+#, fuzzy
 msgid ""
 "Well, first, we need a Kafka broker.\n"
 "You can follow the https://kafka.apache.org/quickstart[Apache Kafka quickstart], or use the following `docker-compose.yaml` file:"
-msgstr ""
+msgstr "En primer lugar, necesitamos un broker de Kafka. Puede seguir el link:https://kafka.apache.org/quickstart[inicio rápido de Apache Kafka] , o utilizar el siguiente archivo `docker-compose.yaml` :"
 
+#, fuzzy
 msgid "Copy the `docker-compose.yaml` file in your project, and from a terminal, start your broker with: `docker-compose up -d`"
-msgstr ""
+msgstr "Copie el archivo `docker-compose.yaml` en su proyecto, y desde un terminal, inicie su corredor con: `docker-compose up -d`"
 
+#, fuzzy
 msgid "Then, run the application using:"
-msgstr ""
+msgstr "A continuación, ejecute la aplicación con:"
 
+#, fuzzy
 msgid ""
 "The application runs in dev mode, meaning that you can still update the code.\n"
 "It will reload it automatically."
-msgstr ""
+msgstr "La aplicación se ejecuta en modo dev, lo que significa que aún puede actualizar el código. Lo recargará automáticamente."
 
+#, fuzzy
 msgid "In another terminal, emit a few HTTP POST request such as:"
-msgstr ""
+msgstr "En otro terminal, emita algunas peticiones HTTP POST como:"
 
+#, fuzzy
 msgid "In the terminal running the application, you will see:"
-msgstr ""
+msgstr "En el terminal que ejecuta la aplicación, verás:"
 
+#, fuzzy
 msgid "It works!"
-msgstr ""
+msgstr "¡Funciona!"
 
+#, fuzzy
 msgid "Step 8 - Native packaging"
-msgstr ""
+msgstr "Paso 8 - Embalaje nativo"
 
+#, fuzzy
 msgid "If you have https://quarkus.io/guides/building-native-image[GraalVM installed and configured correctly], you can package this application as a native executable:"
-msgstr ""
+msgstr "Si tienes  link:https://quarkus.io/guides/building-native-image[GraalVM instalado y configurado correctamente], puedes empaquetar esta aplicación como un ejecutable nativo:"
 
+#, fuzzy
 msgid "Then, execute your native executable with: `./target/getting-started-kafka-1.0.0-SNAPSHOT-runner`, and you get a Quarkus application using Kafka starting in a few milliseconds and consuming a ridiculous amount of memory: less than 30Mb after 100 ingested records!"
-msgstr ""
+msgstr "A continuación, ejecute su ejecutable nativo con: `./target/getting-started-kafka-1.0.0-SNAPSHOT-runner`, y obtendrás una aplicación de Quarkus usando Kafka que se inicia en unos pocos milisegundos y consume una cantidad ridícula de memoria: ¡menos de 30Mb después de 100 registros ingeridos!"
 
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
+#, fuzzy
 msgid ""
 "In less than 10 minutes, we have a new Quarkus application using Apache Kafka.\n"
 "If you want to go further, check the https://quarkus.io/guides/kafka[Kafka guide]."
-msgstr ""
+msgstr "En menos de 10 minutos, tenemos una nueva aplicación Quarkus utilizando Apache Kafka. Si quiere ir más allá, consulte la link:https://quarkus.io/guides/kafka[guía de Kafka] ."

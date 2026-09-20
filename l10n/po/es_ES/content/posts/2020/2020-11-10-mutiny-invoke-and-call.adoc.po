@@ -6,128 +6,160 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#, fuzzy
 msgid "The invoke method"
-msgstr ""
+msgstr "El método de invocación"
 
+#, fuzzy
 msgid ""
 "Mutiny is an event-driven Reactive Programming library.\n"
 "Like other reactive programming libraries, it uses streams as the primary construct.\n"
 "These streams convey events, and your code processes these events.\n"
 "Most of the time, your code is only interested in item and failure events.\n"
 "But there are other kinds of events such as cancellation, request, completion, and so on."
-msgstr ""
+msgstr "Mutiny es una biblioteca de programación reactiva basada en eventos. Al igual que otras bibliotecas de programación reactiva, utiliza streams como constructo principal. Estos flujos transmiten eventos, y su código procesa estos eventos. La mayoría de las veces, a su código sólo le interesan los eventos de elemento y de fallo. Pero hay otros tipos de eventos como cancelación, solicitud, finalización, etc."
 
+#, fuzzy
 msgid "It's not rare that you need to look at these various events to understand better what's going on or implement specific side effects. For example, you may need to close a resource after a completion event or log a message on failure or cancellation."
-msgstr ""
+msgstr "No es raro que necesites mirar estos diversos eventos para entender mejor lo que está pasando o implementar efectos secundarios específicos. Por ejemplo, puedes necesitar cerrar un recurso después de un evento de finalización o registrar un mensaje en caso de fallo o cancelación."
 
+#, fuzzy
 msgid ""
 "For each kind of event, there is an associated _group_ providing the methods to handle that specific event: `onItem()`, `onFailure()`, `onCompletion()` and so on.\n"
 "These groups provide two methods to peek at the various events without impacting its distribution: `invoke` and `call`.\n"
 "It does not transform the received event; it notifies you that something happened and let you react."
-msgstr ""
+msgstr "Para cada tipo de evento, existe un _grupo_ asociado que proporciona los métodos para manejar ese evento específico: `onItem()` , `onFailure()` , `onCompletion()` y así sucesivamente. Estos grupos proporcionan dos métodos para asomarse a los distintos eventos sin afectar a su distribución: `invoke` y `call` . No transforma el evento recibido; le notifica que algo ha ocurrido y le permite reaccionar."
 
+#, fuzzy
 msgid ""
 "The `invoke` method is synchronous and does not return anything.\n"
 "Mutiny invokes the configured callback when the observed stream dispatches the event:"
-msgstr ""
+msgstr "El método `invoke` es síncrono y no devuelve nada. Mutiny invoca la llamada de retorno configurada cuando el flujo observado despacha el evento:"
 
+#, fuzzy
 msgid ""
 "As said above, `invoke` is synchronous.\n"
 "Mutiny invokes the callback and propagates the event downstream when the callback returns. It blocks the dispatching."
-msgstr ""
+msgstr "Como ya se ha dicho, `invoke` es síncrono. Mutiny invoca la devolución de llamada y propaga el evento aguas abajo cuando la devolución de llamada regresa. Bloquea el envío."
 
+#, fuzzy
 msgid "image:/assets/images/posts/mutiny-invoke-call/invoke.webp[]"
-msgstr ""
+msgstr "image:/assets/images/posts/mutiny-invoke-call/invoke.webp[alt=\"invoke\"]"
 
+#, fuzzy
 msgid "Of course, we highly recommend you not to block."
-msgstr ""
+msgstr "Por supuesto, le recomendamos encarecidamente que no se bloquee."
 
+#, fuzzy
 msgid "The following snippets show how you can log the different types of events."
-msgstr ""
+msgstr "Los siguientes fragmentos muestran cómo se pueden registrar los diferentes tipos de eventos."
 
+#, fuzzy
 msgid ""
 "The `invoke` method does not change the event, except in one case.\n"
 "If the `invoke` callback throws an exception, the downstream does not get the actual event but get a failure event instead."
-msgstr ""
+msgstr "El método `invoke` no modifica el evento, salvo en un caso. Si la llamada de retorno de `invoke` lanza una excepción, el flujo descendente no recibe el evento real, sino que obtiene en su lugar un evento de fallo."
 
+#, fuzzy
 msgid "The call method"
-msgstr ""
+msgstr "El método de llamada"
 
+#, fuzzy
 msgid "Unlike `invoke`, `call` is asynchronous, and the callback returns a `Uni<?>` object."
-msgstr ""
+msgstr "A diferencia de `invoke`, `call` es asíncrono, y la llamada de retorno devuelve un objeto `Uni&amp;lt;?&amp;gt;`."
 
+#, fuzzy
 msgid "`call` is often used when you need to implement asynchronous side-effects, such as closing resources."
-msgstr ""
+msgstr "`call` se utiliza a menudo cuando se necesita implementar efectos secundarios asíncronos, como el cierre de recursos."
 
+#, fuzzy
 msgid "image:/assets/images/posts/mutiny-invoke-call/call.webp[]"
-msgstr ""
+msgstr "image:/assets/images/posts/mutiny-invoke-call/call.webp[alt=\"call\"]"
 
+#, fuzzy
 msgid "Mutiny does not dispatch the original event downstream until the Uni returned by the callback emits an item:"
-msgstr ""
+msgstr "Mutiny no despacha el evento original aguas abajo hasta que la Uni devuelta por el callback emita un elemento:"
 
+#, fuzzy
 msgid ""
 "As shown in the previous snippet, you can use this approach to delay items.\n"
 "But the primary use case is about completing asynchronous actions:"
-msgstr ""
+msgstr "Como se muestra en el fragmento anterior, puede utilizar este enfoque para retrasar elementos. Pero el caso de uso principal tiene que ver con completar acciones asíncronas:"
 
+#, fuzzy
 msgid ""
 "Under the hood, Mutiny gets the `Uni` (by invoking the callback) and subscribes to it.\n"
 "It observes the item or failure event from that `Uni`.\n"
 "It discards the item value as only the emission matters in this case."
-msgstr ""
+msgstr "Bajo el capó, Mutiny obtiene el `Uni` (invocando la devolución de llamada) y se suscribe a él. Observa el evento de elemento o de fallo de ese `Uni` . Descarta el valor del elemento, ya que en este caso sólo importa la emisión."
 
+#, fuzzy
 msgid "If the callback throws an exception or the produced `Uni` produces a failure, Mutiny propagates that failure (or a `CompositeException`) downstream, replacing the original event."
-msgstr ""
+msgstr "Si la llamada de retorno lanza una excepción o el `Uni` producido produce un fallo, Mutiny propaga ese fallo (o un `CompositeException` ) aguas abajo, reemplazando el evento original."
 
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "Resumen"
 
 msgid "The `invoke` and `call` methods are handy when you need to observe a stream without changing the transiting events."
 msgstr "The `invoke` and `call` methods are handy when you need to observe a stream without changing the transiting events."
 
+#, fuzzy
 msgid ""
 "Use `invoke` for implementing synchronous side-effects or logging events.\n"
 "The asynchronous nature of `call` makes it perfect for implementing asynchronous side-effects, such as closing resources, flushing data, delay items, and so on."
-msgstr ""
+msgstr "Utilice `invoke` para implementar efectos secundarios síncronos o registrar eventos. La naturaleza asíncrona de `call` lo hace perfecto para implementar efectos secundarios asíncronos, como el cierre de recursos, el vaciado de datos, el retraso de elementos, etc."
 
 msgid "The following table highlights the key differences:"
 msgstr "The following table highlights the key differences:"
 
+#, fuzzy
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
+#, fuzzy
 msgid "`invoke`"
-msgstr ""
+msgstr "`invoke`"
 
+#, fuzzy
 msgid "`call`"
-msgstr ""
+msgstr "`call`"
 
+#, fuzzy
 msgid "Nature"
-msgstr ""
+msgstr "Naturaleza"
 
+#, fuzzy
 msgid "synchronous"
-msgstr ""
+msgstr "sincrónica"
 
+#, fuzzy
 msgid "asynchronous"
-msgstr ""
+msgstr "asíncrono"
 
+#, fuzzy
 msgid "Return type"
-msgstr ""
+msgstr "Tipo de retorno"
 
+#, fuzzy
 msgid "`void`"
-msgstr ""
+msgstr "`void`"
 
+#, fuzzy
 msgid "`Uni<?>`"
-msgstr ""
+msgstr "`Uni&amp;lt;?&amp;gt;`"
 
+#, fuzzy
 msgid "Main Use cases"
-msgstr ""
+msgstr "Principales casos de uso"
 
 msgid "logging"
 msgstr "logging"
 
+#, fuzzy
 msgid "closing resources, flushing data"
-msgstr ""
+msgstr "cierre de recursos, descarga de datos"
 
+#, fuzzy
 msgid "These methods are available for every kind of event in the associated group."
-msgstr ""
+msgstr "Estos métodos están disponibles para cada tipo de evento en el grupo asociado."
