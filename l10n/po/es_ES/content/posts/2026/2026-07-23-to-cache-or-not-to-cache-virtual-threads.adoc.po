@@ -10,32 +10,50 @@ msgstr ""
 msgid "Why Would You Pool Virtual Threads?"
 msgstr "¿Por qué se agruparían los subprocesos virtuales?"
 
+#. mt: deepl
+#, fuzzy
 msgid "This article was substantially revised on 11 September 2026"
-msgstr ""
+msgstr "Este artículo se revisó en profundidad el 11 de septiembre de 2026"
 
+#. mt: deepl
+#, fuzzy
 msgid "The version published on 28 July 2026 explained what we measured with a cause that turned out to be wrong: the benchmark it rested on had a bug. https://github.com/pchilano[Patricio Chilano Mateo] questioned the explanation in a https://github.com/openjdk/loom/pull/228#issuecomment-5529741290[review of the original findings], and following that question is what turned the bug up. Everything below has been re-measured. The advice — don't pool virtual threads — is unchanged; the reason for it is not."
-msgstr ""
+msgstr "La versión publicada el 28 de julio de 2026 explicaba lo que habíamos medido atribuyéndolo a una causa que resultó ser errónea: el punto de referencia en el que se basaba presentaba un error. link:https://github.com/pchilano[Patricio Chilano Mateo] cuestionó dicha explicación en una link:https://github.com/openjdk/loom/pull/228#issuecomment-5529741290[revisión de los resultados originales] , y fue precisamente a raíz de esa pregunta cuando se detectó el error. Todo lo que figura a continuación se ha vuelto a medir. La recomendación —no agrupar subprocesos virtuales— no ha cambiado; la razón que la justifica, sí."
 
+#. mt: deepl
+#, fuzzy
 msgid "What exactly changed"
-msgstr ""
+msgstr "¿Qué es lo que ha cambiado exactamente?"
 
+#. mt: deepl
+#, fuzzy
 msgid "*The bug.* The benchmark serialised JSON with Jackson on its default `ThreadLocal`-based buffer recycling. Because each request ran on its own virtual thread, that pinned a buffer set per thread — around 200 MB of live heap in the pooled arm against essentially none in the unpooled one — inflating heap occupancy and garbage collector work in precisely the configuration under test. Every figure in this article was re-measured with a non-`ThreadLocal` recycler."
-msgstr ""
+msgstr "*El error.* La prueba de rendimiento serializó JSON con Jackson utilizando su reciclaje de búfer predeterminado `basado en ThreadLocal` . Dado que cada solicitud se ejecutaba en su propio hilo virtual, esto fijaba un conjunto de búferes por hilo —alrededor de 200 MB de memoria heap activa en la rama con búferes compartidos frente a prácticamente ninguno en la que no los utilizaba—, lo que aumentaba la ocupación de la memoria heap y la carga de trabajo del recolector de basura precisamente en la configuración sometida a prueba. Todas las cifras de este artículo se volvieron a medir con un reciclador `que no utilizaba ThreadLocal` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "*What the original blamed, and this version does not.* It attributed the throughput collapse on a 1 GB heap to `StackChunk` churn: oversized chunks abandoned in the old generation, forcing the collector into Full GCs. With the confound removed that attribution does not hold. The collapse is still there on a smaller heap, and this version reports it as something we observed and cannot explain."
-msgstr ""
+msgstr "*Lo que la versión original atribuía como causa, y esta versión no.* Atribuía el colapso del rendimiento en un montón de 1 GB a la rotación `de StackChunks` : fragmentos de tamaño excesivo abandonados en la generación antigua, lo que obligaba al recolector a realizar GC completos. Una vez eliminada esa variable de confusión, dicha atribución ya no se sostiene. El colapso sigue produciéndose en un montón más pequeño, y esta versión lo describe como algo que hemos observado y que no podemos explicar."
 
+#. mt: deepl
+#, fuzzy
 msgid "*What was dropped.* The experimental JVM patch the original built toward (https://github.com/openjdk/loom/pull/228[openjdk/loom#228]) is no longer part of the story. Once the benchmark was fixed it showed no benefit worth reporting."
-msgstr ""
+msgstr "*Lo que se descartó.* El parche experimental de la JVM para el que se diseñó la versión original ( link:https://github.com/openjdk/loom/pull/228[openjdk/loom#228] ) ya no forma parte del proyecto. Una vez corregida la prueba de rendimiento, no se observó ningún beneficio que mereciera la pena destacar."
 
+#. mt: deepl
+#, fuzzy
 msgid "*What survived, and is now better supported.* Pooling really does retain around 60 MB of `StackChunk` for the life of the pool. The original called those chunks \"C1-sized\"; logging every frame as it is frozen shows they are interpreted first and C1 after. New in this version: *why* they are never released — a pooled thread never returns out of its worker loop, so the frames the JVM pushed to start it never leave the chunk, and a chunk is only unlinked once it is empty."
-msgstr ""
+msgstr "*Lo que se ha conservado y ahora cuenta con un mejor soporte.* La agrupación realmente retiene unos 60 MB de `StackChunk` durante toda la vida útil del grupo. El código original denominaba a esos fragmentos «de tamaño C1»; el registro de cada fotograma a medida que se congela muestra que primero se interpretan y después se asignan a C1. Novedad de esta versión: *por qué* nunca se liberan — un hilo agrupado nunca sale de su bucle de trabajo, por lo que los fotogramas que la JVM introdujo para iniciarlo nunca abandonan el fragmento, y un fragmento solo se desvincula una vez que está vacío."
 
+#. mt: deepl
+#, fuzzy
 msgid "*What did not change.* The conclusion, and the 3% win at 4 GB."
-msgstr ""
+msgstr "*Lo que no cambió.* La conclusión y la victoria por un 3 % con 4 GB."
 
+#. mt: deepl
+#, fuzzy
 msgid "The superseded version remains readable in the site's history: https://github.com/quarkusio/quarkusio.github.io/blob/96231ef2117ed1501e38d9e46d55feb739d84081/content/posts/2026-07-23-to-cache-or-not-to-cache-virtual-threads.adoc[the article as published on 28 July 2026]."
-msgstr ""
+msgstr "La versión anterior sigue estando disponible en el historial de la página web: link:https://github.com/quarkusio/quarkusio.github.io/blob/96231ef2117ed1501e38d9e46d55feb739d84081/content/posts/2026-07-23-to-cache-or-not-to-cache-virtual-threads.adoc[el artículo tal y como se publicó el 28 de julio de 2026] ."
 
 #, fuzzy
 msgid "The official guidance on virtual threads is clear:"
@@ -45,249 +63,409 @@ msgstr "Las directrices oficiales sobre los hilos virtuales son claras:"
 msgid "Virtual threads are cheap and plentiful, and thus should never be pooled: A new virtual thread should be created for every application task."
 msgstr "Los subprocesos virtuales son económicos y abundantes, por lo que nunca deben agruparse: debe crearse un nuevo subproceso virtual para cada tarea de la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "As part of our work on https://youtu.be/Oy005l5vHtE[improving Quarkus performance with virtual threads] and https://youtu.be/oWE_kYB4Wns[investigating Loom's scheduling behavior], we wanted to know whether ignoring that advice is worth it — not in principle, but in bytes: what does pooling buy, what does it cost, and does either show up in throughput?"
-msgstr ""
+msgstr "Como parte de nuestro trabajo para link:https://youtu.be/Oy005l5vHtE[mejorar el rendimiento de Quarkus mediante subprocesos virtuales] y link:https://youtu.be/oWE_kYB4Wns[para analizar el comportamiento de la programación de Loom] , queríamos saber si merece la pena ignorar esa recomendación —no en teoría, sino en términos de bytes—: ¿qué ventajas aporta la agrupación en un pool, qué coste supone y se refleja alguno de estos aspectos en el rendimiento?"
 
+#. mt: deepl
+#, fuzzy
 msgid "The short answer: pooling allocates about 8% less per request, exactly as advertised, and that changes nothing we can measure. It also keeps about 60 MB of heap alive for as long as the pool lives, and on a slightly smaller heap that is enough to change how the garbage collector behaves. It saves the cheap thing and keeps the expensive one."
-msgstr ""
+msgstr "La respuesta breve: la gestión de memoria compartida asigna aproximadamente un 8 % menos por solicitud, tal y como se indica, y eso no altera nada de lo que podamos medir. Además, mantiene activos unos 60 MB de memoria del montón mientras el grupo permanece activo, y en un montón ligeramente más pequeño eso basta para alterar el comportamiento del recolector de basura. Este conserva lo que resulta económico y descarta lo que resulta costoso."
 
+#. mt: deepl
+#, fuzzy
 msgid "Pooling threads is a well-established pattern. We do it for platform threads in frameworks like Quarkus because they are expensive to create — each one maps to an OS thread with a pre-allocated stack. *Virtual threads are designed to be cheap, so the architects of Project Loom say pooling is unnecessary.* But a brave and careless developer might still consider it: creating a virtual thread allocates a `Thread` object, its thread-local storage, and internal scheduling structures. If you reuse virtual threads, you skip all of that."
-msgstr ""
+msgstr "La agrupación de subprocesos es un patrón bien consolidado. Lo hacemos con los subprocesos de la plataforma en marcos como Quarkus porque su creación resulta costosa: cada uno se corresponde con un subproceso del sistema operativo con una pila preasignada. *Los subprocesos virtuales están diseñados para ser económicos, por lo que los arquitectos del Proyecto Loom afirman que la agrupación es innecesaria.* No obstante, un desarrollador audaz y descuidado podría seguir considerándolo: al crear un hilo virtual se asigna un objeto ``Thread`` , su almacenamiento local de hilo y las estructuras internas de programación. Si se reutilizan los hilos virtuales, se omite todo eso."
 
+#. mt: deepl
+#, fuzzy
 msgid "The benchmark"
-msgstr ""
+msgstr "El punto de referencia"
 
+#. mt: deepl
+#, fuzzy
 msgid "*The workload we care about* is the typical Java enterprise pattern: an HTTP server receives requests, *dispatches each one to a virtual thread that performs blocking I/O*, then returns a response."
-msgstr ""
+msgstr "*La carga de trabajo que nos ocupa* es el patrón típico de Java para entornos empresariales: un servidor HTTP recibe solicitudes, *las distribuye a un hilo virtual que realiza operaciones de E/S bloqueantes* y, a continuación, devuelve una respuesta."
 
+#. mt: deepl
+#, fuzzy
 msgid "Ours simplifies that to its essential shape: a Netty HTTP server receives requests, hands each one to a VT that makes a blocking HTTP call (via Apache HttpClient) to a mock backend with 30ms think time, parses the JSON it gets back, then returns the response. 10,000 concurrent connections, 8 carriers, a *30-second warmup* followed by a *30-second measurement phase*. Two modes, which we will call *unpooled* — a fresh virtual thread created for every request, as JEP 444 prescribes — and *pooled*, an executor that parks finished virtual threads and reuses them, growing on demand up to 10,000 threads. With 10,000 connections all sending at once, it reaches that ceiling in the first seconds of every run. Every run uses ParallelGC; the cost we end up measuring is promotion behaviour, which is collector-specific, and we did not test G1."
-msgstr ""
+msgstr "Nuestra solución simplifica todo ello hasta su forma esencial: un servidor HTTP Netty recibe las solicitudes, las remite una a una a un VT que realiza una llamada HTTP bloqueante (a través de Apache HttpClient) a un backend simulado con un tiempo de reflexión de 30 ms, analiza el JSON que recibe y, a continuación, devuelve la respuesta. 10 000 conexiones simultáneas, 8 operadores, un *calentamiento de 30 segundos* seguido de una *fase de medición de 30 segundos* . Dos modos, a los que denominaremos *«sin grupo»* —un hilo virtual nuevo creado para cada solicitud, tal y como prescribe la JEP 444— y *«con grupo»* , un ejecutor que aparca los hilos virtuales finalizados y los reutiliza, ampliándose según la demanda hasta un máximo de 10 000 hilos. Con 10 000 conexiones enviando datos a la vez, se alcanza ese límite máximo en los primeros segundos de cada ejecución. Todas las ejecuciones utilizan ParallelGC; el coste que acabamos midiendo es el comportamiento de promoción, que es específico del recolector, y no hemos probado G1."
 
+#. mt: deepl
+#, fuzzy
 msgid "Every figure below is a mean over repeated runs, with the range wherever the spread matters — https://quarkus.io/blog/fairness-in-benchmarking/[averages hide outliers], and here the outliers turned out to be the most interesting thing we found."
-msgstr ""
+msgstr "Cada cifra que figura a continuación representa la media obtenida tras repetidas ejecuciones, junto con el rango en aquellos casos en los que la dispersión es relevante: link:https://quarkus.io/blog/fairness-in-benchmarking/[las medias ocultan los valores atípicos] , y en este caso los valores atípicos resultaron ser lo más interesante que encontramos."
 
+#. mt: deepl
+#, fuzzy
 msgid "What Pooling Buys"
-msgstr ""
+msgstr "Qué se consigue con la puesta en común"
 
+#. mt: deepl
+#, fuzzy
 msgid "Start where the case for pooling is strongest — a 4 GB heap, room to spare:"
-msgstr ""
+msgstr "Empiece por el caso en el que los argumentos a favor de la agrupación son más sólidos: un montón de 4 GB, con margen de sobra:"
 
+#. mt: deepl
+#, fuzzy
 msgid "4 GB heap"
-msgstr ""
+msgstr "4 GB de memoria dinámica"
 
 #, fuzzy
 msgid "TPS"
 msgstr "TPS"
 
+#. mt: deepl
+#, fuzzy
 msgid "unpooled"
-msgstr ""
+msgstr "no agrupado"
 
+#. mt: deepl
+#, fuzzy
 msgid "165,344"
-msgstr ""
+msgstr "165 344"
 
+#. mt: deepl
+#, fuzzy
 msgid "pooled, 10,000 VTs"
-msgstr ""
+msgstr "en conjunto, 10 000 VT"
 
+#. mt: deepl
+#, fuzzy
 msgid "170,182"
-msgstr ""
+msgstr "170 182"
 
+#. mt: deepl
+#, fuzzy
 msgid "Pooling wins, by just under 3%. The slowest pooled run still beat the fastest unpooled one."
-msgstr ""
+msgstr "Las ejecuciones en grupo obtienen mejores resultados, por un margen de algo menos del 3 %. Incluso la ejecución en grupo más lenta superó a la más rápida de las ejecuciones individuales."
 
+#. mt: deepl
+#, fuzzy
 msgid "One caveat: waking a pooled VT with `LockSupport.unpark()` queues it on the carrier's *local* queue, while `Thread.start()` uses the *external* one (`VirtualThread.java`), so the 3% may be the queue rather than the allocation; nothing here separates them."
-msgstr ""
+msgstr "Una salvedad: al activar un VT agrupado con `LockSupport.unpark()` , este se coloca en la cola *local* del portador, mientras que `Thread.start()` utiliza la cola *externa* ( `VirtualThread.java` ); por lo tanto, es posible que ese 3 % se deba a la cola y no a la asignación; aquí no hay nada que permita diferenciarlas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Now take the room away. Same benchmark, 1 GB heap, and this time we counted what was allocated — the sum of eden occupancy at every collection, from the GC log:"
-msgstr ""
+msgstr "Ahora elimine la memoria. El mismo test de rendimiento, 1 GB de heap, y esta vez hemos contabilizado lo que se ha asignado: la suma de la ocupación de Eden en cada recolección, según el registro del GC:"
 
+#. mt: deepl
+#, fuzzy
 msgid "1 GB heap"
-msgstr ""
+msgstr "1 GB de memoria dinámica"
 
+#. mt: deepl
+#, fuzzy
 msgid "allocation rate, measurement window"
-msgstr ""
+msgstr "tasa de asignación, ventana de medición"
 
+#. mt: deepl
+#, fuzzy
 msgid "GC pause"
-msgstr ""
+msgstr "Pausa del GC"
 
+#. mt: deepl
+#, fuzzy
 msgid "155,302"
-msgstr ""
+msgstr "155 302"
 
+#. mt: deepl
+#, fuzzy
 msgid "2,174–2,323 MB/s"
-msgstr ""
+msgstr "2.174–2.323 MB/s"
 
+#. mt: deepl
+#, fuzzy
 msgid "4.9 s"
-msgstr ""
+msgstr "4,9 s"
 
+#. mt: deepl
+#, fuzzy
 msgid "pooled"
-msgstr ""
+msgstr "agrupados"
 
+#. mt: deepl
+#, fuzzy
 msgid "156,854"
-msgstr ""
+msgstr "156 854"
 
+#. mt: deepl
+#, fuzzy
 msgid "*1,981–2,133 MB/s*"
-msgstr ""
+msgstr "*1.981–2.133 MB/s*"
 
+#. mt: deepl
+#, fuzzy
 msgid "5.0 s"
-msgstr ""
+msgstr "5,0 s"
 
+#. mt: deepl
+#, fuzzy
 msgid "The saving is real: 8.6% less allocation over the run, with both arms serving the same throughput to within 1%. Per request that is 14.8 KB against 13.6 KB — about 1.3 KB saved."
-msgstr ""
+msgstr "El ahorro es real: un 8,6 % menos de asignación a lo largo de la ejecución, y ambos brazos ofrecen el mismo rendimiento con una variación inferior al 1 %. Por solicitud, esto supone 14,8 KB frente a 13,6 KB, lo que supone un ahorro de aproximadamente 1,3 KB."
 
+#. mt: deepl
+#, fuzzy
 msgid "We did not identify what pooling allocates in exchange — and it does allocate something, because an unpooled thread's frozen stack alone is a 2.2 KB object per request, so avoiding it should have saved more than 1.3 KB."
-msgstr ""
+msgstr "No hemos podido determinar qué es lo que asigna el pooling a cambio —y sí que asigna algo, ya que solo la pila congelada de un hilo no incluido en el pool ocupa 2,2 KB por solicitud, por lo que evitarla debería haber supuesto un ahorro de más de 1,3 KB—."
 
+#. mt: deepl
+#, fuzzy
 msgid "And the saving changes nothing downstream. Young collections, Full GCs (two in every run, both arms), pause time and throughput are all inside the run-to-run spread. Allocation that dies young is reclaimed by moving a pointer; 8% less of it is 8% less of something that was already nearly free."
-msgstr ""
+msgstr "Y la liberación no cambia nada en las fases posteriores. Las recolecciones tempranas, los GC completos (dos en cada ejecución, en ambas ramas), el tiempo de pausa y el rendimiento se encuentran todos dentro del margen de variación entre ejecuciones. La memoria asignada que se libera prematuramente se recupera moviendo un puntero; un 8 % menos de esa memoria supone un 8 % menos de algo que ya era prácticamente gratuito."
 
+#. mt: deepl
+#, fuzzy
 msgid "What Pooling Costs"
-msgstr ""
+msgstr "¿Cuáles son los costes de la agrupación?"
 
+#. mt: deepl
+#, fuzzy
 msgid "`jcmd GC.class_histogram` forces a Full GC and counts what is still reachable — the heap you cannot get rid of. Run mid-load, at the same point in every run:"
-msgstr ""
+msgstr "`jcmd GC.class_histogram` fuerza una recolección de basura completa (Full GC) y contabiliza lo que sigue siendo accesible: el montón del que no puede deshacerse. Ejecútelo en medio de la carga, en el mismo punto en cada ejecución:"
 
+#. mt: deepl
+#, fuzzy
 msgid "live heap"
-msgstr ""
+msgstr "montón activo"
 
+#. mt: deepl
+#, fuzzy
 msgid "of which StackChunk"
-msgstr ""
+msgstr "de los cuales StackChunk"
 
+#. mt: deepl
+#, fuzzy
 msgid "389–422 MB"
-msgstr ""
+msgstr "389–422 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "*5–13 MB* (2.3–6.1K chunks)"
-msgstr ""
+msgstr "*5–13 MB* (2,3–6,1 K fragmentos)"
 
+#. mt: deepl
+#, fuzzy
 msgid "453–505 MB"
-msgstr ""
+msgstr "453–505 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "*69–93 MB* (16.5–20.8K chunks)"
-msgstr ""
+msgstr "*69–93 MB* (16,5–20,8 K de fragmentos)"
 
+#. mt: deepl
+#, fuzzy
 msgid "Pooling costs about 60 MB of live heap — about 6 KB per pooled thread — and `StackChunk` is the only class that grows: comparing one run of each kind, nothing else moves by more than a megabyte."
-msgstr ""
+msgstr "La agrupación de subprocesos ocupa unos 60 MB del montón dinámico —aproximadamente 6 KB por subproceso agrupado— y `StackChunk` es la única clase que aumenta de tamaño: al comparar una ejecución de cada tipo, ninguna otra clase varía en más de un megabyte."
 
+#. mt: deepl
+#, fuzzy
 msgid "Where that 60 MB comes from. A blocked virtual thread's stack is copied into a heap object that is sized once, for the stack it holds, and never resized. In the first seconds of a run the code is not yet C2-compiled, and code C2 has not reached needs about four times more stack words, so early freezes mint chunks of roughly a thousand words where a warm one needs 270."
-msgstr ""
+msgstr "De dónde proceden esos 60 MB. La pila de un hilo virtual bloqueado se copia en un objeto de montón cuyo tamaño se establece una sola vez, en función de la pila que contiene, y nunca se vuelve a ajustar. En los primeros segundos de ejecución, el código aún no se ha compilado en C2, y el código al que aún no ha llegado el C2 necesita aproximadamente cuatro veces más palabras de pila, por lo que los bloqueos tempranos consumen bloques de unas mil palabras, mientras que uno «caliente» solo necesita 270."
 
+#. mt: deepl
+#, fuzzy
 msgid "A young collection then promotes that chunk, and a promoted chunk cannot take the next freeze: *a fresh small one goes in front of it and the fat one stays behind*. It stays for good, because the JVM unlinks it only once it is empty, and what it still holds is the thread's entry frames — the ones that return only when the thread terminates, which a pooled thread never does."
-msgstr ""
+msgstr "A continuación, una colección joven asciende ese bloque, y un bloque ascendido no puede pasar a la siguiente congelación: *uno nuevo y pequeño se coloca delante de él y el grande se queda atrás* . Permanece allí de forma definitiva, ya que la JVM solo lo desvincula una vez que está vacío, y lo que aún contiene son los marcos de entrada del hilo —los que solo se devuelven cuando el hilo finaliza, algo que un hilo agrupado en el pool nunca hace—."
 
+#. mt: deepl
+#, fuzzy
 msgid "Every pooled thread ends up carrying one, ten thousand of them is the 60 MB. An unpooled thread terminates with its request; its entry frames return, the chunk empties, and it dies with the thread. *Pooling does not only retain threads. It retains the JVM's warm-up state.*"
-msgstr ""
+msgstr "Cada hilo agrupado acaba ocupando uno; diez mil de ellos suman los 60 MB. Un hilo no agrupado finaliza con su solicitud; sus tramas de entrada se devuelven, el bloque se vacía y desaparece junto con el hilo *. La agrupación no solo conserva los hilos, sino que también mantiene el estado de calentamiento de la JVM.*"
 
+#. mt: deepl
+#, fuzzy
 msgid "What a StackChunk is"
-msgstr ""
+msgstr "Qué es un StackChunk"
 
+#. mt: deepl
+#, fuzzy
 msgid "When a virtual thread parks — blocks on I/O, waits on a lock, sleeps — the JVM frees the *carrier thread* by *freezing* the VT's call stack: copying it into a `StackChunk`, a regular Java heap object holding an integral number of frames plus an oop bitmap so the GC can find references inside them. On unpark it *thaws* the stack back onto a carrier."
-msgstr ""
+msgstr "Cuando un hilo virtual se «aparka» —se bloquea en una operación de E/S, espera un bloqueo o entra en suspensión—, la JVM libera el *hilo portador* *congelando* la pila de llamadas del hilo virtual: la copia en un `StackChunk` , un objeto normal del montón de Java que contiene un número entero de marcos, además de un mapa de bits OOP para que el recolector de basura pueda encontrar referencias en su interior. Al desbloquearlo, *descongela* la pila y la vuelve a cargar en un hilo portador."
 
+#. mt: deepl
+#, fuzzy
 msgid "Sources: https://github.com/openjdk/jdk/blob/master/src/hotspot/share/oops/instanceStackChunkKlass.hpp[`InstanceStackChunkKlass.hpp`] and https://github.com/openjdk/jdk/blob/master/src/hotspot/share/runtime/continuationFreezeThaw.cpp[`continuationFreezeThaw.cpp`], from https://github.com/openjdk/jdk/commit/9583e3657e43cc1c6f2101a64534564db2a9bd84[JDK-8284161]."
-msgstr ""
+msgstr "Fuentes: link:https://github.com/openjdk/jdk/blob/master/src/hotspot/share/oops/instanceStackChunkKlass.hpp[InstanceStackChunkKlass.hpp] y link:https://github.com/openjdk/jdk/blob/master/src/hotspot/share/runtime/continuationFreezeThaw.cpp[continuationFreezeThaw.cpp] , de link:https://github.com/openjdk/jdk/commit/9583e3657e43cc1c6f2101a64534564db2a9bd84[JDK-8284161] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "A heap dump of one run of each kind shows exactly that picture:"
-msgstr ""
+msgstr "Un volcado de memoria de una ejecución de cada tipo muestra exactamente esa imagen:"
 
+#. mt: deepl
+#, fuzzy
 msgid "heap dump, 1 GB"
-msgstr ""
+msgstr "volcado de memoria, 1 GB"
 
+#. mt: deepl
+#, fuzzy
 msgid "live virtual threads"
-msgstr ""
+msgstr "hilos virtuales en directo"
 
+#. mt: deepl
+#, fuzzy
 msgid "4,473"
-msgstr ""
+msgstr "4 473"
 
+#. mt: deepl
+#, fuzzy
 msgid "10,017"
-msgstr ""
+msgstr "10 017"
 
+#. mt: deepl
+#, fuzzy
 msgid "parent + tail pairs"
-msgstr ""
+msgstr "pares «parent + tail»"
 
+#. mt: deepl
+#, fuzzy
 msgid "24"
-msgstr ""
+msgstr "24"
 
+#. mt: deepl
+#, fuzzy
 msgid "*10,024*"
-msgstr ""
+msgstr "*10 024*"
 
+#. mt: deepl
+#, fuzzy
 msgid "tail capacity"
-msgstr ""
+msgstr "capacidad de cola"
 
+#. mt: deepl
+#, fuzzy
 msgid "—"
-msgstr ""
+msgstr "—"
 
+#. mt: deepl
+#, fuzzy
 msgid "268 words, same as an unpooled chunk"
-msgstr ""
+msgstr "268 palabras, lo mismo que un fragmento no agrupado"
 
+#. mt: deepl
+#, fuzzy
 msgid "parent capacity"
-msgstr ""
+msgstr "capacidad parental"
 
+#. mt: deepl
+#, fuzzy
 msgid "27% at ~270 words; *69% at 750–1,300*"
-msgstr ""
+msgstr "27 % con unas 270 palabras; *69 % con entre 750 y 1 300*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Every one of the 10,024 parents still holds 8 to 95 words — the entry frames, read out of the JVM by name — and seven in ten were born three to five times bigger than a tail. That size is warm-up code: with C2 disabled (`-XX:TieredStopAtLevel=1`) the same park freezes 1,184 words instead of 298; in a normal run, frames logged at freeze time are mostly interpreted at 3.8 s, all C1 by 4.2 s, and C2 by 4.4 s, by which point the chunks have stopped being fat. The pool's threads are all promoted in those first seconds, and *whatever they were holding then is what they keep*."
-msgstr ""
+msgstr "Cada uno de los 10 024 padres sigue conteniendo entre 8 y 95 palabras —los marcos de entrada, leídos desde la JVM por su nombre— y siete de cada diez nacieron con un tamaño entre tres y cinco veces mayor que el de una cola. Ese tamaño corresponde al código de calentamiento: con C2 desactivado ( `-XX:TieredStopAtLevel=1` ), el mismo parque congela 1.184 palabras en lugar de 298; en una ejecución normal, los marcos registrados en el momento de la congelación se interpretan en su mayoría a los 3,8 s, todos los de C1 a los 4,2 s y los de C2 a los 4,4 s, momento en el que los fragmentos han dejado de ser «grandes». Todos los hilos del pool se promocionan en esos primeros segundos, y *lo que fuera que estuvieran reteniendo en ese momento es lo que conservan* ."
 
+#. mt: deepl
+#, fuzzy
 msgid "And it is held whatever the pool is doing: at the instant of the 1 GB dump, half the pooled threads were sitting idle in the pool, and their chunks are the same size as the busy ones'. It is the cost of the pool existing, not working."
-msgstr ""
+msgstr "Y esto ocurre independientemente de lo que esté haciendo el grupo: en el momento en que se realizó el volcado de 1 GB, la mitad de los subprocesos del grupo se encontraban inactivos en el mismo, y sus fragmentos tienen el mismo tamaño que los de los que estaban activos. Se trata del coste que supone la mera existencia del grupo, aunque no esté en funcionamiento."
 
+#. mt: deepl
+#, fuzzy
 msgid "Where the 60 MB Lives"
-msgstr ""
+msgstr "Dónde se encuentran los 60 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "Sixty megabytes that never die is old-generation occupancy, and the old generation records where the start-up burst — 10,000 connections opening and sending at once — leaves each arm:"
-msgstr ""
+msgstr "Los sesenta megabytes que nunca desaparecen corresponden a la ocupación de la generación anterior, y los registros de dicha generación indican que la ráfaga inicial —10 000 conexiones que se abren y envían datos al mismo tiempo— sale de cada rama:"
 
+#. mt: deepl
+#, fuzzy
 msgid "after the start-up burst, 1 GB heap"
-msgstr ""
+msgstr "tras el pico inicial, 1 GB de memoria dinámica"
 
+#. mt: deepl
+#, fuzzy
 msgid "old gen occupied, of 683 MB"
-msgstr ""
+msgstr "espacio ocupado de la generación anterior: 683 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "old gen free"
-msgstr ""
+msgstr "sin costes de la generación anterior"
 
+#. mt: deepl
+#, fuzzy
 msgid "367–417 MB"
-msgstr ""
+msgstr "367–417 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "266–316 MB"
-msgstr ""
+msgstr "266–316 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "436–521 MB"
-msgstr ""
+msgstr "436–521 MB"
 
+#. mt: deepl
+#, fuzzy
 msgid "*162–247 MB*"
-msgstr ""
+msgstr "*162-247 MB*"
 
+#. mt: deepl
+#, fuzzy
 msgid "No overlap: pooled ends the burst with 60–100 MB less free old generation, in every run, and holds it for the life of the pool. At 1 GB that cost nothing we could measure."
-msgstr ""
+msgstr "Sin solapamiento: la gestión por grupo pone fin al pico con entre 60 y 100 MB menos de memoria libre de la generación anterior en cada ejecución, y mantiene ese nivel durante toda la vida útil del grupo. Con 1 GB, ese coste no supuso nada que pudiéramos medir."
 
+#. mt: deepl
+#, fuzzy
 msgid "What we observed on a smaller heap"
-msgstr ""
+msgstr "Lo que observamos en un montón más pequeño"
 
+#. mt: deepl
+#, fuzzy
 msgid "On a 900 MB heap — 100 MB smaller, everything else identical, GC ergonomics logging on — four of twelve pooled runs went into hundreds of Full GCs (288, 595, 768 and 771), and three of them lost 39–48% of their throughput. None of eight unpooled runs did. In every one of those runs the collector logged, before each Full GC, that it had skipped the young collection because its predicted promotion exceeded the free space in the old generation (`-Xlog:gc+ergo=debug`, `Run full-gc; predicted promotion size >= max free space in old-gen`)."
-msgstr ""
+msgstr "Con un montón de 900 MB —100 MB más pequeño, con el resto de parámetros idénticos y el registro de ergonomía del GC activado—, cuatro de las doce ejecuciones con agrupación de objetos registraron cientos de GC completos (288, 595, 768 y 771), y tres de ellas perdieron entre el 39 % y el 48 % de su rendimiento. Ninguna de las ocho ejecuciones sin agrupación lo hizo. En cada una de esas ejecuciones, el recolector registró, antes de cada GC completo, que se había saltado la recolección de la generación joven porque su promoción prevista superaba el espacio libre en la generación vieja ( `-Xlog:gc+ergo=debug` , `Ejecutar GC completo; tamaño de promoción previsto >= espacio libre máximo en la generación vieja` )."
 
+#. mt: deepl
+#, fuzzy
 msgid "We saw the same at 1 GB, twice in twelve runs. We can say what the collector did, not why these runs and not their siblings."
-msgstr ""
+msgstr "Observamos lo mismo con 1 GB, en dos ocasiones de un total de doce pruebas. Podemos explicar qué hizo el colector, pero no por qué ocurrió en estas pruebas y no en las demás."
 
+#. mt: deepl
+#, fuzzy
 msgid "Verdict"
-msgstr ""
+msgstr "Veredicto"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Pooling buys about 8% less allocation.* Measured in every run, and it moves nothing — young collections, Full GCs, pause and throughput are all inside the spread. What it saves is the cheap thing."
-msgstr ""
+msgstr "*La agrupación de compras supone una asignación aproximadamente un 8 % menor.* Se mide en cada ejecución y no supone ningún cambio: las colecciones jóvenes, los GC completos, las pausas y el rendimiento se encuentran todos dentro del margen de variación. Lo que se ahorra es una cantidad insignificante."
 
+#. mt: deepl
+#, fuzzy
 msgid "*It costs about 60 MB of live heap*: one warm-up-sized chunk per pooled thread, 94% empty, held for the life of the pool whether the thread is working or idle. Budget about 6 KB of permanent old-generation heap per pooled thread."
-msgstr ""
+msgstr "*Ocupa unos 60 MB del montón en tiempo de ejecución* : un bloque del tamaño de «warm-up» por cada hilo del grupo, vacío en un 94 %, que se mantiene durante toda la vida útil del grupo, independientemente de si el hilo está activo o inactivo. Se debe prever unos 6 KB del montón permanente de la generación antigua por cada hilo del grupo."
 
+#. mt: deepl
+#, fuzzy
 msgid "*That heap is old-generation occupancy*: 60–100 MB less free old gen after start-up, every run. At 1 GB it cost nothing we could measure; at 900 MB a third of pooled runs and no unpooled run fell into hundreds of Full GCs — reported, not explained."
-msgstr ""
+msgstr "*Ese montón corresponde a la ocupación de la generación antigua* : entre 60 y 100 MB menos de memoria libre en la generación antigua tras el arranque, en cada ejecución. A 1 GB, no se observó ningún impacto apreciable; a 900 MB, un tercio de las ejecuciones en grupo y ninguna de las ejecuciones fuera de grupo registraron cientos de GC completos —según los informes, aunque sin explicación alguna—."
 
+#. mt: deepl
+#, fuzzy
 msgid "We tested one pool size, 10,000. The mechanism is per thread, so we would expect the cost to scale with the pool, but we did not measure that."
-msgstr ""
+msgstr "Hemos realizado pruebas con un tamaño de grupo de 10 000. Dado que el mecanismo se aplica por hilo, cabría esperar que el coste aumentara proporcionalmente al tamaño del grupo, pero no lo hemos medido."
 
+#. mt: deepl
+#, fuzzy
 msgid "The advice was right. The reason is less dramatic than we expected: pooling saves the thing the collector was already handling for free, and keeps the thing it is not."
-msgstr ""
+msgstr "El consejo era acertado. La razón es menos espectacular de lo que esperábamos: la agrupación conserva lo que el recolector ya gestionaba de forma gratuita y mantiene lo que no."
 
+#. mt: deepl
+#, fuzzy
 msgid "Thanks to https://github.com/pchilano[Patricio Chilano Mateo], whose review of the original findings started all of this. The story it turned up is a better one than it replaced."
-msgstr ""
+msgstr "Damos las gracias a link:https://github.com/pchilano[Patricio Chilano Mateo] , cuya revisión de los resultados originales fue el punto de partida de todo esto. La historia que ha salido a la luz es mejor que la que sustituyó."
 
 msgid "References"
 msgstr "Referencias"
@@ -296,11 +474,17 @@ msgstr "Referencias"
 msgid "https://openjdk.org/jeps/444[JEP 444: Virtual Threads] — Ron Pressler & Alan Bateman"
 msgstr "link:https://openjdk.org/jeps/444[JEP 444: Hilos virtuales] — Ron Pressler y Alan Bateman"
 
+#. mt: deepl
+#, fuzzy
 msgid "https://github.com/openjdk/loom/pull/228#issuecomment-5529741290[openjdk/loom#228, review comment] — Patricio Chilano Mateo's questions on the original article"
-msgstr ""
+msgstr "link:https://github.com/openjdk/loom/pull/228#issuecomment-5529741290[openjdk/loom#228, comentario de revisión] — Preguntas de Patricio Chilano Mateo sobre el artículo original"
 
+#. mt: deepl
+#, fuzzy
 msgid "https://github.com/openjdk/jdk/commit/9583e3657e43cc1c6f2101a64534564db2a9bd84[JDK-8284161] — the commit introducing StackChunk and continuation freeze/thaw"
-msgstr ""
+msgstr "link:https://github.com/openjdk/jdk/commit/9583e3657e43cc1c6f2101a64534564db2a9bd84[JDK-8284161] : la confirmación que introduce StackChunk y la congelación/descongelación de continuaciones"
 
+#. mt: deepl
+#, fuzzy
 msgid "https://github.com/openjdk/jdk/blob/master/src/hotspot/share/runtime/continuationFreezeThaw.cpp[`continuationFreezeThaw.cpp`] — the freeze/thaw implementation"
-msgstr ""
+msgstr "link:https://github.com/openjdk/jdk/blob/master/src/hotspot/share/runtime/continuationFreezeThaw.cpp[continuationFreezeThaw.cpp] — la implementación de la función «freeze/thaw»"

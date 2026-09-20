@@ -6,185 +6,299 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Insights #257: Optimizing Java Workloads on OpenShift &amp; Kubernetes"
-msgstr ""
+msgstr "Quarkus Insights n.º 257: Optimización de cargas de trabajo de Java en OpenShift y Kubernetes"
 
+#. mt: deepl
+#, fuzzy
 msgid "This summary was generated using AI, reviewed by humans - https://youtube.com/live/UQWcXTB6Cfg[watch the video] for the full story."
-msgstr ""
+msgstr "Este resumen se ha generado mediante inteligencia artificial y ha sido revisado por personas; link:https://youtube.com/live/UQWcXTB6Cfg[vea el vídeo] para conocer la historia completa."
 
+#. mt: deepl
+#, fuzzy
 msgid "Rob Sedor, an Architect at https://www.redhat.com/[Red Hat] with a storied background in https://camel.apache.org/[Apache Camel] integration and low-latency systems, joins host Eric Deandrea for episode 257 to tackle one of the most common friction points in enterprise modernization: running https://openjdk.org/[Java] workloads on https://kubernetes.io/[Kubernetes] and https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift]."
-msgstr ""
+msgstr "Rob Sedor, arquitecto de link:https://www.redhat.com/[Red Hat] con una dilatada trayectoria en integración con link:https://camel.apache.org/[Apache Camel] y sistemas de baja latencia, se une al presentador Eric Deandrea en el episodio 257 para abordar uno de los principales obstáculos en la modernización empresarial: la ejecución de cargas de trabajo link:https://openjdk.org/[de Java] en link:https://kubernetes.io/[Kubernetes] y link:https://www.redhat.com/en/technologies/cloud-computing/openshift[OpenShift] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Instead of theoretical advice, Rob brings a suite of practical calculations, live diagnostics, and architectural insights showing how to tune JVM deployments beyond default limits, select the best garbage collector, accelerate cold starts, optimize service-to-service communication, and even eliminate https://www.python.org/[Python] sidecars for local AI inferencing."
-msgstr ""
+msgstr "En lugar de consejos teóricos, Rob ofrece un conjunto de cálculos prácticos, diagnósticos en tiempo real y conocimientos arquitectónicos que muestran cómo ajustar las implementaciones de la JVM más allá de los límites predeterminados, seleccionar el mejor recolector de basura, acelerar los arranques en frío, optimizar la comunicación entre servicios e incluso eliminar los «sidecars» link:https://www.python.org/[de Python] para la inferencia de IA local."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Container Sizing Trap: Why Legacy Java 8 Fails"
-msgstr ""
+msgstr "La trampa del dimensionamiento de contenedores: por qué falla el Java 8 heredado"
 
+#. mt: deepl
+#, fuzzy
 msgid "Rob opened the discussion by highlighting a common pitfall for organizations moving older legacy workloads into containers. Many enterprise applications are still running on various flavors of Java 8. Unless you are on a specific backported micro-version (such as `8u191` or `8u257` or later), older JVM runtimes are completely container-unaware."
-msgstr ""
+msgstr "Rob inició el debate señalando un error habitual en las organizaciones que trasladan cargas de trabajo heredadas más antiguas a contenedores. Muchas aplicaciones empresariales siguen ejecutándose en diversas versiones de Java 8. A menos que se utilice una microversión específica adaptada (como `la 8u191` , `la 8u257` o posteriores), los entornos de ejecución de la JVM más antiguos no son compatibles en absoluto con los contenedores."
 
+#. mt: deepl
+#, fuzzy
 msgid "When a non-container-aware JVM starts inside a container, it does not look at the cgroup limits configured for that container. Instead, it reads `/proc/meminfo` on the underlying Linux host. If your host has 64 GB of RAM, the JVM sees 64 GB. By default, the JVM initializes with a maximum heap size (`-XX:MaxRAMPercentage`) of 25% of visible memory, which on a 64 GB host equates to a 16 GB heap limit."
-msgstr ""
+msgstr "Cuando una JVM que no es compatible con contenedores se inicia dentro de un contenedor, no tiene en cuenta los límites de cgroup configurados para dicho contenedor. En su lugar, lee `el archivo /proc/meminfo` del host Linux subyacente. Si su host dispone de 64 GB de RAM, la JVM detecta 64 GB. De forma predeterminada, la JVM se inicializa con un tamaño máximo de pila ( `-XX:MaxRAMPercentage` ) del 25 % de la memoria visible, lo que en un host de 64 GB equivale a un límite de pila de 16 GB."
 
+#. mt: deepl
+#, fuzzy
 msgid "If you deploy this legacy pod in a container limited to 512 MB of RAM, the mismatch is immediate: the JVM will happily attempt to allocate memory beyond 512 MB, resulting in the container being instantly terminated by the kernel with an `OOMKilled` status."
-msgstr ""
+msgstr "Si implementa este pod heredado en un contenedor con un límite de 512 MB de RAM, la incompatibilidad se produce de inmediato: la JVM intentará sin problemas asignar memoria por encima de los 512 MB, lo que provocará que el núcleo cierre instantáneamente el contenedor con el estado `«OOMKilled` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Remediation: Modern JDKs and Heap Tuning"
-msgstr ""
+msgstr "Solución: JDK modernos y ajuste del montón"
 
+#. mt: deepl
+#, fuzzy
 msgid "Upgrading to modern LTS runtimes like JDK 21 or JDK 25 resolves container awareness out of the box, but proper heap sizing remains crucial."
-msgstr ""
+msgstr "La actualización a entornos de ejecución LTS modernos, como el JDK 21 o el JDK 25, resuelve de forma predeterminada el problema de la compatibilidad con contenedores, pero sigue siendo fundamental determinar el tamaño adecuado del montón."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Set MaxRAMPercentage to 75.0**: Configured via `-XX:MaxRAMPercentage=75.0`, this allocates 75% of the container memory to the heap."
-msgstr ""
+msgstr "*Establezca MaxRAMPercentage en 75,0* : al configurarlo mediante `-XX:MaxRAMPercentage=75,0` , se asigna el 75 % de la memoria del contenedor al montón."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Leave 25% Headroom**: The remaining 25% is essential headroom for native memory allocations, metaspace, JIT compiler cache, garbage collection metadata, and OS thread stacks. Over-allocating the heap to 90% or 100% of the container memory is a recipe for sporadic kernel OOM kills."
-msgstr ""
+msgstr "*Deje un margen del 25 %* : el 25 % restante constituye un margen esencial para las asignaciones de memoria nativas, el metespacio, la caché del compilador JIT, los metadatos de la recolección de basura y las pilas de subprocesos del sistema operativo. Sobrealocar el montón hasta el 90 % o el 100 % de la memoria del contenedor es una receta segura para que el núcleo provoque cierres esporádicos por falta de memoria (OOM)."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Heisenbug: Kubernetes HPA and GC Thrashing"
-msgstr ""
+msgstr "El «Heisenbug»: el «thrashing» de HPA y GC en Kubernetes"
 
+#. mt: deepl
+#, fuzzy
 msgid "One of the most striking parts of Rob's presentation was the demonstration of an autoscale \"Heisenbug\" that frequently catches Kubernetes administrators off guard."
-msgstr ""
+msgstr "Uno de los aspectos más llamativos de la presentación de Rob fue la demostración de un «Heisenbug» de autoescalado que suele pillar desprevenidos a los administradores de Kubernetes."
 
+#. mt: deepl
+#, fuzzy
 msgid "By default, the Kubernetes Horizontal Pod Autoscaler (HPA) monitors the CPU and memory utilization of the container process. This process-driven approach creates a dangerous feedback loop when paired with heavy garbage collection pauses:"
-msgstr ""
+msgstr "De forma predeterminada, el Horizontal Pod Autoscaler (HPA) de Kubernetes supervisa la utilización de la CPU y la memoria del proceso del contenedor. Este enfoque basado en los procesos genera un peligroso bucle de retroalimentación cuando se combina con pausas prolongadas debidas a la recolección de basura:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**The GC Spike**: Under load, a garbage collector performing a \"stop-the-world\" sweep (like the default https://openjdk.org/jeps/248[G1GC]) experiences a transient CPU utilization spike."
-msgstr ""
+msgstr "*El pico del GC* : bajo carga, un recolector de basura que realiza un barrido «stop-the-world» (como el link:https://openjdk.org/jeps/248[G1GC] predeterminado) experimenta un pico transitorio en la utilización de la CPU."
 
+#. mt: deepl
+#, fuzzy
 msgid "**The HPA Reaction**: The HPA detects this CPU spike, assumes the service is overwhelmed by client traffic, and triggers a scale-out, spawning three new pods."
-msgstr ""
+msgstr "*La reacción del HPA* : El HPA detecta este pico de la CPU, deduce que el servicio está saturado por el tráfico de clientes y activa una ampliación horizontal, creando tres nuevos pods."
 
+#. mt: deepl
+#, fuzzy
 msgid "**The Warmup Penalty**: As these new pods initialize, they experience minor garbage collections and compilation overhead (C1/C2 JIT warmup), causing their own initial CPU spikes."
-msgstr ""
+msgstr "*La penalización por calentamiento* : A medida que estos nuevos pods se inicializan, se producen pequeñas recogidas de basura y una sobrecarga de compilación (calentamiento del JIT C1/C2), lo que provoca sus propios picos iniciales de uso de la CPU."
 
+#. mt: deepl
+#, fuzzy
 msgid "**The Thrashing Loop**: The HPA sees these new startup spikes, assumes *even more* capacity is needed, and scales up again. Rob has observed clusters thrashing and scaling up to 20 pods in a desperate attempt to damp down CPU spikes that were actually caused by initialization and GC overhead, only to scale back down once the cluster stabilized."
-msgstr ""
+msgstr "*El bucle de oscilación* : el HPA detecta estos nuevos picos de arranque, da por hecho que se necesita *aún más* capacidad y vuelve a ampliarla. Rob ha observado cómo los clústeres oscilaban y ampliaban su capacidad hasta 20 pods en un intento desesperado por amortiguar los picos de CPU que, en realidad, estaban causados por la inicialización y la sobrecarga del GC, para luego volver a reducirla una vez que el clúster se estabilizaba."
 
+#. mt: deepl
+#, fuzzy
 msgid "Remediation: Requests-per-Second Scaling"
-msgstr ""
+msgstr "Solución: Escalabilidad del número de solicitudes por segundo"
 
+#. mt: deepl
+#, fuzzy
 msgid "To prevent autoscale thrashing, engineers should decouple Kubernetes scaling from raw CPU utilization. Rob recommends configuring https://keda.sh/[KEDA] or https://prometheus.io/[Prometheus] metrics adapters to scale pods based on HTTP requests-per-second rather than CPU, ensuring that scaling only triggers in response to actual incoming workload volume."
-msgstr ""
+msgstr "Para evitar el «thrashing» en el autoescalado, los ingenieros deben desvincular el escalado de Kubernetes de la utilización bruta de la CPU. Rob recomienda configurar adaptadores de métricas link:https://keda.sh/[de KEDA] o link:https://prometheus.io/[Prometheus] para escalar los pods en función de las solicitudes HTTP por segundo, en lugar de la CPU, garantizando así que el escalado solo se active en respuesta al volumen real de carga de trabajo entrante."
 
+#. mt: deepl
+#, fuzzy
 msgid "Choosing the Right Garbage Collector"
-msgstr ""
+msgstr "Cómo elegir el recolector de basura adecuado"
 
+#. mt: deepl
+#, fuzzy
 msgid "While the default G1GC is suitable for the vast majority of standard enterprise applications, Rob contrasted it with alternative garbage collectors tailored for specific deployment scenarios:"
-msgstr ""
+msgstr "Si bien el G1GC predeterminado resulta adecuado para la gran mayoría de las aplicaciones empresariales estándar, Rob lo comparó con otros recolectores de basura alternativos diseñados específicamente para escenarios de implementación concretos:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**ZGC**: The https://openjdk.org/jeps/377[ZGC] is a concurrent, ultra-low-latency collector designed to keep pause times under 1 millisecond, even on multi-gigabyte heaps. However, because it runs concurrently alongside application threads, it demands a higher CPU throughput price."
-msgstr ""
+msgstr "*ZGC* : El link:https://openjdk.org/jeps/377[ZGC] es un recolector concurrente de latencia ultrabaja diseñado para mantener los tiempos de pausa por debajo de 1 milisegundo, incluso en montones de varios gigabytes. Sin embargo, dado que se ejecuta de forma concurrente junto con los hilos de la aplicación, supone un mayor coste en términos de rendimiento de la CPU."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Shenandoah GC**: Developed by Red Hat, https://openjdk.org/jeps/189[Shenandoah GC] is an excellent middle ground, offering concurrent compaction to minimize pause times without requiring the massive heap sizes traditionally associated with ZGC. It can be enabled via `-XX:+UseShenandoahGC` with adaptive heuristics."
-msgstr ""
+msgstr "*Shenandoah GC* : Desarrollado por Red Hat, link:https://openjdk.org/jeps/189[Shenandoah GC] constituye una excelente solución intermedia, ya que ofrece compactación simultánea para minimizar los tiempos de pausa sin requerir los enormes tamaños de pila que se asocian tradicionalmente con ZGC. Se puede activar mediante el parámetro `-XX:+UseShenandoahGC` con heurísticas adaptativas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Crucial GC Settings for Containers"
-msgstr ""
+msgstr "Configuraciones esenciales de GC para contenedores"
 
+#. mt: deepl
+#, fuzzy
 msgid "When tuning GC inside containers, you must manually align the JVM's thread count with the container limits. By default, the JVM may spawn parallel GC threads based on the host's total CPU cores, rather than the container's CPU quota."
-msgstr ""
+msgstr "Al ajustar la recolección de basura (GC) dentro de los contenedores, debe ajustar manualmente el número de subprocesos de la JVM a los límites del contenedor. De forma predeterminada, la JVM puede generar subprocesos de GC en paralelo basándose en el número total de núcleos de CPU del host, en lugar de en la cuota de CPU del contenedor."
 
+#. mt: deepl
+#, fuzzy
 msgid "Use `-XX:ParallelGCThreads` and `-XX:ConcGCThreads` to restrict GC threads to match your allocated container CPU limits. Failing to do so causes severe thread-switching overhead and CPU thrashing."
-msgstr ""
+msgstr "Utilice `los parámetros -XX:ParallelGCThreads` y `-XX:ConcGCThreads` para limitar el número de subprocesos de GC de modo que se ajusten a los límites de CPU asignados a su contenedor. De no hacerlo, se producirá una sobrecarga considerable por el cambio de subprocesos y un uso excesivo de la CPU."
 
+#. mt: deepl
+#, fuzzy
 msgid "AppCDS vs. Project Leyden AOT Caching"
-msgstr ""
+msgstr "AppCDS frente al almacenamiento en caché AOT del Proyecto Leyden"
 
+#. mt: deepl
+#, fuzzy
 msgid "Rob shared comparative data between the startup optimizations of https://docs.oracle.com/en/java/javase/11/vm/class-data-sharing.html[AppCDS] (Application Class Data Sharing) and the upcoming https://openjdk.org/projects/leyden[Project Leyden] (AOT cache)."
-msgstr ""
+msgstr "Rob compartió datos comparativos entre las optimizaciones de inicio de link:https://docs.oracle.com/en/java/javase/11/vm/class-data-sharing.html[AppCDS] (Application Class Data Sharing) y el próximo link:https://openjdk.org/projects/leyden[Proyecto Leyden] (caché AOT)."
 
+#. mt: deepl
+#, fuzzy
 msgid "For standard Spring Boot applications, AppCDS offers a substantial 30% to 35% startup improvement on non-trivial applications (especially those with 100+ classes, https://hibernate.org/[Hibernate], and heavy runtime reflection)."
-msgstr ""
+msgstr "En el caso de las aplicaciones estándar de Spring Boot, AppCDS ofrece una mejora sustancial del 30 % al 35 % en el tiempo de arranque de aplicaciones complejas (especialmente aquellas con más de 100 clases, link:https://hibernate.org/[Hibernate] y un uso intensivo de la reflexión en tiempo de ejecución)."
 
+#. mt: deepl
+#, fuzzy
 msgid "However, because Quarkus is already optimized at build-time—pre-booting, resolving reflection, and eliminating dynamic class-loading overhead during compilation—running AppCDS on Quarkus yields negligible differences."
-msgstr ""
+msgstr "Sin embargo, dado que Quarkus ya está optimizado en el momento de la compilación —mediante el prearranque, la resolución de la reflexión y la eliminación de la sobrecarga que supone la carga dinámica de clases durante la compilación—, la ejecución de AppCDS en Quarkus supone diferencias insignificantes."
 
+#. mt: deepl
+#, fuzzy
 msgid "Project Leyden Training Runs"
-msgstr ""
+msgstr "Sesiones de entrenamiento del Proyecto Leyden"
 
+#. mt: deepl
+#, fuzzy
 msgid "Where Quarkus truly shines is with Project Leyden. Unlike other frameworks where training runs simply capture a basic startup-and-shutdown sequence, Quarkus leverages your existing integration test suite via `maven-verify` to build its AOT cache file. This ensures that the generated cache is highly optimized and incredibly compact, resulting in blazing-fast cold starts that make scale-to-zero serverless highly practical."
-msgstr ""
+msgstr "Donde Quarkus realmente destaca es con el Proyecto Leyden. A diferencia de otros marcos de trabajo, en los que las ejecuciones de entrenamiento se limitan a capturar una secuencia básica de inicio y apagado, Quarkus aprovecha su conjunto de pruebas de integración existente a través de `maven-verify` para crear su archivo de caché AOT. Esto garantiza que la caché generada esté altamente optimizada y sea increíblemente compacta, lo que da lugar a arranques en frío ultrarrápidos que hacen que el modelo «scale-to-zero» sin servidor resulte sumamente práctico."
 
+#. mt: deepl
+#, fuzzy
 msgid "gRPC vs. REST for Internal Microservices"
-msgstr ""
+msgstr "gRPC frente a REST para microservicios internos"
 
+#. mt: deepl
+#, fuzzy
 msgid "When designing microservice architectures, Rob offers a simple rule of thumb: use REST APIs for public, external-facing boundaries, but default to https://grpc.io/[gRPC] for internal, container-to-container service communication."
-msgstr ""
+msgstr "A la hora de diseñar arquitecturas de microservicios, Rob propone una regla general sencilla: utilice las API REST para los límites públicos y orientados al exterior, pero opte por link:https://grpc.io/[gRPC] de forma predeterminada para la comunicación interna entre servicios de contenedor a contenedor."
 
+#. mt: deepl
+#, fuzzy
 msgid "Testing gRPC on your local machine (`localhost` loopback) is often misleading, as REST can occasionally outperform it due to the absence of network latency. However, on a real Kubernetes cluster network, gRPC consistently outperforms REST by 2× to 4×."
-msgstr ""
+msgstr "Probar gRPC en su equipo local (loopback `de localhost` ) suele resultar engañoso, ya que REST puede superar ocasionalmente su rendimiento debido a la ausencia de latencia de red. Sin embargo, en una red real de clúster de Kubernetes, gRPC supera de forma constante a REST entre 2 y 4 veces."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "gRPC achieves this through:\n"
 "* **HTTP/2 Multiplexing**: Multiple requests and responses can be multiplexed over a single TCP connection, eliminating connection-negotiation bottlenecks.\n"
 "* **Binary Protobuf Serialization**: Payload sizes are dramatically smaller compared to verbose JSON.\n"
 "* **Strict Schema Versioning**: Built-in contract enforcement ensures stable, backwards-compatible API evolution."
-msgstr ""
+msgstr "gRPC lo consigue mediante: * *Multiplexación HTTP/2* : se pueden multiplexar varias solicitudes y respuestas a través de una única conexión TCP, lo que elimina los cuellos de botella en la negociación de la conexión. * *Serialización binaria con Protobuf* : el tamaño de las cargas útiles es considerablemente menor en comparación con el formato JSON, que es más prolijo. * *Control estricto de las versiones de los esquemas* : la aplicación integrada de los contratos garantiza una evolución estable y compatible con versiones anteriores de la API."
 
+#. mt: deepl
+#, fuzzy
 msgid "Scaling WebSockets with Kafka"
-msgstr ""
+msgstr "Ampliación de WebSockets con Kafka"
 
+#. mt: deepl
+#, fuzzy
 msgid "For real-time browser communication, Rob warned against naive https://html.spec.whatwg.org/multipage/web-sockets.html[WebSocket] pinning, which attaches connections to a specific pod and prevents horizontal scaling. Instead, he recommends backing WebSockets with https://kafka.apache.org/[Apache Kafka] to handle horizontal message distribution, and using binary Protobuf payloads over WebSockets to dramatically improve web performance."
-msgstr ""
+msgstr "En lo que respecta a la comunicación en tiempo real a través del navegador, Rob advirtió contra el uso ingenuo de la fijación link:https://html.spec.whatwg.org/multipage/web-sockets.html[de WebSockets] , que vincula las conexiones a un pod específico e impide el escalado horizontal. En su lugar, recomienda utilizar link:https://kafka.apache.org/[Apache Kafka] como base para los WebSockets a fin de gestionar la distribución horizontal de mensajes, así como emplear cargas útiles binarias de Protobuf a través de WebSockets para mejorar considerablemente el rendimiento web."
 
+#. mt: deepl
+#, fuzzy
 msgid "Project Panama: Native C++ and Local AI Inferencing"
-msgstr ""
+msgstr "Proyecto Panamá: C++ nativo e inferencia de IA local"
 
+#. mt: deepl
+#, fuzzy
 msgid "Historically, integrating Java with high-performance native code required the notoriously complex and error-prone https://docs.oracle.com/javase/8/docs/technotes/guides/jni/[JNI] (Java Native Interface), which suffers from high execution overhead and is difficult to compile."
-msgstr ""
+msgstr "Históricamente, la integración de Java con código nativo de alto rendimiento requería el uso de link:https://docs.oracle.com/javase/8/docs/technotes/guides/jni/[la JNI] (Java Native Interface), conocida por su complejidad y por ser propensa a errores, que adolece de una elevada sobrecarga de ejecución y resulta difícil de compilar."
 
+#. mt: deepl
+#, fuzzy
 msgid "With https://openjdk.org/projects/panama[Project Panama] (the Foreign Function & Memory API), Java developers can now directly link and execute native https://isocpp.org/[C++] or https://www.rust-lang.org/[Rust] library functions with native-like speed and zero JNI boilerplate."
-msgstr ""
+msgstr "Gracias link:https://openjdk.org/projects/panama[al Proyecto Panamá] (la API de funciones y memoria externas), los desarrolladores de Java ya pueden vincular y ejecutar directamente funciones de bibliotecas nativas link:https://isocpp.org/[de C++] o link:https://www.rust-lang.org/[Rust] con una velocidad similar a la del código nativo y sin necesidad de código repetitivo de JNI."
 
+#. mt: deepl
+#, fuzzy
 msgid "Rob demonstrated the power of Panama by integrating it with https://onnx.ai/[ONNX Runtime] and https://github.com/langchain4j/langchain4j[LangChain4j]. Instead of spinning up a separate, resource-intensive Python sidecar container to serve an AI model, Rob ran a local C++ model (`all-miniLM-L6-v2`) in-process."
-msgstr ""
+msgstr "Rob demostró el potencial de Panama al integrarlo con link:https://onnx.ai/[ONNX Runtime] y link:https://github.com/langchain4j/langchain4j[LangChain4j] . En lugar de poner en marcha un contenedor «sidecar» de Python independiente, que consume muchos recursos, para ejecutar un modelo de IA, Rob ejecutó un modelo local en C++ ( `all-miniLM-L6-v2` ) dentro del mismo proceso."
 
+#. mt: deepl
+#, fuzzy
 msgid "This Panama-based architecture allows LangChain4j to invoke local AI model inferences directly inside the Java process, bypassing JNI and network serialization overhead, delivering a lightweight, ultra-low-latency local AI pipeline."
-msgstr ""
+msgstr "Esta arquitectura basada en Panama permite a LangChain4j invocar inferencias de modelos de IA locales directamente dentro del proceso de Java, evitando la sobrecarga de JNI y la serialización de red, lo que da como resultado un flujo de trabajo de IA local ligero y de latencia ultrabaja."
 
 #, fuzzy
 msgid "Key Takeaways"
 msgstr "Puntos clave"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Avoid the Legacy Trap**: Non-container-aware JVMs (legacy Java 8) read host RAM instead of cgroup limits, triggering immediate kernel `OOMKilled` crashes inside restricted containers."
-msgstr ""
+msgstr "*Evite la trampa del código heredado* : las JVM que no son compatibles con contenedores (Java 8 heredado) leen la memoria RAM del host en lugar de los límites de cgroup, lo que provoca fallos inmediatos del kernel `con el código de error «OOMKilled»` dentro de los contenedores restringidos."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Optimize Memory Limits**: Configure `-XX:MaxRAMPercentage=75.0` to allocate 75% of your container RAM to the heap, keeping 25% free for metaspace, thread stacks, and JIT compilation."
-msgstr ""
+msgstr "*Optimice los límites de memoria* : configure `-XX:MaxRAMPercentage=75.0` para asignar el 75 % de la memoria RAM de su contenedor al montón, dejando libre el 25 % para el metespacio, las pilas de subprocesos y la compilación JIT."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Decouple HPA from CPU**: Stop-the-world GC pauses and pod warmup spikes can trigger an autoscale feedback loop. Configure KEDA to scale pods based on HTTP requests-per-second instead."
-msgstr ""
+msgstr "*Desacople el HPA de la CPU* : las pausas del recolector de basura «Stop-the-world» y los picos de calentamiento de los pods pueden desencadenar un bucle de retroalimentación de autoescalado. Configure KEDA para que escale los pods en función de las solicitudes HTTP por segundo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Constrain GC Threads**: Limit GC thread allocations with `-XX:ParallelGCThreads` and `-XX:ConcGCThreads` to match your container's CPU quota, avoiding severe host context-switching."
-msgstr ""
+msgstr "*Limitar los subprocesos de GC* : Limite las asignaciones de subprocesos de GC mediante `los parámetros -XX:ParallelGCThreads` y `-XX:ConcGCThreads` para que se ajusten a la cuota de CPU de su contenedor, evitando así cambios de contexto excesivos en el host."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Shenandoah GC for Middle Ground**: Shenandoah GC offers a highly concurrent compaction model, keeping pause times low on standard container shapes without ZGC’s resource requirements."
-msgstr ""
+msgstr "*Shenandoah GC para Middle Ground* : Shenandoah GC ofrece un modelo de compactación con un alto nivel de concurrencia, lo que permite mantener bajos los tiempos de pausa en contenedores de formas estándar sin los requisitos de recursos de ZGC."
 
+#. mt: deepl
+#, fuzzy
 msgid "**AppCDS is Framework-Dependent**: AppCDS yields a 30%+ startup boost for Spring Boot but has almost no effect on Quarkus, which is already fully optimized at build-time."
-msgstr ""
+msgstr "*AppCDS depende del marco de trabajo* : AppCDS proporciona una mejora del 30 % o más en el tiempo de inicio de Spring Boot, pero apenas tiene efecto en Quarkus, que ya está totalmente optimizado en el momento de la compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Leverage Project Leyden**: Quarkus reuses integration test suites to produce highly compact, optimized Project Leyden AOT cache files, enabling scale-to-zero serverless."
-msgstr ""
+msgstr "*Aproveche el Proyecto Leyden* : Quarkus reutiliza conjuntos de pruebas de integración para generar archivos de caché AOT del Proyecto Leyden altamente compactos y optimizados, lo que permite una arquitectura sin servidor con escalabilidad a cero."
 
+#. mt: deepl
+#, fuzzy
 msgid "**gRPC for Internal Traffic**: gRPC outperforms REST by 2× to 4× on real cluster networks due to HTTP/2 multiplexing and smaller binary Protobuf payloads."
-msgstr ""
+msgstr "*gRPC para el tráfico interno* : gRPC ofrece un rendimiento entre dos y cuatro veces superior al de REST en redes de clústeres reales, gracias a la multiplexación de HTTP/2 y a las cargas útiles binarias Protobuf más pequeñas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Horizontal WebSockets**: Avoid naively pinning WebSockets to single hosts. Scale them horizontally by backing them with Apache Kafka."
-msgstr ""
+msgstr "*WebSockets horizontales* : Evite asignar de forma simplista los WebSockets a un único host. Escálelos horizontalmente utilizándolos con Apache Kafka."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Ditch JNI and Sidecars**: Use Project Panama to link native C++ ONNX runtimes directly inside the Java process, enabling fast, local AI inference without Python overhead."
-msgstr ""
+msgstr "*Olvídese de JNI y los «sidecars* »: utilice Project Panama para vincular entornos de ejecución ONNX nativos en C++ directamente dentro del proceso de Java, lo que permite una inferencia de IA rápida y local sin la sobrecarga que supone Python."
 
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. mt: deepl
+#, fuzzy
 msgid "Rob Sedor’s presentation demystifies the black box of running Java inside containerized environments. By combining modern JVM configuration, smart GC alignment, and cutting-edge OpenJDK APIs like Project Leyden and Project Panama, developers can run highly optimized, cost-efficient, and low-latency microservices on OpenShift and Kubernetes. As Rob emphasizes: don't guess—measure on your cluster, run a pilot, and let the real-world metrics guide your architecture decisions."
-msgstr ""
+msgstr "La presentación de Rob Sedor desentraña los entresijos de la ejecución de Java en entornos contenidizados. Mediante la combinación de una configuración moderna de la JVM, una alineación inteligente del recolector de basura (GC) y las API de vanguardia de OpenJDK, como el Proyecto Leyden y el Proyecto Panama, los desarrolladores pueden ejecutar microservicios altamente optimizados, rentables y de baja latencia en OpenShift y Kubernetes. Tal y como destaca Rob: no se limite a hacer conjeturas; realice mediciones en su clúster, lleve a cabo una prueba piloto y deje que las métricas del mundo real guíen sus decisiones de arquitectura."
 
+#. mt: deepl
+#, fuzzy
 msgid "Watch the full episode on the <a href=\"https://www.youtube.com/quarkusio\">Quarkus YouTube channel</a>. You can find Rob&#8217;s demo code and presentation slides on the <a href=\"https://github.com/patterncatalyst/quarkus-optimization\">Pattern Catalyst GitHub repository</a>."
-msgstr ""
+msgstr "Vea el episodio completo en el <a href=\"https://www.youtube.com/quarkusio\">canal de YouTube de Quarkus</a>. Puede encontrar el código de demostración de Rob y las diapositivas de la presentación en el <a href=\"https://github.com/patterncatalyst/quarkus-optimization\">repositorio de GitHub de Pattern Catalyst</a>."
