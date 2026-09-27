@@ -6,151 +6,215 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Moving from sessions to self-contained requests"
-msgstr ""
+msgstr "Pasar de las sesiones a las solicitudes independientes"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If you've been running Model Context Protocol (MCP) servers, you might have bumped into the limitations of stateful sessions.\n"
 "Until recently, a client had to perform an `initialize` handshake, get a session ID, and stick to that specific server instance for the duration of the connection."
-msgstr ""
+msgstr "Si ha estado ejecutando servidores del Protocolo de Contexto de Modelo (MCP), es posible que se haya topado con las limitaciones de las sesiones con estado. Hasta hace poco, un cliente tenía que realizar un intercambio de datos `de inicialización` , obtener un identificador de sesión y permanecer vinculado a esa instancia concreta del servidor durante toda la conexión."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For a single-instance setup, this is fine.\n"
 "But the moment you move to a distributed environment, you're forced into using sticky sessions or a shared session store just to keep the connection alive.\n"
 "It's an unnecessary hurdle for what should essentially be a set of HTTP calls."
-msgstr ""
+msgstr "Para una configuración de instancia única, esto es suficiente. Sin embargo, en cuanto se pasa a un entorno distribuido, se ve obligado a utilizar sesiones persistentes o un almacén de sesiones compartido solo para mantener viva la conexión. Se trata de un obstáculo innecesario para lo que, en esencia, debería ser un conjunto de llamadas HTTP."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The https://modelcontextprotocol.io/specification/2026-07-28/[2026-07-28 revision] of the MCP specification finally solves this by going stateless,\n"
 "and the 2.0.x line of the https://github.com/quarkiverse/quarkus-mcp-server[Quarkus MCP Server] already supports these changes out of the box.\n"
 "Here is a look at how the protocol has evolved in this latest version and how to use it in Quarkus."
-msgstr ""
+msgstr "link:https://modelcontextprotocol.io/specification/2026-07-28/[La revisión] de la especificación MCP link:https://modelcontextprotocol.io/specification/2026-07-28/[del 28 de julio de 2026] resuelve finalmente este problema al adoptar un modelo sin estado, y la línea 2.0.x del link:https://github.com/quarkiverse/quarkus-mcp-server[servidor MCP de Quarkus] ya es compatible con estos cambios de forma predeterminada. A continuación, le mostramos cómo ha evolucionado el protocolo en esta última versión y cómo utilizarlo en Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The core shift in the July 28 revision is the removal of the stateful session handshake.\n"
 "Instead of negotiating a session once, every request is now a self-contained JSON-RPC message."
-msgstr ""
+msgstr "El cambio fundamental de la revisión del 28 de julio es la eliminación del protocolo de establecimiento de sesión con estado. En lugar de negociar una sesión una sola vez, cada solicitud es ahora un mensaje JSON-RPC independiente."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Everything the server needs — protocol version, client identity, and capabilities — is now packed into a `_meta` field within the request.\n"
 "If you're using Streamable HTTP, this metadata is mirrored in headers (`MCP-Protocol-Version`, `Mcp-Method`, and `Mcp-Name`) so the server can route or reject the request before it even parses the body."
-msgstr ""
+msgstr "Todo lo que necesita el servidor —la versión del protocolo, la identidad del cliente y sus capacidades— se incluye ahora en un campo `_meta` dentro de la solicitud. Si utiliza Streamable HTTP, estos metadatos se reflejan en los encabezados ( `MCP-Protocol-Version` , `Mcp-Method` y `Mcp-Name` ), de modo que el servidor puede enrutar o rechazar la solicitud incluso antes de analizar el cuerpo de la misma."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Since there is no session state to track, any server instance can handle any request.\n"
 "An MCP server is now as easy to scale horizontally as any other stateless REST API."
-msgstr ""
+msgstr "Dado que no hay ningún estado de sesión que supervisar, cualquier instancia del servidor puede gestionar cualquier solicitud. Ahora, un servidor MCP es tan fácil de escalar horizontalmente como cualquier otra API REST sin estado."
 
+#. mt: deepl
+#, fuzzy
 msgid "What about versioning?"
-msgstr ""
+msgstr "¿Y qué hay del control de versiones?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Negotiation has also moved to the request level.\n"
 "If a server doesn't recognize the version requested in a specific call, it responds with an `UnsupportedProtocolVersionError` and lists its supported versions.\n"
 "For clients that want to be proactive, there is now a `server/discover` RPC to check capabilities upfront."
-msgstr ""
+msgstr "La negociación también se ha trasladado al nivel de la solicitud. Si un servidor no reconoce la versión solicitada en una llamada concreta, responde con un `error «UnsupportedProtocolVersionError»` y enumera las versiones que admite. Para aquellos clientes que deseen actuar de forma proactiva, ahora existe una `llamada` RPC `«server/discover»` que permite comprobar las capacidades por adelantado."
 
+#. mt: deepl
+#, fuzzy
 msgid "Multi Round-Trip Requests"
-msgstr ""
+msgstr "Solicitudes de varios viajes de ida y vuelta"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Going stateless creates one obvious problem though: how does the server ask the client for something?\n"
 "Sampling, elicitation, and roots all require the server to reach back out to the client during a request, e.g. to ask the client's LLM a question, collect extra input from the user, or discover what file roots the client exposes.\n"
 "Without a persistent session, there is no channel for any of that."
-msgstr ""
+msgstr "Sin embargo, el hecho de no tener estado plantea un problema evidente: ¿cómo puede el servidor solicitar algo al cliente? El muestreo, la obtención de información y las rutas de acceso requieren que el servidor se ponga en contacto de nuevo con el cliente durante una solicitud, por ejemplo, para formular una pregunta al modelo de lenguaje grande (LLM) del cliente, recabar información adicional del usuario o averiguar qué rutas de acceso a archivos expone el cliente. Sin una sesión persistente, no existe ningún canal para llevar a cabo ninguna de estas acciones."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The spec solves this with Multi Round-Trip Requests.\n"
 "Instead of pushing a request to the client, the server returns an `input_required` result.\n"
 "The client then collects the necessary data and retries the original call with the answers attached.\n"
 "Subscriptions follow a similar path: `resources/subscribe` has been replaced by `subscriptions/listen`, where clients receive notifications on a stream based on a specified filter."
-msgstr ""
+msgstr "La especificación resuelve esto mediante las «solicitudes de múltiples idas y vueltas». En lugar de enviar una solicitud al cliente, el servidor devuelve un resultado `«input_required` ». A continuación, el cliente recopila los datos necesarios y vuelve a intentar la llamada original adjuntando las respuestas. Las suscripciones siguen un proceso similar: `«resources/subscribe»` ha sido sustituido por `«subscriptions/listen»` , donde los clientes reciben notificaciones en un flujo basado en un filtro especificado."
 
+#. mt: deepl
+#, fuzzy
 msgid "Implementation in Quarkus MCP Server"
-msgstr ""
+msgstr "Implementación en el servidor MCP de Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "Stateless support was added in quarkus-mcp-server 2.0.0 while the spec was still in release candidate."
-msgstr ""
+msgstr "La compatibilidad con el modo sin estado se añadió en quarkus-mcp-server 2.0.0, cuando la especificación aún se encontraba en fase de candidato a lanzamiento."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The implementation is designed to be transparent.\n"
 "When a request hits the server, it checks the `MCP-Protocol-Version` header and the `_meta` field.\n"
 "If it detects a stateless version (i.e. version `2026-07-28` and up), the request is handled via a transient connection that exists only for the life of that call."
-msgstr ""
+msgstr "La implementación está diseñada para ser transparente. Cuando una solicitud llega al servidor, este comprueba el encabezado `«MCP-Protocol-Version»` y el campo `«_meta` ». Si detecta una versión sin estado (es decir, la versión `2026-07-28` y posteriores), la solicitud se gestiona a través de una conexión transitoria que solo existe mientras dura dicha llamada."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If the request uses an older version, it simply falls back to the traditional session-based path.\n"
 "Because both modes live on the same endpoint, you can migrate your clients one by one without breaking existing integrations."
-msgstr ""
+msgstr "Si la solicitud utiliza una versión anterior, simplemente recurre a la vía tradicional basada en sesiones. Dado que ambos modos se ejecutan en el mismo punto final, puede migrar sus clientes uno por uno sin afectar a las integraciones existentes."
 
+#. mt: deepl
+#, fuzzy
 msgid "Getting started is exactly as it was before:"
-msgstr ""
+msgstr "Los primeros pasos son exactamente los mismos que antes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "And your tools remain simple annotated methods:"
-msgstr ""
+msgstr "Y sus herramientas siguen siendo simples métodos anotados:"
 
+#. mt: deepl
+#, fuzzy
 msgid "If you are connecting from a https://github.com/quarkiverse/quarkus-langchain4j[quarkus-langchain4j] application, configure the MCP client with the `streamable-http` transport and point it at your server:"
-msgstr ""
+msgstr "Si se conecta desde una aplicación link:https://github.com/quarkiverse/quarkus-langchain4j[Quarkus-LangChain4J] , configure el cliente MCP con el transporte `«streamable-http»` y diríjalo a su servidor:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The client auto-detects the protocol version by calling `server/discover` and prefers `2026-07-28` when the server supports it.\n"
 "If you want to pin it explicitly — for example to guarantee stateless mode or to force the legacy stateful protocol during a migration — set the `protocol-version` property:"
-msgstr ""
+msgstr "El cliente detecta automáticamente la versión del protocolo al llamar `a «server/discover»` y da preferencia a `la fecha 28 de julio de 2026` cuando el servidor la admite. Si desea fijarla de forma explícita —por ejemplo, para garantizar el modo sin estado o para forzar el protocolo heredado con estado durante una migración—, configure la propiedad `«protocol-version` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid "From there, your AI service picks up the tools from that client the same way as before:"
-msgstr ""
+msgstr "A partir de ahí, su servicio de IA recoge las herramientas de ese cliente del mismo modo que antes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "No other changes are needed on the client side."
-msgstr ""
+msgstr "No es necesario realizar ningún otro cambio en el lado del cliente."
 
+#. mt: deepl
+#, fuzzy
 msgid "Programming for both eras"
-msgstr ""
+msgstr "Programación para ambas épocas"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For the majority of your tools, you won't even notice the protocol version.\n"
 "However, if your tool needs to interact with the client through sampling, elicitation, or roots, you'll need to handle both stateful and stateless flows."
-msgstr ""
+msgstr "En el caso de la mayoría de sus herramientas, ni siquiera se percatará de la versión del protocolo. Sin embargo, si su herramienta necesita interactuar con el cliente mediante muestreo, obtención de datos o raíces, deberá gestionar tanto los flujos con estado como los que carecen de él."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `Sampling`, `Elicitation`, and `Roots` interfaces now provide an `isServerInitiatedRequestSupported()` method, which lets you branch your logic at runtime.\n"
 "Here is an example of a tool that asks the client's LLM a question:"
-msgstr ""
+msgstr "Las interfaces `«Sampling»` , `«Elicitation»` y `«Roots»` ofrecen ahora el método `isServerInitiatedRequestSupported()` , que le permite ramificar su lógica en tiempo de ejecución. A continuación se muestra un ejemplo de una herramienta que formula una pregunta al LLM del cliente:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "In the stateful flow, the request is sent across the session and the method blocks until the answer comes back.\n"
 "In the stateless flow, the tool throws an `InputRequiredException`, which the extension converts into a `resultType: \"input_required\"` response.\n"
 "That way the client knows it needs to send another call once it has the answer.\n"
 "For complex multi-step interactions, there is also a `requestState()` which gives you an opaque string the client echoes back on each call so you can track where you left off."
-msgstr ""
+msgstr "En el flujo con estado, la solicitud se envía a través de la sesión y el método permanece bloqueado hasta que se recibe la respuesta. En el flujo sin estado, la herramienta lanza una `excepción `InputRequiredException`` , que la extensión convierte en una respuesta `con `resultType: \"input_required\"`` . De este modo, el cliente sabe que debe enviar otra llamada una vez que tenga la respuesta. Para interacciones complejas de varios pasos, también existe un `método `requestState()` ` que le proporciona una cadena opaca que el cliente devuelve en cada llamada, de modo que pueda realizar un seguimiento de dónde se quedó."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Notifications follow the same pattern: Stateful clients keep using `resources/subscribe`, while stateless clients call `subscriptions/listen` with a filter and receive matching notifications on that stream,\n"
 "each tagged with the subscription identifier in `_meta`. List endpoints and `server/discover` responses also now carry `ttlMs` and `cacheScope` fields you can tune through configuration,\n"
 "and every JSON-RPC result on the new protocol version includes the server identity in `_meta`, as the spec now requires."
-msgstr ""
+msgstr "Las notificaciones siguen el mismo patrón: los clientes con estado siguen utilizando `«resources/subscribe»` , mientras que los clientes sin estado llaman a `«subscriptions/listen»` con un filtro y reciben las notificaciones correspondientes en ese flujo, cada una de ellas etiquetada con el identificador de la suscripción en `«_meta` ». Los puntos finales de lista y las respuestas `de «server/discover»` también incluyen ahora los campos `«ttlMs»` y `«cacheScope»` , que puede ajustar mediante la configuración, y cada resultado JSON-RPC en la nueva versión del protocolo incluye la identidad del servidor en `«_meta»` , tal y como exige ahora la especificación."
 
+#. mt: deepl
+#, fuzzy
 msgid "MCP Tasks &amp; Extensions"
-msgstr ""
+msgstr "Tareas y extensiones de MCP"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The new MCP version also includes a way to add capabilities beyond the core MCP protocol, e.g. specific authentication functionality, industry specific logic or experimental features.\n"
 "This capability is planned for Quarkus MCP Server 2.1.0, so keep your eyes peeled for that."
-msgstr ""
+msgstr "La nueva versión de MCP también incluye una forma de añadir capacidades que van más allá del protocolo MCP básico, como, por ejemplo, funcionalidades de autenticación específicas, lógica propia del sector o características experimentales. Está previsto que esta capacidad se incorpore en Quarkus MCP Server 2.1.0, así que manténganse atentos a las novedades al respecto."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "One final note: we run the official https://github.com/modelcontextprotocol/conformance[MCP conformance test suite] in CI.\n"
 "This ensures the extension isn't just working by its own internal standards, but is strictly adhering to the specification."
-msgstr ""
+msgstr "Una última observación: ejecutamos el link:https://github.com/modelcontextprotocol/conformance[conjunto] oficial link:https://github.com/modelcontextprotocol/conformance[de pruebas de conformidad de MCP] en la integración continua (CI). Esto garantiza que la extensión no solo funcione según sus propios estándares internos, sino que se ajuste estrictamente a la especificación."
 
 #, fuzzy
 msgid "Getting started"
 msgstr "Primeros pasos"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The 2.0.* release is already available.\n"
 "If you're already using quarkus-mcp-server, simply bump your version.\n"
 "You can immediately start accepting stateless requests from newer clients without changing a single line of server code."
-msgstr ""
+msgstr "La versión 2.0.* ya está disponible. Si ya está utilizando quarkus-mcp-server, solo tiene que actualizar la versión. Podrá empezar a aceptar de inmediato solicitudes sin estado procedentes de clientes más recientes sin necesidad de modificar ni una sola línea del código del servidor."
 
+#. mt: deepl
+#, fuzzy
 msgid "For more details on the Quarkus MCP Server, check out the https://docs.quarkiverse.io/quarkus-mcp-server/dev/[extension documentation]."
-msgstr ""
+msgstr "Para obtener más información sobre el servidor MCP de Quarkus, consulte la link:https://docs.quarkiverse.io/quarkus-mcp-server/dev/[documentación de la extensión] ."
