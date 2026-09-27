@@ -11,13 +11,8 @@ msgid "Application data caching"
 msgstr "Almacenamiento en caché de datos de la aplicación"
 
 #, fuzzy
-msgid ""
-"In this guide, you will learn how to enable application data caching in any "
-"CDI managed bean of your Quarkus application."
-msgstr ""
-"En esta guía, aprenderá a habilitar el almacenamiento en caché de los datos "
-"de la aplicación en cualquier frijol administrado por CDI de su aplicación "
-"Quarkus."
+msgid "In this guide, you will learn how to enable application data caching in any CDI managed bean of your Quarkus application."
+msgstr "En esta guía, aprenderá a habilitar el almacenamiento en caché de los datos de la aplicación en cualquier frijol administrado por CDI de su aplicación Quarkus."
 
 msgid "Prerequisites"
 msgstr "Requisitos previos"
@@ -43,21 +38,12 @@ msgid "Apache Maven {maven-version}"
 msgstr "Apache Maven {versión de Maven}"
 
 #, fuzzy
-msgid ""
-"Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
-msgstr ""
-"Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
+msgid "Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
+msgstr "Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
 
 #, fuzzy
-msgid ""
-"Optionally Mandrel or GraalVM installed and xref:building-native-image."
-"adoc#configuring-graalvm[configured appropriately] if you want to build a "
-"native executable (or Docker if you use a native container build)"
-msgstr ""
-"Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image."
-"html#configuring-graalvm[configurados apropiadamente] si quieres construir "
-"un ejecutable nativo (o Docker si usas una construcción de contenedor "
-"nativo)"
+msgid "Optionally Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately] if you want to build a native executable (or Docker if you use a native container build)"
+msgstr "Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image.html#configuring-graalvm[configurados apropiadamente] si quieres construir un ejecutable nativo (o Docker si usas una construcción de contenedor nativo)"
 
 #, fuzzy
 msgid "Scenario"
@@ -65,21 +51,10 @@ msgstr "Escenario"
 
 #, fuzzy
 msgid ""
-"Let's imagine you want to expose in your Quarkus application a REST API that "
-"allows users to retrieve the weather forecast for the next three days.\n"
-"The problem is that you have to rely on an external meteorological service "
-"which only accepts requests for one day at a time and takes forever to "
-"answer.\n"
-"Since the weather forecast is updated once every twelve hours, caching the "
-"service responses would definitely improve your API performances."
-msgstr ""
-"Imaginemos que quiere exponer en su aplicación Quarkus una API REST que "
-"permita a los usuarios recuperar la previsión meteorológica para los "
-"próximos tres días. El problema es que tiene que depender de un servicio "
-"meteorológico externo que sólo acepta solicitudes para un día cada vez y "
-"tarda una eternidad en responder. Dado que la previsión meteorológica se "
-"actualiza una vez cada doce horas, almacenar en caché las respuestas del "
-"servicio mejoraría sin duda el rendimiento de su API."
+"Let's imagine you want to expose in your Quarkus application a REST API that allows users to retrieve the weather forecast for the next three days.\n"
+"The problem is that you have to rely on an external meteorological service which only accepts requests for one day at a time and takes forever to answer.\n"
+"Since the weather forecast is updated once every twelve hours, caching the service responses would definitely improve your API performances."
+msgstr "Imaginemos que quiere exponer en su aplicación Quarkus una API REST que permita a los usuarios recuperar la previsión meteorológica para los próximos tres días. El problema es que tiene que depender de un servicio meteorológico externo que sólo acepta solicitudes para un día cada vez y tarda una eternidad en responder. Dado que la previsión meteorológica se actualiza una vez cada doce horas, almacenar en caché las respuestas del servicio mejoraría sin duda el rendimiento de su API."
 
 #, fuzzy
 msgid "We'll do that using a single Quarkus annotation."
@@ -89,124 +64,73 @@ msgstr "Lo haremos utilizando una única anotación de Quarkus."
 msgid ""
 "In this guide, we use the default Quarkus Cache backend (Caffeine).\n"
 "You can use Infinispan or Redis instead.\n"
-"Refer to the xref:cache-infinispan-reference.adoc[Infinispan cache backend "
-"reference] to configure the Infinispan backend.\n"
-"Refer to the xref:cache-redis-reference.adoc[Redis cache backend reference] "
-"to configure the Redis backend."
-msgstr ""
-"En esta guía, utilizamos el backend por defecto de Quarkus Cache (Caffeine). "
-"Puede utilizar Infinispan o Redis en su lugar. Consulte la referencia del "
-"backend de caché xref:cache-infinispan-reference.adoc[Infinispan] para "
-"configurar el backend Infinispan. Consulte la referencia del backend de "
-"caché xref:cache-redis-reference.adoc[Redis] para configurar el backend "
-"Redis."
+"Refer to the xref:cache-infinispan-reference.adoc[Infinispan cache backend reference] to configure the Infinispan backend.\n"
+"Refer to the xref:cache-redis-reference.adoc[Redis cache backend reference] to configure the Redis backend."
+msgstr "En esta guía, utilizamos el backend por defecto de Quarkus Cache (Caffeine). Puede utilizar Infinispan o Redis en su lugar. Consulte la referencia del backend de caché xref:cache-infinispan-reference.adoc[Infinispan] para configurar el backend Infinispan. Consulte la referencia del backend de caché xref:cache-redis-reference.adoc[Redis] para configurar el backend Redis."
 
 msgid "Solution"
 msgstr "Solución"
 
 msgid ""
-"We recommend that you follow the instructions in the next sections and "
-"create the application step by step.\n"
+"We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can go right to the completed example."
 msgstr ""
-"Recomendamos que siga las instrucciones de las siguientes secciones y cree "
-"la aplicación paso a paso.\n"
+"Recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso.\n"
 "Sin embargo, también puede ir directamente al ejemplo completo."
 
-msgid ""
-"Clone the Git repository: `git clone {quickstarts-clone-url}`, or download "
-"an {quickstarts-archive-url}[archive]."
-msgstr ""
-"Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un "
-"{quickstarts-archive-url}[archivo]."
+msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
+msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #, fuzzy
-msgid ""
-"The solution is located in the `cache-quickstart` link:{quickstarts-tree-"
-"url}/cache-quickstart[directory]."
-msgstr ""
-"La solución se encuentra en el `cache-quickstart` {quickstarts-tree-url}/"
-"cache-quickstart[directorio]."
+msgid "The solution is located in the `cache-quickstart` link:{quickstarts-tree-url}/cache-quickstart[directory]."
+msgstr "La solución se encuentra en el `cache-quickstart` {quickstarts-tree-url}/cache-quickstart[directorio]."
 
 msgid "Creating the Maven project"
 msgstr "Creación del proyecto Maven"
 
 #, fuzzy
-msgid ""
-"First, we need to create a new Quarkus project with the following command:"
-msgstr ""
-"En primer lugar, tenemos que crear un nuevo proyecto Quarkus con el "
-"siguiente comando:"
+msgid "First, we need to create a new Quarkus project with the following command:"
+msgstr "En primer lugar, tenemos que crear un nuevo proyecto Quarkus con el siguiente comando:"
 
 msgid "CLI"
 msgstr "CLI"
 
 #, fuzzy
-msgid ""
-"To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` "
-"option."
-msgstr ""
-"Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-"
-"dsl`."
+msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
 
 #, fuzzy
-msgid ""
-"For more information about how to install and use the Quarkus CLI, see the "
-"xref:cli-tooling.adoc[Quarkus CLI] guide."
-msgstr ""
-"_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, "
-"por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de "
-"Quarkus&lt;/a&gt;_."
+msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
 
 msgid "Maven"
 msgstr "Maven"
 
 #, fuzzy
-msgid ""
-"To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool="
-"gradle-kotlin-dsl` option."
-msgstr ""
-"Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-"
-"DbuildTool=gradle-kotlin-dsl`."
+msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
 
 #, fuzzy
 msgid "For Windows users:"
 msgstr "Para usuarios de Windows:"
 
 #, fuzzy
-msgid ""
-"If using cmd, (don't use backward slash `\\` and put everything on the same "
-"line)"
-msgstr ""
-"Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en "
-"la misma línea)"
+msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
+
+#, fuzzy
+msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+
+#, fuzzy
+msgid "This command generates the project and imports the `cache` and `rest-jackson` extensions."
+msgstr "Este comando genera el proyecto e importa las extensiones `cache` y `rest-jackson` ."
 
 #, fuzzy
 msgid ""
-"If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-"
-"DprojectArtifactId={create-app-artifact-id}\"`"
-msgstr ""
-"Si utiliza Powershell, encierre los parámetros de `-D` entre comillas "
-"dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
-
-#, fuzzy
-msgid ""
-"This command generates the project and imports the `cache` and `rest-"
-"jackson` extensions."
-msgstr ""
-"Este comando genera el proyecto e importa las extensiones `cache` y `rest-"
-"jackson` ."
-
-#, fuzzy
-msgid ""
-"If you already have your Quarkus project configured, you can add the `cache` "
-"extension\n"
-"to your project by running the following command in your project base "
-"directory:"
-msgstr ""
-"Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión "
-"`cache` a su proyecto ejecutando el siguiente comando en el directorio base "
-"de su proyecto:"
+"If you already have your Quarkus project configured, you can add the `cache` extension\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `cache` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 msgid "This will add the following to your build file:"
 msgstr "Esto añadirá lo siguiente a su archivo de construcción:"
@@ -217,14 +141,9 @@ msgstr "Creación de la API REST"
 
 #, fuzzy
 msgid ""
-"Let's start by creating a service that will simulate an extremely slow call "
-"to the external meteorological service.\n"
-"Create `src/main/java/org/acme/cache/WeatherForecastService.java` with the "
-"following content:"
-msgstr ""
-"Empecemos creando un servicio que simulará una llamada extremadamente lenta "
-"al servicio meteorológico externo. Cree `src/main/java/org/acme/cache/"
-"WeatherForecastService.java` con el siguiente contenido:"
+"Let's start by creating a service that will simulate an extremely slow call to the external meteorological service.\n"
+"Create `src/main/java/org/acme/cache/WeatherForecastService.java` with the following content:"
+msgstr "Empecemos creando un servicio que simulará una llamada extremadamente lenta al servicio meteorológico externo. Cree `src/main/java/org/acme/cache/WeatherForecastService.java` con el siguiente contenido:"
 
 #, fuzzy
 msgid "This is where the slowness comes from."
@@ -232,34 +151,21 @@ msgstr "De ahí viene la lentitud."
 
 #, fuzzy
 msgid ""
-"We also need a class that will contain the response sent to the users when "
-"they ask for the next three days weather forecast.\n"
+"We also need a class that will contain the response sent to the users when they ask for the next three days weather forecast.\n"
 "Create `src/main/java/org/acme/cache/WeatherForecast.java` this way:"
-msgstr ""
-"También necesitamos una clase que contenga la respuesta enviada a los "
-"usuarios cuando pregunten por la previsión meteorológica de los próximos "
-"tres días. Cree `src/main/java/org/acme/cache/WeatherForecast.java` de esta "
-"forma:"
+msgstr "También necesitamos una clase que contenga la respuesta enviada a los usuarios cuando pregunten por la previsión meteorológica de los próximos tres días. Cree `src/main/java/org/acme/cache/WeatherForecast.java` de esta forma:"
 
 #, fuzzy
 msgid ""
 "Now, we just need to create the REST resource.\n"
-"Create the `src/main/java/org/acme/cache/WeatherForecastResource.java` file "
-"with this content:"
-msgstr ""
-"Ahora, sólo tenemos que crear el recurso REST. Cree el archivo `src/main/"
-"java/org/acme/cache/WeatherForecastResource.java` con este contenido:"
+"Create the `src/main/java/org/acme/cache/WeatherForecastResource.java` file with this content:"
+msgstr "Ahora, sólo tenemos que crear el recurso REST. Cree el archivo `src/main/java/org/acme/cache/WeatherForecastResource.java` con este contenido:"
 
 #, fuzzy
 msgid ""
-"If the `daysInFuture` query parameter is omitted, the three days weather "
-"forecast will start from the current day.\n"
+"If the `daysInFuture` query parameter is omitted, the three days weather forecast will start from the current day.\n"
 "Otherwise, it will start from the current day plus the `daysInFuture` value."
-msgstr ""
-"Si se omite el parámetro de consulta `daysInFuture` , la previsión "
-"meteorológica a tres días comenzará a partir del día actual. En caso "
-"contrario, comenzará a partir del día actual más el valor de `daysInFuture` ."
-""
+msgstr "Si se omite el parámetro de consulta `daysInFuture` , la previsión meteorológica a tres días comenzará a partir del día actual. En caso contrario, comenzará a partir del día actual más el valor de `daysInFuture` ."
 
 #, fuzzy
 msgid "We're all done! Let's check if everything's working."
@@ -267,32 +173,21 @@ msgstr "¡Ya hemos terminado! Comprobemos si todo funciona."
 
 #, fuzzy
 msgid "First, run the application using dev mode from the project directory:"
-msgstr ""
-"En primer lugar, ejecute la aplicación en modo dev desde el directorio del "
-"proyecto:"
+msgstr "En primer lugar, ejecute la aplicación en modo dev desde el directorio del proyecto:"
 
 #, fuzzy
 msgid ""
 "Then, call `http://localhost:8080/weather?city=Raleigh` from a browser.\n"
 "After six long seconds, the application will answer something like this:"
-msgstr ""
-"A continuación, llame a `http://localhost:8080/weather?city=Raleigh` desde "
-"un navegador. Tras seis largos segundos, la aplicación le responderá algo "
-"así:"
+msgstr "A continuación, llame a `http://localhost:8080/weather?city=Raleigh` desde un navegador. Tras seis largos segundos, la aplicación le responderá algo así:"
 
 #, fuzzy
 msgid "The response content may vary depending on the day you run the code."
-msgstr ""
-"El contenido de la respuesta puede variar según el día en que se ejecute el "
-"código."
+msgstr "El contenido de la respuesta puede variar según el día en que se ejecute el código."
 
 #, fuzzy
-msgid ""
-"You can try calling the same URL again and again, it will always take six "
-"seconds to answer."
-msgstr ""
-"Puedes intentar llamar a la misma URL una y otra vez, siempre tardará seis "
-"segundos en contestar."
+msgid "You can try calling the same URL again and again, it will always take six seconds to answer."
+msgstr "Puedes intentar llamar a la misma URL una y otra vez, siempre tardará seis segundos en contestar."
 
 #, fuzzy
 msgid "Enabling the cache"
@@ -300,174 +195,94 @@ msgstr "Activación de la caché"
 
 #, fuzzy
 msgid ""
-"Now that your Quarkus application is up and running, let's tremendously "
-"improve its response time by caching the external meteorological service "
-"responses.\n"
+"Now that your Quarkus application is up and running, let's tremendously improve its response time by caching the external meteorological service responses.\n"
 "Update the `WeatherForecastService` class like this:"
-msgstr ""
-"Ahora que su aplicación Quarkus está en marcha, mejoremos enormemente su "
-"tiempo de respuesta almacenando en caché las respuestas del servicio "
-"meteorológico externo. Actualice la clase `WeatherForecastService` de la "
-"siguiente manera:"
+msgstr "Ahora que su aplicación Quarkus está en marcha, mejoremos enormemente su tiempo de respuesta almacenando en caché las respuestas del servicio meteorológico externo. Actualice la clase `WeatherForecastService` de la siguiente manera:"
 
 #, fuzzy
 msgid "We only added this annotation (and the associated import of course)."
-msgstr ""
-"Sólo añadimos esta anotación (y la importación asociada, por supuesto)."
+msgstr "Sólo añadimos esta anotación (y la importación asociada, por supuesto)."
 
 #, fuzzy
 msgid ""
 "Let's try to call `http://localhost:8080/weather?city=Raleigh` again.\n"
 "You're still waiting a long time before receiving an answer.\n"
 "This is normal since the server just restarted and the cache was empty."
-msgstr ""
-"Intentemos llamar `http://localhost:8080/weather?city=Raleigh` de nuevo. "
-"Sigue esperando mucho tiempo antes de recibir una respuesta. Es normal, ya "
-"que el servidor acaba de reiniciarse y la caché estaba vacía."
+msgstr "Intentemos llamar `http://localhost:8080/weather?city=Raleigh` de nuevo. Sigue esperando mucho tiempo antes de recibir una respuesta. Es normal, ya que el servidor acaba de reiniciarse y la caché estaba vacía."
 
 #, fuzzy
 msgid ""
-"Wait a second! The server restarted by itself after the "
-"`WeatherForecastService` update?\n"
-"Yes, this is one of Quarkus amazing features for developers called `live "
-"coding`."
-msgstr ""
-"¡Un momento! ¿El servidor se reinició solo tras la actualización de "
-"`WeatherForecastService` ? Sí, se trata de una de las increíbles funciones "
-"de Quarkus para desarrolladores llamada `live coding` ."
+"Wait a second! The server restarted by itself after the `WeatherForecastService` update?\n"
+"Yes, this is one of Quarkus amazing features for developers called `live coding`."
+msgstr "¡Un momento! ¿El servidor se reinició solo tras la actualización de `WeatherForecastService` ? Sí, se trata de una de las increíbles funciones de Quarkus para desarrolladores llamada `live coding` ."
 
 #, fuzzy
 msgid ""
-"Now that the cache was loaded during the previous call, try calling the same "
-"URL.\n"
-"This time, you should get a super fast answer with an `executionTimeInMs` "
-"value close to 0."
-msgstr ""
-"Ahora que la caché se ha cargado durante la llamada anterior, intente llamar "
-"a la misma URL. Esta vez, debería obtener una respuesta superrápida con un "
-"valor `executionTimeInMs` cercano a 0."
+"Now that the cache was loaded during the previous call, try calling the same URL.\n"
+"This time, you should get a super fast answer with an `executionTimeInMs` value close to 0."
+msgstr "Ahora que la caché se ha cargado durante la llamada anterior, intente llamar a la misma URL. Esta vez, debería obtener una respuesta superrápida con un valor `executionTimeInMs` cercano a 0."
 
 #, fuzzy
 msgid ""
-"Let's see what happens if we start from one day in the future using the "
-"`http://localhost:8080/weather?city=Raleigh&daysInFuture=1` URL.\n"
-"You should get an answer two seconds later since two of the requested days "
-"were already loaded in the cache."
-msgstr ""
-"Veamos qué ocurre si empezamos desde un día en el futuro utilizando la `http:"
-"//localhost:8080/weather?city=Raleigh&daysInFuture=1` URL. Debería obtener "
-"una respuesta dos segundos más tarde, ya que dos de los días solicitados ya "
-"estaban cargados en la caché."
+"Let's see what happens if we start from one day in the future using the `http://localhost:8080/weather?city=Raleigh&daysInFuture=1` URL.\n"
+"You should get an answer two seconds later since two of the requested days were already loaded in the cache."
+msgstr "Veamos qué ocurre si empezamos desde un día en el futuro utilizando la `http://localhost:8080/weather?city=Raleigh&daysInFuture=1` URL. Debería obtener una respuesta dos segundos más tarde, ya que dos de los días solicitados ya estaban cargados en la caché."
 
 #, fuzzy
 msgid ""
-"You can also try calling the same URL with a different city and see the "
-"cache in action again.\n"
-"The first call will take six seconds, and the following ones will be "
-"answered immediately."
-msgstr ""
-"También puede probar a llamar a la misma URL con una ciudad diferente y ver "
-"de nuevo la caché en acción. La primera llamada tardará seis segundos, y las "
-"siguientes se responderán inmediatamente."
+"You can also try calling the same URL with a different city and see the cache in action again.\n"
+"The first call will take six seconds, and the following ones will be answered immediately."
+msgstr "También puede probar a llamar a la misma URL con una ciudad diferente y ver de nuevo la caché en acción. La primera llamada tardará seis segundos, y las siguientes se responderán inmediatamente."
+
+#, fuzzy
+msgid "Congratulations! You just added application data caching to your Quarkus application with a single line of code!"
+msgstr "¡Enhorabuena! Acaba de añadir el almacenamiento en caché de los datos de la aplicación a su aplicación Quarkus con una sola línea de código."
 
 #, fuzzy
 msgid ""
-"Congratulations! You just added application data caching to your Quarkus "
-"application with a single line of code!"
-msgstr ""
-"¡Enhorabuena! Acaba de añadir el almacenamiento en caché de los datos de la "
-"aplicación a su aplicación Quarkus con una sola línea de código."
-
-#, fuzzy
-msgid ""
-"Do you want to learn more about the Quarkus application data caching "
-"abilities?\n"
+"Do you want to learn more about the Quarkus application data caching abilities?\n"
 "The following sections will show you everything there is to know about it."
-msgstr ""
-"¿Desea obtener más información sobre las capacidades de almacenamiento en "
-"caché de datos de la aplicación Quarkus? Las siguientes secciones le "
-"mostrarán todo lo que hay que saber al respecto."
+msgstr "¿Desea obtener más información sobre las capacidades de almacenamiento en caché de datos de la aplicación Quarkus? Las siguientes secciones le mostrarán todo lo que hay que saber al respecto."
 
 #, fuzzy
 msgid "Caching using annotations"
 msgstr "Almacenamiento en caché mediante anotaciones"
 
 #, fuzzy
-msgid ""
-"Quarkus offers a set of annotations that can be used in a CDI managed bean "
-"to enable caching abilities."
-msgstr ""
-"Quarkus ofrece un conjunto de anotaciones que se pueden utilizar en un bean "
-"gestionado por CDI para habilitar las capacidades de almacenamiento en caché."
-""
+msgid "Quarkus offers a set of annotations that can be used in a CDI managed bean to enable caching abilities."
+msgstr "Quarkus ofrece un conjunto de anotaciones que se pueden utilizar en un bean gestionado por CDI para habilitar las capacidades de almacenamiento en caché."
 
 #, fuzzy
 msgid ""
 "Caching annotations are not allowed on private methods.\n"
-"They will work fine with any other access modifier including package-private "
-"(no explicit modifier)."
-msgstr ""
-"Las anotaciones de caché no están permitidas en los métodos privados. "
-"Funcionarán bien con cualquier otro modificador de acceso, incluido paquete-"
-"privado (sin modificador explícito)."
+"They will work fine with any other access modifier including package-private (no explicit modifier)."
+msgstr "Las anotaciones de caché no están permitidas en los métodos privados. Funcionarán bien con cualquier otro modificador de acceso, incluido paquete-privado (sin modificador explícito)."
 
 #, fuzzy
 msgid "@CacheResult"
 msgstr "@ResultadoCache"
 
 #, fuzzy
-msgid ""
-"Loads a method result from the cache without executing the method body "
-"whenever possible."
-msgstr ""
-"Carga el resultado de un método desde la caché sin ejecutar el cuerpo del "
-"método siempre que sea posible."
+msgid "Loads a method result from the cache without executing the method body whenever possible."
+msgstr "Carga el resultado de un método desde la caché sin ejecutar el cuerpo del método siempre que sea posible."
 
 #, fuzzy
 msgid ""
-"When a method annotated with `@CacheResult` is invoked, Quarkus will compute "
-"a cache key and use it to check in the cache whether the method has been "
-"already invoked.\n"
-"See the <<cache-keys-building-logic>> section of this guide to learn how the "
-"cache key is computed.\n"
-"If a value is found in the cache, it is returned, and the annotated method "
-"is never actually executed.\n"
-"If no value is found, the annotated method is invoked, and the returned "
-"value is stored in the cache using the computed key."
-msgstr ""
-"Cuando se invoca un método anotado con `@CacheResult` , Quarkus calculará "
-"una clave de caché y la utilizará para comprobar en la caché si el método ya "
-"ha sido invocado. Consulte la sección <<cache-keys-building-logic>> de esta "
-"guía para saber cómo se calcula la clave de caché. Si se encuentra un valor "
-"en la caché, se devuelve, y el método anotado nunca se ejecuta realmente. Si "
-"no se encuentra ningún valor, se invoca el método anotado, y el valor "
-"devuelto se almacena en la caché utilizando la clave calculada."
+"When a method annotated with `@CacheResult` is invoked, Quarkus will compute a cache key and use it to check in the cache whether the method has been already invoked.\n"
+"See the <<cache-keys-building-logic>> section of this guide to learn how the cache key is computed.\n"
+"If a value is found in the cache, it is returned, and the annotated method is never actually executed.\n"
+"If no value is found, the annotated method is invoked, and the returned value is stored in the cache using the computed key."
+msgstr "Cuando se invoca un método anotado con `@CacheResult` , Quarkus calculará una clave de caché y la utilizará para comprobar en la caché si el método ya ha sido invocado. Consulte la sección <<cache-keys-building-logic>> de esta guía para saber cómo se calcula la clave de caché. Si se encuentra un valor en la caché, se devuelve, y el método anotado nunca se ejecuta realmente. Si no se encuentra ningún valor, se invoca el método anotado, y el valor devuelto se almacena en la caché utilizando la clave calculada."
 
 #, fuzzy
 msgid ""
-"A method annotated with `CacheResult` is protected by a lock on cache miss "
-"mechanism.\n"
-"If several concurrent invocations try to retrieve a cache value from the "
-"same missing key, the method will only be invoked once.\n"
-"The first concurrent invocation will trigger the method invocation, while "
-"the subsequent concurrent invocations will wait for the end of the method "
-"invocation to get the cached result.\n"
-"The `lockTimeout` parameter can be used to interrupt the lock after a given "
-"delay.\n"
-"The lock timeout is disabled by default, meaning the lock is never "
-"interrupted.\n"
+"A method annotated with `CacheResult` is protected by a lock on cache miss mechanism.\n"
+"If several concurrent invocations try to retrieve a cache value from the same missing key, the method will only be invoked once.\n"
+"The first concurrent invocation will trigger the method invocation, while the subsequent concurrent invocations will wait for the end of the method invocation to get the cached result.\n"
+"The `lockTimeout` parameter can be used to interrupt the lock after a given delay.\n"
+"The lock timeout is disabled by default, meaning the lock is never interrupted.\n"
 "See the parameter Javadoc for more details."
-msgstr ""
-"Un método anotado con `CacheResult` está protegido por un mecanismo de "
-"bloqueo en caso de pérdida de caché. Si varias invocaciones concurrentes "
-"intentan recuperar un valor de caché de la misma clave perdida, el método "
-"sólo se invocará una vez. La primera invocación concurrente desencadenará la "
-"invocación del método, mientras que las invocaciones concurrentes "
-"posteriores esperarán al final de la invocación del método para obtener el "
-"resultado de la caché. El parámetro `lockTimeout` puede utilizarse para "
-"interrumpir el bloqueo tras un retardo determinado. El tiempo de espera del "
-"bloqueo está desactivado por defecto, lo que significa que el bloqueo nunca "
-"se interrumpe. Consulte el Javadoc del parámetro para obtener más detalles."
+msgstr "Un método anotado con `CacheResult` está protegido por un mecanismo de bloqueo en caso de pérdida de caché. Si varias invocaciones concurrentes intentan recuperar un valor de caché de la misma clave perdida, el método sólo se invocará una vez. La primera invocación concurrente desencadenará la invocación del método, mientras que las invocaciones concurrentes posteriores esperarán al final de la invocación del método para obtener el resultado de la caché. El parámetro `lockTimeout` puede utilizarse para interrumpir el bloqueo tras un retardo determinado. El tiempo de espera del bloqueo está desactivado por defecto, lo que significa que el bloqueo nunca se interrumpe. Consulte el Javadoc del parámetro para obtener más detalles."
 
 #, fuzzy
 msgid "This annotation cannot be used on a method returning `void`."
@@ -475,22 +290,14 @@ msgstr "Esta anotación no puede utilizarse en un método que devuelva `void`."
 
 #, fuzzy
 msgid ""
-"Quarkus is able to also cache `null` values unlike the underlying Caffeine "
-"provider.\n"
+"Quarkus is able to also cache `null` values unlike the underlying Caffeine provider.\n"
 "See <<negative-cache,more on this topic below>>."
-msgstr ""
-"Quarkus también puede almacenar en caché los valores de `null` , a "
-"diferencia del proveedor subyacente Caffeine. Vea xref:negative-cache[más "
-"información sobre este tema a continuación] ."
+msgstr "Quarkus también puede almacenar en caché los valores de `null` , a diferencia del proveedor subyacente Caffeine. Vea xref:negative-cache[más información sobre este tema a continuación] ."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"`@CacheResult` can be used on a Kotlin `suspend` function if the `io.quarkus:"
-"quarkus-kotlin` extension is part of the application."
-msgstr ""
-"`@CacheResult` se puede utilizar en una función `«suspend»` de Kotlin si la "
-"extensión `io.quarkus:quarkus-kotlin` forma parte de la aplicación."
+msgid "`@CacheResult` can be used on a Kotlin `suspend` function if the `io.quarkus:quarkus-kotlin` extension is part of the application."
+msgstr "`@CacheResult` se puede utilizar en una función `«suspend»` de Kotlin si la extensión `io.quarkus:quarkus-kotlin` forma parte de la aplicación."
 
 #, fuzzy
 msgid "@CacheInvalidate"
@@ -502,40 +309,24 @@ msgstr "Elimina una entrada de la caché."
 
 #, fuzzy
 msgid ""
-"When a method annotated with `@CacheInvalidate` is invoked, Quarkus will "
-"compute a cache key and use it to try to remove an existing entry from the "
-"cache.\n"
-"See the <<cache-keys-building-logic>> section of this guide to learn how the "
-"cache key is computed.\n"
+"When a method annotated with `@CacheInvalidate` is invoked, Quarkus will compute a cache key and use it to try to remove an existing entry from the cache.\n"
+"See the <<cache-keys-building-logic>> section of this guide to learn how the cache key is computed.\n"
 "If the key does not identify any cache entry, nothing will happen."
-msgstr ""
-"Cuando se invoca un método anotado con `@CacheInvalidate` , Quarkus "
-"calculará una clave de caché y la utilizará para intentar eliminar una "
-"entrada existente de la caché. Consulte la sección <<cache-keys-building-"
-"logic>> de esta guía para saber cómo se calcula la clave de la caché. Si la "
-"clave no identifica ninguna entrada de la caché, no ocurrirá nada."
+msgstr "Cuando se invoca un método anotado con `@CacheInvalidate` , Quarkus calculará una clave de caché y la utilizará para intentar eliminar una entrada existente de la caché. Consulte la sección <<cache-keys-building-logic>> de esta guía para saber cómo se calcula la clave de la caché. Si la clave no identifica ninguna entrada de la caché, no ocurrirá nada."
 
 #, fuzzy
 msgid "@CacheInvalidateAll"
 msgstr "@CacheInvalidateAll"
 
 #, fuzzy
-msgid ""
-"When a method annotated with `@CacheInvalidateAll` is invoked, Quarkus will "
-"remove all entries from the cache."
-msgstr ""
-"Cuando se invoca un método anotado con `@CacheInvalidateAll`, Quarkus "
-"eliminará todas las entradas de la caché."
+msgid "When a method annotated with `@CacheInvalidateAll` is invoked, Quarkus will remove all entries from the cache."
+msgstr "Cuando se invoca un método anotado con `@CacheInvalidateAll`, Quarkus eliminará todas las entradas de la caché."
 
 #, fuzzy
 msgid ""
-"Cache invalidation is performed *after* the annotated method completes "
-"successfully.\n"
+"Cache invalidation is performed *after* the annotated method completes successfully.\n"
 "If the method throws an exception, the cache will *not* be invalidated."
-msgstr ""
-"La invalidación de la caché se realiza *después de que* el método anotado "
-"finalice con éxito. Si el método lanza una excepción, la caché *no* se "
-"invalidará."
+msgstr "La invalidación de la caché se realiza *después de que* el método anotado finalice con éxito. Si el método lanza una excepción, la caché *no* se invalidará."
 
 #, fuzzy
 msgid "@CacheKey"
@@ -543,21 +334,13 @@ msgstr "@CacheKey"
 
 #, fuzzy
 msgid ""
-"When a method argument is annotated with `@CacheKey`, it is identified as a "
-"part of the cache key during an invocation of a\n"
+"When a method argument is annotated with `@CacheKey`, it is identified as a part of the cache key during an invocation of a\n"
 "method annotated with `@CacheResult` or `@CacheInvalidate`."
-msgstr ""
-"Cuando un argumento de método está anotado con `@CacheKey` , se identifica "
-"como parte de la clave de caché durante una invocación de un método anotado "
-"con `@CacheResult` o `@CacheInvalidate` ."
+msgstr "Cuando un argumento de método está anotado con `@CacheKey` , se identifica como parte de la clave de caché durante una invocación de un método anotado con `@CacheResult` o `@CacheInvalidate` ."
 
 #, fuzzy
-msgid ""
-"This annotation is optional and should only be used when some method "
-"arguments are NOT part of the cache key."
-msgstr ""
-"Esta anotación es opcional y sólo debe utilizarse cuando algunos de los "
-"argumentos del método NO forman parte de la clave de la caché."
+msgid "This annotation is optional and should only be used when some method arguments are NOT part of the cache key."
+msgstr "Esta anotación es opcional y sólo debe utilizarse cuando algunos de los argumentos del método NO forman parte de la clave de la caché."
 
 #, fuzzy
 msgid "Cache keys building logic"
@@ -565,125 +348,54 @@ msgstr "Lógica de construcción de claves de caché compuestas"
 
 #, fuzzy
 msgid "Cache keys are built by the annotations API using the following logic:"
-msgstr ""
-"Las claves de caché son construidas por la API de anotaciones utilizando la "
-"siguiente lógica:"
+msgstr "Las claves de caché son construidas por la API de anotaciones utilizando la siguiente lógica:"
 
 #, fuzzy
-msgid ""
-"If an `io.quarkus.cache.CacheKeyGenerator` is declared in a `@CacheResult` "
-"or a `@CacheInvalidate` annotation, then it is used to generate the cache "
-"key. The `@CacheKey` annotations that might be present on some method "
-"arguments are ignored."
-msgstr ""
-"Si se declara un `io.quarkus.cache.CacheKeyGenerator` en una anotación "
-"`@CacheResult` o `@CacheInvalidate`, entonces se utiliza para generar la "
-"clave de caché. Las anotaciones `@CacheKey` que puedan estar presentes en "
-"algunos de los argumentos del método se ignoran."
+msgid "If an `io.quarkus.cache.CacheKeyGenerator` is declared in a `@CacheResult` or a `@CacheInvalidate` annotation, then it is used to generate the cache key. The `@CacheKey` annotations that might be present on some method arguments are ignored."
+msgstr "Si se declara un `io.quarkus.cache.CacheKeyGenerator` en una anotación `@CacheResult` o `@CacheInvalidate`, entonces se utiliza para generar la clave de caché. Las anotaciones `@CacheKey` que puedan estar presentes en algunos de los argumentos del método se ignoran."
 
 #, fuzzy
-msgid ""
-"Otherwise, if the method has no arguments, then the cache key is an instance "
-"of `io.quarkus.cache.DefaultCacheKey` built from the cache name."
-msgstr ""
-"Si el método no tiene argumentos, la clave de la caché es una instancia de "
-"`io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la "
-"caché."
+msgid "Otherwise, if the method has no arguments, then the cache key is an instance of `io.quarkus.cache.DefaultCacheKey` built from the cache name."
+msgstr "Si el método no tiene argumentos, la clave de la caché es una instancia de `io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la caché."
 
 #, fuzzy
-msgid ""
-"Otherwise, if the method has exactly one argument, then that argument is the "
-"cache key."
-msgstr ""
-"Si el método tiene exactamente un argumento, este argumento es la clave de "
-"la caché."
+msgid "Otherwise, if the method has exactly one argument, then that argument is the cache key."
+msgstr "Si el método tiene exactamente un argumento, este argumento es la clave de la caché."
 
 #, fuzzy
-msgid ""
-"Otherwise, if the method has multiple arguments but only one annotated with "
-"`@CacheKey`, then that annotated argument is the cache key."
-msgstr ""
-"Si el método tiene varios argumentos pero sólo uno está anotado con "
-"`@CacheKey`, entonces este argumento anotado es la clave de la caché."
+msgid "Otherwise, if the method has multiple arguments but only one annotated with `@CacheKey`, then that annotated argument is the cache key."
+msgstr "Si el método tiene varios argumentos pero sólo uno está anotado con `@CacheKey`, entonces este argumento anotado es la clave de la caché."
 
 #, fuzzy
-msgid ""
-"Otherwise, if the method has multiple arguments annotated with `@CacheKey`, "
-"then the cache key is an instance of `io.quarkus.cache.CompositeCacheKey` "
-"built from these annotated arguments."
-msgstr ""
-"Si el método no tiene argumentos, la clave de la caché es una instancia de "
-"`io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la "
-"caché."
+msgid "Otherwise, if the method has multiple arguments annotated with `@CacheKey`, then the cache key is an instance of `io.quarkus.cache.CompositeCacheKey` built from these annotated arguments."
+msgstr "Si el método no tiene argumentos, la clave de la caché es una instancia de `io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la caché."
 
 #, fuzzy
-msgid ""
-"Otherwise, if the method has multiple arguments and none of them are "
-"annotated with `@CacheKey`, the cache key is an instance of `io.quarkus."
-"cache.CompositeCacheKey` built from all the method arguments."
-msgstr ""
-"Si el método no tiene argumentos, la clave de la caché es una instancia de "
-"`io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la "
-"caché."
+msgid "Otherwise, if the method has multiple arguments and none of them are annotated with `@CacheKey`, the cache key is an instance of `io.quarkus.cache.CompositeCacheKey` built from all the method arguments."
+msgstr "Si el método no tiene argumentos, la clave de la caché es una instancia de `io.quarkus.cache.DefaultCacheKey` construida a partir del nombre de la caché."
 
 #, fuzzy
-msgid ""
-"Each non-primitive method argument that is part of the key must implement "
-"`equals()` and `hashCode()` correctly for the cache to work as expected."
-msgstr ""
-"Cada argumento de método no primitivo que forma parte de la clave debe "
-"implementar `equals()` y `hashCode()` correctamente para que la caché "
-"funcione como se espera."
+msgid "Each non-primitive method argument that is part of the key must implement `equals()` and `hashCode()` correctly for the cache to work as expected."
+msgstr "Cada argumento de método no primitivo que forma parte de la clave debe implementar `equals()` y `hashCode()` correctamente para que la caché funcione como se espera."
 
-msgid ""
-"For that reason, an injected normal-scoped bean (for example a "
-"`@RequestScoped` `JsonWebToken`, `Principal` or `SecurityIdentity`, but also "
-"an `@ApplicationScoped` one) cannot be used as a key argument: what gets "
-"injected is a CDI client proxy, and the CDI specification leaves every "
-"method a proxy inherits from `Object` undefined apart from `toString()`. "
-"Such an argument is rejected with a `CacheException`, whether it is the key "
-"itself, part of a composite key, or returned by a `CacheKeyGenerator`. Pass "
-"a value derived from the bean instead, such as `principal.getName()`."
+msgid "For that reason, an injected normal-scoped bean (for example a `@RequestScoped` `JsonWebToken`, `Principal` or `SecurityIdentity`, but also an `@ApplicationScoped` one) cannot be used as a key argument: what gets injected is a CDI client proxy, and the CDI specification leaves every method a proxy inherits from `Object` undefined apart from `toString()`. Such an argument is rejected with a `CacheException`, whether it is the key itself, part of a composite key, or returned by a `CacheKeyGenerator`. Pass a value derived from the bean instead, such as `principal.getName()`."
 msgstr ""
 
 #, fuzzy
-msgid ""
-"When a cache key is built from several method arguments, whether they are "
-"explicitly identified with `@CacheKey` or not, the building logic depends on "
-"the order of these arguments in the method signature. On the other hand, the "
-"arguments names are not used at all and do not have any effect on the cache "
-"key."
-msgstr ""
-"Cuando una clave de caché se construye a partir de varios argumentos de "
-"método, tanto si se identifican explícitamente con `@CacheKey` como si no, "
-"la lógica de construcción depende del orden de estos argumentos en la firma "
-"del método. Por otro lado, los nombres de los argumentos no se utilizan en "
-"absoluto y no tienen ningún efecto sobre la clave de caché."
+msgid "When a cache key is built from several method arguments, whether they are explicitly identified with `@CacheKey` or not, the building logic depends on the order of these arguments in the method signature. On the other hand, the arguments names are not used at all and do not have any effect on the cache key."
+msgstr "Cuando una clave de caché se construye a partir de varios argumentos de método, tanto si se identifican explícitamente con `@CacheKey` como si no, la lógica de construcción depende del orden de estos argumentos en la firma del método. Por otro lado, los nombres de los argumentos no se utilizan en absoluto y no tienen ningún efecto sobre la clave de caché."
 
 #, fuzzy
-msgid ""
-"Calling this method WILL invalidate values cached by the `load` method even "
-"if the key elements names have been swapped."
-msgstr ""
-"Llamar a este método INVALIDARÁ los valores almacenados en la caché por el "
-"método `load` incluso si los nombres de los elementos clave han sido "
-"intercambiados."
+msgid "Calling this method WILL invalidate values cached by the `load` method even if the key elements names have been swapped."
+msgstr "Llamar a este método INVALIDARÁ los valores almacenados en la caché por el método `load` incluso si los nombres de los elementos clave han sido intercambiados."
 
 #, fuzzy
-msgid ""
-"Calling this method WILL NOT invalidate values cached by the `load` method "
-"because the key elements order is different."
-msgstr ""
-"La llamada a este método NO invalidará los valores almacenados en la caché "
-"por el método `load` porque el orden de los elementos clave es diferente."
+msgid "Calling this method WILL NOT invalidate values cached by the `load` method because the key elements order is different."
+msgstr "La llamada a este método NO invalidará los valores almacenados en la caché por el método `load` porque el orden de los elementos clave es diferente."
 
 #, fuzzy
-msgid ""
-"Calling this method WILL invalidate values cached by the `load` method "
-"because the key elements order is the same."
-msgstr ""
-"Llamar a este método INVALIDARÁ los valores almacenados en caché por el "
-"método `load` porque el orden de los elementos clave es el mismo."
+msgid "Calling this method WILL invalidate values cached by the `load` method because the key elements order is the same."
+msgstr "Llamar a este método INVALIDARÁ los valores almacenados en caché por el método `load` porque el orden de los elementos clave es el mismo."
 
 #. mt: deepl
 #, fuzzy
@@ -692,122 +404,69 @@ msgstr "Generación de una clave de caché con <code>CacheKeyGenerator</code>"
 
 #, fuzzy
 msgid ""
-"You may want to include more than the arguments of a method into a cache key."
-"\n"
-"This can be done by implementing the `io.quarkus.cache.CacheKeyGenerator` "
-"interface and declaring that implementation in the `keyGenerator` field of a "
-"`@CacheResult` or `@CacheInvalidate` annotation."
-msgstr ""
-"Puede que desee incluir más que los argumentos de un método en una clave de "
-"caché. Esto puede hacerse implementando la interfaz `io.quarkus.cache."
-"CacheKeyGenerator` y declarando esa implementación en el campo "
-"`keyGenerator` de una anotación `@CacheResult` o `@CacheInvalidate` ."
+"You may want to include more than the arguments of a method into a cache key.\n"
+"This can be done by implementing the `io.quarkus.cache.CacheKeyGenerator` interface and declaring that implementation in the `keyGenerator` field of a `@CacheResult` or `@CacheInvalidate` annotation."
+msgstr "Puede que desee incluir más que los argumentos de un método en una clave de caché. Esto puede hacerse implementando la interfaz `io.quarkus.cache.CacheKeyGenerator` y declarando esa implementación en el campo `keyGenerator` de una anotación `@CacheResult` o `@CacheInvalidate` ."
 
 #, fuzzy
 msgid ""
-"The class must either represent a CDI bean or declare a public no-args "
-"constructor.\n"
-"If it represents a CDI bean, then the key generator will be injected during "
-"the cache key computation.\n"
-"Otherwise, a new instance of the key generator will be created using its "
-"default constructor for each cache key computation."
-msgstr ""
-"La clase debe representar un frijol CDI o declarar un constructor público "
-"sin cargas. Si representa un frijol CDI, el generador de claves se inyectará "
-"durante el cálculo de la clave de caché. En caso contrario, se creará una "
-"nueva instancia del generador de claves utilizando su constructor por "
-"defecto para cada cálculo de clave de caché."
+"The class must either represent a CDI bean or declare a public no-args constructor.\n"
+"If it represents a CDI bean, then the key generator will be injected during the cache key computation.\n"
+"Otherwise, a new instance of the key generator will be created using its default constructor for each cache key computation."
+msgstr "La clase debe representar un frijol CDI o declarar un constructor público sin cargas. Si representa un frijol CDI, el generador de claves se inyectará durante el cálculo de la clave de caché. En caso contrario, se creará una nueva instancia del generador de claves utilizando su constructor por defecto para cada cálculo de clave de caché."
 
 #, fuzzy
 msgid ""
-"In case of CDI, there must be exactly one bean that has the class in its set "
-"of bean types, otherwise the build fails.\n"
-"The context associated with the scope of the bean must be active when the "
-"`CacheKeyGenerator#generate()` method is invoked.\n"
-"If the scope is `@Dependent` then the bean instance is destroyed when the "
-"`CacheKeyGenerator#generate()` method completes."
-msgstr ""
-"En el caso de CDI, debe haber exactamente un bean que tenga la clase en su "
-"conjunto de tipos de bean, de lo contrario la construcción falla. El "
-"contexto asociado al ámbito del bean debe estar activo cuando se invoque el "
-"método `CacheKeyGenerator#generate()` . Si el ámbito es `@Dependent` "
-"entonces la instancia del bean se destruye cuando finaliza el método "
-"`CacheKeyGenerator#generate()` ."
+"In case of CDI, there must be exactly one bean that has the class in its set of bean types, otherwise the build fails.\n"
+"The context associated with the scope of the bean must be active when the `CacheKeyGenerator#generate()` method is invoked.\n"
+"If the scope is `@Dependent` then the bean instance is destroyed when the `CacheKeyGenerator#generate()` method completes."
+msgstr "En el caso de CDI, debe haber exactamente un bean que tenga la clase en su conjunto de tipos de bean, de lo contrario la construcción falla. El contexto asociado al ámbito del bean debe estar activo cuando se invoque el método `CacheKeyGenerator#generate()` . Si el ámbito es `@Dependent` entonces la instancia del bean se destruye cuando finaliza el método `CacheKeyGenerator#generate()` ."
 
 #, fuzzy
 msgid "The following key generator will be injected as a CDI bean:"
 msgstr "El siguiente generador de claves se inyectará como un bean CDI:"
 
 #, fuzzy
-msgid ""
-"External data can be included into the cache key by injecting a CDI bean in "
-"the key generator."
-msgstr ""
-"Se pueden incluir datos externos en la clave de la caché inyectando un "
-"frijol CDI en el generador de claves."
+msgid "External data can be included into the cache key by injecting a CDI bean in the key generator."
+msgstr "Se pueden incluir datos externos en la clave de la caché inyectando un frijol CDI en el generador de claves."
 
 #, fuzzy
 msgid "Be careful while using `Method`, some of its methods can be expensive."
-msgstr ""
-"Tenga cuidado al usar `Method`, algunos de sus métodos pueden ser costosos."
+msgstr "Tenga cuidado al usar `Method`, algunos de sus métodos pueden ser costosos."
 
 #, fuzzy
 msgid ""
-"Make sure the method has enough arguments before accessing them from their "
-"index.\n"
-"Otherwise, an `IndexOutOfBoundsException` may be thrown during the cache key "
-"computation."
-msgstr ""
-"Asegúrese de que el método tiene suficientes argumentos antes de acceder a "
-"ellos desde su índice. De lo contrario, puede lanzarse un "
-"`IndexOutOfBoundsException` durante el cálculo de la clave de la caché."
+"Make sure the method has enough arguments before accessing them from their index.\n"
+"Otherwise, an `IndexOutOfBoundsException` may be thrown during the cache key computation."
+msgstr "Asegúrese de que el método tiene suficientes argumentos antes de acceder a ellos desde su índice. De lo contrario, puede lanzarse un `IndexOutOfBoundsException` durante el cálculo de la clave de la caché."
 
 #, fuzzy
-msgid ""
-"The following key generator will be instantiated using its default "
-"constructor:"
-msgstr ""
-"El siguiente generador de claves se instanciará utilizando su constructor "
-"por defecto:"
+msgid "The following key generator will be instantiated using its default constructor:"
+msgstr "El siguiente generador de claves se instanciará utilizando su constructor por defecto:"
 
 #, fuzzy
-msgid ""
-"Including the method name into the cache key is not expensive, unlike other "
-"methods from `Method`."
-msgstr ""
-"Incluir el nombre del método en la clave de la caché no es caro, a "
-"diferencia de otros métodos de `Method`."
+msgid "Including the method name into the cache key is not expensive, unlike other methods from `Method`."
+msgstr "Incluir el nombre del método en la clave de la caché no es caro, a diferencia de otros métodos de `Method`."
 
 #, fuzzy
 msgid "Both kinds of key generators can be used in a similar way:"
-msgstr ""
-"Ambos tipos de generadores de claves pueden utilizarse de forma similar:"
+msgstr "Ambos tipos de generadores de claves pueden utilizarse de forma similar:"
 
 #, fuzzy
 msgid "This key generator is a CDI bean."
 msgstr "Este generador de claves es un frijol CDI."
 
 #, fuzzy
-msgid ""
-"The `@CacheKey` annotation will be ignored because a key generator is "
-"declared in the `@CacheResult` annotation."
-msgstr ""
-"La anotación `@CacheKey` será ignorada porque se declara un generador de "
-"claves en la anotación `@CacheResult`."
+msgid "The `@CacheKey` annotation will be ignored because a key generator is declared in the `@CacheResult` annotation."
+msgstr "La anotación `@CacheKey` será ignorada porque se declara un generador de claves en la anotación `@CacheResult`."
 
 #, fuzzy
 msgid "This key generator is not a CDI bean."
 msgstr "Este generador de claves no es un frijol CDI."
 
 #, fuzzy
-msgid ""
-"The `@CacheKey` annotation will be ignored when the `foo` cache data is "
-"invalidated, but `param1` will be the cache key when the `bar` cache data is "
-"invalidated."
-msgstr ""
-"La anotación `@CacheKey` se ignorará cuando se invaliden los datos de la "
-"caché `foo`, pero `param1` será la clave de la caché cuando se invaliden los "
-"datos de la caché `bar`."
+msgid "The `@CacheKey` annotation will be ignored when the `foo` cache data is invalidated, but `param1` will be the cache key when the `bar` cache data is invalidated."
+msgstr "La anotación `@CacheKey` se ignorará cuando se invaliden los datos de la caché `foo`, pero `param1` será la clave de la caché cuando se invaliden los datos de la caché `bar`."
 
 #, fuzzy
 msgid "@CachedResults"
@@ -815,41 +474,20 @@ msgstr "@CachedResults"
 
 #, fuzzy
 msgid ""
-"The `@io.quarkus.cache.CachedResults` qualifier may be applied to injection "
-"points to instruct the container to inject a _generated wrapper bean_ that\n"
-"delegates all method invocations to the original bean but the return values "
-"of selected business methods are cached.\n"
+"The `@io.quarkus.cache.CachedResults` qualifier may be applied to injection points to instruct the container to inject a _generated wrapper bean_ that\n"
+"delegates all method invocations to the original bean but the return values of selected business methods are cached.\n"
 "By default, all non-void non-static business methods are included.\n"
-"However, it is possible to exclude methods whose names match one of the "
-"regular expressions defined by `@CachedResults#exclude()`.\n"
-"The injected class must be either an interface or declare a no-args "
-"constructor."
-msgstr ""
-"El calificador `@io.quarkus.cache.CachedResults` puede aplicarse a los "
-"puntos de inyección para indicar al contenedor que inyecte un _frijol "
-"envoltorio generado_ que delegue todas las invocaciones de métodos en el "
-"frijol original, pero se almacenen en caché los valores de retorno de los "
-"métodos de negocio seleccionados. Por defecto, se incluyen todos los métodos "
-"de negocio no estáticos no vacíos. Sin embargo, es posible excluir los "
-"métodos cuyos nombres coincidan con una de las expresiones regulares "
-"definidas por `@CachedResults#exclude()` . La clase inyectada debe ser una "
-"interfaz o declarar un constructor sin cargas."
+"However, it is possible to exclude methods whose names match one of the regular expressions defined by `@CachedResults#exclude()`.\n"
+"The injected class must be either an interface or declare a no-args constructor."
+msgstr "El calificador `@io.quarkus.cache.CachedResults` puede aplicarse a los puntos de inyección para indicar al contenedor que inyecte un _frijol envoltorio generado_ que delegue todas las invocaciones de métodos en el frijol original, pero se almacenen en caché los valores de retorno de los métodos de negocio seleccionados. Por defecto, se incluyen todos los métodos de negocio no estáticos no vacíos. Sin embargo, es posible excluir los métodos cuyos nombres coincidan con una de las expresiones regulares definidas por `@CachedResults#exclude()` . La clase inyectada debe ser una interfaz o declarar un constructor sin cargas."
 
 #, fuzzy
-msgid ""
-"A _generated wrapper bean_ is injected instead of the original bean that "
-"implements the `PingService`."
-msgstr ""
-"Se inyecta un _bean envoltorio generado_ en lugar del bean original que "
-"implementa el `PingService` ."
+msgid "A _generated wrapper bean_ is injected instead of the original bean that implements the `PingService`."
+msgstr "Se inyecta un _bean envoltorio generado_ en lugar del bean original que implementa el `PingService` ."
 
 #, fuzzy
-msgid ""
-"The return value of the `service.ping()` invocation will be cached. The "
-"cache will be named like `org.example.PingService#ping()`."
-msgstr ""
-"El valor de retorno de la invocación a `service.ping()` se almacenará en "
-"caché. La caché se denominará como `org.example.PingService#ping()` ."
+msgid "The return value of the `service.ping()` invocation will be cached. The cache will be named like `org.example.PingService#ping()`."
+msgstr "El valor de retorno de la invocación a `service.ping()` se almacenará en caché. La caché se denominará como `org.example.PingService#ping()` ."
 
 #, fuzzy
 msgid "Caching using the programmatic API"
@@ -857,42 +495,24 @@ msgstr "Almacenamiento en caché mediante la API programática"
 
 #, fuzzy
 msgid ""
-"Quarkus also offers a programmatic API which can be used to store, retrieve "
-"or delete values from any cache declared using the annotations API.\n"
-"All operations from the programmatic API are non-blocking and rely on https:/"
-"/smallrye.io/smallrye-mutiny/[Mutiny] under the hood."
-msgstr ""
-"Quarkus también ofrece una API programática que puede utilizarse para "
-"almacenar, recuperar o eliminar valores de cualquier caché declarada "
-"mediante la API de anotaciones. Todas las operaciones de la API programática "
-"no son de bloqueo y dependen de link:https://smallrye.io/smallrye-mutiny/"
-"[Mutiny] bajo el capó."
+"Quarkus also offers a programmatic API which can be used to store, retrieve or delete values from any cache declared using the annotations API.\n"
+"All operations from the programmatic API are non-blocking and rely on https://smallrye.io/smallrye-mutiny/[Mutiny] under the hood."
+msgstr "Quarkus también ofrece una API programática que puede utilizarse para almacenar, recuperar o eliminar valores de cualquier caché declarada mediante la API de anotaciones. Todas las operaciones de la API programática no son de bloqueo y dependen de link:https://smallrye.io/smallrye-mutiny/[Mutiny] bajo el capó."
 
 #, fuzzy
 msgid ""
-"Before accessing programmatically the cached data, you need to retrieve an "
-"`io.quarkus.cache.Cache` instance.\n"
+"Before accessing programmatically the cached data, you need to retrieve an `io.quarkus.cache.Cache` instance.\n"
 "The following sections will show you how to do that."
-msgstr ""
-"Antes de acceder mediante programación a los datos almacenados en caché, "
-"necesita recuperar una instancia de `io.quarkus.cache.Cache` . Las "
-"siguientes secciones le mostrarán cómo hacerlo."
+msgstr "Antes de acceder mediante programación a los datos almacenados en caché, necesita recuperar una instancia de `io.quarkus.cache.Cache` . Las siguientes secciones le mostrarán cómo hacerlo."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Injecting a <code>Cache</code> with the <code>@CacheName</code> annotation"
-msgstr ""
-"Incorporación de una <code>Cache</code> mediante la anotación "
-"<code>@CacheName</code>"
+msgid "Injecting a <code>Cache</code> with the <code>@CacheName</code> annotation"
+msgstr "Incorporación de una <code>Cache</code> mediante la anotación <code>@CacheName</code>"
 
 #, fuzzy
-msgid ""
-"`io.quarkus.cache.CacheName` can be used on a field, a constructor parameter "
-"or a method parameter to inject a `Cache`:"
-msgstr ""
-"`io.quarkus.cache.CacheName` puede utilizarse en un campo, un parámetro de "
-"constructor o un parámetro de método para inyectar un `Cache`:"
+msgid "`io.quarkus.cache.CacheName` can be used on a field, a constructor parameter or a method parameter to inject a `Cache`:"
+msgstr "`io.quarkus.cache.CacheName` puede utilizarse en un campo, un parámetro de constructor o un parámetro de método para inyectar un `Cache`:"
 
 #, fuzzy
 msgid "This is optional."
@@ -900,46 +520,27 @@ msgstr "Esto es opcional."
 
 #, fuzzy
 msgid "This method returns the `Uni<String>` type which is non-blocking."
-msgstr ""
-"Este método devuelve el tipo `Uni&amp;lt;String&amp;gt;` que no es de "
-"bloqueo."
+msgstr "Este método devuelve el tipo `Uni&amp;lt;String&amp;gt;` que no es de bloqueo."
 
 #, fuzzy
 msgid "The `k` argument contains the cache key value."
 msgstr "El argumento `k` contiene el valor de la clave de la caché."
 
 #, fuzzy
-msgid ""
-"If you don't need the call to be non-blocking, this is how you can retrieve "
-"the cache value in a blocking way."
-msgstr ""
-"Si no necesitas que la llamada sea no bloqueante, así es como puedes "
-"recuperar el valor de la caché de forma bloqueante."
+msgid "If you don't need the call to be non-blocking, this is how you can retrieve the cache value in a blocking way."
+msgstr "Si no necesitas que la llamada sea no bloqueante, así es como puedes recuperar el valor de la caché de forma bloqueante."
 
-msgid ""
-"You can optionally specify a custom `Duration expiresAfter` to control per-"
-"item expiration. For Caffeine caches, this requires enabling per-item "
-"expiration on the cache with `quarkus.cache.caffeine.\"cache-name\".per-item-"
-"expiration=true`. Enabling per-item expiration adds a small amount of memory "
-"overhead per cache entry and a per-read computation cost, even for entries "
-"that do not use a custom expiration."
+msgid "You can optionally specify a custom `Duration expiresAfter` to control per-item expiration. For Caffeine caches, this requires enabling per-item expiration on the cache with `quarkus.cache.caffeine.\"cache-name\".per-item-expiration=true`. Enabling per-item expiration adds a small amount of memory overhead per cache entry and a per-read computation cost, even for entries that do not use a custom expiration."
 msgstr ""
 
 #. mt: deepl
 #, fuzzy
 msgid "Retrieving a <code>Cache</code> from the <code>CacheManager</code>"
-msgstr ""
-"Recuperación de un <code>Cache</code> desde el <code>CacheManager</code>"
+msgstr "Recuperación de un <code>Cache</code> desde el <code>CacheManager</code>"
 
 #, fuzzy
-msgid ""
-"Another way to retrieve a `Cache` instance consists in injecting the `io."
-"quarkus.cache.CacheManager` first and then retrieving the desired `Cache` "
-"from its name:"
-msgstr ""
-"Otra forma de recuperar una instancia de `Cache` consiste en inyectar "
-"primero el `io.quarkus.cache.CacheManager` y luego recuperar el `Cache` "
-"deseado a partir de su nombre:"
+msgid "Another way to retrieve a `Cache` instance consists in injecting the `io.quarkus.cache.CacheManager` first and then retrieving the desired `Cache` from its name:"
+msgstr "Otra forma de recuperar una instancia de `Cache` consiste en inyectar primero el `io.quarkus.cache.CacheManager` y luego recuperar el `Cache` deseado a partir de su nombre:"
 
 #, fuzzy
 msgid "Building a programmatic cache key"
@@ -947,25 +548,13 @@ msgstr "Construir una clave de caché programática"
 
 #, fuzzy
 msgid ""
-"Before building a programmatic cache key, you need to know how cache keys "
-"are built by the annotations API when an annotated method is invoked.\n"
+"Before building a programmatic cache key, you need to know how cache keys are built by the annotations API when an annotated method is invoked.\n"
 "This is explained in the <<cache-keys-building-logic>> section of this guide."
-""
-msgstr ""
-"Antes de construir una clave de caché programática, necesita saber cómo se "
-"construyen las claves de caché por la API de anotaciones cuando se invoca un "
-"método anotado. Esto se explica en la sección <<cache-keys-building-logic>> "
-"de esta guía."
+msgstr "Antes de construir una clave de caché programática, necesita saber cómo se construyen las claves de caché por la API de anotaciones cuando se invoca un método anotado. Esto se explica en la sección <<cache-keys-building-logic>> de esta guía."
 
 #, fuzzy
-msgid ""
-"Now, if you want to retrieve or delete, using the programmatic API, a cache "
-"value that was stored using the annotations API, you just need to make sure "
-"the same key is used with both APIs."
-msgstr ""
-"Ahora, si quieres recuperar o eliminar, utilizando la API programática, un "
-"valor de la caché que se almacenó utilizando la API de anotaciones, sólo "
-"tienes que asegurarte de que se utiliza la misma clave con ambas API."
+msgid "Now, if you want to retrieve or delete, using the programmatic API, a cache value that was stored using the annotations API, you just need to make sure the same key is used with both APIs."
+msgstr "Ahora, si quieres recuperar o eliminar, utilizando la API programática, un valor de la caché que se almacenó utilizando la API de anotaciones, sólo tienes que asegurarte de que se utiliza la misma clave con ambas API."
 
 #. mt: deepl
 #, fuzzy
@@ -974,15 +563,9 @@ msgstr "Recuperación de todas las claves de un <code>CaffeineCache</code>"
 
 #, fuzzy
 msgid ""
-"The cache keys from a specific `CaffeineCache` can be retrieved as an "
-"unmodifiable `Set` as shown below.\n"
-"If the cache entries are modified while an iteration over the set is in "
-"progress, the set will remain unchanged."
-msgstr ""
-"Las claves de la caché de un `CaffeineCache` específico pueden recuperarse "
-"como un `Set` no modificable, como se muestra a continuación. Si las "
-"entradas de la caché se modifican mientras se está realizando una iteración "
-"sobre el conjunto, éste permanecerá inalterado."
+"The cache keys from a specific `CaffeineCache` can be retrieved as an unmodifiable `Set` as shown below.\n"
+"If the cache entries are modified while an iteration over the set is in progress, the set will remain unchanged."
+msgstr "Las claves de la caché de un `CaffeineCache` específico pueden recuperarse como un `Set` no modificable, como se muestra a continuación. Si las entradas de la caché se modifican mientras se está realizando una iteración sobre el conjunto, éste permanecerá inalterado."
 
 #. mt: deepl
 #, fuzzy
@@ -991,105 +574,49 @@ msgstr "Cómo rellenar un <code>CaffeineCache</code>"
 
 #, fuzzy
 msgid ""
-"You can populate a `CaffeineCache` using the `CaffeineCache#put(Object, "
-"CompletableFuture)` method.\n"
-"This method associates the `CompletableFuture` with the given key in the "
-"cache. If the cache previously contained a value associated with the key, "
-"the old value is replaced by this `CompletableFuture`. If the asynchronous "
-"computation fails, the entry will be automatically removed."
-msgstr ""
-"Puede rellenar un `CaffeineCache` utilizando el método "
-"`CaffeineCache#put(Object, CompletableFuture)` . Este método asocia el "
-"`CompletableFuture` con la clave dada en la caché. Si la caché contenía "
-"previamente un valor asociado a la clave, el valor antiguo se sustituye por "
-"este `CompletableFuture` . Si el cálculo asíncrono falla, la entrada se "
-"eliminará automáticamente."
+"You can populate a `CaffeineCache` using the `CaffeineCache#put(Object, CompletableFuture)` method.\n"
+"This method associates the `CompletableFuture` with the given key in the cache. If the cache previously contained a value associated with the key, the old value is replaced by this `CompletableFuture`. If the asynchronous computation fails, the entry will be automatically removed."
+msgstr "Puede rellenar un `CaffeineCache` utilizando el método `CaffeineCache#put(Object, CompletableFuture)` . Este método asocia el `CompletableFuture` con la clave dada en la caché. Si la caché contenía previamente un valor asociado a la clave, el valor antiguo se sustituye por este `CompletableFuture` . Si el cálculo asíncrono falla, la entrada se eliminará automáticamente."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Retrieving a value if a key is present from a <code>CaffeineCache</code>"
-msgstr ""
-"Recuperar un valor si existe una clave en un <code>CaffeineCache</code>"
+msgid "Retrieving a value if a key is present from a <code>CaffeineCache</code>"
+msgstr "Recuperar un valor si existe una clave en un <code>CaffeineCache</code>"
 
 #, fuzzy
 msgid ""
-"The cache value from a specific `CaffeineCache` can be retrieved if present "
-"as shown below.\n"
-"If the given key is contained in the cache, the method will return the "
-"`CompletableFuture` the specified key is mapped to.\n"
+"The cache value from a specific `CaffeineCache` can be retrieved if present as shown below.\n"
+"If the given key is contained in the cache, the method will return the `CompletableFuture` the specified key is mapped to.\n"
 "That `CompletableFuture` may be computing or may already be completed.\n"
 "Otherwise, the method will return `null`."
-msgstr ""
-"Se puede recuperar el valor de la caché de un `CaffeineCache` específico si "
-"está presente, como se muestra a continuación. Si la clave dada está "
-"contenida en la caché, el método devolverá el `CompletableFuture` al que "
-"está asignada la clave especificada. Ese `CompletableFuture` puede estar "
-"computando o puede que ya se haya completado. En caso contrario, el método "
-"devolverá `null` ."
+msgstr "Se puede recuperar el valor de la caché de un `CaffeineCache` específico si está presente, como se muestra a continuación. Si la clave dada está contenida en la caché, el método devolverá el `CompletableFuture` al que está asignada la clave especificada. Ese `CompletableFuture` puede estar computando o puede que ya se haya completado. En caso contrario, el método devolverá `null` ."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Changing the expiration policy or the maximum size of a <code>CaffeineCache</"
-"code> in real time"
-msgstr ""
-"Modificar en tiempo real la política de caducidad o el tamaño máximo de un "
-"<code>CaffeineCache</code>"
+msgid "Changing the expiration policy or the maximum size of a <code>CaffeineCache</code> in real time"
+msgstr "Modificar en tiempo real la política de caducidad o el tamaño máximo de un <code>CaffeineCache</code>"
 
 #, fuzzy
 msgid ""
-"The expiration policy of a `CaffeineCache` can be changed while a Quarkus "
-"app is running if that policy was initially specified in the Quarkus "
-"configuration.\n"
-"Similarly, the maximum size of a `CaffeineCache` can be changed in real time "
-"if the cache was built with an initial maximum size defined in the "
-"configuration."
-msgstr ""
-"La política de caducidad de un `CaffeineCache` puede cambiarse mientras se "
-"ejecuta una aplicación de Quarkus si esa política se especificó inicialmente "
-"en la configuración de Quarkus. Del mismo modo, el tamaño máximo de un "
-"`CaffeineCache` puede cambiarse en tiempo real si la caché se construyó con "
-"un tamaño máximo inicial definido en la configuración."
+"The expiration policy of a `CaffeineCache` can be changed while a Quarkus app is running if that policy was initially specified in the Quarkus configuration.\n"
+"Similarly, the maximum size of a `CaffeineCache` can be changed in real time if the cache was built with an initial maximum size defined in the configuration."
+msgstr "La política de caducidad de un `CaffeineCache` puede cambiarse mientras se ejecuta una aplicación de Quarkus si esa política se especificó inicialmente en la configuración de Quarkus. Del mismo modo, el tamaño máximo de un `CaffeineCache` puede cambiarse en tiempo real si la caché se construyó con un tamaño máximo inicial definido en la configuración."
 
 #, fuzzy
-msgid ""
-"This line will only work if the cache was constructed with an `expire-after-"
-"access` configuration value. Otherwise, an `IllegalStateException` will be "
-"thrown."
-msgstr ""
-"Esta línea sólo funcionará si la caché se construyó con un valor de "
-"configuración `expire-after-access`. De lo contrario, se lanzará un "
-"`IllegalStateException`."
+msgid "This line will only work if the cache was constructed with an `expire-after-access` configuration value. Otherwise, an `IllegalStateException` will be thrown."
+msgstr "Esta línea sólo funcionará si la caché se construyó con un valor de configuración `expire-after-access`. De lo contrario, se lanzará un `IllegalStateException`."
 
 #, fuzzy
-msgid ""
-"This line will only work if the cache was constructed with an `expire-after-"
-"write` configuration value. Otherwise, an `IllegalStateException` will be "
-"thrown."
-msgstr ""
-"Esta línea sólo funcionará si la caché se construyó con un valor de "
-"configuración `expire-after-write`. De lo contrario, se lanzará un "
-"`IllegalStateException`."
+msgid "This line will only work if the cache was constructed with an `expire-after-write` configuration value. Otherwise, an `IllegalStateException` will be thrown."
+msgstr "Esta línea sólo funcionará si la caché se construyó con un valor de configuración `expire-after-write`. De lo contrario, se lanzará un `IllegalStateException`."
 
 #, fuzzy
-msgid ""
-"This line will only work if the cache was constructed with a `maximum-size` "
-"configuration value. Otherwise, an `IllegalStateException` will be thrown."
-msgstr ""
-"Esta línea sólo funcionará si la caché se construyó con un valor de "
-"configuración `maximum-size`. De lo contrario, se lanzará un "
-"`IllegalStateException`."
+msgid "This line will only work if the cache was constructed with a `maximum-size` configuration value. Otherwise, an `IllegalStateException` will be thrown."
+msgstr "Esta línea sólo funcionará si la caché se construyó con un valor de configuración `maximum-size`. De lo contrario, se lanzará un `IllegalStateException`."
 
 #, fuzzy
-msgid ""
-"The `setExpireAfterAccess`, `setExpireAfterWrite` and `setMaximumSize` "
-"methods from `CaffeineCache` must never be invoked from within an atomic "
-"scope of a cache operation."
-msgstr ""
-"Los métodos `setExpireAfterAccess`, `setExpireAfterWrite` y `setMaximumSize` "
-"de `CaffeineCache` nunca deben invocarse desde un ámbito atómico de una "
-"operación de caché."
+msgid "The `setExpireAfterAccess`, `setExpireAfterWrite` and `setMaximumSize` methods from `CaffeineCache` must never be invoked from within an atomic scope of a cache operation."
+msgstr "Los métodos `setExpireAfterAccess`, `setExpireAfterWrite` y `setMaximumSize` de `CaffeineCache` nunca deben invocarse desde un ámbito atómico de una operación de caché."
 
 #, fuzzy
 msgid "Configuring the underlying caching provider"
@@ -1097,28 +624,17 @@ msgstr "Configuración del proveedor de caché subyacente"
 
 #, fuzzy
 msgid ""
-"This extension uses https://github.com/ben-manes/caffeine[Caffeine] as its "
-"underlying caching provider.\n"
+"This extension uses https://github.com/ben-manes/caffeine[Caffeine] as its underlying caching provider.\n"
 "Caffeine is a high performance, near optimal caching library."
-msgstr ""
-"Esta extensión utiliza link:https://github.com/ben-manes/caffeine[Caffeine] "
-"como proveedor de caché subyacente. Caffeine es una biblioteca de "
-"almacenamiento en caché de alto rendimiento y casi óptima."
+msgstr "Esta extensión utiliza link:https://github.com/ben-manes/caffeine[Caffeine] como proveedor de caché subyacente. Caffeine es una biblioteca de almacenamiento en caché de alto rendimiento y casi óptima."
 
 #, fuzzy
 msgid "Multiple Backends Simultaneously"
 msgstr "Múltiples backends simultáneamente"
 
 #, fuzzy
-msgid ""
-"This extension can be configured to use multiple backends simultaneously, "
-"allowing different caches to leverage either in-memory providers (like "
-"Caffeine) or distributed providers (like Redis) as needed, for example:"
-msgstr ""
-"Esta extensión puede configurarse para utilizar varios backends "
-"simultáneamente, permitiendo que diferentes cachés aprovechen proveedores en "
-"memoria (como Caffeine) o distribuidos (como Redis) según sea necesario, por "
-"ejemplo:"
+msgid "This extension can be configured to use multiple backends simultaneously, allowing different caches to leverage either in-memory providers (like Caffeine) or distributed providers (like Redis) as needed, for example:"
+msgstr "Esta extensión puede configurarse para utilizar varios backends simultáneamente, permitiendo que diferentes cachés aprovechen proveedores en memoria (como Caffeine) o distribuidos (como Redis) según sea necesario, por ejemplo:"
 
 #, fuzzy
 msgid "Caffeine configuration properties"
@@ -1126,35 +642,18 @@ msgstr "Propiedades de configuración de la cafeína"
 
 #, fuzzy
 msgid ""
-"Each of the Caffeine caches backing up the Quarkus application data caching "
-"extension can be configured using the following\n"
-"properties in the `application.properties` file. By default, caches do not "
-"perform any type of eviction if not configured."
-msgstr ""
-"Cada una de las cachés Caffeine que respaldan la extensión de caché de datos "
-"de aplicación Quarkus puede configurarse utilizando las siguientes "
-"propiedades en el archivo `application.properties` . Por defecto, las cachés "
-"no realizan ningún tipo de desalojo si no están configuradas."
+"Each of the Caffeine caches backing up the Quarkus application data caching extension can be configured using the following\n"
+"properties in the `application.properties` file. By default, caches do not perform any type of eviction if not configured."
+msgstr "Cada una de las cachés Caffeine que respaldan la extensión de caché de datos de aplicación Quarkus puede configurarse utilizando las siguientes propiedades en el archivo `application.properties` . Por defecto, las cachés no realizan ningún tipo de desalojo si no están configuradas."
 
 #, fuzzy
-msgid ""
-"You need to replace `cache-name` in all the following properties with the "
-"real name of the cache you want to configure."
-msgstr ""
-"Debe sustituir `cache-name` en todas las propiedades siguientes por el "
-"nombre real de la caché que desea configurar."
+msgid "You need to replace `cache-name` in all the following properties with the real name of the cache you want to configure."
+msgstr "Debe sustituir `cache-name` en todas las propiedades siguientes por el nombre real de la caché que desea configurar."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"icon:lock[title=Fixed at build time] Configuration property fixed at build "
-"time - All other configuration properties are overridable at runtime "
-"+++<input type=\"search\" id=\"config-search-1\" placeholder=\"FILTER "
-"CONFIGURATION\" disabled>+++"
-msgstr ""
-"[lock] Propiedad de configuración fijada en el momento de la compilación: el "
-"resto de propiedades de configuración se pueden sobrescribir en tiempo de "
-"ejecución "
+msgid "icon:lock[title=Fixed at build time] Configuration property fixed at build time - All other configuration properties are overridable at runtime +++<input type=\"search\" id=\"config-search-1\" placeholder=\"FILTER CONFIGURATION\" disabled>+++"
+msgstr "[lock] Propiedad de configuración fijada en el momento de la compilación: el resto de propiedades de configuración se pueden sobrescribir en tiempo de ejecución "
 
 #. mt: deepl
 #, fuzzy
@@ -1170,48 +669,34 @@ msgstr "Por defecto"
 #. mt: deepl
 #, fuzzy
 msgid ""
-"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-type]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-type[`+++quarkus.cache."
-"type+++`]##\n"
+"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-type[`+++quarkus.cache.type+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.type+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Default cache type (backend provider). If no explicit type is defined for a "
-"cache, this type will be used.\n"
+"Default cache type (backend provider). If no explicit type is defined for a cache, this type will be used.\n"
 "\n"
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_TYPE+++[]\n"
 "--"
-msgstr ""
-"[lock]  link:#quarkus-cache_quarkus-cache-type[quarkus.cache.type] "
-"config_property_copy_button:quarkus.cache.type[]"
+msgstr "[lock]  link:#quarkus-cache_quarkus-cache-type[quarkus.cache.type] config_property_copy_button:quarkus.cache.type[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-type]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-type[`+++quarkus.cache."
-"type+++`]##\n"
+"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-type[`+++quarkus.cache.type+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.type+++[]"
-msgstr ""
-"[lock]  link:#quarkus-cache_quarkus-cache-type[quarkus.cache.type] "
-"config_property_copy_button:quarkus.cache.type[]"
+msgstr "[lock]  link:#quarkus-cache_quarkus-cache-type[quarkus.cache.type] config_property_copy_button:quarkus.cache.type[]"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Default cache type (backend provider). If no explicit type is defined for a "
-"cache, this type will be used."
-msgstr ""
-"Tipo de caché predeterminado (proveedor de fondo). Si no se define ningún "
-"tipo explícito para una caché, se utilizará este tipo."
+msgid "Default cache type (backend provider). If no explicit type is defined for a cache, this type will be used."
+msgstr "Tipo de caché predeterminado (proveedor de fondo). Si no se define ningún tipo explícito para una caché, se utilizará este tipo."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_TYPE+++[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_TYPE+++[]"
 msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_TYPE[]"
 
 #. mt: deepl
@@ -1231,8 +716,7 @@ msgstr "`cafeína`"
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-enabled]] [.property-path]##link:#quarkus-"
-"cache_quarkus-cache-enabled[`+++quarkus.cache.enabled+++`]##\n"
+"[[quarkus-cache_quarkus-cache-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-enabled[`+++quarkus.cache.enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.enabled+++[]\n"
 "\n"
 "\n"
@@ -1243,19 +727,14 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_ENABLED+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-enabled[quarkus.cache.enabled] "
-"config_property_copy_button:quarkus.cache.enabled[]"
+msgstr " link:#quarkus-cache_quarkus-cache-enabled[quarkus.cache.enabled] config_property_copy_button:quarkus.cache.enabled[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-enabled]] [.property-path]##link:#quarkus-"
-"cache_quarkus-cache-enabled[`+++quarkus.cache.enabled+++`]##\n"
+"[[quarkus-cache_quarkus-cache-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-enabled[`+++quarkus.cache.enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.enabled+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-enabled[quarkus.cache.enabled] "
-"config_property_copy_button:quarkus.cache.enabled[]"
+msgstr " link:#quarkus-cache_quarkus-cache-enabled[quarkus.cache.enabled] config_property_copy_button:quarkus.cache.enabled[]"
 
 #. mt: deepl
 #, fuzzy
@@ -1264,8 +743,7 @@ msgstr "Si la extensión de caché está activada o no."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_ENABLED+++[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_ENABLED+++[]"
 msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_ENABLED[]"
 
 #, fuzzy
@@ -1279,20 +757,13 @@ msgstr "`verdadero`"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"[[quarkus-cache_section_quarkus-cache]] [.section-name.section-level0]##link:"
-"#quarkus-cache_section_quarkus-cache[Configuration that allows customizing "
-"cache names to use a different type]##"
-msgstr ""
-" link:#quarkus-cache_section_quarkus-cache[Configuración que permite "
-"personalizar los nombres de las cachés para utilizar un tipo diferente]"
+msgid "[[quarkus-cache_section_quarkus-cache]] [.section-name.section-level0]##link:#quarkus-cache_section_quarkus-cache[Configuration that allows customizing cache names to use a different type]##"
+msgstr " link:#quarkus-cache_section_quarkus-cache[Configuración que permite personalizar los nombres de las cachés para utilizar un tipo diferente]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-cache-"
-"name-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-cache-name-"
-"type[`+++quarkus.cache.\"cache-name\".type+++`]##\n"
+"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-cache-name-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-cache-name-type[`+++quarkus.cache.\"cache-name\".type+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.\"cache-name\".type+++[]\n"
 "\n"
 "\n"
@@ -1301,25 +772,16 @@ msgid ""
 "Cache type to be used for the cache name.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE__CACHE_NAME__TYPE+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE__CACHE_NAME__TYPE+++[]\n"
 "--"
-msgstr ""
-"[lock]  link:#quarkus-cache_quarkus-cache-cache-name-type[quarkus.cache."
-"\"nombre-de-la-caché\".type] config_property_copy_button:quarkus.cache."
-"\"nombre-de-la-caché\".type[]"
+msgstr "[lock]  link:#quarkus-cache_quarkus-cache-cache-name-type[quarkus.cache.\"nombre-de-la-caché\".type] config_property_copy_button:quarkus.cache.\"nombre-de-la-caché\".type[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-cache-"
-"name-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-cache-name-"
-"type[`+++quarkus.cache.\"cache-name\".type+++`]##\n"
+"icon:lock[title=Fixed at build time] [[quarkus-cache_quarkus-cache-cache-name-type]] [.property-path]##link:#quarkus-cache_quarkus-cache-cache-name-type[`+++quarkus.cache.\"cache-name\".type+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.\"cache-name\".type+++[]"
-msgstr ""
-"[lock]  link:#quarkus-cache_quarkus-cache-cache-name-type[quarkus.cache."
-"\"nombre-de-la-caché\".type] config_property_copy_button:quarkus.cache."
-"\"nombre-de-la-caché\".type[]"
+msgstr "[lock]  link:#quarkus-cache_quarkus-cache-cache-name-type[quarkus.cache.\"nombre-de-la-caché\".type] config_property_copy_button:quarkus.cache.\"nombre-de-la-caché\".type[]"
 
 #. mt: deepl
 #, fuzzy
@@ -1328,80 +790,46 @@ msgstr "Tipo de caché que se utilizará para el nombre de la caché."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE__CACHE_NAME__TYPE+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE__CACHE_NAME__TYPE[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE__CACHE_NAME__TYPE+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE__CACHE_NAME__TYPE[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "[[quarkus-cache_section_quarkus-cache-caffeine]] [.section-name.section-level0]##link:#quarkus-cache_section_quarkus-cache-caffeine[Default configuration applied to all Caffeine caches (lowest precedence)]##"
+msgstr " link:#quarkus-cache_section_quarkus-cache-caffeine[Configuración predeterminada aplicada a todas las cachés de Caffeine (prioridad más baja)]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_section_quarkus-cache-caffeine]] [.section-name.section-"
-"level0]##link:#quarkus-cache_section_quarkus-cache-caffeine[Default "
-"configuration applied to all Caffeine caches (lowest precedence)]##"
-msgstr ""
-" link:#quarkus-cache_section_quarkus-cache-caffeine[Configuración "
-"predeterminada aplicada a todas las cachés de Caffeine (prioridad más baja)]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-initial-capacity]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-initial-"
-"capacity[`+++quarkus.cache.caffeine.initial-capacity+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-initial-capacity]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[`+++quarkus.cache.caffeine.initial-capacity+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.initial-capacity+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Minimum total size for the internal data structures. Providing a large "
-"enough estimate at construction time avoids the need for expensive resizing "
-"operations later, but setting this value unnecessarily high wastes memory.\n"
+"Minimum total size for the internal data structures. Providing a large enough estimate at construction time avoids the need for expensive resizing operations later, but setting this value unnecessarily high wastes memory.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[quarkus.cache."
-"caffeine.initial-capacity] config_property_copy_button:quarkus.cache."
-"caffeine.initial-capacity[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[quarkus.cache.caffeine.initial-capacity] config_property_copy_button:quarkus.cache.caffeine.initial-capacity[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-initial-capacity]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-initial-"
-"capacity[`+++quarkus.cache.caffeine.initial-capacity+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-initial-capacity]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[`+++quarkus.cache.caffeine.initial-capacity+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.initial-capacity+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[quarkus.cache."
-"caffeine.initial-capacity] config_property_copy_button:quarkus.cache."
-"caffeine.initial-capacity[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-initial-capacity[quarkus.cache.caffeine.initial-capacity] config_property_copy_button:quarkus.cache.caffeine.initial-capacity[]"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Minimum total size for the internal data structures. Providing a large "
-"enough estimate at construction time avoids the need for expensive resizing "
-"operations later, but setting this value unnecessarily high wastes memory."
-msgstr ""
-"Tamaño total mínimo para las estructuras de datos internas. Establecer una "
-"estimación lo suficientemente amplia en el momento de la creación evita la "
-"necesidad de realizar costosas operaciones de redimensionamiento "
-"posteriormente; sin embargo, fijar este valor en un nivel innecesariamente "
-"alto supone un desperdicio de memoria."
+msgid "Minimum total size for the internal data structures. Providing a large enough estimate at construction time avoids the need for expensive resizing operations later, but setting this value unnecessarily high wastes memory."
+msgstr "Tamaño total mínimo para las estructuras de datos internas. Establecer una estimación lo suficientemente amplia en el momento de la creación evita la necesidad de realizar costosas operaciones de redimensionamiento posteriormente; sin embargo, fijar este valor en un nivel innecesariamente alto supone un desperdicio de memoria."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE_INITIAL_CAPACITY[]"
 
 msgid "int"
 msgstr "int"
@@ -1409,66 +837,35 @@ msgstr "int"
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-maximum-size]] [.property-path]##link:"
-"#quarkus-cache_quarkus-cache-caffeine-maximum-size[`+++quarkus.cache."
-"caffeine.maximum-size+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-maximum-size]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[`+++quarkus.cache.caffeine.maximum-size+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.maximum-size+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Maximum number of entries the cache may contain. Note that the cache *may "
-"evict an entry before this limit is exceeded or temporarily exceed the "
-"threshold while evicting*. As the cache size grows close to the maximum, the "
-"cache evicts entries that are less likely to be used again. For example, the "
-"cache may evict an entry because it hasn't been used recently or very often.\n"
+"Maximum number of entries the cache may contain. Note that the cache *may evict an entry before this limit is exceeded or temporarily exceed the threshold while evicting*. As the cache size grows close to the maximum, the cache evicts entries that are less likely to be used again. For example, the cache may evict an entry because it hasn't been used recently or very often.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[quarkus.cache."
-"caffeine.maximum-size] config_property_copy_button:quarkus.cache.caffeine."
-"maximum-size[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[quarkus.cache.caffeine.maximum-size] config_property_copy_button:quarkus.cache.caffeine.maximum-size[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-maximum-size]] [.property-path]##link:"
-"#quarkus-cache_quarkus-cache-caffeine-maximum-size[`+++quarkus.cache."
-"caffeine.maximum-size+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-maximum-size]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[`+++quarkus.cache.caffeine.maximum-size+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.maximum-size+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[quarkus.cache."
-"caffeine.maximum-size] config_property_copy_button:quarkus.cache.caffeine."
-"maximum-size[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-maximum-size[quarkus.cache.caffeine.maximum-size] config_property_copy_button:quarkus.cache.caffeine.maximum-size[]"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Maximum number of entries the cache may contain. Note that the cache *may "
-"evict an entry before this limit is exceeded or temporarily exceed the "
-"threshold while evicting*. As the cache size grows close to the maximum, the "
-"cache evicts entries that are less likely to be used again. For example, the "
-"cache may evict an entry because it hasn't been used recently or very often."
-msgstr ""
-"Número máximo de entradas que puede contener la caché. Tenga en cuenta que "
-"la caché *puede eliminar una entrada antes de que se supere este límite o "
-"superar temporalmente el umbral durante el proceso de eliminación* . A "
-"medida que el tamaño de la caché se acerca al máximo, esta elimina las "
-"entradas que tienen menos probabilidades de volver a utilizarse. Por "
-"ejemplo, la caché puede eliminar una entrada porque no se ha utilizado "
-"recientemente o con mucha frecuencia."
+msgid "Maximum number of entries the cache may contain. Note that the cache *may evict an entry before this limit is exceeded or temporarily exceed the threshold while evicting*. As the cache size grows close to the maximum, the cache evicts entries that are less likely to be used again. For example, the cache may evict an entry because it hasn't been used recently or very often."
+msgstr "Número máximo de entradas que puede contener la caché. Tenga en cuenta que la caché *puede eliminar una entrada antes de que se supere este límite o superar temporalmente el umbral durante el proceso de eliminación* . A medida que el tamaño de la caché se acerca al máximo, esta elimina las entradas que tienen menos probabilidades de volver a utilizarse. Por ejemplo, la caché puede eliminar una entrada porque no se ha utilizado recientemente o con mucha frecuencia."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE_MAXIMUM_SIZE[]"
 
 #, fuzzy
 msgid "long"
@@ -1477,242 +874,140 @@ msgstr "largo"
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-expire-after-write]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-"
-"write[`+++quarkus.cache.caffeine.expire-after-write+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-"
-"write+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-expire-after-write]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[`+++quarkus.cache.caffeine.expire-after-write+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-write+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, or the most "
-"recent replacement of its value.\n"
+"Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[quarkus.cache."
-"caffeine.expire-after-write] config_property_copy_button:quarkus.cache."
-"caffeine.expire-after-write[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[quarkus.cache.caffeine.expire-after-write] config_property_copy_button:quarkus.cache.caffeine.expire-after-write[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-expire-after-write]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-"
-"write[`+++quarkus.cache.caffeine.expire-after-write+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-"
-"write+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[quarkus.cache."
-"caffeine.expire-after-write] config_property_copy_button:quarkus.cache."
-"caffeine.expire-after-write[]"
+"[[quarkus-cache_quarkus-cache-caffeine-expire-after-write]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[`+++quarkus.cache.caffeine.expire-after-write+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-write+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-expire-after-write[quarkus.cache.caffeine.expire-after-write] config_property_copy_button:quarkus.cache.caffeine.expire-after-write[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value."
+msgstr "Especifica que cada entrada debe eliminarse automáticamente de la caché una vez transcurrido un periodo de tiempo determinado desde su creación o desde la última actualización de su valor."
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duration] link:#duration-note-anchor-quarkus-cache_quarkus-cache[icon:question-circle[title=More information about the Duration format]]"
+msgstr "link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duración] link:#duration-note-anchor-quarkus-cache_quarkus-cache[[círculo de pregunta]]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, or the most "
-"recent replacement of its value."
-msgstr ""
-"Especifica que cada entrada debe eliminarse automáticamente de la caché una "
-"vez transcurrido un periodo de tiempo determinado desde su creación o desde "
-"la última actualización de su valor."
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_WRITE[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/"
-"Duration.html[Duration] link:#duration-note-anchor-quarkus-cache_quarkus-"
-"cache[icon:question-circle[title=More information about the Duration "
-"format]]"
-msgstr ""
-"link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/"
-"Duration.html[Duración] link:#duration-note-anchor-quarkus-cache_quarkus-"
-"cache[[círculo de pregunta]]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-expire-after-access]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-"
-"access[`+++quarkus.cache.caffeine.expire-after-access+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-"
-"access+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-expire-after-access]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[`+++quarkus.cache.caffeine.expire-after-access+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-access+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, the most "
-"recent replacement of its value, or its last read.\n"
+"Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, the most recent replacement of its value, or its last read.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[quarkus."
-"cache.caffeine.expire-after-access] config_property_copy_button:quarkus."
-"cache.caffeine.expire-after-access[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[quarkus.cache.caffeine.expire-after-access] config_property_copy_button:quarkus.cache.caffeine.expire-after-access[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-expire-after-access]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-"
-"access[`+++quarkus.cache.caffeine.expire-after-access+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-"
-"access+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[quarkus."
-"cache.caffeine.expire-after-access] config_property_copy_button:quarkus."
-"cache.caffeine.expire-after-access[]"
+"[[quarkus-cache_quarkus-cache-caffeine-expire-after-access]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[`+++quarkus.cache.caffeine.expire-after-access+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.expire-after-access+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-expire-after-access[quarkus.cache.caffeine.expire-after-access] config_property_copy_button:quarkus.cache.caffeine.expire-after-access[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, the most recent replacement of its value, or its last read."
+msgstr "Especifica que cada entrada debe eliminarse automáticamente de la caché una vez transcurrido un periodo de tiempo fijo desde su creación, desde la última actualización de su valor o desde su última lectura."
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, the most "
-"recent replacement of its value, or its last read."
-msgstr ""
-"Especifica que cada entrada debe eliminarse automáticamente de la caché una "
-"vez transcurrido un periodo de tiempo fijo desde su creación, desde la "
-"última actualización de su valor o desde su última lectura."
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE_EXPIRE_AFTER_ACCESS[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-metrics-enabled]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-metrics-"
-"enabled[`+++quarkus.cache.caffeine.metrics-enabled+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-metrics-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[`+++quarkus.cache.caffeine.metrics-enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.metrics-enabled+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Whether or not metrics are recorded if the application depends on the "
-"Micrometer extension. Setting this value to `true` will enable the "
-"accumulation of cache stats inside Caffeine.\n"
+"Whether or not metrics are recorded if the application depends on the Micrometer extension. Setting this value to `true` will enable the accumulation of cache stats inside Caffeine.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[quarkus.cache."
-"caffeine.metrics-enabled] config_property_copy_button:quarkus.cache.caffeine."
-"metrics-enabled[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[quarkus.cache.caffeine.metrics-enabled] config_property_copy_button:quarkus.cache.caffeine.metrics-enabled[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-metrics-enabled]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-metrics-"
-"enabled[`+++quarkus.cache.caffeine.metrics-enabled+++`]##\n"
+"[[quarkus-cache_quarkus-cache-caffeine-metrics-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[`+++quarkus.cache.caffeine.metrics-enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.cache.caffeine.metrics-enabled+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[quarkus.cache."
-"caffeine.metrics-enabled] config_property_copy_button:quarkus.cache.caffeine."
-"metrics-enabled[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-metrics-enabled[quarkus.cache.caffeine.metrics-enabled] config_property_copy_button:quarkus.cache.caffeine.metrics-enabled[]"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Whether or not metrics are recorded if the application depends on the "
-"Micrometer extension. Setting this value to `true` will enable the "
-"accumulation of cache stats inside Caffeine."
-msgstr ""
-"El hecho de que se registren o no las métricas depende de si la aplicación "
-"utiliza la extensión Micrometer. Si se establece este valor en `«true»` , se "
-"habilitará la recopilación de estadísticas de caché en Caffeine."
+msgid "Whether or not metrics are recorded if the application depends on the Micrometer extension. Setting this value to `true` will enable the accumulation of cache stats inside Caffeine."
+msgstr "El hecho de que se registren o no las métricas depende de si la aplicación utiliza la extensión Micrometer. Si se establece este valor en `«true»` , se habilitará la recopilación de estadísticas de caché en Caffeine."
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE_METRICS_ENABLED[]"
 
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-per-item-expiration]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-per-item-"
-"expiration[`+++quarkus.cache.caffeine.per-item-expiration+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.per-item-"
-"expiration+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-per-item-expiration]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-per-item-expiration[`+++quarkus.cache.caffeine.per-item-expiration+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.per-item-expiration+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Whether per-item expiration is enabled for this cache. When enabled, "
-"individual cache entries can have custom expiration durations set via the "
-"programmatic API (`get(key, valueLoader, expiresAfter)`).\n"
+"Whether per-item expiration is enabled for this cache. When enabled, individual cache entries can have custom expiration durations set via the programmatic API (`get(key, valueLoader, expiresAfter)`).\n"
 "\n"
-"Enabling this option adds a small amount of memory overhead per cache entry "
-"and a per-read computation cost, even for entries that do not use a custom "
-"expiration. Only enable this if you need per-item expiration control.\n"
+"Enabling this option adds a small amount of memory overhead per cache entry and a per-read computation cost, even for entries that do not use a custom expiration. Only enable this if you need per-item expiration control.\n"
 "\n"
-"Note: regardless of this setting, each Caffeine cache entry carries a small "
-"fixed wrapper overhead to support the per-item expiration infrastructure.\n"
+"Note: regardless of this setting, each Caffeine cache entry carries a small fixed wrapper overhead to support the per-item expiration infrastructure.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_PER_ITEM_EXPIRATION+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_PER_ITEM_EXPIRATION+++[]\n"
 "--"
 msgstr ""
 
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-per-item-expiration]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-per-item-"
-"expiration[`+++quarkus.cache.caffeine.per-item-expiration+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.per-item-"
-"expiration+++[]"
+"[[quarkus-cache_quarkus-cache-caffeine-per-item-expiration]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-per-item-expiration[`+++quarkus.cache.caffeine.per-item-expiration+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.per-item-expiration+++[]"
 msgstr ""
 
-msgid ""
-"Whether per-item expiration is enabled for this cache. When enabled, "
-"individual cache entries can have custom expiration durations set via the "
-"programmatic API (`get(key, valueLoader, expiresAfter)`)."
+msgid "Whether per-item expiration is enabled for this cache. When enabled, individual cache entries can have custom expiration durations set via the programmatic API (`get(key, valueLoader, expiresAfter)`)."
 msgstr ""
 
-msgid ""
-"Enabling this option adds a small amount of memory overhead per cache entry "
-"and a per-read computation cost, even for entries that do not use a custom "
-"expiration. Only enable this if you need per-item expiration control."
+msgid "Enabling this option adds a small amount of memory overhead per cache entry and a per-read computation cost, even for entries that do not use a custom expiration. Only enable this if you need per-item expiration control."
 msgstr ""
 
-msgid ""
-"Note: regardless of this setting, each Caffeine cache entry carries a small "
-"fixed wrapper overhead to support the per-item expiration infrastructure."
+msgid "Note: regardless of this setting, each Caffeine cache entry carries a small fixed wrapper overhead to support the per-item expiration infrastructure."
 msgstr ""
 
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE_PER_ITEM_EXPIRATION+++[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE_PER_ITEM_EXPIRATION+++[]"
 msgstr ""
 
 msgid "`+++false+++`"
@@ -1721,298 +1016,167 @@ msgstr ""
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-"
-"initial-capacity[`+++quarkus.cache.caffeine.\"cache-name\".initial-"
-"capacity+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".initial-"
-"capacity+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity[`+++quarkus.cache.caffeine.\"cache-name\".initial-capacity+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".initial-capacity+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Minimum total size for the internal data structures. Providing a large "
-"enough estimate at construction time avoids the need for expensive resizing "
-"operations later, but setting this value unnecessarily high wastes memory.\n"
+"Minimum total size for the internal data structures. Providing a large enough estimate at construction time avoids the need for expensive resizing operations later, but setting this value unnecessarily high wastes memory.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-"
-"capacity[quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"capacidad-inicial[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity[quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-"
-"initial-capacity[`+++quarkus.cache.caffeine.\"cache-name\".initial-"
-"capacity+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".initial-"
-"capacity+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-"
-"capacity[quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"capacidad-inicial[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity[`+++quarkus.cache.caffeine.\"cache-name\".initial-capacity+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".initial-capacity+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-initial-capacity[quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".capacidad-inicial[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE__CACHE_NAME__INITIAL_CAPACITY[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-"
-"size[`+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".maximum-"
-"size+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[`+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Maximum number of entries the cache may contain. Note that the cache *may "
-"evict an entry before this limit is exceeded or temporarily exceed the "
-"threshold while evicting*. As the cache size grows close to the maximum, the "
-"cache evicts entries that are less likely to be used again. For example, the "
-"cache may evict an entry because it hasn't been used recently or very often.\n"
+"Maximum number of entries the cache may contain. Note that the cache *may evict an entry before this limit is exceeded or temporarily exceed the threshold while evicting*. As the cache size grows close to the maximum, the cache evicts entries that are less likely to be used again. For example, the cache may evict an entry because it hasn't been used recently or very often.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[quarkus."
-"cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"tamaño-máximo[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[quarkus.cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size]] [.property-"
-"path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-"
-"size[`+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".maximum-"
-"size+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[quarkus."
-"cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"tamaño-máximo[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[`+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".maximum-size+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-maximum-size[quarkus.cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".tamaño-máximo[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE__CACHE_NAME__MAXIMUM_SIZE[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-"
-"after-write[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-"
-"write+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-"
-"after-write+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-write+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-after-write+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, or the most "
-"recent replacement of its value.\n"
+"Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, or the most recent replacement of its value.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-"
-"write[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-"
-"escritura] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-"
-"caché\".caducidad-tras-la-escritura[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-escritura] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-escritura[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-"
-"after-write[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-"
-"write+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-"
-"after-write+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-"
-"write[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-"
-"escritura] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-"
-"caché\".caducidad-tras-la-escritura[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-write+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-after-write+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-write[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-escritura] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-la-escritura[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_WRITE[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-"
-"after-access[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-"
-"access+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-"
-"after-access+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-access+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-after-access+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Specifies that each entry should be automatically removed from the cache "
-"once a fixed duration has elapsed after the entry's creation, the most "
-"recent replacement of its value, or its last read.\n"
+"Specifies that each entry should be automatically removed from the cache once a fixed duration has elapsed after the entry's creation, the most recent replacement of its value, or its last read.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-"
-"access[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-"
-"acceso] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-"
-"caché\".caducidad-tras-el-acceso[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-acceso] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-acceso[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-"
-"after-access[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-"
-"access+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-"
-"after-access+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-"
-"access[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-"
-"acceso] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-"
-"caché\".caducidad-tras-el-acceso[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access[`+++quarkus.cache.caffeine.\"cache-name\".expire-after-access+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".expire-after-access+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-expire-after-access[quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-acceso] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".caducidad-tras-el-acceso[]"
+
+#. mt: deepl
+#, fuzzy
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE__CACHE_NAME__EXPIRE_AFTER_ACCESS[]"
-
-#. mt: deepl
-#, fuzzy
-msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-"
-"metrics-enabled[`+++quarkus.cache.caffeine.\"cache-name\".metrics-"
-"enabled+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".metrics-"
-"enabled+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled[`+++quarkus.cache.caffeine.\"cache-name\".metrics-enabled+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".metrics-enabled+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Whether or not metrics are recorded if the application depends on the "
-"Micrometer extension. Setting this value to `true` will enable the "
-"accumulation of cache stats inside Caffeine.\n"
+"Whether or not metrics are recorded if the application depends on the Micrometer extension. Setting this value to `true` will enable the accumulation of cache stats inside Caffeine.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED+++[]\n"
 "--"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-"
-"enabled[quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"metrics-enabled[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled[quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled[]"
 
 #. mt: deepl
 #, fuzzy
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-"
-"metrics-enabled[`+++quarkus.cache.caffeine.\"cache-name\".metrics-"
-"enabled+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".metrics-"
-"enabled+++[]"
-msgstr ""
-" link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-"
-"enabled[quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled] "
-"config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\"."
-"metrics-enabled[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled[`+++quarkus.cache.caffeine.\"cache-name\".metrics-enabled+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".metrics-enabled+++[]"
+msgstr " link:#quarkus-cache_quarkus-cache-caffeine-cache-name-metrics-enabled[quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled] config_property_copy_button:quarkus.cache.caffeine.\"nombre-de-la-caché\".metrics-enabled[]"
 
 #. mt: deepl
 #, fuzzy
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED+++[]"
-msgstr ""
-"Variable de entorno: env_var_with_copy_button:"
-"QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED+++[]"
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_CACHE_CAFFEINE__CACHE_NAME__METRICS_ENABLED[]"
 
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-per-"
-"item-expiration[`+++quarkus.cache.caffeine.\"cache-name\".per-item-"
-"expiration+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".per-"
-"item-expiration+++[]\n"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration[`+++quarkus.cache.caffeine.\"cache-name\".per-item-expiration+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".per-item-expiration+++[]\n"
 "\n"
 "\n"
 "[.description]\n"
 "--\n"
-"Whether per-item expiration is enabled for this cache. When enabled, "
-"individual cache entries can have custom expiration durations set via the "
-"programmatic API (`get(key, valueLoader, expiresAfter)`).\n"
+"Whether per-item expiration is enabled for this cache. When enabled, individual cache entries can have custom expiration durations set via the programmatic API (`get(key, valueLoader, expiresAfter)`).\n"
 "\n"
-"Enabling this option adds a small amount of memory overhead per cache entry "
-"and a per-read computation cost, even for entries that do not use a custom "
-"expiration. Only enable this if you need per-item expiration control.\n"
+"Enabling this option adds a small amount of memory overhead per cache entry and a per-read computation cost, even for entries that do not use a custom expiration. Only enable this if you need per-item expiration control.\n"
 "\n"
-"Note: regardless of this setting, each Caffeine cache entry carries a small "
-"fixed wrapper overhead to support the per-item expiration infrastructure.\n"
+"Note: regardless of this setting, each Caffeine cache entry carries a small fixed wrapper overhead to support the per-item expiration infrastructure.\n"
 "\n"
 "\n"
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__PER_ITEM_EXPIRATION+++[]\n"
+"Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__PER_ITEM_EXPIRATION+++[]\n"
 "--"
 msgstr ""
 
 msgid ""
-"[[quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration]] [."
-"property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-per-"
-"item-expiration[`+++quarkus.cache.caffeine.\"cache-name\".per-item-"
-"expiration+++`]##\n"
-"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".per-"
-"item-expiration+++[]"
+"[[quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration]] [.property-path]##link:#quarkus-cache_quarkus-cache-caffeine-cache-name-per-item-expiration[`+++quarkus.cache.caffeine.\"cache-name\".per-item-expiration+++`]##\n"
+"config_property_copy_button:+++quarkus.cache.caffeine.\"cache-name\".per-item-expiration+++[]"
 msgstr ""
 
-msgid ""
-"Environment variable: env_var_with_copy_button:"
-"+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__PER_ITEM_EXPIRATION+++[]"
+msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_CACHE_CAFFEINE__CACHE_NAME__PER_ITEM_EXPIRATION+++[]"
 msgstr ""
 
 #. mt: deepl
@@ -2024,47 +1188,28 @@ msgstr "Acerca del formato de duración"
 #, fuzzy
 msgid ""
 "To write duration values, use the standard `java.time.Duration` format.\n"
-"See the link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/"
-"java/time/Duration.html#parse(java.lang.CharSequence)[Duration#parse() Java "
-"API documentation] for more information."
-msgstr ""
-"Para escribir valores de duración, utilice el formato estándar de ``java."
-"time.Duration`` . Consulte la link:https://docs.oracle.com/en/java/javase/17/"
-"docs/api/java.base/java/time/Duration.html#parse(java.lang."
-"CharSequence)[documentación de la API de Java sobre `Duration#parse()] ` "
-"para obtener más información."
+"See the link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence)[Duration#parse() Java API documentation] for more information."
+msgstr "Para escribir valores de duración, utilice el formato estándar de ``java.time.Duration`` . Consulte la link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html#parse(java.lang.CharSequence)[documentación de la API de Java sobre `Duration#parse()] ` para obtener más información."
 
 #, fuzzy
 msgid "You can also use a simplified format, starting with a number:"
-msgstr ""
-"También puede utilizar un formato simplificado, empezando por un número:"
+msgstr "También puede utilizar un formato simplificado, empezando por un número:"
 
 #, fuzzy
 msgid "If the value is only a number, it represents time in seconds."
 msgstr "Si el valor es sólo un número, representa el tiempo en segundos."
 
 #, fuzzy
-msgid ""
-"If the value is a number followed by `ms`, it represents time in "
-"milliseconds."
-msgstr ""
-"Si el valor es un número seguido de `ms`, representa el tiempo en "
-"milisegundos."
+msgid "If the value is a number followed by `ms`, it represents time in milliseconds."
+msgstr "Si el valor es un número seguido de `ms`, representa el tiempo en milisegundos."
 
 #, fuzzy
-msgid ""
-"In other cases, the simplified format is translated to the `java.time."
-"Duration` format for parsing:"
-msgstr ""
-"En otros casos, el formato simplificado se traduce al formato `java.time."
-"Duration` para su análisis sintáctico:"
+msgid "In other cases, the simplified format is translated to the `java.time.Duration` format for parsing:"
+msgstr "En otros casos, el formato simplificado se traduce al formato `java.time.Duration` para su análisis sintáctico:"
 
 #, fuzzy
-msgid ""
-"If the value is a number followed by `h`, `m`, or `s`, it is prefixed with "
-"`PT`."
-msgstr ""
-"Si el valor es un número seguido de `h`, `m`, o `s`, lleva el prefijo `PT`."
+msgid "If the value is a number followed by `h`, `m`, or `s`, it is prefixed with `PT`."
+msgstr "Si el valor es un número seguido de `h`, `m`, o `s`, lleva el prefijo `PT`."
 
 #, fuzzy
 msgid "If the value is a number followed by `d`, it is prefixed with `P`."
@@ -2087,40 +1232,24 @@ msgid "Enabling Micrometer metrics"
 msgstr "Habilitación de las métricas del micrómetro"
 
 #, fuzzy
-msgid ""
-"Each cache declared using the <<#annotations-api,annotations caching API>> "
-"can be monitored using Micrometer metrics."
-msgstr ""
-"Cada caché declarada mediante la xref:annotations-api[API de almacenamiento "
-"en caché de anotaciones] puede supervisarse mediante métricas Micrometer."
+msgid "Each cache declared using the <<#annotations-api,annotations caching API>> can be monitored using Micrometer metrics."
+msgstr "Cada caché declarada mediante la xref:annotations-api[API de almacenamiento en caché de anotaciones] puede supervisarse mediante métricas Micrometer."
 
 #, fuzzy
 msgid ""
-"The cache metrics collection will only work if your application depends on a "
-"`quarkus-micrometer-registry-*` extension.\n"
-"See the xref:telemetry-micrometer.adoc[Micrometer metrics guide] to learn "
-"how to use Micrometer in Quarkus."
-msgstr ""
-"La colección de métricas de caché sólo funcionará si su aplicación depende "
-"de una extensión de `quarkus-micrometer-registry-*` . Consulte la xref:"
-"telemetry-micrometer.adoc[guía] de métricas Micrometer para aprender a "
-"utilizar Micrometer en Quarkus."
+"The cache metrics collection will only work if your application depends on a `quarkus-micrometer-registry-*` extension.\n"
+"See the xref:telemetry-micrometer.adoc[Micrometer metrics guide] to learn how to use Micrometer in Quarkus."
+msgstr "La colección de métricas de caché sólo funcionará si su aplicación depende de una extensión de `quarkus-micrometer-registry-*` . Consulte la xref:telemetry-micrometer.adoc[guía] de métricas Micrometer para aprender a utilizar Micrometer en Quarkus."
 
 #, fuzzy
 msgid ""
 "The cache metrics collection is disabled by default.\n"
 "It can be enabled from the `application.properties` file:"
-msgstr ""
-"La recopilación de métricas en caché está desactivada por defecto. Puede "
-"habilitarse desde el archivo `application.properties` :"
+msgstr "La recopilación de métricas en caché está desactivada por defecto. Puede habilitarse desde el archivo `application.properties` :"
 
 #, fuzzy
-msgid ""
-"Like all instrumentation methods, collecting metrics comes with a small "
-"overhead that can impact the application performances."
-msgstr ""
-"Como todos los métodos de instrumentación, la recogida de métricas conlleva "
-"una pequeña sobrecarga que puede afectar al rendimiento de la aplicación."
+msgid "Like all instrumentation methods, collecting metrics comes with a small overhead that can impact the application performances."
+msgstr "Como todos los métodos de instrumentación, la recogida de métricas conlleva una pequeña sobrecarga que puede afectar al rendimiento de la aplicación."
 
 #, fuzzy
 msgid "The collected metrics contain cache statistics such as:"
@@ -2135,24 +1264,16 @@ msgid "the number of entries that were added to the cache"
 msgstr "el número de entradas que se han añadido a la caché"
 
 #, fuzzy
-msgid ""
-"the number of times a cache lookup has been performed, including information "
-"about hits and misses"
-msgstr ""
-"el número de veces que se ha realizado una búsqueda en la caché, incluida la "
-"información sobre aciertos y fallos"
+msgid "the number of times a cache lookup has been performed, including information about hits and misses"
+msgstr "el número de veces que se ha realizado una búsqueda en la caché, incluida la información sobre aciertos y fallos"
 
 #, fuzzy
 msgid "the number of evictions and the weight of the evicted entries"
 msgstr "el número de desalojos y el peso de las entradas desalojadas"
 
 #, fuzzy
-msgid ""
-"Here is an example of cache metrics available for an application that "
-"depends on the `quarkus-micrometer-registry-prometheus` extension:"
-msgstr ""
-"Este es un ejemplo de las métricas de caché disponibles para una aplicación "
-"que depende de la extensión `quarkus-micrometer-registry-prometheus`:"
+msgid "Here is an example of cache metrics available for an application that depends on the `quarkus-micrometer-registry-prometheus` extension:"
+msgstr "Este es un ejemplo de las métricas de caché disponibles para una aplicación que depende de la extensión `quarkus-micrometer-registry-prometheus`:"
 
 #, fuzzy
 msgid "Annotated beans examples"
@@ -2164,54 +1285,35 @@ msgstr "Clave de caché simple implícita"
 
 #, fuzzy
 msgid "The cache key is implicit since there's no `@CacheKey` annotation."
-msgstr ""
-"La clave de la caché es implícita, ya que no hay ninguna anotación en "
-"`@CacheKey`."
+msgstr "La clave de la caché es implícita, ya que no hay ninguna anotación en `@CacheKey`."
 
 #, fuzzy
 msgid "Explicit composite cache key"
 msgstr "Clave compuesta explícita de la caché"
 
 #, fuzzy
-msgid ""
-"The cache key is explicitly composed of two elements. The method signature "
-"also contains a third argument which is not part of the key."
-msgstr ""
-"La clave de la caché se compone explícitamente de dos elementos. La firma "
-"del método también contiene un tercer argumento que no forma parte de la "
-"clave."
+msgid "The cache key is explicitly composed of two elements. The method signature also contains a third argument which is not part of the key."
+msgstr "La clave de la caché se compone explícitamente de dos elementos. La firma del método también contiene un tercer argumento que no forma parte de la clave."
 
 #, fuzzy
 msgid "Default cache key"
 msgstr "Clave de caché por defecto"
 
 #, fuzzy
-msgid ""
-"A unique default cache key derived from the cache name is used because the "
-"method has no arguments."
-msgstr ""
-"Se utiliza una clave de caché única por defecto derivada del nombre de la "
-"caché porque el método no tiene argumentos."
+msgid "A unique default cache key derived from the cache name is used because the method has no arguments."
+msgstr "Se utiliza una clave de caché única por defecto derivada del nombre de la caché porque el método no tiene argumentos."
 
 #, fuzzy
 msgid "Multiple annotations on a single method"
 msgstr "Múltiples anotaciones en un mismo método"
 
 #, fuzzy
-msgid ""
-"This method can be used to force a refresh of the cache entry corresponding "
-"to the given key."
-msgstr ""
-"Este método se puede utilizar para forzar una actualización de la entrada de "
-"la caché correspondiente a la clave dada."
+msgid "This method can be used to force a refresh of the cache entry corresponding to the given key."
+msgstr "Este método se puede utilizar para forzar una actualización de la entrada de la caché correspondiente a la clave dada."
 
 #, fuzzy
-msgid ""
-"This method will invalidate all entries from the `foo` and `bar` caches with "
-"a single call."
-msgstr ""
-"Este método invalidará todas las entradas de las cachés `foo` y `bar` con "
-"una sola llamada."
+msgid "This method will invalidate all entries from the `foo` and `bar` caches with a single call."
+msgstr "Este método invalidará todas las entradas de las cachés `foo` y `bar` con una sola llamada."
 
 #, fuzzy
 msgid "Clear all application caches"
@@ -2226,20 +1328,13 @@ msgid ""
 "Sometimes one wants to cache the result of an (expensive) remote call.\n"
 "If the remote call fails, one may not want to cache the result or exception,\n"
 "but rather re-try the remote call on the next invocation."
-msgstr ""
-"A veces uno quiere almacenar en caché el resultado de una (costosa) llamada "
-"remota. Si la llamada remota falla, puede que uno no quiera almacenar en "
-"caché el resultado o la excepción, sino reintentar la llamada remota en la "
-"siguiente invocación."
+msgstr "A veces uno quiere almacenar en caché el resultado de una (costosa) llamada remota. Si la llamada remota falla, puede que uno no quiera almacenar en caché el resultado o la excepción, sino reintentar la llamada remota en la siguiente invocación."
 
 #, fuzzy
 msgid ""
-"A simple approach could be to catch the exception and return `null`, so that "
-"the caller can\n"
+"A simple approach could be to catch the exception and return `null`, so that the caller can\n"
 "act accordingly:"
-msgstr ""
-"Un enfoque sencillo podría ser atrapar la excepción y devolver `null` , para "
-"que la persona que llama pueda actuar en consecuencia:"
+msgstr "Un enfoque sencillo podría ser atrapar la excepción y devolver `null` , para que la persona que llama pueda actuar en consecuencia:"
 
 #, fuzzy
 msgid "Call the method to call the remote"
@@ -2255,22 +1350,11 @@ msgstr "Retorno en caso de excepción"
 
 #, fuzzy
 msgid ""
-"This approach has an unfortunate side effect: as we said before, Quarkus can "
-"also cache\n"
-"`null` values. Which means that the next call to `callRemote()` with the "
-"same parameter value\n"
-"will be answered out of the cache, returning `null` and no remote call will "
-"be done.\n"
-"This may be desired in some scenarios, but usually one wants to retry the "
-"remote call until it returns a result."
-msgstr ""
-"Este enfoque tiene un desafortunado efecto secundario: como dijimos antes, "
-"Quarkus también puede almacenar en caché los valores de `null` . Lo que "
-"significa que la siguiente llamada a `callRemote()` con el mismo valor de "
-"parámetro será respondida fuera de la caché, devolviendo `null` y no se "
-"realizará ninguna llamada remota. Esto puede ser deseable en algunos "
-"escenarios, pero normalmente uno quiere reintentar la llamada remota hasta "
-"que devuelva un resultado."
+"This approach has an unfortunate side effect: as we said before, Quarkus can also cache\n"
+"`null` values. Which means that the next call to `callRemote()` with the same parameter value\n"
+"will be answered out of the cache, returning `null` and no remote call will be done.\n"
+"This may be desired in some scenarios, but usually one wants to retry the remote call until it returns a result."
+msgstr "Este enfoque tiene un desafortunado efecto secundario: como dijimos antes, Quarkus también puede almacenar en caché los valores de `null` . Lo que significa que la siguiente llamada a `callRemote()` con el mismo valor de parámetro será respondida fuera de la caché, devolviendo `null` y no se realizará ninguna llamada remota. Esto puede ser deseable en algunos escenarios, pero normalmente uno quiere reintentar la llamada remota hasta que devuelva un resultado."
 
 #, fuzzy
 msgid "Let exceptions bubble up"
@@ -2278,14 +1362,9 @@ msgstr "Deja que las excepciones surjan"
 
 #, fuzzy
 msgid ""
-"To prevent the cache from caching (marker) results from a remote call, we "
-"need to let\n"
-"the exception bubble out of the called method and catch it at the caller "
-"side:"
-msgstr ""
-"Para evitar que la caché almacene (marque) los resultados de una llamada "
-"remota, tenemos que dejar que la excepción salga del método llamado y "
-"atraparla en el lado del llamante:"
+"To prevent the cache from caching (marker) results from a remote call, we need to let\n"
+"the exception bubble out of the called method and catch it at the caller side:"
+msgstr "Para evitar que la caché almacene (marque) los resultados de una llamada remota, tenemos que dejar que la excepción salga del método llamado y atraparla en el lado del llamante:"
 
 #, fuzzy
 msgid "Exceptions may bubble up"
@@ -2297,17 +1376,11 @@ msgstr "Esto puede lanzar todo tipo de excepciones remotas"
 
 #, fuzzy
 msgid ""
-"When the call to the remote throws an exception, the cache does not store "
-"the result,\n"
-"so that a subsequent call to `callRemote()` with the same parameter value "
-"will not be\n"
+"When the call to the remote throws an exception, the cache does not store the result,\n"
+"so that a subsequent call to `callRemote()` with the same parameter value will not be\n"
 "answered out of the cache.\n"
 "It will instead result in another attempt to call the remote."
-msgstr ""
-"Cuando la llamada a la remota lanza una excepción, la caché no almacena el "
-"resultado, de modo que una llamada posterior a `callRemote()` con el mismo "
-"valor de parámetro no será respondida fuera de la caché. En su lugar, dará "
-"lugar a otro intento de llamada a la remota."
+msgstr "Cuando la llamada a la remota lanza una excepción, la caché no almacena el resultado, de modo que una llamada posterior a `callRemote()` con el mismo valor de parámetro no será respondida fuera de la caché. En su lugar, dará lugar a otro intento de llamada a la remota."
 
 #, fuzzy
 msgid "Going native"
@@ -2319,65 +1392,31 @@ msgstr "La extensión Cache soporta la construcción de ejecutables nativos."
 
 #, fuzzy
 msgid ""
-"However, to optimize runtime memory, Caffeine embarks many cache "
-"implementation classes that are selected depending on the cache "
-"configuration.\n"
+"However, to optimize runtime memory, Caffeine embarks many cache implementation classes that are selected depending on the cache configuration.\n"
 "We are not registering all of them for reflection\n"
-"(and the ones not registered are not included into the native executables) "
-"as registering all of them would be very costly."
-msgstr ""
-"Sin embargo, para optimizar la memoria en tiempo de ejecución, Caffeine "
-"embarca muchas clases de implementación de caché que se seleccionan en "
-"función de la configuración de la caché. No las registramos todas para la "
-"reflexión (y las que no se registran no se incluyen en los ejecutables "
-"nativos), ya que registrarlas todas sería muy costoso."
+"(and the ones not registered are not included into the native executables) as registering all of them would be very costly."
+msgstr "Sin embargo, para optimizar la memoria en tiempo de ejecución, Caffeine embarca muchas clases de implementación de caché que se seleccionan en función de la configuración de la caché. No las registramos todas para la reflexión (y las que no se registran no se incluyen en los ejecutables nativos), ya que registrarlas todas sería muy costoso."
+
+#, fuzzy
+msgid "We are registering the most common implementations but, depending on your cache configuration, you might encounter errors like:"
+msgstr "Estamos registrando las implementaciones más comunes pero, dependiendo de la configuración de tu caché, podrías encontrarte con errores como"
+
+#, fuzzy
+msgid "`PSAMS` is one of the many cache implementation classes of Caffeine so this part may vary."
+msgstr "`PSAMS` es una de las muchas clases de implementación de caché de Caffeine, por lo que esta parte puede variar."
 
 #, fuzzy
 msgid ""
-"We are registering the most common implementations but, depending on your "
-"cache configuration, you might encounter errors like:"
-msgstr ""
-"Estamos registrando las implementaciones más comunes pero, dependiendo de la "
-"configuración de tu caché, podrías encontrarte con errores como"
+"When you encounter this error, you can easily fix it by adding the following annotation to any of your application classes\n"
+"(or you can create a new class, such as `Reflections` just to host this annotation if you prefer):"
+msgstr "Cuando se encuentre con este error, puede solucionarlo fácilmente añadiendo la siguiente anotación a cualquiera de las clases de su aplicación (o puede crear una nueva clase, como `Reflections` sólo para alojar esta anotación, si lo prefiere):"
+
+#, fuzzy
+msgid "It is an array, so you can register several cache implementations in one go if your configuration requires several of them."
+msgstr "Se trata de un array para que puedas registrar varias implementaciones de caché de una sola vez si tu configuración requiere varias de ellas."
 
 #, fuzzy
 msgid ""
-"`PSAMS` is one of the many cache implementation classes of Caffeine so this "
-"part may vary."
-msgstr ""
-"`PSAMS` es una de las muchas clases de implementación de caché de Caffeine, "
-"por lo que esta parte puede variar."
-
-#, fuzzy
-msgid ""
-"When you encounter this error, you can easily fix it by adding the following "
-"annotation to any of your application classes\n"
-"(or you can create a new class, such as `Reflections` just to host this "
-"annotation if you prefer):"
-msgstr ""
-"Cuando se encuentre con este error, puede solucionarlo fácilmente añadiendo "
-"la siguiente anotación a cualquiera de las clases de su aplicación (o puede "
-"crear una nueva clase, como `Reflections` sólo para alojar esta anotación, "
-"si lo prefiere):"
-
-#, fuzzy
-msgid ""
-"It is an array, so you can register several cache implementations in one go "
-"if your configuration requires several of them."
-msgstr ""
-"Se trata de un array para que puedas registrar varias implementaciones de "
-"caché de una sola vez si tu configuración requiere varias de ellas."
-
-#, fuzzy
-msgid ""
-"This annotation will register the cache implementation classes for "
-"reflection and this will include the classes into the native executable.\n"
-"More details about the `@RegisterForReflection` annotation can be found on  "
-"the xref:writing-native-applications-tips.adoc#registerForReflection[native "
-"application tips] page."
-msgstr ""
-"Esta anotación registrará las clases de implementación de la caché para la "
-"reflexión y esto incluirá las clases en el ejecutable nativo. Encontrará más "
-"detalles sobre la anotación `@RegisterForReflection` en la página xref:"
-"writing-native-applications-tips.adoc#registerForReflection[de consejos para "
-"aplicaciones] nativas."
+"This annotation will register the cache implementation classes for reflection and this will include the classes into the native executable.\n"
+"More details about the `@RegisterForReflection` annotation can be found on  the xref:writing-native-applications-tips.adoc#registerForReflection[native application tips] page."
+msgstr "Esta anotación registrará las clases de implementación de la caché para la reflexión y esto incluirá las clases en el ejecutable nativo. Encontrará más detalles sobre la anotación `@RegisterForReflection` en la página xref:writing-native-applications-tips.adoc#registerForReflection[de consejos para aplicaciones] nativas."
