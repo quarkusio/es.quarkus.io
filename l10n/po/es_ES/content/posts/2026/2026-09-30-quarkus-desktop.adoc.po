@@ -10,127 +10,183 @@ msgstr ""
 msgid "Add the extension"
 msgstr "Añada la extensión"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Java has shipped AWT and Swing for decades, and many teams still build and maintain desktop applications with them.\n"
 "A GraalVM native executable is attractive for these applications: it starts fast, needs no JVM on the user's machine, and ships as one executable with a few libraries.\n"
 "But AWT and Swing are hard to compile natively.\n"
 "The JDK looks up classes, resources, and JNI callbacks by name, and each platform uses its own set."
-msgstr ""
+msgstr "Java lleva décadas incorporando AWT y Swing, y muchos equipos siguen desarrollando y manteniendo aplicaciones de escritorio con ellas. Un ejecutable nativo de GraalVM resulta atractivo para estas aplicaciones: se inicia rápidamente, no requiere una JVM en el equipo del usuario y se distribuye como un único ejecutable junto con unas pocas bibliotecas. Sin embargo, AWT y Swing son difíciles de compilar de forma nativa. El JDK busca clases, recursos y devoluciones de llamada JNI por su nombre, y cada plataforma utiliza su propio conjunto."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "https://github.com/quarkiverse/quarkus-desktop[Quarkus Desktop] is a Quarkus extension for these applications.\n"
 "It registers what AWT, Java2D, fonts, images, printing, the clipboard, drag and drop, input methods, sound, accessibility, and Swing need in a native executable.\n"
 "It also copies the JDK libraries that the executable loads next to it.\n"
 "The same application runs in JVM mode, in dev mode, and as a native executable on Windows, Linux, and macOS."
-msgstr ""
+msgstr "link:https://github.com/quarkiverse/quarkus-desktop[Quarkus Desktop] es una extensión de Quarkus para estas aplicaciones. Registra los requisitos de AWT, Java2D, fuentes, imágenes, impresión, el portapapeles, la función de arrastrar y soltar, los métodos de entrada, el sonido, la accesibilidad y Swing en un ejecutable nativo. Además, copia las bibliotecas del JDK que el ejecutable carga junto a él. La misma aplicación se ejecuta en modo JVM, en modo de desarrollo y como ejecutable nativo en Windows, Linux y macOS."
 
+#. mt: deepl
+#, fuzzy
 msgid "Add Quarkus Desktop Swing to your application:"
-msgstr ""
+msgstr "Incorpore Quarkus Desktop Swing a su aplicación:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For an application that only uses AWT, add `quarkus-desktop-awt` instead.\n"
 "You can find the latest version on https://central.sonatype.com/artifact/io.quarkiverse.desktop/quarkus-desktop-swing[Maven Central]."
-msgstr ""
+msgstr "En el caso de una aplicación que solo utilice AWT, añada en su lugar `«quarkus-desktop-awt` ». Puede encontrar la última versión en link:https://central.sonatype.com/artifact/io.quarkiverse.desktop/quarkus-desktop-swing[Maven Central] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Open a window"
-msgstr ""
+msgstr "Abra una ventana"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "With Quarkus Desktop, a window is a CDI bean.\n"
 "It observes `DesktopStartupEvent`, which is fired on the event dispatch thread once the application has started:"
-msgstr ""
+msgstr "En Quarkus Desktop, una ventana es un bean de CDI. Este observa `el evento `DesktopStartupEvent`` , que se activa en el hilo de distribución de eventos una vez que la aplicación se ha iniciado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The window gets `@Inject` and `@ConfigProperty` like any other bean.\n"
 "There is no `main` method and no `@QuarkusMain`.\n"
 "When the last window is closed, the application exits through Quarkus, so `ShutdownEvent` observers and `@PreDestroy` methods run."
-msgstr ""
+msgstr "La ventana recibe `@Inject` y `@ConfigProperty` como cualquier otro bean. No hay ningún método `main` ni `@QuarkusMain` . Cuando se cierra la última ventana, la aplicación se cierra a través de Quarkus, por lo que se ejecutan los observadores `de ShutdownEvent` y los métodos `@PreDestroy` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Windows are `@Singleton` or `@Dependent` beans.\n"
 "A normal scope such as `@ApplicationScoped` does not work for Swing components: the client proxy would be a second component, created outside the event dispatch thread.\n"
 "Quarkus Desktop reports this mistake when the application is built."
-msgstr ""
+msgstr "Las ventanas son beans `@Singleton` o `@Dependent` . Un ámbito normal, como `@ApplicationScoped` , no funciona con los componentes Swing: el proxy del cliente sería un segundo componente, creado fuera del hilo de envío de eventos. Quarkus Desktop notifica este error al compilar la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Stay on the event dispatch thread"
-msgstr ""
+msgstr "Permanezca en el hilo de envío de eventos"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Swing components must only be used on the event dispatch thread.\n"
 "Slow work, such as reading a file or calling a service, must run somewhere else.\n"
 "Run it on a Quarkus executor and come back with `EdtExecutor`:"
-msgstr ""
+msgstr "Los componentes de Swing solo deben utilizarse en el hilo de envío de eventos. Las tareas lentas, como leer un archivo o llamar a un servicio, deben ejecutarse en otro lugar. Ejecútelas en un ejecutor de Quarkus y vuelva a utilizar `EdtExecutor` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "`EdtExecutor` also works with Mutiny, through `emitOn(edt)`, and with asynchronous CDI events."
-msgstr ""
+msgstr "`EdtExecutor` también funciona con Mutiny, a través de ``emitOn(edt)`` , y con eventos CDI asíncronos."
 
+#. mt: deepl
+#, fuzzy
 msgid "When a method is called from another thread, such as a `@Scheduled` method or a REST resource, annotate it with `@RunOnEdt`:"
-msgstr ""
+msgstr "Cuando se invoque un método desde otro hilo, como un método `@Scheduled` o un recurso REST, anótelo con `@RunOnEdt` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The method runs on the event dispatch thread, whatever thread calls it.\n"
 "A method can also return a `CompletionStage`, which completes with the result or the exception."
-msgstr ""
+msgstr "El método se ejecuta en el hilo de envío de eventos, independientemente del hilo que lo llame. Un método también puede devolver un ``CompletionStage`` , que finaliza con el resultado o con la excepción."
 
+#. mt: deepl
+#, fuzzy
 msgid "Handle the macOS application menu"
-msgstr ""
+msgstr "Gestionar el menú de la aplicación de macOS"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "On macOS, the application menu and the Dock send events to the application: About, Preferences, files opened from the Finder, and quit requests.\n"
 "Quarkus Desktop fires them as CDI events:"
-msgstr ""
+msgstr "En macOS, el menú de la aplicación y el Dock envían eventos a la aplicación: «Acerca de», «Preferencias», archivos abiertos desde el Finder y solicitudes de cierre. Quarkus Desktop los activa como eventos CDI:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`aboutDialog` is an injected `Instance<AboutDialog>`: `WindowBeans` creates the dialog and destroys the bean when the dialog is closed.\n"
 "`Cmd-Q` fires `QuitRequest`, and the application exits through Quarkus unless an observer cancels it."
-msgstr ""
+msgstr "`aboutDialog` es una `instancia` inyectada `de tipo <AboutDialog>` : `WindowBeans` crea el cuadro de diálogo y destruye el bean cuando se cierra dicho cuadro. `La combinación de teclas Cmd-Q` activa `una solicitud de salida (QuitRequest)` , y la aplicación se cierra a través de Quarkus, a menos que un observador la cancele."
 
+#. mt: deepl
+#, fuzzy
 msgid "Build a native executable"
-msgstr ""
+msgstr "Compilar un ejecutable nativo"
 
+#. mt: deepl
+#, fuzzy
 msgid "Build the native executable as for any Quarkus application:"
-msgstr ""
+msgstr "Compile el ejecutable nativo como lo haría con cualquier aplicación de Quarkus:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The build runs on the platform of the executable."
-msgstr ""
+msgstr "La compilación se ejecuta en la plataforma del ejecutable."
 
+#. mt: deepl
+#, fuzzy
 msgid "On Windows, the executable is DPI aware and has the visual styles of the `java` launcher. With `quarkus.desktop.awt.windows.subsystem=windows`, it starts without a console window."
-msgstr ""
+msgstr "En Windows, el ejecutable es compatible con DPI y presenta los estilos visuales del lanzador `de Java` . Con la opción ` `quarkus.desktop.awt.windows.subsystem=windows` `, se inicia sin ventana de consola."
 
+#. mt: deepl
+#, fuzzy
 msgid "On Linux, the executable uses the X11 libraries of the system, or XWayland on Wayland. The build can also run in a container."
-msgstr ""
+msgstr "En Linux, el ejecutable utiliza las bibliotecas X11 del sistema o XWayland en Wayland. La compilación también puede ejecutarse en un contenedor."
 
+#. mt: deepl
+#, fuzzy
 msgid "On macOS, native executables need Quarkus 4.0, whose `quarkus-awt` extension supports macOS, and GraalVM 25.1 or later."
-msgstr ""
+msgstr "En macOS, los ejecutables nativos requieren Quarkus 4.0 —cuya extensión `«quarkus-awt»` es compatible con macOS— y GraalVM 25.1 o una versión posterior."
 
+#. mt: deepl
+#, fuzzy
 msgid "On Windows arm64, GraalVM has no native image builder, so applications run in JVM mode there."
-msgstr ""
+msgstr "En Windows arm64, GraalVM no dispone de un generador de imágenes nativas, por lo que las aplicaciones se ejecutan en modo JVM en ese sistema."
 
 #, fuzzy
 msgid "When is this useful"
 msgstr "¿En qué casos resulta útil esto?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Quarkus Desktop can help when you write or maintain a Java desktop application and want what Quarkus offers: CDI, configuration, dev mode, and native executables.\n"
 "It is also useful for tools and utilities that need a small user interface, such as a tray icon or a settings window next to a service."
-msgstr ""
+msgstr "Quarkus Desktop puede resultarle de ayuda a la hora de desarrollar o mantener una aplicación de escritorio en Java y desee disponer de las prestaciones que ofrece Quarkus: CDI, configuración, modo de desarrollo y ejecutables nativos. También resulta útil para herramientas y utilidades que requieran una interfaz de usuario sencilla, como un icono en la bandeja del sistema o una ventana de configuración asociada a un servicio."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "AWT and Swing work in native executables as they do in JVM mode, with a few documented limitations.\n"
 "For example, a native executable cannot load classes that were not known at build time.\n"
 "The https://docs.quarkiverse.io/quarkus-desktop/dev/[documentation] lists them."
-msgstr ""
+msgstr "AWT y Swing funcionan en ejecutables nativos igual que en el modo JVM, con algunas limitaciones documentadas. Por ejemplo, un ejecutable nativo no puede cargar clases que no se conocieran en el momento de la compilación. La link:https://docs.quarkiverse.io/quarkus-desktop/dev/[documentación] las enumera."
 
+#. mt: deepl
+#, fuzzy
 msgid "How it is tested"
-msgstr ""
+msgstr "Cómo se realiza la prueba"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The https://github.com/Eng-Fouad/quarkus-desktop-showcase[Quarkus Desktop showcase] is an application of 75 pages, with about 3800 checks.\n"
 "It covers AWT, Java2D, text, images, Swing, the look and feels, data transfer, printing, accessibility, and sound.\n"
 "Its continuous integration runs every page in JVM mode and as a native executable on Linux, Windows, and macOS, then compares the two runs pixel by pixel and check by check."
-msgstr ""
+msgstr "link:https://github.com/Eng-Fouad/quarkus-desktop-showcase[La demostración de Quarkus Desktop] es una aplicación de 75 páginas, con unas 3.800 comprobaciones. Abarca AWT, Java2D, texto, imágenes, Swing, los estilos de interfaz, la transferencia de datos, la impresión, la accesibilidad y el sonido. Su integración continua ejecuta cada página en modo JVM y como ejecutable nativo en Linux, Windows y macOS; a continuación, compara ambas ejecuciones píxel a píxel y comprobación a comprobación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "https://github.com/quarkiverse/quarkus-desktop[Quarkus Desktop] brings Java desktop applications to Quarkus, from dev mode to native executables.\n"
 "Explore the project, try it with your application, and share your experience with us."
-msgstr ""
+msgstr "link:https://github.com/quarkiverse/quarkus-desktop[Quarkus Desktop] permite crear aplicaciones de escritorio en Java con Quarkus, desde el modo de desarrollo hasta ejecutables nativos. Explore el proyecto, pruébelo con su aplicación y comparta su experiencia con nosotros."

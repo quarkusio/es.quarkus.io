@@ -6,179 +6,287 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Insights #261: Quarkus Signals — In-Process Messaging Done Right"
-msgstr ""
+msgstr "Quarkus Insights n.º 261: Quarkus Signals — La mensajería entre procesos como debe ser"
 
+#. mt: deepl
+#, fuzzy
 msgid "This summary was generated using AI, reviewed by humans - https://www.youtube.com/watch?v=LUOgq-dlXvA[watch the video] for the full story."
-msgstr ""
+msgstr "Este resumen se ha generado mediante inteligencia artificial y ha sido revisado por personas; link:https://www.youtube.com/watch?v=LUOgq-dlXvA[vea el vídeo] para conocer la historia completa."
 
+#. mt: deepl
+#, fuzzy
 msgid "Every non-trivial application eventually needs its components to talk to each other without calling each other directly. The problem is not new, and Quarkus already ships two well-established solutions: https://jakarta.ee/specifications/cdi/[CDI events] and the https://vertx.io/docs/vertx-core/java/#event_bus[Vert.x event bus]. So why introduce a third? In episode 261, Martin Kouba — one of the original Quarkus engineers, author of the https://quarkus.io/guides/qute[Qute templating engine], and now the lead developer on the https://quarkus.io/guides/agent-mcp/[Quarkus MCP server] — joins host Holly Cummins to answer exactly that question, with slides, a live demo, and a thorough Q&A."
-msgstr ""
+msgstr "Toda aplicación que no sea trivial necesita, tarde o temprano, que sus componentes se comuniquen entre sí sin tener que llamarse directamente. El problema no es nuevo, y Quarkus ya incluye dos soluciones bien consolidadas: link:https://jakarta.ee/specifications/cdi/[los eventos CDI] y el link:https://vertx.io/docs/vertx-core/java/#event_bus[bus de eventos de Vert.x] . Entonces, ¿por qué introducir una tercera? En el episodio 261, Martin Kouba —uno de los ingenieros fundadores de Quarkus, autor del link:https://quarkus.io/guides/qute[motor de plantillas Qute] y, en la actualidad, desarrollador principal del link:https://quarkus.io/guides/agent-mcp/[servidor Quarkus MCP—] se une a la presentadora Holly Cummins para responder precisamente a esa pregunta, con diapositivas, una demostración en directo y una exhaustiva ronda de preguntas y respuestas."
 
 #, fuzzy
 msgid "Quarkus News"
 msgstr "Noticias de Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "Holly opened with a brief news round: work on Quarkus 4 is continuing on schedule — the release plan is tracked on the Quarkus wiki. Quarkus 3.40 is imminent: the core release is out and the platform release was being cut that week. It is the last LTS on the 3.x branch, and it should start appearing in https://docs.github.com/en/code-security/dependabot[Dependabot] and https://docs.renovatebot.com/[Renovate] update proposals shortly."
-msgstr ""
+msgstr "Holly comenzó con un breve resumen de noticias: el trabajo en Quarkus 4 continúa según lo previsto; el plan de lanzamiento se puede consultar en la wiki de Quarkus. Quarkus 3.40 está a punto de salir: la versión del núcleo ya está disponible y la versión de la plataforma se estaba preparando esa misma semana. Se trata de la última versión LTS de la rama 3.x, y debería empezar a aparecer en breve en las propuestas de actualización link:https://docs.github.com/en/code-security/dependabot[de Dependabot] y link:https://docs.renovatebot.com/[Renovate] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Holly also took a moment to credit Martin for the Quarkus website itself: quarkus.io now runs on the Qute templating engine that Martin built, which means that bugs in Qute get discovered — and reported directly to Martin — by the website team. \"Eating our own dog food\" was the polite framing."
-msgstr ""
+msgstr "Holly también dedicó un momento a reconocer el mérito de Martin por la propia página web de Quarkus: quarkus.io funciona ahora con el motor de plantillas Qute que creó Martin, lo que significa que el equipo de la página web detecta los errores en Qute —y se los comunica directamente a Martin—. «Utilizar nuestro propio producto» fue la forma educada de expresarlo."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Problem: Three Solutions Looking for a Unified API"
-msgstr ""
+msgstr "El problema: tres soluciones en busca de una API unificada"
 
+#. mt: deepl
+#, fuzzy
 msgid "Martin's framing is simple: Quarkus applications running in a single JVM sometimes need loosely coupled in-process communication — where one component announces something without knowing which other components are listening, and without invoking them directly. This is distinct from distributed messaging; no brokers, no clustering, no cross-process serialization. The scope is one application, one JVM."
-msgstr ""
+msgstr "El enfoque de Martin es sencillo: las aplicaciones Quarkus que se ejecutan en una única JVM a veces necesitan una comunicación entre procesos con un acoplamiento débil, en la que un componente envía una notificación sin saber qué otros componentes están a la escucha y sin invocarlos directamente. Esto difiere de la mensajería distribuida; no hay intermediarios, ni clústeres, ni serialización entre procesos. El ámbito de aplicación es una sola aplicación, una sola JVM."
 
+#. mt: deepl
+#, fuzzy
 msgid "Three existing tools already address this:"
-msgstr ""
+msgstr "Ya existen tres herramientas que abordan esta cuestión:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**CDI events** — type-safe, declarative, well-specified. Fires synchronously on the calling thread by default; all matching observers execute before control returns to the caller. An asynchronous API was added in CDI 2.0, but it always offloads to a separate thread and cannot participate directly in a reactive pipeline."
-msgstr ""
+msgstr "*Eventos CDI* : seguros en cuanto a tipos, declarativos y bien especificados. Por defecto, se activan de forma sincrónica en el hilo de llamada; todos los observadores que coincidan se ejecutan antes de que el control vuelva al llamante. En CDI 2.0 se añadió una API asíncrona, pero esta siempre se descarga a un hilo independiente y no puede participar directamente en un canal reactivo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Vert.x event bus** — asynchronous and flexible, with three emission modes: publish/subscribe, point-to-point, and request/response. Consumers are always notified asynchronously on an event loop thread. Addresses are string-based, which sacrifices type safety and makes class-cast exceptions possible at runtime. Originally designed with clustering in mind, which imposes serialization constraints that are irrelevant for purely in-process use."
-msgstr ""
+msgstr "*Bus de eventos de Vert.x* : asíncrono y flexible, con tres modos de emisión: publicación/suscripción, punto a punto y solicitud/respuesta. Los consumidores reciben siempre notificaciones de forma asíncrona en un hilo de bucle de eventos. Las direcciones se basan en cadenas de caracteres, lo que sacrifica la seguridad de tipos y hace posibles las excepciones de conversión de clases en tiempo de ejecución. Diseñado originalmente pensando en la agrupación en clústeres, lo que impone restricciones de serialización que resultan irrelevantes para un uso puramente dentro del proceso."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Reactive messaging** — intended for pipeline construction and external broker integration. Can be used with internal channels, but it is an architectural mismatch for simple component-to-component signalling."
-msgstr ""
+msgstr "*Mensajería reactiva* : destinada a la construcción de flujos de trabajo y a la integración con intermediarios externos. Puede utilizarse con canales internos, pero no resulta adecuada desde el punto de vista arquitectónico para la señalización sencilla entre componentes."
 
+#. mt: deepl
+#, fuzzy
 msgid "Each solution has a footprint that does not quite fit the use case Martin wanted to address cleanly. CDI events are synchronous by default in a way that surprises users — calling `event.fire()` blocks until all observers complete, even though \"fire\" implies \"fire and forget.\" The Vert.x event bus is the right shape architecturally but operates on string addresses rather than typesafe objects. It also lacks the execution model flexibility that the rest of Quarkus provides."
-msgstr ""
+msgstr "Cada solución tiene un impacto que no se ajusta del todo al caso de uso que Martin quería abordar de forma clara. Los eventos de CDI son síncronos por defecto, lo que sorprende a los usuarios: llamar `a event.fire()` bloquea la ejecución hasta que todos los observadores hayan finalizado, a pesar de que «fire» implica «disparar y olvidar». El bus de eventos de Vert.x tiene la estructura arquitectónica adecuada, pero opera con direcciones de cadena en lugar de con objetos con seguridad de tipos. Además, carece de la flexibilidad del modelo de ejecución que ofrece el resto de Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid "What Quarkus Signals Brings"
-msgstr ""
+msgstr "Qué aporta Quarkus Signals"
 
+#. mt: deepl
+#, fuzzy
 msgid "Signals is an experimental core extension, available since Quarkus 3.36, and targeting stable status in Quarkus 4. Martin's design goals were deliberately synthesized from the strengths of both existing solutions:"
-msgstr ""
+msgstr "Signals es una extensión experimental del núcleo, disponible desde Quarkus 3.36, y cuyo objetivo es alcanzar el estado estable en Quarkus 4. Los objetivos de diseño de Martin se sintetizaron deliberadamente a partir de los puntos fuertes de ambas soluciones existentes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Type-safe resolution** — the type system and qualifiers from CDI events are used to match senders to receivers, not strings."
-msgstr ""
+msgstr "*Resolución segura en cuanto al tipo* : el sistema de tipos y los calificadores de los eventos CDI se utilizan para emparejar remitentes con destinatarios, y no cadenas de caracteres."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Three emission modes** — publish/subscribe, point-to-point (`send`), and request/response, directly from the Vert.x event bus model."
-msgstr ""
+msgstr "*Tres modos de emisión* : publicación/suscripción, punto a punto ( `envío` ) y solicitud/respuesta, directamente desde el modelo de bus de eventos de Vert.x."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Receivers are always asynchronous** — unlike CDI events, calling `publish()` does not block the caller while receivers execute. Receivers run on their own threads, each with a fresh CDI request context."
-msgstr ""
+msgstr "*Los receptores son siempre asíncronos* : a diferencia de los eventos CDI, la llamada a ``publish()`` no bloquea a la entidad que la realiza mientras se ejecutan los receptores. Los receptores se ejecutan en sus propios hilos, cada uno con un contexto de solicitud CDI nuevo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Quarkus execution model** — annotate a receiver method with `@RunOnVirtualThread`, return a `Uni`, or leave it as a plain blocking method; Signals applies the same execution model rules as every other Quarkus extension."
-msgstr ""
+msgstr "*Modelo de ejecución de Quarkus* : anote un método receptor con `@RunOnVirtualThread` , devuelva un `Uni` o déjelo como un método bloqueante sin más; Signals aplica las mismas reglas del modelo de ejecución que cualquier otra extensión de Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Both declarative and programmatic** — annotate a method with `@Receives` to register it at build time, or register receivers programmatically at runtime, matching the trade-off between CDI's closed-world optimization and the Vert.x event bus's flexibility."
-msgstr ""
+msgstr "*Tanto de forma declarativa como programática* : añada la anotación `@Receives` a un método para registrarlo en el momento de la compilación, o registre los receptores mediante código en tiempo de ejecución, equilibrando así la optimización de mundo cerrado de CDI y la flexibilidad del bus de eventos de Vert.x."
 
+#. mt: deepl
+#, fuzzy
 msgid "The naming was deliberately chosen to avoid collisions. \"Event,\" \"observer,\" \"message,\" and \"consumer\" are all taken by CDI or Vert.x. Martin landed on _signals_ (sent) and _receivers_ (processed), which are similar enough to feel familiar but distinct enough not to pollute auto-import menus."
-msgstr ""
+msgstr "La denominación se eligió deliberadamente para evitar conflictos. «Event», «observer», «message» y «consumer» ya están en uso en CDI o Vert.x. Martin se decantó por _«signals»_ (enviadas) y _«receivers»_ (procesadas), términos lo suficientemente similares como para resultar familiares, pero lo suficientemente distintos como para no saturar los menús de importación automática."
 
+#. mt: deepl
+#, fuzzy
 msgid "CDI Events vs. Signals: A Concrete Demo"
-msgstr ""
+msgstr "Eventos CDI frente a señales: una demostración práctica"
 
+#. mt: deepl
+#, fuzzy
 msgid "Martin's demo started with a standard CDI event scenario: a Jakarta REST endpoint fires a `HelloLog` event (a plain Java record), and a `Greetings` component declares two observers. Without a surrounding transaction, all observers execute synchronously on the same thread before the endpoint method returns — the log clearly shows each observer completing before the \"method finished\" log line. Adding `@Transactional` to the endpoint changes the behavior: the transactional observer (`@Observes(during = AFTER_SUCCESS)`) is deferred until after commit, making the ordering subtly different and potentially surprising."
-msgstr ""
+msgstr "La demostración de Martin comenzó con un escenario estándar de eventos CDI: un punto final REST de Jakarta dispara un evento `HelloLog` (un registro Java simple) y un componente `Greetings` declara dos observadores. Sin una transacción que lo envuelva, todos los observadores se ejecutan de forma sincrónica en el mismo hilo antes de que el método del punto final devuelva un resultado; el registro muestra claramente que cada observador finaliza antes de la línea de registro «método finalizado». Al añadir `@Transactional` al punto final, el comportamiento cambia: el observador transaccional ( `@Observes(during = AFTER_SUCCESS)` ) se aplaza hasta después de la confirmación, lo que hace que el orden sea ligeramente diferente y pueda resultar sorprendente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The same scenario rewritten with Signals shows the contrast immediately. The resource injects `Signal<HelloLog>` and calls `signal.publish(payload)`. The log shows \"method started\" and \"method completed\" back-to-back, with receiver output arriving afterward — publish does not block the caller. Each receiver gets its own CDI request context: Martin pointed out that the two `Greetings` receivers logged different instance IDs from the injected request-scoped `MyService` bean, demonstrating that receiver isolation is automatic."
-msgstr ""
+msgstr "El mismo escenario reescrito con Signals muestra el contraste de forma inmediata. El recurso inyecta `Signal<HelloLog>` y llama a `signal.publish(payload)` . El registro muestra «método iniciado» y «método completado» uno tras otro, y la salida del receptor llega a continuación: la llamada a publish no bloquea al llamante. Cada receptor obtiene su propio contexto de solicitud CDI: Martin señaló que los dos receptores `de Greetings` registraron diferentes ID de instancia del bean `MyService` inyectado con ámbito de solicitud, lo que demuestra que el aislamiento de los receptores es automático."
 
+#. mt: deepl
+#, fuzzy
 msgid "Execution Model, Context Propagation, and the SPI"
-msgstr ""
+msgstr "Modelo de ejecución, propagación del contexto y el SPI"
 
+#. mt: deepl
+#, fuzzy
 msgid "Martin flagged context propagation as one of the harder design decisions. CDI request contexts are deliberately _not_ propagated across receivers — receivers run in parallel and sharing a mutable request context would be unsafe. What _is_ propagated:"
-msgstr ""
+msgstr "Martin señaló que la propagación del contexto era una de las decisiones de diseño más complejas. Los contextos de solicitud de CDI _no_ se propagan deliberadamente entre los receptores: estos se ejecutan en paralelo y compartir un contexto de solicitud mutable no sería seguro. Lo que sí _se_ propaga:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Security identity** — if the caller has an authenticated identity, all receivers see it."
-msgstr ""
+msgstr "*Identidad de seguridad* : si la persona que llama dispone de una identidad autenticada, todos los destinatarios pueden verla."
 
+#. mt: deepl
+#, fuzzy
 msgid "**https://opentelemetry.io/[OpenTelemetry] traces** — distributed tracing spans are carried into receivers, so a signal emission is visible as a child span in the trace."
-msgstr ""
+msgstr "*Rastros link:https://opentelemetry.io/[de OpenTelemetry]* : los tramos de rastreo distribuido se transmiten a los receptores, por lo que la emisión de una señal se muestra como un tramo secundario en el rastro."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Basic metrics** — instrumentation at the emission and receiver level."
-msgstr ""
+msgstr "*Métricas básicas* : instrumentación a nivel del emisor y del receptor."
 
+#. mt: deepl
+#, fuzzy
 msgid "For anything else — custom metadata that needs to flow from sender to receiver — there is a simple metadata map holder on the signal. Extensions and user code can read and write it directly."
-msgstr ""
+msgstr "Para cualquier otro caso —metadatos personalizados que deban transmitirse del remitente al destinatario—, la señal cuenta con un sencillo contenedor de mapas de metadatos. Las extensiones y el código de usuario pueden leerlo y escribir en él directamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The SPI has two extension points:"
-msgstr ""
+msgstr "El SPI cuenta con dos puntos de extensión:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Metadata enrichers** — executed at emission time, they can add data to the metadata map before receivers are called. The security identity propagation is implemented this way."
-msgstr ""
+msgstr "*Enriquecedores de metadatos* : se ejecutan en el momento de la emisión y pueden añadir datos al mapa de metadatos antes de que se invoquen los receptores. La propagación de la identidad de seguridad se implementa de esta manera."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Receiver interceptors** — analogous to CDI interceptors, they execute logic around each receiver call. The OpenTelemetry span injection uses this path."
-msgstr ""
+msgstr "*Interceptores de receptor* : de forma análoga a los interceptores CDI, ejecutan lógica en torno a cada llamada al receptor. La inyección de spans de OpenTelemetry utiliza esta ruta."
 
+#. mt: deepl
+#, fuzzy
 msgid "Both extension points use https://smallrye.io/smallrye-mutiny/[Mutiny] return types so they participate naturally in the reactive pipeline."
-msgstr ""
+msgstr "Ambos puntos de extensión utilizan tipos de retorno link:https://smallrye.io/smallrye-mutiny/[de Mutiny] , por lo que se integran de forma natural en el flujo reactivo."
 
+#. mt: deepl
+#, fuzzy
 msgid "Q&amp;A Highlights"
-msgstr ""
+msgstr "Aspectos destacados de la sesión de preguntas y respuestas"
 
+#. mt: deepl
+#, fuzzy
 msgid "The audience questions probed several practical concerns:"
-msgstr ""
+msgstr "Las preguntas del público se centraron en varias cuestiones prácticas:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Is Signals implemented on top of the Vert.x event bus?** No. Martin's team originally considered it, but adding a string-address layer on top of Vert.x to support type-safe resolution would have been pure overhead. The implementation is standalone and follows the same patterns as other Quarkus extensions."
-msgstr ""
+msgstr "*¿Se ha implementado Signals sobre el bus de eventos de Vert.x?* No. El equipo de Martin lo barajó inicialmente, pero añadir una capa de direcciones de cadena sobre Vert.x para permitir una resolución segura en cuanto a tipos habría supuesto una sobrecarga innecesaria. La implementación es independiente y sigue los mismos patrones que otras extensiones de Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid "**When should I use Signals vs. CDI events vs. Vert.x event bus?** The Signals documentation includes a comparison section. CDI events are still the right choice if you specifically need synchronous communication or rely on transactional observers; the Vert.x event bus still has valid use cases. Martin's position: with Signals, most new code will have a better experience, but neither older API is going away."
-msgstr ""
+msgstr "*¿Cuándo debería utilizar Signals, los eventos CDI o el bus de eventos de Vert.x?* La documentación de Signals incluye una sección de comparación. Los eventos CDI siguen siendo la opción adecuada si necesita específicamente comunicación síncrona o depende de observadores transaccionales; el bus de eventos de Vert.x sigue teniendo casos de uso válidos. La opinión de Martin: con Signals, la mayor parte del código nuevo ofrecerá una mejor experiencia, pero ninguna de las API anteriores va a desaparecer."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Is there a compatibility layer to route signals into the Vert.x event bus?** Not yet. Feedback and feature requests on GitHub are the best way to influence whether this gets built."
-msgstr ""
+msgstr "*¿Existe alguna capa de compatibilidad para canalizar señales hacia el bus de eventos de Vert.x?* Todavía no. Sus comentarios y solicitudes de nuevas funciones en GitHub son la mejor forma de influir en que esto se desarrolle."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Back pressure and bounded queues?** Not currently implemented. Signals does ship a configuration limit on the maximum number of concurrent blocking and virtual-thread receivers to prevent thread pool exhaustion, but queue depth management is on the roadmap pending community demand."
-msgstr ""
+msgstr "*¿Contrapresión y colas acotadas?* Actualmente no están implementadas. Signals incluye un límite de configuración para el número máximo de receptores simultáneos de tipo «blocking» y de «hilo virtual», con el fin de evitar el agotamiento del grupo de hilos; sin embargo, la gestión de la profundidad de las colas figura en la hoja de ruta, a la espera de que la comunidad lo solicite."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Message delivery guarantees?** Within a single JVM, delivery is reliable under normal conditions. The pathological failure mode — a full blocking thread pool starving receivers — was acknowledged. For request/response mode, callers can subscribe to the returned `Uni` to wait for receiver completion. For publish/subscribe, the design intent is that the sender does not need to know or care whether anyone receives the signal."
-msgstr ""
+msgstr "*¿Garantías de entrega de mensajes?* Dentro de una misma JVM, la entrega es fiable en condiciones normales. Se ha reconocido el modo de fallo patológico: un grupo de subprocesos totalmente bloqueado que priva de recursos a los receptores. En el modo de solicitud/respuesta, los solicitantes pueden suscribirse al `Uni` devuelto para esperar a que el receptor finalice su tarea. En el caso de la publicación/suscripción, la intención del diseño es que el remitente no necesite saber ni preocuparse de si alguien recibe la señal."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Should I manage delivery myself?** Martin's answer: in most cases, no. Choose your emission mode and let Signals handle the rest."
-msgstr ""
+msgstr "*¿Debería encargarme yo mismo de la entrega?* Respuesta de Martin: en la mayoría de los casos, no. Elija el modo de envío y deje que Signals se encargue del resto."
 
+#. mt: deepl
+#, fuzzy
 msgid "Status and Roadmap"
-msgstr ""
+msgstr "Situación actual y hoja de ruta"
 
+#. mt: deepl
+#, fuzzy
 msgid "Signals is experimental in Quarkus 3.x and has been since 3.36. The API is described as \"more or less feature complete\" — no major breaking changes are expected before the stable release in Quarkus 4. Some users are already running it in production despite the experimental label. The longer-term plan, originally conceived by Clément Escoffier, is to merge Signals into core so that any Quarkus application — and any extension — has access to it without an explicit dependency."
-msgstr ""
+msgstr "Signals se encuentra en fase experimental en Quarkus 3.x desde la versión 3.36. Se describe su API como «más o menos completa en cuanto a funcionalidades»: no se prevén cambios importantes que afecten a la compatibilidad antes del lanzamiento estable en Quarkus 4. Algunos usuarios ya lo están utilizando en producción a pesar de su etiqueta de «experimental». El plan a largo plazo, concebido originalmente por Clément Escoffier, consiste en integrar Signals en el núcleo, de modo que cualquier aplicación de Quarkus —y cualquier extensión— tenga acceso a él sin necesidad de una dependencia explícita."
 
 #, fuzzy
 msgid "Key Takeaways"
 msgstr "Puntos clave"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Signals is not a replacement — it is an addition** — it takes type safety from CDI events and emission mode flexibility from the Vert.x event bus, and adds the Quarkus execution model on top."
-msgstr ""
+msgstr "*Signals no es un sustituto, sino un complemento* : toma la seguridad de tipos de los eventos CDI y la flexibilidad del modo de emisión del bus de eventos de Vert.x, y añade el modelo de ejecución de Quarkus como capa superior."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Receivers are always asynchronous** — `publish()` returns immediately; receivers execute on separate threads with fresh CDI request contexts."
-msgstr ""
+msgstr "*Los receptores son siempre asíncronos* : `la` función ``publish()` ` devuelve un resultado de forma inmediata; los receptores se ejecutan en subprocesos independientes con contextos de solicitud CDI nuevos."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Three emission modes** — publish/subscribe (all receivers notified), point-to-point (one receiver selected), and request/response (caller awaits a return value)."
-msgstr ""
+msgstr "*Tres modos de emisión* : publicación/suscripción (se notifica a todos los receptores), punto a punto (se selecciona un receptor) y solicitud/respuesta (el solicitante espera un valor de retorno)."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Execution model is first-class** — `@RunOnVirtualThread`, reactive `Uni` returns, and blocking workers all work exactly as they do elsewhere in Quarkus."
-msgstr ""
+msgstr "*El modelo de ejecución es de primera clase* : `@RunOnVirtualThread` , los retornos reactivos `de Uni` y los trabajadores bloqueantes funcionan exactamente igual que en el resto de Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Context propagation is selective** — security identity and OpenTelemetry traces are propagated; CDI request context is deliberately not, since receivers may execute in parallel."
-msgstr ""
+msgstr "*La propagación del contexto es selectiva* : se propagan la identidad de seguridad y los rastros de OpenTelemetry; en cambio, el contexto de la solicitud de CDI no se propaga de forma deliberada, ya que los receptores pueden ejecutarse en paralelo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Declarative and programmatic** — `@Receives` for build-time registration, programmatic API for runtime flexibility."
-msgstr ""
+msgstr "*Declarativo y programático* : `@Receives` para el registro en tiempo de compilación y una API programática para garantizar la flexibilidad en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "**SPI for extension authors** — metadata enrichers and receiver interceptors let extensions (and user code) customize signal behaviour without forking the core."
-msgstr ""
+msgstr "*SPI para autores de extensiones* : los enriquecedores de metadatos y los interceptores de receptores permiten que las extensiones (y el código de los usuarios) personalicen el comportamiento de las señales sin necesidad de crear una bifurcación del núcleo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Not built on Vert.x event bus** — the implementation is independent; the design similarity is intentional but the execution path is separate."
-msgstr ""
+msgstr "*No se basa en el bus de eventos de Vert.x* : la implementación es independiente; la similitud en el diseño es intencionada, pero la ruta de ejecución es distinta."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Stable in Quarkus 4** — currently experimental in 3.36+; no major API changes expected; already used in production by some adopters."
-msgstr ""
+msgstr "*Estable en Quarkus 4* — actualmente en fase experimental en la versión 3.36 y posteriores; no se prevén cambios importantes en la API; algunos usuarios ya lo utilizan en entornos de producción."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Heading into core** — the plan is for Signals to become a zero-dependency part of Quarkus core so extensions can rely on it without users needing to add a dependency."
-msgstr ""
+msgstr "*De cara al núcleo* : el plan consiste en que Signals pase a formar parte del núcleo de Quarkus sin ninguna dependencia, de modo que las extensiones puedan basarse en él sin que los usuarios tengan que añadir ninguna dependencia."
 
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Signals is the answer to a question that has been asked implicitly by Quarkus users for years: what is the right way to wire components together loosely when CDI events are too synchronous, the Vert.x event bus is too low-level, and reactive messaging is too much? The answer Martin arrived at is not a compromise but a deliberate design: take the best resolution model from CDI, the best emission modes from Vert.x, drop what neither needed (clustering infrastructure, string addresses, spec-committee constraints), and integrate the result with the Quarkus execution model that users already know. Episode 261 makes a strong case that the resulting API is both more ergonomic and less surprising than the options it complements."
-msgstr ""
+msgstr "Quarkus Signals es la respuesta a una pregunta que los usuarios de Quarkus se han planteado de forma implícita durante años: ¿cuál es la forma adecuada de conectar componentes de manera flexible cuando los eventos de CDI son demasiado sincrónicos, el bus de eventos de Vert.x es demasiado básico y la mensajería reactiva resulta excesiva? La respuesta a la que llegó Martin no es un compromiso, sino un diseño deliberado: tomar el mejor modelo de resolución de CDI, los mejores modos de emisión de Vert.x, descartar lo que ninguno de los dos necesitaba (infraestructura de clústeres, direcciones de cadena, restricciones del comité de especificaciones) e integrar el resultado con el modelo de ejecución de Quarkus que los usuarios ya conocen. El episodio 261 defiende con firmeza que la API resultante es a la vez más ergonómica y menos sorprendente que las opciones a las que complementa."
 
 #, fuzzy
 msgid "Watch the full episode on the <a href=\"https://www.youtube.com/quarkusio\">Quarkus YouTube channel</a>."
