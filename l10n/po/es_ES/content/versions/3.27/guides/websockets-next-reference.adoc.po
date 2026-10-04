@@ -753,33 +753,40 @@ msgid ""
 "For this cases, the `InboundProcessingMode#CONCURRENT` should be used."
 msgstr "Los puntos finales de WebSocket pueden definir el modo utilizado para procesar los eventos entrantes de una conexión específica utilizando las direcciones `@WebSocket#inboundProcessingMode()` , y `@WebSocketClient.inboundProcessingMode()` respectivamente. Un evento entrante puede representar un mensaje (texto, binario, pong), la apertura de una conexión y el cierre de una conexión. Por defecto, los eventos se procesan en serie y el orden está garantizado. Esto significa que si un punto final recibe los eventos `A` y `B` (en este orden concreto), la llamada de retorno para el evento `B` se invocará una vez completada la llamada de retorno para el evento `A` . Sin embargo, en algunas situaciones es preferible procesar los eventos de forma concurrente, es decir, sin garantías de orden pero también sin límites de concurrencia. Para estos casos, debe utilizarse `InboundProcessingMode#CONCURRENT` ."
 
+#, fuzzy
 msgid "Limiting the number of pending messages"
-msgstr ""
+msgstr "Limitación del número de mensajes pendientes"
 
+#, fuzzy
 msgid ""
 "A peer that sends messages faster than the application can process them may cause an unbounded number of messages to be buffered in memory; this is especially relevant when `InboundProcessingMode#CONCURRENT` is used.\n"
 "To prevent this, Quarkus bounds the number of _pending_ (in-flight) messages, i.e. messages that a connection has received but has not yet fully processed, for a single connection.\n"
 "The limit is controlled by the following configuration property:"
-msgstr ""
+msgstr "Un nodo que envíe mensajes más rápido de lo que la aplicación puede procesarlos puede provocar que se almacenen en la memoria un número ilimitado de mensajes; esto es especialmente relevante cuando se utiliza `InboundProcessingMode#CONCURRENT` . Para evitarlo, Quarkus limita el número de mensajes _pendientes_ (en tránsito), es decir, los mensajes que una conexión ha recibido pero que aún no ha procesado por completo, para una única conexión. El límite se controla mediante la siguiente propiedad de configuración:"
 
+#, fuzzy
 msgid "`quarkus.websockets-next.server.max-pending-messages` for server endpoints, and"
-msgstr ""
+msgstr "`quarkus.websockets-next.server.max-pending-messages` para los puntos finales del servidor, y"
 
+#, fuzzy
 msgid "`quarkus.websockets-next.client.max-pending-messages` for client endpoints."
-msgstr ""
+msgstr "`quarkus.websockets-next.client.max-pending-messages` para los puntos finales de cliente."
 
+#, fuzzy
 msgid "When the limit is reached, the underlying WebSocket read stream is paused and no more messages are received until the pending messages are processed."
-msgstr ""
+msgstr "Cuando se alcanza el límite, el flujo de lectura del WebSocket subyacente se detiene y no se reciben más mensajes hasta que se hayan procesado los mensajes pendientes."
 
+#, fuzzy
 msgid ""
 "The default value is `256`.\n"
 "Set the property to `0` or a negative value to disable this back-pressure completely, in which case there is no limit on the number of in-flight messages."
-msgstr ""
+msgstr "El valor por defecto es `256` . Establezca la propiedad en `0` o en un valor negativo para desactivar por completo esta contrapresión; en ese caso, no habrá ningún límite en el número de mensajes en tránsito."
 
+#, fuzzy
 msgid ""
 "Pausing the read stream also pauses the delivery of ping/pong control frames for the affected connection.\n"
 "Under sustained saturation, i.e. when the number of pending messages stays at the limit, automatic pong replies and `@OnPingMessage`/`@OnPongMessage` callbacks may be delayed."
-msgstr ""
+msgstr "Al detener el flujo de lectura, también se detiene el envío de tramas de control «ping/pong» para la conexión afectada. En condiciones de saturación prolongada, es decir, cuando el número de mensajes pendientes se mantiene en el límite, las respuestas «pong» automáticas y las llamadas de retorno `@OnPingMessage y @OnPongMessage` pueden sufrir retrasos."
 
 #, fuzzy
 msgid "Server API"
@@ -1113,29 +1120,35 @@ msgstr "Los beans CDI que implementan la interfaz `HttpUpgradeCheck` pueden ser 
 msgid "Reject the HTTP upgrade. Initial HTTP handshake ends with the 400 Bad Request response status code."
 msgstr "Rechaza la actualización HTTP. El handshake HTTP inicial termina con el código de estado de respuesta 400 Bad Request."
 
+#, fuzzy
 msgid "Limiting the number of connections"
-msgstr ""
+msgstr "Limitación del número de conexiones"
 
+#, fuzzy
 msgid ""
 "There is no built-in configuration property to cap the number of open connections.\n"
 "However, a stateful `HttpUpgradeCheck` can reject the HTTP upgrade once a limit is reached.\n"
 "The <<list-open-connections,`OpenConnections`>> bean provides a live snapshot of the open connections and can be consulted to count the connections of a specific endpoint."
-msgstr ""
+msgstr "No existe ninguna propiedad de configuración integrada que permita limitar el número de conexiones abiertas. No obstante, un `HttpUpgradeCheck` con estado puede rechazar la actualización HTTP una vez que se alcance dicho límite. El bean xref:list-open-connections[«OpenConnections»] ofrece una instantánea en tiempo real de las conexiones abiertas y puede consultarse para contabilizar las conexiones de un punto final específico."
 
+#, fuzzy
 msgid "Only apply this check to the `foo-endpoint-id` endpoint; the `perform` method is not invoked for HTTP upgrades of other endpoints."
-msgstr ""
+msgstr "Aplique esta comprobación únicamente al punto final `«foo-endpoint-id»` ; el método `«perform»` no se invoca en las actualizaciones HTTP de otros puntos finales."
 
+#, fuzzy
 msgid "The endpoint id defaults to the simple name of the endpoint class but can be set with `@WebSocket#endpointId()`."
-msgstr ""
+msgstr "El identificador del punto final se establece por defecto como el nombre simple de la clase del punto final, pero puede configurarse mediante `@WebSocket#endpointId()` ."
 
+#, fuzzy
 msgid "Reject the HTTP upgrade with the 503 Service Unavailable response status code once the limit is reached."
-msgstr ""
+msgstr "Rechace la solicitud de actualización HTTP con el código de estado de respuesta 503 (Servicio no disponible) una vez que se haya alcanzado el límite."
 
+#, fuzzy
 msgid ""
 "The check runs _before_ the HTTP upgrade completes, and a connection only appears in `OpenConnections` after it has been established.\n"
 "Therefore, the snapshot returned by `OpenConnections` may not account for connections that are being established concurrently, and the limit is not strictly enforced under high concurrency.\n"
 "If you need a strict cap, maintain your own counter (e.g. an `AtomicInteger` incremented in the check and decremented in an `@OnClose` callback)."
-msgstr ""
+msgstr "La comprobación se ejecuta _antes de que_ finalice la actualización HTTP, y una conexión solo aparece en `OpenConnections` una vez que se ha establecido. Por lo tanto, es posible que la instantánea devuelta por `OpenConnections` no tenga en cuenta las conexiones que se están estableciendo simultáneamente, y el límite no se aplica de forma estricta en situaciones de alta concurrencia. Si necesita un límite estricto, mantenga su propio contador (por ejemplo, un `AtomicInteger` que se incremente en la comprobación y se decremente en una llamada de retorno `@OnClose` )."
 
 #, fuzzy
 msgid "TLS"
@@ -1703,17 +1716,21 @@ msgid ""
 "config_property_copy_button:+++quarkus.websockets-next.client.max-pending-messages+++[]"
 msgstr ""
 
+#, fuzzy
 msgid "The maximum number of pending (in-flight) messages processed concurrently for a single connection."
-msgstr ""
+msgstr "El número máximo de mensajes pendientes (en tránsito) que se procesan simultáneamente para una única conexión."
 
+#, fuzzy
 msgid "When set to a positive value, the connection applies back-pressure so that no more than this number of messages are received but not yet fully processed, bounding the memory a connection can retain. Set to `0` or a negative value to disable back-pressure completely."
-msgstr ""
+msgstr "Cuando se establece en un valor positivo, la conexión aplica contrapresión para que no se reciban más mensajes de los que este número indica y que aún no se hayan procesado por completo, lo que limita la memoria que una conexión puede retener. Establezca el valor en `0` o en un valor negativo para desactivar la contrapresión por completo."
 
+#, fuzzy
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_WEBSOCKETS_NEXT_CLIENT_MAX_PENDING_MESSAGES+++[]"
-msgstr ""
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_WEBSOCKETS_NEXT_CLIENT_MAX_PENDING_MESSAGES[]"
 
+#, fuzzy
 msgid "`+++256+++`"
-msgstr ""
+msgstr "`256`"
 
 #. mt: deepl
 #, fuzzy
@@ -2263,8 +2280,9 @@ msgid ""
 "config_property_copy_button:+++quarkus.websockets-next.server.max-pending-messages+++[]"
 msgstr ""
 
+#, fuzzy
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_WEBSOCKETS_NEXT_SERVER_MAX_PENDING_MESSAGES+++[]"
-msgstr ""
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_WEBSOCKETS_NEXT_SERVER_MAX_PENDING_MESSAGES[]"
 
 #. mt: deepl
 #, fuzzy
