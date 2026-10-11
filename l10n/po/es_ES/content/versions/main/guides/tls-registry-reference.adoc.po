@@ -798,11 +798,13 @@ msgid ""
 "Use this when all clients are known to support post-quantum cryptography."
 msgstr "El servidor solo acepta conexiones que utilicen un grupo de intercambio de claves poscuántico. Se rechazan los clientes que no negocien un grupo poscuántico. Utilice esta opción cuando se tenga la certeza de que todos los clientes son compatibles con la criptografía poscuántica."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When using `client-negotiated`, `quarkus.tls.key-exchange-groups` must include at least one post-quantum-capable group such as `X25519MLKEM768`.\n"
 "When using `strict`, `quarkus.tls.key-exchange-groups` must include only post-quantum-capable groups.\n"
 "Vert.x validates this at startup and overrides the specified set of groups if this condition is not respected. It will throw an exception if no compatible engine is available (see <<pqc-availability-summary,PQC availability summary>>)."
-msgstr ""
+msgstr "Cuando se utilice `la negociación por parte del cliente` , la configuración ` `quarkus.tls.key-exchange-groups` ` debe incluir al menos un grupo con capacidad poscuántica, como `X25519MLKEM768` . Cuando se utilice `el modo «strict»` , `quarkus.tls.key-exchange-groups` deberá incluir únicamente grupos compatibles con la criptografía poscuántica. Vert.x comprueba este requisito al inicio y anula el conjunto de grupos especificado si no se cumple esta condición. Se generará una excepción si no hay ningún motor compatible disponible (véase xref:pqc-availability-summary[el resumen de disponibilidad de PQC] )."
 
 #, fuzzy
 msgid ""
@@ -810,6 +812,8 @@ msgid ""
 "Ensure all clients are upgraded before enabling this mode."
 msgstr "Una aplicación `estricta` rechazará a cualquier cliente que no sea compatible con el grupo poscuántico configurado, incluidos los navegadores estándar y los clientes TLS que aún no hayan adoptado las extensiones poscuánticas. Asegúrese de que todos los clientes estén actualizados antes de habilitar este modo."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`pqc-enforcement-policy` does more than enforce post-quantum key exchange: it also controls which SSL engine Vert.x selects.\n"
 "When `pqc-enforcement-policy` is set to `client-negotiated` or `strict`, Quarkus first checks whether the JDK SSL engine supports post-quantum key exchange.\n"
@@ -817,47 +821,59 @@ msgid ""
 "With the default `relaxed` policy, Vert.x uses the JDK SSL engine, which ignores any post-quantum key-exchange groups before JDK 27.\n"
 "Thus, configuring post-quantum groups without also setting the enforcement policy may result in no post-quantum key exchange at all.\n"
 "Quarkus logs a warning at startup if you configure a post-quantum group with `relaxed` policy to help catch this misconfiguration."
-msgstr ""
+msgstr "`La política «pqc-enforcement-policy»` no solo garantiza el intercambio de claves poscuántico, sino que también controla qué motor SSL selecciona Vert.x. Cuando `la política «pqc-enforcement-policy»` se establece en `«client-negotiated»` o `«strict»` , Quarkus comprueba en primer lugar si el motor SSL del JDK es compatible con el intercambio de claves poscuántico. Si es así (JDK 27 o superior), se utiliza el motor del JDK; de lo contrario, Quarkus recurre al motor nativo de OpenSSL 3.5 o superior. Con la política predeterminada `«relaxed»` , Vert.x utiliza el motor SSL del JDK, que ignora cualquier grupo de intercambio de claves poscuánticas anterior a la versión 27 del JDK. Por lo tanto, configurar grupos poscuánticos sin establecer también la política de aplicación puede dar lugar a que no se produzca ningún intercambio de claves poscuánticas. Quarkus registra una advertencia al iniciarse si se configura un grupo poscuántico con una política `«relaxed»` , con el fin de ayudar a detectar esta configuración errónea."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For platform requirements when OpenSSL is used as fallback, see <<openssl-engine-classical-tls,Using the OpenSSL engine for classical TLS>>.\n"
 "For a full overview of which engine is used in each configuration, see the <<pqc-availability-summary,PQC availability summary>>."
-msgstr ""
+msgstr "Para conocer los requisitos de la plataforma cuando se utiliza OpenSSL como alternativa, consulte xref:openssl-engine-classical-tls[«Uso del motor OpenSSL para TLS clásico] ». Para obtener una descripción completa de qué motor se utiliza en cada configuración, consulte el xref:pqc-availability-summary[resumen de disponibilidad de PQC] ."
 
 #, fuzzy
 msgid "SSL engine override"
 msgstr "Anulación del motor SSL"
 
+#. mt: deepl
+#, fuzzy
 msgid "You can override the automatic engine selection with the `ssl-engine` property:"
-msgstr ""
+msgstr "Puede anular la selección automática del motor mediante la propiedad `«ssl-engine` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The supported values are `openssl` (requires netty-tcnative on the classpath) and `jdkssl` (the standard JDK SSL engine).\n"
 "This property is useful for testing or when you need explicit control over the engine."
-msgstr ""
+msgstr "Los valores admitidos son `«openssl»` (requiere que «netty-tcnative» se encuentre en la ruta de clases) y `«jdkssl»` (el motor SSL estándar del JDK). Esta propiedad resulta útil para realizar pruebas o cuando se necesita un control explícito sobre el motor."
 
+#. mt: deepl
+#, fuzzy
 msgid "For using the OpenSSL engine on classical (non-PQC) TLS paths, see <<openssl-engine-classical-tls,Using the OpenSSL engine for classical TLS>>."
-msgstr ""
+msgstr "Para utilizar el motor OpenSSL en rutas TLS clásicas (no PQC), consulte xref:openssl-engine-classical-tls[«Uso del motor OpenSSL para TLS clásico] »."
 
 #. mt: deepl
 #, fuzzy
 msgid "PQC and native mode"
 msgstr "PQC y modo nativo"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The OpenSSL engine is unavailable in native mode (see <<openssl-engine-native-mode,Native mode>>).\n"
 "The only way to leverage PQC-compliant key exchange groups in native images is to use a JDK SSL engine that supports them; these are not yet available in GraalVM/Mandrel but should be in the near future."
-msgstr ""
+msgstr "El motor OpenSSL no está disponible en modo nativo (véase xref:openssl-engine-native-mode[«Modo nativo»] ). La única forma de aprovechar los grupos de intercambio de claves compatibles con PQC en imágenes nativas es utilizar un motor SSL del JDK que los admita; estos aún no están disponibles en GraalVM/Mandrel, pero deberían estarlo en un futuro próximo."
 
 #. mt: deepl
 #, fuzzy
 msgid "PQC in containerized environments"
 msgstr "PQC en entornos basados en contenedores"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `libapr-1` requirement and container setup are identical whether OpenSSL is used for PQC or classical TLS.\n"
 "See <<openssl-engine-prerequisites,Container setup>> for installation instructions."
-msgstr ""
+msgstr "Los requisitos `de libapr-1` y la configuración del contenedor son idénticos, tanto si se utiliza OpenSSL para PQC como para TLS clásico. Consulte la sección xref:openssl-engine-prerequisites[«Configuración del contenedor] » para obtener instrucciones de instalación."
 
 #. mt: deepl
 #, fuzzy
@@ -956,36 +972,52 @@ msgstr "El motor no está disponible en modo nativo"
 msgid "_{asterisk} JDK 25 support pending backport (expected October 2026)._"
 msgstr "_* La compatibilidad con JDK 25 está pendiente de una adaptación retrospectiva (prevista para octubre de 2026)._"
 
+#. mt: deepl
+#, fuzzy
 msgid "Using the OpenSSL engine for classical TLS"
-msgstr ""
+msgstr "Uso del motor OpenSSL para TLS clásico"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Quarkus can automatically select the SSL engine based on the Post-Quantum Cryptography configuration (see <<pqc-ssl-engine-override,SSL engine override>>). However, even without post-quantum cryptography, you can configure Quarkus to use the native OpenSSL engine (via netty-tcnative) instead of the JDK SSL engine on classical TLS paths.\n"
 "The native engine can offer improved handshake throughput and hardware-accelerated cryptography on supported platforms."
-msgstr ""
+msgstr "Quarkus puede seleccionar automáticamente el motor SSL en función de la configuración de criptografía poscuántica (véase xref:pqc-ssl-engine-override[«Anulación del motor SSL»] ). No obstante, incluso sin criptografía poscuántica, puede configurar Quarkus para que utilice el motor OpenSSL nativo (a través de netty-tcnative) en lugar del motor SSL del JDK en las rutas TLS clásicas. El motor nativo puede ofrecer un mayor rendimiento en el proceso de establecimiento de conexión y criptografía acelerada por hardware en las plataformas compatibles."
 
+#. mt: deepl
+#, fuzzy
 msgid "To force the OpenSSL engine for all TLS connections:"
-msgstr ""
+msgstr "Para forzar el uso del motor OpenSSL en todas las conexiones TLS:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The native OpenSSL engine has the same platform requirements whether it is used for PQC or classical TLS:"
-msgstr ""
+msgstr "El motor nativo de OpenSSL tiene los mismos requisitos de plataforma, tanto si se utiliza para PQC como para TLS clásico:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "**Supported platforms only:** Linux x86_64 and Linux aarch64.\n"
 "macOS, Windows, Alpine Linux, and other architectures are not supported.\n"
 "Quarkus bundles netty-tcnative only for the two platforms listed above; the property is silently ignored on unsupported platforms."
-msgstr ""
+msgstr "*Solo plataformas compatibles:* Linux x86_64 y Linux aarch64. No se admiten macOS, Windows, Alpine Linux ni otras arquitecturas. Quarkus incluye netty-tcnative únicamente para las dos plataformas mencionadas anteriormente; en las plataformas no compatibles, esta propiedad se ignora sin previo aviso."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "**`libapr-1` must be installed on the host OS.**\n"
 "Without `libapr-1`, netty-tcnative cannot load the native OpenSSL library at runtime and the engine will not be available."
-msgstr ""
+msgstr "*Es necesario instalarlibapr-1 en el sistema operativo anfitrión.* Sin `libapr-1` , netty-tcnative no puede cargar la biblioteca nativa de OpenSSL en tiempo de ejecución y el motor no estará disponible."
 
+#. mt: deepl
+#, fuzzy
 msgid "Container setup"
-msgstr ""
+msgstr "Configuración del contenedor"
 
+#. mt: deepl
+#, fuzzy
 msgid "On UBI-based container images, `libapr-1` is not installed by default. Add it explicitly in your `Containerfile`:"
-msgstr ""
+msgstr "En las imágenes de contenedor basadas en UBI, `libapr-1` no viene instalada de forma predeterminada. Añádala explícitamente en su `archivo `Containerfile`` :"
 
 #. mt: deepl
 #, fuzzy
@@ -996,11 +1028,13 @@ msgstr "A continuación se muestra un ejemplo de un archivo `«Containerfile»` 
 msgid "Native mode"
 msgstr "Modo nativo"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The OpenSSL engine is *not supported in native (GraalVM/Mandrel) mode*.\n"
 "netty-tcnative cannot be loaded inside a native image, so setting `ssl-engine=openssl` in a native application will cause a startup failure.\n"
 "In native mode, use the JDK SSL engine (the default) or leave `ssl-engine` unset."
-msgstr ""
+msgstr "El motor OpenSSL *no* es *compatible con el modo nativo (GraalVM/Mandrel)* . netty-tcnative no se puede cargar dentro de una imagen nativa, por lo que establecer `ssl-engine=openssl` en una aplicación nativa provocará un error de inicio. En modo nativo, utilice el motor SSL del JDK (el predeterminado) o deje sin configurar `ssl-engine` ."
 
 #, fuzzy
 msgid "Certificate Revocation List (CRL)"

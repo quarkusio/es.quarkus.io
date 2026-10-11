@@ -194,8 +194,10 @@ msgid ""
 "For this, you need to use the `@Blocking` annotation indicating that the processing is _blocking_ and should not be run on the caller thread."
 msgstr "La Mensajería Reactiva invoca su método en un hilo I/O. Consulte la xref:quarkus-reactive-architecture.adoc[documentación de la Arquitectura Reactiva de Quarkus] para más detalles sobre este tema. Pero, a menudo necesita combinar la Mensajería Reactiva con el procesamiento de bloqueo, como las interacciones con la base de datos. Para ello, necesita utilizar la anotación `@Blocking` indicando que el procesamiento es _bloqueante_ y no debe ejecutarse en el hilo de llamada."
 
+#. mt: deepl
+#, fuzzy
 msgid "For example, the following code illustrates how you can store incoming payloads to a database using Hibernate with Panache:"
-msgstr ""
+msgstr "Por ejemplo, el siguiente código ilustra cómo se pueden almacenar las cargas útiles entrantes en una base de datos utilizando Hibernate con Panache:"
 
 #, fuzzy
 msgid "The complete example is available in the `kafka-panache-quickstart` link:{quickstarts-tree-url}/kafka-panache-quickstart[directory]."
@@ -352,8 +354,10 @@ msgstr "Si un mensaje producido a partir de un registro Kafka es nacked, se apli
 msgid "`fail`: fail the application, no more records will be processed (default strategy). The offset of the record that has not been processed correctly is not committed."
 msgstr "`fail`: falla la aplicación, no se procesarán más registros (estrategia por defecto). El desplazamiento del registro que no se ha procesado correctamente no se compromete."
 
+#. mt: deepl
+#, fuzzy
 msgid "`ignore`: the failure is logged, but the processing continues. The offset of the record that has not been processed correctly is committed."
-msgstr ""
+msgstr "`ignorar` : el error se registra, pero el procesamiento continúa. Se confirma la posición del registro que no se ha procesado correctamente."
 
 #, fuzzy
 msgid "`dead-letter-queue`: the offset of the record that has not been processed correctly is committed, but the record is written to a Kafka dead letter topic."
@@ -471,13 +475,15 @@ msgstr "Si el atributo `fail-on-deserialization-failure` se establece en `false`
 msgid "Consumer Groups"
 msgstr "Grupos de consumidores"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "In Kafka, a consumer group is a set of consumers which cooperate to consume data from a topic.\n"
 "A topic is divided into a set of partitions.\n"
 "The partitions of a topic are assigned among the consumers in the group, effectively allowing to scale consumption throughput.\n"
 "Note that each partition is assigned to a single consumer from a group.\n"
 "However, a consumer can be assigned multiple partitions if the number of partitions is greater than the number of consumers in the group."
-msgstr ""
+msgstr "En Kafka, un grupo de consumidores es un conjunto de consumidores que cooperan para consumir datos de un tema. Un tema se divide en un conjunto de particiones. Las particiones de un tema se asignan entre los consumidores del grupo, lo que permite, en la práctica, escalar el rendimiento del consumo. Tenga en cuenta que cada partición se asigna a un único consumidor del grupo. No obstante, a un consumidor se le pueden asignar varias particiones si el número de particiones es superior al número de consumidores del grupo."
 
 #, fuzzy
 msgid "Let's explore briefly different producer/consumer patterns and how to implement them using Quarkus:"
@@ -498,11 +504,13 @@ msgstr "Este es el comportamiento por defecto de una aplicación que se suscribe
 msgid "*Multiple consumer threads inside a consumer group*"
 msgstr "*Múltiples hilos consumidores dentro de un grupo de consumidores*"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For a given application instance, the number of consumers inside the consumer group can be configured using `mp.messaging.incoming.$channel.concurrency` property.\n"
 "The partitions of the subscribed topic will be divided among the consumer threads.\n"
 "Note that if the `concurrency` value exceeds the number of partitions of the topic, some consumer threads won't be assigned any partitions."
-msgstr ""
+msgstr "Para una instancia de aplicación determinada, el número de consumidores dentro del grupo de consumidores se puede configurar mediante la propiedad ``mp.messaging.incoming.$channel.concurrency` `. Las particiones del tema suscrito se repartirán entre los hilos de los consumidores. Tenga en cuenta que, si el valor `de concurrencia` supera el número de particiones del tema, a algunos subprocesos de consumidor no se les asignará ninguna partición."
 
 #, fuzzy
 msgid "Deprecation"
@@ -529,18 +537,22 @@ msgstr "De forma similar al ejemplo anterior, varias instancias de una aplicaci�
 msgid "*Pub/Sub: Multiple consumer groups subscribed to a topic*"
 msgstr "*Pub/Sub: Múltiples grupos de consumidores suscritos a un tema*"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Lastly different applications can subscribe independently to the same topics using different *consumer group ids*.\n"
 "For example, messages published to a topic called _orders_ can be consumed independently on two consumer applications, one with `mp.messaging.incoming.orders.group.id=invoicing` and second with `mp.messaging.incoming.orders.group.id=shipping`.\n"
 "Different consumer groups can thus scale independently according to the message consumption requirements."
-msgstr ""
+msgstr "Por último, las distintas aplicaciones pueden suscribirse de forma independiente a los mismos temas utilizando diferentes *identificadores de grupo de consumidores* . Por ejemplo, los mensajes publicados en un tema denominado _«orders»_ pueden consumirse de forma independiente en dos aplicaciones consumidoras: una con ``mp.messaging.incoming.orders.group.id=invoicing` ` y la segunda con ``mp.messaging.incoming.orders.group.id=shipping` `. De este modo, los distintos grupos de consumidores pueden escalar de forma independiente en función de los requisitos de consumo de mensajes."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A common business requirement is to consume and process Kafka records in order.\n"
 "The Kafka broker preserves order of records inside a partition and not inside a topic.\n"
 "Therefore, it is important to think about how records are partitioned inside a topic.\n"
 "The default partitioner uses record key hash to compute the partition for a record, or when the key is not defined, chooses a partition randomly per batch of records."
-msgstr ""
+msgstr "Un requisito habitual en el ámbito empresarial es consumir y procesar los registros de Kafka en orden. El broker de Kafka conserva el orden de los registros dentro de una partición, pero no dentro de un tema. Por lo tanto, es importante tener en cuenta cómo se particionan los registros dentro de un tema. El particionador predeterminado utiliza el hash de la clave del registro para calcular la partición a la que pertenece un registro o, cuando la clave no está definida, elige una partición al azar por cada lote de registros."
 
 #, fuzzy
 msgid ""
@@ -568,13 +580,15 @@ msgstr "Tenga en cuenta que, debido a los reequilibrios de los consumidores, los
 msgid "Consumer Rebalance Listener"
 msgstr "Escucha del reequilibrio de los consumidores"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Inside a consumer group, as new group members arrive and old members leave, the partitions are re-assigned so that each member receives a proportional share of the partitions.\n"
 "This is known as rebalancing the group.\n"
 "To handle offset commit and assigned partitions yourself, you can provide a consumer rebalance listener.\n"
 "To achieve this, implement the `io.smallrye.reactive.messaging.kafka.KafkaConsumerRebalanceListener` interface and expose it as a CDI bean with the `@Identifier` qualifier.\n"
 "A common use case is to store offset in a separate data store to implement exactly-once semantic, or starting the processing at a specific offset."
-msgstr ""
+msgstr "Dentro de un grupo de consumidores, a medida que se incorporan nuevos miembros y se retiran los antiguos, las particiones se reasignan de modo que cada miembro reciba una parte proporcional de las mismas. A este proceso se le conoce como «reequilibrio del grupo». Para gestionar usted mismo la confirmación con desplazamiento y las particiones asignadas, puede proporcionar un oyente de reequilibrio del consumidor. Para ello, implemente la interfaz ``io.smallrye.reactive.messaging.kafka.KafkaConsumerRebalanceListener` ` y expóngala como un bean CDI con el calificador ``@Identifier`` . Un caso de uso habitual consiste en almacenar el offset en un almacén de datos independiente para implementar la semántica «exactly-once», o bien iniciar el procesamiento en un offset específico."
 
 #, fuzzy
 msgid ""
@@ -659,13 +673,15 @@ msgstr "Puede utilizar ese UUID generado como grupo de consumidores de la siguie
 msgid "Manual topic-partition assignment"
 msgstr "Asignación manual tema-partición"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `assign-seek` channel attribute allows manually assigning topic-partitions to a Kafka incoming channel,\n"
 "and optionally seek to a specified offset in the partition to start consuming records.\n"
 "If `assign-seek` is used, the consumer will not be dynamically subscribed to topics,\n"
 "but instead will statically assign the described partitions.\n"
 "In manual topic-partition assignment, rebalancing doesn't happen and therefore rebalance listeners are never called."
-msgstr ""
+msgstr "El atributo `«assign-seek»` del canal permite asignar manualmente particiones de temas a un canal de entrada de Kafka y, opcionalmente, desplazarse hasta un offset específico dentro de la partición para comenzar a consumir registros. Si se utiliza `«assign-seek»` , el consumidor no se suscribirá dinámicamente a los temas, sino que asignará de forma estática las particiones descritas. En la asignación manual de particiones de temas, no se produce el reequilibrio y, por lo tanto, nunca se invocan los oyentes de reequilibrio."
 
 #, fuzzy
 msgid "The attribute takes a list of triplets separated by commas: `<topic>:<partition>:<offset>`."
@@ -1131,12 +1147,14 @@ msgid ""
 "The number of in-flight messages is configured using the `max-inflight-messages` attribute and defaults to 1024."
 msgstr "El conector de salida Kafka gestiona la contrapresión, controlando el número de mensajes en vuelo que esperan ser escritos en el corredor Kafka. El número de mensajes en vuelo se configura mediante el atributo `max-inflight-messages` y su valor predeterminado es 1024."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The connector only sends that amount of messages concurrently.\n"
 "No other messages will be sent until at least one in-flight message gets acknowledged by the broker.\n"
 "Then, the connector writes a new message to Kafka when one of the broker’s in-flight messages gets acknowledged.\n"
 "Be sure to configure Kafka’s `batch.size` and `linger.ms` accordingly."
-msgstr ""
+msgstr "El conector solo envía ese número de mensajes de forma simultánea. No se enviarán más mensajes hasta que el broker haya confirmado al menos un mensaje en tránsito. A continuación, el conector escribe un nuevo mensaje en Kafka cuando el broker confirma uno de los mensajes en tránsito. Asegúrese de configurar `los parámetros `batch.size` ` y ``linger.ms` ` de Kafka adecuadamente."
 
 #, fuzzy
 msgid ""
@@ -1155,10 +1173,12 @@ msgid ""
 "In addition to this, SmallRye Reactive Messaging will retry individual messages on recoverable errors, depending on the `retries` and `delivery.timeout.ms` parameters."
 msgstr "Cuando el productor de Kafka recibe un error del servidor, si se trata de un error transitorio y recuperable, el cliente volverá a intentar enviar el lote de mensajes. Este comportamiento se controla mediante los parámetros `retries` y `retry.backoff.ms` . Además, SmallRye Reactive Messaging reintentará el envío de mensajes individuales en caso de errores recuperables, en función de los parámetros `retries` y `delivery.timeout.ms` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Note that while having retries in a reliable system is a best practice, the `max.in.flight.requests.per.connection` parameter defaults to `5`, meaning that the order of the messages is not guaranteed.\n"
 "If the message order is a must for your use case, setting `max.in.flight.requests.per.connection` to `1` will make sure a single batch of messages is sent at a time, at the expense of limiting the throughput of the producer."
-msgstr ""
+msgstr "Tenga en cuenta que, aunque incluir reintentos en un sistema fiable es una práctica recomendada, el parámetro ``max.in.flight.requests.per.connection` ` tiene un valor predeterminado de `5` , lo que significa que no se garantiza el orden de los mensajes. Si el orden de los mensajes es imprescindible para su caso de uso, establecer `«max.in.flight.requests.per.connection»` en `1` garantizará que se envíe un único lote de mensajes cada vez, a costa de limitar el rendimiento del productor."
 
 #, fuzzy
 msgid "For applying retry mechanism on processing errors, see the section on <<retrying-processing>>."
@@ -1694,8 +1714,10 @@ msgid ""
 "In this case, the `deserializer` configuration is not necessary as the <<serialization-autodetection>> is enabled by default."
 msgstr "Ahora, sus mensajes Kafka contendrán una representación serializada Jackson de su objeto de datos `Fruit` . En este caso, la configuración de `deserializer` no es necesaria, ya que <<serialization-autodetection>> está activada por defecto."
 
+#. mt: deepl
+#, fuzzy
 msgid "If you want to deserialize a list of fruits, you need to create a deserializer with a Jackson `TypeReference` denoting the generic collection used."
-msgstr ""
+msgstr "Si desea deserializar una lista de frutas, deberá crear un deserializador con una `referencia de tipo` de Jackson que indique la colección genérica utilizada."
 
 #, fuzzy
 msgid "Serializing via JSON-B"
@@ -1725,8 +1747,10 @@ msgstr "Por último, configura tus canales para que utilicen el serializador y d
 msgid "Now, your Kafka messages will contain a JSON-B serialized representation of your `Fruit` data object."
 msgstr "Ahora, sus mensajes Kafka contarán con una representación serializada JSON-B de su objeto de datos `Fruit`."
 
+#. mt: deepl
+#, fuzzy
 msgid "If you want to deserialize a list of fruits, you need to create a deserializer with a `Type` denoting the generic collection used."
-msgstr ""
+msgstr "Si desea deserializar una lista de frutas, deberá crear un deserializador con un `tipo` que indique la colección genérica utilizada."
 
 #, fuzzy
 msgid "Avro Serialization"
@@ -1966,11 +1990,13 @@ msgid ""
 "This approach is not intrusive as it's based on built-in Kafka client metrics."
 msgstr "Las comprobaciones de _inicio_ y _preparación de_ la mensajería reactiva ofrecen dos estrategias. La estrategia por defecto verifica que se establece una conexión activa con el broker. Este enfoque no es intrusivo, ya que se basa en las métricas incorporadas del cliente Kafka."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Using the `health-topic-verification-enabled=true` attribute, _startup_ probe uses an _admin client_ to check for the list of topics.\n"
 "Whereas the _readiness_ probe for an incoming channel checks that at least one partition is assigned for consumption,\n"
 "and for an outgoing channel checks that the topic used by the producer exists in the broker."
-msgstr ""
+msgstr "Mediante el atributo `«health-topic-verification-enabled=true»` , la sonda _de inicio_ utiliza un _cliente de administración_ para comprobar la lista de temas. Por su parte, la sonda _de disponibilidad_ comprueba, en el caso de un canal de entrada, que se haya asignado al menos una partición para su consumo, y, en el caso de un canal de salida, que el tema utilizado por el productor exista en el broker."
 
 #, fuzzy
 msgid ""
@@ -2078,10 +2104,12 @@ msgstr "Desactivación del registro de MBean JMX"
 msgid "To disable JMX MBean registration, set the following property in your `application.properties`:"
 msgstr "Para desactivar el registro de MBean JMX, establezca la siguiente propiedad en su `application.properties` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When disabled, the `AppInfoParser` skips the JMX MBean registration and the default value for `kafka.metric.reporters` is set to empty, preventing the `JmxReporter` from being loaded.\n"
 "Kafka client metrics are available through Micrometer when the xref:telemetry-micrometer.adoc[Micrometer extension] is present."
-msgstr ""
+msgstr "Cuando está desactivado, `AppInfoParser` omite el registro de MBeans de JMX y el valor por defecto de ``kafka.metric.reporters` ` se establece en vacío, lo que impide que se cargue `JmxReporter` . Las métricas del cliente de Kafka están disponibles a través de Micrometer cuando la xref:telemetry-micrometer.adoc[extensión de Micrometer] está presente."
 
 #, fuzzy
 msgid "Authentication with OAuth"
@@ -2103,8 +2131,10 @@ msgstr "Esta dependencia proporciona el controlador de devolución de llamada ne
 msgid "Update the `oauth.client.id`, `oauth.client.secret` and `oauth.token.endpoint.uri` values."
 msgstr "Actualice los valores de `oauth.client.id`, `oauth.client.secret` y `oauth.token.endpoint.uri`."
 
+#. mt: deepl
+#, fuzzy
 msgid "OAuth authentication works for both JVM and native modes. Since SSL is not enabled by default in native mode, `quarkus.ssl.native=true` must be added to support JaasClientOauthLoginCallbackHandler, which uses SSL. (See the xref:native-and-ssl.adoc[Using SSL with Native Executables] guide for more details.)"
-msgstr ""
+msgstr "La autenticación OAuth funciona tanto en el modo JVM como en el modo nativo. Dado que SSL no está habilitado de forma predeterminada en el modo nativo, es necesario añadir `«quarkus.ssl.native=true»` para que sea compatible con JaasClientOauthLoginCallbackHandler, que utiliza SSL. (Consulte la guía xref:native-and-ssl.adoc[«Uso de SSL con ejecutables nativos] » para obtener más detalles.)"
 
 msgid "TLS Configuration"
 msgstr "Configuración TLS"
@@ -2197,8 +2227,10 @@ msgstr "Utilice el método `send` para enviar un mensaje al canal `orders` . La 
 msgid "Use the `received` method on `beverages` channel to check the messages produced by the application."
 msgstr "Utilice el método `received` en el canal `beverages` para comprobar los mensajes producidos por la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "If your Kafka consumer is batch based, you will need to send a batch of messages to the channel by creating them manually."
-msgstr ""
+msgstr "Si su consumidor de Kafka funciona por lotes, deberá enviar un lote de mensajes al canal creándolos manualmente."
 
 #, fuzzy
 msgid "For instance:"
@@ -4494,8 +4526,10 @@ msgstr "Persiste la entidad. Devuelve un `Uni&amp;lt;Fruit&amp;gt;`."
 msgid "Switch back to a `Uni<Void>`."
 msgstr "Vuelve a cambiar a un `Uni&amp;lt;Void&amp;gt;`."
 
+#. mt: deepl
+#, fuzzy
 msgid "Close the session - this closes the connection with the database. The connection can then be recycled."
-msgstr ""
+msgstr "Cerrar la sesión: esto cierra la conexión con la base de datos. A continuación, la conexión puede reutilizarse."
 
 #, fuzzy
 msgid ""
@@ -4522,8 +4556,10 @@ msgstr "Imaginemos el siguiente proceso:"
 msgid "You receive an HTTP request with a payload,"
 msgstr "Recibe una petición HTTP con una carga útil,"
 
+#. mt: deepl
+#, fuzzy
 msgid "You create a Hibernate entity instance from this payload,"
-msgstr ""
+msgstr "A partir de esta carga útil, se crea una instancia de entidad de Hibernate,"
 
 #, fuzzy
 msgid "You persist that entity into a database,"
@@ -4615,10 +4651,12 @@ msgstr "Se devuelve ese canal como un `Publisher` o un `Multi` desde el método 
 msgid "The following code provides an example:"
 msgstr "El siguiente código proporciona un ejemplo:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Some environments cut the SSE connection when there is not enough activity.\n"
 "The workaround consists of sending _ping_ messages (or empty objects) periodically."
-msgstr ""
+msgstr "En algunos entornos, la conexión SSE se interrumpe cuando no hay suficiente actividad. La solución consiste en enviar mensajes _«ping»_ (u objetos vacíos) periódicamente."
 
 #, fuzzy
 msgid ""
@@ -4684,10 +4722,12 @@ msgstr "Enviar la carga útil a Kafka dentro de la transacción Kafka."
 msgid "Persist the entity into the database in a Hibernate Reactive transaction."
 msgstr "Necesitamos escribir la entidad en la base de datos en una transacción."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Once the persist operation completes, and there are no errors, the Kafka transaction is committed.\n"
 "The result is omitted and returned as the HTTP response."
-msgstr ""
+msgstr "Una vez que finaliza la operación de persistencia y no se producen errores, se confirma la transacción de Kafka. El resultado se omite y se devuelve como respuesta HTTP."
 
 #, fuzzy
 msgid ""

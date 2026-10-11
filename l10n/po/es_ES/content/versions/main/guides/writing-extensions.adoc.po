@@ -199,13 +199,15 @@ msgid ""
 "It's started during the <<bootstrap-three-phases,Static init bootstrap phase>>."
 msgstr "Algunos componentes pueden requerir una inicialización adicional basada en la información recopilada durante la ampliación. La solución más directa es obtener una instancia de bean y llamar a un método directamente desde un paso de construcción. Sin embargo, es _ilegal_ obtener una instancia de bean durante la fase de aumento. La razón es que el contenedor CDI aún no se ha iniciado. Se inicia durante la fase de arranque xref:bootstrap-three-phases[Static init] ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "It is possible to invoke a bean method from a <<bytecode-recording,startup service>> or a legacy <<legacy-bytecode-recording,recorder method>>.\n"
 "If you need to access a bean in a static-init service (`Phase.STATIC_INIT`) or legacy `@Record(STATIC_INIT)` build step, then it must depend on `.require(BeanContainer.class)` (for services), or depend on the `BeanContainerBuildItem` / wrap the logic in a `BeanContainerListenerBuildItem` (for legacy recorders).\n"
 "The reason is simple - we need to make sure the CDI container is fully initialized and started.\n"
 "However, it is safe to expect that the CDI container is fully initialized and running in a runtime-init service (`Phase.APPLICATION`) or legacy `@Record(RUNTIME_INIT)` build step.\n"
 "For services, prefer using `.require(BeanContainer.class)` and `.beanInstance(BeanType.class)`; for legacy recorders, you can obtain a reference to the container via `CDI.current()` or Quarkus-specific `Arc.container()`."
-msgstr ""
+msgstr "Es posible invocar un método de un bean desde un xref:bytecode-recording[servicio de inicio] o desde xref:legacy-bytecode-recording[un método de un registrador] heredado. Si necesita acceder a un bean en un servicio de inicialización estática ( `Phase.STATIC_INIT` ) o en un paso de compilación heredado `@Record(STATIC_INIT)` , deberá depender de `.require(BeanContainer.class)` (en el caso de los servicios), o bien depender de `BeanContainerBuildItem` o envolver la lógica en un `BeanContainerListenerBuildItem` (en el caso de los registradores heredados). El motivo es sencillo: debemos asegurarnos de que el contenedor CDI esté completamente inicializado y en marcha. Sin embargo, es seguro dar por hecho que el contenedor CDI está completamente inicializado y en ejecución en un servicio de inicialización en tiempo de ejecución ( `Phase.APPLICATION` ) o en un paso de compilación heredado `@Record(RUNTIME_INIT)` . En el caso de los servicios, es preferible utilizar `.require(BeanContainer.class)` y `.beanInstance(BeanType.class)` ; para los registradores heredados, puede obtener una referencia al contenedor mediante `CDI.current()` o, en el caso específico de Quarkus, `Arc.container()` ."
 
 #, fuzzy
 msgid "Default beans"
@@ -275,18 +277,24 @@ msgstr "Hay varias formas de registrar un xref:cdi-integration.adoc#synthetic_be
 msgid "The `SyntheticBeanBuildItem` can be used to register a synthetic bean:"
 msgstr "La página `SyntheticBeanBuildItem` puede utilizarse para registrar una judía sintética:"
 
+#. mt: deepl
+#, fuzzy
 msgid "whose instance can be easily produced through a <<bytecode-recording,startup service>> (or, for legacy code, a <<legacy-bytecode-recording,recorder>>),"
-msgstr ""
+msgstr "cuya instancia se puede generar fácilmente mediante un xref:bytecode-recording[servicio de inicio] (o, en el caso del código heredado, un xref:legacy-bytecode-recording[grabador] ),"
 
 #, fuzzy
 msgid "to provide a \"context\" bean that holds all the information collected during augmentation so that the real components do not need any \"late initialization\" because they can inject the context bean directly."
 msgstr "para proporcionar un bean de \"contexto\" que contenga toda la información recopilada durante el aumento, de modo que los componentes reales no necesiten ninguna \"inicialización tardía\" porque pueden inyectar el bean de contexto directamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "Define a service that constructs the `Foo` bean at startup."
-msgstr ""
+msgstr "Defina un servicio que cree el bean `«Foo»` al iniciar el sistema."
 
+#. mt: deepl
+#, fuzzy
 msgid "Bind the synthetic bean to the value produced by the service."
-msgstr ""
+msgstr "Asigne el «bean» sintético al valor generado por el servicio."
 
 #, fuzzy
 msgid "The string value is recorded in the bytecode and used to initialize the instance of `Foo`."
@@ -788,8 +796,10 @@ msgstr "xref:producing-values[Construir productores] para producir artículos pa
 msgid "<<configuration,Configuration Mapping>> types"
 msgstr "xref:configuration[Configuración] Tipos de xref:configuration[mapeo] "
 
+#. mt: deepl
+#, fuzzy
 msgid "`ServiceRegistrar` (for defining startup services) or legacy `@Recorder` template objects (for <<bytecode-recording,bytecode recording>>)"
-msgstr ""
+msgstr "`ServiceRegistrar` (para definir servicios de inicio) u objetos de plantilla `@Recorder` heredados (para xref:bytecode-recording[la grabación de bytecode] )"
 
 #, fuzzy
 msgid "Producing values"
@@ -907,17 +917,21 @@ msgid ""
 "some other build step."
 msgstr "En el ejemplo anterior, `GeneratedClassBuildItem` sólo se produciría si `ExecutorClassBuildItem` es consumido por algún otro paso de compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Note that when using legacy <<legacy-bytecode-recording,bytecode recording>>, the implicitly generated class can be declared to be weak by\n"
 "using the `optional` attribute of the `@io.quarkus.deployment.annotations.Record` annotation. (For modern startup services, use the `.optional()` builder method instead)."
-msgstr ""
+msgstr "Tenga en cuenta que, al utilizar xref:legacy-bytecode-recording[la grabación de bytecode] heredada, la clase generada implícitamente puede declararse como «weak» mediante el atributo `«optional»` de la anotación `@io.quarkus.deployment.annotations.Record` . (Para los servicios de inicio modernos, utilice en su lugar el método constructor `.optional()` )."
 
 #, fuzzy
 msgid "Note the `optional` attribute."
 msgstr "Tenga en cuenta el atributo `optional`."
 
+#. mt: deepl
+#, fuzzy
 msgid "This example is using legacy recorder proxies; see the section on <<legacy-bytecode-recording,bytecode recording>> for more information."
-msgstr ""
+msgstr "En este ejemplo se utilizan proxies de grabación heredados; consulte la sección sobre xref:legacy-bytecode-recording[la grabación de bytecode] para obtener más información."
 
 #, fuzzy
 msgid "Application Archives"
@@ -1322,215 +1336,361 @@ msgstr "El paso principal de construcción sólo se ejecutará en modo dev."
 msgid "The other build step will only be executed in dev mode."
 msgstr "El otro paso de construcción sólo se ejecutará en el modo de desarrollo."
 
+#. mt: deepl
+#, fuzzy
 msgid "Application Startup and Services"
-msgstr ""
+msgstr "Inicio de aplicaciones y servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus uses a compile-time built, runtime-executed dependency graph of lightweight startup services instead of executing build steps directly at runtime. This allows for explicit dependency declarations, deterministic initialization ordering, and skipping boot-time reflection and proxy-creation overhead."
-msgstr ""
+msgstr "Quarkus utiliza un grafo de dependencias de servicios de inicio ligeros, creado en tiempo de compilación y ejecutado en tiempo de ejecución, en lugar de ejecutar los pasos de compilación directamente en tiempo de ejecución. Esto permite declarar las dependencias de forma explícita, establecer un orden de inicialización determinista y evitar la sobrecarga que suponen la reflexión en el momento del arranque y la creación de proxies."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services and the ServiceRegistrar API"
-msgstr ""
+msgstr "Servicios y la API de ServiceRegistrar"
 
+#. mt: deepl
+#, fuzzy
 msgid "The main entry point for defining startup services is `io.quarkus.core.deployment.service.ServiceRegistrar`. An instance of `ServiceRegistrar` can be injected directly into any `@BuildStep` method:"
-msgstr ""
+msgstr "El punto de entrada principal para definir los servicios de inicio es ``io.quarkus.core.deployment.service.ServiceRegistrar` `. Se puede inyectar una instancia de ` `ServiceRegistrar`` directamente en cualquier método ``@BuildStep`` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service Types"
-msgstr ""
+msgstr "Tipos de servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services can be typed (producing a value at startup) or void (producing no value, identified by a unique name):"
-msgstr ""
+msgstr "Los servicios pueden ser de tipo (que devuelven un valor al iniciarse) o de tipo `void` (que no devuelven ningún valor, identificados por un nombre único):"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Typed Services*: Defined via `reg.forService(Class<T>)` or `reg.forService(Class<T>, String name)`."
-msgstr ""
+msgstr "*Servicios tipados* : Se definen mediante `reg.forService(Class<T>)` o `reg.forService(Class<T>, String name)` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Void Services*: Defined via `reg.forService(String name)` or `reg.forService(List<String> nameParts)`. By convention, void service names use hierarchical dot-separated names, e.g., `\"io.quarkus.<extension>.<purpose>\"`."
-msgstr ""
+msgstr "*Servicios de tipo `void`* : Se definen mediante ``reg.forService(String name)` ` o ``reg.forService(List<String> nameParts)`` . Por convención, los nombres de los servicios de tipo `void` utilizan nombres jerárquicos separados por puntos, por ejemplo, `«io.quarkus.<extensión>.<finalidad>».`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Synchronous and Asynchronous Start Actions"
-msgstr ""
+msgstr "Acciones de inicio síncronas y asíncronas"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services can be started either synchronously or asynchronously, depending on which method is called on the service builder:"
-msgstr ""
+msgstr "Los servicios pueden iniciarse de forma sincrónica o asincrónica, dependiendo del método que se invoque en el generador de servicios:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Synchronous Start* (`onStart`): The service is considered started when the action returns. The action receives a `StartContext` (for void services) or returns the service value directly (for typed services)."
-msgstr ""
+msgstr "*Inicio síncrono* ( `onStart` ): Se considera que el servicio se ha iniciado cuando la acción devuelve un resultado. La acción recibe un `StartContext` (en el caso de los servicios de tipo void) o devuelve directamente el valor del servicio (en el caso de los servicios tipados)."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Asynchronous Start* (`onStartAsync`): The action is initially invoked in the calling thread, but the service is not considered started until a completion method is called. The action receives an `AsyncVoidStartContext` (for void services) or `AsyncStartContext<T>` (for typed services). The completion method can be called from the same thread or from a different thread, allowing the action to schedule asynchronous work."
-msgstr ""
+msgstr "*Inicio asíncrono* ( `onStartAsync` ): La acción se invoca inicialmente en el hilo de llamada, pero no se considera que el servicio se haya iniciado hasta que se llame a un método de finalización. La acción recibe un `AsyncVoidStartContext` (para servicios de tipo void) o `un AsyncStartContext<T>` (para servicios tipados). El método de finalización puede invocarse desde el mismo hilo o desde un hilo diferente, lo que permite a la acción programar tareas asíncronas."
 
+#. mt: deepl
+#, fuzzy
 msgid "The async start context provides three completion methods:"
-msgstr ""
+msgstr "El contexto de inicio asíncrono ofrece tres métodos de finalización:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`startComplete()` or `startComplete(T value)`: Indicates successful completion"
-msgstr ""
+msgstr "`startComplete()` o `startComplete(T value)` : Indica que la operación se ha completado con éxito"
 
+#. mt: deepl
+#, fuzzy
 msgid "`startFailed(Throwable)`: Indicates the service failed to start"
-msgstr ""
+msgstr "`startFailed(Throwable)` : Indica que el servicio no se ha podido iniciar"
 
+#. mt: deepl
+#, fuzzy
 msgid "`startCanceled()`: Indicates the service start was canceled"
-msgstr ""
+msgstr "`startCanceled()` : Indica que se ha cancelado el inicio del servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service Startup Phases"
-msgstr ""
+msgstr "Fases de puesta en marcha del servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services execute in defined, ordered phases of application startup. The default phase is `Phase.APPLICATION`. You can customize the phase using `.atPhase(Phase)` on the service builder:"
-msgstr ""
+msgstr "Los servicios se ejecutan en fases definidas y ordenadas durante el inicio de la aplicación. La fase predeterminada es `Phase.APPLICATION` . Puede personalizar la fase utilizando `.atPhase(Phase)` en el generador de servicios:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The available startup phases (defined in `io.quarkus.core.Phase`) in execution order are:"
-msgstr ""
+msgstr "Las fases de inicio disponibles (definidas en `io.quarkus.core.Phase` ), en orden de ejecución, son las siguientes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`STATIC_INIT`: Runs during static initialization of the generated application class. Results are baked into the native image heap."
-msgstr ""
+msgstr "`STATIC_INIT` : Se ejecuta durante la inicialización estática de la clase de aplicación generada. Los resultados se integran en el montón de la imagen nativa."
 
+#. mt: deepl
+#, fuzzy
 msgid "`CONFIG`: Registers configuration property classes, validates configuration, and reports deprecations."
-msgstr ""
+msgstr "`CONFIG` : Registra las clases de propiedades de configuración, valida la configuración e informa de los elementos obsoletos."
 
+#. mt: deepl
+#, fuzzy
 msgid "`LOGGING`: Reconfigures the log manager with real runtime configuration (log levels, handlers, formatters)."
-msgstr ""
+msgstr "`REGISTRO` : Reconfigura el gestor de registros con la configuración real en tiempo de ejecución (niveles de registro, controladores y formateadores)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`INFRASTRUCTURE`: Creates foundational infrastructure (event loops, executors, TLS registries, transaction managers)."
-msgstr ""
+msgstr "`INFRAESTRUCTURA` : Crea la infraestructura básica (bucles de eventos, ejecutores, registros TLS y gestores de transacciones)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`BINDING`: Binds server sockets, reserves ports, and establishes transport endpoints."
-msgstr ""
+msgstr "`VINCULACIÓN` : Vincula los sockets del servidor, reserva puertos y establece puntos finales de transporte."
 
+#. mt: deepl
+#, fuzzy
 msgid "`DATA`: Establishes connections to external data systems (connection pools, client connections, directory services)."
-msgstr ""
+msgstr "`DATOS` : Establece conexiones con sistemas de datos externos (grupos de conexiones, conexiones de clientes, servicios de directorio)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`INIT`: Performs one-time initialization tasks such as database migrations and schema validation."
-msgstr ""
+msgstr "`INIT` : Realiza tareas de inicialización puntuales, como migraciones de bases de datos y validación de esquemas."
 
+#. mt: deepl
+#, fuzzy
 msgid "`APPLICATION`: Registers the application's request-handling and event-processing logic (CDI beans, routes, filters)."
-msgstr ""
+msgstr "`APLICACIÓN` : Registra la lógica de gestión de solicitudes y de procesamiento de eventos de la aplicación (beans CDI, rutas, filtros)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`SERVING`: Transitions the application to actively processing requests (accepting connections, polling brokers)."
-msgstr ""
+msgstr "`SERVING` : Hace que la aplicación pase a procesar activamente las solicitudes (aceptando conexiones, consultando a los intermediarios)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Phases are not Barriers"
-msgstr ""
+msgstr "Las fases no son obstáculos"
 
+#. mt: deepl
+#, fuzzy
 msgid "The runtime does not wait for all services in phase _N_ to complete before starting services in phase _N+1_. Services start as soon as their individual dependencies are satisfied."
-msgstr ""
+msgstr "El entorno de ejecución no espera a que finalicen todos los servicios de la fase _N_ antes de iniciar los servicios de la fase _N+1_ . Los servicios se inician tan pronto como se cumplen sus dependencias individuales."
 
+#. mt: deepl
+#, fuzzy
 msgid "Declaring Dependencies and Ordering"
-msgstr ""
+msgstr "Declaración de dependencias y ordenación"
 
+#. mt: deepl
+#, fuzzy
 msgid "Every service dependency and execution ordering constraint must be explicitly declared on the service itself. **Build step graph dependencies (e.g. `@Consume`/`@Produce` or method parameter ordering) have zero influence on service execution order.**"
-msgstr ""
+msgstr "Todas las dependencias del servicio y todas las restricciones relativas al orden de ejecución deben declararse explícitamente en el propio servicio. *Las dependencias del gráfico de pasos de compilación (por ejemplo,@Consume/@Produce o el orden de los parámetros de los métodos) no influyen en absoluto en el orden de ejecución del servicio.*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service Values via <code>require()</code>"
-msgstr ""
+msgstr "Valores de servicio a través de <code>require()</code>"
 
+#. mt: deepl
+#, fuzzy
 msgid "To depend on and consume the value produced by another service, use `require(Class<T>)` or `require(Class<T>, String name)`:"
-msgstr ""
+msgstr "Para utilizar y acceder al valor generado por otro servicio, utilice ``require(Class<T>)` ` o ``require(Class<T>, String name)` `:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Execution Ordering via <code>after()</code> and <code>before()</code>"
-msgstr ""
+msgstr "Orden de ejecución mediante <code>after()</code> y <code>before()</code>"
 
+#. mt: deepl
+#, fuzzy
 msgid "To order services without consuming their values:"
-msgstr ""
+msgstr "Para solicitar servicios sin consumir sus valores:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`after(...)`: Declares that this service must run after the specified service class or name."
-msgstr ""
+msgstr "`after(…​)` : Indica que este servicio debe ejecutarse después de la clase o el nombre de servicio especificados."
 
+#. mt: deepl
+#, fuzzy
 msgid "`before(...)`: Declares that this service must run before the specified service class or name. This is particularly useful for cleanup services that must outlive their dependents."
-msgstr ""
+msgstr "`before(…​)` : Indica que este servicio debe ejecutarse antes que la clase o el nombre de servicio especificados. Esto resulta especialmente útil para los servicios de limpieza que deben permanecer activos más tiempo que los servicios de los que dependen."
 
+#. mt: deepl
+#, fuzzy
 msgid "Lambda Capture Rules"
-msgstr ""
+msgstr "Reglas de captura de Lambda"
 
+#. mt: deepl
+#, fuzzy
 msgid "Because the action lambda bytecode (defined inside `.onStart()`) is executed at runtime, values from the build step can be captured inside the lambda under strict rules."
-msgstr ""
+msgstr "Dado que el código de bytes lambda de la acción (definido dentro de `.onStart()` ) se ejecuta en tiempo de ejecución, los valores de la fase de compilación pueden capturarse dentro del lambda siguiendo unas normas estrictas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Supported Captures"
-msgstr ""
+msgstr "Capturas compatibles"
 
+#. mt: deepl
+#, fuzzy
 msgid "Primitives, `String`, `Class`, and enum values."
-msgstr ""
+msgstr "Valores primitivos, `de cadena` , `de clase` y de enumeración."
 
+#. mt: deepl
+#, fuzzy
 msgid "Immutable collections (e.g., via `List.of()`, `Set.copyOf()`, `Map.copyOf()`)."
-msgstr ""
+msgstr "Colecciones inmutables (por ejemplo, mediante `List.of()` , `Set.copyOf()` o `Map.copyOf()` )."
 
+#. mt: deepl
+#, fuzzy
 msgid "Configuration mappings from `BUILD_AND_RUN_TIME_FIXED` and `RUN_TIME` phases."
-msgstr ""
+msgstr "Asignaciones de configuración de las fases `BUILD_AND_RUN_TIME_FIXED` y `RUN_TIME` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`Constable` values (any type implementing `java.lang.constant.Constable` with `describeConstable()`)."
-msgstr ""
+msgstr "Valores `de tipo «Constable»` (cualquier tipo que implemente la interfaz ``java.lang.constant.Constable`` con el método ` `describeConstable()` `)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Record values, provided all their components are recursively capturable."
-msgstr ""
+msgstr "Registre los valores, siempre que todos sus componentes sean capturables de forma recursiva."
 
+#. mt: deepl
+#, fuzzy
 msgid "Unsupported Captures (Build Errors)"
-msgstr ""
+msgstr "Capturas no compatibles (errores de compilación)"
 
+#. mt: deepl
+#, fuzzy
 msgid "Mutable collections (always copy them via `List.copyOf()` or `Set.copyOf()` before the lambda)."
-msgstr ""
+msgstr "Colecciones mutables (copíelas siempre mediante `List.copyOf()` o `Set.copyOf()` antes de la función lambda)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`BUILD_TIME` configuration objects (extract the specific values into local variables first)."
-msgstr ""
+msgstr "Objetos de configuración `de BUILD_TIME` (extraiga primero los valores concretos a variables locales)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Arbitrary runtime objects (obtain them via `.require()` instead)."
-msgstr ""
+msgstr "Objetos arbitrarios en tiempo de ejecución (utilice la función `.require()` para obtenerlos)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Critical Pitfalls &amp; Best Practices"
-msgstr ""
+msgstr "Errores críticos y buenas prácticas"
 
+#. mt: deepl
+#, fuzzy
 msgid "1. Never Reference Deployment Classes in Service Lambdas"
 msgstr ""
+"\n"
+" Nunca haga referencia a clases de implementación en las lambda de servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Because service lambda bodies run at runtime, they must never reference, instantiate, or invoke methods on any deployment classes (such as your `@BuildStep` processor classes). Doing so will compile successfully but will throw a `ClassNotFoundException` or `NoClassDefFoundError` at runtime."
-msgstr ""
+msgstr "Dado que los cuerpos de las funciones lambda de servicio se ejecutan en tiempo de ejecución, nunca deben hacer referencia, instanciar ni invocar métodos de ninguna clase de implementación (como sus clases de procesador `@BuildStep` ). Si lo hace, la compilación se completará con éxito, pero se producirá un error `ClassNotFoundException` o `NoClassDefFoundError` en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "*The Anonymous Inner Class Trap*: Writing an anonymous inner class (e.g. `new MyInterface() {}`) inside an instance-method lambda forces `javac` to generate a constructor that captures `EnclosingProcessor.this`. This causes a build-time `TransliterationException`."
-msgstr ""
+msgstr "*La trampa de las clases internas anónimas* : al escribir una clase interna anónima (por ejemplo, ``new MyInterface() {}` `) dentro de una lambda de método de instancia, se obliga a ``javac`` a generar un constructor que captura ``EnclosingProcessor.this` `. Esto provoca una `excepción `TransliterationException`` en tiempo de compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid "*The Static Helper Method Trap*: Moving the anonymous class instantiation to a `private static` helper method inside your processor class solves the instance capture, but the compiled lambda still references the processor class, causing `NoClassDefFoundError` at runtime."
-msgstr ""
+msgstr "*La trampa del método auxiliar estático* : Trasladar la instanciación de la clase anónima a un método auxiliar `estático privado` dentro de su clase de procesador resuelve el problema de la captura de la instancia, pero la lambda compilada sigue haciendo referencia a la clase de procesador, lo que provoca `un error «NoClassDefFoundError»` en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Solution*: Always place helper methods, custom interfaces, or static factory methods inside your **runtime** module classes (which are present on both classpaths)."
-msgstr ""
+msgstr "*Solución* : Coloque siempre los métodos auxiliares, las interfaces personalizadas o los métodos de fábrica estáticos dentro de las clases de sus módulos *de tiempo de ejecución* (que están presentes en ambas rutas de clases)."
 
+#. mt: deepl
+#, fuzzy
 msgid "2. Package-Private Visibility"
 msgstr ""
+"\n"
+" Visibilidad «privada del paquete»"
 
+#. mt: deepl
+#, fuzzy
 msgid "Lambda bytecode runs at runtime but references runtime classes directly. Package-private classes can become inaccessible from the generated consolidated class. Make classes public or move them to public subpackages."
-msgstr ""
+msgstr "El bytecode de Lambda se ejecuta en tiempo de ejecución, pero hace referencia directamente a clases de tiempo de ejecución. Es posible que no se pueda acceder a las clases privadas de un paquete desde la clase consolidada generada. Haga que las clases sean públicas o trasládelas a subpaquetes públicos."
 
+#. mt: deepl
+#, fuzzy
 msgid "3. Use <code>require()</code> instead of direct class queries"
 msgstr ""
+"\n"
+" Utilice <code>require()</code> en lugar de consultas directas a las clases"
 
+#. mt: deepl
+#, fuzzy
 msgid "Always access CDI beans through `.require(BeanContainer.class)` instead of direct `Arc.container()` calls to ensure proper dependency graph tracking and teardown ordering."
-msgstr ""
+msgstr "Acceda siempre a los beans de CDI mediante `.require(BeanContainer.class)` , en lugar de realizar llamadas directas `a Arc.container()` , para garantizar un seguimiento adecuado del gráfico de dependencias y el orden correcto de desmontaje."
 
+#. mt: deepl
+#, fuzzy
 msgid "Synthetic Beans with Services"
-msgstr ""
+msgstr "Fichas sintéticas con servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Synthetic beans can easily consume or be produced by services. Use `.serviceValue()` on the synthetic bean builder:"
-msgstr ""
+msgstr "Los beans sintéticos pueden consumirse o generarse fácilmente mediante servicios. Utilice `.serviceValue()` en el generador de beans sintéticos:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Teardown &amp; Shutdown Handlers"
-msgstr ""
+msgstr "Manejadores de desmontaje y apagado"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services can register cleanup actions inside the `onStart` or `onStartAsync` action. Stop handlers run in the exact reverse of the service dependency order, ensuring reliable teardown."
-msgstr ""
+msgstr "Los servicios pueden registrar acciones de limpieza dentro de las funciones ``onStart` ` u ``onStartAsync`` . Los controladores de detención se ejecutan siguiendo exactamente el orden inverso al de las dependencias del servicio, lo que garantiza una desactivación fiable."
 
+#. mt: deepl
+#, fuzzy
 msgid "Synchronous and Asynchronous Stop Handlers"
-msgstr ""
+msgstr "Manejadores de parada síncronos y asíncronos"
 
+#. mt: deepl
+#, fuzzy
 msgid "Similar to start actions, stop handlers can be either synchronous or asynchronous:"
-msgstr ""
+msgstr "Al igual que las acciones de inicio, los controladores de parada pueden ser sincrónicos o asincrónicos:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Synchronous Stop* (`ctx.onStop(Runnable)`): The service is considered stopped when the runnable returns."
-msgstr ""
+msgstr "*Parada sincrónica* ( `ctx.onStop(Runnable)` ): Se considera que el servicio se ha detenido cuando el `Runnable` finaliza su ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Asynchronous Stop* (`ctx.onStopAsync(Consumer<AsyncStopContext>)`): The stop handler is initially invoked in the calling thread, but the service is not considered stopped until `AsyncStopContext.stopComplete()` is called. The completion method can be called from the same thread or from a different thread, allowing the handler to schedule asynchronous cleanup work."
-msgstr ""
+msgstr "*Detención asíncrona* ( `ctx.onStopAsync(Consumer<AsyncStopContext>)` ): El controlador de detención se invoca inicialmente en el hilo de llamada, pero el servicio no se considera detenido hasta que se llama a `AsyncStopContext.stopComplete()` . El método de finalización puede invocarse desde el mismo hilo o desde un hilo diferente, lo que permite al controlador programar tareas de limpieza asíncronas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Legacy Bytecode Recorders (Deprecated)"
-msgstr ""
+msgstr "Grabadores de código byte heredados (en desuso)"
 
+#. mt: deepl
+#, fuzzy
 msgid "Bytecode recorders (the `@Record` and `@Recorder` API) are **deprecated** and will be removed in a future release. All new extensions must use the new `ServiceRegistrar` service model. Existing recorders should be migrated to services using the xref:recorders-to-services-migration.adoc[Recorders-to-Services Migration Guide]."
-msgstr ""
+msgstr "Los grabadores de código de bytes (las API `@Record` y `@Recorder` ) han quedado *obsoletos* y se eliminarán en una futura versión. Todas las nuevas extensiones deben utilizar el nuevo modelo de servicio `ServiceRegistrar` . Los grabadores existentes deben migrarse a servicios siguiendo la xref:recorders-to-services-migration.adoc[Guía de migración de grabadores a servicios] ."
 
 #, fuzzy
 msgid "Bytecode Recording"
@@ -2130,11 +2290,13 @@ msgstr "Añada un paso de compilación a su procesador para registrar un módulo
 msgid "The Jackson extension will then use the produced build item to register a module within Jackson automatically."
 msgstr "La extensión de Jackson utilizará entonces el elemento de construcción producido para registrar un módulo dentro de Jackson automáticamente."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If you need more customization capabilities than registering a module,\n"
 "you can produce a CDI bean that implements `io.quarkus.jackson.JsonMapperBuilderCustomizer` via an `AdditionalBeanBuildItem`.\n"
 "More info about customizing Jackson can be found on the JSON guide xref:rest-json.adoc#json[Configuring JSON support]"
-msgstr ""
+msgstr "Si necesita más posibilidades de personalización que las que ofrece el registro de un módulo, puede crear un bean CDI que implemente `io.quarkus.jackson.JsonMapperBuilderCustomizer` mediante un `AdditionalBeanBuildItem` . Encontrará más información sobre cómo personalizar Jackson en la guía de JSON xref:rest-json.adoc#json[«Configuración de la compatibilidad con JSON] »."
 
 #, fuzzy
 msgid "Customizing JSON-B"

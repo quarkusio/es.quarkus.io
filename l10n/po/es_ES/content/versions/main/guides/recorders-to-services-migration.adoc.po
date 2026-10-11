@@ -6,125 +6,209 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Recorders-to-Services Migration Guide"
-msgstr ""
+msgstr "Guía de migración de los registradores a los servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "This guide describes how to migrate Quarkus extensions from the legacy `@Record`/`@Recorder` pattern to the modern `ServiceRegistrar` service system."
-msgstr ""
+msgstr "En esta guía se describe cómo migrar las extensiones de Quarkus del patrón heredado `@Record/@Recorder` al sistema de servicios moderno `ServiceRegistrar` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "The `ServiceRegistrar` service system replaces `@Recorder` with a typed service model. Services declare dependencies explicitly and execute in dependency order, not build step order. The system is designed for incremental migration — converted and unconverted extensions may coexist."
-msgstr ""
+msgstr "El sistema de servicios `ServiceRegistrar` sustituye `@Recorder` por un modelo de servicios tipado. Los servicios declaran sus dependencias de forma explícita y se ejecutan siguiendo el orden de las dependencias, no el orden de los pasos de compilación. El sistema está diseñado para una migración incremental, por lo que pueden coexistir extensiones convertidas y no convertidas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Architectural Differences"
-msgstr ""
+msgstr "Diferencias arquitectónicas"
 
+#. mt: deepl
+#, fuzzy
 msgid "Explicit Dependencies Only"
-msgstr ""
+msgstr "Solo dependencias explícitas"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services get **no** implicit ordering from the build step graph. All ordering comes from `require()`, `after()`, `before()`, or `afterBuildItem()`."
-msgstr ""
+msgstr "Los servicios *no* reciben *ningún* orden implícito a partir del gráfico de pasos de compilación. Todo el orden proviene de ``require()`` , ``after()` `, ``before()` ` o ``afterBuildItem()` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services are Independent from Recorders in the Same Step"
-msgstr ""
+msgstr "Los servicios son independientes de los registradores en la misma etapa"
 
+#. mt: deepl
+#, fuzzy
 msgid "Even if a build step method contains both a `@Record` call and an `ServiceRegistrar` call, the service and recorder are separate nodes in the build execution plan with no implicit ordering between them."
-msgstr ""
+msgstr "Aunque un método de un paso de compilación contenga tanto una llamada `a @Record` como una llamada `a ServiceRegistrar` , el servicio y el registrador son nodos independientes en el plan de ejecución de la compilación, sin que exista un orden implícito entre ellos."
 
+#. mt: deepl
+#, fuzzy
 msgid "Values Flow Through the Dependency Graph"
-msgstr ""
+msgstr "Los valores circulan a través del gráfico de dependencias"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service values are passed from producer to consumer via indexed dependency access on `ServiceNode`, not through the `StartupContext` maps (except when using recorder proxy bridges)."
-msgstr ""
+msgstr "Los valores de los servicios se transmiten del productor al consumidor mediante el acceso a las dependencias indexadas en `ServiceNode` , y no a través de los mapas `de StartupContext` (excepto cuando se utilizan puentes de proxy de grabación)."
 
 msgid "Prerequisites"
 msgstr "Requisitos previos"
 
+#. mt: deepl
+#, fuzzy
 msgid "Before converting, verify that all runtime dependencies of your recorder are available as services:"
-msgstr ""
+msgstr "Antes de realizar la conversión, compruebe que todas las dependencias de tiempo de ejecución de su grabador estén disponibles como servicios:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Dependency Type"
-msgstr ""
+msgstr "Tipo de dependencia"
 
+#. mt: deepl
+#, fuzzy
 msgid "Availability"
-msgstr ""
+msgstr "Disponibilidad"
 
+#. mt: deepl
+#, fuzzy
 msgid "`ArcContainer`"
-msgstr ""
+msgstr "`ArcContainer`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service in `ArcProcessor#initializeContainer`"
-msgstr ""
+msgstr "Servicio en `ArcProcessor#initializeContainer`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`BeanContainer`"
-msgstr ""
+msgstr "`BeanContainer`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service in `ArcProcessor#createBeanContainer`"
-msgstr ""
+msgstr "Servicio en `ArcProcessor#createBeanContainer`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`ScheduledExecutorService`"
-msgstr ""
+msgstr "`ScheduledExecutorService`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Aliased by `ThreadPoolSetup`"
-msgstr ""
+msgstr "Alias creado por `ThreadPoolSetup`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@ConfigMapping` (`RUN_TIME`)"
-msgstr ""
+msgstr "`@ConfigMapping` ( `RUN_TIME` )"
 
+#. mt: deepl
+#, fuzzy
 msgid "Auto-registered by `ConfigServiceRegistrationStep`"
-msgstr ""
+msgstr "Registrado automáticamente por `ConfigServiceRegistrationStep`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@ConfigMapping` (`BUILD_AND_RUN_TIME_FIXED`)"
-msgstr ""
+msgstr "`@ConfigMapping` ( `BUILD_AND_RUN_TIME_FIXED` )"
 
+#. mt: deepl
+#, fuzzy
 msgid "Auto-registered as static-init"
-msgstr ""
+msgstr "Registrado automáticamente como «static-init»"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@ConfigMapping` (`BUILD_TIME`)"
-msgstr ""
+msgstr "`@ConfigMapping` ( `BUILD_TIME` )"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Cannot be a service** — extract values into local variables first"
-msgstr ""
+msgstr "*No puede ser un servicio* : extraiga primero los valores a variables locales"
 
+#. mt: deepl
+#, fuzzy
 msgid "If other runtime objects are needed, search the codebase for `aliasRecorderValue` or `forService` to see if they are published as services."
-msgstr ""
+msgstr "Si se necesitan otros objetos de tiempo de ejecución, busque en el código fuente `«aliasRecorderValue»` o `«forService»` para comprobar si se han publicado como servicios."
 
+#. mt: deepl
+#, fuzzy
 msgid "Step-by-Step Conversion"
-msgstr ""
+msgstr "Conversión paso a paso"
 
+#. mt: deepl
+#, fuzzy
 msgid "1. Analyze the Recorder"
 msgstr ""
+"\n"
+" Analice el grabador"
 
+#. mt: deepl
+#, fuzzy
 msgid "For each `@Recorder` method, determine:"
-msgstr ""
+msgstr "Para cada método `@Recorder` , determine:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Return type**: becomes the service type. `RuntimeValue<X>` unwraps to `X`. `void` becomes `Void.class` (using `reg.forService(String name)`)."
-msgstr ""
+msgstr "*Tipo de retorno* : pasa a ser el tipo del servicio. `RuntimeValue<X>` se desenvuelve a `X` . `void` pasa a ser `Void.class` (utilizando `reg.forService(String name)` )."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Parameters**: `RuntimeValue<X>` parameters become `.require(X.class)`. Simple values (String, int, boolean, enum) can be captured by the lambda. Immutable collections (`List.of()`, `Set.of()`) can be captured."
-msgstr ""
+msgstr "*Parámetros* : Los parámetros de tipo ` `RuntimeValue<X>`` se convierten en ``.require(X.class)`` . La lambda puede capturar valores simples (String, int, boolean, enum). También puede capturar colecciones inmutables ( `List.of()` , `Set.of()` )."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Instance fields**: configuration `RuntimeValue`s injected via a constructor should be resolved via `.require(ConfigType.class)`."
-msgstr ""
+msgstr "*Campos de instancia* : `los valores en tiempo de ejecución (RuntimeValue)` de configuración `inyectados a través de un constructor deben resolverse mediante `.require(ConfigType.class).``"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Trivial methods**: can be inlined directly into the lambda."
-msgstr ""
+msgstr "*Métodos sencillos* : pueden integrarse directamente en la función lambda."
 
+#. mt: deepl
+#, fuzzy
 msgid "2. Convert the Recorder Class"
 msgstr ""
+"\n"
+" Convierta la clase «Recorder»"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Trivial methods**: delete them and inline their logic into the lambda."
-msgstr ""
+msgstr "*Métodos triviales* : elimínelos e incorpore su lógica directamente en la función lambda."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Complex methods**: remove the `@Recorder` annotation, make methods `static`, and unwrap `RuntimeValue` parameters and return types."
-msgstr ""
+msgstr "*Métodos complejos* : elimine la anotación `@Recorder` , convierta los métodos `en estáticos` y desembale los parámetros y tipos de retorno `de RuntimeValue` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "If all methods are converted, delete the recorder class. Otherwise, keep `@Recorder` only for remaining legacy methods."
-msgstr ""
+msgstr "Si se han convertido todos los métodos, elimine la clase «recorder». De lo contrario, mantenga `@Recorder` únicamente para los métodos heredados restantes."
 
+#. mt: deepl
+#, fuzzy
 msgid "3. Convert the Build Step"
 msgstr ""
+"\n"
+" Convierta el paso de compilación"
 
+#. mt: deepl
+#, fuzzy
 msgid "Let's look at a classic conversion."
-msgstr ""
+msgstr "Veamos una conversión clásica."
 
 #, fuzzy
 msgid "Before:"
@@ -134,115 +218,193 @@ msgstr "Antes:"
 msgid "After:"
 msgstr "Después:"
 
+#. mt: deepl
+#, fuzzy
 msgid "4. Declare Dependencies Explicitly"
 msgstr ""
+"\n"
+" Declare las dependencias de forma explícita"
 
+#. mt: deepl
+#, fuzzy
 msgid "Every dependency must be explicit. There is no implicit ordering from the build step graph."
-msgstr ""
+msgstr "Todas las dependencias deben ser explícitas. No existe ningún orden implícito derivado del gráfico de pasos de compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Old Recorder Pattern"
-msgstr ""
+msgstr "Modelo antiguo de flauta dulce"
 
+#. mt: deepl
+#, fuzzy
 msgid "New Service Pattern"
-msgstr ""
+msgstr "Nuevo modelo de servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "`recorder.method(beanContainer.getValue())`"
-msgstr ""
+msgstr "`recorder.method(beanContainer.getValue())`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`.require(BeanContainer.class)`"
-msgstr ""
+msgstr "`.require(BeanContainer.class)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`recorder.method(someRuntimeValue)`"
-msgstr ""
+msgstr "`recorder.method(algún valor de tiempo de ejecución)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`.require(SomeType.class)`"
-msgstr ""
+msgstr "`.require(SomeType.class)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`recorder.method(config.maxSize())`"
-msgstr ""
+msgstr "`recorder.method(config.maxSize())`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Capture `int maxSize = config.maxSize()` before the lambda"
-msgstr ""
+msgstr "Defina una variable `de tipo int con el nombre «maxSize» y el valor de «config.maxSize()»` antes de la función lambda"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@Consume(SyntheticBeansRuntimeInitBuildItem.class)` on step"
-msgstr ""
+msgstr "`@Consume(SyntheticBeansRuntimeInitBuildItem.class)` en el paso"
 
+#. mt: deepl
+#, fuzzy
 msgid "`.afterBuildItem(SyntheticBeansRuntimeInitBuildItem.class)` on service"
-msgstr ""
+msgstr "`.afterBuildItem(SyntheticBeansRuntimeInitBuildItem.class)` en el servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Bridging to Build Step Ordering (<code>afterBuildItem()</code>)"
-msgstr ""
+msgstr "Conexión para establecer el orden de los pasos (<code>afterBuildItem()</code>)"
 
+#. mt: deepl
+#, fuzzy
 msgid "When a service depends on state produced by a legacy recorder (e.g., synthetic beans must be initialized), declare the dependency via `afterBuildItem()`:"
-msgstr ""
+msgstr "Cuando un servicio dependa del estado generado por un registrador heredado (por ejemplo, cuando sea necesario inicializar «beans» sintéticos), declare dicha dependencia mediante `afterBuildItem()` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "This resolves the producing step's nodes and creates ordering edges.\n"
 "NOTE: `afterBuildItem()` is deprecated — it exists only for recorder coexistence. Once the producing recorder is converted to a service, replace with `require()` or `after()`, or drop it as appropriate."
-msgstr ""
+msgstr "Esto resuelve los nodos de la etapa de producción y crea aristas de ordenación. NOTA: `afterBuildItem()` está en desuso; solo existe para garantizar la coexistencia de los grabadores. Una vez que el grabador de producción se haya convertido en un servicio, sustitúyalo por `require()` o `after()` , o elimínelo según corresponda."
 
+#. mt: deepl
+#, fuzzy
 msgid "Cross-Phase Dependencies"
-msgstr ""
+msgstr "Dependencias entre fases"
 
+#. mt: deepl
+#, fuzzy
 msgid "Runtime services can `require()` static-init services. The framework automatically creates a `CROSS_PHASE_PROXY` node that reads the value from the `serviceValues` map."
-msgstr ""
+msgstr "Los servicios en tiempo de ejecución pueden `utilizar` la función ``require()` ` para iniciar servicios de forma estática. El marco de trabajo crea automáticamente un nodo ` `CROSS_PHASE_PROXY` ` que lee el valor del mapa ` `serviceValues` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "Coexistence and Bridge APIs"
-msgstr ""
+msgstr "API de coexistencia y de puente"
 
+#. mt: deepl
+#, fuzzy
 msgid "During the transitional period, the `ServiceRegistrar` provides bridge APIs to allow incremental migration of extensions."
-msgstr ""
+msgstr "Durante el período de transición, `ServiceRegistrar` proporciona interfaces de programación de aplicaciones (API) puente para permitir la migración gradual de las extensiones."
 
+#. mt: deepl
+#, fuzzy
 msgid "1. Recorder $\\rightarrow$ Service Bridge"
 msgstr ""
+"\n"
+" Grabador $\\rightarrow$ Puente de servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "If you have a value produced by a legacy recorder that a new service needs to depend on, register it using `aliasRecorderValue`:"
-msgstr ""
+msgstr "Si dispone de un valor generado por un registrador heredado del que depende un nuevo servicio, regístrelo mediante `aliasRecorderValue` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Downstream services can now simply use `.require(MyLegacyValue.class)`."
-msgstr ""
+msgstr "Los servicios posteriores ya pueden utilizar simplemente `.require(MyLegacyValue.class)` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "2. Service $\\rightarrow$ Recorder Bridge"
 msgstr ""
+"\n"
+" Servicio $\\rightarrow$ Puente de grabación"
 
+#. mt: deepl
+#, fuzzy
 msgid "If an unconverted legacy recorder or an existing build item consumes a value that is now produced by a service, use the service-to-recorder bridge methods:"
-msgstr ""
+msgstr "Si un registrador heredado no convertido o un elemento de compilación existente consume un valor que ahora genera un servicio, utilice los métodos de puente entre el servicio y el registrador:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**`serviceAsRuntimeValue`**: Produces a `RuntimeValue<T>` proxy for a runtime service."
-msgstr ""
+msgstr "*serviceAsRuntimeValue* : Genera un proxy de tipo `RuntimeValue<T>` para un servicio en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "**`staticInitServiceAsRuntimeValue`**: Produces a `RuntimeValue<T>` proxy for a static-init service."
-msgstr ""
+msgstr "*staticInitServiceAsRuntimeValue* : Genera un proxy de tipo `RuntimeValue<T>` para un servicio de inicialización estática."
 
+#. mt: deepl
+#, fuzzy
 msgid "**`getRecorderProxy`**: Produces a bare `T` proxy (for proxyable interfaces/classes)."
-msgstr ""
+msgstr "*getRecorderProxy* : Genera un proxy `T` básico (para interfaces y clases que admiten proxy)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Common Conversion Pitfalls"
-msgstr ""
+msgstr "Errores habituales en la conversión"
 
+#. mt: deepl
+#, fuzzy
 msgid "ClassLoader &amp; Thread Context ClassLoader (TCCL)"
-msgstr ""
+msgstr "ClassLoader y Thread Context ClassLoader (TCCL)"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Recorder bytecode always ran with the **runtime classloader as the TCCL**. Any recorder code that captured `Thread.currentThread().getContextClassLoader()` for later use relied on that.\n"
 "* After converting, ensure that the service still runs with the runtime CL as TCCL, and that captured/inherited CLs are the runtime CL (not the system `AppClassLoader`).\n"
 "* Clean up threads or `ThreadLocal`s your service owns in `onStop()`; never leak the `QuarkusClassLoader`."
-msgstr ""
+msgstr "El bytecode del grabador siempre se ejecutaba con el *cargador de clases de tiempo de ejecución como TCCL* . Cualquier código del grabador que capturara `Thread.currentThread().getContextClassLoader()` para su uso posterior se basaba en ello. * Tras la conversión, asegúrese de que el servicio siga ejecutándose con el cargador de clases de tiempo de ejecución como TCCL, y de que los cargadores de clases capturados o heredados sean el cargador de clases de tiempo de ejecución (y no el `AppClassLoader` del sistema). * Limpie los hilos o `los objetos `ThreadLocal` que su servicio posea en `onStop()` ; nunca permita fugas del `QuarkusClassLoader` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Concrete Class Proxying"
-msgstr ""
+msgstr "Proxies de clases concretas"
 
+#. mt: deepl
+#, fuzzy
 msgid "`staticInitServiceAsRecorderValue(ConcreteClass.class)` fails if the class has a non-trivial constructor. Use `staticInitServiceAsRuntimeValue()` instead — `RuntimeValue` is always proxyable."
-msgstr ""
+msgstr "`staticInitServiceAsRecorderValue(ConcreteClass.class)` falla si la clase tiene un constructor no trivial. Utilice en su lugar `staticInitServiceAsRuntimeValue()` : `RuntimeValue` siempre es proxyable."
 
+#. mt: deepl
+#, fuzzy
 msgid "Package-Private Visibility"
-msgstr ""
+msgstr "Visibilidad «privada del paquete»"
 
+#. mt: deepl
+#, fuzzy
 msgid "Lambda bytecode runs at runtime but references runtime classes directly. Package-private classes become inaccessible from the generated consolidated class. Ensure any classes referenced within the lambda are `public`."
-msgstr ""
+msgstr "El código byte de lambda se ejecuta en tiempo de ejecución, pero hace referencia directamente a clases de tiempo de ejecución. No se puede acceder a las clases privadas del paquete desde la clase consolidada generada. Asegúrese de que todas las clases a las que se hace referencia dentro de la lambda sean `públicas` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Never Reference Deployment Classes inside Service Lambdas"
-msgstr ""
+msgstr "Nunca haga referencia a clases de implementación dentro de las lambda de servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Always place helper methods, custom interfaces, or static factory methods inside your **runtime** module classes (which are present at runtime). Doing so inside your processor class compiles successfully but throws `NoClassDefFoundError` at runtime."
-msgstr ""
+msgstr "Coloque siempre los métodos auxiliares, las interfaces personalizadas o los métodos de fábrica estáticos dentro de las clases de sus módulos *de tiempo de ejecución* (que están presentes en tiempo de ejecución). Si lo hace dentro de su clase de procesador, la compilación se realiza correctamente, pero se produce `un error «NoClassDefFoundError»` en tiempo de ejecución."
