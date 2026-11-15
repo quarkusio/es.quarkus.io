@@ -12,34 +12,19 @@ msgstr "Uso de WebSockets con Undertow"
 
 #, fuzzy
 msgid ""
-"This guide explains how your Quarkus application can utilize web sockets to "
-"create interactive web applications,\n"
-"in the context of an Undertow-based Quarkus application, or if you rely on "
-"https://jakarta.ee/specifications/websocket/[Jakarta WebSocket]."
-msgstr ""
-"Esta guía explica cómo su aplicación Quarkus puede utilizar web sockets para "
-"crear aplicaciones web interactivas, en el contexto de una aplicación "
-"Quarkus basada en Undertow, o si confía en link:https://jakarta.ee/"
-"specifications/websocket/[Jakarta WebSocket] ."
+"This guide explains how your Quarkus application can utilize web sockets to create interactive web applications,\n"
+"in the context of an Undertow-based Quarkus application, or if you rely on https://jakarta.ee/specifications/websocket/[Jakarta WebSocket]."
+msgstr "Esta guía explica cómo su aplicación Quarkus puede utilizar web sockets para crear aplicaciones web interactivas, en el contexto de una aplicación Quarkus basada en Undertow, o si confía en link:https://jakarta.ee/specifications/websocket/[Jakarta WebSocket] ."
 
 #, fuzzy
 msgid ""
-"If you don't use Undertow or https://jakarta.ee/specifications/websocket/"
-"[Jakarta WebSocket],\n"
-"it is recommended to use the more modern xref:websockets-next-tutorial."
-"adoc[WebSockets Next extensions]."
-msgstr ""
-"Si no utiliza Undertow o link:https://jakarta.ee/specifications/websocket/"
-"[Jakarta WebSocket] , se recomienda utilizar las xref:websockets-next-"
-"tutorial.adoc[extensiones WebSockets Next] más modernas."
+"If you don't use Undertow or https://jakarta.ee/specifications/websocket/[Jakarta WebSocket],\n"
+"it is recommended to use the more modern xref:websockets-next-tutorial.adoc[WebSockets Next extensions]."
+msgstr "Si no utiliza Undertow o link:https://jakarta.ee/specifications/websocket/[Jakarta WebSocket] , se recomienda utilizar las xref:websockets-next-tutorial.adoc[extensiones WebSockets Next] más modernas."
 
 #, fuzzy
-msgid ""
-"Because it's the _canonical_ web socket application, we are going to create "
-"a simple chat application."
-msgstr ""
-"Dado que se trata de la aplicación de socket web _canónica_ , vamos a crear "
-"una sencilla aplicación de chat."
+msgid "Because it's the _canonical_ web socket application, we are going to create a simple chat application."
+msgstr "Dado que se trata de la aplicación de socket web _canónica_ , vamos a crear una sencilla aplicación de chat."
 
 msgid "Prerequisites"
 msgstr "Requisitos previos"
@@ -56,9 +41,7 @@ msgstr "Aproximadamente 15 minutos"
 msgid "An IDE"
 msgstr "Un IDE"
 
-msgid ""
-"JDK {jdk-version-earliest}+ installed with `JAVA_HOME` configured "
-"appropriately"
+msgid "JDK {jdk-version-earliest}+ installed with `JAVA_HOME` configured appropriately"
 msgstr ""
 
 #, fuzzy
@@ -66,32 +49,19 @@ msgid "Apache Maven {maven-version}"
 msgstr "Apache Maven {versión de Maven}"
 
 #, fuzzy
-msgid ""
-"Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
-msgstr ""
-"Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
+msgid "Optionally the xref:cli-tooling.adoc[Quarkus CLI] if you want to use it"
+msgstr "Opcionalmente, el  link:cli-tooling.html[CLI de Quarkus] si quieres usarlo"
 
 #, fuzzy
-msgid ""
-"Optionally Mandrel or GraalVM installed and xref:building-native-image."
-"adoc#configuring-graalvm[configured appropriately] if you want to build a "
-"native executable (or Docker if you use a native container build)"
-msgstr ""
-"Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image."
-"html#configuring-graalvm[configurados apropiadamente] si quieres construir "
-"un ejecutable nativo (o Docker si usas una construcción de contenedor "
-"nativo)"
+msgid "Optionally Mandrel or GraalVM installed and xref:building-native-image.adoc#configuring-graalvm[configured appropriately] if you want to build a native executable (or Docker if you use a native container build)"
+msgstr "Opcionalmente Mandrel o GraalVM instalados y  link:building-native-image.html#configuring-graalvm[configurados apropiadamente] si quieres construir un ejecutable nativo (o Docker si usas una construcción de contenedor nativo)"
 
 msgid "Architecture"
 msgstr "Arquitectura"
 
 #, fuzzy
-msgid ""
-"In this guide, we create a straightforward chat application using web "
-"sockets to receive and send messages to the other connected users."
-msgstr ""
-"En esta guía, creamos una aplicación de chat sencilla que utiliza sockets "
-"web para recibir y enviar mensajes a los demás usuarios conectados."
+msgid "In this guide, we create a straightforward chat application using web sockets to receive and send messages to the other connected users."
+msgstr "En esta guía, creamos una aplicación de chat sencilla que utiliza sockets web para recibir y enviar mensajes a los demás usuarios conectados."
 
 #, fuzzy
 msgid "image:websocket-guide-architecture.png[alt=Architecture]"
@@ -102,108 +72,62 @@ msgstr "Solución"
 
 #, fuzzy
 msgid ""
-"We recommend that you follow the instructions in the next sections and "
-"create the application step by step.\n"
+"We recommend that you follow the instructions in the next sections and create the application step by step.\n"
 "However, you can skip right to the completed example."
-msgstr ""
-"Le recomendamos que siga las instrucciones de las siguientes secciones y "
-"cree la aplicación paso a paso. Sin embargo, puede pasar directamente al "
-"ejemplo completado."
+msgstr "Le recomendamos que siga las instrucciones de las siguientes secciones y cree la aplicación paso a paso. Sin embargo, puede pasar directamente al ejemplo completado."
 
-msgid ""
-"Clone the Git repository: `git clone {quickstarts-clone-url}`, or download "
-"an {quickstarts-archive-url}[archive]."
-msgstr ""
-"Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un "
-"{quickstarts-archive-url}[archivo]."
+msgid "Clone the Git repository: `git clone {quickstarts-clone-url}`, or download an {quickstarts-archive-url}[archive]."
+msgstr "Clone el repositorio Git: `git clone {quickstarts-clone-url}` o descargue un {quickstarts-archive-url}[archivo]."
 
 #, fuzzy
-msgid ""
-"The solution is located in the `websockets-quickstart` link:{quickstarts-"
-"tree-url}/websockets-quickstart[directory]."
-msgstr ""
-"La solución se encuentra en `websockets-quickstart` {quickstarts-tree-url}/"
-"websockets-quickstart[directorio]."
+msgid "The solution is located in the `websockets-quickstart` link:{quickstarts-tree-url}/websockets-quickstart[directory]."
+msgstr "La solución se encuentra en `websockets-quickstart` {quickstarts-tree-url}/websockets-quickstart[directorio]."
 
 msgid "Creating the Maven project"
 msgstr "Creación del proyecto Maven"
 
-msgid ""
-"First, we need a new project. Create a new project with the following "
-"command:"
-msgstr ""
-"En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con "
-"el siguiente comando:"
+msgid "First, we need a new project. Create a new project with the following command:"
+msgstr "En primer lugar, necesitamos un nuevo proyecto. Cree un nuevo proyecto con el siguiente comando:"
 
 msgid "CLI"
 msgstr "CLI"
 
 #, fuzzy
-msgid ""
-"To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` "
-"option."
-msgstr ""
-"Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-"
-"dsl`."
+msgid "To create a Gradle project, add the `--gradle` or `--gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `--gradle` o `--gradle-kotlin-dsl`."
 
 #, fuzzy
-msgid ""
-"For more information about how to install and use the Quarkus CLI, see the "
-"xref:cli-tooling.adoc[Quarkus CLI] guide."
-msgstr ""
-"_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, "
-"por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de "
-"Quarkus&lt;/a&gt;_."
+msgid "For more information about how to install and use the Quarkus CLI, see the xref:cli-tooling.adoc[Quarkus CLI] guide."
+msgstr "_Para más información sobre cómo instalar la CLI de Quarkus y utilizarla, por favor, consulte &lt;a href=\"cli-tooling.html\"&gt;la guía de la CLI de Quarkus&lt;/a&gt;_."
 
 msgid "Maven"
 msgstr "Maven"
 
 #, fuzzy
-msgid ""
-"To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool="
-"gradle-kotlin-dsl` option."
-msgstr ""
-"Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-"
-"DbuildTool=gradle-kotlin-dsl`."
+msgid "To create a Gradle project, add the `-DbuildTool=gradle` or `-DbuildTool=gradle-kotlin-dsl` option."
+msgstr "Para crear un proyecto Gradle, añada la opción `-DbuildTool=gradle` o `-DbuildTool=gradle-kotlin-dsl`."
 
 #, fuzzy
 msgid "For Windows users:"
 msgstr "Para usuarios de Windows:"
 
 #, fuzzy
-msgid ""
-"If using cmd, (don't use backward slash `\\` and put everything on the same "
-"line)"
-msgstr ""
-"Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en "
-"la misma línea)"
+msgid "If using cmd, (don't use backward slash `\\` and put everything on the same line)"
+msgstr "Si utiliza cmd, (no utilice la barra diagonal inversa `\\` y póngalo todo en la misma línea)"
+
+#, fuzzy
+msgid "If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+msgstr "Si utiliza Powershell, encierre los parámetros de `-D` entre comillas dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
+
+#, fuzzy
+msgid "This command generates the project (without any classes) and imports the `websockets` extension."
+msgstr "Este comando genera el proyecto (sin ninguna clase) e importa la extensión `websockets`."
 
 #, fuzzy
 msgid ""
-"If using Powershell, wrap `-D` parameters in double quotes e.g. `\"-"
-"DprojectArtifactId={create-app-artifact-id}\"`"
-msgstr ""
-"Si utiliza Powershell, encierre los parámetros de `-D` entre comillas "
-"dobles, por ejemplo. `\"-DprojectArtifactId={create-app-artifact-id}\"`"
-
-#, fuzzy
-msgid ""
-"This command generates the project (without any classes) and imports the "
-"`websockets` extension."
-msgstr ""
-"Este comando genera el proyecto (sin ninguna clase) e importa la extensión "
-"`websockets`."
-
-#, fuzzy
-msgid ""
-"If you already have your Quarkus project configured, you can add the "
-"`websockets` extension\n"
-"to your project by running the following command in your project base "
-"directory:"
-msgstr ""
-"Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión "
-"`websockets` a su proyecto ejecutando el siguiente comando en el directorio "
-"base de su proyecto:"
+"If you already have your Quarkus project configured, you can add the `websockets` extension\n"
+"to your project by running the following command in your project base directory:"
+msgstr "Si ya tiene configurado su proyecto Quarkus, puede añadir la extensión `websockets` a su proyecto ejecutando el siguiente comando en el directorio base de su proyecto:"
 
 msgid "This will add the following to your build file:"
 msgstr "Esto añadirá lo siguiente a su archivo de construcción:"
@@ -215,13 +139,9 @@ msgstr "Manejo de sockets web"
 #, fuzzy
 msgid ""
 "Our application contains a single class that handles the web sockets.\n"
-"Create the `org.acme.websockets.ChatSocket` class in the `src/main/java` "
-"directory.\n"
+"Create the `org.acme.websockets.ChatSocket` class in the `src/main/java` directory.\n"
 "Copy the following content into the created file:"
-msgstr ""
-"Nuestra aplicación contiene una única clase que maneja los web sockets. Cree "
-"la clase `org.acme.websockets.ChatSocket` en el directorio `src/main/java` . "
-"Copie el siguiente contenido en el archivo creado:"
+msgstr "Nuestra aplicación contiene una única clase que maneja los web sockets. Cree la clase `org.acme.websockets.ChatSocket` en el directorio `src/main/java` . Copie el siguiente contenido en el archivo creado:"
 
 #, fuzzy
 msgid "Configures the web socket URL"
@@ -237,20 +157,10 @@ msgstr "Un front-end web muy atractivo"
 
 #, fuzzy
 msgid ""
-"All chat applications need a _nice_ UI, well, this one may not be that nice, "
-"but does the work.\n"
-"Quarkus automatically serves static resources contained in the `META-INF/"
-"resources` directory.\n"
-"Create the `src/main/resources/META-INF/resources` directory and copy this "
-"link:{quickstarts-blob-url}/websockets-quickstart/src/main/resources/META-"
-"INF/resources/index.html[index.html] file in it."
-msgstr ""
-"Todas las aplicaciones de chat necesitan una interfaz de usuario _bonita_ , "
-"bueno, esta puede que no sea tan bonita, pero hace el trabajo. Quarkus sirve "
-"automáticamente los recursos estáticos contenidos en el directorio `META-INF/"
-"resources` . Cree el directorio `src/main/resources/META-INF/resources` y "
-"copie en él este archivo link:{quickstarts-blob-url}/websockets-quickstart/"
-"src/main/resources/META-INF/resources/index.html[index.html] ."
+"All chat applications need a _nice_ UI, well, this one may not be that nice, but does the work.\n"
+"Quarkus automatically serves static resources contained in the `META-INF/resources` directory.\n"
+"Create the `src/main/resources/META-INF/resources` directory and copy this link:{quickstarts-blob-url}/websockets-quickstart/src/main/resources/META-INF/resources/index.html[index.html] file in it."
+msgstr "Todas las aplicaciones de chat necesitan una interfaz de usuario _bonita_ , bueno, esta puede que no sea tan bonita, pero hace el trabajo. Quarkus sirve automáticamente los recursos estáticos contenidos en el directorio `META-INF/resources` . Cree el directorio `src/main/resources/META-INF/resources` y copie en él este archivo link:{quickstarts-blob-url}/websockets-quickstart/src/main/resources/META-INF/resources/index.html[index.html] ."
 
 #, fuzzy
 msgid "Run the application"
@@ -262,15 +172,11 @@ msgstr "Ahora, veamos nuestra aplicación en acción. Ejecútala con:"
 
 #, fuzzy
 msgid "Then open your 2 browser windows to http://localhost:8080/:"
-msgstr ""
-"A continuación, abra las dos ventanas del navegador en  http://localhost:"
-"8080/"
+msgstr "A continuación, abra las dos ventanas del navegador en  http://localhost:8080/"
 
 #, fuzzy
 msgid "Enter a name in the top text area (use 2 different names)."
-msgstr ""
-"Introduzca un nombre en el área de texto superior (utilice 2 nombres "
-"diferentes)."
+msgstr "Introduzca un nombre en el área de texto superior (utilice 2 nombres diferentes)."
 
 #, fuzzy
 msgid "Click on connect"
@@ -297,65 +203,32 @@ msgid "You can also build the native executable using:"
 msgstr "También puedes construir el ejecutable nativo utilizando:"
 
 #, fuzzy
-msgid ""
-"You can also test your web socket applications using the approach detailed "
-"link:{quickstarts-blob-url}/websockets-quickstart/src/test/java/org/acme/"
-"websockets/ChatTest.java[here]."
-msgstr ""
-"También puede probar sus aplicaciones de sockets web utilizando el enfoque "
-"detallado {quickstarts-blob-url}/websockets-quickstart/src/test/java/org/"
-"acme/websockets/ChatTest.java[aquí]."
+msgid "You can also test your web socket applications using the approach detailed link:{quickstarts-blob-url}/websockets-quickstart/src/test/java/org/acme/websockets/ChatTest.java[here]."
+msgstr "También puede probar sus aplicaciones de sockets web utilizando el enfoque detallado {quickstarts-blob-url}/websockets-quickstart/src/test/java/org/acme/websockets/ChatTest.java[aquí]."
 
 #, fuzzy
 msgid "WebSocket Clients"
 msgstr "Clientes de WebSocket"
 
 #, fuzzy
-msgid ""
-"Quarkus also contains a WebSocket client. You can call `ContainerProvider."
-"getWebSocketContainer().connectToServer` to create a websocket connection. "
-"By default, the `quarkus-websockets` artifact includes both client and "
-"server support. However, if you only want the client you can include "
-"`quarkus-websockets-client` instead."
-msgstr ""
-"Quarkus también contiene un cliente WebSocket. Puedes llamar a "
-"`ContainerProvider.getWebSocketContainer().connectToServer` para crear una "
-"conexión websocket. Por defecto, el artefacto `quarkus-websockets` incluye "
-"soporte para el cliente y el servidor, sin embargo, si sólo quieres el "
-"cliente, puedes incluir `quarkus-websockets-client` en su lugar."
+msgid "Quarkus also contains a WebSocket client. You can call `ContainerProvider.getWebSocketContainer().connectToServer` to create a websocket connection. By default, the `quarkus-websockets` artifact includes both client and server support. However, if you only want the client you can include `quarkus-websockets-client` instead."
+msgstr "Quarkus también contiene un cliente WebSocket. Puedes llamar a `ContainerProvider.getWebSocketContainer().connectToServer` para crear una conexión websocket. Por defecto, el artefacto `quarkus-websockets` incluye soporte para el cliente y el servidor, sin embargo, si sólo quieres el cliente, puedes incluir `quarkus-websockets-client` en su lugar."
 
 #, fuzzy
 msgid ""
-"When you connect to the server you can either pass in the Class of the "
-"annotated client endpoint you want to use, or an instance of `jakarta."
-"websocket.Endpoint`. If you\n"
-"are using the annotated endpoint then you can use the exact same annotations "
-"as you can on the server, except it must be annotated with `@ClientEndpoint` "
-"instead of\n"
+"When you connect to the server you can either pass in the Class of the annotated client endpoint you want to use, or an instance of `jakarta.websocket.Endpoint`. If you\n"
+"are using the annotated endpoint then you can use the exact same annotations as you can on the server, except it must be annotated with `@ClientEndpoint` instead of\n"
 "`@ServerEndpoint`."
-msgstr ""
-"Cuando se conecte al servidor, puede pasar la clase del punto final del "
-"cliente anotado que desee utilizar o una instancia de `jakarta.websocket."
-"Endpoint` . Si utiliza el punto final anotado, puede utilizar exactamente "
-"las mismas anotaciones que en el servidor, salvo que debe anotarse con "
-"`@ClientEndpoint` en lugar de `@ServerEndpoint` ."
+msgstr "Cuando se conecte al servidor, puede pasar la clase del punto final del cliente anotado que desee utilizar o una instancia de `jakarta.websocket.Endpoint` . Si utiliza el punto final anotado, puede utilizar exactamente las mismas anotaciones que en el servidor, salvo que debe anotarse con `@ClientEndpoint` en lugar de `@ServerEndpoint` ."
 
 #, fuzzy
-msgid ""
-"The example below shows the client being used to test the chat endpoint "
-"above."
-msgstr ""
-"El ejemplo siguiente muestra el cliente que se utiliza para probar el punto "
-"final del chat anterior."
+msgid "The example below shows the client being used to test the chat endpoint above."
+msgstr "El ejemplo siguiente muestra el cliente que se utiliza para probar el punto final del chat anterior."
 
 #, fuzzy
 msgid "More WebSocket Information"
 msgstr "Más información sobre WebSocket"
 
 #, fuzzy
-msgid ""
-"The Quarkus WebSocket implementation is an implementation of link:https://"
-"jakarta.ee/specifications/websocket/[Jakarta Websockets]."
-msgstr ""
-"La implementación de Quarkus WebSocket es una implementación de  link:https:/"
-"/eclipse-ee4j.github.io/websocket-api/[Jakarta Websockets]."
+msgid "The Quarkus WebSocket implementation is an implementation of link:https://jakarta.ee/specifications/websocket/[Jakarta Websockets]."
+msgstr "La implementación de Quarkus WebSocket es una implementación de  link:https://eclipse-ee4j.github.io/websocket-api/[Jakarta Websockets]."
