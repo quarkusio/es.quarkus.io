@@ -6,210 +6,346 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Insights # 263: Everything You Didn&#8217;t Want to Know About Quarkus Build Reproducibility"
-msgstr ""
+msgstr "Quarkus Insights n.º 263: Todo lo que no quería saber sobre la reproducibilidad de las compilaciones en Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "This summary was generated using AI, reviewed by humans - https://youtube.com/live/8cZ-oc6ma9g[watch the video] for the full story."
-msgstr ""
+msgstr "Este resumen se ha generado mediante inteligencia artificial y ha sido revisado por personas; link:https://youtube.com/live/8cZ-oc6ma9g[vea el vídeo] para conocer la historia completa."
 
+#. mt: deepl
+#, fuzzy
 msgid "Achieving reproducible builds in modern software is often described as straightforward: pin your dependencies, use a deterministic compiler, and let your build tool do the rest. In a framework like Quarkus, however, where the build process performs heavy ahead-of-time bytecode generation and executes build steps across multiple parallel threads, determinism is anything but simple. In episode 263, community contributor Teymur (Tim) Babayev and Quarkus core maintainers Guillaume Smet and Ladislav Thon join host Holly Cummins to unpack the technical challenges of making Quarkus builds bit-for-bit reproducible, the insidious sources of non-determinism they uncovered, and the infrastructure now in place to ensure our binaries continue to stay reproducible."
-msgstr ""
+msgstr "Conseguir compilaciones reproducibles en el software moderno suele describirse como algo sencillo: fijar las dependencias, utilizar un compilador determinista y dejar que la herramienta de compilación se encargue del resto. Sin embargo, en un marco como Quarkus, donde el proceso de compilación lleva a cabo una intensa generación de bytecode por adelantado y ejecuta los pasos de compilación en múltiples subprocesos paralelos, el determinismo dista mucho de ser sencillo. En el episodio 263, el colaborador de la comunidad Teymur (Tim) Babayev y los mantenedores principales de Quarkus, Guillaume Smet y Ladislav Thon, se unen a la presentadora Holly Cummins para analizar los retos técnicos que supone lograr que las compilaciones de Quarkus sean reproducibles bit a bit, las fuentes insidiosas de no determinismo que han descubierto y la infraestructura que ya está en marcha para garantizar que nuestros binarios sigan siendo reproducibles."
 
 #, fuzzy
 msgid "Quarkus News"
 msgstr "Noticias de Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "Holly opened the episode with an unusual announcement: for the first time in months, there was no new minor or micro release during the week. With the release cadence briefly paused, Guillaume took a well-earned break from preparing backports. The core team is currently focused on iterating on the Quarkus 4 betas leading up to the final release, with micro releases on earlier streams reserved strictly for critical CVEs. Community members are encouraged to try out the Quarkus 4 beta, test their applications, and report any issues or feedback."
-msgstr ""
+msgstr "Holly abrió el episodio con un anuncio inusual: por primera vez en meses, no hubo ninguna nueva versión menor ni micro durante la semana. Al haberse interrumpido brevemente el ritmo de lanzamientos, Guillaume se tomó un merecido descanso de la preparación de adaptaciones. El equipo principal se centra actualmente en perfeccionar las versiones beta de Quarkus 4 de cara al lanzamiento definitivo, reservando las microversiones de las ramas anteriores exclusivamente para vulnerabilidades críticas (CVE). Se anima a los miembros de la comunidad a que prueben la versión beta de Quarkus 4, pongan a prueba sus aplicaciones y comuniquen cualquier problema o sugerencia."
 
+#. mt: deepl
+#, fuzzy
 msgid "What Is Build Reproducibility and Why Does It Matter?"
-msgstr ""
+msgstr "¿Qué es la reproducibilidad de la compilación y por qué es importante?"
 
+#. mt: deepl
+#, fuzzy
 msgid "Guillaume kicked off the technical discussion by defining build reproducibility according to the principles of https://reproducible-builds.org/[Reproducible Builds]: given the exact same source code, same Java Development Kit (JDK), same operating system, and identical build inputs, the build must produce the exact same binary output bit-for-bit."
-msgstr ""
+msgstr "Guillaume inició el debate técnico definiendo la reproducibilidad de la compilación de acuerdo con los principios de link:https://reproducible-builds.org/[«Reproducible Builds] »: partiendo del mismo código fuente, el mismo Java Development Kit (JDK), el mismo sistema operativo y los mismos datos de entrada para la compilación, la compilación debe generar exactamente el mismo archivo binario, bit a bit."
 
+#. mt: deepl
+#, fuzzy
 msgid "Two major requirements drive the need for reproducible builds:"
-msgstr ""
+msgstr "Hay dos requisitos fundamentales que justifican la necesidad de contar con compilaciones reproducibles:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Supply chain security and forensics:** High-profile security breaches across ecosystems like https://www.npmjs.com/[npm] have highlighted the risk of compromised Continuous Integration (CI) and build infrastructure. If a build is fully reproducible, anyone can independently rebuild an artifact from source using the matching build environment and verify that the output matches what was published to https://central.sonatype.com/[Maven Central]. If the hashes match, developers have cryptographic assurance that the binary contains no backdoors injected during the build."
-msgstr ""
+msgstr "*Seguridad y análisis forense de la cadena de suministro:* Las brechas de seguridad de gran repercusión en ecosistemas como link:https://www.npmjs.com/[npm] han puesto de manifiesto el riesgo que supone que la integración continua (CI) y la infraestructura de compilación se vean comprometidas. Si una compilación es totalmente reproducible, cualquier persona puede volver a compilar de forma independiente un artefacto a partir del código fuente utilizando el entorno de compilación correspondiente y verificar que el resultado coincide con lo publicado en link:https://central.sonatype.com/[Maven Central] . Si los hash coinciden, los desarrolladores tienen la garantía criptográfica de que el binario no contiene puertas traseras inyectadas durante la compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Build caching:** In modern build tools like https://gradle.org/[Gradle] and https://maven.apache.org/[Apache Maven] (with build caching enabled), non-deterministic task outputs invalidate downstream caches. If a build step generates non-identical bytecode across runs, the build tool assumes the output has changed and is forced to re-execute downstream steps, eliminating the performance benefits of caching."
-msgstr ""
+msgstr "*Almacenamiento en caché de la compilación:* En herramientas de compilación modernas como link:https://gradle.org/[Gradle] y link:https://maven.apache.org/[Apache Maven] (con el almacenamiento en caché de la compilación activado), los resultados no deterministas de las tareas invalidan las cachés posteriores. Si un paso de la compilación genera código byte no idéntico en cada ejecución, la herramienta de compilación asume que la salida ha cambiado y se ve obligada a volver a ejecutar los pasos posteriores, lo que elimina las ventajas de rendimiento que ofrece el almacenamiento en caché."
 
+#. mt: deepl
+#, fuzzy
 msgid "Why Reproducibility Is Uniquely Challenging in Quarkus"
-msgstr ""
+msgstr "Por qué la reproducibilidad supone un reto especial en Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "For traditional Java frameworks, reproducible builds are relatively simple because they rely on standard sequential compilation where the JDK and build plugins handle determinism. Quarkus is fundamentally different:"
-msgstr ""
+msgstr "En el caso de los marcos de trabajo tradicionales de Java, las compilaciones reproducibles son relativamente sencillas, ya que se basan en una compilación secuencial estándar en la que el JDK y los complementos de compilación se encargan de garantizar el determinismo. Quarkus es fundamentalmente diferente:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Ahead-of-time augmentation:** Quarkus analyzes application classes and generates extensive bytecode at build time rather than at runtime."
-msgstr ""
+msgstr "*Ampliación anticipada:* Quarkus analiza las clases de la aplicación y genera un bytecode extenso en el momento de la compilación, en lugar de hacerlo en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Massive concurrency:** To keep build times fast, the Quarkus build engine executes build steps concurrently across a thread pool. Concurrency inherently introduces non-deterministic execution timing."
-msgstr ""
+msgstr "*Concurrencia masiva:* Para garantizar que los tiempos de compilación sigan siendo rápidos, el motor de compilación de Quarkus ejecuta los pasos de compilación de forma concurrente a través de un grupo de subprocesos. La concurrencia introduce, por naturaleza, una duración de ejecución no determinista."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Bytecode recorders:** Quarkus extensions execute configuration and initialization logic at build time and record invocations into generated bytecode classes."
-msgstr ""
+msgstr "*Grabadores de código byte:* Las extensiones de Quarkus ejecutan la lógica de configuración e inicialización durante la compilación y registran las invocaciones en las clases de código byte generadas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Parallel packaging:** Packaging steps also push class files into JAR archives in parallel."
-msgstr ""
+msgstr "*Empaquetado paralelo:* Las etapas de empaquetado también incluyen los archivos de clase en archivos JAR de forma paralela."
 
+#. mt: deepl
+#, fuzzy
 msgid "Because reproducibility requires 100% bit-for-bit equality, a single non-deterministic timestamp, random collection iteration, or static counter anywhere in any extension invalidates the entire resulting artifact."
-msgstr ""
+msgstr "Dado que la reproducibilidad exige una igualdad al 100 % bit a bit, una sola marca de tiempo no determinista, una iteración aleatoria de la recopilación o un contador estático en cualquier parte de cualquier extensión invalida la totalidad del artefacto resultante."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Roadblocks and Architectural Fixes"
-msgstr ""
+msgstr "Los obstáculos y las soluciones arquitectónicas"
 
+#. mt: deepl
+#, fuzzy
 msgid "The effort to make Quarkus reproducible began in 2020 when Peter Palaga, working on https://camel.apache.org/[Apache Camel] and https://cxf.apache.org/[Apache CXF], submitted early pull requests to eliminate non-determinism in some outputs. At the time, the fixes were considered too invasive. The effort was revived over the past year when Tim Babayev started investigating Gradle build caching and teamed up with Guillaume and Ladislav to tackle the core root causes."
-msgstr ""
+msgstr "La iniciativa para lograr que Quarkus sea reproducible comenzó en 2020, cuando Peter Palaga, que trabajaba en link:https://camel.apache.org/[Apache Camel] y link:https://cxf.apache.org/[Apache CXF] , presentó las primeras solicitudes de incorporación de cambios (pull requests) para eliminar el no determinismo en algunos resultados. En aquel momento, las correcciones se consideraron demasiado invasivas. La iniciativa se reactivó durante el último año, cuando Tim Babayev comenzó a investigar el almacenamiento en caché de las compilaciones de Gradle y se asoció con Guillaume y Ladislav para abordar las causas fundamentales del problema."
 
+#. mt: deepl
+#, fuzzy
 msgid "1. Non-Deterministic Multi-Build Item Ordering"
 msgstr ""
+"\n"
+" Ordenación no determinista de elementos en compilaciones múltiples"
 
+#. mt: deepl
+#, fuzzy
 msgid "In Quarkus, multiple parallel build steps can produce build items of the same type. Downstream consumers receive these as a list. Because the producer steps run concurrently, the order of items in that list was originally timing-dependent."
-msgstr ""
+msgstr "En Quarkus, varios pasos de compilación paralelos pueden generar elementos de compilación del mismo tipo. Los consumidores posteriores los reciben en forma de lista. Dado que los pasos de producción se ejecutan de forma simultánea, el orden de los elementos en dicha lista dependía inicialmente del momento en que se generaban."
 
+#. mt: deepl
+#, fuzzy
 msgid "The team resolved this by resurrecting Peter Palaga's original approach: enforcing a deterministic sorting order on multi-build items by having them implement `Comparable` with clear tie-breakers."
-msgstr ""
+msgstr "El equipo resolvió este problema recuperando el enfoque original de Peter Palaga: imponer un orden de clasificación determinista a los elementos con varias compilaciones, haciendo que implementen `la interfaz `Comparable`` con criterios de desempate claros."
 
+#. mt: deepl
+#, fuzzy
 msgid "However, fixing item ordering introduced an unexpected side effect: recorded bytecode execution order shifted, delaying logging initialization. Because the application had to buffer early log messages in memory until the logging layer was initialized, application memory footprint grew. Guillaume resolved this by making logging initialization an explicit upstream dependency for all related steps, ensuring early startup without sacrificing reproducibility."
-msgstr ""
+msgstr "Sin embargo, al corregir el orden de los elementos se produjo un efecto secundario inesperado: el orden de ejecución del bytecode grabado se alteró, lo que retrasó la inicialización del registro. Dado que la aplicación tuvo que almacenar en memoria los primeros mensajes de registro hasta que se inicializara la capa de registro, aumentó el consumo de memoria de la aplicación. Guillaume resolvió este problema al convertir la inicialización del registro en una dependencia previa explícita para todos los pasos relacionados, lo que garantizó un inicio rápido sin sacrificar la reproducibilidad."
 
+#. mt: deepl
+#, fuzzy
 msgid "2. Static Counters in Bytecode Recorders"
 msgstr ""
+"\n"
+" Contadores estáticos en los registradores de código de bytes"
 
+#. mt: deepl
+#, fuzzy
 msgid "When generating proxy classes, bytecode recorder implementations previously appended an incrementing static counter (`proxyKey + counter++`) shared across parallel worker threads. Because thread scheduling varied across builds, proxy class names differed between runs."
-msgstr ""
+msgstr "Al generar clases proxy, las implementaciones del registrador de código byte añadían anteriormente un contador estático incremental ( `proxyKey + counter++` ) compartido entre los subprocesos de trabajo paralelos. Dado que la programación de los subprocesos variaba según la compilación, los nombres de las clases proxy diferían de una ejecución a otra."
 
+#. mt: deepl
+#, fuzzy
 msgid "The fix eliminated the static shared counter, scoping unique identifiers strictly per class generation instance rather than globally across threads."
-msgstr ""
+msgstr "La corrección eliminó el contador compartido estático, limitando el ámbito de los identificadores únicos estrictamente a cada instancia generada por clase, en lugar de hacerlo de forma global en todos los subprocesos."
 
+#. mt: deepl
+#, fuzzy
 msgid "3. Non-Deterministic Collections"
 msgstr ""
+"\n"
+" Colecciones no deterministas"
 
+#. mt: deepl
+#, fuzzy
 msgid "A major source of unstable bytecode came from standard Java collections used in build steps and recorders. Methods such as `Set.copyOf()` and `Map.copyOf()`, as well as iterating over standard `HashSet` and `HashMap` instances containing objects with identity-based hash codes (such as `java.lang.Class`), produced different iteration orders across builds."
-msgstr ""
+msgstr "Una de las principales fuentes de código byte inestable procedía de las colecciones estándar de Java utilizadas en los pasos de compilación y en los registradores. Métodos como `Set.copyOf()` y `Map.copyOf()` , así como la iteración sobre instancias estándar `de HashSet` y `HashMap` que contenían objetos con códigos hash basados en la identidad (como `java.lang.Class` ), generaban órdenes de iteración diferentes entre las distintas compilaciones."
 
+#. mt: deepl
+#, fuzzy
 msgid "Whenever recorder methods were invoked in loops over unstable collections, or unstable collections were passed as parameters, the generated bytecode diverged. The solution involved switching to deterministic collections, sorting inputs, and defining comprehensive tie-breaker comparisons."
-msgstr ""
+msgstr "Cada vez que se invocaban métodos del registrador en bucles sobre colecciones inestables, o cuando se pasaban colecciones inestables como parámetros, el bytecode generado presentaba divergencias. La solución consistió en pasar a utilizar colecciones determinísticas, ordenar las entradas y definir comparaciones exhaustivas para resolver empates."
 
+#. mt: deepl
+#, fuzzy
 msgid "4. Jandex Composite Index Ordering and Arc"
 msgstr ""
+"\n"
+" Ordenación y arco del índice compuesto de Jandex"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus relies extensively on https://github.com/smallrye/jandex[Jandex] for class indexing and offline annotation scanning. While individual Jandex indices are deterministic, Quarkus builds a composite index across multiple JARs."
-msgstr ""
+msgstr "Quarkus recurre ampliamente a link:https://github.com/smallrye/jandex[Jandex] para la indexación de clases y el análisis de anotaciones sin conexión. Aunque los índices individuales de Jandex son determinísticos, Quarkus crea un índice compuesto que abarca varios archivos JAR."
 
+#. mt: deepl
+#, fuzzy
 msgid "Ladislav explained that the composite index previously returned classes in arbitrary order because Quarkus passed indexed JARs to the composite index in non-deterministic order. Fixing the composite index construction in Quarkus and refining Jandex and Arc internals eliminated dozens of individual extension-level workarounds in one stroke."
-msgstr ""
+msgstr "Ladislav explicó que, anteriormente, el índice compuesto devolvía las clases en un orden arbitrario porque Quarkus pasaba los JAR indexados al índice compuesto en un orden no determinista. Al corregir la construcción del índice compuesto en Quarkus y perfeccionar el funcionamiento interno de Jandex y Arc, se eliminaron de un solo golpe docenas de soluciones provisionales individuales a nivel de extensión."
 
+#. mt: deepl
+#, fuzzy
 msgid "Diagnosis, Tooling, and the Role of AI"
-msgstr ""
+msgstr "Diagnóstico, herramientas y el papel de la inteligencia artificial"
 
+#. mt: deepl
+#, fuzzy
 msgid "Answering an audience question from Douglas Allen about whether AI assisted in tracking down issues, Tim and Guillaume highlighted the complementary roles of tooling and LLMs:"
-msgstr ""
+msgstr "Al responder a una pregunta del público formulada por Douglas Allen sobre si la IA ayudaba a detectar problemas, Tim y Guillaume destacaron las funciones complementarias de las herramientas y los modelos de lenguaje grande (LLM):"
 
+#. mt: deepl
+#, fuzzy
 msgid "**diffoscope:** The team used https://diffoscope.org/[diffoscope] paired with the https://github.com/mstrobel/procyon[Procyon] Java decompiler to inspect differing JARs, archive entries, and class bytecode."
-msgstr ""
+msgstr "*diffoscope:* El equipo utilizó link:https://diffoscope.org/[diffoscope] junto con el descompilador link:https://github.com/mstrobel/procyon[Procyon] para Java con el fin de examinar los archivos JAR, las entradas de los archivos y el código byte de las clases que presentaban diferencias."
 
+#. mt: deepl
+#, fuzzy
 msgid "**AI for triage and categorization:** Running the initial reproducibility test harness against Quarkus extensions produced roughly 2,000 test failures. The team fed large batches of diffoscope outputs to LLMs to categorize failure modes (e.g., timestamps, collection iteration, counters) and pinpoint likely culprits."
-msgstr ""
+msgstr "*IA para la clasificación y categorización:* Al ejecutar el conjunto de pruebas de reproducibilidad inicial con las extensiones de Quarkus, se produjeron aproximadamente 2.000 fallos en las pruebas. El equipo introdujo grandes lotes de resultados de Diffoscope en modelos de lenguaje grande (LLM) para categorizar los modos de fallo (por ejemplo, marcas de tiempo, iteraciones de recopilación, contadores) e identificar las posibles causas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Human architectural decisions:** While AI accelerated mechanical diagnosis, human insight was essential for avoiding simplistic fixes (such as blindly replacing maps with `TreeSet` everywhere, which would degrade build performance) in favor of upstream framework improvements."
-msgstr ""
+msgstr "*Decisiones arquitectónicas humanas:* Si bien la IA aceleró el diagnóstico mecánico, la visión humana resultó esencial para evitar soluciones simplistas (como sustituir ciegamente los mapas por `TreeSet` en todas partes, lo que habría degradado el rendimiento de la compilación) y optar, en su lugar, por mejoras en el marco de trabajo en las fases iniciales."
 
+#. mt: deepl
+#, fuzzy
 msgid "Testing Infrastructure: Three Tiers of Verification"
-msgstr ""
+msgstr "Infraestructura de pruebas: tres niveles de verificación"
 
+#. mt: deepl
+#, fuzzy
 msgid "To prevent regressions, Tim developed a multi-tiered test harness:"
-msgstr ""
+msgstr "Para evitar regresiones, Tim desarrolló un conjunto de pruebas de varios niveles:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**In-JVM augmentation check:** Integrated into `QuarkusExtensionTest` and activated via `-Dquarkus.internal.test.reproducibility-check=true`. It runs build augmentation three times in memory within the same JVM, capturing generated bytecode and asserting bit-for-bit equality. If a difference is detected, diffs and decompiled `.java` files are written to `target/debug/reproducibility-mismatch/`."
-msgstr ""
+msgstr "*Comprobación de la ampliación en la JVM:* Integrada en `QuarkusExtensionTest` y activada mediante `-Dquarkus.internal.test.reproducibility-check=true` . Ejecuta la ampliación de la compilación tres veces en memoria dentro de la misma JVM, capturando el bytecode generado y verificando la igualdad bit a bit. Si se detecta alguna diferencia, las diferencias y los archivos `.java` descompilados se guardan en `target/debug/reproducibility-mismatch/.`"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Cross-JVM check:** Re-runs augmentation across separate JVM processes."
-msgstr ""
+msgstr "*Comprobación entre JVM:* vuelve a ejecutar el proceso de aumento en procesos JVM independientes."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Integration test file-system check:** A shell script (`check-reproducibility.sh`) that executes complete Maven builds from scratch and compares final output JARs on disk with diffoscope reports."
-msgstr ""
+msgstr "*Comprobación del sistema de archivos en las pruebas de integración:* un script de shell ( `check-reproducibility.sh` ) que ejecuta compilaciones completas de Maven desde cero y compara los archivos JAR resultantes en el disco con los informes de Diffoscope."
 
+#. mt: deepl
+#, fuzzy
 msgid "The team also introduced `ReproducibilityCheckBuildItem` to allow test-only constructs (such as temporary directories used by https://www.webjars.org/[WebJars] in Dev Services) to be isolated from production artifact comparisons, and fixed timestamp stability in https://cyclonedx.org/[CycloneDX] Software Bill of Materials (SBOM) generation using the `PackageConfig` build item."
-msgstr ""
+msgstr "El equipo también ha introducido `«ReproducibilityCheckBuildItem»` para permitir que los elementos destinados exclusivamente a pruebas (como los directorios temporales utilizados por link:https://www.webjars.org/[WebJars] en Dev Services) queden aislados de las comparaciones de artefactos de producción, y ha corregido la estabilidad de las marcas de tiempo en la generación de la lista de materiales de software (SBOM) link:https://cyclonedx.org/[de CycloneDX] mediante el elemento de compilación `«PackageConfig` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Can Reproducibility Ever Be Guaranteed?"
-msgstr ""
+msgstr "¿Se puede garantizar alguna vez la reproducibilidad?"
 
+#. mt: deepl
+#, fuzzy
 msgid "Addressing a question from attendee Douglas Allen on whether these changes represent a patchwork or a deliberate deterministic framework, Ladislav and Guillaume noted that concurrency and underlying system interactions (filesystem system calls, OS metadata, thread scheduling) mean absolute theoretical guarantees are virtually impossible."
-msgstr ""
+msgstr "En respuesta a una pregunta del asistente Douglas Allen sobre si estos cambios constituyen un conjunto heterogéneo o un marco determinista deliberado, Ladislav y Guillaume señalaron que la concurrencia y las interacciones subyacentes del sistema (llamadas al sistema de archivos, metadatos del sistema operativo, programación de subprocesos) hacen que las garantías teóricas absolutas sean prácticamente imposibles."
 
+#. mt: deepl
+#, fuzzy
 msgid "Instead, confidence is built through continuous verification and falsification:"
-msgstr ""
+msgstr "Por el contrario, la confianza se forja mediante la verificación y la refutación continuas:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Nightly CI workflows now run reproducibility test suites across core extension deployment tests, the https://jakarta.ee/specifications/restful-ws/[Jakarta REST] TCK, integration tests, and quickstarts."
-msgstr ""
+msgstr "Los flujos de trabajo de CI nocturnos ejecutan ahora conjuntos de pruebas de reproducibilidad que abarcan las pruebas de implementación de las extensiones principales, el TCK link:https://jakarta.ee/specifications/restful-ws/[REST de Jakarta] , las pruebas de integración y las guías de inicio rápido."
 
+#. mt: deepl
+#, fuzzy
 msgid "Current reproducibility status can be monitored live on https://status.quarkus.io/[status.quarkus.io], where checks are consistently green."
-msgstr ""
+msgstr "El estado actual de la reproducibilidad se puede seguir en tiempo real en link:https://status.quarkus.io/[status.quarkus.io] , donde los indicadores aparecen constantemente en verde."
 
+#. mt: deepl
+#, fuzzy
 msgid "A comprehensive guide documenting reproducibility rules and common pitfalls has been merged into the root of the Quarkus repository for extension authors."
-msgstr ""
+msgstr "Se ha incorporado en el directorio raíz del repositorio de Quarkus una guía exhaustiva que recoge las normas de reproducibilidad y los errores más comunes, dirigida a los autores de extensiones."
 
 #, fuzzy
 msgid "What&#8217;s Next?"
 msgstr "¿Y ahora qué?"
 
+#. mt: deepl
+#, fuzzy
 msgid "Looking ahead, the team outlined several next steps:"
-msgstr ""
+msgstr "De cara al futuro, el equipo ha esbozado varios pasos a seguir:"
 
+#. mt: deepl
+#, fuzzy
 msgid "**New service architecture:** Ongoing work by David Lloyd on a new service start/stop model will gradually replace legacy bytecode recorders, further simplifying the framework and reinforcing determinism at its core."
-msgstr ""
+msgstr "*Nueva arquitectura de servicios:* El trabajo que está llevando a cabo David Lloyd en un nuevo modelo de inicio y parada de servicios sustituirá progresivamente a los grabadores de bytecode heredados, lo que simplificará aún más el marco y reforzará el determinismo en su núcleo."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Faster CI feedback:** Optimizing reproducibility test execution so checks can eventually run on pull requests rather than solely during nightly builds."
-msgstr ""
+msgstr "*Respuesta más rápida de la integración continua (CI):* Optimización de la ejecución de las pruebas de reproducibilidad para que, en última instancia, las comprobaciones puedan ejecutarse en las solicitudes de incorporación de cambios (pull requests) y no únicamente durante las compilaciones nocturnas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Ecosystem outreach:** Collaborating with Quarkiverse extension maintainers (including Camel Quarkus) to expand reproducibility verification across third-party extensions."
-msgstr ""
+msgstr "*Divulgación del ecosistema:* Colaborar con los responsables del mantenimiento de las extensiones de Quarkiverse (incluido Camel Quarkus) para ampliar la verificación de la reproducibilidad a las extensiones de terceros."
 
 #, fuzzy
 msgid "Key Takeaways"
 msgstr "Puntos clave"
 
+#. mt: deepl
+#, fuzzy
 msgid "**Bit-for-bit reproducibility matters:** Identical builds provide cryptographic assurance for supply chain security and prevent cache invalidation in Gradle and Maven."
-msgstr ""
+msgstr "*La reproducibilidad bit a bit es fundamental:* las compilaciones idénticas proporcionan garantías criptográficas para la seguridad de la cadena de suministro y evitan la invalidación de la caché en Gradle y Maven."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Concurrency makes determinism hard:** Running build steps and packaging in parallel produces non-deterministic ordering unless inputs and collections are strictly controlled."
-msgstr ""
+msgstr "*La concurrencia dificulta el determinismo:* la ejecución en paralelo de los pasos de compilación y empaquetado da lugar a un orden no determinista, a menos que se controlen estrictamente las entradas y las colecciones."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Multi-build item ordering:** Sorting build items deterministically resolved list ordering issues, coupled with explicit logging dependencies for fast startup."
-msgstr ""
+msgstr "*Ordenación de elementos de compilación múltiple:* la ordenación determinista de los elementos de compilación ha resuelto los problemas de ordenación de las listas, junto con el registro explícito de las dependencias para un arranque rápido."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Scoping recorder identifiers:** Replacing shared static counters with instance-scoped identifiers eliminated race conditions in generated proxy class names."
-msgstr ""
+msgstr "*Identificadores de registrador con ámbito de instancia:* la sustitución de los contadores estáticos compartidos por identificadores con ámbito de instancia ha eliminado las condiciones de carrera en los nombres de las clases proxy generadas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Collection stability:** Avoiding iteration over unstable hash codes and using deterministic tie-breakers prevents subtle bytecode diffs."
-msgstr ""
+msgstr "*Estabilidad de la recopilación:* evitar la iteración sobre códigos hash inestables y utilizar criterios de desempate determinísticos evita diferencias sutiles en el código de bytes."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Jandex and Arc framework fixes:** Upstream improvements to Jandex composite indexing fixed dozens of extension-level inconsistencies simultaneously."
-msgstr ""
+msgstr "*Correcciones en Jandex y el marco Arc:* Las mejoras introducidas en el código original de la indexación compuesta de Jandex han solucionado simultáneamente docenas de incoherencias a nivel de extensión."
 
+#. mt: deepl
+#, fuzzy
 msgid "**`diffoscope` + AI triage:** Combining diffoscope bytecode decompilation with LLM analysis enabled rapid classification of thousands of initial test failures."
-msgstr ""
+msgstr "*Diffoscope + clasificación mediante IA:* La combinación de la descompilación del código byte de Diffoscope con el análisis mediante modelos de lenguaje grande (LLM) permitió clasificar rápidamente miles de fallos iniciales en las pruebas."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Multi-tiered test harness:** Developers can test extensions in memory using `-Dquarkus.internal.test.reproducibility-check=true` or across full builds with `check-reproducibility.sh`."
-msgstr ""
+msgstr "*Entorno de pruebas de varios niveles:* Los desarrolladores pueden probar las extensiones en memoria utilizando `-Dquarkus.internal.test.reproducibility-check=true` o en compilaciones completas con `check-reproducibility.sh` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "**Status is green:** Nightly CI runs for core deployment tests, integration tests, and quickstarts are tracked on https://status.quarkus.io/[status.quarkus.io]."
-msgstr ""
+msgstr "*El estado es verde:* las ejecuciones nocturnas de CI para las pruebas de implementación del núcleo, las pruebas de integración y las guías de inicio rápido se supervisan en link:https://status.quarkus.io/[status.quarkus.io] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "**A collaborative milestone:** The effort united core maintainers and community contributors."
-msgstr ""
+msgstr "*Un hito de colaboración:* esta iniciativa ha reunido a los responsables principales del mantenimiento y a los colaboradores de la comunidad."
 
 #, fuzzy
 msgid "Conclusion"
 msgstr "Conclusión"
 
+#. mt: deepl
+#, fuzzy
 msgid "Achieving reproducible builds in a high-performance, ahead-of-time framework like Quarkus is a remarkable engineering accomplishment. By tackling non-determinism directly at the framework level (spanning Jandex, Arc, build items, and recorder infrastructure) rather than applying brittle workarounds, the Quarkus team and community have established a robust foundation for supply chain security and build caching. Next week, Quarkus Insights returns with a deep dive into https://www.jobrunr.io/[JobRunr]."
-msgstr ""
+msgstr "Lograr compilaciones reproducibles en un marco de alto rendimiento y de compilación anticipada como Quarkus constituye un logro técnico notable. Al abordar el no determinismo directamente a nivel del marco (abarcando Jandex, Arc, los elementos de compilación y la infraestructura del registrador), en lugar de aplicar soluciones provisionales poco fiables, el equipo y la comunidad de Quarkus han sentado unas bases sólidas para la seguridad de la cadena de suministro y el almacenamiento en caché de las compilaciones. La próxima semana, «Quarkus Insights» vuelve con un análisis en profundidad de link:https://www.jobrunr.io/[JobRunr] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Watch the full episode on the <a href=\"https://www.youtube.com/quarkusio\">Quarkus YouTube channel</a>, monitor build status at <a href=\"https://status.quarkus.io/\">status.quarkus.io</a>, and check the Quarkus repository documentation for <a href=\"https://github.com/quarkusio/quarkus/blob/main/REPRODUCIBILITY.md\">guidelines on authoring reproducible extensions</a>."
-msgstr ""
+msgstr "Vea el episodio completo en el <a href=\"https://www.youtube.com/quarkusio\">canal de YouTube de Quarkus</a>, compruebe el estado de la compilación en <a href=\"https://status.quarkus.io/\">status.quarkus.io</a>, y consulte la documentación del repositorio de Quarkus para obtener <a href=\"https://github.com/quarkusio/quarkus/blob/main/REPRODUCIBILITY.md\">directrices sobre cómo crear extensiones reproducibles</a>."

@@ -1341,14 +1341,20 @@ msgstr "El otro paso de construcción sólo se ejecutará en el modo de desarrol
 msgid "Application Startup and Services"
 msgstr "Inicio de aplicaciones y servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus extensions need to perform initialization work at application startup: creating CDI beans, opening connections, binding sockets, starting subsystems. Extensions declare this work as lightweight services that form an explicit dependency graph. Each service specifies exactly what it needs to run (other services, configuration, build-time state) and what it produces (typed values, initialization side effects). At runtime, Quarkus executes this graph directly: services start as soon as their dependencies are satisfied, allowing independent work to proceed in parallel while respecting ordering constraints."
-msgstr ""
+msgstr "Las extensiones de Quarkus deben realizar tareas de inicialización al iniciar la aplicación: crear beans CDI, abrir conexiones, vincular sockets e iniciar subsistemas. Las extensiones declaran estas tareas como servicios ligeros que forman un grafo de dependencias explícito. Cada servicio especifica exactamente lo que necesita para ejecutarse (otros servicios, configuración, estado en el momento de la compilación) y lo que produce (valores tipados, efectos secundarios de la inicialización). En tiempo de ejecución, Quarkus ejecuta este grafo directamente: los servicios se inician tan pronto como se satisfacen sus dependencias, lo que permite que las tareas independientes se ejecuten en paralelo respetando las restricciones de ordenación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services are build-time declarations that generate runtime bytecode. You provide a lambda expression that runs at startup. The lambda is transliterated into bytecode at build time, with captured values embedded as constants. This preserves Quarkus's build-time/runtime split while giving you direct control over initialization."
-msgstr ""
+msgstr "Los servicios son declaraciones en tiempo de compilación que generan código byte en tiempo de ejecución. Usted proporciona una expresión lambda que se ejecuta al iniciar el sistema. La expresión lambda se traduce a código byte en tiempo de compilación, con los valores capturados incrustados como constantes. De este modo se mantiene la separación entre tiempo de compilación y tiempo de ejecución de Quarkus, al tiempo que se le ofrece un control directo sobre la inicialización."
 
+#. mt: deepl
+#, fuzzy
 msgid "The core guarantee is **deterministic partial ordering**: if service A depends on service B, then B always completes before A starts. Services with no dependency relationship may start in any order or concurrently, but any given dependency chain always executes in the same order. Shutdown reverses the graph: services stop in the exact reverse of their start dependencies, so cleanup always happens in a safe sequence."
-msgstr ""
+msgstr "La garantía fundamental es *el orden parcial determinista* : si el servicio A depende del servicio B, entonces B siempre finaliza antes de que A se inicie. Los servicios que no presentan relaciones de dependencia pueden iniciarse en cualquier orden o de forma simultánea, pero cualquier cadena de dependencia dada siempre se ejecuta en el mismo orden. El apagado invierte el grafo: los servicios se detienen en el orden exactamente inverso al de sus dependencias de inicio, por lo que la limpieza siempre se lleva a cabo en una secuencia segura."
 
 #. mt: deepl
 #, fuzzy
@@ -1365,43 +1371,65 @@ msgstr "El punto de entrada principal para definir los servicios de inicio es ``
 msgid "Service Types"
 msgstr "Tipos de servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services can be typed or void. Typed services produce a value at startup and are defined via `reg.forService(Class<T>)` or `reg.forService(Class<T>, String name)`. The value they produce becomes available to other services that depend on them. Void services produce no value and are identified solely by name, defined via `reg.forService(String name)` or `reg.forService(List<String> nameParts)`. By convention, void service names use hierarchical dot-separated names like `\"io.quarkus.<extension>.<purpose>\"`."
-msgstr ""
+msgstr "Los servicios pueden ser de tipo o de tipo «void». Los servicios de tipo producen un valor al iniciarse y se definen mediante `reg.forService(Class<T>)` o `reg.forService(Class<T>, String name)` . El valor que producen queda a disposición de otros servicios que dependen de ellos. Los servicios «void» no producen ningún valor y se identifican únicamente por su nombre, definido mediante `reg.forService(String name)` o `reg.forService(List<String> nameParts)` . Por convención, los nombres de los servicios «void» utilizan nombres jerárquicos separados por puntos, como `«io.quarkus.<extensión>.<finalidad>».`"
 
 #. mt: deepl
 #, fuzzy
 msgid "Synchronous and Asynchronous Start Actions"
 msgstr "Acciones de inicio síncronas y asíncronas"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services can be started either synchronously or asynchronously. When using synchronous start (`onStart`), the service is considered started when the action returns. The action receives a `StartContext` as its first parameter, followed by any declared dependencies. Typed services return the service value; void services return nothing."
-msgstr ""
+msgstr "Los servicios pueden iniciarse de forma sincrónica o asincrónica. Cuando se utiliza el inicio sincrónico ( `onStart` ), se considera que el servicio se ha iniciado cuando la acción devuelve un resultado. La acción recibe un `StartContext` como primer parámetro, seguido de las dependencias declaradas. Los servicios tipados devuelven el valor del servicio; los servicios de tipo void no devuelven nada."
 
+#. mt: deepl
+#, fuzzy
 msgid "When using asynchronous start (`onStartAsync`), the action is initially invoked in the calling thread, but the service is not considered started until a completion method is called. The action receives an `AsyncVoidStartContext` (for void services) or `AsyncStartContext<T>` (for typed services). The completion method can be called from the same thread or from a different thread, allowing the action to schedule asynchronous work."
-msgstr ""
+msgstr "Cuando se utiliza el inicio asíncrono ( `onStartAsync` ), la acción se invoca inicialmente en el hilo de llamada, pero el servicio no se considera iniciado hasta que se llama a un método de finalización. La acción recibe un `AsyncVoidStartContext` (para servicios void) o `un AsyncStartContext<T>` (para servicios tipados). El método de finalización puede invocarse desde el mismo hilo o desde un hilo diferente, lo que permite a la acción programar tareas asíncronas."
 
+#. mt: deepl
+#, fuzzy
 msgid "The asynchronous start context provides three completion methods:"
-msgstr ""
+msgstr "El contexto de inicio asíncrono ofrece tres métodos de finalización:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`startComplete()` or `startComplete(T value)` indicates that the service start operation completed successfully."
-msgstr ""
+msgstr "`startComplete()` o `startComplete(T value)` indica que la operación de inicio del servicio se ha completado correctamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "`startFailed(Throwable)` indicates that the service failed to start."
-msgstr ""
+msgstr "`startFailed(Throwable)` indica que el servicio no se ha podido iniciar."
 
+#. mt: deepl
+#, fuzzy
 msgid "`startCanceled()` indicates that the service start was canceled."
-msgstr ""
+msgstr "`startCanceled()` indica que se ha cancelado el inicio del servicio."
 
+#. mt: deepl
+#, fuzzy
 msgid "When to Use Asynchronous Start or Stop"
-msgstr ""
+msgstr "Cuándo utilizar el inicio o la parada asíncronos"
 
+#. mt: deepl
+#, fuzzy
 msgid "In most cases, synchronous start and stop are adequate. Use `onStart()` and `ctx.onStop()` when the initialization or cleanup work completes before the method returns."
-msgstr ""
+msgstr "En la mayoría de los casos, el inicio y la detención sincrónicos son suficientes. Utilice `onStart()` y `ctx.onStop()` cuando las tareas de inicialización o limpieza finalicen antes de que el método devuelva un valor."
 
+#. mt: deepl
+#, fuzzy
 msgid "Use asynchronous start and stop when the underlying resource being initialized uses a callback-based completion mechanism. If starting a server, opening a connection, or initializing a subsystem signals completion via a callback, `CompletableFuture`, or listener rather than blocking until complete, wire that callback to the asynchronous context's completion method."
-msgstr ""
+msgstr "Utilice el inicio y la detención asíncronos cuando el recurso subyacente que se está inicializando utilice un mecanismo de finalización basado en una llamada de retorno. Si al iniciar un servidor, abrir una conexión o inicializar un subsistema se indica la finalización mediante una llamada de retorno, `un `CompletableFuture`` o un oyente, en lugar de bloquearse hasta que finalice el proceso, vincule dicha llamada de retorno al método de finalización del contexto asíncrono."
 
+#. mt: deepl
+#, fuzzy
 msgid "In other words, use `onStartAsync()` when initialization continues after the action returns and you need to signal completion from a different thread or callback. The same principle applies to stop handlers: use `onStopAsync()` when shutdown is callback-driven, `onStop()` when it completes synchronously."
-msgstr ""
+msgstr "En otras palabras, utilice `onStartAsync()` cuando la inicialización continúe después de que la acción devuelva un resultado y necesite indicar que se ha completado desde un hilo diferente o mediante una llamada de retorno. El mismo principio se aplica a los controladores de parada: utilice `onStopAsync()` cuando el apagado se gestione mediante una llamada de retorno, y `onStop()` cuando se complete de forma sincrónica."
 
 #. mt: deepl
 #, fuzzy
@@ -1418,8 +1446,10 @@ msgstr "Los servicios se ejecutan en fases definidas y ordenadas durante el inic
 msgid "The available startup phases (defined in `io.quarkus.core.Phase`) in execution order are:"
 msgstr "Las fases de inicio disponibles (definidas en `io.quarkus.core.Phase` ), en orden de ejecución, son las siguientes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`STATIC_INIT`: Runs during static initialization of the generated application class. Results are baked into the native image heap when building a native image."
-msgstr ""
+msgstr "`STATIC_INIT` : Se ejecuta durante la inicialización estática de la clase de aplicación generada. Los resultados se incorporan al montón de la imagen nativa al compilar dicha imagen."
 
 #. mt: deepl
 #, fuzzy
@@ -1475,20 +1505,30 @@ msgstr "El entorno de ejecución no espera a que finalicen todos los servicios d
 msgid "Execution Model"
 msgstr "Modelo de ejecución"
 
+#. mt: deepl
+#, fuzzy
 msgid "At build time, Quarkus constructs a directed acyclic graph (DAG) of service nodes based on the dependency declarations you provide. Each service is a node; each `require()`, `after()`, or `before()` call creates an edge. At runtime, the generated startup code executes this graph directly."
-msgstr ""
+msgstr "Durante la compilación, Quarkus construye un grafo acíclico dirigido (DAG) de nodos de servicio basándose en las declaraciones de dependencia que usted proporcione. Cada servicio es un nodo; cada llamada `a `require()`` , ``after()` ` o ``before()` ` crea un arco. En tiempo de ejecución, el código de inicio generado ejecuta este grafo directamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services form a partial order: if service A depends on service B, then B always completes before A starts. Services with no dependency relationship may execute in any order or concurrently. The runtime may exploit this parallelism: for example, independent services may start simultaneously, constrained only by their declared dependencies."
-msgstr ""
+msgstr "Los servicios forman un orden parcial: si el servicio A depende del servicio B, entonces B siempre finaliza antes de que A comience. Los servicios que no presentan relaciones de dependencia pueden ejecutarse en cualquier orden o de forma simultánea. El entorno de ejecución puede aprovechar este paralelismo: por ejemplo, los servicios independientes pueden iniciarse simultáneamente, con la única restricción de sus dependencias declaradas."
 
+#. mt: deepl
+#, fuzzy
 msgid "The execution guarantee is deterministic: given the same dependency graph, the same dependency chains always execute in the same order across runs. What varies is the interleaving of independent work. If services A and B have no dependency relationship, they may start in either order or overlap in time, but if A depends on C and B depends on C, then C always completes before both A and B start."
-msgstr ""
+msgstr "La garantía de ejecución es determinista: dado un mismo grafo de dependencias, las mismas cadenas de dependencias siempre se ejecutan en el mismo orden en todas las ejecuciones. Lo que varía es la intercalación de las tareas independientes. Si los servicios A y B no tienen ninguna relación de dependencia, pueden iniciarse en cualquier orden o solaparse en el tiempo; sin embargo, si A depende de C y B depende de C, entonces C siempre se completa antes de que se inicien tanto A como B."
 
+#. mt: deepl
+#, fuzzy
 msgid "When a service fails to start (by throwing an exception from `onStart()` or calling `startFailed()` from an asynchronous context), the failure propagates to all services that transitively depend on it. Those dependent services never start. Services that have no dependency path to the failed service still execute and complete their initialization. The application startup fails overall, but the partial graph that did execute represents a consistent state: every service that started had all its dependencies satisfied. All successfully started services are then stopped cleanly before the process exits."
-msgstr ""
+msgstr "Cuando un servicio no se inicia correctamente (ya sea porque lanza una excepción desde ``onStart()`` o porque se llama a ``startFailed()`` desde un contexto asíncrono), el fallo se propaga a todos los servicios que dependen de él de forma transitiva. Dichos servicios dependientes nunca se inician. Los servicios que no tienen ninguna ruta de dependencia hacia el servicio que ha fallado se ejecutan y completan su inicialización. El inicio de la aplicación falla en su conjunto, pero el grafo parcial que sí se ha ejecutado representa un estado coherente: todos los servicios que se iniciaron tenían satisfechas todas sus dependencias. A continuación, todos los servicios que se han iniciado correctamente se detienen de forma ordenada antes de que el proceso finalice."
 
+#. mt: deepl
+#, fuzzy
 msgid "Shutdown (whether triggered by failure or normal application termination) reverses the dependency graph. Services stop in the exact reverse order of their start dependencies: if A started after B, then A stops before B. This ensures that cleanup always happens in a safe sequence — a service's dependencies remain available throughout its stop handler."
-msgstr ""
+msgstr "El apagado (ya sea provocado por un fallo o por la finalización normal de la aplicación) invierte el gráfico de dependencias. Los servicios se detienen exactamente en el orden inverso al de sus dependencias de inicio: si A se inició después de B, entonces A se detiene antes que B. Esto garantiza que la limpieza se realice siempre en una secuencia segura: las dependencias de un servicio permanecen disponibles durante todo el proceso de su rutina de parada."
 
 #. mt: deepl
 #, fuzzy
@@ -1530,44 +1570,70 @@ msgstr "`after(…​)` : Indica que este servicio debe ejecutarse después de l
 msgid "`before(...)`: Declares that this service must run before the specified service class or name. This is particularly useful for cleanup services that must outlive their dependents."
 msgstr "`before(…​)` : Indica que este servicio debe ejecutarse antes que la clase o el nombre de servicio especificados. Esto resulta especialmente útil para los servicios de limpieza que deben permanecer activos más tiempo que los servicios de los que dependen."
 
+#. mt: deepl
+#, fuzzy
 msgid "Optional Service Dependencies"
-msgstr ""
+msgstr "Dependencias opcionales de los servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "When a service might or might not be present, use `request()` instead of `require()`. The dependency is injected as `Optional<T>`:"
-msgstr ""
+msgstr "Cuando no se pueda determinar con certeza si un servicio está presente o no, utilice `request()` en lugar de `require()` . La dependencia se inyecta como `Optional<T>` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Use `request()` when depending on services from optional extensions or when the service might be conditionally produced."
-msgstr ""
+msgstr "Utilice `request()` cuando dependa de servicios de extensiones opcionales o cuando el servicio pueda generarse de forma condicional."
 
+#. mt: deepl
+#, fuzzy
 msgid "Consuming Multiple Services"
-msgstr ""
+msgstr "Uso de varios servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "To consume all services of a given type, use `consumeAll(Class<T>)`. The services are injected as a `Map<String, T>` where keys are the service names:"
-msgstr ""
+msgstr "Para utilizar todos los servicios de un tipo determinado, utilice ``consumeAll(Class<T>)`` . Los servicios se inyectan como un ``Map<String, T>`` , en el que las claves son los nombres de los servicios:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services consumed by `consumeAll()` must be named (created via `forService(Class<T>, String name)`). Only one level of the naming hierarchy is consumed: `consumeAll(Foo.class)` will consume services registered as `forService(Foo.class, \"bar\")` but will not consume services registered as `forService(Foo.class, List.of(\"bar\", \"baz\"))`."
-msgstr ""
+msgstr "Los servicios que utiliza la función ` `consumeAll()` ` deben tener un nombre (creados mediante ``forService(Class<T>, String name)` `). Solo se consume un nivel de la jerarquía de nombres: `consumeAll(Foo.class)` consumirá los servicios registrados como `forService(Foo.class, «bar»)` , pero no consumirá los servicios registrados como `forService(Foo.class, List.of(«bar», «baz»))` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Optional Service Production"
-msgstr ""
+msgstr "Producción de servicios opcionales"
 
+#. mt: deepl
+#, fuzzy
 msgid "A service can declare that it may produce no value at runtime by calling `.optional()` on the builder. This changes the action's return type to `Optional<T>`:"
-msgstr ""
+msgstr "Un servicio puede indicar que es posible que no genere ningún valor en tiempo de ejecución llamando a `.optional()` en el generador. Esto cambia el tipo de retorno de la acción a `Optional<T>` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Returning `Optional.empty()` marks the service as present-but-valueless. This is different from a service failing to start:"
-msgstr ""
+msgstr "Si se devuelve ``Optional.empty()`` , el servicio se marca como «presente pero sin valor». Esto difiere de un servicio que no se inicia:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Services that `require()` an optional service will fail at runtime if the service returned empty."
-msgstr ""
+msgstr "Los servicios que `utilizan la función `require()` para` un servicio opcional fallarán en tiempo de ejecución si dicho servicio devuelve un valor vacío."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services that `request()` an optional service will receive an empty `Optional` if the service returned empty."
-msgstr ""
+msgstr "Los servicios que `utilicen` la función ` `request()` para solicitar` un servicio de tipo `Optional` recibirán un objeto ``Optional`` vacío si el servicio devuelve un valor vacío."
 
+#. mt: deepl
+#, fuzzy
 msgid "Services using `consumeAll()` skip optional services that returned empty — they do not appear in the map."
-msgstr ""
+msgstr "Los servicios que utilizan ``consumeAll()`` omiten los servicios opcionales que han devuelto un resultado vacío; estos no aparecen en el mapa."
 
+#. mt: deepl
+#, fuzzy
 msgid "Use `.optional()` for services that may legitimately have nothing to produce based on configuration or runtime conditions."
-msgstr ""
+msgstr "Utilice `.optional()` para aquellos servicios que, legítimamente, puedan no generar ningún resultado en función de la configuración o de las condiciones de ejecución."
 
 #. mt: deepl
 #, fuzzy
@@ -1594,8 +1660,10 @@ msgstr "Valores primitivos, `de cadena` , `de clase` y de enumeración."
 msgid "Immutable collections (e.g., via `List.of()`, `Set.copyOf()`, `Map.copyOf()`)."
 msgstr "Colecciones inmutables (por ejemplo, mediante `List.of()` , `Set.copyOf()` o `Map.copyOf()` )."
 
+#. mt: deepl
+#, fuzzy
 msgid "Configuration mappings from `BUILD_AND_RUN_TIME_FIXED` phase."
-msgstr ""
+msgstr "Asignaciones de configuración de la fase `BUILD_AND_RUN_TIME_FIXED` ."
 
 #. mt: deepl
 #, fuzzy
@@ -1622,8 +1690,10 @@ msgstr "Colecciones mutables (copíelas siempre mediante `List.copyOf()` o `Set.
 msgid "`BUILD_TIME` configuration objects (extract the specific values into local variables first)."
 msgstr "Objetos de configuración `de BUILD_TIME` (extraiga primero los valores concretos a variables locales)."
 
+#. mt: deepl
+#, fuzzy
 msgid "`RUN_TIME` configuration objects (use `.require(ConfigType.class)` instead)."
-msgstr ""
+msgstr "Objetos de configuración `de RUN_TIME` (utilice en su lugar `.require(ConfigType.class)` )."
 
 #. mt: deepl
 #, fuzzy
@@ -1669,11 +1739,15 @@ msgstr ""
 "\n"
 " Visibilidad «privada del paquete»"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service lambdas are transliterated into generated bytecode that executes in a runtime context where package-private access can fail. The failure mode is subtle — it typically occurs when the lambda contains nested lambdas, anonymous classes, or method references that indirectly reference package-private runtime types. If you encounter an `IllegalAccessError` at runtime involving a package-private class that appears to be reachable from your service lambda, this is the cause."
-msgstr ""
+msgstr "Las lambdas de servicio se traducen a código byte generado que se ejecuta en un contexto de tiempo de ejecución en el que el acceso privado al paquete puede fallar. El modo de fallo es sutil: suele producirse cuando la lambda contiene lambdas anidadas, clases anónimas o referencias a métodos que hacen referencia indirectamente a tipos de tiempo de ejecución privados del paquete. Si se encuentra un `IllegalAccessError` en tiempo de ejecución relacionado con una clase privada del paquete a la que parece poder acceder desde su lambda de servicio, esta es la causa."
 
+#. mt: deepl
+#, fuzzy
 msgid "The solution is to make referenced runtime classes `public`. If you are promoting a class from package-private to public solely for service access (and it was not previously part of your public API), move it to a `.impl` subpackage to signal that it remains internal."
-msgstr ""
+msgstr "La solución consiste en convertir `en públicas` las clases de tiempo de ejecución a las que se hace referencia. Si va a cambiar el acceso de una clase de «privado del paquete» a «público» con el único fin de permitir el acceso a los servicios (y dicha clase no formaba parte anteriormente de su API pública), trasládela a un subpaquete `.impl` para indicar que sigue siendo interna."
 
 #. mt: deepl
 #, fuzzy
@@ -1712,11 +1786,15 @@ msgstr "Los servicios pueden registrar acciones de limpieza dentro de las funcio
 msgid "Synchronous and Asynchronous Stop Handlers"
 msgstr "Manejadores de parada síncronos y asíncronos"
 
+#. mt: deepl
+#, fuzzy
 msgid "Similar to start actions, stop handlers can be either synchronous or asynchronous. When using synchronous stop (`ctx.onStop(Runnable)`), the service is considered stopped when the runnable returns."
-msgstr ""
+msgstr "Al igual que las acciones de inicio, los controladores de parada pueden ser síncronos o asíncronos. Cuando se utiliza una parada síncrona ( `ctx.onStop(Runnable)` ), se considera que el servicio se ha detenido cuando el `Runnable` devuelve un resultado."
 
+#. mt: deepl
+#, fuzzy
 msgid "When using asynchronous stop (`ctx.onStopAsync(Consumer<AsyncStopContext>)`), the stop handler is initially invoked in the calling thread, but the service is not considered stopped until `AsyncStopContext.stopComplete()` is called. The completion method can be called from the same thread or from a different thread, allowing the handler to schedule asynchronous cleanup work."
-msgstr ""
+msgstr "Al utilizar la detención asíncrona ( `ctx.onStopAsync(Consumer<AsyncStopContext>)` ), el controlador de detención se invoca inicialmente en el hilo de llamada, pero el servicio no se considera detenido hasta que se llama a `AsyncStopContext.stopComplete()` . El método de finalización puede invocarse desde el mismo hilo o desde un hilo diferente, lo que permite al controlador programar tareas de limpieza asíncronas."
 
 #. mt: deepl
 #, fuzzy
@@ -2624,14 +2702,18 @@ msgstr "`io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem`"
 msgid "Registers a class for reflection in Substrate. Constructors are always registered, while methods and fields are optional."
 msgstr "Registra una clase para su reflexión en Substrate. Los constructores siempre se registran, mientras que los métodos y los campos son opcionales."
 
+#. mt: deepl
+#, fuzzy
 msgid "`io.quarkus.deployment.builditem.nativeimage.ConstantBootstrapBuildItem`"
-msgstr ""
+msgstr "`io.quarkus.deployment.builditem.nativeimage.ConstantBootstrapBuildItem`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Registers a bootstrap method for execution at native image build time, allowing GraalVM to constant-fold dynamic constants and `invokedynamic` call sites.\n"
 "The third bootstrap parameter must be `Class` for dynamic constants, `MethodType` for `invokedynamic`, or `TypeDescriptor` for a method supporting both.\n"
 "Quarkus uses the public bootstrap registration API on GraalVM 25.4 and later and the internal API on earlier versions that support registration (25.0.4 and later)."
-msgstr ""
+msgstr "Registra un método de arranque para su ejecución durante la compilación de la imagen nativa, lo que permite a GraalVM realizar el pliegue de constantes dinámicas y de los puntos de llamada `«invokedynamic` ». El tercer parámetro de arranque debe ser `«Class»` para las constantes dinámicas, `«MethodType»` para `«invokedynamic` » o `«TypeDescriptor` » para un método que admita ambas opciones. Quarkus utiliza la API pública de registro de bootstrap en GraalVM 25.4 y versiones posteriores, y la API interna en versiones anteriores que admiten el registro (25.0.4 y posteriores)."
 
 #, fuzzy
 msgid "`io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem`"
@@ -2870,40 +2952,52 @@ msgstr "El nombre de la característica también debe corresponderse con una eti
 msgid "Capabilities"
 msgstr "Capacidades"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A _capability_ represents a technical capability that can be queried by other extensions.\n"
 "An extension may provide multiple capabilities, but only a single provider of a given capability is allowed in an application: if more than one is detected, the build fails.\n"
 "By default, capabilities are not displayed to users.\n"
 "Capabilities should be used when checking for the presence of an extension rather than class path based checks."
-msgstr ""
+msgstr "Una _capacidad_ representa una funcionalidad técnica que pueden consultar otras extensiones. Una extensión puede proporcionar varias capacidades, pero solo se permite un único proveedor de una capacidad determinada en una aplicación: si se detecta más de uno, la compilación falla. De forma predeterminada, las capacidades no se muestran a los usuarios. Las capacidades deben utilizarse para comprobar la presencia de una extensión, en lugar de realizar comprobaciones basadas en la ruta de clases."
 
+#. mt: deepl
+#, fuzzy
 msgid "The preferred way to declare the capabilities an extension provides (or requires) is by configuring the `quarkus-extension-maven-plugin` in the runtime module's `pom.xml`:"
-msgstr ""
+msgstr "La forma recomendada de declarar las capacidades que ofrece (o requiere) una extensión es configurando el `complemento «quarkus-extension-maven-plugin»` en el archivo `pom.xml` del módulo de tiempo de ejecución:"
 
+#. mt: deepl
+#, fuzzy
 msgid "See xref:capabilities.adoc[Extension capabilities] for the full details, including required capabilities and the Gradle equivalent."
-msgstr ""
+msgstr "Consulte xref:capabilities.adoc[«Funcionalidades de la extensión] » para obtener toda la información, incluidas las funcionalidades necesarias y su equivalente en Gradle."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Capabilities can also be registered in a <<build-step-processors>> method that produces a `CapabilityBuildItem`.\n"
 "However, capabilities declared this way are not part of the extension descriptor, so they are not visible to the Quarkus dev tools\n"
 "and cannot be taken into account when checking extension compatibility while creating a project or adding extensions:"
-msgstr ""
+msgstr "Las capacidades también pueden registrarse mediante el método ` <<build-step-processors>> `, que devuelve un objeto ``CapabilityBuildItem`` . Sin embargo, las capacidades declaradas de esta forma no forman parte del descriptor de la extensión, por lo que no son visibles para las herramientas de desarrollo de Quarkus y no pueden tenerse en cuenta a la hora de comprobar la compatibilidad de las extensiones al crear un proyecto o al añadir extensiones:"
 
 #, fuzzy
 msgid "Extensions can consume registered capabilities using the `Capabilities` build item:"
 msgstr "Las extensiones pueden consumir las capacidades registradas utilizando el elemento de construcción `Capabilities`:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Capabilities should follow the naming conventions of Java packages; e.g. `io.quarkus.security.jpa`.\n"
 "Capabilities provided by core extensions should be listed in the `io.quarkus.deployment.Capability` interface and their name should always start with the `io.quarkus` prefix."
-msgstr ""
+msgstr "Las capacidades deben seguir las convenciones de nomenclatura de los paquetes de Java; por ejemplo, `io.quarkus.security.jpa` . Las capacidades proporcionadas por las extensiones principales deben figurar en la interfaz `io.quarkus.deployment.Capability` y su nombre debe comenzar siempre con el prefijo `io.quarkus` ."
 
 #, fuzzy
 msgid "Bean Defining Annotations"
 msgstr "Anotaciones de definición de frijoles"
 
+#. mt: deepl
+#, fuzzy
 msgid "The CDI layer processes CDI beans that are either explicitly registered or that it discovers based on bean defining annotations as defined in https://jakarta.ee/specifications/cdi/5.0/jakarta-cdi-spec-5.0.html#bean_defining_annotations[2.5.1. Bean defining annotations]. You can expand this set of annotations to include annotations your extension processes using a `BeanDefiningAnnotationBuildItem` as shown in this `TestProcessor#registerBeanDefinningAnnotations` example:"
-msgstr ""
+msgstr "La capa CDI procesa los beans CDI que se han registrado explícitamente o que detecta a partir de las anotaciones de definición de beans, tal y como se define en link:https://jakarta.ee/specifications/cdi/5.0/jakarta-cdi-spec-5.0.html#bean_defining_annotations[el apartado 2.5.1, «Anotaciones de definición de beans».] Puede ampliar este conjunto de anotaciones para incluir aquellas que procese su extensión utilizando un ` `BeanDefiningAnnotationBuildItem`` , tal y como se muestra en este ejemplo `de` ` `TestProcessor#registerBeanDefinningAnnotations`` :"
 
 #, fuzzy
 msgid "Register the annotation class and CDI default scope using the Jandex `DotName` class."

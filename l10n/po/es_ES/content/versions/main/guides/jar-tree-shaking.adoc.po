@@ -52,13 +52,17 @@ msgstr "Cuando se activa el tree-shaking, Quarkus determina qué clases de depen
 msgid "Root collection"
 msgstr "Recogida de raíces"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The analysis starts by collecting root classes — classes that must be preserved regardless of bytecode references.\n"
 "Roots include the application main class, all generated classes, classes registered for reflection or JNI access (by extensions or in `reflect-config.json` and `jni-config.json` files under `META-INF/native-image`), and service provider implementations."
-msgstr ""
+msgstr "El análisis comienza recopilando las clases raíz, es decir, aquellas que deben conservarse independientemente de las referencias del código byte. Entre las clases raíz se incluyen la clase principal de la aplicación, todas las clases generadas, las clases registradas para reflexión o acceso JNI (mediante extensiones o en los archivos `reflect-config.json` y `jni-config.json` ubicados en `META-INF/native-image` ) y las implementaciones de proveedores de servicios."
 
+#. mt: deepl
+#, fuzzy
 msgid "Building a native executable adds more roots, see <<native-builds>>."
-msgstr ""
+msgstr "La compilación de un ejecutable nativo implica más pasos; consulte <<native-builds>> ."
 
 #, fuzzy
 msgid "BFS reachability"
@@ -106,8 +110,10 @@ msgstr "`Class.forName()` , `ClassLoader.loadClass()` , y `MethodHandles.Lookup.
 msgid "Reflection, JNI, and service provider registrations"
 msgstr "Registros de Reflection, JNI y proveedores de servicios"
 
+#. mt: deepl
+#, fuzzy
 msgid "Classes registered by extensions for reflection (`ReflectiveClassBuildItem`, `ReflectiveFieldBuildItem`, `ReflectiveMethodBuildItem`), JNI runtime access (`JniRuntimeAccessBuildItem`, `JniRuntimeAccessFieldBuildItem`, `JniRuntimeAccessMethodBuildItem`), and service providers (`ServiceProviderBuildItem`) are treated as root classes, see <<root-collection>>. Weak reflective registrations are excluded — they are only preserved if bytecode analysis independently reaches them. Conditional registrations (`ReflectiveClassConditionBuildItem`) are evaluated to a fixed point: a conditionally registered class becomes a root only when its condition type is reachable."
-msgstr ""
+msgstr "Las clases registradas por extensiones para la reflexión ( `ReflectiveClassBuildItem` , `ReflectiveFieldBuildItem` , `ReflectiveMethodBuildItem` ), el acceso en tiempo de ejecución a JNI ( `JniRuntimeAccessBuildItem` , `JniRuntimeAccessFieldBuildItem` , `JniRuntimeAccessMethodBuildItem` ) y los proveedores de servicios ( `ServiceProviderBuildItem` ) se tratan como clases raíz; véase <<root-collection>> . Se excluyen los registros reflexivos débiles: solo se conservan si el análisis del código byte llega a ellos de forma independiente. Los registros condicionales ( `ReflectiveClassConditionBuildItem` ) se evalúan hasta un punto fijo: una clase registrada de forma condicional solo se convierte en raíz cuando se puede acceder a su tipo de condición."
 
 #, fuzzy
 msgid "String constants"
@@ -185,104 +191,160 @@ msgid ""
 "The tree-shaker identifies `BouncyCastleProvider` as the entry point, instantiates it in the recording class loader, and captures all dynamically loaded algorithm classes."
 msgstr "Por ejemplo, el constructor `BouncyCastleProvider` de BouncyCastle llama a `setup()` que llama a `loadAlgorithms()` que llama a `loadServiceClass()` que llama a `ClassUtil.loadClass()` . El agitador de árbol identifica `BouncyCastleProvider` como el punto de entrada, lo instanciará en el cargador de clases de grabación y capturará todas las clases de algoritmo cargadas dinámicamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "Module-level tree-shaking"
-msgstr ""
+msgstr "«Tree-shaking» a nivel de módulo"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When a Quarkus modular packaging extension is present (for example, `quarkus-jlink`), tree-shaking also operates at the module level.\n"
 "After the class-level analysis determines which classes are reachable, the module tree-shaker evaluates each module in the application's module model:"
-msgstr ""
+msgstr "Cuando existe una extensión de empaquetado modular de Quarkus (por ejemplo, `quarkus-jlink` ), el «tree-shaking» también se aplica a nivel de módulo. Una vez que el análisis a nivel de clase determina qué clases son accesibles, el «tree-shaker» de módulos evalúa cada módulo del modelo de módulos de la aplicación:"
 
+#. mt: deepl
+#, fuzzy
 msgid "A module is *class-dead* if it contains `.class` entries but none of them are in the reachable set. Class-dead modules are removed entirely from the packaged application."
-msgstr ""
+msgstr "Un módulo se considera *«class-dead»* si contiene entradas `.class` , pero ninguna de ellas se encuentra en el conjunto accesible. Los módulos «class-dead» se eliminan por completo de la aplicación empaquetada."
 
+#. mt: deepl
+#, fuzzy
 msgid "A module with no `.class` entries at all (a resource-only JAR) is kept alive — it may provide configuration files, native libraries, or other resources needed at runtime."
-msgstr ""
+msgstr "Un módulo que no contenga ninguna entrada `.class` (un JAR que solo contenga recursos) se mantiene activo; puede proporcionar archivos de configuración, bibliotecas nativas u otros recursos necesarios en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "A module with an empty content tree (no content to contribute) is treated as dead."
-msgstr ""
+msgstr "Un módulo con un árbol de contenido vacío (sin contenido que aportar) se considera inactivo."
 
+#. mt: deepl
+#, fuzzy
 msgid "After dead modules are removed, surviving modules are cleaned up:"
-msgstr ""
+msgstr "Una vez eliminados los módulos inactivos, se limpian los módulos restantes:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`requires` directives pointing to removed modules are dropped."
-msgstr ""
+msgstr "`Es necesario` eliminar las directivas que hacen referencia a módulos que se han eliminado."
 
+#. mt: deepl
+#, fuzzy
 msgid "Auto-dependency groups whose entries all point to removed modules are dropped."
-msgstr ""
+msgstr "Se eliminan los grupos de dependencias automáticas cuyas entradas apunten en su totalidad a módulos que se han eliminado."
 
+#. mt: deepl
+#, fuzzy
 msgid "Service provider entries (`provides ... with ...`) whose implementation classes are not in the reachable set are removed."
-msgstr ""
+msgstr "Se eliminan las entradas de proveedores de servicios ( `que proporcionan …​ a …​` ) cuyas clases de implementación no se encuentren en el conjunto accesible."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Unreachable classes are removed from the module, while non-class resources (for example, resource bundles) are always kept.\n"
 "Packages left with no content are removed from the module descriptor, together with any `add-exports` or `add-opens` of those packages declared by other modules."
-msgstr ""
+msgstr "Las clases a las que no se puede acceder se eliminan del módulo, mientras que los recursos que no son clases (por ejemplo, los paquetes de recursos) siempre se conservan. Los paquetes que quedan sin contenido se eliminan del descriptor del módulo, junto con cualquier `instrucción «add-exports»` o `«add-opens»` de dichos paquetes declarada por otros módulos."
 
+#. mt: deepl
+#, fuzzy
 msgid "The set of JDK modules required by the application is recomputed from surviving modules only, which can reduce the size of a `jlink` image."
-msgstr ""
+msgstr "El conjunto de módulos JDK que requiere la aplicación se vuelve a calcular a partir únicamente de los módulos que han sobrevivido, lo que puede reducir el tamaño de una imagen `jlink` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The module tree-shaker also performs a graph reachability analysis — a BFS from root modules (the application module and boot modules) through the dependency graph.\n"
 "Modules that are not reachable from any root but still contain reachable classes are *not* removed, since they may be accessed via reflection, service loading, or from automatic modules without explicit `requires` directives.\n"
 "A warning is logged for such modules to help diagnose missing dependency declarations."
-msgstr ""
+msgstr "El módulo «tree-shaker» también realiza un análisis de accesibilidad del grafo: un BFS desde los módulos raíz (el módulo de la aplicación y los módulos de arranque) a través del grafo de dependencias. Los módulos a los que no se puede acceder desde ninguna raíz, pero que aún así contienen clases accesibles, *no* se eliminan, ya que se puede acceder a ellos mediante reflexión, carga de servicios o desde módulos automáticos sin directivas `«require»` explícitas. Se registra una advertencia para dichos módulos con el fin de ayudar a diagnosticar las declaraciones de dependencias que faltan."
 
+#. mt: deepl
+#, fuzzy
 msgid "Native builds"
-msgstr ""
+msgstr "Compilaciones nativas"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When tree-shaking is enabled for a native build, it applies to the JARs passed to `native-image`, including those produced with `quarkus.native.sources-only=true`.\n"
 "`native-image` performs its own reachability analysis and only includes reachable code in the executable, so tree-shaking the JARs is not expected to make the native executable smaller."
-msgstr ""
+msgstr "Cuando se habilita el «tree-shaking» para una compilación nativa, este se aplica a los archivos JAR que se pasan a `«native-image»` , incluidos aquellos generados con la opción `«quarkus.native.sources-only=true` ». `«native-image»` realiza su propio análisis de accesibilidad y solo incluye el código accesible en el ejecutable, por lo que no cabe esperar que la eliminación de código (tree-shaking) de los archivos JAR reduzca el tamaño del ejecutable nativo."
 
+#. mt: deepl
+#, fuzzy
 msgid "In addition to the <<root-collection,roots of all builds>>, the tree-shaker keeps the following classes when building a native executable:"
-msgstr ""
+msgstr "Además de los xref:root-collection[componentes básicos de todas las compilaciones] , Tree Shaker conserva las siguientes clases al compilar un ejecutable nativo:"
 
+#. mt: deepl
+#, fuzzy
 msgid "GraalVM Features: `--features` arguments in `native-image.properties` files and Features registered by extensions. `native-image` loads them."
-msgstr ""
+msgstr "Características de GraalVM: los argumentos `--features` de los archivos `native-image.properties` y las características registradas por las extensiones. `native-image` las carga."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Classes named in class initialization settings: `--initialize-at-run-time` and `--initialize-at-build-time` arguments in `native-image.properties` files, and runtime-initialized classes registered by extensions.\n"
 "These settings don't make `native-image` include a class, but the tree-shaker currently keeps the classes they name."
-msgstr ""
+msgstr "Las clases especificadas en la configuración de inicialización de clases: los argumentos `--initialize-at-run-time` y `--initialize-at-build-time` de los archivos `native-image.properties` , así como las clases inicializadas en tiempo de ejecución registradas por las extensiones. Estos ajustes no hacen que `native-image` incluya una clase, pero el «tree-shaker» conserva actualmente las clases que se especifican en ellos."
 
+#. mt: deepl
+#, fuzzy
 msgid "Security providers registered by extensions, which `native-image` fails to build without."
-msgstr ""
+msgstr "Proveedores de seguridad registrados por extensiones, sin los cuales `«native-image»` no puede compilarse."
 
+#. mt: deepl
+#, fuzzy
 msgid "Classes referenced by classes that extensions generate only for `native-image`, such as generated GraalVM Features."
-msgstr ""
+msgstr "Clases a las que hacen referencia las clases que las extensiones generan únicamente para `«native-image»` , como las características generadas de GraalVM."
 
+#. mt: deepl
+#, fuzzy
 msgid "Classes referenced by predefined classes, i.e. classes defined at runtime from bytecode listed in `predefined-classes-config.json`."
-msgstr ""
+msgstr "Clases a las que hacen referencia las clases predefinidas, es decir, clases definidas en tiempo de ejecución a partir del código byte que figura en `el archivo predefined-classes-config.json` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "GraalVM substitutions, as described below."
-msgstr ""
+msgstr "Sustituciones de GraalVM, tal y como se describe a continuación."
 
+#. mt: deepl
+#, fuzzy
 msgid "These roots are not considered for JVM builds, so a JVM build may remove classes that a native build of the same application keeps."
-msgstr ""
+msgstr "Estas raíces no se tienen en cuenta en las compilaciones de la JVM, por lo que una compilación de la JVM puede eliminar clases que una compilación nativa de la misma aplicación conserva."
 
+#. mt: deepl
+#, fuzzy
 msgid "GraalVM substitutions"
-msgstr ""
+msgstr "Sustituciones de GraalVM"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`native-image` discovers substitution classes (`@TargetClass`), in dependencies or in the application, by scanning the class path, and fails if a substitution's target class is missing.\n"
 "So a substitution class is kept when its target class is kept, and its target class is kept when the substitution class is kept:"
-msgstr ""
+msgstr "`native-image` detecta las clases de sustitución ( `@TargetClass` ), tanto en las dependencias como en la propia aplicación, mediante un análisis de la ruta de clases, y falla si falta la clase de destino de una sustitución. Por lo tanto, una clase de sustitución se conserva cuando se conserva su clase de destino, y su clase de destino se conserva cuando se conserva la clase de sustitución:"
 
+#. mt: deepl
+#, fuzzy
 msgid "A substitution whose target is always present (a JDK or GraalVM class, an application class, or a class of an artifact excluded from tree-shaking) is always kept."
-msgstr ""
+msgstr "Una sustitución cuyo objetivo esté siempre presente (una clase del JDK o de GraalVM, una clase de aplicación o una clase de un artefacto excluido del «tree-shaking») se conserva siempre."
 
+#. mt: deepl
+#, fuzzy
 msgid "A substitution whose target is not on the class path at all is removed."
-msgstr ""
+msgstr "Se elimina cualquier sustitución cuyo destino no se encuentre en absoluto en la ruta de clases."
 
+#. mt: deepl
+#, fuzzy
 msgid "Substitutions whose target is computed by a `classNameProvider`, and other classes using GraalVM substitution annotations, are always kept."
-msgstr ""
+msgstr "Las sustituciones cuyo objetivo se calcula mediante un ` `classNameProvider`` , así como otras clases que utilizan anotaciones de sustitución de GraalVM, se conservan siempre."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For a target given as an `innerClass`, `native-image` looks it up among the declared classes of the enclosing classes.\n"
 "So when such a substitution is kept, the enclosing classes and all their member classes are kept loadable: together with their superclasses and interfaces, but without the classes only their code references."
-msgstr ""
+msgstr "Cuando un objetivo se especifica como una ``innerClass`` , ``native-image`` lo busca entre las clases declaradas de las clases contenedoras. Por lo tanto, cuando se mantiene dicha sustitución, las clases contenedoras y todas sus clases miembro se mantienen cargables: junto con sus superclases e interfaces, pero sin las clases, solo sus referencias de código."
 
 #, fuzzy
 msgid "Excluding artifacts from tree-shaking"
@@ -320,8 +382,10 @@ msgstr "Sólo las clases de las dependencias en tiempo de ejecución son candida
 msgid "The `classes` level only removes class files. Other resources (such as configuration files, property files, and `META-INF` entries) are preserved. Dependencies from which all classes have been removed are still included in the final JAR, since they may contain resources required at runtime."
 msgstr "El nivel `classes` sólo elimina los archivos de clase. Los demás recursos (como los archivos de configuración, los archivos de propiedades y las entradas de `META-INF` ) se conservan. Las dependencias de las que se han eliminado todas las clases se siguen incluyendo en el JAR final, ya que pueden contener recursos necesarios en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid "Module-level tree-shaking (removing entire modules) is only performed when a modular packaging extension (for example, `quarkus-jlink`) is present. Otherwise, only class-level removal applies."
-msgstr ""
+msgstr "La eliminación de módulos (tree-shaking a nivel de módulo) solo se lleva a cabo cuando existe una extensión de empaquetado modular (por ejemplo, `quarkus-jlink` ). En caso contrario, solo se aplica la eliminación a nivel de clase."
 
 msgid "Troubleshooting"
 msgstr "Solución de problemas"

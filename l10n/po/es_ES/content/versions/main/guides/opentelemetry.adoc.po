@@ -257,12 +257,14 @@ msgstr "`quarkus.otel.traces.exporter`"
 msgid "cdi"
 msgstr "cdi"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "List of exporters to be used for tracing, separated by commas. Has one of the values from _ExporterType_: `otlp`, `cdi`, `none`.\n"
 "\n"
 "This is a *build* time property and setting it to `none` will disable tracing data output.\n"
 "Telemetry will still be generated and contexts will still be propagated but nothing will be exported. To stop creating spans altogether, use `quarkus.otel.traces.enabled`."
-msgstr ""
+msgstr "Lista de exportadores que se utilizará para el seguimiento, separados por comas. Debe contener uno de los valores de _«ExporterType_ »: `otlp` , `cdi` o `none` ."
 
 #, fuzzy
 msgid "Metrics"
@@ -320,8 +322,10 @@ msgstr "`quarkus.otel.logs.handler.enabled`"
 msgid "If false, disable the OpenTelemetry logs handler at *runtime*. This removes the bridge between the Quarkus logging system (JBoss LogManager) and OpenTelemetry logs."
 msgstr "Si es falso, desactivar el gestor de registros OpenTelemetry en *tiempo de ejecución* . Esto elimina el puente entre el sistema de registro de Quarkus (JBoss LogManager) y los registros de OpenTelemetry."
 
+#. mt: deepl
+#, fuzzy
 msgid "The output properties and the enablement properties are not interchangeable. Disabling the output (`quarkus.otel.exporter.otlp.enabled=false`, or an exporter list set to `none`) stops telemetry from being *sent out*, while telemetry keeps being generated: trace and span ids remain available for log correlation and keep being propagated to downstream services. Disabling a signal (`quarkus.otel.traces.enabled=false`) or the whole SDK (`quarkus.otel.sdk.disabled=true`) stops the telemetry from being *generated* in the first place, which is the cheaper option when you want nothing at all."
-msgstr ""
+msgstr "Las propiedades de salida y las propiedades de activación no son intercambiables. La desactivación de la salida ( `quarkus.otel.exporter.otlp.enabled=false` , o una lista de exportadores establecida en `«none»` ) impide que se *envíe la* telemetría, aunque esta sigue generándose: los identificadores de traza y de intervalo siguen estando disponibles para la correlación de registros y continúan propagándose a los servicios posteriores. Desactivar una señal ( `quarkus.otel.traces.enabled=false` ) o todo el SDK ( `quarkus.otel.sdk.disabled=true` ) impide que se *genere* la telemetría desde el principio, lo cual es la opción más económica cuando no se desea nada en absoluto."
 
 #, fuzzy
 msgid "If you need to enable or disable the exporter at runtime, you can use the xref:opentelemetry-tracing.adoc#sampler[sampler] because it has the ability to filter out all the spans if needed."
@@ -645,21 +649,31 @@ msgid ""
 "Setting it to `reusable-data` enables object pooling to reduce garbage collection pressure, which can be beneficial in memory-constrained environments."
 msgstr "La propiedad `quarkus.otel.exporter.otlp.memory-mode` configura la estrategia de asignación de memoria para los exportadores OTLP. El valor por defecto `immutable-data` crea nuevos objetos de serialización para cada exportación. Si se establece en `reusable-data` se habilita la agrupación de objetos para reducir la presión de la recolección de basura, lo que puede ser beneficioso en entornos con restricciones de memoria."
 
+#. mt: deepl
+#, fuzzy
 msgid "Export timeout and retries"
-msgstr ""
+msgstr "Tiempo de espera de exportación y reintentos"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `quarkus.otel.exporter.otlp.timeout` property sets the maximum time to wait for the collector to process an exported batch.\n"
 "It defaults to `10s` and applies to all signals.\n"
 "Use `quarkus.otel.exporter.otlp.traces.timeout`, `quarkus.otel.exporter.otlp.metrics.timeout` or `quarkus.otel.exporter.otlp.logs.timeout` to set a different value for one signal."
-msgstr ""
+msgstr "La propiedad `«quarkus.otel.exporter.otlp.timeout»` establece el tiempo máximo de espera para que el colector procese un lote exportado. Su valor por defecto es de `10 s` y se aplica a todas las señales. Utilice `quarkus.otel.exporter.otlp.traces.timeout` , `quarkus.otel.exporter.otlp.metrics.timeout` o `quarkus.otel.exporter.otlp.logs.timeout` para establecer un valor diferente para una señal concreta."
 
+#. mt: deepl
+#, fuzzy
 msgid "Applies to traces, metrics and logs."
-msgstr ""
+msgstr "Se aplica a los rastros, las métricas y los registros."
 
+#. mt: deepl
+#, fuzzy
 msgid "Overrides the timeout for metrics only."
-msgstr ""
+msgstr "Anula el tiempo de espera únicamente para las métricas."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The timeout applies to each attempt of an export, from the moment the request is sent until the whole response has been received.\n"
 "It does not depend on the activity on the connection: a response that keeps arriving slowly but never completes still times out.\n"
@@ -667,14 +681,16 @@ msgid ""
 "An export is sent to the collector at most 4 times before it fails.\n"
 "A retry after a timeout or a failed response starts as soon as the previous attempt ends, without a back-off.\n"
 "Only a connection that cannot be opened is retried with a short back-off, starting at 100ms, within each attempt, so an unreachable collector can see more connection attempts than that."
-msgstr ""
+msgstr "El tiempo de espera se aplica a cada intento de exportación, desde el momento en que se envía la solicitud hasta que se haya recibido la respuesta completa. No depende de la actividad en la conexión: una respuesta que sigue llegando lentamente pero que nunca se completa también agota el tiempo de espera. Un intento que agota el tiempo de espera se cancela y se vuelve a intentar, al igual que ocurre con una conexión fallida o, en el caso de `HTTP/Protobuf` , con una respuesta `5xx` . Una exportación se envía al colector un máximo de cuatro veces antes de que se considere fallida. Un nuevo intento tras un tiempo de espera agotado o una respuesta fallida comienza tan pronto como finaliza el intento anterior, sin periodo de espera. Solo se vuelve a intentar con una breve pausa —que comienza en 100 ms— aquellas conexiones que no se puedan abrir, dentro de cada intento, de modo que un colector inaccesible pueda recibir más intentos de conexión que ese número."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When an attempt times out, the exporter cannot know whether the collector has already stored the batch, so the retry can deliver it twice.\n"
 "The OTLP specification makes this trade-off deliberately: a client re-sends data it has no acknowledgement for, to guarantee delivery, even if this can create duplicates on the server side.\n"
 "See https://opentelemetry.io/docs/specs/otlp/#duplicate-data[Duplicate Data] in the OTLP specification.\n"
 "To avoid unnecessary retries, set the timeout above the longest time your collector, or any proxy in front of it, takes to answer an export."
-msgstr ""
+msgstr "Cuando un intento agota el tiempo de espera, el exportador no puede saber si el colector ya ha almacenado el lote, por lo que el nuevo intento podría entregarlo dos veces. La especificación OTLP establece esta compensación de forma deliberada: un cliente reenvía los datos de los que no ha recibido acuse de recibo para garantizar su entrega, aunque ello pueda generar duplicados en el lado del servidor. Consulte link:https://opentelemetry.io/docs/specs/otlp/#duplicate-data[«Datos duplicados»] en la especificación OTLP. Para evitar reintentos innecesarios, establezca el tiempo de espera por encima del tiempo máximo que tarda su colector —o cualquier proxy situado delante de él— en responder a una exportación."
 
 #, fuzzy
 msgid "Using CDI to produce a test exporter"
@@ -1068,6 +1084,8 @@ msgstr "lista de cadenas"
 msgid "`+++cdi+++`"
 msgstr "`cdi`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "icon:lock[title=Fixed at build time] [[quarkus-opentelemetry_quarkus-otel-traces-sampler]] [.property-path]##link:#quarkus-opentelemetry_quarkus-otel-traces-sampler[`+++quarkus.otel.traces.sampler+++`]##\n"
 "config_property_copy_button:+++quarkus.otel.traces.sampler+++[]\n"
@@ -1086,7 +1104,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_OTEL_TRACES_SAMPLER+++[]\n"
 "--"
-msgstr ""
+msgstr "[lock]  link:#quarkus-opentelemetry_quarkus-otel-traces-sampler[quarkus.otel.traces.sampler] config_property_copy_button:quarkus.otel.traces.sampler[]"
 
 #. mt: deepl
 #, fuzzy
@@ -1100,14 +1118,20 @@ msgstr "[lock]  link:#quarkus-opentelemetry_quarkus-otel-traces-sampler[quarkus.
 msgid "The sampler to use for tracing."
 msgstr "El muestreador que debe utilizarse para el trazado."
 
+#. mt: deepl
+#, fuzzy
 msgid "Has one of the values on `SamplerType` `always_on`, `always_off`, `traceidratio`, `parentbased_always_on`, `parentbased_always_off`, `parentbased_traceidratio` or the Sampler SPI name."
-msgstr ""
+msgstr "Uno de los valores de `«SamplerType»` es `«always_on»` , `«always_off»` , `«traceidratio»` , `«parentbased_always_on»` , `«parentbased_always_off»` , `«parentbased_traceidratio»` o el nombre del SPI del muestreador."
 
+#. mt: deepl
+#, fuzzy
 msgid "Options with the `parentbased` prefix will decide sampling based on the status of the span’s parent. Please note that span propagation includes the sampling status."
-msgstr ""
+msgstr "Las opciones con el prefijo `«parentbased»` determinarán el muestreo en función del estado del elemento padre del span. Tenga en cuenta que la propagación del span incluye el estado del muestreo."
 
+#. mt: deepl
+#, fuzzy
 msgid "The default configuration is `SamplerType++#++PARENT_BASED_TRACE_ID_RATIO` and works in tandem with the `arg` runtime configuration `quarkus.otel.traces.sampler.arg` responsible for setting the ratio."
-msgstr ""
+msgstr "La configuración predeterminada es `SamplerType#PARENT_BASED_TRACE_ID_RATIO` y funciona en combinación con el `parámetro de` configuración en tiempo de ejecución `quarkus.otel.traces.sampler.arg` , encargado de establecer la proporción."
 
 #. mt: deepl
 #, fuzzy
@@ -1815,6 +1839,8 @@ msgstr "Recurre a la propiedad heredada `«quarkus.opentelemetry.tracer.include-
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_OTEL_TRACES_INCLUDE_STATIC_RESOURCES+++[]"
 msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_OTEL_TRACES_INCLUDE_STATIC_RESOURCES[]"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-opentelemetry_quarkus-otel-traces-sampler-arg]] [.property-path]##link:#quarkus-opentelemetry_quarkus-otel-traces-sampler-arg[`+++quarkus.otel.traces.sampler.arg+++`]##\n"
 "config_property_copy_button:+++quarkus.otel.traces.sampler.arg+++[]\n"
@@ -1831,7 +1857,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_OTEL_TRACES_SAMPLER_ARG+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-opentelemetry_quarkus-otel-traces-sampler-arg[quarkus.otel.traces.sampler.arg] config_property_copy_button:quarkus.otel.traces.sampler.arg[]"
 
 #. mt: deepl
 #, fuzzy
@@ -1840,14 +1866,20 @@ msgid ""
 "config_property_copy_button:+++quarkus.otel.traces.sampler.arg+++[]"
 msgstr " link:#quarkus-opentelemetry_quarkus-otel-traces-sampler-arg[quarkus.otel.traces.sampler.arg] config_property_copy_button:quarkus.otel.traces.sampler.arg[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "Sampler ratio argument. Depends on the `quarkus.otel.traces.sampler` property, when set to `traceidratio` or `parentbased_traceidratio`."
-msgstr ""
+msgstr "Argumento de la relación del muestreador. Depende de la propiedad `«quarkus.otel.traces.sampler` » cuando se establece en `«traceidratio` » o `«parentbased_traceidratio` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Accepts `double` compatible value between `0.0d` and `1.0d`, like `0.01d` or `0.5d`. Where `0.0d` is 0% and drops all spans and `1.0d` is 100% and samples all spans."
-msgstr ""
+msgstr "Admite valores `de tipo «double»` compatibles comprendidos entre `0,0d` y `1,0d` , como `0,01d` o `0,5d` . En este caso, `0,0d` corresponde al 0 % y omite todos los intervalos, mientras que `1,0d` corresponde al 100 % y muestrea todos los intervalos."
 
+#. mt: deepl
+#, fuzzy
 msgid "This configuration is kept as a `String` to allow the flexible customization of alternative samplers."
-msgstr ""
+msgstr "Esta configuración se almacena como una `cadena` de caracteres para permitir una personalización flexible de los muestreadores alternativos."
 
 #. mt: deepl
 #, fuzzy

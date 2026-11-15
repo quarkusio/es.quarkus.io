@@ -37,8 +37,10 @@ msgstr "La eliminación de la carga es la práctica de detectar la sobrecarga de
 msgid "In Quarkus, the `quarkus-load-shedding` extension provides a load shedding mechanism."
 msgstr "En Quarkus, la extensión `quarkus-load-shedding` proporciona un mecanismo de descarga de carga."
 
+#. mt: deepl
+#, fuzzy
 msgid "Use the load shedding extension"
-msgstr ""
+msgstr "Utilice la extensión de desconexión de carga"
 
 #, fuzzy
 msgid "To use the load shedding extension, you need to add the `io.quarkus:quarkus-load-shedding` extension to your project:"
@@ -87,15 +89,19 @@ msgstr "El algoritmo de reducción de la carga consta de 2 partes:"
 msgid "overload detection"
 msgstr "detección de sobrecarga"
 
+#. mt: deepl
+#, fuzzy
 msgid "prioritization (optional)"
-msgstr ""
+msgstr "establecimiento de prioridades (opcional)"
 
 #, fuzzy
 msgid "Overload detection"
 msgstr "Detección de sobrecarga"
 
+#. mt: deepl
+#, fuzzy
 msgid "To detect whether the current service is overloaded, an adaptation of the Vegas algorithm (known from TCP) is used."
-msgstr ""
+msgstr "Para detectar si el servicio actual está sobrecargado, se utiliza una adaptación del algoritmo Vegas (conocido en el contexto de TCP)."
 
 #, fuzzy
 msgid ""
@@ -103,11 +109,13 @@ msgid ""
 "If the current number of concurrent in-flight requests reaches the limit, overload situation is signalled."
 msgstr "Este algoritmo comienza con un límite configurable de solicitudes en vuelo, por defecto 100. Si el número actual de solicitudes concurrentes en vuelo alcanza el límite, se señaliza una situación de sobrecarga."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "That is not very interesting, but the algorithm dynamically adjusts the limit based on the size of the request queue.\n"
 "If the queue is short, more requests can be handled and the limit increases; if the queue is long, fewer requests can be handled and the limit decreases.\n"
 "The limit cannot increase or decrease indefinitely; there's a configurable minimum, by default 20, and configurable maximum, by default 1000."
-msgstr ""
+msgstr "Esto no resulta muy interesante, pero el algoritmo ajusta dinámicamente el límite en función del tamaño de la cola de solicitudes. Si la cola es corta, se pueden gestionar más solicitudes y el límite aumenta; si la cola es larga, se pueden gestionar menos solicitudes y el límite disminuye. El límite no puede aumentar ni disminuir indefinidamente; existe un mínimo configurable, por defecto 20, y un máximo configurable, por defecto 1000."
 
 #, fuzzy
 msgid ""
@@ -115,17 +123,25 @@ msgid ""
 "The longer recent requests take, compared to the recent lowest response time, the longer the queue is supposed to be."
 msgstr "Sin embargo, no existe una cola real de solicitudes que podamos supervisar, por lo que el algoritmo estima la longitud actual de una cola de solicitudes basándose en los tiempos de respuesta vistos anteriormente. Cuanto más tiempo tarden las solicitudes recientes, en comparación con el tiempo de respuesta más bajo reciente, más larga se supone que es la cola."
 
+#. mt: deepl
+#, fuzzy
 msgid "Prioritization"
-msgstr ""
+msgstr "Establecimiento de prioridades"
 
+#. mt: deepl
+#, fuzzy
 msgid "If an overload situation is signalled, prioritization is invoked."
-msgstr ""
+msgstr "Si se detecta una situación de sobrecarga, se activa el sistema de priorización."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If prioritization is disabled, all requests beyond the current limit are rejected immediately.\n"
 "However, by default, prioritization is enabled, which means a request is only rejected if the overload is deep enough."
-msgstr ""
+msgstr "Si la priorización está desactivada, todas las solicitudes que superen el límite actual se rechazan de inmediato. Sin embargo, de forma predeterminada, la priorización está activada, lo que significa que una solicitud solo se rechaza si la sobrecarga es lo suficientemente grave."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The overload depth is expressed as a number between 0.0 and 1.0.\n"
 "It is 0.0 when the number of current requests is at the current limit.\n"
@@ -133,10 +149,12 @@ msgid ""
 "This provides maximum initial steepness to aggressively shed lower-priority requests immediately upon crossing the limit, while smoothly flattening out near 1.0 to provide a broad runway for higher-priority traffic.\n"
 "When the limit is below the maximum limit, the overload depth reaches 1.0 when the number of current requests reaches the maximum limit.\n"
 "When the limit is at the maximum limit, the overload depth reaches 1.0 when the number of current requests reaches 130% of the maximum limit, leaving a 30% safety buffer for the most important requests."
-msgstr ""
+msgstr "La profundidad de sobrecarga se expresa como un número comprendido entre 0,0 y 1,0. Es igual a 0,0 cuando el número de solicitudes actuales se encuentra en el límite actual. Cuando el número de solicitudes actuales supera el límite actual, el resultado se escala de forma suave utilizando la mitad derecha de una curva sigmoide (tangente hiperbólica). Esto proporciona una pendiente inicial máxima para descartar de forma agresiva las solicitudes de menor prioridad inmediatamente tras superar el límite, al tiempo que se aplana suavemente cerca de 1,0 para proporcionar un amplio margen al tráfico de mayor prioridad. Cuando el límite se encuentra por debajo del límite máximo, la profundidad de sobrecarga alcanza el valor 1,0 cuando el número de solicitudes actuales alcanza el límite máximo. Cuando el límite se sitúa en el límite máximo, la profundidad de sobrecarga alcanza el valor 1,0 cuando el número de solicitudes actuales alcanza el 130 % del límite máximo, lo que deja un margen de seguridad del 30 % para las solicitudes más importantes."
 
+#. mt: deepl
+#, fuzzy
 msgid "The more requests are admitted past the limit, the deeper the overload and the more requests are rejected, until the application settles at a level of concurrency it can sustain."
-msgstr ""
+msgstr "Cuantas más solicitudes se admitan por encima del límite, mayor será la sobrecarga y más solicitudes se rechazarán, hasta que la aplicación se estabilice en un nivel de concurrencia que pueda soportar."
 
 #, fuzzy
 msgid "To determine whether a request should be rejected, 2 attributes are considered:"
@@ -154,37 +172,47 @@ msgstr "solicitar cohorte"
 msgid "There are 5 statically defined priorities and 128 cohorts, which amounts to 640 request groups in total."
 msgstr "Hay 5 prioridades definidas estáticamente y 128 cohortes, lo que supone 640 grupos de solicitudes en total."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "After both priority and cohort are assigned to a request, a request group number is computed.\n"
 "The group number is smaller for higher priority requests and higher for lower priority requests.\n"
 "If the group number is lower than a threshold derived from the overload depth, the request is accepted, otherwise it is rejected."
-msgstr ""
+msgstr "Una vez asignadas tanto la prioridad como la cohorte a una solicitud, se calcula un número de grupo de solicitud. El número de grupo es menor para las solicitudes de mayor prioridad y mayor para las de menor prioridad. Si el número de grupo es inferior a un umbral derivado de la profundidad de sobrecarga, la solicitud se acepta; en caso contrario, se rechaza."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The threshold is derived as `(1 - overload^3) * 640`, where `overload` is the overload depth (described above) and 640 is the number of request groups (also described above).\n"
 "The cubic curve is chosen deliberately, because it is flat near 0, so that a slight excess over the concurrency limit only rejects the least important requests."
-msgstr ""
+msgstr "El umbral se calcula como `(1 - sobrecarga³) * 640` , donde `«sobrecarga»` es la profundidad de sobrecarga (descrita anteriormente) y 640 es el número de grupos de solicitudes (también descrito anteriormente). Se ha optado deliberadamente por una curva cúbica, ya que es plana en las proximidades de 0, de modo que un ligero exceso respecto al límite de concurrencia solo rechaza las solicitudes menos importantes."
 
 #, fuzzy
 msgid "Customizing request priority"
 msgstr "Personalizar la prioridad de las solicitudes"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Priority is assigned by a `io.quarkus.load.shedding.RequestPrioritizer`.\n"
 "There is 5 statically defined priorities in the `io.quarkus.load.shedding.RequestPriority` enum: `CRITICAL`, `IMPORTANT`, `NORMAL`, `BACKGROUND` and `DEGRADED`.\n"
 "By default, if no request prioritizer applies, the priority is assumed to be `NORMAL`.\n"
 "Further, there's a special priority level called `NEVER`, which is exempt from load shedding entirely."
-msgstr ""
+msgstr "La prioridad se asigna mediante un objeto ``io.quarkus.load.shedding.RequestPrioritizer` `. Existen cinco prioridades definidas de forma estática en la enumeración ``io.quarkus.load.shedding.RequestPriority` `: `CRITICAL` , `IMPORTANT` , `NORMAL` , `BACKGROUND` y `DEGRADED` . Por defecto, si no se aplica ningún priorizador de solicitudes, se asume que la prioridad es `NORMAL` . Además, existe un nivel de prioridad especial denominado `NEVER` , que queda totalmente exento de la reducción de carga."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "There is one default prioritizer which assigns the priority of `NEVER` to requests to the non-application endpoints.\n"
 "It declares no `@Priority`."
-msgstr ""
+msgstr "Existe un priorizador predeterminado que asigna la prioridad `«NEVER»` a las solicitudes dirigidas a los puntos finales que no pertenecen a la aplicación. No declara ningún `@Priority` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Independently of priority load shedding, the health probes (liveness, readiness and startup) and the metrics endpoint are never shed, even if priority load shedding is disabled.\n"
 "Extensions declare such paths with the `io.quarkus.load.shedding.deployment.spi.LoadSheddingExemptPathBuildItem` build item from the `quarkus-load-shedding-deployment-spi` artifact."
-msgstr ""
+msgstr "Independientemente de la reducción de carga prioritaria, las comprobaciones de estado (actividad, disponibilidad y puesta en marcha) y el punto final de métricas nunca se eliminan, incluso si la reducción de carga prioritaria está desactivada. Las extensiones declaran dichas rutas mediante el elemento de compilación `io.quarkus.load.shedding.deployment.spi.LoadSheddingExemptPathBuildItem` , procedente del artefacto `quarkus-load-shedding-deployment-spi` ."
 
 #, fuzzy
 msgid ""
@@ -199,12 +227,14 @@ msgstr "Es posible definir implementaciones personalizadas de la interfaz `Reque
 msgid "Customizing request cohort"
 msgstr "Personalización de la cohorte de solicitudes"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Cohort is assigned by a `io.quarkus.load.shedding.RequestClassifier`.\n"
 "There are 128 statically defined cohorts, with the lowest number being 0 and the highest number being 127.\n"
 "The classifier should return a number in this interval; if it doesn't, the result is clamped by a simple bit mask.\n"
 "This puts requirements on the returned value that are described in the `RequestClassifier` javadoc."
-msgstr ""
+msgstr "La cohorte se asigna mediante un `io.quarkus.load.shedding.RequestClassifier` . Existen 128 cohortes definidas de forma estática, siendo el número más bajo el 0 y el más alto el 127. El clasificador debe devolver un número dentro de este intervalo; de no ser así, el resultado se limita mediante una sencilla máscara de bits. Esto impone una serie de requisitos al valor devuelto, tal y como se describe en la documentación de JavaDoc `de RequestClassifier` ."
 
 #, fuzzy
 msgid ""
@@ -225,8 +255,10 @@ msgstr "Es posible definir implementaciones personalizadas de la interfaz `Reque
 msgid "Metrics"
 msgstr "Métrica"
 
+#. mt: deepl
+#, fuzzy
 msgid "If the xref:telemetry-micrometer.adoc[Micrometer extension] is present, this extension publishes the following metrics:"
-msgstr ""
+msgstr "Si se dispone de la xref:telemetry-micrometer.adoc[extensión «Micrometer»] , esta publica las siguientes métricas:"
 
 msgid "Name"
 msgstr "Nombre"
@@ -237,55 +269,87 @@ msgstr "Tipo"
 msgid "Description"
 msgstr "Descripción"
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.shed.requests`"
-msgstr ""
+msgstr "`carga.desconexión.solicitudes de desconexión`"
 
+#. mt: deepl
+#, fuzzy
 msgid "counter"
-msgstr ""
+msgstr "contador"
 
+#. mt: deepl
+#, fuzzy
 msgid "Number of requests rejected by load shedding."
-msgstr ""
+msgstr "Número de solicitudes rechazadas debido a la reducción de la carga."
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.current.requests`"
-msgstr ""
+msgstr "`solicitudes actuales de corte de suministro`"
 
+#. mt: deepl
+#, fuzzy
 msgid "gauge"
-msgstr ""
+msgstr "calibre"
 
+#. mt: deepl
+#, fuzzy
 msgid "Number of requests currently in flight, as counted by the overload detector."
-msgstr ""
+msgstr "Número de solicitudes actualmente en curso, según el recuento del detector de sobrecarga."
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.current.limit`"
-msgstr ""
+msgstr "`límite de corriente en la reducción de carga`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The request limit the overload detector has currently adapted to; reaching it signals an overload."
-msgstr ""
+msgstr "El límite de solicitudes al que se ha adaptado actualmente el detector de sobrecarga; al alcanzarlo, se indica una sobrecarga."
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.overload.status`"
-msgstr ""
+msgstr "`corte de suministro.sobrecarga.estado`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Whether the application is currently overloaded: `1` if it is, `0` if it is not."
-msgstr ""
+msgstr "Si la aplicación se encuentra actualmente sobrecargada: `1` si es así, `0` si no lo está."
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.overload.depth`"
-msgstr ""
+msgstr "`corte de suministro.sobrecarga.profundidad`"
 
+#. mt: deepl
+#, fuzzy
 msgid "How deep the overload currently is, as a number between 0.0 and 1.0."
-msgstr ""
+msgstr "Cuál es el nivel actual de sobrecarga, expresado como un número comprendido entre 0,0 y 1,0."
 
+#. mt: deepl
+#, fuzzy
 msgid "`load.shedding.overload.duration`"
-msgstr ""
+msgstr "`corte de suministro.sobrecarga.duración`"
 
+#. mt: deepl
+#, fuzzy
 msgid "How long the current overload has lasted, or `0` if the application is not overloaded."
-msgstr ""
+msgstr "Cuánto tiempo ha durado la sobrecarga de corriente, o `0` si la aplicación no está sobrecargada."
 
+#. mt: deepl
+#, fuzzy
 msgid "The overload status is hysteretic, so it cannot be derived from the number of current requests and the current limit; that is why it is published on its own."
-msgstr ""
+msgstr "El estado de sobrecarga presenta histéresis, por lo que no puede deducirse a partir del número de solicitudes de corriente y del límite de corriente; por ello se indica por separado."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Publishing the meters can be turned off by setting `quarkus.load-shedding.metrics.enabled` to `false`.\n"
 "No meters are published if load shedding itself is disabled, because nothing would ever update them."
-msgstr ""
+msgstr "La publicación de las métricas se puede desactivar estableciendo el parámetro ` `quarkus.load-shedding.metrics.enabled` ` en `«false` ». No se publicará ninguna métrica si la propia función de reducción de carga está desactivada, ya que no habría nada que las actualizara."
 
 #, fuzzy
 msgid "Limitations"
@@ -304,28 +368,38 @@ msgid ""
 "Improvements may be necessary."
 msgstr "Además, la implementación de la desconexión de carga es actualmente bastante básica y no se ha probado a fondo en producción. Puede que sea necesario introducir mejoras."
 
+#. mt: deepl
+#, fuzzy
 msgid "How rejected requests look"
-msgstr ""
+msgstr "Aspecto de las solicitudes rechazadas"
 
+#. mt: deepl
+#, fuzzy
 msgid "An HTTP request is rejected with the `503 Service Unavailable` status code and a `Retry-After` header."
-msgstr ""
+msgstr "Una solicitud HTTP se rechaza con el código de estado `503 (Servicio no disponible` ) y un encabezado `«Retry-After` »."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The connection is deliberately left open.\n"
 "Closing it would force the client through a new TCP and TLS handshake, which is expensive and invisible to this load shedding mechanism."
-msgstr ""
+msgstr "La conexión se mantiene abierta de forma deliberada. Cerrarla obligaría al cliente a realizar un nuevo protocolo de enlace TCP y TLS, lo cual resulta costoso y no es detectable por este mecanismo de reducción de carga."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `Retry-After` value is derived from how long the overload has already lasted.\n"
 "The application cannot know when an overload will end, but it does know how long the overload has lasted.\n"
 "This is used as a proxy: a brief spike is likely over shortly, while an overload that has been going on for minutes is likely to keep going for a while.\n"
 "A client rejected 2 seconds into an overload is therefore told to come back in a few seconds, while a client rejected 5 minutes in is told to stay away for longer."
-msgstr ""
+msgstr "El valor `de «Retry-After»` se calcula en función del tiempo que ya ha durado la sobrecarga. La aplicación no puede saber cuándo terminará una sobrecarga, pero sí sabe cuánto tiempo ha durado. Esto se utiliza como indicador: es probable que un pico breve termine en breve, mientras que una sobrecarga que lleva minutos produciéndose probablemente se prolongue durante un tiempo. Por lo tanto, a un cliente rechazado a los 2 segundos de iniciarse una sobrecarga se le indica que vuelva a intentarlo en unos segundos, mientras que a un cliente rechazado a los 5 minutos se le indica que espere más tiempo."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The value is capped by `quarkus.load-shedding.max-retry-after` (120 seconds by default) and is never shorter than 1 second, which is the granularity of the header.\n"
 "It is also jittered, so that clients rejected in the same instant are not advised to come back in the same instant."
-msgstr ""
+msgstr "El valor está limitado por ``quarkus.load-shedding.max-retry-after` ` (120 segundos por defecto) y nunca es inferior a 1 segundo, que es la granularidad del encabezado. Además, se aplica una variación aleatoria, de modo que a los clientes rechazados en un mismo instante no se les recomiende volver en ese mismo instante."
 
 msgid "Configuration reference"
 msgstr "Referencia de configuración"
@@ -343,6 +417,8 @@ msgstr "Propiedad de configuración"
 msgid "Default"
 msgstr "Por defecto"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "icon:lock[title=Fixed at build time] [[quarkus-load-shedding_quarkus-load-shedding-metrics-enabled]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-metrics-enabled[`+++quarkus.load-shedding.metrics.enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.metrics.enabled+++[]\n"
@@ -357,21 +433,29 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_METRICS_ENABLED+++[]\n"
 "--"
-msgstr ""
+msgstr "[lock]  link:#quarkus-load-shedding_quarkus-load-shedding-metrics-enabled[quarkus.load-shedding.metrics.enabled] config_property_copy_button:quarkus.load-shedding.metrics.enabled[]"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "icon:lock[title=Fixed at build time] [[quarkus-load-shedding_quarkus-load-shedding-metrics-enabled]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-metrics-enabled[`+++quarkus.load-shedding.metrics.enabled+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.metrics.enabled+++[]"
-msgstr ""
+msgstr "[lock]  link:#quarkus-load-shedding_quarkus-load-shedding-metrics-enabled[quarkus.load-shedding.metrics.enabled] config_property_copy_button:quarkus.load-shedding.metrics.enabled[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "Whether metrics about load shedding should be published."
-msgstr ""
+msgstr "Si se deben publicar las cifras relativas a los cortes de suministro eléctrico."
 
+#. mt: deepl
+#, fuzzy
 msgid "Only takes effect if a metrics extension is present."
-msgstr ""
+msgstr "Solo surte efecto si existe una extensión de métricas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_METRICS_ENABLED+++[]"
-msgstr ""
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_METRICS_ENABLED[]"
 
 #. mt: deepl
 #, fuzzy
@@ -420,6 +504,8 @@ msgstr "Si se debe habilitar la reducción de carga. Actualmente, esto solo se a
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_ENABLED+++[]"
 msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_ENABLED[]"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-min-limit]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-min-limit[`+++quarkus.load-shedding.min-limit+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.min-limit+++[]\n"
@@ -434,21 +520,29 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_MIN_LIMIT+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-min-limit[quarkus.load-shedding.min-limit] config_property_copy_button:quarkus.load-shedding.min-limit[]"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-min-limit]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-min-limit[`+++quarkus.load-shedding.min-limit+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.min-limit+++[]"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-min-limit[quarkus.load-shedding.min-limit] config_property_copy_button:quarkus.load-shedding.min-limit[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "The minimum number of concurrent requests allowed."
-msgstr ""
+msgstr "El número mínimo de solicitudes simultáneas permitidas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be at least 1 and less than or equal to `max-limit`; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser igual o superior a 1 y menor o igual que `el límite máximo` ; de lo contrario, la aplicación no se iniciará."
 
+#. mt: deepl
+#, fuzzy
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_MIN_LIMIT+++[]"
-msgstr ""
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_MIN_LIMIT[]"
 
 msgid "int"
 msgstr "int"
@@ -457,6 +551,8 @@ msgstr "int"
 msgid "`+++20+++`"
 msgstr "`20`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-max-limit]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-max-limit[`+++quarkus.load-shedding.max-limit+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.max-limit+++[]\n"
@@ -471,7 +567,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_MAX_LIMIT+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-max-limit[quarkus.load-shedding.max-limit] config_property_copy_button:quarkus.load-shedding.max-limit[]"
 
 #. mt: deepl
 #, fuzzy
@@ -485,8 +581,10 @@ msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-max-limit[quarkus.loa
 msgid "The maximum number of concurrent requests allowed."
 msgstr "El número máximo de solicitudes simultáneas permitidas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be greater than or equal to `min-limit`; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser mayor o igual que `el límite mínimo` ; de lo contrario, la aplicación no se iniciará."
 
 #. mt: deepl
 #, fuzzy
@@ -498,6 +596,8 @@ msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_MAX_
 msgid "`+++1000+++`"
 msgstr "`1000`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-alpha-factor]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-alpha-factor[`+++quarkus.load-shedding.alpha-factor+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.alpha-factor+++[]\n"
@@ -512,7 +612,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_ALPHA_FACTOR+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-alpha-factor[quarkus.load-shedding.alpha-factor] config_property_copy_button:quarkus.load-shedding.alpha-factor[]"
 
 #. mt: deepl
 #, fuzzy
@@ -521,11 +621,15 @@ msgid ""
 "config_property_copy_button:+++quarkus.load-shedding.alpha-factor+++[]"
 msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-alpha-factor[quarkus.load-shedding.alpha-factor] config_property_copy_button:quarkus.load-shedding.alpha-factor[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "The `alpha` factor of the Vegas overload detection algorithm. The algorithm grows the limit while the estimated request queue is shorter than this factor times `log10(current limit) {plus} 1`."
-msgstr ""
+msgstr "El factor `alfa` del algoritmo de detección de sobrecarga de Vegas. El algoritmo aumenta el límite mientras la cola de solicitudes estimada sea inferior a este factor multiplicado por `log10(límite actual) + 1` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be at least 1; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser como mínimo 1; de lo contrario, la aplicación no se inicia."
 
 #. mt: deepl
 #, fuzzy
@@ -537,6 +641,8 @@ msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_ALPH
 msgid "`+++3+++`"
 msgstr "`3`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-beta-factor]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-beta-factor[`+++quarkus.load-shedding.beta-factor+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.beta-factor+++[]\n"
@@ -551,7 +657,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_BETA_FACTOR+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-beta-factor[quarkus.load-shedding.beta-factor] config_property_copy_button:quarkus.load-shedding.beta-factor[]"
 
 #. mt: deepl
 #, fuzzy
@@ -560,11 +666,15 @@ msgid ""
 "config_property_copy_button:+++quarkus.load-shedding.beta-factor+++[]"
 msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-beta-factor[quarkus.load-shedding.beta-factor] config_property_copy_button:quarkus.load-shedding.beta-factor[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "The `beta` factor of the Vegas overload detection algorithm. The algorithm shrinks the limit once the estimated request queue is longer than this factor times `log10(current limit) {plus} 1`, and holds the limit steady in between."
-msgstr ""
+msgstr "El factor `beta` del algoritmo de detección de sobrecarga de Vegas. El algoritmo reduce el límite cuando la cola de solicitudes estimada supera este factor multiplicado por `log10(límite actual) + 1` , y mantiene el límite constante en los valores intermedios."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be greater than the `alpha` factor; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser mayor que el factor `alfa` ; de lo contrario, la aplicación no se iniciará."
 
 #. mt: deepl
 #, fuzzy
@@ -576,6 +686,8 @@ msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_BETA
 msgid "`+++6+++`"
 msgstr "`6`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-probe-factor]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-probe-factor[`+++quarkus.load-shedding.probe-factor+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.probe-factor+++[]\n"
@@ -590,7 +702,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_PROBE_FACTOR+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-probe-factor[quarkus.load-shedding.probe-factor] config_property_copy_button:quarkus.load-shedding.probe-factor[]"
 
 #. mt: deepl
 #, fuzzy
@@ -599,11 +711,15 @@ msgid ""
 "config_property_copy_button:+++quarkus.load-shedding.probe-factor+++[]"
 msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-probe-factor[quarkus.load-shedding.probe-factor] config_property_copy_button:quarkus.load-shedding.probe-factor[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "The probe factor of the Vegas overload detection algorithm. It controls how often the algorithm discards the lowest request time it has seen and measures against a fresh one; the higher the factor, the rarer that is."
-msgstr ""
+msgstr "El factor de sondeo del algoritmo de detección de sobrecargas de Vegas. Este factor controla la frecuencia con la que el algoritmo descarta el tiempo de solicitud más bajo que ha registrado y lo compara con uno nuevo; cuanto mayor sea el factor, menos frecuente será ese proceso."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be positive; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser un valor positivo; de lo contrario, la aplicación no se iniciará."
 
 #. mt: deepl
 #, fuzzy
@@ -619,6 +735,8 @@ msgstr "doble"
 msgid "`+++30.0+++`"
 msgstr "`30,0`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-initial-limit]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-initial-limit[`+++quarkus.load-shedding.initial-limit+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.initial-limit+++[]\n"
@@ -633,7 +751,7 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_INITIAL_LIMIT+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-initial-limit[quarkus.load-shedding.initial-limit] config_property_copy_button:quarkus.load-shedding.initial-limit[]"
 
 #. mt: deepl
 #, fuzzy
@@ -647,8 +765,10 @@ msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-initial-limit[quarkus
 msgid "The initial limit of concurrent requests allowed."
 msgstr "El límite inicial de solicitudes simultáneas permitidas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Must be greater than or equal to `min-limit` and less than or equal to `max-limit`; the application fails to start otherwise."
-msgstr ""
+msgstr "Debe ser mayor o igual que `«min-limit»` y menor o igual que `«max-limit»` ; de lo contrario, la aplicación no se iniciará."
 
 #. mt: deepl
 #, fuzzy
@@ -660,6 +780,8 @@ msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_INIT
 msgid "`+++100+++`"
 msgstr "`100`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-max-retry-after]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-max-retry-after[`+++quarkus.load-shedding.max-retry-after+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.max-retry-after+++[]\n"
@@ -674,24 +796,34 @@ msgid ""
 "\n"
 "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_MAX_RETRY_AFTER+++[]\n"
 "--"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-max-retry-after[quarkus.load-shedding.max-retry-after] config_property_copy_button:quarkus.load-shedding.max-retry-after[]"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "[[quarkus-load-shedding_quarkus-load-shedding-max-retry-after]] [.property-path]##link:#quarkus-load-shedding_quarkus-load-shedding-max-retry-after[`+++quarkus.load-shedding.max-retry-after+++`]##\n"
 "config_property_copy_button:+++quarkus.load-shedding.max-retry-after+++[]"
-msgstr ""
+msgstr " link:#quarkus-load-shedding_quarkus-load-shedding-max-retry-after[quarkus.load-shedding.max-retry-after] config_property_copy_button:quarkus.load-shedding.max-retry-after[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "The upper bound on the `Retry-After` response header sent with a rejected request."
-msgstr ""
+msgstr "El límite superior del encabezado de respuesta `«Retry-After»` enviado junto con una solicitud rechazada."
 
+#. mt: deepl
+#, fuzzy
 msgid "The value actually sent is derived from how long the overload has already lasted, so no lower bound is configurable. This is only a safety measure against telling clients to stay away hours, if the overload has been going on for long."
-msgstr ""
+msgstr "El valor que se envía realmente se calcula en función del tiempo que ya ha durado la sobrecarga, por lo que no es posible configurar un límite mínimo. Se trata únicamente de una medida de seguridad para evitar que se indique a los clientes que permanezcan alejados durante horas, en caso de que la sobrecarga se haya prolongado durante mucho tiempo."
 
+#. mt: deepl
+#, fuzzy
 msgid "Environment variable: env_var_with_copy_button:+++QUARKUS_LOAD_SHEDDING_MAX_RETRY_AFTER+++[]"
-msgstr ""
+msgstr "Variable de entorno: env_var_with_copy_button:QUARKUS_LOAD_SHEDDING_MAX_RETRY_AFTER[]"
 
+#. mt: deepl
+#, fuzzy
 msgid "link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duration] link:#duration-note-anchor-quarkus-load-shedding_quarkus-load-shedding[icon:question-circle[title=More information about the Duration format]]"
-msgstr ""
+msgstr "link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[Duración] link:#duration-note-anchor-quarkus-load-shedding_quarkus-load-shedding[[círculo de preguntas]]"
 
 #, fuzzy
 msgid "`+++120S+++`"

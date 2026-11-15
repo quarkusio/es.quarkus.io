@@ -41,8 +41,10 @@ msgstr "Los servicios *no* reciben *ningún* orden implícito a partir del gráf
 msgid "Services are Independent from Recorders in the Same Step"
 msgstr "Los servicios son independientes de los registradores en la misma etapa"
 
+#. mt: deepl
+#, fuzzy
 msgid "Even if a build step method contains both a `@Record` call and a `ServiceRegistrar` call, the service and recorder are separate nodes in the build execution plan with no implicit ordering between them."
-msgstr ""
+msgstr "Aunque un método de un paso de compilación contenga tanto una llamada `a @Record` como una llamada `a ServiceRegistrar` , el servicio y el registrador son nodos independientes en el plan de ejecución de la compilación, sin que exista un orden implícito entre ellos."
 
 #. mt: deepl
 #, fuzzy
@@ -283,8 +285,10 @@ msgstr "Conexión para establecer el orden de los pasos (<code>afterBuildItem()<
 msgid "When a service depends on state produced by a legacy recorder (e.g., synthetic beans must be initialized), declare the dependency via `afterBuildItem()`:"
 msgstr "Cuando un servicio dependa del estado generado por un registrador heredado (por ejemplo, cuando sea necesario inicializar «beans» sintéticos), declare dicha dependencia mediante `afterBuildItem()` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "This resolves the producing step's nodes and creates ordering edges."
-msgstr ""
+msgstr "Esto resuelve los nodos de la etapa de producción y crea aristas de ordenación."
 
 #. mt: deepl
 #, fuzzy
@@ -306,8 +310,10 @@ msgstr "API de coexistencia y de puente"
 msgid "During the transitional period, the `ServiceRegistrar` provides bridge APIs to allow incremental migration of extensions."
 msgstr "Durante el período de transición, `ServiceRegistrar` proporciona interfaces de programación de aplicaciones (API) puente para permitir la migración gradual de las extensiones."
 
+#. mt: deepl
+#, fuzzy
 msgid "Recorder-to-Service Bridge"
-msgstr ""
+msgstr "Puente entre el registrador y el servicio"
 
 #. mt: deepl
 #, fuzzy
@@ -319,8 +325,10 @@ msgstr "Si dispone de un valor generado por un registrador heredado del que depe
 msgid "Downstream services can now simply use `.require(MyLegacyValue.class)`."
 msgstr "Los servicios posteriores ya pueden utilizar simplemente `.require(MyLegacyValue.class)` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Service-to-Recorder Bridge"
-msgstr ""
+msgstr "Puente entre el servicio y el registrador"
 
 #. mt: deepl
 #, fuzzy
@@ -342,30 +350,40 @@ msgstr "*staticInitServiceAsRuntimeValue* : Genera un proxy de tipo `RuntimeValu
 msgid "**`getRecorderProxy`**: Produces a bare `T` proxy (for proxyable interfaces/classes)."
 msgstr "*getRecorderProxy* : Genera un proxy `T` básico (para interfaces y clases que admiten proxy)."
 
+#. mt: deepl
+#, fuzzy
 msgid "Updating Downstream Consumers"
-msgstr ""
+msgstr "Actualización de los consumidores posteriores"
 
+#. mt: deepl
+#, fuzzy
 msgid "After converting a recorder to a service, search for other extensions that use `afterBuildItem()` referencing build items your old recorder produced. Those consumers can now migrate from `afterBuildItem()` to `require()` or `after()` on your new service directly, removing one more link in the legacy bridge chain."
-msgstr ""
+msgstr "Una vez que haya convertido un «recorder» en un servicio, busque otras extensiones que utilicen ``afterBuildItem()`` y hagan referencia a elementos de compilación generados por su antiguo «recorder». Dichos usuarios pueden migrar ahora directamente de ``afterBuildItem()`` a ``require()`` o ``after()`` en su nuevo servicio, eliminando así un eslabón más de la cadena de conexión heredada."
 
 #. mt: deepl
 #, fuzzy
 msgid "Common Conversion Pitfalls"
 msgstr "Errores habituales en la conversión"
 
+#. mt: deepl
+#, fuzzy
 msgid "Global Mutable State"
-msgstr ""
+msgstr "Estado global modificable"
 
+#. mt: deepl
+#, fuzzy
 msgid "Recorders ran sequentially, so global mutable state (static maps, shared lists, singletons populated during startup) was incidentally safe. Services run concurrently — any global state that survives conversion must be made thread-safe. Prefer eliminating it entirely: the dependency graph carries values directly, so each entry becomes a named service and each lookup becomes `require()` or `request()`."
-msgstr ""
+msgstr "Los registradores se ejecutaban de forma secuencial, por lo que el estado global mutable (mapas estáticos, listas compartidas, singletons rellenados durante el inicio) resultaba seguro de forma incidental. Los servicios se ejecutan de forma concurrente: cualquier estado global que sobreviva a la conversión debe hacerse seguro para subprocesos. Es preferible eliminarlo por completo: el grafo de dependencias transporta los valores directamente, por lo que cada entrada se convierte en un servicio con nombre y cada consulta se convierte en `require()` o `request()` ."
 
 #. mt: deepl
 #, fuzzy
 msgid "ClassLoader &amp; Thread Context ClassLoader (TCCL)"
 msgstr "ClassLoader y Thread Context ClassLoader (TCCL)"
 
+#. mt: deepl
+#, fuzzy
 msgid "A wrong TCCL surfaces as `ServiceLoader` \"not a subtype\" errors or dev-mode failures. Threads created during startup inherit the creating thread's TCCL — a long-lived thread that captures the per-app runtime CL leaks the `QuarkusClassLoader` across restarts. Clean up threads or `ThreadLocal`s your service owns in `onStop()`; never rely on a global \"reset all TCCLs\" sweep."
-msgstr ""
+msgstr "Un TCCL incorrecto se manifiesta en forma de errores `de ServiceLoader` del tipo «no es un subtipo» o fallos en el modo de desarrollo. Los hilos creados durante el inicio heredan el TCCL del hilo creador —un hilo de larga duración que captura las fugas de CL en tiempo de ejecución propias de cada aplicación— y el `QuarkusClassLoader` se mantiene entre reinicios. Limpie los hilos o `los ThreadLocal que posea su servicio en `onStop()` ; nunca confíe en una limpieza global del tipo «restablecer todos los TCCL»."
 
 #. mt: deepl
 #, fuzzy
@@ -382,19 +400,27 @@ msgstr "`staticInitServiceAsRecorderValue(ConcreteClass.class)` falla si la clas
 msgid "Package-Private Visibility"
 msgstr "Visibilidad «privada del paquete»"
 
+#. mt: deepl
+#, fuzzy
 msgid "Lambda bytecode runs at runtime but references runtime classes directly. Package-private classes become inaccessible from the generated consolidated class. Ensure any classes referenced within the lambda are `public`, or move them to a `.impl` subpackage and make them public."
-msgstr ""
+msgstr "El código byte de lambda se ejecuta en tiempo de ejecución, pero hace referencia directa a clases de tiempo de ejecución. No se puede acceder a las clases privadas del paquete desde la clase consolidada generada. Asegúrese de que todas las clases a las que se hace referencia dentro de la lambda sean `públicas` , o bien trasládelas a un subpaquete `.impl` y conviértalas en públicas."
 
 #. mt: deepl
 #, fuzzy
 msgid "Never Reference Deployment Classes inside Service Lambdas"
 msgstr "Nunca haga referencia a clases de implementación dentro de las lambda de servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid "Service lambda bodies execute at **runtime** — deployment classes are absent from the runtime classpath. Anonymous inner classes inside instance-method lambdas silently capture `this` (the processor), causing `TransliterationException`. Moving the instantiation to a `private static` helper in the processor avoids the capture but still references a deployment class, causing `NoClassDefFoundError`. Place all helper methods and factories in **runtime** module classes."
-msgstr ""
+msgstr "Los cuerpos de las lambdas de servicio se ejecutan en *tiempo de ejecución* ; las clases de implementación no están presentes en la ruta de clases de tiempo de ejecución. Las clases internas anónimas dentro de las lambdas de métodos de instancia capturan `esto` (el procesador) de forma silenciosa, lo que provoca `una excepción `TransliterationException`` . Trasladar la instanciación a un ayudante `estático privado` en el procesador evita la captura, pero sigue haciendo referencia a una clase de implementación, lo que provoca `un error «NoClassDefFoundError` ». Coloque todos los métodos auxiliares y las fábricas en clases de módulos *de tiempo de ejecución* ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Teardown-Ordering Parity"
-msgstr ""
+msgstr "Paridad en el orden de desmontaje"
 
+#. mt: deepl
+#, fuzzy
 msgid "Start ordering is explicit — but so is **stop ordering**, and that is the easy thing to lose. The recorder model gave cleanup incidental ordering from build-step order; a converted service's `onStop` runs only in reverse dependency order. If a cleanup implicitly depended on running before/after another, declare it with `before()` or `after()`. Lost teardown ordering surfaces as unrelated downstream symptoms — verify shutdown explicitly."
-msgstr ""
+msgstr "El orden de inicio es explícito, pero también lo es *el orden de finalización* , y eso es lo que se tiende a pasar por alto con mayor facilidad. El modelo de grabadora proporcionaba un orden de limpieza derivado del orden de los pasos de compilación; `el método `onStop`` de un servicio convertido se ejecuta únicamente en orden inverso de las dependencias. Si una limpieza depende implícitamente de ejecutarse antes o después de otra, declárela con ``before()`` o ``after()`` . La pérdida del orden de desmontaje se manifiesta como síntomas posteriores aparentemente inconexos: verifique el apagado de forma explícita."
