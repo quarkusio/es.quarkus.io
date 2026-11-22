@@ -234,66 +234,96 @@ msgstr "El método devuelve el resultado. El hilo virtual termina."
 msgid "The result is captured by Quarkus and written in the HTTP response"
 msgstr "El resultado es capturado por Quarkus y escrito en la respuesta HTTP"
 
+#. mt: deepl
+#, fuzzy
 msgid "Use virtual threads for every endpoint"
-msgstr ""
+msgstr "Utilice subprocesos virtuales para cada punto final"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Annotating every endpoint with `@RunOnVirtualThread` can be cumbersome when you want your whole application to use virtual threads.\n"
 "There are two ways to switch the default execution model for all endpoints at once: a configuration property and an annotated Quarkus REST `Application` class."
-msgstr ""
+msgstr "Anotar cada punto final con `@RunOnVirtualThread` puede resultar engorroso cuando se desea que toda la aplicación utilice hilos virtuales. Existen dos formas de cambiar el modelo de ejecución predeterminado para todos los puntos finales a la vez: una propiedad de configuración y una clase `de aplicación` REST de Quarkus anotada."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Before switching all endpoints to virtual threads, make sure your application and its dependencies do not suffer from thread pinning or carrier thread monopolization.\n"
 "For more information, see the Quarkus xref:virtual-threads.adoc[Virtual thread support reference] guide.\n"
 "Thread pinning caused by `synchronized` blocks is resolved in JDK 24 and later, so we recommend running on JDK 24 or later when enabling virtual threads globally.\n"
 "You can detect pinning in your tests, as shown in the section below."
-msgstr ""
+msgstr "Antes de cambiar todos los puntos finales a subprocesos virtuales, asegúrese de que su aplicación y sus dependencias no se vean afectadas por el «thread pinning» ni por la monopolización del subproceso portador. Para obtener más información, consulte la guía xref:virtual-threads.adoc[de referencia sobre la compatibilidad con subprocesos virtuales] de Quarkus. El bloqueo de subprocesos causado por bloques `sincronizados` se ha resuelto en JDK 24 y versiones posteriores, por lo que le recomendamos que utilice JDK 24 o una versión posterior al habilitar los subprocesos virtuales de forma global. Puede detectar el bloqueo de subprocesos en sus pruebas, tal y como se muestra en la sección siguiente."
 
+#. mt: deepl
+#, fuzzy
 msgid "Use the configuration property"
-msgstr ""
+msgstr "Utilice la propiedad de configuración"
 
+#. mt: deepl
+#, fuzzy
 msgid "You can enable virtual threads for all Quarkus REST endpoints with a single build-time property:"
-msgstr ""
+msgstr "Puede habilitar los hilos virtuales para todos los puntos finales REST de Quarkus mediante una única propiedad de compilación:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When enabled, every endpoint that would otherwise be executed on a worker thread is executed on a virtual thread instead.\n"
 "The regular execution model rules still apply:"
-msgstr ""
+msgstr "Cuando está activada, cada punto final que, de otro modo, se ejecutaría en un hilo de trabajo, se ejecuta en su lugar en un hilo virtual. Siguen siendo de aplicación las reglas del modelo de ejecución habitual:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Endpoints considered non-blocking because they return `Uni`, `Multi` or `CompletionStage` keep running on the event loop."
-msgstr ""
+msgstr "Los endpoints que se consideran no bloqueantes —por devolver `Uni` , `Multi` o `CompletionStage—` siguen ejecutándose en el bucle de eventos."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Explicit `@Blocking`, `@NonBlocking` and `@RunOnVirtualThread` annotations on the endpoint method or resource class always take precedence.\n"
 "So, if a specific endpoint is not safe to run on a virtual thread, annotate it with `@Blocking` to keep it on a worker thread."
-msgstr ""
+msgstr "Las anotaciones explícitas `@Blocking` , `@NonBlocking` y `@RunOnVirtualThread` en el método del punto final o en la clase de recurso siempre tienen prioridad. Por lo tanto, si no es seguro ejecutar un punto final concreto en un hilo virtual, anótelo con `@Blocking` para que se ejecute en un hilo de trabajo."
 
+#. mt: deepl
+#, fuzzy
 msgid "An execution model annotation on the Quarkus REST `Application` class takes precedence over this property, and a warning is logged at startup."
-msgstr ""
+msgstr "Una anotación de modelo de ejecución en la clase «Quarkus REST `Application»` tiene prioridad sobre esta propiedad, y se registra una advertencia al iniciar el sistema."
 
+#. mt: deepl
+#, fuzzy
 msgid "Annotate the Quarkus REST Application class"
-msgstr ""
+msgstr "Añada anotaciones a la clase de la aplicación REST de Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Alternatively, you can declare the default execution model in code.\n"
 "Quarkus does not require a Quarkus REST `Application` class, but you can add one and annotate it with `@RunOnVirtualThread`:"
-msgstr ""
+msgstr "Como alternativa, puede declarar el modelo de ejecución predeterminado en el código. Quarkus no requiere una clase «Quarkus REST `Application»` , pero puede añadir una y anotarla con `@RunOnVirtualThread` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Every endpoint without an explicit `@Blocking` annotation is then executed on a virtual thread.\n"
 "Unlike the configuration property, this approach also moves endpoints with a non-blocking signature, such as endpoints returning `Uni`, to a virtual thread.\n"
 "The same applies to endpoints annotated with `@NonBlocking`; in this case, a warning is logged at startup.\n"
 "An application can only have one `Application` class."
-msgstr ""
+msgstr "A continuación, todos los puntos finales que no cuenten con una anotación `@Blocking` explícita se ejecutan en un hilo virtual. A diferencia de la propiedad de configuración, este enfoque también traslada a un hilo virtual los puntos finales con una firma no bloqueante, como los que devuelven `Uni` . Lo mismo se aplica a los puntos finales anotados con `@NonBlocking` ; en este caso, se registra una advertencia al iniciar el sistema. Una aplicación solo puede tener una clase ` `Application` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "Choose between the two approaches"
-msgstr ""
+msgstr "Elija entre los dos enfoques"
 
+#. mt: deepl
+#, fuzzy
 msgid "The following table summarizes on which thread an endpoint is executed, depending on how it is declared:"
-msgstr ""
+msgstr "La siguiente tabla resume en qué hilo se ejecuta un punto final, en función de cómo se haya declarado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Execution model depending on the endpoint declaration"
-msgstr ""
+msgstr "Modelo de ejecución en función de la declaración del punto final"
 
 #, fuzzy
 msgid "Endpoint"
@@ -302,14 +332,20 @@ msgstr "Punto final"
 msgid "Default"
 msgstr "Por defecto"
 
+#. mt: deepl
+#, fuzzy
 msgid "`quarkus.rest.blocking.signatures.execution.mode=virtual-thread`"
-msgstr ""
+msgstr "`quarkus.rest.blocking.signatures.execution.mode=virtual-thread`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@RunOnVirtualThread` on `Application`"
-msgstr ""
+msgstr "`@RunOnVirtualThread` en `la aplicación`"
 
+#. mt: deepl
+#, fuzzy
 msgid "No annotation, blocking signature (returns `String`, a POJO, ...)"
-msgstr ""
+msgstr "Sin anotación, firma de bloqueo (devuelve `una cadena` , un POJO, …​)"
 
 #, fuzzy
 msgid "Worker thread"
@@ -319,31 +355,47 @@ msgstr "Hilo de trabajo"
 msgid "Virtual thread"
 msgstr "Hilo virtual"
 
+#. mt: deepl
+#, fuzzy
 msgid "No annotation, non-blocking signature (returns `Uni`, `Multi`, `CompletionStage`, ...)"
-msgstr ""
+msgstr "Sin anotación, firma no bloqueante (devuelve `Uni` , `Multi` , `CompletionStage` , …​)"
 
+#. mt: deepl
+#, fuzzy
 msgid "Event loop"
-msgstr ""
+msgstr "Bucle de eventos"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@Blocking`"
-msgstr ""
+msgstr "`@Bloqueo`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@NonBlocking`"
-msgstr ""
+msgstr "`@NonBlocking`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Virtual thread (a warning is logged)"
-msgstr ""
+msgstr "Hilo virtual (se registra una advertencia)"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@RunOnVirtualThread`"
-msgstr ""
+msgstr "`@RunOnVirtualThread`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Revert to worker threads without code changes"
-msgstr ""
+msgstr "Volver a utilizar subprocesos de trabajo sin modificar el código"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If you run into problems, you do not need to remove the property or the annotation to compare against the worker thread model.\n"
 "Setting `quarkus.virtual-threads.enabled=false` executes all the endpoints marked to run on virtual threads on worker threads instead."
-msgstr ""
+msgstr "Si surge algún problema, no es necesario eliminar la propiedad ni la anotación para compararla con el modelo de subprocesos de trabajo. Al establecer `quarkus.virtual-threads.enabled=false` , todos los puntos finales marcados para ejecutarse en subprocesos virtuales se ejecutarán, en su lugar, en subprocesos de trabajo."
 
 #, fuzzy
 msgid "Verify pinning using tests"

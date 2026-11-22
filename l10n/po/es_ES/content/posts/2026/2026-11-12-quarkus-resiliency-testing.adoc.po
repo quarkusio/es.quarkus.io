@@ -6,376 +6,560 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Put the failure on the wire"
-msgstr ""
+msgstr "Conecte el dispositivo de fallo al cable"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Imagine a customer placing an order.\n"
 "Your service reserves stock, charges their card, and stores the result.\n"
 "On a normal day, each step takes milliseconds and the customer sees a confirmation."
-msgstr ""
+msgstr "Imagine que un cliente realiza un pedido. Su servicio reserva el stock, realiza el cargo en su tarjeta y almacena el resultado. En un día normal, cada paso tarda milisegundos y el cliente recibe una confirmación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Now imagine inventory accepts the connection but never answers.\n"
 "Or the payment provider charges the card just before the connection breaks.\n"
 "Or the database stops responding while your application is holding a connection from its pool."
-msgstr ""
+msgstr "Ahora imagine que el sistema de inventario acepta la conexión, pero nunca responde. O que el proveedor de pagos realiza el cargo en la tarjeta justo antes de que se interrumpa la conexión. O que la base de datos deja de responder mientras su aplicación mantiene una conexión de su grupo de conexiones."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "These failures demand different responses.\n"
 "Waiting longer can use up your workers; retrying can charge the customer twice; catching an exception does nothing if the client never throws one.\n"
 "A happy-path test tells you little about any of them."
-msgstr ""
+msgstr "Estos fallos exigen respuestas diferentes. Esperar más tiempo puede agotar a sus trabajadores; volver a intentarlo puede suponer un doble cobro al cliente; y detectar una excepción no sirve de nada si el cliente nunca la lanza. Una prueba de caso normal no le aporta mucha información sobre ninguno de ellos."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "https://github.com/quarkiverse/quarkus-resiliency-testing[Quarkus Resiliency Testing] lets you reproduce these conditions in a `@QuarkusTest`, using your application's real clients and configuration.\n"
 "Let's follow that order through four failure scenarios and turn each one into a test.\n"
 "The examples are excerpts from the https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[resilient-orders sample], which includes the endpoints, supporting classes and complete tests."
-msgstr ""
+msgstr "link:https://github.com/quarkiverse/quarkus-resiliency-testing[Las pruebas de resiliencia de Quarkus] le permiten reproducir estas condiciones en un `@QuarkusTest` , utilizando los clientes reales y la configuración de su aplicación. Analicemos ese pedido a través de cuatro escenarios de fallo y convirtamos cada uno de ellos en una prueba. Los ejemplos son extractos del link:https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[ejemplo «resilient-orders»] , que incluye los puntos finales, las clases de apoyo y las pruebas completas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Add the test dependency:"
-msgstr ""
+msgstr "Añada la dependencia de prueba:"
 
+#. mt: deepl
+#, fuzzy
 msgid "With `NetworkFaultsProfile`, the extension discovers supported outbound connections from Quarkus configuration, including Dev Services, and redirects them through proxies inside the test JVM."
-msgstr ""
+msgstr "Con `NetworkFaultsProfile` , la extensión detecta las conexiones salientes compatibles a partir de la configuración de Quarkus, incluidos los servicios de desarrollo, y las redirige a través de proxies dentro de la JVM de prueba."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The proxy normally relays traffic.\n"
 "During a fault, the real client encounters the broken connection and reacts with its own timeouts, retries and exceptions.\n"
 "A mock that throws an exception can check a fallback; this also exercises the client configuration that determines whether, and when, that fallback is reached.\n"
 "The fault injection needs no separate container or sidecar; dependencies such as the sample's PostgreSQL Dev Service can still need Docker."
-msgstr ""
+msgstr "Normalmente, el proxy retransmite el tráfico. Durante un fallo, el cliente real detecta la conexión interrumpida y reacciona con sus propios tiempos de espera, reintentos y excepciones. Un simulador que lance una excepción puede comprobar una solución alternativa; esto también pone a prueba la configuración del cliente que determina si se recurre a dicha solución alternativa y en qué momento. La inyección de fallos no requiere ningún contenedor ni sidecar independiente; las dependencias, como el PostgreSQL Dev Service del ejemplo, pueden seguir necesitando Docker."
 
+#. mt: deepl
+#, fuzzy
 msgid "1. Inventory stops answering"
 msgstr ""
+"\n"
+" El sistema de inventario deja de responder"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The customer clicks “Place order”, but inventory never responds.\n"
 "We want to accept the order as pending instead of leaving the customer waiting indefinitely.\n"
 "In this sample, `Reservation.pending` tells the endpoint to return `202` with status `PENDING`; completing the reservation later is a separate application responsibility."
-msgstr ""
+msgstr "El cliente hace clic en «Realizar pedido», pero el sistema de inventario no responde. Queremos aceptar el pedido como pendiente en lugar de dejar al cliente esperando indefinidamente. En este ejemplo, `Reservation.pending` indica al punto final que devuelva `el código 202` con el estado `PENDING` ; completar la reserva más adelante es responsabilidad de otra aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "The inventory service gets two seconds to answer."
-msgstr ""
+msgstr "El servicio de inventario dispone de dos segundos para responder."
 
+#. mt: deepl
+#, fuzzy
 msgid "Two failures in a row open the circuit breaker, and the inventory service is left alone for a while."
-msgstr ""
+msgstr "Dos fallos consecutivos activan el disyuntor, con lo que el servicio de inventario queda inactivo durante un tiempo."
 
+#. mt: deepl
+#, fuzzy
 msgid "At most two calls wait on the inventory service at the same time; more on that below."
-msgstr ""
+msgstr "Como máximo, hay dos llamadas en espera en el servicio de inventario al mismo tiempo; más información al respecto a continuación."
 
+#. mt: deepl
+#, fuzzy
 msgid "When the call fails, times out, or is refused by the open breaker or the full bulkhead, the order is accepted as pending instead."
-msgstr ""
+msgstr "Cuando la llamada falla, se agota el tiempo de espera o es rechazada por el interruptor abierto o por el mamparo completo, la orden se considera, en su lugar, como pendiente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The test makes inventory hang, checks the pending response, then checks recovery:"
-msgstr ""
+msgstr "La prueba provoca que el inventario se bloquee, comprueba la respuesta pendiente y, a continuación, comprueba la recuperación:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Puts a proxy in front of supported outbound connections configured by the application."
-msgstr ""
+msgstr "Coloca un proxy delante de las conexiones salientes compatibles configuradas por la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "The entry point for applying faults."
-msgstr ""
+msgstr "El punto de entrada para aplicar fallos."
 
+#. mt: deepl
+#, fuzzy
 msgid "The dependency is named by the bean the application already injects, here the REST Client interface."
-msgstr ""
+msgstr "La dependencia recibe el nombre del bean que la aplicación ya inyecta, en este caso, la interfaz REST Client."
 
+#. mt: deepl
+#, fuzzy
 msgid "The fault is a single method call: from now on, the inventory service accepts connections and never answers."
-msgstr ""
+msgstr "El error se debe a una única llamada a un método: a partir de ese momento, el servicio de inventario acepta conexiones, pero nunca responde."
 
+#. mt: deepl
+#, fuzzy
 msgid "The `@Timeout` fires, and the fallback accepts the order as pending."
-msgstr ""
+msgstr "Se activa el `@Timeout` y el mecanismo de reserva acepta el pedido como pendiente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The fault ends with the block: the dependency works again, connection pools are flushed and circuit breakers are reset."
-msgstr ""
+msgstr "El error finaliza con el bloque: la dependencia vuelve a funcionar, se vacían los grupos de conexiones y se reinician los disyuntores."
 
+#. mt: deepl
+#, fuzzy
 msgid "So the recovery can be asserted in the same test: the next order is confirmed right away."
-msgstr ""
+msgstr "De este modo, la recuperación puede verificarse en la misma prueba: el siguiente pedido se confirma de inmediato."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The time assertion gives the two-second timeout some test overhead.\n"
 "Remove the timeout and a slower client timeout can no longer make the test pass merely by eventually reaching the fallback.\n"
 "The extension creates the failure; the application still has to handle it."
-msgstr ""
+msgstr "La condición de tiempo añade cierta sobrecarga a la prueba del tiempo de espera de dos segundos. Si se elimina el tiempo de espera, un cliente más lento ya no podrá superar la prueba simplemente llegando, con el tiempo, a la solución alternativa. La extensión provoca el fallo; la aplicación aún debe gestionarlo."
 
+#. mt: deepl
+#, fuzzy
 msgid "What happens to the next customer?"
-msgstr ""
+msgstr "¿Qué le ocurre al siguiente cliente?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A timeout bounds one customer's wait.\n"
 "It does not limit how many requests can be waiting at once.\n"
 "If orders keep arriving while inventory is hung, those calls can occupy the workers that other requests need."
-msgstr ""
+msgstr "Un tiempo de espera limita el tiempo de espera de un cliente. No limita el número de solicitudes que pueden estar pendientes al mismo tiempo. Si siguen llegando pedidos mientras el inventario está bloqueado, esas solicitudes pueden ocupar a los trabajadores que otras solicitudes necesitan."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `@Bulkhead(2)` above limits concurrent calls to inventory to two.\n"
 "The third call should take the fallback immediately:"
-msgstr ""
+msgstr "El `@Bulkhead(2)` anterior limita a dos el número de llamadas simultáneas al inventario. La tercera llamada debería recurrir inmediatamente a la alternativa:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The inventory service stops answering a connection as soon as the application sends a request on it."
-msgstr ""
+msgstr "El servicio de inventario deja de responder a una conexión en cuanto la aplicación envía una solicitud a través de ella."
 
+#. mt: deepl
+#, fuzzy
 msgid "Two orders start, and wait on the inventory service: the bulkhead is full."
-msgstr ""
+msgstr "Se inician dos pedidos y se espera a que responda el servicio de inventario: el compartimento está lleno."
 
+#. mt: deepl
+#, fuzzy
 msgid "Waits until the proxy holds both requests, rather than for a fixed time, so the third request starts only after both calls are held."
-msgstr ""
+msgstr "Espera a que el proxy tenga en espera ambas solicitudes, en lugar de esperar un tiempo fijo, de modo que la tercera solicitud no se inicie hasta que ambas llamadas estén en espera."
 
+#. mt: deepl
+#, fuzzy
 msgid "The third order does not wait: the bulkhead rejects the call at once, and the fallback accepts the order as pending."
-msgstr ""
+msgstr "La tercera orden no espera: el mamparo rechaza la llamada de inmediato y el sistema de reserva acepta la orden como pendiente."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "*Catches:* the missing bulkhead: the third order waits for the full two-second timeout as well.\n"
 "Under real load, every one of those waits holds a worker thread."
-msgstr ""
+msgstr "*Problemas:* el mamparo que falta: la orden de tercer nivel también espera a que se agote el tiempo de espera completo de dos segundos. Bajo una carga real, cada una de esas esperas bloquea un hilo de trabajo."
 
+#. mt: deepl
+#, fuzzy
 msgid "2. The payment went through, but its answer did not"
 msgstr ""
+"\n"
+" El pago se ha procesado, pero no se ha recibido respuesta."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Inventory has recovered, and the customer pays.\n"
 "The payment provider records the charge and starts sending its response.\n"
 "Then the connection breaks.\n"
 "Our service sees a failure, but the money has already moved."
-msgstr ""
+msgstr "El stock se ha restablecido y el cliente realiza el pago. El proveedor de pagos registra el cargo y comienza a enviar su respuesta. En ese momento, se interrumpe la conexión. Nuestro servicio detecta un error, pero el dinero ya se ha transferido."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A retry can recover the request, provided the provider supports idempotency and every attempt carries the same key.\n"
 "Generate that key before entering the retried method:"
-msgstr ""
+msgstr "Un nuevo intento puede recuperar la solicitud, siempre que el proveedor admita la idempotencia y cada intento incluya la misma clave. Genere dicha clave antes de acceder al método de reintento:"
 
+#. mt: deepl
+#, fuzzy
 msgid "One key per payment, generated before the first attempt."
-msgstr ""
+msgstr "Una clave por pago, generada antes del primer intento."
 
+#. mt: deepl
+#, fuzzy
 msgid "Every attempt receives the same key, and sends it as the `Idempotency-Key` header."
-msgstr ""
+msgstr "Cada intento recibe la misma clave y la envía como encabezado `«Idempotency-Key` »."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "In the sample, a stand-in payment provider honours the keys like a real one, and records every charge, so the test can count them.\n"
 "The test loses the answer to the first payment, and checks what matters to the customer:"
-msgstr ""
+msgstr "En la prueba, un proveedor de pagos ficticio acepta las claves como si fuera uno real y registra cada cargo, de modo que la prueba pueda contabilizarlos. La prueba omite la respuesta al primer pago y comprueba lo que realmente importa al cliente:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The charges recorded by the stand-in payment provider."
-msgstr ""
+msgstr "Los cargos registrados por el proveedor de pagos sustituto."
 
+#. mt: deepl
+#, fuzzy
 msgid "The first payment reaches the provider, which charges the card, but the connection dies right after the response headers: the application never sees the answer."
-msgstr ""
+msgstr "El primer pago llega al proveedor, que realiza el cargo en la tarjeta, pero la conexión se interrumpe justo después de los encabezados de respuesta: la aplicación nunca recibe la respuesta."
 
+#. mt: deepl
+#, fuzzy
 msgid "The `@Retry` sends the payment again, and the caller sees a success."
-msgstr ""
+msgstr "La función `@Retry` vuelve a enviar el pago, y el solicitante recibe una respuesta de éxito."
 
+#. mt: deepl
+#, fuzzy
 msgid "Every request that went through the proxy, with its headers and the status it was answered with."
-msgstr ""
+msgstr "Todas las solicitudes que pasaron por el proxy, junto con sus encabezados y el estado con el que se respondió a cada una de ellas."
 
+#. mt: deepl
+#, fuzzy
 msgid "The first attempt had succeeded: the retry came after a payment that went through."
-msgstr ""
+msgstr "El primer intento había tenido éxito: el nuevo intento se produjo tras un pago que se había procesado correctamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The customer was charged once."
-msgstr ""
+msgstr "Se le cobró una vez al cliente."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "*Catches:* the two classic mistakes.\n"
 "With the key generated inside the retried method, each attempt carries a different key, and the customer is charged twice.\n"
 "Without the retry, the card is charged but the customer is told the payment failed."
-msgstr ""
+msgstr "*Conclusiones:* los dos errores clásicos. Al generarse la clave dentro del método de reintento, cada intento utiliza una clave diferente y se cobra dos veces al cliente. Sin el reintento, se realiza el cargo en la tarjeta, pero se informa al cliente de que el pago ha fallado."
 
+#. mt: deepl
+#, fuzzy
 msgid "For retries of the incoming payment request itself, the key also needs to survive across requests; the example above covers retries within one request."
-msgstr ""
+msgstr "En el caso de los reintentos de la propia solicitud de pago entrante, la clave también debe mantenerse válida entre solicitudes; el ejemplo anterior se refiere a los reintentos dentro de una misma solicitud."
 
+#. mt: deepl
+#, fuzzy
 msgid "3. The database stops cooperating"
 msgstr ""
+"\n"
+" La base de datos deja de funcionar correctamente"
 
+#. mt: deepl
+#, fuzzy
 msgid "A query that never returns"
-msgstr ""
+msgstr "Una consulta que nunca devuelve resultados"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The customer now opens their order history.\n"
 "The endpoint catches persistence failures and returns a `503` so the caller can try later:"
-msgstr ""
+msgstr "El cliente abre ahora su historial de pedidos. El punto final detecta los errores de persistencia y devuelve un `código 503` para que el solicitante pueda volver a intentarlo más tarde:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Here `orderRepository` is the sample's injected `Order.Repository`; the extension resolves that repository to its datasource."
-msgstr ""
+msgstr "En este caso, `«orderRepository»` es el `«Order.Repository»` inyectado en el ejemplo; la extensión resuelve dicho repositorio a su fuente de datos."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "But a database that _hangs_ does not necessarily produce an exception.\n"
 "The PostgreSQL JDBC driver waits forever for an answer by default, so the application needs a timeout of its own, or, as HikariCP's https://github.com/brettwooldridge/HikariCP/wiki/Rapid-Recovery[Rapid Recovery] guide puts it, \"it is imperative that the application configures the driver-level TCP socket timeout\":"
-msgstr ""
+msgstr "Sin embargo, una base de datos que _se bloquea_ no genera necesariamente una excepción. El controlador JDBC de PostgreSQL espera indefinidamente una respuesta de forma predeterminada, por lo que la aplicación necesita establecer su propio tiempo de espera o, tal y como indica la guía link:https://github.com/brettwooldridge/HikariCP/wiki/Rapid-Recovery[de recuperación rápida] de HikariCP, «es imprescindible que la aplicación configure el tiempo de espera del socket TCP a nivel del controlador»:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The test makes the database stop answering:"
-msgstr ""
+msgstr "La prueba hace que la base de datos deje de responder:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "*Catches:* the missing `socketTimeout`: the request never comes back.\n"
 "In the test, it is REST Assured, the client calling the application, that eventually gives up, after the 30 seconds Quarkus allows it in tests.\n"
 "Without an effective timeout, the blocking JDBC call keeps its worker thread and pooled connection while it waits for the database."
-msgstr ""
+msgstr "*Errores:* falta el parámetro ``socketTimeout`` : la solicitud nunca se recibe. En la prueba, es REST Assured —el cliente que realiza la llamada a la aplicación— el que acaba por rendirse, tras los 30 segundos que Quarkus permite en las pruebas. Sin un tiempo de espera efectivo, la llamada JDBC bloqueante mantiene su hilo de trabajo y su conexión en el grupo mientras espera a la base de datos."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The failure can spread beyond this request: every blocked query holds a pooled connection, leaving fewer for the next customer.\n"
 "You can test the exhausted state directly too, without generating a burst of traffic:"
-msgstr ""
+msgstr "El fallo puede extenderse más allá de esta solicitud: cada consulta bloqueada ocupa una conexión del grupo, lo que deja menos conexiones disponibles para el siguiente cliente. También puede comprobar directamente el estado de agotamiento, sin generar un pico de tráfico:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "This separate https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/pool-exhausted-500[pool-exhausted-500 sample] uses an exception mapper to translate the pool's acquisition timeout into `503` with `Retry-After`.\n"
 "Remove the mapper and the request returns `500` instead.\n"
 "Pool exhaustion tests do not need `NetworkFaultsProfile`.\n"
 "They check behavior when capacity runs out; measuring throughput still needs a load test."
-msgstr ""
+msgstr "Esta link:https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/pool-exhausted-500[muestra] independiente link:https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/pool-exhausted-500[«pool-exhausted-500»] utiliza un mapeador de excepciones para traducir el tiempo de espera de adquisición del grupo en `un código 503` con `«Retry-After` ». Si se elimina el mapeador, la solicitud devuelve `un código 500` en su lugar. Las pruebas de agotamiento del grupo no requieren `NetworkFaultsProfile` . Estas comprueban el comportamiento cuando se agota la capacidad; para medir el rendimiento sigue siendo necesaria una prueba de carga."
 
+#. mt: deepl
+#, fuzzy
 msgid "The database is back, but its connections are not"
-msgstr ""
+msgstr "La base de datos ya está de nuevo operativa, pero sus conexiones no lo están"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The database restarts, and the dashboard turns green again.\n"
 "The customer refreshes their order history, yet the first request still fails: the application has reused a connection that died during the restart.\n"
 "A fresh connection would work."
-msgstr ""
+msgstr "La base de datos se reinicia y el panel de control vuelve a mostrarse en verde. El cliente actualiza su historial de pedidos, pero la primera solicitud sigue fallando: la aplicación ha reutilizado una conexión que se interrumpió durante el reinicio. Una conexión nueva funcionaría."
 
+#. mt: deepl
+#, fuzzy
 msgid "Reproduce that distinction by opening a connection, dropping existing connections, and making another request:"
-msgstr ""
+msgstr "Reproduzca esa distinción abriendo una conexión, cerrando las conexiones existentes y realizando otra solicitud:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`dropConnections()` is a one-off interruption; new connections can succeed immediately.\n"
 "The sample configures Agroal to validate connections before reuse when their last validation is more than a millisecond old:"
-msgstr ""
+msgstr "`La` función ``dropConnections()` ` supone una interrupción puntual; las nuevas conexiones pueden establecerse con éxito de inmediato. El ejemplo configura Agroal para que valide las conexiones antes de reutilizarlas cuando haya transcurrido más de un milisegundo desde su última validación:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "That aggressive interval makes the sample's recovery behavior explicit; choose a production interval with the cost of validation in mind.\n"
 "The test asks whether the next customer can use the recovered database, not merely whether the database is reachable."
-msgstr ""
+msgstr "Ese intervalo tan agresivo pone de manifiesto el comportamiento de recuperación de la muestra; elija un intervalo de producción teniendo en cuenta el coste de la validación. La prueba comprueba si el siguiente cliente puede utilizar la base de datos recuperada, y no solo si se puede acceder a ella."
 
+#. mt: deepl
+#, fuzzy
 msgid "What if the connection breaks during a write?"
-msgstr ""
+msgstr "¿Qué ocurre si se interrumpe la conexión durante una operación de escritura?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Reading history is one thing; losing a connection while saving a new order is another.\n"
 "Does the customer receive a failure response even though a row was left behind?\n"
 "The sample saves the order in a transaction and maps a failure to `503`.\n"
 "Check both the response and the stored state:"
-msgstr ""
+msgstr "Una cosa es consultar el historial y otra muy distinta es perder la conexión al guardar un nuevo pedido. ¿Recibe el cliente una respuesta de error aunque se haya omitido una fila? El ejemplo guarda el pedido en una transacción y asigna un error `503` . Compruebe tanto la respuesta como el estado almacenado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`orderCount()` lists orders through `GET /orders` and counts them.\n"
 "This fault cuts the connection when the database starts responding; in this scenario the transaction does not commit.\n"
 "The final request checks recovery after the fault ends.\n"
 "Like the payment example, losing the acknowledgement of a _commit_ would be a different case: a connection error alone cannot prove that nothing was saved."
-msgstr ""
+msgstr "`La función `orderCount()`` muestra los pedidos a través de `la solicitud GET /orders` y los cuenta. Este fallo interrumpe la conexión cuando la base de datos comienza a responder; en este caso, la transacción no se confirma. La solicitud final comprueba la recuperación una vez finalizado el fallo. Al igual que en el ejemplo del pago, la pérdida de la confirmación de una _transacción_ sería un caso distinto: un error de conexión por sí solo no puede demostrar que no se haya guardado nada."
 
+#. mt: deepl
+#, fuzzy
 msgid "4. The order is saved. Who tells shipping?"
 msgstr ""
+"\n"
+" El pedido se ha guardado. ¿Quién se encarga de informar al departamento de envíos?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "There is one more dependency in the order's journey.\n"
 "The shipping service learns about orders through Kafka.\n"
 "A database row alone will not get a parcel dispatched: if publishing the event fails, the customer could see an order that shipping never hears about."
-msgstr ""
+msgstr "Existe una dependencia más en el proceso de tramitación del pedido. El servicio de envíos recibe información sobre los pedidos a través de Kafka. Una simple entrada en la base de datos no basta para que se envíe un paquete: si falla la publicación del evento, el cliente podría ver un pedido del que el servicio de envíos nunca llega a tener constancia."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The sample deliberately couples order acceptance to Kafka availability.\n"
 "It writes the row, waits for Kafka to acknowledge the event, and only then commits the database transaction:"
-msgstr ""
+msgstr "El ejemplo vincula deliberadamente la aceptación del pedido a la disponibilidad de Kafka. Escribe la fila, espera a que Kafka confirme el evento y, solo entonces, confirma la transacción de la base de datos:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Here `events` is a `MutinyEmitter<Long>` for the `order-events` channel.\n"
 "Make Kafka unavailable and check that this request fails without leaving an order behind:"
-msgstr ""
+msgstr "Aquí, `«events»` es un `MutinyEmitter<Long>` para el canal `«order-events` ». Haga que Kafka no esté disponible y compruebe que esta solicitud falla sin que quede pendiente ningún pedido:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The extension targets the emitter's Kafka connection, including discovered brokers.\n"
 "Switching to fire-and-forget publishing would let the transaction commit before the send fails, breaking this test.\n"
 "The sample also bounds the producer's waits so the customer is not left waiting through a prolonged outage:"
-msgstr ""
+msgstr "La extensión se centra en la conexión a Kafka del emisor, incluidos los brokers detectados. Cambiar a la publicación de tipo «fire-and-forget» permitiría que la transacción se confirmara antes de que fallara el envío, lo que haría que esta prueba fallara. El ejemplo también limita los tiempos de espera del productor para que el cliente no tenga que esperar durante una interrupción prolongada:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "There is still a gap: Kafka can accept the event and the database commit can then fail.\n"
 "A lost Kafka acknowledgement can also leave the application uncertain whether the event arrived.\n"
 "`@Transactional` does not make these two systems one transaction."
-msgstr ""
+msgstr "Sigue existiendo una laguna: Kafka puede aceptar el evento y, a continuación, la confirmación de la base de datos puede fallar. La pérdida de un acuse de recibo de Kafka también puede hacer que la aplicación no tenga la certeza de si el evento ha llegado. `@Transactional` no convierte estos dos sistemas en una única transacción."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If orders must be accepted while Kafka is down, the https://microservices.io/patterns/data/transactional-outbox.html[transactional outbox] changes the design: save the order and an event record in the same database transaction, then publish the event separately.\n"
 "That changes the test too: during the outage, assert that the order and outbox record are saved; after recovery, assert that the event reaches shipping.\n"
 "The relay may publish duplicates, so shipping must handle them idempotently.\n"
 "The sample above tests synchronous publishing; those outbox assertions would belong to an application using that design."
-msgstr ""
+msgstr "Si es necesario aceptar pedidos mientras Kafka está inactivo, la link:https://microservices.io/patterns/data/transactional-outbox.html[bandeja de salida transaccional] modifica el diseño: se guarda el pedido y un registro de evento en la misma transacción de la base de datos y, a continuación, se publica el evento por separado. Esto también modifica la prueba: durante la interrupción del servicio, compruebe que se hayan guardado el pedido y el registro de la bandeja de salida; tras la recuperación, compruebe que el evento llegue al departamento de envíos. Es posible que el relé publique duplicados, por lo que el departamento de envíos debe gestionarlos de forma idempotente. El ejemplo anterior comprueba la publicación sincrónica; esas verificaciones de la bandeja de salida pertenecerían a una aplicación que utilizara ese diseño."
 
+#. mt: deepl
+#, fuzzy
 msgid "What else is waiting to fail?"
-msgstr ""
+msgstr "¿Qué más está a punto de fallar?"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "We have checked the customer response, the stored order, and what happens when its event cannot be published.\n"
 "But some failures happen before a connection is established, or when the application writes a local file.\n"
 "You can test those failures too:"
-msgstr ""
+msgstr "Hemos comprobado la respuesta del cliente, el pedido almacenado y lo que ocurre cuando no es posible publicar su evento. Sin embargo, algunos errores se producen antes de que se establezca la conexión o cuando la aplicación escribe en un archivo local. También puede probar esos errores:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*The customer requests an invoice, but the disk is full. Does your service report the failure and recover when space is available?* `faults.directory(path).diskFull()` makes supported Java file writes under that directory fail with “No space left on device”, without filling the disk."
-msgstr ""
+msgstr "*El cliente solicita una factura, pero el disco está lleno. ¿Su servicio notifica el fallo y se recupera cuando hay espacio disponible? La función `* `faults.directory(path).diskFull()`` hace *que* las operaciones de escritura en archivos Java compatibles en ese directorio fallen con el mensaje «No hay espacio disponible en el dispositivo», sin que el disco se llene."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Inventory is healthy, but its hostname no longer resolves. Does checkout handle that failure too?* `faults.target(InventoryClient.class).unresolvable()` makes new connection attempts fail with `UnknownHostException`. Drop existing connections first so the next request encounters the fault."
-msgstr ""
+msgstr "*El inventario está en buen estado, pero su nombre de host ya no se resuelve. ¿El proceso de comprobación también gestiona ese error? La llamada a* ``faults.target(InventoryClient.class).unresolvable()`` hace que los nuevos intentos de conexión fallen con `una excepción `UnknownHostException`` . Cierre primero las conexiones existentes para que la siguiente solicitud detecte el error."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/guide-disk-and-dns.html[disk and DNS guide] has complete tests and explains their scope.\n"
 "Then there are the failures that emerge as your service grows:"
-msgstr ""
+msgstr "link:https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/guide-disk-and-dns.html[La guía] sobre link:https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/guide-disk-and-dns.html[discos y DNS] incluye pruebas completas y explica su alcance. Además, existen los fallos que surgen a medida que su servicio crece:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Your LLM provider says “slow down”. Does your service send even more requests?* A client retry combined with `@Retry` can multiply calls. Inject a `429` and count the attempts that actually reach the provider."
-msgstr ""
+msgstr "*Su proveedor de LLM le indica que «reduzca la velocidad». ¿Su servicio envía aún más solicitudes?* Un reintento del cliente, combinado con `@Retry` , puede multiplicar el número de llamadas. Inyecte un `error 429` y cuente los intentos que realmente llegan al proveedor."
 
+#. mt: deepl
+#, fuzzy
 msgid "*A stream stops after three events. Does your customer get an explanation or a broken connection?* Cut it at that exact point and test the recovery path."
-msgstr ""
+msgstr "*Una transmisión se interrumpe tras tres eventos. ¿Recibe su cliente una explicación o se le corta la conexión?* Interrumpa la transmisión exactamente en ese momento y compruebe la ruta de recuperación."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Your database pool is full. Does Kubernetes restart an otherwise healthy pod?* Exhaust the pool and check whether liveness still answers."
-msgstr ""
+msgstr "*Su grupo de bases de datos está lleno. ¿Reinicia Kubernetes un pod que, por lo demás, funciona correctamente?* Agote el grupo y compruebe si la comprobación de actividad sigue respondiendo."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[resilient-orders sample] covers the retry and streaming scenarios; the https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/samples.html[sample catalog] includes overload and health-check failures.\n"
 "Pick the question you are least sure how your service would answer: that is a good next test."
-msgstr ""
+msgstr "link:https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[El ejemplo de «resilient-orders»] abarca los escenarios de reintento y de transmisión en continuo; el link:https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/samples.html[catálogo de ejemplos] incluye fallos por sobrecarga y en las comprobaciones de estado. Elija la pregunta sobre la que tenga menos claro cómo respondería su servicio: esa será una buena prueba para realizar a continuación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Make sure the test exercised the failure"
-msgstr ""
+msgstr "Asegúrese de que la prueba haya detectado el fallo"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A test can apply a fault to the wrong dependency and still get its expected response.\n"
 "The extension guards against this: if no connection goes through the target proxy while the fault is active, it fails the test and identifies the target to investigate.\n"
 "That guard complements your assertions; you still need to check the outcome that matters, such as one charge, a bounded wait, or recovery."
-msgstr ""
+msgstr "Una prueba puede aplicar un fallo a una dependencia errónea y, aun así, obtener la respuesta esperada. La extensión evita que esto ocurra: si ninguna conexión pasa por el proxy de destino mientras el fallo está activo, la prueba falla e identifica el destino que debe investigarse. Esa protección complementa sus afirmaciones; aún así, deberá comprobar el resultado que realmente importa, como un cargo, una espera limitada o la recuperación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Explore it in dev mode"
-msgstr ""
+msgstr "Explórelo en modo de desarrollo"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "You can also investigate a failure before writing its regression test.\n"
 "Enable the Dev UI integration:"
-msgstr ""
+msgstr "También puede investigar un fallo antes de escribir su prueba de regresión. Active la integración con Dev UI:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The *Resiliency Testing* card lets you apply faults and inspect the requests they affected.\n"
 "Hang inventory, place an order, and watch what the customer sees.\n"
 "Then turn that observation into an assertion."
-msgstr ""
+msgstr "La tarjeta *«Pruebas de resiliencia* » le permite simular fallos e inspeccionar las solicitudes a las que han afectado. Añada productos al inventario, realice un pedido y observe lo que ve el cliente. A continuación, convierta esa observación en una afirmación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For AI-assisted test writing, the extension also exposes Dev MCP tools, a test-writing guide and an inventory of guarded methods.\n"
 "Fault application through these tools is opt-in in the Dev UI.\n"
 "The https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/index.html[documentation] covers setup and the wider API, including Redis, Kafka, LangChain4j, streaming failures and worker-pool exhaustion."
-msgstr ""
+msgstr "Para la creación de pruebas asistida por IA, la extensión también pone a su disposición las herramientas Dev MCP, una guía para la creación de pruebas y un inventario de métodos protegidos. La aplicación de errores a través de estas herramientas es opcional en la interfaz de usuario de Dev. La link:https://docs.quarkiverse.io/quarkus-resiliency-testing/dev/index.html[documentación] abarca la configuración y la API en su conjunto, incluyendo Redis, Kafka, LangChain4j, los fallos en el streaming y el agotamiento del grupo de trabajadores."
 
+#. mt: deepl
+#, fuzzy
 msgid "Try one failure in your service"
-msgstr ""
+msgstr "Pruebe a cometer un error en su servicio"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The extension requires Quarkus 4 and Java 21.\n"
 "Start with one dependency and one question: if it stops answering, what should the customer see, and how soon?\n"
 "Apply the fault, assert that behavior, and check recovery after the block closes."
-msgstr ""
+msgstr "La extensión requiere Quarkus 4 y Java 21. Comience con una dependencia y una pregunta: si deja de responder, ¿qué debería ver el cliente y en qué plazo? Simule el fallo, compruebe que se produce ese comportamiento y verifique la recuperación una vez que se cierre el bloque."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "There are limits: HTTP-level faults require plaintext HTTP/1.x, `connectTimeout()` is Linux-only, and `@QuarkusIntegrationTest` is not yet supported.\n"
 "See the https://github.com/quarkiverse/quarkus-resiliency-testing#known-limitations[known limitations] for details, including Redis and MongoDB topology restrictions."
-msgstr ""
+msgstr "Existen algunas limitaciones: los errores a nivel de HTTP requieren HTTP/1.x en texto sin cifrar, `la función connectTimeout()` solo está disponible en Linux y `@QuarkusIntegrationTest` aún no es compatible. Consulte las link:https://github.com/quarkiverse/quarkus-resiliency-testing#known-limitations[limitaciones conocidas] para obtener más detalles, incluidas las restricciones de topología de Redis y MongoDB."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[complete sample] includes more scenarios, from retry amplification to a database connection lost mid-transaction.\n"
 "If a test exposes a bug, or a failure you need is missing, tell us on https://github.com/quarkiverse/quarkus-resiliency-testing/issues[GitHub] or https://quarkusio.zulipchat.com/[Zulip]."
-msgstr ""
+msgstr "El conjunto link:https://github.com/quarkiverse/quarkus-resiliency-testing/tree/main/samples/resilient-orders[completo de ejemplos] incluye más situaciones, desde la amplificación de reintentos hasta la pérdida de la conexión a la base de datos en mitad de una transacción. Si una prueba pone de manifiesto un error, o si echa en falta algún fallo que necesite, háganoslo saber en link:https://github.com/quarkiverse/quarkus-resiliency-testing/issues[GitHub] o en link:https://quarkusio.zulipchat.com/[Zulip] ."

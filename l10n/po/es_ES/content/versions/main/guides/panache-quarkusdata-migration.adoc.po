@@ -6,506 +6,756 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: roq-plugin-l10n-adoc\n"
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate from Panache to Quarkus Data Hibernate"
-msgstr ""
+msgstr "Migrar de Panache a Quarkus Data Hibernate"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "This guide helps you migrate an existing Hibernate ORM with Panache or Hibernate Reactive with Panache application to Quarkus Data Hibernate.\n"
 "Both migration paths use managed, stateful sessions to preserve persistence-context and dirty-checking behavior.\n"
 "Follow <<orm-migration,Hibernate ORM with Panache>> for Hibernate ORM or <<reactive-migration,Hibernate Reactive with Panache>> for Hibernate Reactive."
-msgstr ""
+msgstr "Esta guía le ayudará a migrar una aplicación existente basada en Hibernate ORM con Panache o Hibernate Reactive con Panache a Quarkus Data Hibernate. Ambas vías de migración utilizan sesiones gestionadas con estado para conservar el contexto de persistencia y el comportamiento de comprobación de cambios. Siga la guía xref:orm-migration[«Hibernate ORM con Panache»] para Hibernate ORM o xref:reactive-migration[«Hibernate Reactive con Panache»] para Hibernate Reactive."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For complete API descriptions, see xref:hibernate-orm-panache.adoc[Hibernate ORM with Panache],\n"
 "xref:hibernate-reactive-panache.adoc[Hibernate Reactive with Panache], and the\n"
 "xref:quarkus-data-hibernate.adoc[Quarkus Data Hibernate reference guide]."
-msgstr ""
+msgstr "Para obtener descripciones completas de las API, consulte xref:hibernate-orm-panache.adoc[«Hibernate ORM con Panache»] , xref:hibernate-reactive-panache.adoc[«Hibernate Reactive con Panache] » y la xref:quarkus-data-hibernate.adoc[guía de referencia de Quarkus Data Hibernate] ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Data Hibernate is currently experimental. Its APIs may change."
-msgstr ""
+msgstr "Quarkus Data Hibernate se encuentra actualmente en fase experimental. Sus API pueden sufrir cambios."
 
 #, fuzzy
 msgid "Hibernate ORM with Panache"
 msgstr "Hibernate ORM con Panache"
 
+#. mt: deepl
+#, fuzzy
 msgid "Prepare the application"
-msgstr ""
+msgstr "Prepare la solicitud"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Quarkus Data Hibernate generates repository implementations and metamodel accessors at build time.\n"
 "Enable its annotation processor and add the required extension by following the\n"
 "xref:quarkus-data-hibernate-getting-started.adoc[Quarkus Data Hibernate getting started tutorial]."
-msgstr ""
+msgstr "Quarkus Data Hibernate genera implementaciones de repositorios y accesores de metamodelos en el momento de la compilación. Active su procesador de anotaciones y añada la extensión necesaria siguiendo el xref:quarkus-data-hibernate-getting-started.adoc[tutorial de introducción a Quarkus Data Hibernate] ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Remove the `quarkus-hibernate-orm-panache` extension when converting the application.\n"
 "Classic Panache extensions and Quarkus Data Hibernate cannot be used together in the same application."
-msgstr ""
+msgstr "Elimine la extensión `«quarkus-hibernate-orm-panache»` al convertir la aplicación. Las extensiones clásicas de Panache y Quarkus Data Hibernate no pueden utilizarse conjuntamente en la misma aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Your existing entity mappings, datasource configuration, Hibernate ORM configuration, and transaction boundaries remain applicable."
-msgstr ""
+msgstr "Sus asignaciones de entidades actuales, la configuración de las fuentes de datos, la configuración del ORM de Hibernate y los límites de las transacciones siguen siendo válidos."
 
+#. mt: deepl
+#, fuzzy
 msgid "Understand the repository changes"
-msgstr ""
+msgstr "Comprender los cambios en el repositorio"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "With Panache, you define custom query methods either as static methods on the entity class, following the active-record\n"
 "pattern, or as instance methods in a separate repository class."
-msgstr ""
+msgstr "Con Panache, puede definir métodos de consulta personalizados, ya sea como métodos estáticos en la clase de entidad —siguiendo el patrón Active Record— o como métodos de instancia en una clase de repositorio independiente."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If your application uses active record, move custom static query methods to a repository interface as default methods or generated query methods.\n"
 "Nesting the repository inside the entity lets you access it through the entity's generated Jakarta Persistence metamodel:\n"
 "`Person.list(...)` becomes `Person_.repo().list(...)`."
-msgstr ""
+msgstr "Si su aplicación utiliza Active Record, traslade los métodos de consulta estáticos personalizados a una interfaz de repositorio, ya sea como métodos predeterminados o como métodos de consulta generados. Al anidar el repositorio dentro de la entidad, podrá acceder a él a través del metamodelo de Jakarta Persistence generado por la entidad: `«Person.list(…​)»` pasa a ser `«Person_.repo().list(…​)` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "For applications using Panache repository classes, replace each class with a repository interface and convert custom method implementations to default methods or generated query methods."
-msgstr ""
+msgstr "En el caso de las aplicaciones que utilicen clases de repositorio de Panache, sustituya cada clase por una interfaz de repositorio y convierta las implementaciones de métodos personalizados en métodos predeterminados o en métodos de consulta generados."
 
+#. mt: deepl
+#, fuzzy
 msgid "Both nested and top-level repository interfaces support injection."
-msgstr ""
+msgstr "Tanto las interfaces de repositorio anidadas como las de nivel superior admiten la inyección."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The examples below use `ManagedEntity` and `ManagedRepository` to preserve Panache's stateful persistence-context and dirty-checking behavior.\n"
 "For details about session models, see xref:quarkus-data-hibernate.adoc#session-and-access-models[Session and access models]."
-msgstr ""
+msgstr "En los ejemplos que figuran a continuación se utilizan `ManagedEntity` y `ManagedRepository` para mantener el contexto de persistencia con estado y el comportamiento de comprobación de cambios de Panache. Para obtener más información sobre los modelos de sesión, consulte xref:quarkus-data-hibernate.adoc#session-and-access-models[«Sesión y modelos de acceso] »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate an active-record entity"
-msgstr ""
+msgstr "Migrar una entidad de Active Record"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`PanacheEntity` combines an inherited generated `Long` identifier, instance persistence operations, and common\n"
 "operations such as `Person.list(...)`, `Person.listAll()`, and `Person.count()` , called directly on the entity class.\n"
 "`ManagedEntity` retains the identifier and instance operations, but does not provide static query methods.\n"
 "Instead, these operations are provided by ManagedRepository and can be accessed through Person_.repo() on the generated\n"
 "metamodel."
-msgstr ""
+msgstr "`PanacheEntity` combina un identificador `«Long»` generado y heredado, operaciones de persistencia de instancias y operaciones comunes como `Person.list(…​)` , `Person.listAll()` y `Person.count()` , que se invocan directamente sobre la clase de entidad. `ManagedEntity` conserva el identificador y las operaciones de instancia, pero no proporciona métodos de consulta estáticos. En su lugar, estas operaciones las proporciona ManagedRepository y se puede acceder a ellas a través de Person_.repo() en el metamodelo generado."
 
+#. mt: deepl
+#, fuzzy
 msgid "For example, migrate this Panache entity:"
-msgstr ""
+msgstr "Por ejemplo, migre esta entidad de Panache:"
 
+#. mt: deepl
+#, fuzzy
 msgid "to a managed entity with a nested repository:"
-msgstr ""
+msgstr "a una entidad gestionada con un repositorio anidado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Then migrate the query call site from a static entity method:"
-msgstr ""
+msgstr "A continuación, traslade el punto de llamada de la consulta desde un método de entidad estático:"
 
+#. mt: deepl
+#, fuzzy
 msgid "to a call on the nested repository in the generated Jakarta Persistence metamodel:"
-msgstr ""
+msgstr "a una llamada al repositorio anidado en el metamodelo de Jakarta Persistence generado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "or to call on an injected repository:"
-msgstr ""
+msgstr "o para acceder a un repositorio inyectado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Move custom static methods"
-msgstr ""
+msgstr "Mover métodos estáticos personalizados"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Move custom static query helpers from the entity into a repository default method, a generated `@Find`, `@Query`, or `@Delete` method, or an application service.\n"
 "For example, migrate this Panache entity method:"
-msgstr ""
+msgstr "Traslade los ayudantes de consulta estáticos personalizados de la entidad a un método predeterminado del repositorio, a un método generado con `@Find` , `@Query` o `@Delete` , o a un servicio de aplicación. Por ejemplo, migre este método de la entidad Panache:"
 
+#. mt: deepl
+#, fuzzy
 msgid "to a default method on the nested repository:"
-msgstr ""
+msgstr "a un método predeterminado del repositorio anidado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Then migrate the call site:"
-msgstr ""
+msgstr "A continuación, migre el punto de llamada:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Alternatively, call `Person_.repo().findAlive()` through the generated metamodel.\n"
 "For examples of generated query methods, see <<generated-repository-methods>>."
-msgstr ""
+msgstr "Como alternativa, puede llamar a `Person_.repo().findAlive()` a través del metamodelo generado. Para ver ejemplos de métodos de consulta generados, consulte <<generated-repository-methods>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate a Panache repository"
-msgstr ""
+msgstr "Migrar un repositorio de Panache"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Replace a handwritten CDI repository implementation with an interface.\n"
 "Quarkus Data generates its CDI implementation at build time."
-msgstr ""
+msgstr "Sustituya una implementación del repositorio CDI escrita a mano por una interfaz. Quarkus Data genera su implementación de CDI en el momento de la compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The entity uses `ManagedEntity`, as in the previous section.\n"
 "When using this top-level repository, there's no need for a nested `Repo` interface in the entity itself.\n"
 "Replace the `@ApplicationScoped` class with the `@Repository` interface and use `default` for custom method\n"
 "implementations.\n"
 "You can also declare annotated methods whose implementations are generated, and take this a step further:"
-msgstr ""
+msgstr "La entidad utiliza ``ManagedEntity`` , tal y como se ha indicado en la sección anterior. Al utilizar este repositorio de nivel superior, no es necesario incluir una interfaz ``Repo`` anidada en la propia entidad. Sustituya la clase con la anotación ``@ApplicationScoped`` por la interfaz ``@Repository`` y utilice `el valor por defecto` para las implementaciones de métodos personalizados. También puede declarar métodos anotados cuyas implementaciones se generen automáticamente, y llevar esto un paso más allá:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The top-level interface above uses `jakarta.data.repository.Repository`; a nested `Person.Repo` does not need this annotation."
-msgstr ""
+msgstr "La interfaz de nivel superior anterior utiliza `jakarta.data.repository.Repository` ; un `Person.Repo` anidado no necesita esta anotación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Injection and query call sites remain the same before and after this conversion:"
-msgstr ""
+msgstr "Los puntos de inyección y de llamada a consultas siguen siendo los mismos antes y después de esta conversión:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate entity identifiers"
-msgstr ""
+msgstr "Migrar identificadores de entidades"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`PanacheEntity` maps directly to `ManagedEntity`: both provide a generated `Long` identifier.\n"
 "For a `PanacheEntityBase` entity with an application-defined identifier, retain its `@Id` mapping, implement `ManagedEntity.CustomId`, and use `ManagedRepository.CustomId<Entity, Id>`."
-msgstr ""
+msgstr "`PanacheEntity` se asigna directamente a `ManagedEntity` : ambas proporcionan un identificador `Long` generado. En el caso de una entidad `PanacheEntityBase` con un identificador definido por la aplicación, mantenga su asignación `@Id` , implemente `ManagedEntity.CustomId` y utilice `ManagedRepository.CustomId<Entity, Id>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "If you use a top-level Panache repository with a custom identifier, migrate it to a top-level interface instead of declaring the nested `Repo` above:"
-msgstr ""
+msgstr "Si utiliza un repositorio Panache de nivel superior con un identificador personalizado, migre dicho repositorio a una interfaz de nivel superior en lugar de declarar el `Repo` anidado anterior:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If you want an inherited generated identifier of another type, Quarkus Data also provides `WithId.AutoString`, `WithId.AutoUUID`, and `WithId.AutoUUIDv7`.\n"
 "See xref:quarkus-data-hibernate.adoc#about-entity-identifiers[entity identifiers] for details."
-msgstr ""
+msgstr "Si desea un identificador generado de forma heredada de otro tipo, Quarkus Data también ofrece `WithId.AutoString` , `WithId.AutoUUID` y `WithId.AutoUUIDv7` . Consulte xref:quarkus-data-hibernate.adoc#about-entity-identifiers[«Identificadores de entidad] » para obtener más detalles."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate common operations"
-msgstr ""
+msgstr "Migrar operaciones habituales"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Most Panache repository and entity operations are available from `ManagedRepository` and `ManagedEntity` with the same names.\n"
 "The following table shows the usual replacements."
-msgstr ""
+msgstr "La mayoría de las operaciones relacionadas con los repositorios y las entidades de Panache están disponibles en ``ManagedRepository`` y ``ManagedEntity`` , con los mismos nombres. En la siguiente tabla se muestran las sustituciones habituales."
 
+#. mt: deepl
+#, fuzzy
 msgid "Panache"
-msgstr ""
+msgstr "Estilo"
 
 #, fuzzy
 msgid "Quarkus Data Hibernate"
 msgstr "Quarkus, datos, Hibernate"
 
+#. mt: deepl
+#, fuzzy
 msgid "`persist(entity)`, `persistAndFlush(entity)`"
-msgstr ""
+msgstr "`persist(entidad)` , `persistAndFlush(entidad)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`repository.persist(entity)`, `repository.persistAndFlush(entity)`"
-msgstr ""
+msgstr "`repository.persist(entidad)` , `repository.persistAndFlush(entidad)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`delete(entity)`, `isPersistent(entity)`, `flush()`"
-msgstr ""
+msgstr "`delete(entidad)` , `isPersistent(entidad)` , `flush()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The corresponding `ManagedRepository` methods."
-msgstr ""
+msgstr "Los métodos correspondientes `de ManagedRepository` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`entity.persist()`, `entity.persistAndFlush()`, `entity.delete()`"
-msgstr ""
+msgstr "`entity.persist()` , `entity.persistAndFlush()` , `entity.delete()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same instance operations after the entity extends `ManagedEntity` or implements `ManagedEntity.CustomId`."
-msgstr ""
+msgstr "Las operaciones de instancia son las mismas cuando la entidad hereda de ``ManagedEntity`` o implementa ``ManagedEntity.CustomId` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "`findById(id)`, `findByIdOptional(id)`, `deleteById(id)`"
-msgstr ""
+msgstr "`findById(id)` , `findByIdOptional(id)` , `deleteById(id)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same `ManagedRepository` operations."
-msgstr ""
+msgstr "Las mismas operaciones de `ManagedRepository` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`count()`, `count(query, parameters)`, `delete(query, parameters)`, `deleteAll()`"
-msgstr ""
+msgstr "`count()` , `count(consulta, parámetros)` , `delete(consulta, parámetros)` , `deleteAll()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The corresponding `ManagedRepository` methods return `Long` instead of `long`."
-msgstr ""
+msgstr "Los métodos correspondientes `de ManagedRepository` devuelven valores de tipo `Long` en lugar de `long` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`update(query, parameters)`"
-msgstr ""
+msgstr "`update(consulta, parámetros)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`repository.update(query, parameters)`, returning `Long` instead of `int`."
-msgstr ""
+msgstr "`repository.update(query, parameters)` , que devuelve un valor de tipo `Long` en lugar de `int` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`find()`, `list()`, `stream()` and their `*All` variants"
-msgstr ""
+msgstr "`find()` , `list()` , `stream()` y `todas` sus variantes"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same operations, except that sorting is applied to the query object. See <<sorting>>."
-msgstr ""
+msgstr "Las mismas operaciones, salvo que la ordenación se aplica al objeto de consulta. Consulte <<sorting>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`getEntityManager()` or `getSession()`"
-msgstr ""
+msgstr "`getEntityManager()` o `getSession()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`repository.getSession()` for entity-bound work. Inject `Session` or `EntityManager` for general-purpose access."
-msgstr ""
+msgstr "Utilice ` `repository.getSession()` ` para tareas relacionadas con entidades. Inyecte ``Session` ` o ``EntityManager` ` para un acceso de uso general."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The blocking `persist()`, `persistAndFlush()`, `delete(entity)`, `entity.delete()`, and `flush()` operations return `Void` instead of `void`.\n"
 "The `isPersistent()` and `deleteById()` operations return `Boolean` instead of `boolean`.\n"
 "Existing calls that ignore a `Void` result or unbox a `Boolean` or `Long` result can retain their usual form.\n"
 "For bulk updates, change variables and custom method return types that receive the count from `int` to `long` or `Long`:"
-msgstr ""
+msgstr "Las operaciones de bloqueo `persist()` , `persistAndFlush()` , `delete(entity)` , `entity.delete()` y `flush()` devuelven `Void` en lugar de `void` . Las operaciones `isPersistent()` y `deleteById()` devuelven `Boolean` en lugar de `boolean` . Las llamadas existentes que ignoran un resultado `de tipo Void` o que desembalan un resultado `de tipo Boolean` o `Long` pueden conservar su forma habitual. Para las actualizaciones masivas, cambie los tipos de retorno de las variables y los métodos personalizados que reciben el recuento de `int` a `long` o `Long` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "If an existing API must still return `int`, convert explicitly with `Math.toIntExact(people.update(...))`."
-msgstr ""
+msgstr "Si una API existente sigue teniendo que devolver `un` valor `de tipo` ` `int`` , convierta el valor de forma explícita con ``Math.toIntExact(people.update(…​))`` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`ManagedRepository` supports the indexed `Object...` and named `Map<String, Object>` parameter forms used by Panache.\n"
 "Replace deprecated Panache `Parameters` instances with a `Map`, for example `Map.of(\"status\", Status.ALIVE)`."
-msgstr ""
+msgstr "`ManagedRepository` admite los formatos de parámetros `«Object…​»` indexado y `«Map<String, Object>»` con nombre que utiliza Panache. Sustituya las instancias de «Panache `Parameters»` obsoletas por un `«Map»` , por ejemplo, `«Map.of(\"status\", Status.ALIVE)` »."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`findByIds(List<?>)` has no inherited `ManagedRepository` counterpart.\n"
 "Declare a repository method such as `@Query(\"where id in :ids\") List<Person> findByIds(List<UUID> ids)`, or use a dynamic query such as `repository.list(\"id in ?1\", ids)` with the actual identifier attribute name and type."
-msgstr ""
+msgstr "El método ` `findByIds(List<?>)` ` no tiene un equivalente heredado en ` `ManagedRepository` `. Declare un método de repositorio como `@Query(\"where id in :ids\") List<Person> findByIds(List<UUID> ids)` , o utilice una consulta dinámica como `repository.list(\"id in ?1\", ids)` con el nombre y el tipo reales del atributo identificador."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate query results"
-msgstr ""
+msgstr "Migrar los resultados de la consulta"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`find()` and `findAll()` now return `BlockingDataQuery<Entity>` instead of `PanacheQuery<Entity>`.\n"
 "Most result operations remain direct equivalents."
-msgstr ""
+msgstr "Los métodos ` `find()` ` y ``findAll()`` devuelven ahora ` `BlockingDataQuery<Entity>` ` en lugar de ``PanacheQuery<Entity>` `. La mayoría de las operaciones sobre los resultados siguen siendo equivalentes directas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Panache `PanacheQuery`"
-msgstr ""
+msgstr "Panache `PanacheQuery`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Data `BlockingDataQuery`"
-msgstr ""
+msgstr "Quarkus: `Bloqueo` de datos en DataQuery"
 
+#. mt: deepl
+#, fuzzy
 msgid "`list()`, `stream()`, `firstResult()`, `singleResult()`"
-msgstr ""
+msgstr "`list()` , `stream()` , `firstResult()` , `singleResult()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method."
-msgstr ""
+msgstr "El mismo método."
 
+#. mt: deepl
+#, fuzzy
 msgid "`firstResultOptional()`, `singleResultOptional()`, `count()`"
-msgstr ""
+msgstr "`firstResultOptional()` , `singleResultOptional()` , `count()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method; `count()` returns `Long` instead of `long`."
-msgstr ""
+msgstr "El mismo método: `count()` devuelve un valor de tipo `Long` en lugar de `long` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`project(Dto.class)`"
-msgstr ""
+msgstr "`proyecto(Dto.class)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method. Existing Panache projection annotations remain applicable."
-msgstr ""
+msgstr "El mismo método. Las anotaciones de proyección de Panache ya existentes siguen siendo válidas."
 
+#. mt: deepl
+#, fuzzy
 msgid "`withLock(lockMode)`, `withHint(name, value)`, `filter(name, parameters)`"
-msgstr ""
+msgstr "`withLock(lockMode)` , `withHint(name, value)` , `filter(name, parameters)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method; use the `Map` form for filter parameters."
-msgstr ""
+msgstr "El mismo método: utilice el formulario `«Map»` para los parámetros de filtro."
 
 #, fuzzy
 msgid "Sorting"
 msgstr "Clasificación"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Panache passes `io.quarkus.panache.common.Sort` directly to `find`, `list`, and `stream` methods.\n"
 "With Quarkus Data, sort the `BlockingDataQuery` returned by `find()` or `findAll()` using Jakarta Data `Sort` or `Order`."
-msgstr ""
+msgstr "Panache pasa directamente ``io.quarkus.panache.common.Sort`` a los métodos ` `find` `, ``list` ` y ``stream`` . Con Quarkus Data, ordene el objeto ``BlockingDataQuery` ` devuelto por ``find()` ` o ``findAll()`` utilizando `Jakarta Data `Sort` ` u ``Order`` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "For multiple sort criteria, use `jakarta.data.Order`:"
-msgstr ""
+msgstr "Si desea aplicar varios criterios de ordenación, utilice `jakarta.data.Order` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Jakarta Data `Sort` supports ascending, descending, and ignore-case variants, but it does not expose Panache `Sort` features such as null precedence or `disableEscaping()`.\n"
 "Use an explicit HQL `order by` expression when that Hibernate-specific behavior is required."
-msgstr ""
+msgstr "Jakarta Data `Sort` admite las variantes de ordenación ascendente, descendente y sin distinción entre mayúsculas y minúsculas, pero no ofrece las funciones `de` Panache `Sort` , como la prioridad de los valores nulos o `la función disableEscaping()` . Utilice una expresión `«order by»` explícita en HQL cuando se requiera ese comportamiento específico de Hibernate."
 
+#. mt: deepl
+#, fuzzy
 msgid "Pagination and ranges"
-msgstr ""
+msgstr "Paginación e intervalos"
 
+#. mt: deepl
+#, fuzzy
 msgid "Paging and ranges are available from nested query operations:"
-msgstr ""
+msgstr "En las operaciones de consulta anidadas se pueden utilizar la paginación y los intervalos:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.page(pageIndex, pageSize)`"
-msgstr ""
+msgstr "`query.page(pageIndex, pageSize)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().page(pageIndex, pageSize)`"
-msgstr ""
+msgstr "`query.pages().page(pageIndex, pageSize)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`nextPage()`, `previousPage()`, `firstPage()`, `lastPage()`"
-msgstr ""
+msgstr "`nextPage()` , `previousPage()` , `firstPage()` , `lastPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().next()`, `previous()`, `first()`, `last()`"
-msgstr ""
+msgstr "`query.pages().next()` , `previous()` , `first()` , `last()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`hasNextPage()`, `hasPreviousPage()`"
-msgstr ""
+msgstr "`hasNextPage()` , `hasPreviousPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().hasNext()`, `hasPrevious()`, returning `Boolean` instead of `boolean`."
-msgstr ""
+msgstr "`query.pages().hasNext()` , `hasPrevious()` , devuelve `«Boolean` » en lugar de `«boolean` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "`pageCount()`"
-msgstr ""
+msgstr "`pageCount()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().count()`, returning `Long` instead of `int`. Update variables and custom method return types that receive the page count to `long` or `Long`."
-msgstr ""
+msgstr "`query.pages().count()` , que devuelve un valor de tipo `Long` en lugar de `int` . Actualice las variables y los tipos de retorno de los métodos personalizados que reciben el recuento de páginas a `long` o `Long` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`page()`"
-msgstr ""
+msgstr "`page()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().request()`"
-msgstr ""
+msgstr "`query.pages().request()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`range(startIndex, lastIndex)`"
-msgstr ""
+msgstr "`rango(índiceInicial, índiceFinal)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.limits().range(startIndex, lastIndex)`"
-msgstr ""
+msgstr "`query.limits().range(startIndex, lastIndex)`"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`pages().page(pageIndex, pageSize)` is the closest mechanical replacement and retains Panache's zero-based page index.\n"
 "The page request type is `jakarta.data.page.PageRequest` rather than `io.quarkus.panache.common.Page`.\n"
 "Its `page()` value is one-based: replace reads of `query.page().index` with `query.pages().request().page() - 1`.\n"
 "As with Panache, do not combine fixed ranges and paging on the same query."
-msgstr ""
+msgstr "`pages().page(pageIndex, pageSize)` es el sustituto técnico más cercano y conserva el índice de páginas basado en cero de Panache. El tipo de solicitud de página es `jakarta.data.page.PageRequest` , en lugar de `io.quarkus.panache.common.Page` . Su valor `page()` se cuenta a partir de 1: sustituya las lecturas de `query.page().index` por `query.pages().request().page() - 1` . Al igual que con Panache, no combine rangos fijos y paginación en la misma consulta."
 
+#. mt: deepl
+#, fuzzy
 msgid "Adopt generated repository methods where useful"
-msgstr ""
+msgstr "Adopte los métodos generados del repositorio cuando resulte útil"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "You can keep existing query strings when moving calls from a Panache entity or repository to `ManagedRepository`.\n"
 "The repository's `find`, `list`, `count`, `update`, and `delete` methods interpret these strings at runtime, just as Panache does.\n"
 "For example, with an injected `PersonRepository people`:"
-msgstr ""
+msgstr "Puede conservar las cadenas de consulta existentes al trasladar llamadas desde una entidad o un repositorio de Panache a `ManagedRepository` . Los métodos `find` , `list` , `count` , `update` y `delete` del repositorio interpretan estas cadenas en tiempo de ejecución, tal y como lo hace Panache. Por ejemplo, con un `PersonRepository` inyectado, `people` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Panache Query Language shorthand: `\"status\"` expands to a query that matches the `status` field to the supplied value."
-msgstr ""
+msgstr "Abreviatura del lenguaje de consulta de Panache: `«status»` se expande en una consulta que busca coincidencias entre el campo `«status»` y el valor proporcionado."
 
+#. mt: deepl
+#, fuzzy
 msgid "A full Hibernate Query Language (HQL) query with an indexed parameter: `?1` receives the first supplied value."
-msgstr ""
+msgstr "Una consulta completa en el lenguaje de consultas de Hibernate (HQL) con un parámetro indexado: `«?1»` recibe el primer valor proporcionado."
 
+#. mt: deepl
+#, fuzzy
 msgid "A named parameter: the `status` entry in the map supplies the value for `:status`."
-msgstr ""
+msgstr "Un parámetro con nombre: la entrada `«status»` del mapa proporciona el valor para `:status` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "An existing named query declared on the entity with `@NamedQuery`, referenced by prefixing its name with `#`.\n"
 "This example assumes `Person.findByStatus` is already declared with a `?1` parameter."
-msgstr ""
+msgstr "Una consulta con nombre ya existente declarada en la entidad mediante `@NamedQuery` , a la que se hace referencia anteponiendo `el símbolo #` a su nombre. En este ejemplo se da por hecho que `Person.findByStatus` ya está declarada con un parámetro `?1` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Query options also carry over to the object returned by `find()`.\n"
 "Use `withLock()` to request a database lock within a transaction, `withHint()` to pass query hints to Hibernate, and `filter()` to enable an existing Hibernate filter while fetching results.\n"
 "Use `project(Dto.class)` to return DTO instances containing selected fields instead of complete entities.\n"
 "These methods have the same roles as on `PanacheQuery`; see the comparison in <<query-results>>."
-msgstr ""
+msgstr "Las opciones de consulta también se aplican al objeto devuelto por `find()` . Utilice `withLock()` para solicitar un bloqueo de la base de datos dentro de una transacción, `withHint()` para pasar sugerencias de consulta a Hibernate y `filter()` para habilitar un filtro existente de Hibernate al recuperar los resultados. Utilice `project(Dto.class)` para devolver instancias de DTO que contengan los campos seleccionados en lugar de entidades completas. Estos métodos tienen las mismas funciones que en `PanacheQuery` ; consulte la comparación en <<query-results>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "When a custom helper always uses the same query structure, you can instead declare an annotated repository method and let the annotation processor generate its implementation.\n"
 "For example, replace this custom method in `PersonRepository`:"
-msgstr ""
+msgstr "Cuando un helper personalizado utiliza siempre la misma estructura de consulta, puede declarar en su lugar un método de repositorio anotado y dejar que el procesador de anotaciones genere su implementación. Por ejemplo, sustituya este método personalizado en `PersonRepository` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "with an abstract `@Query` method.\n"
 "The following repository also illustrates generated finder and delete methods:"
-msgstr ""
+msgstr "con un método abstracto `@Query` . El siguiente repositorio también muestra los métodos «finder» y «delete» generados:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@Find` builds a query from the method parameters: the `status` parameter matches the entity's `status` field."
-msgstr ""
+msgstr "`@Find` genera una consulta a partir de los parámetros del método: el parámetro `«status»` se corresponde con el campo `«status»` de la entidad."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@Delete` matches parameters to fields in the same way, deletes matching entities, and returns the number deleted.\n"
 "Call this method within a transaction, as with the corresponding Panache delete operation."
-msgstr ""
+msgstr "`@Delete` compara los parámetros con los campos de la misma manera, elimina las entidades que coinciden y devuelve el número de entidades eliminadas. Llame a este método dentro de una transacción, al igual que con la operación de eliminación correspondiente de Panache."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@Query` specifies the query explicitly and binds `:status` to the method parameter.\n"
 "This replaces the default method above while retaining its filtering and ordering."
-msgstr ""
+msgstr "`@Query` especifica la consulta de forma explícita y vincula `:status` al parámetro del método. Esto sustituye al método predeterminado anterior, conservando al mismo tiempo su filtrado y ordenación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The annotation processor checks the declared queries and parameter mappings when you build the application, so errors such as an unknown entity field can be reported before the method is called.\n"
 "The methods have no handwritten bodies; Quarkus Data generates them.\n"
 "The call to the custom helper remains the same:"
-msgstr ""
+msgstr "El procesador de anotaciones comprueba las consultas declaradas y las asignaciones de parámetros al compilar la aplicación, por lo que se pueden detectar errores —como un campo de entidad desconocido— antes de que se llame al método. Los métodos no tienen cuerpos escritos manualmente; Quarkus Data los genera. La llamada al ayudante personalizado sigue siendo la misma:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Use `@NativeQuery` for SQL when necessary. For runtime-built queries, continue to use repository `find`, `list`, `count`, `update`, and `delete` methods.\n"
 "For type-safe dynamic filtering and ordering, consider Jakarta Data restrictions and the generated metamodel; see\n"
 "xref:quarkus-data-hibernate.adoc#generated-metamodels[generated metamodels and type-safe queries]."
-msgstr ""
+msgstr "Utilice `@NativeQuery` para SQL cuando sea necesario. Para las consultas generadas en tiempo de ejecución, siga utilizando los métodos `«find»` , `«list»` , `«count»` , `«update»` y `«delete»` del repositorio. Para aplicar filtros y ordenaciones dinámicos con seguridad de tipos, tenga en cuenta las restricciones de Jakarta Data y el metamodelo generado; consulte xref:quarkus-data-hibernate.adoc#generated-metamodels[«Metamodelos generados» y «Consultas con seguridad de tipos] »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace global Panache utilities deliberately"
-msgstr ""
+msgstr "Sustituya deliberadamente las utilidades globales de Panache"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Panache global static helpers do not have direct Quarkus Data equivalents.\n"
 "This includes global `getEntityManager()`, `getSession()`, `getTransactionManager()`, `executeUpdate()`, `setRollbackOnly()`, and `flush()` methods."
-msgstr ""
+msgstr "Los métodos auxiliares estáticos globales de Panache no tienen equivalentes directos en Quarkus Data. Entre ellos se incluyen los métodos globales `getEntityManager()` , `getSession()` , `getTransactionManager()` , `executeUpdate()` , `setRollbackOnly()` y `flush()` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For work associated with an entity repository, use `repository.getSession()` and `repository.flush()`.\n"
 "For arbitrary HQL, Criteria, or native SQL, inject a Hibernate `Session` or Jakarta Persistence `EntityManager`.\n"
 "An injection with only `@Inject` selects the default persistence unit.\n"
 "To select a configured named persistence unit, add Quarkus's `@PersistenceUnit` annotation to the injected field.\n"
 "For example, to obtain the session for a persistence unit named `users`:"
-msgstr ""
+msgstr "Para las tareas relacionadas con un repositorio de entidades, utilice `repository.getSession()` y `repository.flush()` . Para HQL, Criteria o SQL nativo arbitrario, inyecte una `sesión` de Hibernate o `un EntityManager` de Jakarta Persistence. Una inyección que utilice únicamente `@Inject` selecciona la unidad de persistencia predeterminada. Para seleccionar una unidad de persistencia con nombre configurada, añada la anotación `@PersistenceUnit` de Quarkus al campo inyectado. Por ejemplo, para obtener la sesión de una unidad de persistencia denominada `«users` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Here, `@PersistenceUnit(\"users\")` is a CDI qualifier: it tells Quarkus which persistence unit's session to inject.\n"
 "The same annotation can select the persistence unit for an injected `EntityManager`.\n"
 "See xref:hibernate-orm.adoc#multiple-persistence-units[Multiple persistence units] for configuration and injection details."
-msgstr ""
+msgstr "En este caso, `@PersistenceUnit(\"users\")` es un calificador de CDI: indica a Quarkus qué sesión de la unidad de persistencia debe inyectarse. La misma anotación puede seleccionar la unidad de persistencia para un `EntityManager` inyectado. Consulte xref:hibernate-orm.adoc#multiple-persistence-units[«Unidades de persistencia múltiples»] para obtener más detalles sobre la configuración y la inyección."
 
+#. mt: deepl
+#, fuzzy
 msgid "For transaction-manager or rollback-only control, use the Jakarta Transactions facilities appropriate to the application."
-msgstr ""
+msgstr "Para el control del gestor de transacciones o del rollback, utilice las funciones de Jakarta Transactions adecuadas para la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Update tests"
-msgstr ""
+msgstr "Actualizar pruebas"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`PanacheMock` mocks static active-record methods and therefore does not apply to Quarkus Data repositories.\n"
 "After moving static entity queries to an injected repository, mock or replace that CDI bean using the normal Quarkus test mechanisms, such as `@InjectMock` from `quarkus-junit-mockito`."
-msgstr ""
+msgstr "`PanacheMock` simula los métodos estáticos de ActiveRecord y, por lo tanto, no es aplicable a los repositorios de Quarkus Data. Tras trasladar las consultas de entidades estáticas a un repositorio inyectado, simule o sustituya ese bean CDI utilizando los mecanismos habituales de prueba de Quarkus, como `@InjectMock` de `quarkus-junit-mockito` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Existing tests should continue to cover the same persistence behavior.\n"
 "Add focused tests for every moved static helper and for intentional query changes, particularly sorting, paging, ranges, and custom identifier handling."
-msgstr ""
+msgstr "Las pruebas existentes deben seguir abarcando el mismo comportamiento de persistencia. Añádase pruebas específicas para cada ayudante estático reubicado y para los cambios intencionados en las consultas, en particular la ordenación, la paginación, los rangos y el manejo de identificadores personalizados."
 
 #, fuzzy
 msgid "Migration checklist"
 msgstr "Lista de control de la migración"
 
+#. mt: deepl
+#, fuzzy
 msgid "Enable the Quarkus Data Hibernate annotation processor and extension."
-msgstr ""
+msgstr "Active el procesador de anotaciones y la extensión «Data Hibernate» de Quarkus."
 
+#. mt: deepl
+#, fuzzy
 msgid "Remove the classic `quarkus-hibernate-orm-panache` extension when converting the application."
-msgstr ""
+msgstr "Elimine la extensión clásica `«quarkus-hibernate-orm-panache` » al convertir la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate blocking Panache entities to `ManagedEntity`, or implement `ManagedEntity.CustomId` for custom identifiers."
-msgstr ""
+msgstr "Migre las entidades Panache que provocan bloqueos a `ManagedEntity` o implemente `ManagedEntity.CustomId` para identificadores personalizados."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace `PanacheRepository` with `ManagedRepository<Entity>` and `PanacheRepositoryBase<Entity, Id>` with `ManagedRepository.CustomId<Entity, Id>`."
-msgstr ""
+msgstr "Sustituya `«PanacheRepository»` por `«ManagedRepository<Entity>»` y `«PanacheRepositoryBase<Entity, Id>»` por `«ManagedRepository.CustomId<Entity, Id>` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Convert repository classes to interfaces, use `default` for custom method implementations, and annotate top-level repository interfaces with `@Repository`."
-msgstr ""
+msgstr "Convierta las clases de repositorio en interfaces, utilice `los valores por defecto` para las implementaciones de métodos personalizados y anote las interfaces de repositorio de nivel superior con `@Repository` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Move active-record static query methods and custom static helpers to repositories or services."
-msgstr ""
+msgstr "Traslade los métodos de consulta estáticos de Active Record y los ayudantes estáticos personalizados a los repositorios o servicios."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace Panache `Sort`, `Page`, and `Parameters` usages with Jakarta Data `Sort`/`Order`, `PageRequest`, and `Map` as appropriate."
-msgstr ""
+msgstr "Sustituya los usos `de` «Panache `Sort»` , `«Page»` y `«Parameters»` por «Jakarta Data `Sort/Order»` , `«PageRequest»` y `«Map»` , según corresponda."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace `findByIds` with an annotated finder or a query."
-msgstr ""
+msgstr "Sustituya `«findByIds»` por un buscador anotado o una consulta."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace uses of global Panache utilities with repository, `Session`, `EntityManager`, or transaction APIs."
-msgstr ""
+msgstr "Sustituya los usos de las utilidades globales de Panache por las API de repositorio, `sesión` , `EntityManager` o transacciones."
 
+#. mt: deepl
+#, fuzzy
 msgid "Update static Panache mocks to CDI repository mocks, and run the relevant tests."
-msgstr ""
+msgstr "Actualice las simulaciones estáticas de Panache a simulaciones del repositorio CDI y ejecute las pruebas correspondientes."
 
 #, fuzzy
 msgid "Hibernate Reactive with Panache"
 msgstr "Hibernate Reactive with Panache"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "This section migrates the Java API from `io.quarkus.hibernate.reactive.panache` to Quarkus Data Hibernate's managed reactive API.\n"
 "The examples retain Mutiny `Uni` return types and stateful Hibernate Reactive sessions.\n"
 "They use the same `Person` and `Status.ALIVE` model as the section that deals with Hibernate ORM but all entity and repository operations in this part are reactive."
-msgstr ""
+msgstr "En esta sección se realiza la migración de la API de Java de ``io.quarkus.hibernate.reactive.panache` ` a la API reactiva gestionada de Quarkus Data Hibernate. Los ejemplos conservan los tipos de retorno `de` Mutiny `Uni` y las sesiones reactivas de Hibernate con estado. Utilizan los mismos modelos `«Person»` y `«Status.ALIVE»` que la sección dedicada a Hibernate ORM, pero todas las operaciones de entidades y repositorios de esta parte son reactivas."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Add `quarkus-data-hibernate` and enable its `quarkus-data-processor` annotation processor by following the\n"
 "xref:quarkus-data-hibernate-getting-started.adoc[getting started tutorial].\n"
 "Keep `quarkus-hibernate-reactive` and your reactive SQL driver, such as `quarkus-reactive-pg-client` for PostgreSQL.\n"
 "Also add `quarkus-hibernate-reactive-panache-common`, which supplies the reactive support used by the generated repositories.\n"
 "See the tutorial's xref:quarkus-data-hibernate-getting-started.adoc#reactive[reactive setup] for the dependency configuration."
-msgstr ""
+msgstr "Añada `«quarkus-data-hibernate»` y active su procesador de anotaciones `«quarkus-data-processor»` siguiendo el xref:quarkus-data-hibernate-getting-started.adoc[tutorial de introducción] . Mantenga `«quarkus-hibernate-reactive»` y su controlador SQL reactivo, como `«quarkus-reactive-pg-client»` para PostgreSQL. Añada también `quarkus-hibernate-reactive-panache-common` , que proporciona la compatibilidad reactiva que utilizan los repositorios generados. Consulte la xref:quarkus-data-hibernate-getting-started.adoc#reactive[configuración reactiva] del tutorial para conocer la configuración de las dependencias."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Remove `quarkus-hibernate-reactive-panache` when converting the application.\n"
 "Classic Panache extensions and Quarkus Data Hibernate cannot coexist in the same application.\n"
 "Keep `quarkus-hibernate-reactive-panache-common`: this support artifact is distinct from the classic Panache extension you are replacing."
-msgstr ""
+msgstr "Elimine `«quarkus-hibernate-reactive-panache»` al convertir la aplicación. Las extensiones clásicas de Panache y Quarkus Data Hibernate no pueden coexistir en la misma aplicación. Mantenga `«quarkus-hibernate-reactive-panache-common` »: este artefacto de soporte es distinto de la extensión clásica de Panache que está sustituyendo."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Your entity mappings, reactive datasource configuration, and Hibernate configuration remain applicable.\n"
 "Review session and transaction boundaries as described in <<reactive-transactions>>."
-msgstr ""
+msgstr "Sus asignaciones de entidades, la configuración de fuentes de datos reactivas y la configuración de Hibernate siguen siendo válidas. Revise los límites de las sesiones y las transacciones tal y como se describe en <<reactive-transactions>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "As with ORM, replace static entity queries or handwritten CDI repository classes with repository interfaces,\n"
 "whose implementation is generated at build time by Quarkus Data.\n"
@@ -513,545 +763,837 @@ msgid ""
 "These use a stateful `Mutiny.Session`, preserving managed-entity dirty checking.\n"
 "The blocking `ManagedRepository<Entity>` is a different API.\n"
 "For alternative session models, see xref:quarkus-data-hibernate.adoc#session-and-access-models[Session and access models]."
-msgstr ""
+msgstr "Al igual que con ORM, sustituya las consultas estáticas a entidades o las clases de repositorio CDI escritas manualmente por interfaces de repositorio, cuya implementación genera Quarkus Data en el momento de la compilación. Para el acceso reactivo, utilice ``ManagedEntity.Reactive` ` y ``ManagedRepository.Reactive<Entity>` `. Estas utilizan una ``Mutiny.Session` ` con estado, lo que permite conservar la comprobación de cambios en las entidades gestionadas. El ` `ManagedRepository<Entity>` ` bloqueante constituye una API diferente. Para conocer modelos de sesión alternativos, consulte xref:quarkus-data-hibernate.adoc#session-and-access-models[«Modelos de sesión y de acceso] »."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Queries return `Uni` results, but the query builder itself is synchronous.\n"
 "For example, `people.find(\"status\", Status.ALIVE)` returns a `ReactiveDataQuery<Person>`, and its `list()` method returns a `Uni<List<Person>>`.\n"
 "Continue composing and returning the `Uni` so the caller subscribes to the database operation."
-msgstr ""
+msgstr "Las consultas devuelven resultados `de tipo Uni` , pero el generador de consultas en sí es síncrono. Por ejemplo, `people.find(\"status\", Status.ALIVE)` devuelve un `ReactiveDataQuery<Person>` , y su método `list()` devuelve un `Uni<List<Person>>` . Continúe componiendo y devolviendo el `Uni` para que el llamante se suscriba a la operación de la base de datos."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate this Hibernate Reactive Panache entity:"
-msgstr ""
+msgstr "Migre esta entidad de Hibernate Reactive Panache:"
 
+#. mt: deepl
+#, fuzzy
 msgid "to a managed reactive entity with a nested repository:"
-msgstr ""
+msgstr "a una entidad reactiva gestionada con un repositorio anidado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Then migrate the static query call:"
-msgstr ""
+msgstr "A continuación, migre la llamada a la consulta estática:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Alternatively, access the declared nested repository through the generated metamodel:"
-msgstr ""
+msgstr "Como alternativa, puede acceder al repositorio anidado declarado a través del metamodelo generado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The accessor follows the nested interface name: a nested `ReactiveRepo` would be accessed through `Person_.reactiveRepo()`."
-msgstr ""
+msgstr "El accesor sigue el nombre de la interfaz anidada: se accedería a un `ReactiveRepo` anidado mediante `Person_.reactiveRepo()` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Move custom static helpers into repository default methods, generated query methods, or application services.\n"
 "For example, migrate this helper on the Panache entity:"
-msgstr ""
+msgstr "Traslade los ayudantes estáticos personalizados a los métodos predeterminados del repositorio, a los métodos de consulta generados o a los servicios de la aplicación. Por ejemplo, migre este ayudante de la entidad «Panache»:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Update its call site while preserving the result type:"
-msgstr ""
+msgstr "Actualice su sitio de llamada conservando el tipo de resultado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The metamodel alternative is `Person_.repo().findAlive()`.\n"
 "For helpers with a fixed query structure, see <<reactive-generated-methods>>."
-msgstr ""
+msgstr "La alternativa del metamodelo es `Person_.repo().findAlive()` . Para obtener información sobre los ayudantes con una estructura de consulta fija, consulte <<reactive-generated-methods>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Change the entity superclass to `ManagedEntity.Reactive` as shown above.\n"
 "When using this top-level repository, the entity does not need a nested `Repo` interface.\n"
 "Replace the `@ApplicationScoped` class with the `@Repository` interface and use `default` for custom method\n"
 "implementations.\n"
 "You can also declare annotated methods whose implementations are generated, and take this a step further:"
-msgstr ""
+msgstr "Cambie la superclase de la entidad a ``ManagedEntity.Reactive`` , tal y como se muestra más arriba. Al utilizar este repositorio de nivel superior, la entidad no necesita una interfaz ``Repo`` anidada. Sustituya la clase con la anotación ``@ApplicationScoped`` por la interfaz ``@Repository`` y utilice `los valores por defecto` para las implementaciones de métodos personalizados. También puede declarar métodos anotados cuyas implementaciones se generen automáticamente, y llevar esto un paso más allá:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The top-level example uses `jakarta.data.repository.Repository`; a nested repository does not need this annotation."
-msgstr ""
+msgstr "El ejemplo de nivel superior utiliza `jakarta.data.repository.Repository` ; un repositorio anidado no necesita esta anotación."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`ManagedEntity.Reactive` retains the generated `Long` identifier provided by reactive `PanacheEntity`.\n"
 "For a `PanacheEntityBase` entity with an application-defined identifier, retain the `@Id` mapping and implement `ManagedEntity.Reactive.CustomId`."
-msgstr ""
+msgstr "`ManagedEntity.Reactive` conserva el identificador `de tipo Long` generado que proporciona `PanacheEntity` . En el caso de una entidad `PanacheEntityBase` con un identificador definido por la aplicación, mantenga la asignación `@Id` e implemente `ManagedEntity.Reactive.CustomId` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Keep the existing identifier generation strategy, if any.\n"
 "Implementing `CustomId` does not generate a value for the manually assigned `UUID` field above."
-msgstr ""
+msgstr "Mantenga la estrategia de generación de identificadores existente, si la hubiera. La implementación de ``CustomId`` no genera ningún valor para el campo `UUID` asignado manualmente mencionado anteriormente."
 
+#. mt: deepl
+#, fuzzy
 msgid "For a top-level repository, migrate the custom identifier type as follows instead of declaring the nested `Repo`:"
-msgstr ""
+msgstr "En el caso de un repositorio de nivel superior, migre el tipo de identificador personalizado de la siguiente manera, en lugar de declarar el `Repo` anidado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Here, `PanacheRepositoryBase` comes from `io.quarkus.hibernate.reactive.panache`, and `@Repository` comes from `jakarta.data.repository`.\n"
 "See xref:quarkus-data-hibernate.adoc#about-entity-identifiers[entity identifiers] for alternative inherited identifier strategies."
-msgstr ""
+msgstr "En este caso, `«PanacheRepositoryBase»` procede de `«io.quarkus.hibernate.reactive.panache»` , y `«@Repository»` procede de `«jakarta.data.repository` ». Consulte xref:quarkus-data-hibernate.adoc#about-entity-identifiers[los identificadores de entidad] para conocer otras estrategias de identificación heredadas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Most reactive operations retain their names, but several return types change:"
-msgstr ""
+msgstr "La mayoría de las operaciones reactivas conservan sus nombres, pero cambian varios tipos de retorno:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Operation"
-msgstr ""
+msgstr "Funcionamiento"
 
+#. mt: deepl
+#, fuzzy
 msgid "Reactive Panache"
-msgstr ""
+msgstr "Estilo reactivo"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Data reactive"
-msgstr ""
+msgstr "Quarkus: datos reactivos"
 
+#. mt: deepl
+#, fuzzy
 msgid "`entity.persist()`, `entity.persistAndFlush()`"
-msgstr ""
+msgstr "`entity.persist()` , `entity.persistAndFlush()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Entity>`"
-msgstr ""
+msgstr "`Uni<Entidad>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Void>`"
-msgstr ""
+msgstr "`Uni<Void>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`persist(Iterable)`, `persist(Stream)`, `persist(first, others...)`"
-msgstr ""
+msgstr "`persist(Iterable)` , `persist(Stream)` , `persist(first, others…​)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`entity.delete()`, `repository.delete(entity)`"
-msgstr ""
+msgstr "`entity.delete()` , `repository.delete(entity)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`entity.isPersistent()`, `repository.isPersistent(entity)`"
-msgstr ""
+msgstr "`entity.isPersistent()` , `repository.isPersistent(entity)`"
 
 #, fuzzy
 msgid "`boolean`"
 msgstr "`booleano`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Boolean>`"
-msgstr ""
+msgstr "`Uni<Boolean>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`entity.flush()`"
-msgstr ""
+msgstr "`entity.flush()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Use `repository.flush()`, which returns `Uni<Void>`."
-msgstr ""
+msgstr "Utilice `repository.flush()` , que devuelve un objeto de tipo `Uni<Void>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`repository.flush()`, `repository.getSession()`"
-msgstr ""
+msgstr "`repository.flush()` , `repository.getSession()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Void>`, `Uni<Mutiny.Session>`"
-msgstr ""
+msgstr "`Uni<Void>` , `Uni<Mutiny.Session>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same return types."
-msgstr ""
+msgstr "Los mismos tipos de retorno."
 
+#. mt: deepl
+#, fuzzy
 msgid "`findById(id)`, `findById(id, lockMode)`"
-msgstr ""
+msgstr "`findById(id)` , `findById(id, lockMode)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`list(...)`, `listAll()`"
-msgstr ""
+msgstr "`list(…​)` , `listAll()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<List<Entity>>`"
-msgstr ""
+msgstr "`Uni<List<Entity>>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same return type; apply sorting through `find()`. See <<reactive-sorting>>."
-msgstr ""
+msgstr "El mismo tipo de retorno; aplique la ordenación mediante `find()` . Consulte <<reactive-sorting>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`count(...)`, `delete(...)`, `deleteAll()`"
-msgstr ""
+msgstr "`count(…​)` , `delete(…​)` , `deleteAll()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Long>`"
-msgstr ""
+msgstr "`Uni<Long>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`deleteById(id)`"
-msgstr ""
+msgstr "`deleteById(id)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Uni<Integer>`"
-msgstr ""
+msgstr "`Uni<Integer>`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Preserve persistence results"
-msgstr ""
+msgstr "Conservar los resultados de persistencia"
 
+#. mt: deepl
+#, fuzzy
 msgid "If a method returns the persisted entity, restore it after the persistence operation completes:"
-msgstr ""
+msgstr "Si un método devuelve la entidad persistida, restáurela una vez finalizada la operación de persistencia:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Notice how we have also switched to using `@Transactional` instead of `@WithTransaction`. We encourage you to migrate this as well."
-msgstr ""
+msgstr "Observe que también hemos pasado a utilizar `@Transactional` en lugar de `@WithTransaction` . Le recomendamos que realice esta migración también."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Apply the same change to `persistAndFlush()` and the repository persistence methods.\n"
 "For example, `people.persistAndFlush(person).replaceWith(person)` returns a `Uni<Person>`.\n"
 "If the caller needs to know whether persistence succeeded or failed, but does not need the entity as a result, return `Uni<Void>`.\n"
 "The returned `Uni` signals when the persistence operation has finished and propagates any failure:"
-msgstr ""
+msgstr "Aplique el mismo cambio a ` `persistAndFlush()` ` y a los métodos de persistencia del repositorio. Por ejemplo, `people.persistAndFlush(person).replaceWith(person)` devuelve un `Uni<Person>` . Si quien realiza la llamada necesita saber si la persistencia se ha realizado con éxito o ha fallado, pero no necesita la entidad como resultado, devuelva `Uni<Void>` . El `Uni` devuelto indica cuándo ha finalizado la operación de persistencia y propaga cualquier fallo:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "A lambda such as `.chain(saved -> ...)` no longer receives the entity after `persist()`.\n"
 "Use the original entity or restore it with `replaceWith(entity)` before continuing the pipeline.\n"
 "Compose asynchronous operations with `chain()` or `call()`; `invoke()` is for synchronous side effects."
-msgstr ""
+msgstr "Una lambda como `.chain(saved → …​)` ya no recibe la entidad tras `la llamada a persist()` . Utilice la entidad original o restáurela con `replaceWith(entity)` antes de continuar con el proceso. Combine operaciones asíncronas con `chain()` o `call()` ; `invoke()` se utiliza para efectos secundarios síncronos."
 
+#. mt: deepl
+#, fuzzy
 msgid "Compose persistence-state checks and flushes"
-msgstr ""
+msgstr "Elabore comprobaciones y vaciados del estado de persistencia"
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace synchronous persistence-state checks with `Uni` composition:"
-msgstr ""
+msgstr "Sustituya las comprobaciones sincrónicas del estado de persistencia por la composición `Uni` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "This check tells you whether the entity is managed by the current session.\n"
 "It does not query the database to check for an existing row.\n"
 "When checking after persistence, invoke `isPersistent()` within the continuation so it observes the updated state:"
-msgstr ""
+msgstr "Esta comprobación le indica si la entidad está gestionada por la sesión actual. No consulta la base de datos para comprobar si existe una fila. Al realizar la comprobación tras la persistencia, invoque `isPersistent()` dentro de la continuación para que se tenga en cuenta el estado actualizado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace entity-level flush calls with repository flush calls:"
-msgstr ""
+msgstr "Sustituya las llamadas a «flush» a nivel de entidad por llamadas a «flush» del repositorio:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Flushing synchronizes all pending changes in the session, rather than only changes to that person.\n"
 "For example, compose persistence and an explicit flush as `people.persist(person).call\\(() -> people.flush())` within a transaction."
-msgstr ""
+msgstr "La operación «flush» sincroniza todos los cambios pendientes de la sesión, y no solo los cambios relativos a esa persona. Por ejemplo, combine la persistencia con una operación «flush» explícita, como `«people.persist(person).call(() → people.flush())»` , dentro de una transacción."
 
+#. mt: deepl
+#, fuzzy
 msgid "Adapt update counts and query parameters"
-msgstr ""
+msgstr "Adaptar el número de actualizaciones y los parámetros de consulta"
 
+#. mt: deepl
+#, fuzzy
 msgid "Bulk query updates now return `Uni<Long>`:"
-msgstr ""
+msgstr "Las actualizaciones mediante consultas masivas devuelven ahora `Uni<Long>` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "If an existing API must still return `Uni<Integer>`, convert explicitly with `.map(Math::toIntExact)`.\n"
 "Run bulk updates and deletes within a transaction."
-msgstr ""
+msgstr "Si una API existente sigue teniendo que devolver `Uni<Integer>` , realice la conversión de forma explícita mediante `.map(Math::toIntExact)` . Ejecute las actualizaciones y eliminaciones masivas dentro de una transacción."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Indexed parameters and named `Map` parameters remain supported.\n"
 "Replace deprecated Panache `Parameters` usages with a map:"
-msgstr ""
+msgstr "Se siguen admitiendo los parámetros indexados y los parámetros `de mapa` con nombre. Sustituya los usos obsoletos `de los parámetros` Panache por un mapa:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Neither reactive API has the inherited `findByIds`, Optional-result, or result-streaming methods described for the blocking API in the ORM section.\n"
 "For a bulk-ID query, use the actual identifier attribute name, for example `people.list(\"id in ?1\", ids)`, or declare a generated query method as shown in <<reactive-generated-methods>>."
-msgstr ""
+msgstr "Ninguna de las API reactivas dispone de los métodos heredados ``findByIds` `, `Optional-result` o `result-streaming` descritos para la API bloqueante en la sección sobre ORM. Para realizar una consulta con ID masivos, utilice el nombre real del atributo identificador; por ejemplo `, `people.list(\"id in ?1\", ids)`` , o declare un método de consulta generado tal y como se muestra en <<reactive-generated-methods>> ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Replace reactive `PanacheQuery<Entity>` with `io.quarkus.data.hibernate.reactive.ReactiveDataQuery<Entity>`.\n"
 "The builder remains synchronous; fetching results remains asynchronous:"
-msgstr ""
+msgstr "Sustituya `PanacheQuery<Entity>` reactivo por `io.quarkus.data.hibernate.reactive.ReactiveDataQuery<Entity>` . El generador sigue siendo síncrono; la obtención de resultados sigue siendo asíncrona:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Reactive Panache query operation"
-msgstr ""
+msgstr "Operación de consulta «Reactive Panache»"
 
+#. mt: deepl
+#, fuzzy
 msgid "`list()`"
-msgstr ""
+msgstr "`list()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method returning `Uni<List<Entity>>`."
-msgstr ""
+msgstr "El mismo método que devuelve un objeto de tipo ` `Uni<List<Entity>>`` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`firstResult()`, `singleResult()`"
-msgstr ""
+msgstr "`firstResult()` , `singleResult()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same methods returning `Uni<Entity>`."
-msgstr ""
+msgstr "Los mismos métodos que devuelven `Uni<Entity>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`count()`"
-msgstr ""
+msgstr "`count()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same method returning `Uni<Long>`."
-msgstr ""
+msgstr "El mismo método que devuelve un objeto de tipo ` `Uni<Long>` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "The same builder operation returning `ReactiveDataQuery<Dto>`."
-msgstr ""
+msgstr "La misma operación del generador que devuelve `un ReactiveDataQuery<Dto>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`withLock(lockMode)`, `filter(name)`, `filter(name, parameters)`"
-msgstr ""
+msgstr "`withLock(modo de bloqueo)` , `filter(nombre)` , `filter(nombre, parámetros)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "The same builder operations; use a `Map` for filter parameters."
-msgstr ""
+msgstr "El mismo funcionamiento del generador: utilice un `«Map»` para los parámetros de filtro."
 
+#. mt: deepl
+#, fuzzy
 msgid "Move Panache `Sort` arguments to the query builder, using Jakarta Data `Sort`:"
-msgstr ""
+msgstr "Traslade los argumentos de «Move Panache `Sort»` al generador de consultas, utilizando Jakarta Data `Sort` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "For multiple criteria, use `jakarta.data.Order`:"
-msgstr ""
+msgstr "En caso de criterios múltiples, utilice `jakarta.data.Order` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "As in the ORM migration section, use an explicit HQL `order by` expression for requirements such as Panache's null-precedence settings or `disableEscaping()`:"
-msgstr ""
+msgstr "Al igual que en la sección sobre migración de ORM, utilice una expresión explícita `«ORDER BY»` en HQL para requisitos como la configuración de «null-precedence» de Panache o la función `«disableEscaping()` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Move paging and ranges to the nested query APIs, and account for changed result types:"
-msgstr ""
+msgstr "Traslade la paginación y los rangos a las API de consultas anidadas y tenga en cuenta los cambios en los tipos de resultados:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.nextPage()`, `previousPage()`, `firstPage()`"
-msgstr ""
+msgstr "`query.nextPage()` , `previousPage()` , `firstPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().next()`, `previous()`, `first()`; these still return the query directly."
-msgstr ""
+msgstr "`query.pages().next()` , `previous()` , `first()` ; estos métodos siguen devolviendo la consulta directamente."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.lastPage()`"
-msgstr ""
+msgstr "`query.lastPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().last()`, returning `Uni<ReactiveDataQuery<Entity>>`."
-msgstr ""
+msgstr "`query.pages().last()` , que devuelve `Uni<ReactiveDataQuery<Entity>>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.hasNextPage()`"
-msgstr ""
+msgstr "`query.hasNextPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().hasNext()`, still returning `Uni<Boolean>`."
-msgstr ""
+msgstr "`query.pages().hasNext()` , sigue devolviendo `Uni<Boolean>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.hasPreviousPage()`"
-msgstr ""
+msgstr "`query.hasPreviousPage()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().hasPrevious()`, returning `Uni<Boolean>` instead of `boolean`."
-msgstr ""
+msgstr "`query.pages().hasPrevious()` , que devuelve `Uni<Boolean>` en lugar de `boolean` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pageCount()`"
-msgstr ""
+msgstr "`query.pageCount()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().count()`, returning `Uni<Long>` instead of `Uni<Integer>`."
-msgstr ""
+msgstr "`query.pages().count()` , que devuelve `Uni<Long>` en lugar de `Uni<Integer>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.page()`"
-msgstr ""
+msgstr "`query.page()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.pages().request()`, returning `jakarta.data.page.PageRequest`."
-msgstr ""
+msgstr "`query.pages().request()` , que devuelve un objeto de tipo `jakarta.data.page.PageRequest` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.range(startIndex, lastIndex)`"
-msgstr ""
+msgstr "`query.range(índiceInicial, índiceFinal)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`query.limits().range(startIndex, lastIndex)`."
-msgstr ""
+msgstr "`query.limits().range(startIndex, lastIndex)` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "For example, migrate the first page:"
-msgstr ""
+msgstr "Por ejemplo, migre la primera página:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Both `page(index, size)` and `range(start, end)` retain zero-based indices, with an inclusive range end.\n"
 "For a fixed range:"
-msgstr ""
+msgstr "Tanto `«page(index, size)»` como `«range(start, end)»` utilizan índices que comienzan en cero, y el final del intervalo está incluido. Para un intervalo fijo:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The `PageRequest` representation uses one-based page numbers.\n"
 "Replace reads of `query.page().index` with `query.pages().request().page() - 1` and reads of `query.page().size` with `query.pages().request().size()`.\n"
 "To supply a `PageRequest`, convert the index explicitly:"
-msgstr ""
+msgstr "La representación `de PageRequest` utiliza números de página que comienzan por 1. Sustituya las llamadas a `query.page().index` por `query.pages().request().page() - 1` y las llamadas a `query.page().size` por `query.pages().request().size()` . Para proporcionar un `objeto PageRequest` , convierta el índice de forma explícita:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Continue composing last-page navigation before fetching results:"
-msgstr ""
+msgstr "Continúe configurando la navegación de la última página antes de recuperar los resultados:"
 
+#. mt: deepl
+#, fuzzy
 msgid "A previous-page check must now be composed too:"
-msgstr ""
+msgstr "Ahora también hay que redactar una verificación de la página anterior:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Page counts also change type:"
-msgstr ""
+msgstr "El número de páginas también influye en el tipo:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Configure a page before using page navigation or inspection methods.\n"
 "`query.count()` counts matching rows, whereas `query.pages().count()` counts pages.\n"
 "Switching between fixed ranges and paging replaces the previous mode."
-msgstr ""
+msgstr "Configure una página antes de utilizar los métodos de navegación por páginas o de inspección. `query.count()` cuenta las filas coincidentes, mientras que `query.pages().count()` cuenta las páginas. Al cambiar entre rangos fijos y paginación, se sustituye el modo anterior."
 
+#. mt: deepl
+#, fuzzy
 msgid "Projections, locks, and filters"
-msgstr ""
+msgstr "Proyecciones, bloqueos y filtros"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Existing reactive Panache projection annotations remain usable with `project()`.\n"
 "For example, retain a DTO and migrate its query call:"
-msgstr ""
+msgstr "Las anotaciones de proyección reactivas de Panache existentes siguen siendo compatibles con `la función project()` . Por ejemplo, mantenga un DTO y migre su llamada de consulta:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Keep constructor parameter metadata and reflection registration where needed for native executables.\n"
 "The reactive `@ProjectedConstructor`, `@ProjectedFieldName`, and `@NestedProjectedClass` annotations do not require new ORM imports."
-msgstr ""
+msgstr "Mantenga los metadatos de los parámetros del constructor y el registro de reflexión cuando sea necesario para los ejecutables nativos. Las anotaciones reactivas `@ProjectedConstructor` , `@ProjectedFieldName` y `@NestedProjectedClass` no requieren nuevas importaciones de ORM."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Pessimistic locks still require an active transaction.\n"
 "For example, after replacing static calls with an injected repository:"
-msgstr ""
+msgstr "Los bloqueos pesimistas siguen requiriendo una transacción activa. Por ejemplo, tras sustituir las llamadas estáticas por un repositorio inyectado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The managed entity's changes are flushed when the transaction commits.\n"
 "To retain an existing Hibernate filter named `visibleTo`, pass its parameters as a map:"
-msgstr ""
+msgstr "Los cambios de la entidad gestionada se guardan cuando se confirma la transacción. Para conservar un filtro de Hibernate ya existente denominado `«visibleTo»` , pase sus parámetros en forma de mapa:"
 
+#. mt: deepl
+#, fuzzy
 msgid "This example assumes the filter and its `userId` parameter are already declared in the entity mappings."
-msgstr ""
+msgstr "En este ejemplo se da por hecho que el filtro y su parámetro `«userId»` ya están declarados en las asignaciones de entidades."
 
+#. mt: deepl
+#, fuzzy
 msgid "Both reactive query APIs expose `withHint()`, but hints are not yet supported in the current shared reactive implementation, and migrating to Quarkus Data does not add it."
-msgstr ""
+msgstr "Ambas API de consultas reactivas ofrecen `el método `withHint()`` , pero las sugerencias aún no son compatibles con la implementación reactiva compartida actual, y la migración a Quarkus Data no las incorpora."
 
+#. mt: deepl
+#, fuzzy
 msgid "Dynamic queries remain available, including shorthand, HQL, indexed parameters, named parameters, and existing named queries:"
-msgstr ""
+msgstr "Las consultas dinámicas siguen estando disponibles, incluidas las abreviadas, las HQL, los parámetros indexados, los parámetros con nombre y las consultas con nombre ya existentes:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The last example assumes an existing `@NamedQuery` named `Person.findByStatus` with a `?1` parameter.\n"
 "These queries are interpreted at runtime."
-msgstr ""
+msgstr "El último ejemplo parte de la base de que ya existe una consulta `@NamedQuery` denominada `«Person.findByStatus` » con un parámetro `«?1` ». Estas consultas se interpretan en tiempo de ejecución."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For a helper with a fixed query structure, you can replace the method body with a generated method declaration.\n"
 "For example, migrate this default method:"
-msgstr ""
+msgstr "En el caso de un helper con una estructura de consulta fija, puede sustituir el cuerpo del método por una declaración de método generada. Por ejemplo, modifique este método predeterminado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "`@Find` matches the method's `status` parameter to the entity's `status` field."
-msgstr ""
+msgstr "`@Find` asocia el parámetro `«status»` del método con el campo `«status»` de la entidad."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@Delete` matches parameters in the same way and deletes matching entities within a transaction.\n"
 "This generated method returns `Uni<Integer>`; the inherited dynamic `people.delete(...)` method returns `Uni<Long>`."
-msgstr ""
+msgstr "`@Delete` busca coincidencias de la misma manera y elimina las entidades que coinciden dentro de una transacción. Este método generado devuelve `Uni<Integer>` ; el método dinámico heredado `people.delete(…​)` devuelve `Uni<Long>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@Query` replaces the default method body and binds `:status` to the parameter.\n"
 "The annotation processor checks the query and parameter mappings at build time."
-msgstr ""
+msgstr "`@Query` sustituye el cuerpo del método por defecto y asocia `:status` al parámetro. El procesador de anotaciones comprueba las correspondencias entre la consulta y los parámetros en el momento de la compilación."
 
+#. mt: deepl
+#, fuzzy
 msgid "The call site retains its asynchronous result:"
-msgstr ""
+msgstr "El punto de llamada conserva su resultado asíncrono:"
 
+#. mt: deepl
+#, fuzzy
 msgid "For bulk identifiers, a custom-ID repository can declare:"
-msgstr ""
+msgstr "En el caso de los identificadores masivos, un repositorio de identificadores personalizados puede declarar:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Use the mapped identifier's actual name and type.\n"
 "For SQL, use `jakarta.persistence.query.NativeQuery`, referring to database tables and columns rather than entity fields.\n"
 "For example, assuming the `Person` table has a `name` column:"
-msgstr ""
+msgstr "Utilice el nombre y el tipo reales del identificador asignado. En el caso de SQL, utilice ``jakarta.persistence.query.NativeQuery`` , haciendo referencia a las tablas y columnas de la base de datos en lugar de a los campos de las entidades. Por ejemplo, supongamos que la tabla `«Person»` tiene una columna `«name` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "For type-safe dynamic filtering and ordering, see\n"
 "xref:quarkus-data-hibernate.adoc#generated-metamodels[generated metamodels and type-safe queries]."
-msgstr ""
+msgstr "Para obtener información sobre el filtrado y la ordenación dinámicos con seguridad de tipos, consulte xref:quarkus-data-hibernate.adoc#generated-metamodels[«Metamodelos generados» y «Consultas con seguridad de tipos] »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Preserve session and transaction boundaries"
-msgstr ""
+msgstr "Mantener los límites de las sesiones y las transacciones"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Moving queries to generated repositories does not automatically create an application transaction boundary.\n"
 "Keep database work on a Vert.x context, compose asynchronous operations, and return the resulting `Uni`."
-msgstr ""
+msgstr "El traslado de consultas a repositorios generados no crea automáticamente un límite de transacción de la aplicación. Mantenga las operaciones de la base de datos en un contexto Vert.x, combine las operaciones asíncronas y devuelva el objeto `Uni` resultante."
 
+#. mt: deepl
+#, fuzzy
 msgid "For example, migrate a programmatic Panache transaction wrapper to an intercepted CDI service method:"
-msgstr ""
+msgstr "Por ejemplo, migre un envoltorio de transacción programático de Panache a un método de servicio CDI interceptado:"
 
+#. mt: deepl
+#, fuzzy
 msgid "For a read-only session wrapper, migrate similarly:"
-msgstr ""
+msgstr "En el caso de un envoltorio de sesión de solo lectura, realice la migración de forma similar:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@Transactional` defines the transaction boundary without selecting a persistence unit.\n"
 "Repository operations select the persistence unit associated with their entity mapping.\n"
 "For example, if `Person` is mapped to the `users` persistence unit, `people.persist(person)` uses that unit without an additional session injection.\n"
 "Keep the existing named persistence unit configuration and entity mappings, and use only one persistence unit and datasource within each reactive transaction.\n"
 "For configuration details, see xref:hibernate-reactive.adoc#multiple-persistence-units[Multiple persistence units]."
-msgstr ""
+msgstr "`@Transactional` define los límites de la transacción sin seleccionar una unidad de persistencia. Las operaciones del repositorio seleccionan la unidad de persistencia asociada a su asignación de entidad. Por ejemplo, si `la entidad «Person»` está asignada a la unidad de persistencia `«users»` , `la` llamada ` `people.persist(person)`` utiliza dicha unidad sin necesidad de una inyección de sesión adicional. Mantenga la configuración existente de las unidades de persistencia con nombre y las asignaciones de entidades, y utilice únicamente una unidad de persistencia y una fuente de datos dentro de cada transacción reactiva. Para obtener más detalles sobre la configuración, consulte xref:hibernate-reactive.adoc#multiple-persistence-units[«Múltiples unidades de persistencia] »."
 
+#. mt: deepl
+#, fuzzy
 msgid "For direct session operations, select the named persistence unit with Quarkus's `@PersistenceUnit` qualifier on the injected `Mutiny.Session`:"
-msgstr ""
+msgstr "Para realizar operaciones directas con la sesión, seleccione la unidad de persistencia designada mediante el calificador `@PersistenceUnit` de Quarkus en el objeto `Mutiny.Session` inyectado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Here, `@PersistenceUnit(\"users\")` selects the session to inject, and `@Transactional` manages the transaction when that session is used.\n"
 "Adding the qualifier to a session field does not change which persistence unit a repository uses.\n"
 "Do not mix `@Transactional` with `@WithTransaction`, `@WithSession`, or `@WithSessionOnDemand` in the same reactive pipeline.\n"
 "See xref:hibernate-reactive.adoc#transactional-others[reactive transaction limitations] and\n"
 "xref:hibernate-reactive.adoc#transactional-different-pipelines[combining reactive pipelines] before changing transaction strategy."
-msgstr ""
+msgstr "En este caso, `@PersistenceUnit(\"users\")` selecciona la sesión que se va a inyectar, y `@Transactional` gestiona la transacción cuando se utiliza dicha sesión. Añadir el calificador a un campo de sesión no modifica la unidad de persistencia que utiliza un repositorio. No mezcle `@Transactional` con `@WithTransaction` , `@WithSession` o `@WithSessionOnDemand` en el mismo canal reactivo. Consulte xref:hibernate-reactive.adoc#transactional-others[las limitaciones de las transacciones reactivas] y xref:hibernate-reactive.adoc#transactional-different-pipelines[la combinación de canales reactivos] antes de cambiar la estrategia de transacciones."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Managed reactive sessions preserve dirty checking, but lazy associations still require explicit asynchronous fetching.\n"
 "For example, if `Person` has an existing lazy `address` association:"
-msgstr ""
+msgstr "Las sesiones reactivas gestionadas conservan la comprobación de cambios (dirty checking), pero las asociaciones diferidas siguen requiriendo una recuperación asíncrona explícita. Por ejemplo, si `la clase «Person»` tiene una asociación diferida existente `con «address` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Return and compose these operations instead of blocking with `await().indefinitely()` or discarding a `Uni` in an `invoke()` callback."
-msgstr ""
+msgstr "Devuelva y componga estas operaciones en lugar de bloquear con ``await().indefinitely()` ` o descartar un ` `Uni`` en una llamada de retorno de ` `invoke()`` ."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "There is no Quarkus Data facade equivalent to reactive `Panache.withSession()`, `withTransaction()`, `getSession()`, `executeUpdate()`, `flush()`, or `currentTransaction()`.\n"
 "Use the session and transaction boundaries above for repository work.\n"
 "For entity-bound session access and flushing, migrate as follows:"
-msgstr ""
+msgstr "No existe en Quarkus Data Facade ningún equivalente a los métodos reactivos `de Panache: `Panache.withSession()` `, ``withTransaction()` `, ``getSession()` `, ``executeUpdate()` `, ``flush()` ` o ``currentTransaction()` `. Utilice los límites de sesión y transacción indicados anteriormente para las operaciones con el repositorio. Para el acceso a la sesión vinculado a entidades y el vaciado de la misma, realice la migración de la siguiente manera:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Quarkus Data replacement"
-msgstr ""
+msgstr "Sustitución de datos en Quarkus"
 
+#. mt: deepl
+#, fuzzy
 msgid "`Panache.getSession()`"
-msgstr ""
+msgstr "`Panache.getSession()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`people.getSession()`, returning `Uni<Mutiny.Session>`."
-msgstr ""
+msgstr "`people.getSession()` , que devuelve un objeto de tipo `Uni<Mutiny.Session>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`Panache.flush()`"
-msgstr ""
+msgstr "`Panache.flush()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`people.flush()`, returning `Uni<Void>`."
-msgstr ""
+msgstr "`people.flush()` , que devuelve `un Uni<Void>` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`Panache.currentTransaction()`"
-msgstr ""
+msgstr "`Panache.currentTransaction()`"
 
+#. mt: deepl
+#, fuzzy
 msgid "`people.getSession().map(session -> session.currentTransaction())`."
-msgstr ""
+msgstr "`people.getSession().map(session → session.currentTransaction())` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "`Panache.executeUpdate(query, parameters)`"
-msgstr ""
+msgstr "`Panache.executeUpdate(consulta, parámetros)`"
 
+#. mt: deepl
+#, fuzzy
 msgid "For an entity-targeted update, `people.update(query, parameters)`, returning `Uni<Long>` instead of `Uni<Integer>`."
-msgstr ""
+msgstr "Para una actualización dirigida a una entidad, se utiliza ` `people.update(query, parameters)` `, que devuelve ` `Uni<Long>`` en lugar de ` `Uni<Integer>` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "For arbitrary HQL mutations, use the reactive session directly within a transaction:"
-msgstr ""
+msgstr "En el caso de mutaciones HQL arbitrarias, utilice la sesión reactiva directamente dentro de una transacción:"
 
+#. mt: deepl
+#, fuzzy
 msgid "For rollback-only control, use the active reactive transaction, rather than a blocking Jakarta Transactions `TransactionManager`:"
-msgstr ""
+msgstr "Para un control basado únicamente en la reversión, utilice la transacción reactiva activa, en lugar de un `TransactionManager` de Jakarta Transactions de tipo bloqueante:"
 
+#. mt: deepl
+#, fuzzy
 msgid "For programmatic work that uses a session directly, inject `Mutiny.SessionFactory` and use the session supplied to its callback:"
-msgstr ""
+msgstr "Para el trabajo programático que utilice una sesión directamente, inyecte `Mutiny.SessionFactory` y utilice la sesión proporcionada en su función de devolución de llamada:"
 
+#. mt: deepl
+#, fuzzy
 msgid "To select a named persistence unit, add Quarkus's `@PersistenceUnit` qualifier to the factory injection:"
-msgstr ""
+msgstr "Para seleccionar una unidad de persistencia con nombre, añada el calificador `@PersistenceUnit` de Quarkus a la inyección de fábrica:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "The callback above uses its supplied `session` directly.\n"
 "That session is not automatically the context-bound session used by repository operations.\n"
 "For work that calls a repository associated with the `users` persistence unit, use an intercepted CDI service method instead:"
-msgstr ""
+msgstr "La función de devolución de llamada anterior utiliza directamente `la sesión` que se le ha proporcionado. Esa sesión no es, necesariamente, la sesión vinculada al contexto que utilizan las operaciones del repositorio. Para las tareas que requieran llamar a un repositorio asociado a la unidad de persistencia `del usuario` , utilice en su lugar un método de servicio CDI interceptado:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Here, `Person` must be mapped to the `users` persistence unit, which the repository uses to obtain its session.\n"
 "`@Transactional` establishes the transaction boundary; no additional session injection is needed for this repository call."
-msgstr ""
+msgstr "En este caso, `«Person»` debe asignarse a la unidad de persistencia `de «users»` , que el repositorio utiliza para obtener su sesión. `@Transactional` establece el límite de la transacción; no se necesita ninguna inyección de sesión adicional para esta llamada al repositorio."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Keep reactive database tests on a Vert.x context and compose assertions through `UniAsserter`.\n"
 "For example, test the migrated nested repository using `quarkus-test-vertx`:"
-msgstr ""
+msgstr "Mantenga las pruebas de bases de datos reactivas en un contexto Vert.x y elabore las afirmaciones mediante `UniAsserter` . Por ejemplo, pruebe el repositorio anidado migrado utilizando `quarkus-test-vertx` :"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "`@TestReactiveTransaction` rolls back the test's changes.\n"
 "Keep the test's transaction handling compatible with the service methods it invokes.\n"
 "`TransactionalUniAsserter` can still be used with the Panache-common transaction style; it does not depend on static entity query methods.\n"
 "See xref:hibernate-reactive.adoc#testing[testing Hibernate Reactive] for the test dependencies and context requirements."
-msgstr ""
+msgstr "`@TestReactiveTransaction` revierte los cambios realizados durante la prueba. Asegúrese de que la gestión de transacciones de la prueba sea compatible con los métodos del servicio que invoca. `TransactionalUniAsserter` sigue pudiendo utilizarse con el estilo de transacciones de Panache-common; no depende de métodos estáticos de consulta de entidades. Consulte xref:hibernate-reactive.adoc#testing[la sección «Pruebas de Hibernate Reactive»] para conocer las dependencias de las pruebas y los requisitos de contexto."
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Replace static `PanacheMock` stubbing with CDI repository mocks where the application now injects a repository.\n"
 "Stub reactive methods with their new `Uni` result types:"
-msgstr ""
+msgstr "Sustituya los stubs estáticos `de PanacheMock` por simulaciones de repositorios CDI, de modo que la aplicación inyecte ahora un repositorio. Simule los métodos reactivos con sus nuevos tipos de resultado `«Uni` »:"
 
+#. mt: deepl
+#, fuzzy
 msgid ""
 "Use `quarkus-junit-mockito` for `@InjectMock` support.\n"
 "Retain tests for persistence, projections, locks, and custom identifiers, and add focused checks for changed persistence results, asynchronous state checks, update counts, and paging."
-msgstr ""
+msgstr "Utilice `«quarkus-junit-mockito»` para la compatibilidad `con @InjectMock` . Mantenga las pruebas relativas a la persistencia, las proyecciones, los bloqueos y los identificadores personalizados, y añada comprobaciones específicas para los resultados de persistencia modificados, las comprobaciones de estado asíncronas, los recuentos de actualizaciones y la paginación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Enable `quarkus-data-hibernate` and its annotation processor; retain Hibernate Reactive, the reactive SQL driver, and `quarkus-hibernate-reactive-panache-common`."
-msgstr ""
+msgstr "Habilite `«quarkus-data-hibernate»` y su procesador de anotaciones; mantenga «Hibernate Reactive», el controlador SQL reactivo, y `«quarkus-hibernate-reactive-panache-common` »."
 
+#. mt: deepl
+#, fuzzy
 msgid "Remove the classic `quarkus-hibernate-reactive-panache` extension when converting the application."
-msgstr ""
+msgstr "Elimine la extensión clásica `«quarkus-hibernate-reactive-panache»` al convertir la aplicación."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace reactive `PanacheEntity` with `ManagedEntity.Reactive`, or implement `ManagedEntity.Reactive.CustomId` for custom identifiers."
-msgstr ""
+msgstr "Sustituya `la entidad «PanacheEntity»` reactiva por `«ManagedEntity.Reactive»` , o implemente `«ManagedEntity.Reactive.CustomId»` para identificadores personalizados."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace repository classes with `ManagedRepository.Reactive<Entity>` or `ManagedRepository.Reactive.CustomId<Entity, Id>` interfaces."
-msgstr ""
+msgstr "Sustituya las clases de repositorio por las interfaces ` `ManagedRepository.Reactive<Entity>` ` o ``ManagedRepository.Reactive.CustomId<Entity, Id>` `."
 
+#. mt: deepl
+#, fuzzy
 msgid "Move static helpers to repository default methods, generated methods, or services, and update their call sites."
-msgstr ""
+msgstr "Traslade los ayudantes estáticos a los métodos predeterminados del repositorio, a los métodos generados o a los servicios, y actualice los puntos en los que se les llama."
 
+#. mt: deepl
+#, fuzzy
 msgid "Account for `persist()` and `persistAndFlush()` returning `Uni<Void>`, and compose `isPersistent()` as a `Uni<Boolean>`."
-msgstr ""
+msgstr "Tenga en cuenta que `las` funciones ``persist()`` y ``persistAndFlush()`` devuelven `un `Uni<Void>` `, y que ``isPersistent()`` se define como un ` `Uni<Boolean>`` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Replace entity flush calls with repository flush calls, and adapt bulk-update counts from `Integer` to `Long` where needed."
-msgstr ""
+msgstr "Sustituya las llamadas a «flush» de la entidad por llamadas a «flush» del repositorio y adapte los recuentos de actualizaciones masivas de `«Integer»` a `«Long»` cuando sea necesario."
 
+#. mt: deepl
+#, fuzzy
 msgid "Migrate sorting, paging, ranges, and `Parameters` usages; compose previous-page checks and handle `Long` page counts."
-msgstr ""
+msgstr "Migre el uso de la ordenación, la paginación, los intervalos y `los parámetros` ; cree comprobaciones de la página anterior y gestione el recuento de páginas `largas` ."
 
+#. mt: deepl
+#, fuzzy
 msgid "Preserve a consistent reactive session/transaction strategy and replace global Panache wrappers and utilities."
-msgstr ""
+msgstr "Mantenga una estrategia coherente en materia de sesiones y transacciones reactivas y sustituya los envoltorios y utilidades globales de Panache."
 
+#. mt: deepl
+#, fuzzy
 msgid "Update static mocks to reactive CDI repository mocks and run the relevant persistence tests."
-msgstr ""
+msgstr "Actualice las simulaciones estáticas a simulaciones reactivas del repositorio CDI y ejecute las pruebas de persistencia pertinentes."

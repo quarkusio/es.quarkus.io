@@ -9,90 +9,144 @@ msgstr ""
 msgid "Architecture"
 msgstr "Arquitectura"
 
+#. mt: deepl
+#, fuzzy
 msgid "In the link:/blog/ai-root-cause-analysis/[introductory post], we showed what AI Root Cause Analysis does and how to get started. This post goes deeper -- into the architecture, the analysis pipeline, how we keep telemetry data within LLM context limits, and how we test analysis quality using chaos engineering with LLM-as-judge evaluation."
-msgstr ""
+msgstr "En la link:/blog/ai-root-cause-analysis/[entrada introductoria] , mostramos en qué consiste el análisis de causas raíz mediante IA y cómo dar los primeros pasos. En esta entrada profundizamos en la arquitectura, el flujo de trabajo de análisis, cómo mantenemos los datos de telemetría dentro de los límites de contexto de los modelos de lenguaje grande (LLM) y cómo evaluamos la calidad del análisis mediante ingeniería del caos con una evaluación en la que el propio LLM actúa como juez."
 
+#. mt: deepl
+#, fuzzy
 msgid "The system has a layered architecture connecting monitored applications to the AI analysis engine through an observability stack:"
-msgstr ""
+msgstr "El sistema cuenta con una arquitectura por capas que conecta las aplicaciones supervisadas con el motor de análisis de IA a través de una pila de observabilidad:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Your applications just need OpenTelemetry instrumentation -- no code changes required. The AI module connects to your existing LGTM stack via MCP and optionally to your running Quarkus applications via Quarkus Dev MCP for source examination and dashboard generation."
-msgstr ""
+msgstr "Sus aplicaciones solo necesitan la instrumentación de OpenTelemetry; no es necesario realizar cambios en el código. El módulo de IA se conecta a su pila LGTM existente a través de MCP y, de forma opcional, a sus aplicaciones Quarkus en ejecución a través de Quarkus Dev MCP para el análisis del código fuente y la generación de paneles de control."
 
+#. mt: deepl
+#, fuzzy
 msgid "The AI module uses https://docs.langchain4j.dev/[LangChain4j] `@RegisterAiService` interfaces backed by a ~290-line system prompt that instructs the LLM on three-way telemetry correlation, chaos detection patterns, severity classification, and structured output formatting."
-msgstr ""
+msgstr "El módulo de IA utiliza las interfaces `@RegisterAiService` link:https://docs.langchain4j.dev/[de LangChain4j] , respaldadas por una indicación del sistema de unas 290 líneas que instruye al modelo de lenguaje grande (LLM) sobre la correlación de telemetría en tres vías, los patrones de detección de caos, la clasificación de gravedad y el formato estructurado de la salida."
 
+#. mt: deepl
+#, fuzzy
 msgid "Five tools are exposed to the LLM during analysis:"
-msgstr ""
+msgstr "Durante el análisis, se facilitan cinco herramientas al modelo de lenguaje grande (LLM):"
 
 #, fuzzy
 msgid "Tool"
 msgstr "Herramienta"
 
+#. mt: deepl
+#, fuzzy
 msgid "What It Provides"
-msgstr ""
+msgstr "Qué ofrece"
 
+#. mt: deepl
+#, fuzzy
 msgid "`provideLastNTraceIds`"
-msgstr ""
+msgstr "`provideLastNTraceIds`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Recent trace IDs from Tempo (TraceQL)"
-msgstr ""
+msgstr "Identificadores de trazas recientes de Tempo (TraceQL)"
 
+#. mt: deepl
+#, fuzzy
 msgid "`traceById`"
-msgstr ""
+msgstr "`traceById`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Full trace data for a specific trace"
-msgstr ""
+msgstr "Datos completos de un seguimiento concreto"
 
+#. mt: deepl
+#, fuzzy
 msgid "`logsWithTraceId`"
-msgstr ""
+msgstr "`registrosConIdDeRastreo`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Correlated Loki logs for a trace"
-msgstr ""
+msgstr "Registros de Loki relacionados con una traza"
 
+#. mt: deepl
+#, fuzzy
 msgid "`getRootSpanStartTime`"
-msgstr ""
+msgstr "`getRootSpanStartTime`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Timestamp for metric queries"
-msgstr ""
+msgstr "Marca de tiempo para consultas de métricas"
 
+#. mt: deepl
+#, fuzzy
 msgid "`getAllMetricsForDatetime`"
-msgstr ""
+msgstr "`getAllMetricsForDatetime`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Prometheus metrics at a point in time"
-msgstr ""
+msgstr "Métricas de Prometheus en un momento determinado"
 
+#. mt: deepl
+#, fuzzy
 msgid "The LLM orchestrates these tools autonomously -- it decides which traces look interesting, pulls their logs, checks metrics, and builds the analysis iteratively."
-msgstr ""
+msgstr "El LLM coordina estas herramientas de forma autónoma: decide qué trazas parecen interesantes, extrae sus registros, comprueba las métricas y elabora el análisis de forma iterativa."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Analysis Pipeline"
-msgstr ""
+msgstr "El proceso de análisis"
 
+#. mt: deepl
+#, fuzzy
 msgid "When you hit `GET /analyze/\\{n}`, the following sequence unfolds:"
-msgstr ""
+msgstr "Cuando se realiza `la solicitud GET /analyze/{n}` , se produce la siguiente secuencia:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Tool dispatch* -- The AI module sends the system prompt and tool definitions to the LLM"
-msgstr ""
+msgstr "*Envío de herramientas — El* módulo de IA envía la indicación del sistema y las definiciones de las herramientas al LLM"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Trace retrieval* -- The LLM calls `provideLastNTraceIds` to get the N most recent traces"
-msgstr ""
+msgstr "Recuperación *de trazas*   *— El* LLM realiza la llamada ` `provideLastNTraceIds` ` para obtener las N trazas más recientes"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Per-trace investigation* -- For each trace, the LLM pulls full trace data and correlated logs through `StripMcpClient`, which strips SDK noise, localhost attributes, and redundant fields"
-msgstr ""
+msgstr "*Investigación por traza — Para* cada traza, el LLM extrae los datos completos de la traza y los registros correlacionados a través de `StripMcpClient` , que elimina el ruido del SDK, los atributos de localhost y los campos redundantes"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Metrics context* -- The LLM queries Prometheus metrics at the root span's start time; the filtering layer removes Netty/OTel internals, static counters, and histogram bucket breakdowns"
-msgstr ""
+msgstr "*Contexto de las métricas — El* modelo de lenguaje grande (LLM) consulta las métricas de Prometheus en el momento de inicio del span raíz; la capa de filtrado elimina los datos internos de Netty/OTel, los contadores estáticos y los desgloses de los intervalos del histograma"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Analysis synthesis* -- The LLM produces a structured report with per-trace sections covering root cause, slowest operations, error patterns, and cross-trace correlation"
-msgstr ""
+msgstr "*Análisis y síntesis — El* modelo de lenguaje grande (LLM) genera un informe estructurado con secciones específicas para cada traza que abarcan la causa raíz, las operaciones más lentas, los patrones de error y la correlación entre trazas."
 
+#. mt: deepl
+#, fuzzy
 msgid "If source examination or dashboard generation is enabled, a post-analysis pipeline kicks in using `DevMcpAiService` -- a separate `@RegisterAiService` that uses Dev MCP tools to read application source code and write Grafana dashboard JSON back to each workspace."
-msgstr ""
+msgstr "Si se ha habilitado el análisis del código fuente o la generación de paneles, se activa un proceso posterior al análisis mediante `DevMcpAiService —un` `@RegisterAiService` independiente que utiliza las herramientas de Dev MCP para leer el código fuente de la aplicación y volver a escribir el código JSON del panel de Grafana en cada espacio de trabajo—."
 
+#. mt: deepl
+#, fuzzy
 msgid "Data Filtering: Staying Within Context Limits"
-msgstr ""
+msgstr "Filtrado de datos: cómo mantenerse dentro de los límites del contexto"
 
+#. mt: deepl
+#, fuzzy
 msgid "One of the trickiest engineering challenges is keeping telemetry data within LLM context limits while preserving signal. The `StripMcpClient` decorator applies per-tool filtering functions:"
-msgstr ""
+msgstr "Uno de los retos de ingeniería más complejos consiste en mantener los datos de telemetría dentro de los límites de contexto del LLM sin que se pierda la señal. El decorador `StripMcpClient` aplica funciones de filtrado específicas para cada herramienta:"
 
 #, fuzzy
 msgid "*Traces*: Removes SDK metadata (`telemetry.sdk.*`, `otel.*`), localhost attributes, and instrumentation library details"
@@ -102,245 +156,399 @@ msgstr "*Traces* : Elimina los metadatos del SDK ( `telemetry.sdk. **` *, otel.*
 msgid "*Logs*: Strips SDK metadata, redundant fields, and duplicate information already present in trace spans"
 msgstr "*Registros* : Elimina los metadatos del SDK, los campos redundantes y la información duplicada que ya figura en los tramos de seguimiento"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Metrics*: Removes Netty internals, static/constant values, histogram bucket breakdowns, and per-region metric breakdowns -- reducing 586 entries to ~35"
-msgstr ""
+msgstr "*Métricas* : Se han eliminado los elementos internos de Netty, los valores estáticos o constantes, los desgloses por intervalos de los histogramas y los desgloses de métricas por región, lo que ha permitido reducir el número de entradas de 586 a unas 35."
 
+#. mt: deepl
+#, fuzzy
 msgid "The system prompt also instructs the LLM to treat chaos-related log entries as authoritative evidence, even when Prometheus metrics don't confirm them -- because point-in-time metric snapshots can miss transient pressure spikes that logs capture."
-msgstr ""
+msgstr "La indicación del sistema también ordena al modelo de lenguaje grande (LLM) que considere las entradas de registro relacionadas con el caos como pruebas fidedignas, incluso cuando las métricas de Prometheus no las confirmen, ya que las instantáneas de métricas en un momento determinado pueden pasar por alto picos de presión transitorios que sí captan los registros."
 
+#. mt: deepl
+#, fuzzy
 msgid "Testing with Chaos Engineering"
-msgstr ""
+msgstr "Pruebas con ingeniería del caos"
 
+#. mt: deepl
+#, fuzzy
 msgid "How do you test an AI-powered analysis tool? You need realistic failure scenarios with known root causes, and you need an objective way to score the analysis quality. AI Root Cause Analysis solves this with chaos engineering + LLM-as-judge evaluation."
-msgstr ""
+msgstr "¿Cómo se prueba una herramienta de análisis basada en inteligencia artificial? Se necesitan escenarios de fallo realistas con causas raíz conocidas, así como una forma objetiva de evaluar la calidad del análisis. El análisis de causas raíz mediante IA resuelve esto mediante la ingeniería del caos y una evaluación en la que un modelo de lenguaje grande (LLM) actúa como juez."
 
+#. mt: deepl
+#, fuzzy
 msgid "Chaos Scenarios"
-msgstr ""
+msgstr "Escenarios de caos"
 
+#. mt: deepl
+#, fuzzy
 msgid "The project includes companion test applications that simulate distributed microservices with configurable chaos failure modes. These expose 11 chaos types via `GET /chaos?type=\\{type}&intensity=\\{value}`:"
-msgstr ""
+msgstr "El proyecto incluye aplicaciones de prueba complementarias que simulan microservicios distribuidos con modos de fallo de caos configurables. Estas exponen 11 tipos de caos a través de `la llamada GET /chaos?type={type}&intensity={value}` :"
 
+#. mt: deepl
+#, fuzzy
 msgid "Chaos Type"
-msgstr ""
+msgstr "Tipo Caos"
 
 #, fuzzy
 msgid "What It Does"
 msgstr "Para qué sirve"
 
+#. mt: deepl
+#, fuzzy
 msgid "`delay`"
-msgstr ""
+msgstr "`retraso`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Thread.sleep for configurable milliseconds"
-msgstr ""
+msgstr "Thread.sleep durante un número configurable de milisegundos"
 
+#. mt: deepl
+#, fuzzy
 msgid "`memory`"
-msgstr ""
+msgstr "`memoria`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Allocate N MB (released after request)"
-msgstr ""
+msgstr "Asignar N MB (que se liberarán tras la solicitud)"
 
+#. mt: deepl
+#, fuzzy
 msgid "`cpu`"
-msgstr ""
+msgstr "`CPU`"
 
+#. mt: deepl
+#, fuzzy
 msgid "CPU burn loop for N ms"
-msgstr ""
+msgstr "Bucle de sobrecarga de la CPU durante N ms"
 
+#. mt: deepl
+#, fuzzy
 msgid "`leak`"
-msgstr ""
+msgstr "`fuga`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Allocate N MB (never freed)"
-msgstr ""
+msgstr "Asignar N MB (que nunca se liberarán)"
 
 #, fuzzy
 msgid "`error`"
 msgstr "`error`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Random 5xx WebApplicationException"
-msgstr ""
+msgstr "Excepción «WebApplicationException» 5xx aleatoria"
 
+#. mt: deepl
+#, fuzzy
 msgid "`exception`"
-msgstr ""
+msgstr "`excepción`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Unhandled RuntimeException (HTTP 500)"
-msgstr ""
+msgstr "Excepción de tiempo de ejecución no gestionada (HTTP 500)"
 
+#. mt: deepl
+#, fuzzy
 msgid "`threadpool`"
-msgstr ""
+msgstr "`grupo de subprocesos`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Block 10 threads via CountDownLatch"
-msgstr ""
+msgstr "Bloquear 10 subprocesos mediante CountDownLatch"
 
+#. mt: deepl
+#, fuzzy
 msgid "`contention`"
-msgstr ""
+msgstr "`controversia`"
 
+#. mt: deepl
+#, fuzzy
 msgid "10 threads competing for a synchronized lock"
-msgstr ""
+msgstr "10 subprocesos que compiten por un bloqueo sincronizado"
 
+#. mt: deepl
+#, fuzzy
 msgid "`gc`"
-msgstr ""
+msgstr "`gc`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Rapid alloc/dealloc -> GC pressure"
-msgstr ""
+msgstr "Asignación y desasignación rápidas → presión sobre el recolector de basura"
 
+#. mt: deepl
+#, fuzzy
 msgid "`intermittent`"
-msgstr ""
+msgstr "`intermitente`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Random failures at configurable rate"
-msgstr ""
+msgstr "Fallos aleatorios a una frecuencia configurable"
 
+#. mt: deepl
+#, fuzzy
 msgid "`deadlock`"
-msgstr ""
+msgstr "`punto muerto`"
 
+#. mt: deepl
+#, fuzzy
 msgid "Two threads deadlocked on competing locks"
-msgstr ""
+msgstr "Dos subprocesos se han quedado en un punto muerto debido a bloqueos que compiten entre sí"
 
+#. mt: deepl
+#, fuzzy
 msgid "Database and Weather Chaos"
-msgstr ""
+msgstr "La base de datos y el caos meteorológico"
 
+#. mt: deepl
+#, fuzzy
 msgid "Beyond application-level chaos, the test suite also covers infrastructure-level failures using https://github.com/Shopify/toxiproxy[*Toxiproxy*] -- a TCP proxy that can inject latency, cut connections, and throttle bandwidth at the network layer:"
-msgstr ""
+msgstr "Más allá del caos a nivel de aplicación, el conjunto de pruebas también abarca fallos a nivel de infraestructura mediante link:https://github.com/Shopify/toxiproxy[Toxiproxy —un] proxy TCP capaz de introducir latencia, interrumpir conexiones y limitar el ancho de banda en la capa de red—:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Database chaos* routes JDBC connections through Toxiproxy to MySQL:"
-msgstr ""
+msgstr "*«Database Chaos* » redirige las conexiones JDBC a través de Toxiproxy hacia MySQL:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Tests include slow queries (3s latency injection), connection pool exhaustion (4s latency + small pool + concurrent requests), and full database outages (connection cut). JDBC telemetry creates separate database query spans, so the AI sees `GET /poke (3019ms) -> SELECT ... (3015ms)` and can identify database-level root causes."
-msgstr ""
+msgstr "Las pruebas incluyen consultas lentas (inyección de latencia de 3 s), agotamiento del grupo de conexiones (latencia de 4 s + grupo pequeño + solicitudes simultáneas) e interrupciones totales de la base de datos (corte de conexión). La telemetría JDBC crea intervalos de consulta de base de datos independientes, por lo que la IA detecta `GET /poke (3019 ms) → SELECT …​ (3015 ms)` y puede identificar las causas raíz a nivel de la base de datos."
 
+#. mt: deepl
+#, fuzzy
 msgid "*Weather API chaos* routes REST client calls through Toxiproxy to an external API:"
-msgstr ""
+msgstr "*Weather API Chaos* redirige las llamadas del cliente REST a través de Toxiproxy hacia una API externa:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Tests include slow external API responses and full API outages."
-msgstr ""
+msgstr "Las pruebas incluyen respuestas lentas de la API externa e interrupciones totales del servicio de la API."
 
+#. mt: deepl
+#, fuzzy
 msgid "No application code changes are required -- chaos is injected purely at the network layer via the Toxiproxy REST API."
-msgstr ""
+msgstr "No es necesario realizar ningún cambio en el código de la aplicación: el caos se introduce exclusivamente en la capa de red a través de la API REST de Toxiproxy."
 
+#. mt: deepl
+#, fuzzy
 msgid "The Evaluation Mechanism: LLM-as-Judge"
-msgstr ""
+msgstr "El mecanismo de evaluación: el modelo de lenguaje grande (LLM) como juez"
 
+#. mt: deepl
+#, fuzzy
 msgid "Each integration test follows the same pattern:"
-msgstr ""
+msgstr "Cada prueba de integración sigue el mismo patrón:"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Inject chaos* into the test application (or do nothing for baseline tests)"
-msgstr ""
+msgstr "*Introduzca el caos* en la aplicación de prueba (o no haga nada en el caso de las pruebas de referencia)"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Wait* for telemetry to propagate to LGTM"
-msgstr ""
+msgstr "*Espere* a que la telemetría se propague a LGTM"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Run analysis* via `GET /analyze/\\{n}`"
-msgstr ""
+msgstr "*Ejecute el análisis* mediante `GET /analyze/{n}`"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Capture* all tool outputs (raw telemetry data the LLM saw)"
-msgstr ""
+msgstr "*Recopile* todos los resultados de las herramientas (datos de telemetría sin procesar que ha detectado el LLM)"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Score* the analysis using a separate LLM call"
-msgstr ""
+msgstr "*Evalúe* el análisis mediante una llamada independiente al modelo de lenguaje grande (LLM)"
 
+#. mt: deepl
+#, fuzzy
 msgid "The scoring uses an `AnalysisEvaluationStrategy` that builds a detailed evaluation prompt containing:"
-msgstr ""
+msgstr "La puntuación utiliza una `«AnalysisEvaluationStrategy»` que genera una indicación de evaluación detallada que contiene:"
 
+#. mt: deepl
+#, fuzzy
 msgid "The original telemetry data (traces, logs, metrics) the AI analyzed"
-msgstr ""
+msgstr "Los datos de telemetría originales (registros, logs, métricas) que analizó la IA"
 
+#. mt: deepl
+#, fuzzy
 msgid "The system prompt used for analysis"
-msgstr ""
+msgstr "La indicación del sistema utilizada para el análisis"
 
+#. mt: deepl
+#, fuzzy
 msgid "The analysis output being evaluated"
-msgstr ""
+msgstr "El resultado del análisis que se está evaluando"
 
+#. mt: deepl
+#, fuzzy
 msgid "Scenario-specific evaluation criteria"
-msgstr ""
+msgstr "Criterios de evaluación específicos para cada escenario"
 
+#. mt: deepl
+#, fuzzy
 msgid "A judge LLM (`EvaluationJudge`) then scores the analysis on four dimensions, each worth 0-25 points:"
-msgstr ""
+msgstr "A continuación, un juez con un máster en Derecho ( `EvaluationJudge` ) puntúa el análisis en cuatro dimensiones, cada una de las cuales tiene una puntuación de entre 0 y 25 puntos:"
 
+#. mt: deepl
+#, fuzzy
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensión"
 
+#. mt: deepl
+#, fuzzy
 msgid "What It Measures"
-msgstr ""
+msgstr "Qué mide"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Completeness*"
-msgstr ""
+msgstr "*Exhaustividad*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Did it find all the issues present in the telemetry?"
-msgstr ""
+msgstr "¿Ha detectado todos los problemas presentes en la telemetría?"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Accuracy*"
-msgstr ""
+msgstr "*Precisión*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Are the identified root causes correct?"
-msgstr ""
+msgstr "¿Son correctas las causas fundamentales identificadas?"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Correlation Quality*"
-msgstr ""
+msgstr "*Calidad de la correlación*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Did it properly link traces, logs, and metrics?"
-msgstr ""
+msgstr "¿Se han vinculado correctamente los rastros, los registros y las métricas?"
 
+#. mt: deepl
+#, fuzzy
 msgid "*Actionability*"
-msgstr ""
+msgstr "*Aplicabilidad*"
 
+#. mt: deepl
+#, fuzzy
 msgid "Are the remediation suggestions useful and specific?"
-msgstr ""
+msgstr "¿Son útiles y concretas las sugerencias de corrección?"
 
+#. mt: deepl
+#, fuzzy
 msgid "The passing threshold defaults to *70/100*. Set `EVALUATION_THRESHOLD` to override it for any test script:"
-msgstr ""
+msgstr "El umbral de aprobación predeterminado es de *70/100* . Configure `EVALUATION_THRESHOLD` para modificarlo en cualquier script de prueba:"
 
+#. mt: deepl
+#, fuzzy
 msgid "If the score falls below the threshold, the evaluation also outputs *prompt improvement suggestions* -- concrete changes to the system prompt that would improve analysis quality. This creates a feedback loop: run tests, get scores, improve the prompt, run tests again."
-msgstr ""
+msgstr "Si la puntuación cae por debajo del umbral, la evaluación también ofrece *sugerencias para mejorar la instrucción:* cambios *concretos* en la instrucción del sistema que mejorarían la calidad del análisis. Esto crea un ciclo de retroalimentación: realizar pruebas, obtener puntuaciones, mejorar la instrucción y volver a realizar pruebas."
 
+#. mt: deepl
+#, fuzzy
 msgid "Cross-LLM Combinations"
-msgstr ""
+msgstr "Combinaciones entre modelos de lenguaje grande (LLM)"
 
+#. mt: deepl
+#, fuzzy
 msgid "A critical design choice is that the *analyzer LLM* and the *scorer LLM* can be different providers. This prevents self-evaluation bias -- an LLM scoring its own output might be systematically lenient."
-msgstr ""
+msgstr "Una decisión de diseño fundamental es que el *LLM del analizador* y el *LLM del evaluador* puedan pertenecer a proveedores distintos. Esto evita el sesgo de autoevaluación: un LLM que evalúe su propia salida podría mostrarse sistemáticamente indulgente."
 
+#. mt: deepl
+#, fuzzy
 msgid "The test scripts support all combinations:"
-msgstr ""
+msgstr "Los scripts de prueba admiten todas las combinaciones:"
 
+#. mt: deepl
+#, fuzzy
 msgid "All 19 test scenarios pass across provider combinations:"
-msgstr ""
+msgstr "Los 19 escenarios de prueba se superan en todas las combinaciones de proveedores:"
 
+#. mt: deepl
+#, fuzzy
 msgid "AI Provider"
-msgstr ""
+msgstr "Proveedor de IA"
 
+#. mt: deepl
+#, fuzzy
 msgid "Scorer"
-msgstr ""
+msgstr "Goleador"
 
+#. mt: deepl
+#, fuzzy
 msgid "Chaos"
-msgstr ""
+msgstr "Caos"
 
+#. mt: deepl
+#, fuzzy
 msgid "DB"
-msgstr ""
+msgstr "DB"
 
+#. mt: deepl
+#, fuzzy
 msgid "Weather"
-msgstr ""
+msgstr "El tiempo"
 
+#. mt: deepl
+#, fuzzy
 msgid "OpenAI"
-msgstr ""
+msgstr "OpenAI"
 
+#. mt: deepl
+#, fuzzy
 msgid "Grok"
-msgstr ""
+msgstr "Grok"
 
+#. mt: deepl
+#, fuzzy
 msgid "12/12"
-msgstr ""
+msgstr "12/12"
 
+#. mt: deepl
+#, fuzzy
 msgid "4/4"
-msgstr ""
+msgstr "4/4"
 
+#. mt: deepl
+#, fuzzy
 msgid "3/3"
-msgstr ""
+msgstr "3/3"
 
+#. mt: deepl
+#, fuzzy
 msgid "The cross-provider combinations (OpenAI/Grok, Grok/OpenAI) are the most important -- they validate that analysis quality is genuine, not an artifact of one LLM being generous about its own or a peer's output."
-msgstr ""
+msgstr "Las combinaciones entre distintos proveedores (OpenAI/Grok, Grok/OpenAI) son las más importantes: confirman que la calidad del análisis es auténtica y no un artefacto derivado de que un modelo de lenguaje grande (LLM) sea generoso con respecto a sus propios resultados o a los de otro modelo."
 
 #, fuzzy
 msgid "What&#8217;s Next"
 msgstr "¿Qué viene ahora?"
 
+#. mt: deepl
+#, fuzzy
 msgid "The project is designed for extensibility -- adding a new LLM provider is a Maven profile + Quarkus configuration, adding new chaos types is a method in the test application's chaos endpoint, and the evaluation framework automatically validates any changes against the full test matrix."
-msgstr ""
+msgstr "El proyecto está diseñado para ser ampliable: añadir un nuevo proveedor de LLM consiste en un perfil de Maven y una configuración de Quarkus; añadir nuevos tipos de caos consiste en un método en el punto final de caos de la aplicación de pruebas; y el marco de evaluación valida automáticamente cualquier cambio con respecto a la matriz de pruebas completa."
 
+#. mt: deepl
+#, fuzzy
 msgid "AI Root Cause Analysis is a https://github.com/quarkiverse/quarkus-ai-rca[Quarkiverse project] -- contributions, feedback, and testing across different application architectures are welcome."
-msgstr ""
+msgstr "El «Análisis de causas raíz mediante IA» es un link:https://github.com/quarkiverse/quarkus-ai-rca[proyecto de Quarkiverse] ; se agradecen las aportaciones, los comentarios y las pruebas en diferentes arquitecturas de aplicaciones."
